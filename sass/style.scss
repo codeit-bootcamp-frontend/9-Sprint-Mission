@@ -1,0 +1,112 @@
+@import '_reset';
+@import '_base';
+
+header {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #DFDFDF;
+
+  .header-wrap {
+    height: 70px;
+    max-width: 1520px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .login_btn {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #FFFFFF;
+      background-color: $clr-blue;
+      border-radius: 8px;
+      width: 128px;
+      height: 48px;
+      cursor: pointer;
+      @include flex-center();
+    }
+  }
+}
+
+main {
+  section {
+    &.main-top {
+      height: 540px;
+      background: $main-bg url("../images/img_home_top.png") 75% bottom no-repeat;
+      position: relative;
+
+      .tit-wrap {
+        gap: 32px;
+
+        .main_tit_btn {
+          width: 357px;
+          height: 56px;
+          font-size: 1.25rem;
+          color: #FFFFFF;
+          font-weight: 600;
+          border-radius: 40px;
+          background-color: $clr-blue;
+          cursor: pointer;
+          @include flex-center();
+        }
+      }
+    }
+
+    &.main-bottom {
+      height: 540px;
+      background: $main-bg url("../images/img_home_bottom.png") 75% bottom no-repeat;
+      position: relative;
+    }
+
+    .tit-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      inset: 0;
+    }
+
+    .main_tit {
+      font-size: 2.5rem;
+      color: $gray700;
+      font-weight: 700;
+      line-height: 56px;
+    }
+
+    &.main-middle {
+      .main-middle-wrap {
+        display: grid;
+        gap: 276px;
+        margin: 138px auto 276px;
+        
+        li {
+          display: flex;
+          align-items: center;
+          gap: 64px;
+
+          &:nth-child(2) {
+            flex-direction: row-reverse;
+            text-align: right;
+          }
+
+          .tit-box {
+            display: grid;
+            gap: 12px;
+            
+            .small_txt {
+              font-size: 1.125rem;
+              font-weight: 700;
+              color: $clr-blue;
+            }
+
+            .sub_txt {
+              font-size: 1.5rem;
+              font-weight: 500;
+              color: $gray700;
+              line-height: 28.8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
