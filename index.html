@@ -4,32 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판다마켓</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-copy.css">
 
     <script src="https://kit.fontawesome.com/d760878d3a.js" crossorigin="anonymous"></script>
 
 </head>
 <body>
     <header>
-            <img class="logo" src="image/logo.png">
-
-            <img class="login" src="image/login.png">
+        <div>
+            <a href="/">
+                <img class="logo" src="image/logo.png">
+            </a>
+            <a href="/login.html" target="_self">
+                <img class="login" src="image/login.png" alt="로그인 버튼">
+            </a>
+        </div>
     </header>
 
     <main>
 
     <div class="banner">
-        
         <div class="banner-text">
             <h1> 일상의 모든 물건을 <br> 거래해 보세요</h1>
-            <a> 구경하러 가기</a>
+            <a href="/items.html"> 구경하러 가기</a>
         </div>
-        <img class="banner-img" src="/image/Img_home_top.png">
+        <div class="banner-img">
+            <img src="/image/Img_home_top.png" alt="상단 배너 이미지">
+        </div>
     </div>
-    
+
         <div class="container">
             <section class="hot">
-                <img src="image/Img_home_01.png">
+                <img src="image/Img_home_01.png" alt="이미지1">
                 <div>
                     <p>Hot item</p>
                     <h1> 인기 상품을 <br>확인해보세요</h1>
@@ -44,12 +50,12 @@
                     <h1> 구매를 원하는 <br>상품을 검색하세요</h1>
                     <h2> 구매하고 싶은 물품은 검색해서<br>쉽게 찾아보세요 </h2>
                 </div>
-                <img src="image/Img_home_02.png">
+                <img src="image/Img_home_02.png" alt="이미지2">
 
                 </section>
 
             <section class="register"> 
-                <img src="image/Img_home_03.png">
+                <img src="image/Img_home_03.png" alt="이미지3">
                 <div>
                     <p>Resister</p>
                     <h1> 판매를 원하는 <br> 상품을 등록하세요</h1>
@@ -64,8 +70,9 @@
             <div class="banner-text">
                 <h1> 믿을 수 있는 <br> 판다마켓 중고거래</h1>
             </div>
-            <img class="banner-img" src="image/Img_home_bottom.png">
-
+            <div class="banner-img">
+                <img class="banner-img" src="image/Img_home_bottom.png" alt="하단 배너 이미지">
+            </div>
         </div>
 
     </main>
@@ -76,16 +83,22 @@
             ⓒcodeit·2024
             </div>
 
-            <div>     
-            <span>Privacy Policy</span>
-            <span>FAQ</span>
+            <div>
+            <a href="/privacy.html" target="_blank">Privacy Policy</a>
+            <a href="/faq.html" target="_blank">FAQ</a>
+
             </div>   
 
             <div>
-            <i class="fa-brands fa-facebook"></i>
-            <i class="fa-brands fa-twitter"></i>
-            <i class="fa-brands fa-youtube"></i>
-            <i class="fa-brands fa-instagram"></i>
+            <a href="https://facebook.com" target="_blank">
+                <i class="fa-brands fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank">
+                <i class="fa-brands fa-twitter"></i></a>
+            <a href="https://youtube.com" target="_blank">
+                <i class="fa-brands fa-youtube"></i></a>
+            <a href="https://instagram.com" target="_blank">
+                <i class="fa-brands fa-instagram"></i></a>
+
             </div>    
         </div>
     </footer>
