@@ -166,14 +166,13 @@ footer{
 .nav{
     background-color: #111827;
     width: 100%;
-    height: 160px;
 }
 
 .nav-element{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 32px;
+    padding: 32px 240px 108px 240px;
 }
 
 .nav-container{
