@@ -91,9 +91,9 @@ section label{
     font-weight: 500;
     color: var(--gray400)
 }
-/* input boeder color 적용 안됨 */
 .inputbox input:focus{
-    border: 1px solid var(--blue);
+    outline:none;
+    border: 2px solid var(--blue);
 }
 
 .inputbox button{
