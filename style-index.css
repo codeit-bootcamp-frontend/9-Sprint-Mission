@@ -1,9 +1,4 @@
-*{
-    box-sizing: border-box;
-}
-body{
-    margin:0;
-}
+
 :root{
     --background-color : #CFE5FF;
     --blue:#3692FF;
@@ -19,6 +14,13 @@ body{
     --gray50: #F9FAFB;
 }
 
+
+*{
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+}
 html{
     font-family: 'Noto Sans KR', Arial;
     font-size: 20px;

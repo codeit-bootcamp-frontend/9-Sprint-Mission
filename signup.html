@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style-login.css">
+    <link rel="stylesheet" href="style-signup.css">
 </head>
 
 <body>
@@ -14,18 +14,22 @@
         </a>
     </header>
     <main>
-        <section class="login">
+        <section class="signup">
             
             <div class="inputbox">
                 <form action="/" method="POST">
                     <label for="user-name"> 이메일</label>
                         <input id="user-name" name="user-name" placeholder="이메일을 입력해주세요" type="email">
-                    
-                    <label for="password"> 비밀번호</label>
-                    
+
+                    <label for="nickname"> 닉네임</label>
+                        <input id="nickname" name="nickname" placeholder="닉네임을 입력해주세요">
+
+                    <label for="password"> 비밀번호</label>                    
                         <input id="password" name="password" placeholder="비밀번호를 입력해주세요" type="password">
                     
-                    <button>로그인</button>
+                    <label for="password-check"> 비밀번호 확인</label>                    
+                        <input id="password=check" name="password-check" placeholder="비밀번호를 다시 한 번 입력해주세요" type="password">
+                    <button>회원가입</button>
                 </form>
             </div>
 
@@ -41,7 +45,7 @@
                 </div>
             </div>
             <div class="question">
-                <p>판다마켓이 처음이신가요? <a href="/signup.html">회원가입</a></p>
+                <p>이미 회원이신가요? <a href="/login.html">로그인</a></p>
             </div>
         </section>
     </main>
