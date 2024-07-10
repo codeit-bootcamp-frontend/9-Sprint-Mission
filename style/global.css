@@ -1,0 +1,85 @@
+/* 폰트 참조*/
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+/* 색상 참조*/
+@import url("./color.css");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body {
+    word-break: keep-all;
+    color: var(--color-gray700);
+    font-family: "Pretendard", sans-serif;
+}
+
+header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 200px;
+    background-color: var(--color-white);
+    border: 1px solid #dfdfdf;
+}
+
+.button {
+    background-color: var(--color-blue);
+    display: inline-block;
+    color: var(--color-gray50);
+}
+
+.button:hover {
+    background-color: var(--color-blue-hover);
+}
+
+.button:focus {
+    background-color: var(--color-blue-focus);
+}
+
+.button:disabled {
+    background-color: var(--color-gray400);
+}
+
+#loginButton {
+    padding: 12px 23px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+footer {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-gray900);
+    padding: 32px 200px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+footer p {
+    color: var(--color-gray400);
+}
+
+.footer_menu {
+    display: flex;
+    gap: 30px;
+}
+
+.footer_menu a {
+    color: var(--color-gray200);
+}
+
+.footer_icon {
+    display: flex;
+    gap: 12px;
+}
