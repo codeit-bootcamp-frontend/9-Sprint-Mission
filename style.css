@@ -16,3 +16,14 @@
   /* Error color */
   --red: #f74747;
 }
+
+body {
+  margin: 0;
+  width: 100wh;
+  height: 100wh;
+}
+
+main {
+  width: 100%;
+  margin: 0 auto;
+}
