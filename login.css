@@ -11,9 +11,9 @@
     font-family: "Pretendard-Regular";
 }
 
-
 *:focus {
-    border: 1px solid transparent;
+    border: 2px solid transparent;
+    outline: none;
 }
 
 :root {
@@ -99,6 +99,17 @@
     border-radius: 40px;
     padding: 16px 124px;
     background-color: var(--gray400);
+}
+
+.secret-form {
+    position: relative;
+}
+
+.visible {
+    position: absolute;
+    right: 24px;
+    bottom: 16px;
+    cursor: pointer;
 }
 
 .eazy-login {

@@ -12,7 +12,8 @@
 }
 
 *:focus {
-    border: 1px solid transparent;
+    border: 2px solid transparent;
+    outline: none;
 }
 
 :root {
@@ -86,6 +87,17 @@
 
 .login-input:focus {
     border: 1px solid #3692FF;
+}
+
+.secret-form {
+    position: relative;
+}
+
+.visible {
+    position: absolute;
+    right: 24px;
+    bottom: 16px;
+    cursor: pointer;
 }
 
 .register-button {
