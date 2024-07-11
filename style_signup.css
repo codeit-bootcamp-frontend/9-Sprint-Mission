@@ -1,0 +1,114 @@
+* {
+  font-family: Pretendard;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-label-color: #1F2937;
+  --main-input-color: #F3F4F6;
+  --main-ph-color: #9CA3AF;
+}
+
+body {
+  margin: 0;
+}
+
+.logo {
+  margin: 60px auto 0;
+  width: 396px;
+  display: block;
+}
+
+.login-container {
+  margin: 40px auto 0;
+  width: 640px;
+  height: 446px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-label {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  text-align: left;
+  color: var(--main-label-color);
+}
+
+.login-input {
+  margin: 16px 0 24px;
+  padding: 0 24px;
+  height: 56px;
+  border: 0;
+  border-radius: 12px;
+  background-color:var(--main-input-color);
+}
+
+.login-input.password {
+  background-image: url(login/login_password.png);
+  background-repeat: no-repeat;
+  background-size: 20px 18px;
+  background-position: center right 24px;
+  cursor: pointer;
+}
+
+.login-input:focus {
+  border:1px solid #3692FF;
+  outline: none;
+}
+
+::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--main-ph-color);
+}
+
+.login-button {
+  background-color:#9CA3AF;
+  height: 56px;
+  border: 0;
+  border-radius: 40px;
+  color: #F9FAFB;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-simple {
+  margin-top: 24px;
+  background-color: #E6F2FF;
+  color: var(--main-label-color);
+  height: 74px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 23px;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.google {
+  width: 44px;
+}
+
+.kakaotalk {
+  width: 44px;
+}
+
+.login-first {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--main-label-color);
+}
+
+.sign-up {
+  color: #3182F6;
+}
