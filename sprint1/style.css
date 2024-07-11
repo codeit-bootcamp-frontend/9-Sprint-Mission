@@ -12,12 +12,29 @@ button {
   /* 버튼 css초기화 */
   border: none;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
 header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 200px;
   background-color: #fff;
+}
+.login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #3692ff;
+  color: #f9fafb;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 23px;
+  width: 128px;
 }
 .container {
   display: flex;
@@ -131,9 +148,23 @@ header {
   color: #374151;
 }
 footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: #111827;
   position: relative;
+  height: 170px;
+}
+
+.footer-section {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 32px;
+  color: #e5e7eb;
+}
+.footer-inquire {
+  display: flex;
+  gap: 30px;
+}
+.footer-sns {
+  display: flex;
+  gap: 12px;
 }
