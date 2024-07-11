@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./login.css" />
-    <title>로그인</title>
+    <link rel="stylesheet" href="./signup.css" />
+    <title>회원가입</title>
 </head>
 
 <body>
@@ -19,17 +19,30 @@
                     <label class="login-title" for="email">이메일</label>
                     <input class="login-input" id="email" type="email" placeholder="이메일을 입력해주세요." />
                 </form>
+            </section>
+            <section class="nickname">
+                <form action="submit">
+                    <label class="login-title" for="text">닉네임</label>
+                    <input class="login-input" id="email" type="email" placeholder="닉네임을 입력해주세요." />
+                </form>
+            </section>
+            <section>
                 <form action="submit">
                     <label class="login-title" for="password">비밀번호 </label>
                     <input class="login-input" id="password" type="password" placeholder="비밀번호를 입력해주세요." />
                 </form>
-
             </section>
-            <button class="login-button" type="button">로그인</button>
+            <section>
+                <form action="submit">
+                    <label class="login-title" for="password">비밀번호 확인 </label>
+                    <input class="login-input" id="password" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요." />
+                </form>
+            </section>
+            <button class="register-button" type="button">회원가입</button>
+
             <section class="eazy-login">
                 <div class="eazy-login-title">간편 로그인하기</div>
                 <div class="SNS-login">
-
                     <a class="SNS-wrap" href="https://www.google.com/">
                         <img class="SNS-logo" src="./img/google.png"" alt=" 구글로 로그인" />
                     </a>
@@ -38,9 +51,10 @@
                     </a>
                 </div>
             </section>
+
             <footer class="footer">
-                <span class="go-register">판다마켓이 처음이신가요??
-                    <a class="register-link" href="./register.html">회원가입</a></span>
+                <span class="go-register">이미 회원이신가요?
+                    <a class="register-link" href="./login.html">로그인</a></span>
             </footer>
         </section>
     </main>

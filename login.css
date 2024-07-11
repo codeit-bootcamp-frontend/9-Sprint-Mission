@@ -1,0 +1,157 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+* {
+    box-sizing: border-box;
+    font-family: "Pretendard-Regular";
+}
+
+
+*:focus {
+    border: 1px solid transparent;
+}
+
+:root {
+    --gray900: #111827;
+    --gray800: #1f2937;
+    --gray700: #374151;
+    --gray600: #4B5563;
+    --gray500: #6B7280;
+    --gray400: #9CA3AF;
+    --gray200: #E5E7EB;
+    --gray100: #F3F4F6;
+    --gray50: #F9FAFB;
+    --blue: #3692FF;
+    --background-color: #CFE5FF;
+    --error: #F74747;
+
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    width: 396px;
+    height: 132px;
+    margin: 60px auto 40px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.login {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.login-title {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--gray800);
+}
+
+.login-input {
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background-color: var(--gray100);
+    padding: 16px 24px 14px;
+    width: 640px;
+    margin-top: 16px;
+    color: var(--gray400);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+}
+
+
+.login-input:focus {
+    border: 1px solid #3692FF;
+}
+
+.login-button {
+    width: 640px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 32px;
+    color: var(--gray50);
+    border: 1px solid transparent;
+    border-radius: 40px;
+    padding: 16px 124px;
+    background-color: var(--gray400);
+}
+
+.eazy-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E6F2FF;
+    width: 640px;
+    height: 74px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+}
+
+.eazy-login-title {
+    margin: 25px 0 23px 23px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--gray800);
+    line-height: 26px;
+}
+
+.SNS-login {
+    display: flex;
+    gap: 16px;
+    margin: 16px 23px 16px 0;
+}
+
+.SNS-wrap {
+    width: 42px;
+    height: 42px;
+    background-color: white;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.SNS-wrap.kakao {
+    background-color: #f0e90b;
+}
+
+.SNS-logo {
+    width: 22px;
+    height: 22px;
+}
+
+.go-register {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24p;
+    color: var(--gray800);
+}
+
+.register-link {
+    color: #3182F6;
+}
