@@ -31,8 +31,6 @@ p {
 }
 body {
   margin: 0;
-  width: 100wh;
-  height: 100wh;
 }
 
 header {
@@ -156,9 +154,6 @@ footer {
   display: flex;
   justify-content: space-around;
   padding-top: 24px;
-}
-
-.copyright {
 }
 
 .links {
