@@ -8,12 +8,26 @@
 </head>
 <body>
   <div>
-    <img src="/logo/logo_panda.png">
+    <a href="/"><img class="logo" src="/logo/logo_panda.png"></a>
   </div>
-  <div>
-    <form>
-
+  <div class="login-container">
+    <form class="login-form">
+      <label class="login-label" for="username">이메일</label>
+      <input class="login-input" id="username" name="username" type="email" placeholder="이메일을 입력해주세요">
+      <label class="login-label" for="password">비밀번호</label>
+      <input class="login-input password" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
+      <button class="login-button">로그인</button>
     </form>
+    <div class="login-simple">
+      <div>간편 로그인하기</div>
+      <div class="login-icon">
+        <a href="https://google.com"><img class="google" src="/logo/logo_google.png"></a>
+        <a href="https://kakao.com"><img class="kakaotalk" src="/logo/logo_kakaotalk.png"></a>
+      </div>
+    </div>
+    <div class="login-first">
+      <p>판다마켓이 처음이신가요? <a class="sign-up" href="/signup">회원가입</a></p>
+    </div>
   </div>
 </body>
 </html>
