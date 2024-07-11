@@ -26,6 +26,9 @@ a {
   text-decoration: none;
 }
 
+p {
+  margin: 0;
+}
 body {
   margin: 0;
   width: 100wh;
@@ -115,7 +118,7 @@ section.bottom {
   color: var(--gray-900);
   display: flex;
   flex-direction: column;
-  gap: 0px;
+  gap: 14px;
   justify-content: center;
 }
 
@@ -148,5 +151,32 @@ section.bottom {
 
 footer {
   background-color: var(--gray-900);
+  color: var(--gray-400);
   height: 160px;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 24px;
+}
+
+.copyright {
+}
+
+.links {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  color: var(--gray-400);
+}
+
+.nav_icon {
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: white;
 }
