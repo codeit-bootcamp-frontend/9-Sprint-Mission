@@ -1,3 +1,4 @@
+/* 폰트 */
 @font-face {
   font-family: "ROKAF Sans";
   src: url("/fonts/ROKAF-Sans-Bold.woff") format("woff");
@@ -8,6 +9,7 @@
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
 }
 
+/* 컬러 팔레트 */
 :root {
   --color-white: #ffffff;
   --color-white-2: #E5E7EB;
