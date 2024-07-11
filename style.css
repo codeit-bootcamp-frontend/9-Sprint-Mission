@@ -12,9 +12,14 @@
 
   /* Primary Color */
   --blue: #3692ef;
+  --banner-bg-color: #cfe5ff;
 
   /* Error color */
   --red: #f74747;
+}
+
+a {
+  text-decoration: none;
 }
 
 body {
@@ -23,7 +28,82 @@ body {
   height: 100wh;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 200px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.logo_img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo_button {
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 24px;
+}
+
+.login {
+  color: white;
+  background-color: var(--blue);
+  padding: 12px 24px;
+  border-radius: 8px;
+  width: 128px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
 main {
   width: 100%;
+}
+
+.banner {
+  background-color: var(--banner-bg-color);
+}
+
+.wrap {
+  width: 1200px;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+section.wrap,
+section.bottom {
+  margin-top: 120px;
+}
+
+.top-content h1 {
+  font-size: 40px;
+  line-height: 56px;
+  font-weight: 700px;
+}
+
+.top-content a {
+  text-align: center;
+  background-color: var(--blue);
+  border-radius: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: white;
+  padding: 12px 100px;
+}
+
+.top-banner-img {
+  width: 900px;
+}
+
+section.wrap img {
+  width: 500px;
 }

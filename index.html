@@ -3,37 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>판다마켓</title>
   </head>
   <body>
     <header>
-      <div>
-        <img src="" alt="판다마켓 로고" />
-        <a href="/">판다마켓</a>
+      <div class="logo">
+        <img
+          class="logo_img"
+          src="assets/landing/img/logo.png"
+          alt="판다마켓 로고"
+        />
+        <a class="logo_button" href="/">판다마켓</a>
       </div>
       <nav>
-        <a class="login" href="/login"></a>
+        <a class="login" href="login.html">Login</a>
       </nav>
     </header>
     <main>
-      <section class="top-banner wrap">
-        <div>Left</div>
-        <img src="assets/landing/img/Img_home_top.png" alt="top-banner" />
+      <section class="banner">
+        <div class="wrap">
+          <div class="top-content">
+            <h1>일상의 모든 물건을 거래해 보세요.</h1>
+            <a href="items.html">구경하러 가기</a>
+          </div>
+          <img
+            class="top-banner-img"
+            src="assets/landing/img/Img_home_top.png"
+            alt="top-banner"
+          />
+        </div>
       </section>
       <section class="wrap">
         <img src="assets/landing/img/Img_home_01.png" alt="Hot Item" />
         <div>인기 상품을 확인해보세요</div>
       </section>
       <section class="wrap">
-        <img src="assets/landing/img/Img_home_02.png" alt="Search" />
         <div>구매를 원하는 상품</div>
+        <img src="assets/landing/img/Img_home_02.png" alt="Search" />
       </section>
       <section class="wrap">
-        <img src="assets/landing/img/Img_home_03.png" alt="Register" />
         <div>판매를 원하는 상품을 등록</div>
+        <img src="assets/landing/img/Img_home_03.png" alt="Register" />
       </section>
-      <section class="bottom-banner wrap">
-        <img src="assets/landing/img/Img_home_bottom.png" alt="bottom-banner" />
+      <section class="bottom banner">
+        <div class="wrap">
+          <img
+            src="assets/landing/img/Img_home_bottom.png"
+            alt="bottom-banner"
+          />
+        </div>
       </section>
     </main>
     <footer>footer</footer>
