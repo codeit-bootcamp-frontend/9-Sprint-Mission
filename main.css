@@ -1,0 +1,147 @@
+* { 
+    box-sizing : border-box;
+    margin: 0;
+    padding 0;
+    }
+    body, h1, h2, h3, h4, p, figure, blockquote, dl, dd { 
+        margin-block-end: 0; 
+    }
+    
+    
+    .container {
+    }
+    
+    
+    .header {
+        display: flex;
+        justify-content: space-between;
+        height: 100px;
+        padding : 20px;
+        margin-left: 200px;
+        margin-right: 200px;
+    }
+    
+    .header-left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: none;
+        background-color: white;
+        cursor: pointer;
+    }
+    
+    .header-right {
+        background-color:#3692FF;
+        color : white;
+        text-align: center;
+        padding : 15px;
+        border-radius: 10px;
+        width : 140px;
+        font-size: 20px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    
+    .content {
+        background-color : rgb(100, 209, 248);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .content-box {
+        width : 300px
+    }
+    
+    .content-text {
+        font-size : 30px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+    
+    .content-img {
+        margin-bottom: -3px;
+    }
+    
+    .content-show {
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        color : white;
+        background-color:#3692FF;
+        border-radius: 40px;
+        margin-top: 20px;
+        padding : 15px;
+        border: none;
+        cursor: pointer;
+    }
+    
+    
+    .main-container{
+        max-width : 1200px;
+        margin: 0 auto;
+    }
+    
+    .main {
+        display: flex;
+    }
+    
+    .main img {
+        width : 50%;
+        border-radius: 20px;
+    }
+    
+    .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin-left: 40px;    
+    }
+    
+    .top {
+        margin-top: 100px;
+    }
+    
+    .middle {
+        margin-top: 200px;
+    }
+    
+    
+    .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 320px;       
+        margin-right : 50px;
+        text-align: end;
+    }
+    
+    .bottom {
+        background-color: #3692FF;
+        height: 540px;
+        gap: 0px;
+        opacity: 0px;
+        margin-top: 200px;
+    }
+    
+    .bottom-container {
+        max-width : 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+    }
+    
+    .footer {
+        background-color: #111827;
+        height: 160px;
+        display: flex;
+        justify-content: space-between;
+        color : white;
+        padding: 30px 200px;
+    }
+    
+    .footer-icon img {
+        height: 20px;
+        margin-right: 5px;
+    }
