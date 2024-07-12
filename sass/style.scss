@@ -220,6 +220,17 @@ footer {
             transition: all ease .1s;
           }
         }
+        
+        &.password_box {
+          position: relative;
+          
+          .close_eyes {
+            position: absolute;
+            right: 24px;
+            bottom: 16px;
+            cursor: pointer;
+          }
+        }
       }
 
       .btn {
@@ -231,7 +242,13 @@ footer {
         height: 56px;
         width: 100%;
         background-color: $gray400;
+        transition: all ease .3s;
         cursor: pointer;
+        
+        &:hover {
+          background-color: $clr-blue;
+          transition: all ease .3s;
+        }
       }
     }
 
