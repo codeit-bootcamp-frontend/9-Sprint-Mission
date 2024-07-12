@@ -5,13 +5,19 @@
   font-style: normal;
 }
 
-li::marker {
-  display:none;
-  font-size:0;
-}
-
 * {
   margin:0; padding:0; font-family: 'Pretendard-Regular'; box-sizing: border-box; text-decoration: none;
+}
+
+html {
+  --color-white: #ffffff;
+  --color-white-2: #E5E7EB;
+  --color-gray-1: #374151;
+  --color-gray-2: #9CA3AF;
+  --color-theme: #3692FF;
+  --color-theme-hover: #1967D6;
+  --color-bg-skyblue: #cfe5ff;
+  --color-bg-footer: #111827;
 }
 
 header {
@@ -28,6 +34,7 @@ header .logo a {
   display: flex;
   align-items: center;
   text-indent:-9999px;
+  cursor: pointer;
 }
 
 header .btn_login {
@@ -35,15 +42,16 @@ header .btn_login {
   width:128px;
   height:48px;
   border-radius:8px;
-  background-color:#3692FF;
+  background-color:var(--color-theme);
   text-align:center;
   line-height:48px;
 }
 
 header .btn_login a {
-  color:#fff;
+  color:var(--color-white);
   font-size:16px;
   font-weight:600;
+  cursor: pointer;
 }
 
 #main .banner {
@@ -51,11 +59,11 @@ header .btn_login a {
   justify-content:center;
   align-items: center;
   width:100%;
-  background-color:#CFE5FF;
+  background-color:var(--color-bg-skyblue);
 }
 
 #main .banner .banner_txt > p {
-  color:#374151;
+  color:var(--color-gray-1);
   font-size:40px;
   font-weight:700;
   line-height:56px;
@@ -70,11 +78,12 @@ header .btn_login a {
   width: 357px;
   height: 56px;
   border-radius: 40px;
-  background-color: #3692FF;
-  color:#fff;
+  background-color:var(--color-theme);
+  color:var(--color-white);
   font-size:20px;
   font-weight:600;
   line-height:56px;
+  cursor: pointer;
 }
 
 #main .banner .img {
@@ -108,7 +117,7 @@ header .btn_login a {
 }
 
 #main .box .info .badge {
-  color:#3692FF;
+  color:var(--color-theme);
   font-size:18px;
   font-weight:700;
 }
@@ -135,10 +144,10 @@ footer {
   align-items: flex-start;
   height:160px;
   padding:32px 200px;
-  background-color:#111827;
+  background-color:var(--color-bg-footer);
 }
 footer p {
-  color:#9CA3AF;
+  color:var(--color-gray-2);
   font-size:16px;
 }
 footer ul {
@@ -150,8 +159,13 @@ footer ul.sns {
   gap:12px;
 }
 
+footer li::marker {
+  display: none;
+  font-size: 0;
+}
+
 footer ul li a {
-  color:#E5E7EB;
+  color:var(--color-white-2);
   font-size:16px;
   font-weight:400;
 }
