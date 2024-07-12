@@ -62,7 +62,7 @@
     gap: 24px;
 }
 
-.login-title {
+.login-label {
     display: block;
     font-size: 18px;
     font-weight: 600;
@@ -101,7 +101,7 @@
     background-color: var(--gray400);
 }
 
-.secret-form {
+.privacy {
     position: relative;
 }
 
@@ -123,7 +123,7 @@
     border-radius: 8px;
 }
 
-.eazy-login-title {
+.eazy-login-label {
     margin: 25px 0 23px 23px;
     font-size: 16px;
     font-weight: 500;
@@ -140,15 +140,18 @@
 .SNS-wrap {
     width: 42px;
     height: 42px;
-    background-color: white;
     border-radius: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.SNS-wrap.google {
+    background-color: white;
+}
+
 .SNS-wrap.kakao {
-    background-color: #f0e90b;
+    background-color: yellow;
 }
 
 .SNS-logo {
@@ -156,13 +159,13 @@
     height: 22px;
 }
 
-.go-register {
+.go-signup {
     font-size: 14px;
     font-weight: 500;
     line-height: 24p;
     color: var(--gray800);
 }
 
-.register-link {
+.signup-link {
     color: #3182F6;
 }
