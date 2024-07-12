@@ -139,10 +139,16 @@ footer {
   line-height: 56px;
 }
 
+.footer-info-container {
+  height: 160px;
+  width: 100%;
+  background-color: #111827;
+}
+
 .footer-info {
   display: flex;
-  height: 160px;
-  background-color: #111827;
+  width: 1920px;
+  margin: 0 auto;
   justify-content: space-between;
   align-items: center;
   padding: 32px 200px 108px;
