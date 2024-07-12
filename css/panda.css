@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+header {
+  height: 71px;
+}
+
+.header {
+  position: fixed;
+  text-align: center;
+  /* width: 1520px; */
+  height: 51px;
+  margin: 10px 200px;
+}
+
+.btn_panda {
+  float: left;
+  height: 51px;
+  width: 153px;
+  background: url("../img/header/panda.png") no-repeat;
+  cursor: pointer;
+}
+
+.btn_login {
+  float: right;
+  height: 49px;
+  width: 128px;
+  background: url("../img/header/login.png") no-repeat;
+  cursor: pointer;
+}
