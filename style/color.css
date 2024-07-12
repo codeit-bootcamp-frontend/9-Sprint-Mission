@@ -1,0 +1,18 @@
+:root {
+    --color-white: #ffffff;
+    --color-gray900: #111827;
+    --color-gray800: #1f2937;
+    --color-gray700: #374151;
+    --color-gray600: #4b5563;
+    --color-gray500: #6b7280;
+    --color-gray400: #9ca3af;
+    --color-gray200: #e5e7eb;
+    --color-gray100: #f3f4f6;
+    --color-gray50: #f9fafb;
+    --color-blue: #3692ff;
+    --color-blue-hover: #1967d6;
+    --color-blue-focus: #1251aa;
+    --color-red-error: #f74747;
+    --color-bg-skyblue: #cfe5ff;
+    --color-bg-footer: #111827;
+}
