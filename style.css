@@ -141,3 +141,50 @@ main .description {
   font-weight: 500;
   line-height: 32px;
 }
+
+main .search {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+footer {
+  height: 160px;
+  background-color: #111827;
+  padding: 32px 200px 108px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19.09px;
+}
+
+footer .footer_nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer .copyright {
+  color: #9ca3af;
+}
+
+footer .center_nav {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+footer .cursor {
+  color: #e5e7eb;
+}
+
+.sns_link {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.sns {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
