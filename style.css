@@ -18,6 +18,13 @@ body {
   margin: 0 auto;
 }
 
+.container {
+  width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+}
+
 header {
   height: 70px;
   margin: 0;
@@ -33,15 +40,18 @@ header .logo {
   flex-shrink: 0;
 }
 
-header .login_button {
+.btn {
   display: flex;
   justify-content: center;
   align-items: center;
   flex: none;
-  border-radius: 8px;
-  padding: 12px 23px;
   background-color: #3692ff;
   color: #ffffff;
+}
+
+header .login {
+  border-radius: 8px;
+  padding: 12px 23px;
   font-size: 16px;
   font-weight: 600;
   line-height: 26px;
@@ -52,4 +62,44 @@ header .login_button {
 .cursor {
   cursor: pointer;
   text-decoration: none;
+}
+
+.marketplace {
+  width: 100%;
+  height: 540px;
+  position: relative;
+}
+
+.marketplace .container {
+  align-items: center;
+  flex-direction: column;
+  gap: 32px;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.marketplace .title {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+  margin: 0;
+}
+
+.marketplace .view_more {
+  border-radius: 40px;
+  padding: 16px 124px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.home_top {
+  position: absolute;
+  left: 701px;
+  bottom: 0;
+}
+
+main {
+  background-color: #ffffff;
+  height: 500px;
 }
