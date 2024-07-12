@@ -1,0 +1,170 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.gnb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 200px;
+}
+
+.login {
+  width: 128px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3692ff;
+}
+
+.login > a {
+  color: #f9fafb;
+  text-decoration: none;
+  text-decoration-line: none;
+}
+
+.header-image-container {
+  height: 540px;
+  background-color:#cfe5ff ;
+}
+
+.header-image-box {
+  width: 1920px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.header-image-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+}
+
+.header-image-description > div {
+  color: #374151;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+.buy-button {
+  border: none;
+  border-radius: 40px;
+  background-color: #3692ff;
+  padding: 16px 124px;
+}
+
+.buy-button > a {
+  text-decoration: none;
+  color: #f9fafb;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.header-image {
+  display: flex;
+  align-items: end;
+}
+
+.section-container {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 64px;
+  padding: 137.5px 0;
+}
+
+.section-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section-description.right-align {
+  text-align: end;
+}
+
+.menu {
+  color: #3692ff;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  margin-bottom: 12px;
+}
+
+.menu-title {
+  color: #374151;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+  margin-bottom: 24px;
+}
+
+.menu-description {
+  color: #374151;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+}
+
+footer {
+  margin: 0 auto;
+}
+
+.footer-image {
+  height: 540px;
+  width: 100%;
+  background-color: #cfe5ff;
+  display: flex;
+  justify-content: center;
+  gap: 55px;
+}
+
+.footer-image-description {
+  display: flex;
+  align-items: center;
+  color: #374151;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 56px;
+}
+
+.footer-info {
+  display: flex;
+  height: 160px;
+  background-color: #111827;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 200px 108px;
+}
+
+.copy-right {
+  color: #9ca3af;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+}
+
+.privacy-policy > a,
+.faq > a {
+  color: #e5e7eb;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.privacy-policy {
+  padding-right: 30px;
+}
