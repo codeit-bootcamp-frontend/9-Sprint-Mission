@@ -7,8 +7,8 @@ header {
 
   .header-wrap {
     height: 70px;
-    max-width: 1520px;
-    margin: 0 auto;
+    max-width: 1920px;
+    margin: 0 200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -21,8 +21,14 @@ header {
       border-radius: 8px;
       width: 128px;
       height: 48px;
+      transition: all ease .3s;
       cursor: pointer;
       @include flex-center();
+      
+      &:hover {
+        background-color: $clr-blue-hover;
+        transition: all ease .3s;
+      }
     }
   }
 }
@@ -45,8 +51,14 @@ main {
           font-weight: 600;
           border-radius: 40px;
           background-color: $clr-blue;
+          transition: all ease .3s;
           cursor: pointer;
           @include flex-center();
+          
+          &:hover {
+            background-color: $clr-blue-hover;
+            transition: all ease .3s;
+          }
         }
       }
     }
