@@ -1,6 +1,14 @@
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --primary-color: #3692ff;
+  --secondary-color: #9ca3af;
+  --background-color: #111827;
+  --text-color: #374151;
+}
+
 html {
   font-family: Pretendard, sans-serif;
   word-break: keep-all;
@@ -8,7 +16,7 @@ html {
 
 body {
   background-color: #cfe5ff;
-  color: #374151;
+  color: var(--text-color);
   margin: 0;
 }
 
@@ -45,7 +53,7 @@ header .logo {
   justify-content: center;
   align-items: center;
   flex: none;
-  background-color: #3692ff;
+  background-color: var(--primary-color);
   color: #ffffff;
 }
 
@@ -126,7 +134,7 @@ main .category {
   font-size: 18px;
   font-weight: 700;
   line-height: 26px;
-  color: #3692ff;
+  color: var(--primary-color);
 }
 
 main .subtitle {
@@ -149,7 +157,7 @@ main .search {
 
 footer {
   height: 160px;
-  background-color: #111827;
+  background-color: var(--background-color);
   padding: 32px 200px 108px;
   font-size: 16px;
   font-weight: 400;
@@ -164,7 +172,7 @@ footer .footer_nav {
 }
 
 footer .copyright {
-  color: #9ca3af;
+  color: var(--secondary-color);
 }
 
 footer .center_nav {
