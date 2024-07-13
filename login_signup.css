@@ -16,12 +16,13 @@
 }
 
 .logo-img{
-    width: 396px;
-    height: 132px;
+    width: 103.53px;
+    height: 103.88px;
+    padding: 12.98px 0 0;
 }
 
 .logo-title{
-    font-family: 'ROKAF Sans', sans-serif;    
+    font-family: 'ROKAF Sans';    
     font-weight: 700;
     font-size: 66.34px;
     line-height: 89.56px;
@@ -68,21 +69,19 @@ input{
 
 .email:focus {
     border: 2px solid #3692FF;
-    outline: none; 
+    outline: none; /* 기본 아웃라인을 제거하고 테두리만 표시 */
 }
 
-.login-button-box{
+.login-bt{
     background-color: #9CA3AF;
     border-radius: 40px;
     padding: 16px 124px;
     border: 0;
     width: 100%;
     margin: 0 0 24px 0;
-    text-align: center;
-    cursor: pointer;
 }
 
-.login-button{
+.login-a{
     color: #FFFFFF;
     font-size: 20px;
     font-weight: 600;
