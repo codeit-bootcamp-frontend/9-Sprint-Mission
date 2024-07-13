@@ -1,87 +1,60 @@
-@font-face {
-font-family: "Pretendard-Regular";
-src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-font-weight: 400;
-font-style: normal;
-}
-
-*{
-    box-sizing: border-box;
-    font-family: Pretended;
-}
-
-body{
-    margin: 0;
-}
-
-.header-container{
+.header-container {
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 200px 9px 200px;
+    padding: 10px 200px 9px;
 }
 
-.logo{
-    width: 40px;
-    margin-right: 10px;
-}
-
-.logo-box{
+.logo {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
-.title{
-    font-family: "ROKAF Sans";
-    font-size: 25.63px;
-    font-weight: 700;
-    color: #3692FF;
-    text-decoration: none; 
-    cursor: pointer; 
+.logo-img {
+    width: 153px;
+    height: 51px;
 }
 
-.header-bt{
+.header-button {
     width: 128px;
     height: 48px;
     background-color: #3692FF;
     padding: 12px 20px;
     border-radius: 8px;
     border: 0;
+    text-align: center;
 }
 
-.header-bt-a{
-    color: #ffffff;
+.header-button-a {
+    color: #fff;
     font-size: 16px;
     font-weight: 600;
     border: 0;
     text-decoration: none;
 }
 
-.banner{
-    background-color: #CFE5FF;
+.banner {
     width: 100%;
     height: 540px;
-    background-image: url("images/Img_home_top.png");
-    background-repeat: no-repeat;
-    background-size: 996px 447px;
-    background-position: left 701px bottom 0;
+    background: #CFE5FF url("../images/Img_home_top.png") no-repeat left 701px bottom 0 / 996px 447px;
     display: flex;
     align-items: center;
 }
 
-.container{
+.container {
     width: 1200px;
     margin: 0 auto;
 }
 
-.banner-main-h1{
+.banner-main-h1 {
     font-size: 40px;
     font-weight: 700;
     margin: 0 62px 32px 0;
 }
 
-.banner-img{
+.banner-img {
     width: 996px;
     height: 447px;
     position: absolute;
@@ -89,7 +62,7 @@ body{
     left: 701px;
 }
 
-.banner-bt{
+.banner-button {
     width: 357px;
     height: 56px;
     background-color: #3692FF;
@@ -98,7 +71,7 @@ body{
     border: 0;
 }
 
-.banner-bt-a{
+.banner-button-a {
     color: #ffffff;
     font-size: 17px;
     font-weight: 600;
@@ -151,16 +124,19 @@ body{
     padding: 138px 0;
 }
 
-footer{
-    background-color: #CFE5FF;
+.section4{
+    
     width: 100%;
     height: 540px;
-    background-image: url("images/Img_home_bottom.png");
-    background-repeat: no-repeat;
-    background-size: 996px 540px;
-    background-position: left 701px bottom 0;
+    background: #CFE5FF url("../images/Img_home_bottom.png") no-repeat left 701px bottom 0 / 996px 540px;
     display: flex;
     align-items: center;
+}
+
+.section4-anticle{
+    color: #374151;
+    font-size: 40px;
+    font-weight: 700;
 }
 
 .nav{
@@ -180,21 +156,21 @@ footer{
     margin: 0 auto;
 }
 
-.nav-element > p{
+.footer-nav-left{
     color: #9CA3AF;
     margin: 0;
 }
 
-.footer-a > a{
+.privary_and_faq{
     text-decoration: none;
     color: #E5E7EB;
     margin-right: 30px;
 }
 
-.image > a{
+.image{
     margin-right: 12px;
 }
 
-.header-bt, .header-bt a, .banner-bt, .banner-bt a, .nav .image a {
+.header-button, .header-button a, .banner-button, .banner-button a, .nav .image a {
     cursor: pointer;
 }
