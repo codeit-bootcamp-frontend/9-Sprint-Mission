@@ -76,20 +76,17 @@ header .logo a {
   cursor: pointer;
 }
 
-header .btn_login {
-  display: block;
-  width:128px;
-  height:48px;
-  border-radius:8px;
-  background-color:var(--color-theme);
-  text-align:center;
-  line-height:48px;
-}
-
 header .btn_login a {
+  display: block;
+  width: 128px;
+  height: 48px;
   color:var(--color-white);
+  border-radius: 8px;
+  background-color: var(--color-theme);
   font-size:16px;
   font-weight:600;
+  text-align:center;
+  line-height:48px;
   cursor: pointer;
 }
 
@@ -264,10 +261,6 @@ footer ul li a {
   display: flex;
   align-items: center;
   gap:16px;
-}
-
-.enter_box .simple_login ul > li {
-
 }
 
 #login {
