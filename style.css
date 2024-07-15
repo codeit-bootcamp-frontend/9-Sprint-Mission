@@ -197,7 +197,21 @@ footer ul li a {
 }
 
 /* login.html & signup.html 공통 */
-.enter_box > div {
+.sub_logo {
+  width:396px;
+  height:132px;
+  margin:0 auto;
+}
+.sub_logo img {
+  width:100%;
+  height: auto;
+}
+
+.enter_box {
+  padding-top: 40px;
+}
+
+.enter_box > div + div {
   padding-top: 24px;
 }
 
@@ -263,20 +277,23 @@ footer ul li a {
   gap:16px;
 }
 
-#login {
+.enter_box .txt_joinus {
+  padding-top: 24px;
+  color: var(--color-black);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.enter_box .txt_joinus > a {
+  padding-left: 4px;
+  color: var(--color-theme);
+  font: inherit;
+  text-decoration: underline;
+}
+
+#login,
+#signup {
   padding:60px 0;
   text-align:center;
 }
 
-#login .txt_joinus {
-  padding-top:24px;
-  color:var(--color-black);
-  font-size:14px;
-  font-weight:500;
-}
-#login .txt_joinus > a {
-  padding-left:4px;
-  color:var(--color-theme);
-  font:inherit;
-  text-decoration: underline;
-}
