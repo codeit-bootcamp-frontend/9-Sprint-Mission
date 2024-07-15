@@ -1,0 +1,109 @@
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    margin: 0 0 40px;
+}
+
+#logo {
+    height: 137px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+form label {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-gray800);
+}
+
+form input {
+    width: 640px;
+    height: 56px;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 400;
+    border: 0;
+    border-radius: 12px;
+    color: var(--color-gray400);
+    background-color: var(--color-gray100);
+    font-family: inherit;
+    margin: 16px 0 24px;
+}
+
+input:focus {
+    outline: 1px solid var(--color-blue);
+}
+
+.password-Box {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    /* justify-content: center; */
+}
+
+form .pwd-Eye {
+    position: absolute;
+    height: 24px;
+    right: 24px;
+    bottom: 40px;
+}
+
+form button {
+    width: 640px;
+    height: 56px;
+    border: 0;
+    border-radius: 40px;
+    padding: 16px 124px;
+    color: var(--color-gray100);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.platform-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-gray800);
+    font-size: 16px;
+    font-weight: 500;
+    background-color: var(--color-skybleu);
+    border-radius: 8px;
+    padding: 16px 23px;
+}
+
+.platform-logo {
+    display: flex;
+    gap: 16px;
+}
+
+footer {
+    margin: 24px 0;
+    text-align: center;
+    font-size: 14px;
+    display: flex;
+    gap: 4px;
+}
+
+footer a {
+    font-size: 15px;
+    color: var(--color-blue);
+    line-height: 18px;
+    text-decoration: underline;
+}
