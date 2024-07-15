@@ -20,6 +20,21 @@ html {
   --color-bg-footer: #111827;
 }
 
+li::marker {
+  display: none;
+  font-size: 0;
+}
+
+.wrap_inner {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.wrap_inner2 {
+  width: 640px;
+  margin: 0 auto;
+}
+
 header {
   display:flex;
   width:100%;
@@ -91,11 +106,6 @@ main .banner .img {
   font-size:0;
 }
 
-main .wrap_inner {
-  width:1200px;
-  margin:0 auto;
-}
-
 main .box {
   display:flex;
   align-items: center;
@@ -159,14 +169,10 @@ footer ul.sns {
   gap:12px;
 }
 
-footer li::marker {
-  display: none;
-  font-size: 0;
-}
-
 footer ul li a {
   color:var(--color-white-2);
   font-size:16px;
   font-weight:400;
 }
 
+#login {text-align:center;}
