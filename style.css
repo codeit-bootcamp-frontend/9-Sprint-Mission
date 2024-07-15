@@ -54,7 +54,7 @@ header .btn_login a {
   cursor: pointer;
 }
 
-#main .banner {
+main .banner {
   display:flex;
   justify-content:center;
   align-items: center;
@@ -62,18 +62,18 @@ header .btn_login a {
   background-color:var(--color-bg-skyblue);
 }
 
-#main .banner .banner_txt > p {
+main .banner .banner_txt > p {
   color:var(--color-gray-1);
   font-size:40px;
   font-weight:700;
   line-height:56px;
 }
-#main .banner .banner_txt .btn_visual {
+main .banner .banner_txt .btn_visual {
   margin-top:32px;
   text-align:center;
 }
 
-#main .banner .banner_txt .btn_visual > a {
+main .banner .banner_txt .btn_visual > a {
   display:block;
   width: 357px;
   height: 56px;
@@ -86,43 +86,43 @@ header .btn_login a {
   cursor: pointer;
 }
 
-#main .banner .img {
+main .banner .img {
   padding-top:90px;
   font-size:0;
 }
 
-#main .wrap_inner {
+main .wrap_inner {
   width:1200px;
   margin:0 auto;
 }
 
-#main .box {
+main .box {
   display:flex;
   align-items: center;
   gap:64px;
   padding:138px 0;
 }
 
-#main .box.right {
+main .box.right {
   justify-content: flex-end;
 }
 
-#main .box .img {
+main .box .img {
   max-width:588px;
 }
 
-#main .box .img img {
+main .box .img img {
   width:100%;
   height:auto;
 }
 
-#main .box .info .badge {
+main .box .info .badge {
   color:var(--color-theme);
   font-size:18px;
   font-weight:700;
 }
 
-#main .box .info .title {
+main .box .info .title {
   padding-top:12px;
   font-size:40px;
   font-weight:700;
@@ -130,7 +130,7 @@ header .btn_login a {
   letter-spacing:2%;
 }
 
-#main .box .info .txt {
+main .box .info .box_txt {
   padding-top:24px;
   font-size:24px;
   font-weight:500;
@@ -138,7 +138,7 @@ header .btn_login a {
   letter-spacing:8%;
 }
 
-footer {
+footer .ft_inner {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
