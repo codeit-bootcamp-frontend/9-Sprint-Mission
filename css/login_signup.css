@@ -2,6 +2,10 @@ body{
     margin: 231px 0;
 }
 
+.logo-domain{
+    margin: 0;
+}
+
 .container{
     width: 640px;
     margin: 0 auto;
@@ -13,11 +17,6 @@ body{
     align-items: center;
     justify-content: center;
     margin: 0 0 40px 0;
-}
-
-.logo-img{
-    width: 396px;
-    height: 132px;
 }
 
 .logo-title{
@@ -110,15 +109,10 @@ body{
     line-height: 24px;
 }
 
-.footer1-img1{
-    width: 42px;
-    height: 42px;
-}
-
-.footer1-img2{
-    width: 42px;
-    height: 42px;
-    margin: 0 0 0 16px;
+.footer1-sns{
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
 .footer1-link{

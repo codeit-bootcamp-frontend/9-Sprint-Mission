@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <a class='logo' href="index.html"><img class='logo-img' src="images/logo.svg"></a>
+        <h1 class="logo-domain"><a class='logo' href="index.html"><img class='logo-img' src="images/logo.svg" width="396px" height="132px" alt="Panda Market"></a></h1>
     </header>
 
     <form>
@@ -30,40 +30,19 @@
         </div>
     </form>
 
-    
-        <footer>
-            <div class="container">
-                <div class="footer1">
-                    <span class="footer1-log">간편 로그인하기</span>
-                    <div class="footer1-img">
-                        <a href="https://www.google.com/"><img class="footer1-img1" src="images/Google.png"></a>
-                        <a href="https://www.kakaocorp.com/page/"><img class="footer1-img2" src="images/Kakaotalk.png"></a>
-                    </div>
-                </div>
-                <div class="footer2">
-                    <p>이미 회원이신가요? <a href='login.html' class="footer2-a">로그인</a></p>
+    <footer>
+        <div class="container">
+            <div class="footer1">
+                <span class="footer1-log">간편 로그인하기</span>
+                <div class="footer1-sns">
+                    <a href="https://www.google.com/"><img class="footer1-sns-img1" src="images/Google.png" alt="Google" width="42px" height="42px"></a>
+                    <a href="https://www.kakaocorp.com/page/"><img class="footer1-sns-img2" src="images/Kakaotalk.png" alt="Kakaotalk" width="42px" height="42px"></a>
                 </div>
             </div>
-        </footer>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const emailInput = document.querySelector('.email');
-                const passwordInput = document.querySelector('.password');
-                const loginButton = document.querySelector('.login-bt');
-    
-                function updateLoginButtonState() {
-                    if (emailInput.value && passwordInput.value) {
-                        loginButton.style.backgroundColor = '#3182F6';
-                    } else {
-                        loginButton.style.backgroundColor = '#9CA3AF';
-                    }
-                }
-    
-                emailInput.addEventListener('input', updateLoginButtonState);
-                passwordInput.addEventListener('input', updateLoginButtonState);
-            });
-        </script>
-    
+            <div class="footer2">
+                <p>이미 회원이신가요? <a href='login.html' class="footer2-a">로그인</a></p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
