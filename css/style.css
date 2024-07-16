@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 200px 9px;
+    max-width: 1540px;
 }
 
 .logo {
@@ -15,6 +16,10 @@
 .logo-img {
     width: 153px;
     height: 51px;
+}
+
+.logo-domain{
+    margin: 0;
 }
 
 .header-button {
@@ -48,7 +53,7 @@
     margin: 0 auto;
 }
 
-.banner-main-h1 {
+.banner-main-article {
     font-size: 40px;
     font-weight: 700;
     margin: 0 62px 32px 0;
@@ -169,6 +174,8 @@
 
 .image{
     margin-right: 12px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .header-button, .header-button a, .banner-button, .banner-button a, .nav .image a {

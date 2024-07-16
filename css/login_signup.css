@@ -1,3 +1,7 @@
+body{
+    margin: 231px 0;
+}
+
 .container{
     width: 640px;
     margin: 0 auto;
@@ -38,6 +42,7 @@
 
 .password{
     width: 100%;
+    background: url('../images/eye.png') no-repeat right 24px bottom 15px/24px 24px;
 }
 
 .label{
@@ -52,7 +57,7 @@
     
 }
 
-input{
+.email, .password{
     background-color: #F3F4F6;
     border: 0;
     border-radius: 12px;
@@ -114,6 +119,11 @@ input{
     width: 42px;
     height: 42px;
     margin: 0 0 0 16px;
+}
+
+.footer1-link{
+    display: inline-block;
+    vertical-align: top;
 }
 
 .footer2{
