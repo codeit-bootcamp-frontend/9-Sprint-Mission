@@ -10,9 +10,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1920px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 200px;
+  position: fixed;
+  top: 0;
+  background-color: #ffffff;
 }
 
 .login {
@@ -20,8 +23,8 @@ body {
   height: 48px;
   border: none;
   border-radius: 8px;
-  background-color: #3692ff;
-  color: #f9fafb;
+  background-color: var(--primary-blue100);
+  color: var(--primary-gray50);
   text-decoration: none;
   text-decoration-line: none;
   text-align: center;
@@ -49,7 +52,7 @@ body {
 }
 
 .header-image-description > div {
-  color: #374151;
+  color: var(--primary-gray700);
   font-size: 40px;
   font-weight: 700;
   line-height: 56px;
@@ -58,13 +61,10 @@ body {
 .buy-button {
   border: none;
   border-radius: 40px;
-  background-color: #3692ff;
+  background-color: var(--primary-blue100);
   padding: 16px 124px;
-}
-
-.buy-button > a {
   text-decoration: none;
-  color: #f9fafb;
+  color: var(--secondary-gray50);
   font-size: 20px;
   font-weight: 600;
   line-height: 32px;
@@ -73,6 +73,10 @@ body {
 .header-image {
   display: flex;
   align-items: end;
+}
+
+.header-image img {
+  width: 100%;
 }
 
 .section-container {
@@ -94,7 +98,7 @@ body {
 }
 
 .menu {
-  color: #3692ff;
+  color: var(--primary-blue100);
   font-size: 18px;
   font-weight: 700;
   line-height: 26px;
@@ -102,7 +106,7 @@ body {
 }
 
 .menu-title {
-  color: #374151;
+  color: var(--primary-gray700);
   font-size: 40px;
   font-weight: 700;
   line-height: 56px;
@@ -110,7 +114,7 @@ body {
 }
 
 .menu-description {
-  color: #374151;
+  color: var(--primary-gray700);
   font-size: 24px;
   font-weight: 500;
   line-height: 32px;
@@ -132,7 +136,7 @@ footer {
 .footer-image-description {
   display: flex;
   align-items: center;
-  color: #374151;
+  color: var(--primary-gray700);
   font-size: 40px;
   font-weight: 700;
   line-height: 56px;
@@ -141,7 +145,7 @@ footer {
 .footer-info-container {
   height: 160px;
   width: 100%;
-  background-color: #111827;
+  background-color: var(--primary-gray900);
 }
 
 .footer-info {
@@ -154,7 +158,7 @@ footer {
 }
 
 .copy-right {
-  color: #9ca3af;
+  color: var(--primary-gray400);
   font-size: 16px;
   font-weight: 400;
   line-height: 19px;
@@ -162,7 +166,7 @@ footer {
 
 .privacy-policy > a,
 .faq > a {
-  color: #e5e7eb;
+  color: var(--primary-gray200);
   font-size: 16px;
   font-weight: 400;
   line-height: 19px;
