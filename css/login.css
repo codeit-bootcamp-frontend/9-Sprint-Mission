@@ -2,38 +2,19 @@ body{
     margin: 231px 0;
 }
 
-.logo-domain{
-    margin: 0;
-}
-
 .container{
     width: 640px;
     margin: 0 auto;
     
 }
 
-.logo{
+.logo-domain{
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 0 40px 0;
-}
-
-.logo-title{
-    font-family: 'ROKAF Sans';    
-    font-weight: 700;
-    font-size: 66.34px;
-    line-height: 89.56px;
-    color: #3692FF;
-    padding: 23.98px 0 0;
-    margin: 0 0 0 22.24px;
-}
-
-.logo-title > a{
-    text-decoration: none;
-    color: #3692FF;
-    line-height: 89.56px;
-}
+}   
 
 .email{
     width: 100%;
@@ -68,7 +49,7 @@ body{
 
 .email:focus {
     border: 2px solid #3692FF;
-    outline: none; /* 기본 아웃라인을 제거하고 테두리만 표시 */
+    outline: none;
 }
 
 .login-button-box{
@@ -144,6 +125,10 @@ body{
     width: 24px;
     height: 24px;
     cursor: pointer;
+}
+
+form{
+    width: 100%;
 }
 
 .email:focus, .password:focus {
