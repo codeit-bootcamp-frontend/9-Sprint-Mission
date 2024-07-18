@@ -20,6 +20,10 @@ header {
     justify-content: space-between;
     align-items: center;
 
+    .logo-mobile {
+      display: none;
+    }
+
     .login-btn {
       font-size: 1rem;
       font-weight: 600;
@@ -306,6 +310,10 @@ footer {
       justify-content: space-between;
       align-items: center;
 
+      .logo-mobile {
+        display: none;
+      }
+
       .login-btn {
         font-size: 1rem;
         font-weight: 600;
@@ -338,6 +346,7 @@ footer {
 
         .tit-wrap {
           gap: 24px;
+          margin-top: 84px;
 
           .main-tit-btn {
             width: 357px;
@@ -364,6 +373,10 @@ footer {
         background: $main-bg url("../images/img_home_bottom.png") center bottom no-repeat;
         background-size: contain;
         position: relative;
+
+        .tit-wrap {
+          margin-top: 201px;
+        }
       }
 
       .tit-wrap {
@@ -373,7 +386,6 @@ footer {
         align-items: center;
         position: absolute;
         inset: 0;
-        margin-top: 7rem;
       }
 
       .main-tit {
@@ -392,7 +404,12 @@ footer {
         .main-middle-wrap {
           display: grid;
           gap: 52px;
-          margin: 24px 24px 50px;
+          padding: 24px;
+          margin: 0 0 50px 0;
+
+          .main-tit {
+            font-size: 2rem;
+          }
 
           li {
             display: flex;
@@ -408,7 +425,7 @@ footer {
 
             .tit-box {
               display: grid;
-              gap: 12px;
+              gap: 24px;
 
               .small-txt {
                 font-size: 1.125rem;
@@ -417,10 +434,10 @@ footer {
               }
 
               .sub-txt {
-                font-size: 1.5rem;
+                font-size: 1.125rem;
                 font-weight: 500;
                 color: $gray700;
-                line-height: 28.8px;
+                line-height: 26px;
               }
             }
           }
@@ -605,6 +622,14 @@ footer {
       justify-content: space-between;
       align-items: center;
 
+      .logo {
+        display: none;
+      }
+
+      .logo-mobile {
+        display: block;
+      }
+
       .login-btn {
         font-size: 1rem;
         font-weight: 600;
@@ -637,6 +662,7 @@ footer {
 
         .tit-wrap {
           gap: 24px;
+          margin-top: 48px;
 
           .main-tit-btn {
             width: 240px;
@@ -663,6 +689,10 @@ footer {
         background: $main-bg url("../images/img_home_bottom.png") center bottom no-repeat;
         background-size: contain;
         position: relative;
+
+        .tit-wrap {
+          margin-top: 121px;
+        }
       }
 
       .tit-wrap {
@@ -672,7 +702,6 @@ footer {
         align-items: center;
         position: absolute;
         inset: 0;
-        margin-top: 3rem;
       }
 
       .main-tit {
@@ -740,14 +769,21 @@ footer {
     background-color: $gray900;
 
     .footer-wrap {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-areas:
+        'btn icon'
+        'copy copy';
+      gap: 60px;
 
       p,
       a {
         font-size: 1rem;
         font-weight: 400;
         color: $gray400;
+      }
+
+      p {
+        grid-area: copy;
       }
 
       a {
@@ -757,6 +793,7 @@ footer {
       .footer-btn {
         display: flex;
         gap: 30px;
+        grid-area: btn;
 
         a {
           color: $gray200;
@@ -766,6 +803,7 @@ footer {
       .footer-icon {
         display: flex;
         gap: 12px;
+        grid-area: icon;
       }
     }
   }
