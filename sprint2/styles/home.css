@@ -1,0 +1,85 @@
+.login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 23px;
+  width: 128px;
+}
+
+#hero {
+  background-image: url('../images/banner_section.png');
+}
+#bottomBanner {
+  background-image: url('../images/footer.png');
+}
+
+.banner {
+  background-color: var(--color-background);
+  height: 540px;
+  display: flex;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: 80% bottom;
+  background-size: 55%;
+}
+
+.banner .pill-button {
+  margin-top: 32px;
+}
+
+.card {
+  padding: 138px 0;
+  display: flex;
+  align-items: center;
+  gap: 5%;
+}
+.card:nth-child(2) {
+  text-align: right;
+}
+.content {
+  flex: 1;
+}
+
+.hot-item {
+  color: var(--color-primary);
+  font-size: 18px;
+  line-height: 25px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.hot-content {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: 0.08em;
+  margin-top: 24px;
+  color: var(--color-text);
+}
+
+.bottom-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-text {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.footer-inquire {
+  display: flex;
+  gap: 30px;
+  color: var(--color-footer-text);
+}
+.footer-sns {
+  display: flex;
+  gap: 12px;
+}
