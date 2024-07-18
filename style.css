@@ -3,10 +3,20 @@
 }
 
 :root {
-  --primary-color: #3692ff;
-  --secondary-color: #9ca3af;
-  --background-color: #111827;
-  --text-color: #374151;
+  --primary100: #3692ff;
+  --primary200: #1967d6;
+  --primary300: #1251aa;
+  --error: #f74747;
+  --gray900: #111827;
+  --gray800: #1f2937;
+  --gray700: #374151;
+  --gray600: #4b5563;
+  --gray500: #6b7280;
+  --gray400: #9ca3af;
+  --gray200: #e5e7eb;
+  --gray100: #f3f4f6;
+  --gray50: #f9fafb;
+  --background-color: #cfe5ff;
 }
 
 @font-face {
@@ -30,8 +40,8 @@ html {
 }
 
 body {
-  background-color: #cfe5ff;
-  color: var(--text-color);
+  background-color: var(--background-color);
+  color: var(--gray700);
   margin: 0;
 }
 
@@ -55,7 +65,7 @@ header {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #dfdfdf;
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 0 200px;
 }
 
@@ -76,7 +86,7 @@ header .logo_title {
   font-weight: 700;
   font-size: 2.563rem;
   line-height: 3.46rem;
-  color: #3692ff;
+  color: var(--primary100);
   margin: 0;
 }
 
@@ -85,8 +95,8 @@ header .logo_title {
   justify-content: center;
   align-items: center;
   flex: none;
-  background-color: var(--primary-color);
-  color: #ffffff;
+  background-color: var(--primary100);
+  color: #fff;
 }
 
 header .login {
@@ -140,7 +150,7 @@ header .login {
 }
 
 main {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 main .container {
@@ -166,7 +176,7 @@ main .category {
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 2.6rem;
-  color: var(--primary-color);
+  color: var(--primary100);
 }
 
 main .subtitle {
@@ -189,7 +199,7 @@ main .search {
 
 footer {
   height: 160px;
-  background-color: var(--background-color);
+  background-color: var(--gray900);
   padding: 32px 200px 108px;
   font-size: 1.6rem;
   font-weight: 400;
@@ -204,7 +214,7 @@ footer .footer_nav {
 }
 
 footer .copyright {
-  color: var(--secondary-color);
+  color: var(--gray400);
 }
 
 footer .center_nav {
@@ -214,7 +224,7 @@ footer .center_nav {
 }
 
 footer .cursor {
-  color: #e5e7eb;
+  color: var(--gray200);
 }
 
 .sns_link {
