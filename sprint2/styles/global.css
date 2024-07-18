@@ -74,7 +74,6 @@ header {
   background-color: #ffffff;
   border-bottom: 1px solid #dfdfdf;
 }
-
 main {
   margin-top: 70px;
 }
@@ -87,6 +86,18 @@ footer {
   align-items: center;
   padding: 32px 200px 108px 200px;
   font-size: 16px;
+}
+/* 테블릿사이즈 768px */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 24px;
+  }
+  main {
+    margin-top: 80px;
+  }
+  footer {
+    padding: 32px 24px 160px 24px;
+  }
 }
 
 .pill-button {
@@ -104,6 +115,11 @@ footer {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+}
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 0 24px;
+  }
 }
 
 .button {
