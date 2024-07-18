@@ -1,39 +1,4 @@
 
-:root{
-    --background-color : #CFE5FF;
-    --blue:#3692FF;
-
-    --gray900:#111827;
-    --gray800 : #1F2937;
-    --gray700:#374151; 
-    --gray600: #4B5563;
-    --gray500: #6B7280;
-    --gray400: #9CA3AF;
-    --gray200: #E5E7EB;
-    --gray100: #F3F4F6;
-    --gray50: #F9FAFB;
-}
-
-
-*{
-    box-sizing: border-box;
-}
-body{
-    margin:0;
-}
-html{
-    font-family: 'Noto Sans KR', Arial;
-    font-size: 20px;
-    color: var(--gray700);
-}
-h1{
-    font-size: 2rem;
-    font-weight: 800;
-}
-h2{
-    font-size: 1rem;
-}
-
 .logo{
     max-height:50px;
 }

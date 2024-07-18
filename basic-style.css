@@ -1,6 +1,8 @@
+
 :root{
     --background-color : #CFE5FF;
     --blue:#3692FF;
+    --light-blue: #E6F2FF;
 
     --gray900:#111827;
     --gray800 : #1F2937;
@@ -16,4 +18,21 @@
 
 *{
     box-sizing: border-box;
+}
+
+html{
+    font-family: 'Noto Sans KR', Arial;
+    font-size: 62.5%;
+    color: var(--gray700);
+}
+h1{
+    font-size: 4rem;
+    font-weight: 800;
+}
+h2{
+    font-size: 2rem;
+}
+
+a{
+    text-decoration: none;
 }
