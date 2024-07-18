@@ -33,7 +33,7 @@ a.header-login:hover {
 .banner-main {
 	width: 1920px;
 	height: 540px;
-	background-image: url(./images/home/img-panda1.png);
+	background-image: url(../images/home/img-panda1.png);
 	background-position: right bottom;
 	background-repeat: no-repeat;
 	background-size: 996px 447px;
@@ -165,7 +165,7 @@ p.article-content {
 .bottom-wrapper{
 	width: 1920px;
 	height: 540px;
-	background-image: url(./images/home/img-panda2.png);
+	background-image: url(../images/home/img-panda2.png);
 	background-position: right bottom;
 	background-repeat: no-repeat;
 	background-size: 996px 540px;
