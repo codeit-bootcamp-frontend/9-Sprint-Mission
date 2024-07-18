@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>판다마켓</title>
     <link rel="stylesheet" href="../basic.css" />
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="signup.css" />
     <link rel="stylesheet" href="../public/color.css" />
   </head>
   <body>
@@ -28,6 +28,14 @@
               />
             </div>
             <div class="input-style">
+              <label for="nick-name">닉네임</label>
+              <input
+                type="text"
+                id="nick-name"
+                placeholder="닉네임을 입력해주세요"
+              />
+            </div>
+            <div class="input-style">
               <label for="password">비밀번호</label>
               <input
                 type="password"
@@ -36,7 +44,16 @@
               />
               <button class="btn-hide"></button>
             </div>
-            <a href="../register/signup.html" class="login-btn">로그인</a>
+            <div class="input-style">
+              <label for="password-confirm">비밀번호 확인</label>
+              <input
+                type="password"
+                id="password-confirm"
+                placeholder="비밀번호를 다시 한 번 입력해주세요"
+              />
+              <button class="btn-hide"></button>
+            </div>
+            <a href="/login/login.html" class="register-btn">회원가입</a>
             <div class="easy-login">
               <div class="easy-login-info">간편 로그인하기</div>
               <div class="sns-icon">

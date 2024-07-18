@@ -24,7 +24,7 @@ body {
   border: none;
   border-radius: 8px;
   background-color: var(--primary-blue100);
-  color: var(--primary-gray50);
+  color: var(--secondary-gray100);
   text-decoration: none;
   text-decoration-line: none;
   text-align: center;
@@ -145,7 +145,7 @@ footer {
 .footer-info-container {
   height: 160px;
   width: 100%;
-  background-color: var(--primary-gray900);
+  background-color: var(--secondary-gray900);
 }
 
 .footer-info {
@@ -158,7 +158,7 @@ footer {
 }
 
 .copy-right {
-  color: var(--primary-gray400);
+  color: var(--secondary-gray200);
   font-size: 16px;
   font-weight: 400;
   line-height: 19px;
@@ -166,7 +166,7 @@ footer {
 
 .privacy-policy > a,
 .faq > a {
-  color: var(--primary-gray200);
+  color: var(--secondary-gray200);
   font-size: 16px;
   font-weight: 400;
   line-height: 19px;

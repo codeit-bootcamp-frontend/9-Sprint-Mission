@@ -14,6 +14,7 @@ body {
   height: 100vh;
   display: flex;
   justify-content: center;
+  /* align-items: center; */
 }
 
 .wrap > section {
@@ -68,7 +69,7 @@ body {
   outline-color: #3692ff;
 }
 
-.login-btn {
+.register-btn {
   text-decoration: none;
   text-align: center;
   border: none;
