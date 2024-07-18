@@ -1,5 +1,5 @@
 body{
-    margin: 231px 0;
+    padding: 231px 0;
 }
 
 .container{
@@ -47,7 +47,7 @@ body{
     line-height:24px;
 }
 
-.email:focus {
+.email:focus, .password:focus {
     border: 2px solid #3692FF;
     outline: none;
 }
@@ -72,6 +72,10 @@ body{
     text-decoration: none;
 }
 
+footer{
+    font-weight: 500;
+}
+
 .footer1{
     background-color: #E6F2FF;
     display: flex;
@@ -86,7 +90,6 @@ body{
     font-family: 'Pretendard',sans-serif;
     color: #1F2937;
     font-size: 16px;
-    font-weight: 500;
     line-height: 24px;
 }
 
@@ -103,36 +106,17 @@ body{
 
 .footer2{
     text-align: center;
-    font-size: 15px;
-    font-weight: 500;
     line-height: 17.9px;
     color: #1F2937;
+    font-size: 14px;
 }
 
 .footer2-signup{
     color: #3182F6;
 }
 
-.password-label {
-    position: relative;
+.footer2-text{
+    font-size: 14px;
 }
 
-.toggle-password {
-    position: absolute;
-    top: 50%;
-    right: 16px;
-    transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-}
-
-form{
-    width: 100%;
-}
-
-.email:focus, .password:focus {
-    border: 2px solid #3692FF;
-    outline: none;
-}
 
