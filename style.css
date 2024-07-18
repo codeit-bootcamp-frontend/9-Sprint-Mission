@@ -26,6 +26,10 @@
   margin: 0;
 }
 
+html {
+  font-size: 62.5%;
+}
+
 body {
   font-family: "Pretendard-Regular", sans-serif;
 }
@@ -42,7 +46,7 @@ nav {
   box-shadow: 13px 4px 9px -1px rgb(0 0 0 / 26%);
 }
 
-.logoBox {
+.logo-box {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -55,7 +59,7 @@ nav {
 .home {
   color: var(--color-blue);
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   font-weight: 700;
   font-family: "ROKAF Sans";
 }
@@ -65,9 +69,9 @@ nav {
   color: var(--color-white);
   font-weight: 600;
   background-color: var(--color-blue);
-  border-radius: 10px;
+  border-radius: 8px;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.6rem;
 }
 
 .login:hover {
@@ -86,24 +90,24 @@ main {
   align-items: center;
 }
 
-.topLeft {
+.top-left {
   display: flex;
   flex-direction: column;
   gap: 30px;
 }
 
-.topLeft .go:hover {
+.top-left .go:hover {
   background-color: var(--color-blue-hover);
 }
 
-.topRight {
+.top-right {
   margin-top: 85px;
 }
 
 .top h1 {
   font-family: "Pretendard-Regular";
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 4rem;
   color: #374151;
   line-height: 55px;
 }
@@ -113,20 +117,19 @@ main {
   background-color: var(--color-blue);
   color: #374151;
   line-height: 24px;
-  font-size: 1.3rem;
+  font-size: 2rem;
   font-weight: 600;
-  font-family: "Pretendard-Regular";
   text-decoration: none;
   border-radius: 40px;
-  padding: 20px 125px;
+  padding: 16px 124px;
 }
 
-.hot_item {
+.hot-item {
   display: flex;
   align-items: center;
 }
 
-.mainContents{
+.main-contents{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -134,7 +137,7 @@ main {
   margin: auto;
 }
 
-.mainContents {
+.main-contents {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,37 +145,37 @@ main {
     width: 1200px;
   }
 
-.hot_item img, .search img, .register img {
+.hot-item img, .search img, .register img {
   width: 580px;
 }
 
-.hot_item_text h2, .search_text h2, .register_text h2 {
+.hot-item-text h2, .search-text h2, .register-text h2 {
   color: var(--color-blue);
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-weight: 700;
   line-height: 25px;
 }
 
-.hot_item_text h3, .search_text h3, .register_text h3 {
-  font-size: 2.5rem;
+.hot-item-text h3, .search-text h3, .register-text h3 {
+  font-size: 4rem;
   font-weight: 700;
   line-height: 55px;
 }
 
-.hot_item_text p, .search_text p, .register_text p {
-  font-size: 1.5rem;
+.hot-item-text p, .search-text p, .register-text p {
+  font-size: 2.4rem;
   font-weight: 500;
   line-height: 28px;
 }
 
-.hot_item,.search, .register {
+.hot-item, .search, .register {
   display: flex;
   align-items: center;
   gap: 65px;
   height: 720px;
 }
 
-.hot_item_text, .search_text, .register_text {
+.hot-item-text, .search-text, .register-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -183,11 +186,11 @@ main {
   justify-content: end;
 }
 
-.search_text {
+.search-text {
   text-align: right;
 }
 
-.bottom_contents {
+.bottom-contents {
   display: flex;
   align-items: center;
   width: 1200px;
@@ -198,9 +201,9 @@ main {
   margin-top: 75px;
 }
 
-.bottom_text {
+.bottom-text {
   color: var(--color-gray-1);
-  font-size: 1.6em;
+  font-size: 2.6rem;
   line-height: 56px;
 }
 
@@ -211,24 +214,24 @@ footer {
   background-color: var(--color-footer);
   height: 160px;
   padding: 32px 200px;
-  font-size: 0.9rem;
+  font-size: 1.4rem;
 }
 
 footer p {
   color: var(--color-gray-2);
 }
 
-.footer_text a {
+.footer-text a {
   color: var(--color-white);
   text-decoration: none;
 }
 
-.footer_text {
+.footer-text {
   display: flex;
   gap: 15px;
 }
 
-.footer_icons {
+.footer-icons {
   display: flex;
   gap: 10px;
 }
