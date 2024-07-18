@@ -25,6 +25,10 @@ html{
     font-size: 62.5%;
     color: var(--gray700);
 }
+
+body{
+    margin:0;
+}
 h1{
     font-size: 4rem;
     font-weight: 800;

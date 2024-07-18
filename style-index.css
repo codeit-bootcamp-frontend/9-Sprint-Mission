@@ -22,7 +22,6 @@ header div{
     display:flex;
     justify-content: center;
     background-color: var(--background-color);
-    /* padding: 0 10%; */
     height: 540px;
 }
 .banner-text{
