@@ -4,7 +4,7 @@
   align-items: center;
   border-radius: 8px;
   background-color: var(--blue);
-  color: var(--gray50);
+  color: var(--gray-50);
   font-size: 16px;
   font-weight: 600;
   padding: 12px 23px;
@@ -59,7 +59,7 @@
   line-height: 120%;
   letter-spacing: 0.08em;
   margin-top: 24px;
-  color: var(--gray700);
+  color: var(--gray-700);
 }
 
 .bottom-content {
@@ -71,13 +71,13 @@
 .bottom-text {
   font-size: 40px;
   font-weight: 700;
-  color: var(--gray700);
+  color: var(--gray-700);
 }
 
 .footer-inquire {
   display: flex;
   gap: 30px;
-  color: var(--gray900-text);
+  color: var(--gray-900-text);
 }
 .footer-sns {
   display: flex;

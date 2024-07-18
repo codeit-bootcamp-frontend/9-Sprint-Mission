@@ -11,20 +11,22 @@
 :root {
   --blue: #3692ff;
 
-  --gray900: #111827;
-  --gray800: #374151;
-  --gray700: #374151;
-  --gray600: #4b5563;
-  --gray500: #6b7280;
-  --gray400: #9ca3af;
-  --gray200: #e5e7eb;
-  --gray100: #f3f4f6;
-  --gray50: #f9fafb;
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
 
-  --gray900-text: #e5e7eb;
+  --gray-900-text: #e5e7eb;
   --color-background: #cfe5ff;
 }
 body {
+  color: var(--gray-700);
+  word-break: keep-all;
   font-family: 'Pretendard Variable', Pretendard, 'Noto Sans KR', sans-serif;
 }
 button {
@@ -56,7 +58,7 @@ h1 {
   font-weight: 700;
   line-height: 56px;
   letter-spacing: 0.02em;
-  color: var(--gray700);
+  color: var(--gray-700);
 }
 
 header {
@@ -78,7 +80,7 @@ main {
 }
 
 footer {
-  background-color: var(--gray900);
+  background-color: var(--gray-900);
   color: #9ca3af;
   display: flex;
   justify-content: space-between;
@@ -94,6 +96,10 @@ footer {
   padding: 16px 126px;
 }
 
+.full-width {
+  width: 100%;
+}
+
 .wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -106,4 +112,18 @@ footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.button:hover {
+  background-color: #1967d6;
+}
+
+.button:focus {
+  background-color: #1251aa;
+}
+
+.button:disabled {
+  background-color: #9ca3af;
+  cursor: default;
+  pointer-events: none;
 }
