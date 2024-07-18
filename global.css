@@ -1,0 +1,39 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color: #374151;
+  word-break: keep-all;
+	font-family: "Pretendard Variable", Pretendard, sans-serif;
+}
+
+header {
+	padding-left: 200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+footer {
+	background-color: #111827;
+	height: 160px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #ffffff;
+	padding: 32px 200px 109px 200px;
+}
+
+.socialMedia {
+	display: flex;
+	gap: 13px;
+}
