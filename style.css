@@ -13,8 +13,15 @@
 :root {
   --color-white: #ffffff;
   --color-white-2: #E5E7EB;
-  --color-gray-1: #374151;
-  --color-gray-2: #9CA3AF;
+  --color-gray900: #111827;
+  --color-gray800: #1F2937;
+  --color-gray700: #374151;
+  --color-gray600: #4B5563;
+  --color-gray500: #6B7280;
+  --color-gray400: #9CA3AF;
+  --color-gray200: #E5E7EB;
+  --color-gray100: #F3F4F6;
+  --color-gray50: #F9FAFB;
   --color-blue: #3692FF;
   --color-blue-hover: #1967D6;
   --color-skyblue: #cfe5ff;
@@ -202,7 +209,7 @@ main {
 }
 
 .bottom-text {
-  color: var(--color-gray-1);
+  color: var(--color-gray700);
   font-size: 2.6rem;
   line-height: 56px;
 }
@@ -218,7 +225,7 @@ footer {
 }
 
 footer p {
-  color: var(--color-gray-2);
+  color: var(--color-gray400);
 }
 
 .footer-text a {
