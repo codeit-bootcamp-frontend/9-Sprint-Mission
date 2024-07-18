@@ -3,8 +3,8 @@
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background-color: var(--color-primary);
-  color: var(--color-white);
+  background-color: var(--blue);
+  color: var(--gray50);
   font-size: 16px;
   font-weight: 600;
   padding: 12px 23px;
@@ -46,7 +46,7 @@
 }
 
 .hot-item {
-  color: var(--color-primary);
+  color: var(--blue);
   font-size: 18px;
   line-height: 25px;
   font-weight: 700;
@@ -59,7 +59,7 @@
   line-height: 120%;
   letter-spacing: 0.08em;
   margin-top: 24px;
-  color: var(--color-text);
+  color: var(--gray700);
 }
 
 .bottom-content {
@@ -71,13 +71,13 @@
 .bottom-text {
   font-size: 40px;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--gray700);
 }
 
 .footer-inquire {
   display: flex;
   gap: 30px;
-  color: var(--color-footer-text);
+  color: var(--gray900-text);
 }
 .footer-sns {
   display: flex;

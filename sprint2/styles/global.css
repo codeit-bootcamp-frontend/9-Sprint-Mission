@@ -5,14 +5,24 @@
   padding: 0;
   box-sizing: border-box;
 }
-/* css 색상 변수등록 */
+
+/* css 색상 변수등록*/
+
 :root {
-  --color-primary: #3692ff;
-  --color-text: #374151;
+  --blue: #3692ff;
+
+  --gray900: #111827;
+  --gray800: #374151;
+  --gray700: #374151;
+  --gray600: #4b5563;
+  --gray500: #6b7280;
+  --gray400: #9ca3af;
+  --gray200: #e5e7eb;
+  --gray100: #f3f4f6;
+  --gray50: #f9fafb;
+
+  --gray900-text: #e5e7eb;
   --color-background: #cfe5ff;
-  --color-footer: #111827;
-  --color-footer-text: #e5e7eb;
-  --color-white: #f9fafb;
 }
 body {
   font-family: 'Pretendard Variable', Pretendard, 'Noto Sans KR', sans-serif;
@@ -46,7 +56,7 @@ h1 {
   font-weight: 700;
   line-height: 56px;
   letter-spacing: 0.02em;
-  color: var(--color-text);
+  color: var(--gray700);
 }
 
 header {
@@ -68,7 +78,7 @@ main {
 }
 
 footer {
-  background-color: var(--color-footer);
+  background-color: var(--gray900);
   color: #9ca3af;
   display: flex;
   justify-content: space-between;
@@ -91,7 +101,7 @@ footer {
 }
 
 .button {
-  background-color: var(--color-primary);
+  background-color: var(--blue);
   color: #ffffff;
   display: inline-flex;
   align-items: center;
