@@ -9,6 +9,20 @@
   --text-color: #374151;
 }
 
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./fonts/ROKAF\ Sans\ Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./fonts/ROKAF\ Sans\ Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
 html {
   font-family: Pretendard, sans-serif;
   word-break: keep-all;
@@ -44,8 +58,25 @@ header {
   padding: 0 200px;
 }
 
+header .logo_button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8.59px;
+}
+
 header .logo {
   flex-shrink: 0;
+  display: block;
+}
+
+header .logo_title {
+  font-family: "ROKAF Sans";
+  font-weight: 700;
+  font-size: 25.63px;
+  line-height: 34.6px;
+  color: #3692ff;
+  margin: 0;
 }
 
 .btn {
