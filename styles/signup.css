@@ -36,21 +36,26 @@ input {
 	gap: 10px;
 }
 
+#signup-mail:focus,
 #signup-id:focus,
-#signup-pw:focus {
+#signup-pw:focus,
+#re-signup-pw:focus {
 	border: 4px solid #3692FF;
 	outline: none; 
 }
 
-.content {
+.password, .re-password {
 	position: relative;
+	width: 640px;
+	padding-right: 40px; 
+	box-sizing: border-box;
 }
 
-.password-img {
+.password-img, .re-password-img {
 	position: absolute;
 	left: 592px;
 	right: 16px;
-	bottom: 27px;
+	top: 58%;
 	transform: translateY(-50%);
 	width: 24px;
 	height: 24px;
