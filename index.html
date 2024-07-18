@@ -3,34 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="ico" href="/images/logo/favicon.ico" />
-    <!-- <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> -->
-    <!-- <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"/> -->
-    <link
-      rel="stylesheet"
-      crossorigin
-      href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"
-    />
-    <link rel="stylesheet" as="style" href="/styles/home.css" />
-    <link rel="stylesheet" as="style" href="/styles/global.css" />
     <title>판다마켓</title>
+    <link rel="ico" href="/images/logo/favicon.ico" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/home.css" />
   </head>
   <body>
     <header>
-      <a href="/"><img src="/images/header/panda.png" /></a>
-      <a href="/login"><img src="/images/header/login.png" /></a>
+      <a href="/"
+        ><img src="/images/header/panda.png" alt="판다마켓 홈" width="153"
+      /></a>
+      <a href="/login" id="loginLinkButton" class="button">로그인</a>
     </header>
     <main>
       <section id="topBanner" class="banner">
-        <div class="txt_home_top">
-          <span>일상의 모든 물건을<br />거래해 보세요</span><br />
-          <input
-            type="button"
-            class="btn_items"
-            onclick="location.href='/items'"
-          />
+        <div class="wapper">
+          <h1>일상의 모든 물건을<br />거래해 보세요</h1>
+          <a href="/items" class="button pill-button">구경하러 가기</a>
         </div>
-        <img class="img_home_top" src="/images/landing/Img_home_top.png" />
       </section>
       <section id="features" class="features">
         <div class="sec1">
@@ -49,45 +39,40 @@
             </div>
           </div>
         </div>
-        <div class="sec2">
-          <div class="sec_side"></div>
-          <div class="sec_content">
-            <div class="img_item">
-              <img src="/images/landing/Img_home_02.png" />
-            </div>
-            <div class="txt_item">
-              <span class="txt_des1">Search</span><br />
-              <span class="txt_des2">구매를 원하는<br />상품을 검색하세요</span
-              ><br />
-              <span class="txt_des3"
-                >구매하고 싶은 물품은 검색해서<br />쉽게 찾아보세요</span
-              >
-            </div>
+        <div class="feature">
+          <div class="feature-content">
+            <h2 class="feature-tag">Search</h2>
+            <h1>구매를 원하는<br />상품을 검색하세요</h1>
+            <p class="feature-description">
+              구매하고 싶은 물품은 검색해서
+              <br />쉽게 찾아보세요
+            </p>
           </div>
+          <img
+            src="/images/landing/Img_home_02.png"
+            alt="검색 기능"
+            width="50%"
+          />
         </div>
-        <div class="sec3">
-          <div class="sec_side"></div>
-          <div class="sec_content">
-            <div class="img_item">
-              <img src="/images/landing/Img_home_03.png" />
-            </div>
-            <div class="txt_item">
-              <span class="txt_des1">Register</span><br />
-              <span class="txt_des2">판매를 원하는<br />상품을 등록하세요</span
-              ><br />
-              <span class="txt_des3"
-                >어떤 물건이든 판매하고 싶은 상품을<br />쉽게 등록하세요</span
-              >
-            </div>
+        <div class="feature">
+          <img
+            src="/images/landing/Img_home_03.png"
+            alt="판매 상품 등록"
+            width="50%"
+          />
+          <div class="feature-content">
+            <h2 class="feature-tag">Register</h2>
+            <h1>판매를 원하는<br />상품을 등록하세요</h1>
+            <p class="feature-description">
+              어떤 물건이든 판매하고 싶은 상품을
+              <br />쉽게 등록하세요
+            </p>
           </div>
         </div>
       </section>
       <section id="bottomBanner" class="banner">
-        <div class="bottom_content">
-          <div class="txt_item">믿을 수 있는<br />판다마켓 중고거래</div>
-          <div class="img_item">
-            <img src="/images/landing/Img_home_bottom.png" />
-          </div>
+        <div class="wapper">
+          <h1>믿을 수 있는<br />판다마켓 중고거래</h1>
         </div>
       </section>
     </main>
