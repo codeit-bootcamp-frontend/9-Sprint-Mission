@@ -1,6 +1,7 @@
 @import '_reset';
 @import '_base';
 
+// pc
 // 메인 페이지
 header {
   width: 100%;
@@ -41,7 +42,7 @@ header {
 
 main {
   margin-top: 70px;
-  
+
   section {
     &.main-top {
       height: 540px;
@@ -118,7 +119,7 @@ main {
               color: $clr-blue;
             }
 
-            .sub_txt {
+            .sub-txt {
               font-size: 1.5rem;
               font-weight: 500;
               color: $gray700;
@@ -220,10 +221,10 @@ footer {
             transition: all ease .1s;
           }
         }
-        
+
         &.password-box {
           position: relative;
-          
+
           .close-eyes {
             position: absolute;
             right: 24px;
@@ -244,7 +245,7 @@ footer {
         background-color: $gray400;
         transition: all ease .3s;
         cursor: pointer;
-        
+
         &:hover {
           background-color: $clr-blue;
           transition: all ease .3s;
@@ -279,6 +280,608 @@ footer {
 
       a {
         color: #3182F6;
+      }
+    }
+  }
+}
+
+// tablet
+@include tablet {
+
+  // 메인 페이지
+  header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #DFDFDF;
+
+    .header-wrap {
+      height: 70px;
+      max-width: 1920px;
+      margin: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .login-btn {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #FFFFFF;
+        background-color: $clr-blue;
+        border-radius: 8px;
+        width: 128px;
+        height: 48px;
+        transition: all ease .3s;
+        cursor: pointer;
+        @include flex-center();
+
+        &:hover {
+          background-color: $clr-blue-hover;
+          transition: all ease .3s;
+        }
+      }
+    }
+  }
+
+  main {
+    margin-top: 70px;
+
+    section {
+      &.main-top {
+        height: 771px;
+        background: $main-bg url("../images/img_home_top.png") center bottom no-repeat;
+        background-size: contain;
+        position: relative;
+
+        .tit-wrap {
+          gap: 24px;
+
+          .main-tit-btn {
+            width: 357px;
+            height: 56px;
+            font-size: 1.25rem;
+            color: #FFFFFF;
+            font-weight: 600;
+            border-radius: 40px;
+            background-color: $clr-blue;
+            transition: all ease .3s;
+            cursor: pointer;
+            @include flex-center();
+
+            &:hover {
+              background-color: $clr-blue-hover;
+              transition: all ease .3s;
+            }
+          }
+        }
+      }
+
+      &.main-bottom {
+        height: 927px;
+        background: $main-bg url("../images/img_home_bottom.png") center bottom no-repeat;
+        background-size: contain;
+        position: relative;
+      }
+
+      .tit-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        inset: 0;
+        margin-top: 7rem;
+      }
+
+      .main-tit {
+        font-size: 2.5rem;
+        color: $gray700;
+        font-weight: 700;
+        line-height: 56px;
+        text-align: center;
+
+        .br-none {
+          display: none;
+        }
+      }
+
+      &.main-middle {
+        .main-middle-wrap {
+          display: grid;
+          gap: 52px;
+          margin: 24px 24px 50px;
+
+          li {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+
+            &:nth-child(2) {
+              flex-direction: column;
+              align-items: flex-end;
+              text-align: right;
+            }
+
+            .tit-box {
+              display: grid;
+              gap: 12px;
+
+              .small-txt {
+                font-size: 1.125rem;
+                font-weight: 700;
+                color: $clr-blue;
+              }
+
+              .sub-txt {
+                font-size: 1.5rem;
+                font-weight: 500;
+                color: $gray700;
+                line-height: 28.8px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+    height: 160px;
+    padding: 32px 100px;
+    background-color: $gray900;
+
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      flex-basis: 1520px;
+
+      p,
+      a {
+        font-size: 1rem;
+        font-weight: 400;
+        color: $gray400;
+      }
+
+      a {
+        cursor: pointer;
+      }
+
+      .footer-btn {
+        display: flex;
+        gap: 30px;
+
+        a {
+          color: $gray200;
+        }
+      }
+
+      .footer-icon {
+        display: flex;
+        gap: 12px;
+      }
+    }
+  }
+
+  // 로그인 페이지
+  .login-wrap {
+    max-width: 640px;
+    margin: 60px auto 0;
+
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+
+      img {
+        width: 396px;
+        height: auto;
+      }
+    }
+
+    .content-wrap {
+      display: grid;
+      gap: 24px;
+
+      .login-form {
+        display: grid;
+        gap: 24px;
+
+        .input-box {
+          display: grid;
+          gap: 16px;
+
+          label {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: $gray800;
+          }
+
+          input {
+            font-size: 1rem;
+            font-weight: 400;
+            color: $gray800;
+            height: 56px;
+            width: 100%;
+            padding: 0 24px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            background-color: $gray100;
+            transition: all ease .1s;
+
+            &:focus {
+              border: 3px solid $clr-blue;
+              transition: all ease .1s;
+            }
+          }
+
+          &.password-box {
+            position: relative;
+
+            .close-eyes {
+              position: absolute;
+              right: 24px;
+              bottom: 16px;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .btn {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $gray50;
+          border: none;
+          border-radius: 40px;
+          height: 56px;
+          width: 100%;
+          background-color: $gray400;
+          transition: all ease .3s;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $clr-blue;
+            transition: all ease .3s;
+          }
+        }
+      }
+
+      .easy-login-wrap {
+        background-color: #E6F2FF;
+        border-radius: 8px;
+        padding: 15px 24px;
+        @include flex-between();
+
+        p {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+
+        .login-icon {
+          display: flex;
+          gap: 16px;
+        }
+      }
+
+      .link-wrap {
+        font-size: .875rem;
+        font-weight: 500;
+        color: $gray800;
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+
+        a {
+          color: #3182F6;
+        }
+      }
+    }
+  }
+}
+
+// mobile
+@include mobile {
+
+  // 메인 페이지
+  header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #DFDFDF;
+
+    .header-wrap {
+      height: 70px;
+      max-width: 1920px;
+      margin: 0 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .login-btn {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #FFFFFF;
+        background-color: $clr-blue;
+        border-radius: 8px;
+        width: 128px;
+        height: 48px;
+        transition: all ease .3s;
+        cursor: pointer;
+        @include flex-center();
+
+        &:hover {
+          background-color: $clr-blue-hover;
+          transition: all ease .3s;
+        }
+      }
+    }
+  }
+
+  main {
+    margin-top: 70px;
+
+    section {
+      &.main-top {
+        height: 540px;
+        background: $main-bg url("../images/img_home_top.png") center bottom no-repeat;
+        background-size: 130%;
+        position: relative;
+
+        .tit-wrap {
+          gap: 24px;
+
+          .main-tit-btn {
+            width: 240px;
+            height: 48px;
+            font-size: 1.125rem;
+            color: #FFFFFF;
+            font-weight: 600;
+            border-radius: 40px;
+            background-color: $clr-blue;
+            transition: all ease .3s;
+            cursor: pointer;
+            @include flex-center();
+
+            &:hover {
+              background-color: $clr-blue-hover;
+              transition: all ease .3s;
+            }
+          }
+        }
+      }
+
+      &.main-bottom {
+        height: 540px;
+        background: $main-bg url("../images/img_home_bottom.png") center bottom no-repeat;
+        background-size: contain;
+        position: relative;
+      }
+
+      .tit-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        inset: 0;
+        margin-top: 3rem;
+      }
+
+      .main-tit {
+        font-size: 2rem;
+        color: $gray700;
+        font-weight: 700;
+        line-height: 44.8px;
+        text-align: center;
+      }
+
+      &.main-middle {
+        .main-middle-wrap {
+          display: grid;
+          gap: 52px;
+          margin: 15px 15px 60px;
+
+          .main-tit {
+            font-size: 1.5rem;
+
+            .br-none {
+              display: none;
+            }
+          }
+
+          li {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+
+            &:nth-child(2) {
+              flex-direction: column;
+              align-items: flex-end;
+              text-align: right;
+            }
+
+            .tit-box {
+              display: grid;
+              gap: 16px;
+
+              .small-txt {
+                font-size: 1rem;
+                font-weight: 700;
+                color: $clr-blue;
+              }
+
+              .sub-txt {
+                font-size: 1.125rem;
+                font-weight: 500;
+                color: $gray700;
+                line-height: 25.2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+    height: 160px;
+    padding: 32px;
+    background-color: $gray900;
+
+    .footer-wrap {
+      display: flex;
+      flex-wrap: wrap;
+
+      p,
+      a {
+        font-size: 1rem;
+        font-weight: 400;
+        color: $gray400;
+      }
+
+      a {
+        cursor: pointer;
+      }
+
+      .footer-btn {
+        display: flex;
+        gap: 30px;
+
+        a {
+          color: $gray200;
+        }
+      }
+
+      .footer-icon {
+        display: flex;
+        gap: 12px;
+      }
+    }
+  }
+
+  // 로그인 페이지
+  .login-wrap {
+    max-width: 400px;
+    margin: 60px auto 0;
+    padding: 24px 16px;
+
+    .logo {
+      text-align: center;
+      margin-bottom: 2rem;
+
+      img {
+        width: 198px;
+        height: auto;
+      }
+    }
+
+    .content-wrap {
+      display: grid;
+      gap: 24px;
+
+      .login-form {
+        display: grid;
+        gap: 24px;
+
+        .input-box {
+          display: grid;
+          gap: 16px;
+
+          label {
+            font-size: .875rem;
+            font-weight: 600;
+            color: $gray800;
+          }
+
+          input {
+            font-size: 1rem;
+            font-weight: 400;
+            color: $gray800;
+            height: 56px;
+            width: 100%;
+            padding: 0 24px;
+            border-radius: 12px;
+            border: none;
+            outline: none;
+            background-color: $gray100;
+            transition: all ease .1s;
+
+            &:focus {
+              border: 3px solid $clr-blue;
+              transition: all ease .1s;
+            }
+          }
+
+          &.password-box {
+            position: relative;
+
+            .close-eyes {
+              position: absolute;
+              right: 24px;
+              bottom: 16px;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .btn {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: $gray50;
+          border: none;
+          border-radius: 40px;
+          height: 56px;
+          width: 100%;
+          background-color: $gray400;
+          transition: all ease .3s;
+          cursor: pointer;
+
+          &:hover {
+            background-color: $clr-blue;
+            transition: all ease .3s;
+          }
+        }
+      }
+
+      .easy-login-wrap {
+        background-color: #E6F2FF;
+        border-radius: 8px;
+        padding: 15px 24px;
+        @include flex-between();
+
+        p {
+          font-size: 1rem;
+          font-weight: 500;
+        }
+
+        .login-icon {
+          display: flex;
+          gap: 16px;
+        }
+      }
+
+      .link-wrap {
+        font-size: .875rem;
+        font-weight: 500;
+        color: $gray800;
+        display: flex;
+        justify-content: center;
+        gap: 4px;
+
+        a {
+          color: #3182F6;
+        }
       }
     }
   }

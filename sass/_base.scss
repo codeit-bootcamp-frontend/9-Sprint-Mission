@@ -1,3 +1,26 @@
+// Breakpoints
+$breakpoint-mobile: 375px;
+$breakpoint-tablet: 768px;
+$breakpoint-pc: 1200px;
+
+@mixin mobile {
+  @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-pc - 1px}) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media (min-width: #{$breakpoint-pc}) {
+    @content;
+  }
+}
+
 // Colors
 $main-bg: #CFE5FF;
 $clr-blue: #3692FF;
