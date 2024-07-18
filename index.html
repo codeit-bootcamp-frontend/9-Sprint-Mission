@@ -3,121 +3,124 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="ico" href="/images/logo/favicon.ico" />
+    <!-- <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" /> -->
+    <!-- <link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"/> -->
     <link
       rel="stylesheet"
-      as="style"
       crossorigin
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+      href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"
     />
-    <link rel="stylesheet" as="style" href="/css/panda.css" />
+    <link rel="stylesheet" as="style" href="/styles/home.css" />
+    <link rel="stylesheet" as="style" href="/styles/global.css" />
     <title>판다마켓</title>
   </head>
   <body>
     <header>
-      <div class="box_container">
-        <div class="box_logo">
-          <input type="button" class="btn_panda" onclick="location.href='/'" />
-        </div>
-        <div class="box_login">
+      <a href="/"><img src="/images/header/panda.png" /></a>
+      <a href="/login"><img src="/images/header/login.png" /></a>
+    </header>
+    <main>
+      <section id="topBanner" class="banner">
+        <div class="txt_home_top">
+          <span>일상의 모든 물건을<br />거래해 보세요</span><br />
           <input
             type="button"
-            class="btn_login"
-            onclick="location.href='/login'"
+            class="btn_items"
+            onclick="location.href='/items'"
           />
         </div>
-      </div>
-    </header>
-    <nav>
-      <div class="txt_home_top">
-        <span>일상의 모든 물건을<br />거래해 보세요</span><br />
-        <input
-          type="button"
-          class="btn_items"
-          onclick="location.href='/items'"
-        />
-      </div>
-      <img class="img_home_top" src="/img/landing/Img_home_top.png" />
-    </nav>
-    <div class="container">
-      <div class="sec1">
-        <div class="sec_side"></div>
-        <div class="sec_content">
-          <div class="img_item">
-            <img src="/img/landing/Img_home_01.png" />
-          </div>
-          <div class="txt_item">
-            <span class="txt_des1">Hot item</span><br />
-            <span class="txt_des2">인기 상품을<br />확인해 보세요</span><br />
-            <span class="txt_des3"
-              >가장 HOT한 중고거래 물품을<br />판다 마켓에서 확인해 보세요</span
-            >
+        <img class="img_home_top" src="/images/landing/Img_home_top.png" />
+      </section>
+      <section id="features" class="features">
+        <div class="sec1">
+          <div class="sec_side"></div>
+          <div class="sec_content">
+            <div class="img_item">
+              <img src="/images/landing/Img_home_01.png" />
+            </div>
+            <div class="txt_item">
+              <span class="txt_des1">Hot item</span><br />
+              <span class="txt_des2">인기 상품을<br />확인해 보세요</span><br />
+              <span class="txt_des3"
+                >가장 HOT한 중고거래 물품을<br />판다 마켓에서 확인해
+                보세요</span
+              >
+            </div>
           </div>
         </div>
-      </div>
-      <div class="sec2">
-        <div class="sec_side"></div>
-        <div class="sec_content">
-          <div class="img_item">
-            <img src="/img/landing/Img_home_02.png" />
-          </div>
-          <div class="txt_item">
-            <span class="txt_des1">Search</span><br />
-            <span class="txt_des2">구매를 원하는<br />상품을 검색하세요</span
-            ><br />
-            <span class="txt_des3"
-              >구매하고 싶은 물품은 검색해서<br />쉽게 찾아보세요</span
-            >
-          </div>
-        </div>
-      </div>
-      <div class="sec3">
-        <div class="sec_side"></div>
-        <div class="sec_content">
-          <div class="img_item">
-            <img src="/img/landing/Img_home_03.png" />
-          </div>
-          <div class="txt_item">
-            <span class="txt_des1">Register</span><br />
-            <span class="txt_des2">판매를 원하는<br />상품을 등록하세요</span
-            ><br />
-            <span class="txt_des3"
-              >어떤 물건이든 판매하고 싶은 상품을<br />쉽게 등록하세요</span
-            >
+        <div class="sec2">
+          <div class="sec_side"></div>
+          <div class="sec_content">
+            <div class="img_item">
+              <img src="/images/landing/Img_home_02.png" />
+            </div>
+            <div class="txt_item">
+              <span class="txt_des1">Search</span><br />
+              <span class="txt_des2">구매를 원하는<br />상품을 검색하세요</span
+              ><br />
+              <span class="txt_des3"
+                >구매하고 싶은 물품은 검색해서<br />쉽게 찾아보세요</span
+              >
+            </div>
           </div>
         </div>
-      </div>
-      <div class="sec_bottom">
-        <div class="sec_side"></div>
-        <div class="sec_content">
-          <div class="img_item">
-            <img src="/img/landing/Img_home_bottom.png" />
-          </div>
-          <div class="txt_item">
-            <span class="txt_des">믿을 수 있는<br />판다마켓 중고거래</span>
+        <div class="sec3">
+          <div class="sec_side"></div>
+          <div class="sec_content">
+            <div class="img_item">
+              <img src="/images/landing/Img_home_03.png" />
+            </div>
+            <div class="txt_item">
+              <span class="txt_des1">Register</span><br />
+              <span class="txt_des2">판매를 원하는<br />상품을 등록하세요</span
+              ><br />
+              <span class="txt_des3"
+                >어떤 물건이든 판매하고 싶은 상품을<br />쉽게 등록하세요</span
+              >
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+      <section id="bottomBanner" class="banner">
+        <div class="bottom_content">
+          <div class="txt_item">믿을 수 있는<br />판다마켓 중고거래</div>
+          <div class="img_item">
+            <img src="/images/landing/Img_home_bottom.png" />
+          </div>
+        </div>
+      </section>
+    </main>
     <footer>
-      <div class="codeit">
-        <span>©codeit - 2024</span>
-      </div>
-      <div class="info">
+      <div>©codeit - 2024</div>
+      <div id="footerMenu">
         <a href="/privacy">Privacy Policy</a>
         <a href="/faq">FAQ</a>
       </div>
-      <div class="sns">
-        <a href="https://www.facebook.com" target="_blank"
-          ><img src="/img/footer/ic_facebook.png"
+      <div id="socialMedia">
+        <a
+          href="https://www.facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="/images/footer/ic_facebook.png"
         /></a>
-        <a href="https://www.twitter.com" target="_blank"
-          ><img src="/img/footer/ic_twitter.png"
+        <a
+          href="https://www.twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="/images/footer/ic_twitter.png"
         /></a>
-        <a href="https://www.youtube.com" target="_blank"
-          ><img src="/img/footer/ic_youtube.png"
+        <a
+          href="https://www.youtube.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="/images/footer/ic_youtube.png"
         /></a>
-        <a href="https://www.instagram.com" target="_blank"
-          ><img src="/img/footer/ic_instagram.png"
+        <a
+          href="https://www.instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="/images/footer/ic_instagram.png"
         /></a>
       </div>
     </footer>
