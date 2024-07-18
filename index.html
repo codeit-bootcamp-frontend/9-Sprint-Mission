@@ -3,18 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/panda.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <link rel="stylesheet" as="style" href="/css/panda.css" />
     <title>판다마켓</title>
   </head>
   <body>
     <header>
-      <div class="header">
-        <input type="button" class="btn_panda" onclick="location.href='./'" />
-        <input
-          type="button"
-          class="btn_login"
-          onclick="location.href='/login'"
-        />
+      <div class="box_container">
+        <div class="box_logo">
+          <input type="button" class="btn_panda" onclick="location.href='/'" />
+        </div>
+        <div class="box_login">
+          <input
+            type="button"
+            class="btn_login"
+            onclick="location.href='/login'"
+          />
+        </div>
       </div>
     </header>
     <nav>
@@ -26,14 +36,14 @@
           onclick="location.href='/items'"
         />
       </div>
-      <img class="img_home_top" src="img/landing/Img_home_top.png" />
+      <img class="img_home_top" src="/img/landing/Img_home_top.png" />
     </nav>
     <div class="container">
       <div class="sec1">
         <div class="sec_side"></div>
         <div class="sec_content">
           <div class="img_item">
-            <img src="img/landing/Img_home_01.png" />
+            <img src="/img/landing/Img_home_01.png" />
           </div>
           <div class="txt_item">
             <span class="txt_des1">Hot item</span><br />
@@ -48,7 +58,7 @@
         <div class="sec_side"></div>
         <div class="sec_content">
           <div class="img_item">
-            <img src="img/landing/Img_home_02.png" />
+            <img src="/img/landing/Img_home_02.png" />
           </div>
           <div class="txt_item">
             <span class="txt_des1">Search</span><br />
@@ -64,7 +74,7 @@
         <div class="sec_side"></div>
         <div class="sec_content">
           <div class="img_item">
-            <img src="img/landing/Img_home_03.png" />
+            <img src="/img/landing/Img_home_03.png" />
           </div>
           <div class="txt_item">
             <span class="txt_des1">Register</span><br />
@@ -80,7 +90,7 @@
         <div class="sec_side"></div>
         <div class="sec_content">
           <div class="img_item">
-            <img src="img/landing/Img_home_bottom.png" />
+            <img src="/img/landing/Img_home_bottom.png" />
           </div>
           <div class="txt_item">
             <span class="txt_des">믿을 수 있는<br />판다마켓 중고거래</span>
@@ -97,19 +107,17 @@
         <a href="/faq">FAQ</a>
       </div>
       <div class="sns">
-        <a href="https://www.facebook.com/codeit.kr" target="_blank"
-          ><img src="img/footer/ic_facebook.png"
+        <a href="https://www.facebook.com" target="_blank"
+          ><img src="/img/footer/ic_facebook.png"
         /></a>
-        <a href="https://x.com" target="_blank"
-          ><img src="img/footer/ic_twitter.png"
+        <a href="https://www.twitter.com" target="_blank"
+          ><img src="/img/footer/ic_twitter.png"
         /></a>
-        <a
-          href="https://www.youtube.com/channel/UCCM79CPm2WbBYTRaiNEExbg"
-          target="_blank"
-          ><img src="img/footer/ic_youtube.png"
+        <a href="https://www.youtube.com" target="_blank"
+          ><img src="/img/footer/ic_youtube.png"
         /></a>
-        <a href="https://www.instagram.com/codeit_kr" target="_blank"
-          ><img src="img/footer/ic_instagram.png"
+        <a href="https://www.instagram.com" target="_blank"
+          ><img src="/img/footer/ic_instagram.png"
         /></a>
       </div>
     </footer>
