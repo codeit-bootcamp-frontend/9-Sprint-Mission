@@ -95,6 +95,16 @@ main {
   outline-color: var(--color-blue);
 }
 
+.visi-off, .visi-on {
+  position: relative;
+}
+
+.visi-off img, .visi-on img {
+  position: absolute;
+  left: 600px;
+  bottom: 30px;
+}
+
 .login-button, .signup-button {
   text-align: center;
   font-size: 2rem;
