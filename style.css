@@ -59,6 +59,8 @@ body {
 }
 
 header {
+  max-width: 1920px;
+  width: 100%;
   height: 70px;
   margin: 0;
   display: flex;
@@ -67,6 +69,9 @@ header {
   border-bottom: 1px solid #dfdfdf;
   background-color: #fff;
   padding: 0 200px;
+  position: fixed;
+  top: 0;
+  z-index: 1;
 }
 
 header .logo_button {
@@ -120,6 +125,10 @@ header .login {
   position: relative;
 }
 
+.gnb_margin {
+  margin-top: 70px;
+}
+
 .home .container {
   align-items: center;
   flex-direction: column;
@@ -146,7 +155,13 @@ header .login {
 .home_img {
   position: absolute;
   left: 701px;
+  width: 746px;
+  height: 340px;
   bottom: 0;
+}
+
+.home_img.home_bottom {
+  height: 397px;
 }
 
 main {
