@@ -17,6 +17,12 @@ button {
   cursor: pointer;
 }
 
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("../fonts/ROKAF_Sans_Bold.ttf") format("truetype"),
+    url("../fonts/ROKAF_Sans_Medium.ttf") format("truetype");
+}
+
 img {
   vertical-align: bottom;
 }
@@ -28,6 +34,7 @@ body {
 }
 
 header {
+  position: fixed;
   width: 100%;
   height: 70px;
   display: flex;
