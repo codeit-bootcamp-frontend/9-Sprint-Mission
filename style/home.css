@@ -1,5 +1,17 @@
-/* 색상 참조*/
-@import url("./color.css");
+/* class 및 id 이름 케밥 케이스로 변경 */
+
+header {
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 200px;
+    background-color: var(--color-white);
+    border: 1px solid #dfdfdf;
+    position: sticky;
+    top: 0;
+}
 
 .banner {
     height: 540px;
@@ -11,31 +23,31 @@
     align-items: center;
 }
 
-#topBanner {
+#top-Banner {
     background-image: url("../src/img/home/Img_home_top.png");
 }
 
-#bottomBanner {
+#bottom-Banner {
     background-image: url("../src/img/home/Img_home_bottom.png");
 }
 
-.bannerText {
+.banner-Text {
     max-width: 1200px;
     width: 100%;
     margin: auto;
     gap: 32px;
 }
 
-.bannerText h1 {
+.banner-Text h1 {
     font-size: 40px;
     font-weight: 700;
 }
 
-.button.banner_button {
+.button.banner-button {
     margin: 32px 0 0;
 }
 
-.banner_button {
+.banner-button {
     font-size: 20px;
     font-weight: 600;
     border-radius: 40px;
@@ -66,11 +78,40 @@
     color: var(--color-blue);
 }
 
-.container h1 {
+.container h3 {
     font-size: 40px;
     margin: 12px 0 24px;
 }
 
 .container p {
     font-size: 24px;
+}
+
+footer {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--color-gray900);
+    padding: 32px 200px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+footer p {
+    color: var(--color-gray400);
+}
+
+.footer-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-menu a {
+    color: var(--color-gray200);
+}
+
+.footer-icon {
+    display: flex;
+    gap: 12px;
 }

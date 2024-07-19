@@ -11,7 +11,9 @@
     <body>
         <header>
             <a href="/" id="logo"
-                ><img src="./src/img/logo/Property 1=lg.png"
+                ><img
+                    src="./src/img/logo/Property 1=lg.png"
+                    alt="판다마켓 로고"
             /></a>
         </header>
         <main>
@@ -21,6 +23,12 @@
                     id="email"
                     type="email"
                     placeholder="이메일을 입력해 주세요"
+                />
+                <label for="nickname">닉네임</label>
+                <input
+                    id="nickname"
+                    type="text"
+                    placeholder="닉네임을 입력해 주세요"
                 />
                 <div class="password-Box">
                     <label>비밀번호</label>
@@ -32,7 +40,17 @@
                         <img src="./src/icon/Variant.png" />
                     </div>
                 </div>
-                <button class="button">로그인</button>
+                <div class="password-Box">
+                    <label>비밀번호 확인</label>
+                    <input
+                        type="password"
+                        placeholder="비밀번호를 다시 한 번 입력해주세요"
+                    />
+                    <div class="pwd-Eye">
+                        <img src="./src/icon/Variant.png" />
+                    </div>
+                </div>
+                <button class="button">회원가입</button>
             </form>
             <section class="platform-login">
                 간편 로그인하기
@@ -46,8 +64,6 @@
                 </div>
             </section>
         </main>
-        <footer>
-            판다마켓이 처음이신가요?<a href="/signup.html">회원가입</a>
-        </footer>
+        <footer>이미 회원이신가요?<a href="/login.html">로그인</a></footer>
     </body>
 </html>
