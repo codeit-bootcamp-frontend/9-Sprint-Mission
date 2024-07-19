@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>판다마켓 - 로그인</title>
+    <link rel="icon" href="images/logo/favicon.ico" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <link rel="stylesheet" href="styles/login.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1 class="panda-logo">
+        <a class="panda-logo-link" href="index.html">
+          <img
+            src="images/logo/panda-market-logo.png"
+            alt="판다마켓"
+            width="396"
+          />
+        </a>
+      </h1>
+    </header>
+
+    <main>
+      <form>
+        <div class="userEmail-wrap">
+          <label class="email-label" for="userEmail">이메일</label>
+          <input
+            id="userEmail"
+            name="userEmail"
+            placeholder="이메일을 입력해주세요"
+          />
+        </div>
+        <div class="password-wrap">
+          <label class="password-label" for="password">비밀번호</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <div class="password-visiblity-button"></div>
+        </div>
+        <button class="login-button" type="submit">로그인</button>
+      </form>
+      <div class="social-login-wrap">
+        <span>간편 로그인하기</span>
+        <div class="social-login">
+          <a class="google-link" href="https://www.google.com/" target="_blank">
+            <img src="images/social/google-logo.svg" alt="google" width="42" />
+          </a>
+          <a
+            class="kakao-link"
+            href="https://www.kakaocorp.com/page/"
+            target="_blank"
+          >
+            <img src="images/social/kakao-logo.svg" alt="kakao" width="42" />
+          </a>
+        </div>
+      </div>
+      <div class="signup-wrap">
+        <span class="guide-text">판다마켓이 처음이신가요?</span>
+        <a class="signup-link" href="signup.html">회원가입</a>
+      </div>
+    </main>
+  </body>
+</html>

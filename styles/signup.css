@@ -1,0 +1,216 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Pretendard", sans-serif;
+}
+
+.panda-logo {
+  display: flex;
+  justify-content: center;
+  margin: 60px auto 0;
+}
+
+.panda-logo-link {
+  display: inline-block;
+  width: 396px;
+  height: 132px;
+}
+
+main {
+  margin: 40px auto 178px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  padding-top: 16px;
+  padding-bottom: 14px;
+  padding-left: 24px;
+}
+
+input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #9ca3af;
+}
+
+input:focus {
+  outline: 1px solid #3692ff;
+}
+
+.userEmail-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.email-label {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+#userEmail {
+  width: 640px;
+  height: 56px;
+  border-radius: 12px;
+  border-style: none;
+  background-color: #f3f4f6;
+}
+
+.nickname-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.nickname-label {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+#nickname {
+  width: 640px;
+  height: 56px;
+  border-radius: 12px;
+  border-style: none;
+  background-color: #f3f4f6;
+}
+
+.password-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.password-label {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+#password {
+  width: 640px;
+  height: 56px;
+  border-radius: 12px;
+  border-style: none;
+  background-color: #f3f4f6;
+}
+
+.password-visiblity-button {
+  background-image: url(/images/form/btn-visibility-off.png);
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+}
+
+.password-check-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.password-check-label {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+#passwordCheck {
+  width: 640px;
+  height: 56px;
+  border-radius: 12px;
+  border-style: none;
+  background-color: #f3f4f6;
+}
+
+.password-check-visiblity-button {
+  background-image: url(/images/form/btn-visibility-off.png);
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+}
+
+.signup-button {
+  width: 640px;
+  height: 56px;
+  border-radius: 40px;
+  border-style: none;
+  padding: 16px auto 16px;
+  background-color: #9ca3af;
+  color: #f9fafb;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.social-login-wrap {
+  width: 640px;
+  height: 74px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 23px;
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  background-color: #e6f2ff;
+  color: #1f2937;
+  border-radius: 10px;
+}
+
+.social-login {
+  display: flex;
+  gap: 16px;
+  margin-right: 23px;
+}
+
+.google-link {
+  display: inline-block;
+  width: 42px;
+  height: 42px;
+}
+
+.kakao-link {
+  display: inline-block;
+  width: 42px;
+  height: 42px;
+}
+
+.login-wrap {
+  width: 151px;
+  height: 24px;
+}
+
+.guide-text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #1f2937;
+}
+
+.login-link {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16.71px;
+}
