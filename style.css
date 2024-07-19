@@ -5,19 +5,122 @@
   font-style: normal;
 }
 
+/* reset.css*/
 * {
   margin:0; padding:0; font-family: 'Pretendard-Regular'; box-sizing: border-box; text-decoration: none;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
   --color-white: #ffffff;
   --color-white-2: #E5E7EB;
   --color-gray-1: #374151;
   --color-gray-2: #9CA3AF;
+  --color-black: #1F2937;
   --color-theme: #3692FF;
   --color-theme-hover: #1967D6;
   --color-bg-skyblue: #cfe5ff;
   --color-bg-footer: #111827;
+  --color-bg-input: #F3F4F6;
+  --color-bg-sns: #E6F2FF;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin-block-end: 0;
+}
+
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+input:focus {
+  outline-color:#3692FF;
+  color:var(--color-black);
+}
+
+input::placeholder {
+  color: var(--color-gray-2);
+  font-size: 16px;
+}
+
+.form_input {
+  display: block;
+  width: 100%;
+  height: 56px;
+  margin-top: 15px;
+  padding: 15px 24px;
+  background-color: var(--color-bg-input);
+  border: 0;
+  border-radius: 12px;
+}
+
+.wrap_inner {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.wrap_inner2 {
+  width: 640px;
+  margin: 0 auto;
 }
 
 header {
@@ -37,24 +140,21 @@ header .logo a {
   cursor: pointer;
 }
 
-header .btn_login {
-  display: block;
-  width:128px;
-  height:48px;
-  border-radius:8px;
-  background-color:var(--color-theme);
-  text-align:center;
-  line-height:48px;
-}
-
 header .btn_login a {
+  display: block;
+  width: 128px;
+  height: 48px;
   color:var(--color-white);
+  border-radius: 8px;
+  background-color: var(--color-theme);
   font-size:16px;
   font-weight:600;
+  text-align:center;
+  line-height:48px;
   cursor: pointer;
 }
 
-#main .banner {
+main .banner {
   display:flex;
   justify-content:center;
   align-items: center;
@@ -62,18 +162,18 @@ header .btn_login a {
   background-color:var(--color-bg-skyblue);
 }
 
-#main .banner .banner_txt > p {
+main .banner .banner_txt > p {
   color:var(--color-gray-1);
   font-size:40px;
   font-weight:700;
   line-height:56px;
 }
-#main .banner .banner_txt .btn_visual {
+main .banner .banner_txt .btn_visual {
   margin-top:32px;
   text-align:center;
 }
 
-#main .banner .banner_txt .btn_visual > a {
+main .banner .banner_txt .btn_visual > a {
   display:block;
   width: 357px;
   height: 56px;
@@ -86,43 +186,38 @@ header .btn_login a {
   cursor: pointer;
 }
 
-#main .banner .img {
+main .banner .img {
   padding-top:90px;
   font-size:0;
 }
 
-#main .wrap_inner {
-  width:1200px;
-  margin:0 auto;
-}
-
-#main .box {
+main .box {
   display:flex;
   align-items: center;
   gap:64px;
   padding:138px 0;
 }
 
-#main .box.right {
+main .box.right {
   justify-content: flex-end;
 }
 
-#main .box .img {
+main .box .img {
   max-width:588px;
 }
 
-#main .box .img img {
+main .box .img img {
   width:100%;
   height:auto;
 }
 
-#main .box .info .badge {
+main .box .info .badge {
   color:var(--color-theme);
   font-size:18px;
   font-weight:700;
 }
 
-#main .box .info .title {
+main .box .info .title {
   padding-top:12px;
   font-size:40px;
   font-weight:700;
@@ -130,7 +225,7 @@ header .btn_login a {
   letter-spacing:2%;
 }
 
-#main .box .info .txt {
+main .box .info .box_txt {
   padding-top:24px;
   font-size:24px;
   font-weight:500;
@@ -138,7 +233,7 @@ header .btn_login a {
   letter-spacing:8%;
 }
 
-footer {
+footer .ft_inner {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -159,14 +254,110 @@ footer ul.sns {
   gap:12px;
 }
 
-footer li::marker {
-  display: none;
-  font-size: 0;
-}
-
 footer ul li a {
   color:var(--color-white-2);
   font-size:16px;
   font-weight:400;
+}
+
+/* login.html & signup.html 공통 */
+.sub_logo {
+  width:396px;
+  height:132px;
+  margin:0 auto;
+}
+.sub_logo img {
+  width:100%;
+  height: auto;
+}
+
+.enter_box {
+  padding-top: 40px;
+}
+
+.enter_box > div + div {
+  padding-top: 24px;
+}
+
+.enter_box > div label {
+  display: block;
+  color: var(--color-black);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: left;
+  line-height: 26px;
+}
+
+.enter_box > div .pwd_box {
+  position: relative;
+}
+
+.enter_box > div .pwd_box .pwd_icon {
+  position: absolute;
+  right:24px;
+  top:0;
+  width: 24px;
+  height: 100%;
+  background:url(/images/icon/ic_pwd_default.png)no-repeat center right;
+  cursor: pointer;
+}
+
+.enter_box .box_btn > * {
+  display: block;
+  width:100%;
+  height:56px;
+  color:var(--color-bg-input);
+  background-color: var(--color-gray-2);
+  border:0;
+  border-radius:40px;
+  font-size:20px;
+  font-weight:600;
+  line-height:56px;
+  cursor: pointer;
+}
+.enter_box .box_btn:hover > * {
+  background-color:var(--color-theme);
+}
+
+.enter_box .simple_login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top:24px;
+  padding:16px 23px;
+  background-color:var(--color-bg-sns);
+  border-radius: 8px;
+}
+
+.enter_box .simple_login > p {
+  color:var(--color-black);
+  font-size:16px;
+  font-weight:500;
+}
+
+.enter_box .simple_login ul {
+  display: flex;
+  align-items: center;
+  gap:16px;
+}
+
+.enter_box .txt_joinus {
+  padding-top: 24px;
+  color: var(--color-black);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.enter_box .txt_joinus > a {
+  padding-left: 4px;
+  color: var(--color-theme);
+  font: inherit;
+  text-decoration: underline;
+}
+
+#login,
+#signup {
+  padding:60px 0;
+  text-align:center;
 }
 
