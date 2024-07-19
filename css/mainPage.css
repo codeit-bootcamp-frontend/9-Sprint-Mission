@@ -1,31 +1,3 @@
-@font-face {
-  font-family: "ROKAF Sans";
-  src: url("/fonts/ROKAF-Sans-Bold.woff") format("woff");
-}
-
-@font-face {
-  font-family: "Pretendard-Regular";
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
-
-* {
-  margin: 0;
-  box-sizing: border-box;
-}
-
-html {
-  --color-white: #ffffff;
-  --color-white-2: #E5E7EB;
-  --color-gray-1: #374151;
-  --color-gray-2: #9CA3AF;
-  --color-theme: #3692FF;
-  --color-theme-hover: #1967D6;
-  --color-bg-skyblue: #cfe5ff;
-  --color-bg-footer: #111827;
-}
-
 nav {
   display: flex;
   align-items: center;
@@ -39,11 +11,7 @@ nav {
   box-shadow: 1px 2px 9px -1px rgba(0, 0, 0, 0.2);
 }
 
-a {
-  cursor: pointer;
-}
-
-.logoBox {
+.logo-box {
   display: flex;
   align-items: center;
   gap: .5rem;
@@ -51,30 +19,30 @@ a {
   font-weight: 700;
   color: var(--color-theme);
   text-decoration: none;
-  font-size: 1.4rem;
+  font-size: 2.5rem;
 }
 
-.logoBox img {
+.logo-box img {
   width: 40px;
 }
 
-.navBar #login {
+.nav-bar #login {
   padding: 12px 20px;
   background-color: var(--color-theme);
   border-radius: 8px;
   text-decoration: none;
   color: var(--color-white);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.6rem;
   transition: all .1s ease-in-out;
 }
 
-.navBar #login:hover {
+.nav-bar #login:hover {
   background-color: var(--color-theme-hover);
 }
 
-.headerContents,
-.mainBottomContents {
+.header-contents,
+.main-bottom-contents {
   height: 540px;
   background-color: var(--color-bg-skyblue);;
   display: flex;
@@ -82,44 +50,43 @@ a {
   justify-content: center;
 }
 
-.contentsLeft {
+.contents-left {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.contentsLeft h2,
-.mainBottomContents h2 {
+.contents-left h2,
+.main-bottom-contents h2 {
   font-family: "Pretendard-Regular";
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 4rem;
   line-height: 56px;
-  color: var(--color-gray-1);
+  color: var(--color-gray700);
 }
 
-.contentsLeft a {
+.contents-left a {
   display: inline-block;
   padding: 16px 124px;
   background-color: var(--color-theme);
   border-radius: 40px;
   font-family: "Pretendard-Regular";
   font-weight: 600;
-  font-size: 1.3rem;
+  font-size: 2rem;
   line-height: 24px;
-  color: var(--color-font-1);
-  text-decoration: none;
+  color: var(--color-gray50);
   transition: all .1s ease-in-out;
 }
 
-.contentsLeft a:hover {
+.contents-left a:hover {
   background-color: var(--color-theme-hover);
 }
 
-.contentsRight {
+.contents-right {
   margin-top: 97px;
 }
 
-.mainContents {
+.main-contents {
   width: 1200px;
   margin: auto;
   display: flex;
@@ -144,20 +111,20 @@ a {
   gap: 12px;
   font-family: "Pretendard-Regular";
   h2 {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     font-weight: 700;
     line-height: 25.2px;
     color: var(--color-theme);
   }
   h3 {
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 4rem;
     line-height: 56px;
-    color: var(--color-gray-1);
+    color: var(--color-gray700);
   }
   p {
     font-weight: 500;
-    font-size: 1.5rem;
+    font-size: 2.4rem;
     line-height: 28.8px;
   }
 }
@@ -167,13 +134,13 @@ a {
   text-align: right;
 }
 
-.bottomContents {
+.bottom-contents {
   display: flex;
   align-items: center;
   width: 1200px;
 }
 
-.mainBottomContents img {
+.main-bottom-contents img {
   width: 70%;
   margin-top: 85px;
 }
@@ -187,29 +154,32 @@ footer {
   justify-content: space-between;
 }
 
-.footerContents {
+.footer-contents {
   font-family: "Pretendard-Regular";
-  font-size: .9rem;
+  font-size: 1.6rem;
   font-weight: 400;
 }
 
-.footerContents:nth-child(1) {
-  color: var(--color-gray-2);
+.footer-contents:nth-child(1) {
+  color: var(--color-gray400);
 }
 
-.footerContents:nth-child(2) {
+.footer-contents:nth-child(2) {
   display: flex;
   align-items: center;
   gap: 30px;
 }
 
-.footerContents:nth-child(2) a {
-  color: var(--color-white-2);
+.footer-contents:nth-child(2) a {
+  color: var(--color-gray200);
   text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 400;
 }
 
-.footerContents:nth-child(3) {
+.footer-contents:nth-child(3) {
   display: flex;
   align-items: center;
   gap: 12px;
 }
+
