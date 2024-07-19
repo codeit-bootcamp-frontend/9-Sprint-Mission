@@ -37,7 +37,9 @@
 }
 
 .login-username,
+.login-nickname,
 .login-password,
+.login-password2,
 .login-botton {
   display: flex;
   flex-direction: column;
@@ -65,7 +67,15 @@
 .eye-icon {
   position: absolute;
   right: 20px;
-  top: 59.5%;
+  top: 57.5%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.eye-icon2 {
+  position: absolute;
+  right: 20px;
+  top: 73%;
   transform: translateY(-50%);
   cursor: pointer;
 }
