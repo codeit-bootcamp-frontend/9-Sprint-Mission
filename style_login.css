@@ -90,14 +90,23 @@
   text-align: left;
 }
 
+.simple {
+  flex-grow: 1;
+}
+
 .google {
   width: 44px;
   height: 44px;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .kakaotalk {
+  margin-left: 10px;
   width: 44px;
   height: 44px;
+  display: inline-block;
+  vertical-align: top
 }
 
 .login-first {
