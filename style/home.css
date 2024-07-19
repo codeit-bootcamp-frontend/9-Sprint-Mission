@@ -32,7 +32,7 @@ header {
 }
 
 .banner-Text {
-    max-width: 1200px;
+    padding: 0 200px;
     width: 100%;
     margin: auto;
     gap: 32px;
@@ -132,6 +132,7 @@ footer p {
 
     .banner-Text {
         margin: 116px 0;
+        padding: 0;
     }
 
     #top-Banner br {
