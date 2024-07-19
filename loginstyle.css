@@ -75,17 +75,122 @@ body {
   gap: 2.224rem;
 }
 
-.login_page_header .logo {
+.login_page .login_page_header .logo {
   flex-shrink: 0;
   display: block;
   width: 103px;
   height: 103px;
 }
 
-.login_page_header .logo_title {
+.login_page .login_page_header .logo_title {
   font-family: "ROKAF Sans";
   font-weight: 700;
   font-size: 6.634rem;
   line-height: 8.956rem;
   color: var(--primary100);
+}
+
+.login_page .main_content {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  width: 100%;
+}
+
+.login_page .form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.login_page .login_label {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+  color: var(--gray800);
+  margin-bottom: 1.6rem;
+}
+
+.login_page .input_box {
+  border: none;
+  border-radius: 1.2rem;
+  padding: 1.6rem 2.4rem;
+  background-color: var(--gray100);
+  width: 100%;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  color: var(--gray800);
+}
+
+.login_page .passowrd_container {
+  position: relative;
+}
+
+.login_page .button_visibility {
+  position: absolute;
+  top: 1.6rem;
+  right: 2.4rem;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+  background-color: var(--gray400);
+  color: #fff;
+}
+
+.login_page .login {
+  border-radius: 4rem;
+  padding: 1.6rem 12.4rem;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 3.2rem;
+  height: 5.6rem;
+}
+
+.login_page .easy_login {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.8rem;
+  border: none;
+  background-color: #e6f2ff;
+  padding: 1.6rem 2.3rem;
+  height: 7.4rem;
+}
+
+.login_page .easy_login_label {
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 500;
+}
+
+.login_page .nav_login {
+  display: flex;
+  flex-direction: row;
+  gap: 1.6rem;
+}
+
+.login_page .easy_login_icon {
+  width: 4.2rem;
+  height: 4.2rem;
+}
+
+.login_page .footer_nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 2.4rem;
+}
+
+.login_page .link_signup {
+  color: var(--primary100);
+  line-height: 1.671rem;
 }

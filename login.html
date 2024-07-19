@@ -25,26 +25,59 @@
             <h1 class="logo_title">판다마켓</h1></a
           >
         </header>
-        <section>
-          <section>
-            <div>
-              <h2>이메일</h2>
-              <input />
-            </div>
-            <div>
-              <h2>비밀번호</h2>
-              <input />
-            </div>
-            <a>로그인</a>
-          </section>
-          <section>
-            <span>간편 로그인하기</span>
-            <nav>
-              <a><img /></a>
-              <a><img /></a>
+        <section class="main_content">
+          <form class="form">
+            <label for="email">
+              <p class="login_label">이메일</p>
+              <input
+                class="input_box"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="이메일을 입력해주세요"
+              />
+            </label>
+            <label for="password">
+              <p class="login_label">비밀번호</p>
+              <div class="passowrd_container">
+                <input
+                  class="input_box"
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="비밀번호를 입력해주세요"
+                  autocomplete="off"
+                />
+                <img
+                  class="button_visibility"
+                  src="./images/btn_visibility_on_24px.png"
+                  alt="비밀번호 표시 아이콘"
+                />
+              </div>
+            </label>
+          </form>
+          <a class="login btn cursor" href="">로그인</a>
+          <section class="easy_login">
+            <span class="easy_login_label">간편 로그인하기</span>
+            <nav class="nav_login">
+              <a href="https://www.google.com/"
+                ><img
+                  class="easy_login_icon"
+                  src="./images/ic_google.png"
+                  alt="구글 아이콘"
+              /></a>
+              <a href="https://www.kakaocorp.com/page/"
+                ><img
+                  cass="easy_login_icon"
+                  src="./images/ic_kakaotalk.png"
+                  alt="카카오톡 아이콘"
+              /></a>
             </nav>
           </section>
-          <footer>판다마켓이 처음이신가요? <a>회원가입</a></footer>
+          <footer class="footer_nav">
+            판다마켓이 처음이신가요?
+            <a class="link_signup" href="/signup">회원가입</a>
+          </footer>
         </section>
       </main>
     </div>
