@@ -1,3 +1,26 @@
+// Breakpoints
+$breakpoint-mobile: 375px;
+$breakpoint-tablet: 768px;
+$breakpoint-pc: 1200px;
+
+@mixin mobile {
+  @media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-pc - 1px}) {
+    @content;
+  }
+}
+
+@mixin pc {
+  @media (min-width: #{$breakpoint-pc}) {
+    @content;
+  }
+}
+
 // Colors
 $main-bg: #CFE5FF;
 $clr-blue: #3692FF;
@@ -18,63 +41,63 @@ $gray50: #F9FAFB;
 	font-family: 'Pretendard';
 	font-weight: 900;
 	font-display: swap;
-	src: local('Pretendard Black'), url(./woff2/Pretendard-Black.woff2) format('woff2'), url(./woff/Pretendard-Black.woff) format('woff');
+	src: local('Pretendard Black'), url(../fonts/Pretendard/Pretendard-Black.woff) format('woff2'), url(../fonts/Pretendard/Pretendard-Black.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 800;
 	font-display: swap;
-	src: local('Pretendard ExtraBold'), url(./woff2/Pretendard-ExtraBold.woff2) format('woff2'), url(./woff/Pretendard-ExtraBold.woff) format('woff');
+	src: local('Pretendard ExtraBold'), url(../fonts/Pretendard/Pretendard-ExtraBold.woff2) format('woff2'), url(../fonts/Pretendard/Pretendard-ExtraBold.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 700;
 	font-display: swap;
-	src: local('Pretendard Bold'), url(./woff2/Pretendard-Bold.woff2) format('woff2'), url(./woff/Pretendard-Bold.woff) format('woff');
+	src: local('Pretendard Bold'), url(../fonts/Pretendard/Pretendard-Bold.woff2) format('woff2'), url(../fonts/Pretendard/Pretendard-Bold.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 600;
 	font-display: swap;
-	src: local('Pretendard SemiBold'), url(./woff2/Pretendard-SemiBold.woff2) format('woff2'), url(./woff/Pretendard-SemiBold.woff) format('woff');
+	src: local('Pretendard SemiBold'), url(../fonts/Pretendard/Pretendard-SemiBold.woff2) format('woff2'), url(../fonts/Pretendard/Pretendard-SemiBold.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 500;
 	font-display: swap;
-	src: local('Pretendard Medium'), url(./woff2/Pretendard-Medium.woff2) format('woff2'), url(./woff/Pretendard-Medium.woff) format('woff');
+	src: local('Pretendard Medium'), url(../fonts/Pretendard/Pretendard-Medium.woff2) format('woff2'), url(../fonts/Pretendard/Pretendard-Medium.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 400;
 	font-display: swap;
-	src: local('Pretendard Regular'), url(./woff2/Pretendard-Regular.woff2) format('woff2'), url(./woff/Pretendard-Regular.woff) format('woff');
+	src: local('Pretendard Regular'), url(../fonts/Pretendard/Pretendard-Regular.woff2) format('woff2'), url(../fonts/Pretendard/Pretendard-Regular.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 300;
 	font-display: swap;
-	src: local('Pretendard Light'), url(./woff2/Pretendard-Light.woff2) format('woff2'), url(./woff/Pretendard-Light.woff) format('woff');
+	src: local('Pretendard Light'), url(../fonts/Pretendard/Pretendard-Light.woff2) format('woff2'), url(../fonts/Pretendard/Pretendard-Light.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 200;
 	font-display: swap;
-	src: local('Pretendard ExtraLight'), url(./woff2/Pretendard-ExtraLight.woff2) format('woff2'), url(./woff/Pretendard-ExtraLight.woff) format('woff');
+	src: local('Pretendard ExtraLight'), url(../fonts/Pretendard/Pretendard-ExtraLight.woff2) format('woff2'), url(../fonts/Pretendard/Pretendard-ExtraLight.woff) format('woff');
 }
 
 @font-face {
 	font-family: 'Pretendard';
 	font-weight: 100;
 	font-display: swap;
-	src: local('Pretendard Thin'), url(./woff2/Pretendard-Thin.woff2) format('woff2'), url(./woff/Pretendard-Thin.woff) format('woff');
+	src: local('Pretendard Thin'), url(../fonts/Pretendard/Pretendard-Thin.woff2) format('woff2'), url(../fonts/Pretendard/Pretendard-Thin.woff) format('woff');
 }
 
 html,
@@ -97,5 +120,11 @@ body {
 @mixin flex-center {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
