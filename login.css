@@ -1,0 +1,157 @@
+/* 폰트 */
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("/fonts/ROKAF-Sans-Bold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
+}
+
+/* 컬러 팔레트 */
+:root {
+  --color-white: #ffffff;
+  --color-white-2: #E5E7EB;
+  --color-gray900: #111827;
+  --color-gray800: #1F2937;
+  --color-gray700: #374151;
+  --color-gray600: #4B5563;
+  --color-gray500: #6B7280;
+  --color-gray400: #9CA3AF;
+  --color-gray200: #E5E7EB;
+  --color-gray100: #F3F4F6;
+  --color-gray50: #F9FAFB;
+  --color-blue: #3692FF;
+  --color-blue-hover: #1967D6;
+  --color-skyblue: #cfe5ff;
+  --color-skyblue-2: #E6F2FF;
+  --color-footer: #111827;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Pretendard-Regular", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 250px auto;
+}
+
+header {
+  margin-bottom: 50px;
+} 
+
+.logo-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-box img {
+  height: 103px;
+  width: auto;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.home {
+  color: var(--color-blue);
+  text-decoration: none;
+  font-size: 6.6rem;
+  font-weight: 700;
+  font-family: "ROKAF Sans";
+}
+
+.email, .password, .nickname, .password-check {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--color-gray800);
+  font-size: 1.8rem;
+}
+
+#email, #password, #nickname, #password-check {
+  background-color: var(--color-gray100);
+  padding: 16px 24px;
+  gap: 10px;
+  border-radius: 12px;
+  border: none;
+  width: 640px;
+  outline-color: var(--color-blue);
+}
+
+.visi-off, .visi-on {
+  position: relative;
+}
+
+.visi-off img, .visi-on img {
+  position: absolute;
+  left: 600px;
+  bottom: 30px;
+}
+
+.login-button, .signup-button {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  background-color: var(--color-gray400);
+  width: 640px;
+  padding: 16px 124px;
+  gap: 10px;
+  border-radius: 40px;
+}
+
+.login-button a, .signup-button a {
+  color: var(--color-gray100);
+  text-decoration: none;
+}
+
+.simple-login {
+  font-size: 1.6rem;
+  color: var(--color-gray800);
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-skyblue-2);
+  width: 640px;
+  padding: 16px 23px;
+  gap: 10px;
+  border-radius: 8px;
+}
+
+.simple-login .icons {
+  display: flex;
+  gap: 16px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 500;
+  gap: 4px;
+}
+
+.bottom p {
+  color: var(--color-gray800);
+}
+
+.bottom a {
+  color: var(--color-blue);
+}
