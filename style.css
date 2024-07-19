@@ -1,65 +1,36 @@
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
-
-:root {
-    --gray900: #111827;
-    --gray800: #1f2937;
-    --gray700: #374151;
-    --gray600: #4B5563;
-    --gray500: #6B7280;
-    --gray400: #9CA3AF;
-    --gray200: #E5E7EB;
-    --gray100: #F3F4F6;
-    --gray50: #F9FAFB;
-    --color: #3692FF;
-    --background-color: #CFE5FF;
-    --error: #F74747;
-
-}
-
-* {
-    box-sizing: border-box;
-    font-family: "Pretendard-Regular";
-}
-
 .header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
     width: 100%;
-    padding: 10px 200px 9px 200px;
+    padding: 10px 200px 9px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.logo {
+    width: 153px;
+    height: 51px;
+}
 
-.login {
-    width: 128px;
-    height: 48px;
-    padding: 12px 20px;
-    background-color: var(--color);
-    color: white;
-    border: 1px solid transparent;
-    border-radius: 8px;
-    cursor: pointer;
+.main {
+    margin-top: 74px;
 }
 
 .login-button {
     width: 128px;
     height: 48px;
-    border: 1px solid transparent;
     border-radius: 8px;
-    padding: 12px 20px;
+    padding: 12px 23px;
     text-decoration: none;
+    font-weight: 600;
     background-color: var(--color);
-    color: white;
-    cursor: pointer;
+    color: var(--gray50);
     text-align: center;
 }
 
-.top-banner-button {
+.banner-button {
     width: 367px;
     height: 56px;
     border: 1px solid transparent;
@@ -73,7 +44,6 @@
 }
 
 .banner {
-    width: 100%;
     height: 540px;
     display: flex;
     justify-content: center;
@@ -84,38 +54,22 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 32px;
     width: 357px;
 }
 
 .banner-title {
     font-size: 40px;
-    font-weight: 700;
     line-height: 56px;
     color: var(--gray700);
 }
 
 .bottom-banner-title {
     font-size: 40px;
-    font-weight: 700;
     line-height: 56px;
     position: absolute;
     left: 360px;
     top: 214px;
-}
-
-.info-button {
-    width: 357px;
-    height: 56px;
-    padding: 16px 124px;
-    background-color: var(--color);
-    color: white;
-    border: 1px solid transparent;
-    border-radius: 40px;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 24px;
-    text-align: center;
-    cursor: pointer;
 }
 
 .banner-img {
@@ -128,7 +82,6 @@
 .contents {
     width: 1200px;
     margin: 138px auto;
-    border: 1px solid transparent;
 }
 
 .contents-wrap {
@@ -145,7 +98,7 @@
     height: 444px;
 }
 
-.content>img {
+.content-img {
     width: 588px;
     height: 444px;
 }
@@ -166,7 +119,6 @@
 }
 
 .content-label {
-    margin: 0;
     font-size: 18px;
     font-weight: 700;
     color: #3692FF;
@@ -177,7 +129,6 @@
     height: 112px;
     margin-top: 12px;
     font-size: 40px;
-    font-weight: 700;
     color: var(--gray700);
     line-height: 56px;
 }
@@ -192,33 +143,32 @@
 }
 
 .footer {
-    width: 100%;
     height: 160px;
     background-color: var(--gray900);
-    color: white;
-    border: 1px solid transparent;
+    color: var(--gray50);
 }
 
 .footer-info {
     width: 1520px;
     height: 20px;
-    margin: 32px auto;
+    padding: 32px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
 }
 
-.privacy-and-policy {
+.policy-and-faq {
     display: flex;
     gap: 30px;
 }
 
-.SNS {
+.sns {
     display: flex;
     gap: 10px;
 }
 
 .url {
     text-decoration: none;
-    color: white;
+    color: var(--gray50);
 
 }
