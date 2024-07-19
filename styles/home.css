@@ -1,17 +1,8 @@
-* {
-	box-sizing: border-box;
-	margin: 0;
-}
-
-body {
-	font-family: "Pretendard Variable", Pretendard, sans-serif;
-}
-
-.header {
-	padding-left: 200px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+header {
+	padding: 10px 0 10px 200px;
+	position: sticky;
+	top: 0;
+	z-index: 1;
 }
 
 .header-logo {
@@ -39,17 +30,17 @@ a.header-login:hover {
 	background-color: #1251AA;
 }
 
-.header-main {
+.banner {
 	height: 540px;
 	background-color: #CFE5FF;
 	display: flex;
 	justify-content: center;
 }
 
-.header-main-container {
+.banner-main {
 	width: 1920px;
 	height: 540px;
-	background-image: url(img-panda1.png);
+	background-image: url(../images/home/img-panda1.png);
 	background-position: right bottom;
 	background-repeat: no-repeat;
 	background-size: 996px 447px;
@@ -59,20 +50,24 @@ a.header-login:hover {
 	position: relative;
 }
 
-.header-main-content {
+.wrapper {
 	color: #374151;
 	font-size: 40px;
 	font-weight: 600;
 	line-height: 56px;
-	position: absolute;
+	padding-left: 405px;
 	left: 360px;
 }
 
-.header-main-content p {
+.wrapper h1 {
+	font-size: 40px;
+	font-weight: 700;
+	line-height: 56px;
+	letter-spacing: 0.02em;
 	margin-bottom: 32px;
 }
 
-.header-button {
+.banner-button {
 	background-color: #3692FF;
 	width: 357px;
 	height: 56px;
@@ -86,17 +81,11 @@ a.header-login:hover {
 	color: #ffffff;
 }
 
-a.header-button:hover {
+a.banner-button:hover {
 	background-color: #1251AA;
 }
 
-.header-img {
-	width: 996px;
-	height: auto;
-  margin: 93px 0 0 701px;
-}
-
-.section1 {
+.features-item {
 	padding: 16px 360px;
 	display: flex;
 	flex-direction: column;
@@ -104,7 +93,7 @@ a.header-button:hover {
 	align-items: center;
 }
 
-.container1 {
+.container {
 	color: #374151;
 	width: 1200px;
 	display: flex;
@@ -119,34 +108,15 @@ a.header-button:hover {
 	margin-right: 20px;
 }
 
-.article1,
-.article3 {
+.hot-item,
+.register {
 	display: flex;
 	flex-direction: column;
 	margin-left: 64px;
 }
 
-.article1 h2,
-.article3 h2 {
-	color: #3692FF;
-	margin: 0;
-	padding: 0;
-}
-
-.article1 p,
-.article3 p {
-	margin: 10px 0;
-	font-size: 24px;
-}
-
-.article2 {
-	display: flex;
-	flex-direction: column;
-	text-align: right;
-	margin-right: 64px;
-}
-
-.article2 h2 {
+.hot-item h2,
+.register h2 {
 	color: #3692FF;
 	font-size: 18px;
 	font-weight: 700;
@@ -154,32 +124,55 @@ a.header-button:hover {
 	padding: 0;
 }
 
-.article2 p {
-	margin: 10px 0;
+.hot-item p,
+.register p {
+	margin: 24px 0;
+	font-size: 24px;
 }
 
-p.article-title {
+.search {
+	display: flex;
+	flex-direction: column;
+	text-align: right;
+	margin-right: 64px;
+}
+
+.search h2 {
+	color: #3692FF;
+	font-size: 18px;
+	font-weight: 700;
+	margin: 0;
+	padding: 0;
+}
+
+.search p {
+	margin: 24px 0;
+}
+
+h3.article-title {
 	font-size: 40px;
 	font-weight: 700;
 	line-height: 56px;
+	margin-top: 12px;
 }
 
 p.article-content {
+	font-size: 24px;
 	font-weight: 500;
 	line-height: 32px;
 }
 
-.section2 {
+.bottom-banner {
 	height: 540px;
 	background-color: #CFE5FF;
 	display: flex;
 	justify-content: center;
 }
 
-.container2 {
+.bottom-wrapper{
 	width: 1920px;
 	height: 540px;
-	background-image: url(img-panda2.png);
+	background-image: url(../images/home/img-panda2.png);
 	background-position: right bottom;
 	background-repeat: no-repeat;
 	background-size: 996px 540px;
@@ -193,19 +186,9 @@ p.article-content {
 	font-size: 40px;
 	font-weight: 600;
 	line-height: 56px;
-	position: absolute;
+	padding-left: 405px;
 	top: 214px;
 	left: 360px;
-}
-
-.footer {
-	background-color: #111827;
-	height: 160px;
-	display: flex;
-	justify-content: space-between;
-	align-items: start;
-	color: #ffffff;
-	padding: 32px 200px 109px 200px;
 }
 
 .footer-info {
@@ -223,16 +206,11 @@ p.article-content {
 	color: #ffffff;
 }
 
-.footer-links {
-	display: flex;
-	gap: 13px;
-}
-
-.footer-links a {
+.socialMedia a {
 	display: inline-block;
 }
 
-.footer-links img {
+.socialMedia img {
 	width: 20px;
 	height: auto;
 }

@@ -1,75 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
-    <title>판다마켓</title>
 	  <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" href="style.css">
+		<title>판다마켓</title>
+		<link rel="icon" href="./images/logo/favicon.png">
 		<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+		<link rel="stylesheet" href="./styles/global.css">
+		<link rel="stylesheet" href="./styles/home.css">
 	</head>
 	<body>
-		<div class="header">
-			<a href="/"><img class="header-logo" src="property-logo1.png"></a>
-			<a class="header-login" href="/login">로그인</a>
-		</div>
-		<div class="header-main">
-			<div class="header-main-container">
-				<div class="header-main-content">
-					<p>
+		<header>
+			<a href="/"><img class="header-logo" src="./images/logo/property-logo1.png" alt="판다마켓 홈"></a>
+			<a class="header-login" href="login.html">로그인</a>
+		</header>
+		
+		<div class="banner">
+			<section class="banner-main">
+				<div class="wrapper">
+					<h1>
 						일상의 모든 물건을<br>
 						거래해 보세요
-					</p>
-					<a class="header-button" href="/items">구경하러 가기</a>
+					</h1>
+					<a href="/items" class="banner-button">구경하러 가기</a>
 				</div>
-			</div>
+			</section>
 		</div>
-		<div class="main">
-			<div class="section1">
-				<div class="container1">
-					<img class="figure" src="img-home1.png">
-					<div class="article1">
+
+		<main class="main">
+			<section class="features-item">
+				<div class="container">
+					<img class="figure" 
+					src="./images/home/img-home1.png"
+					alt="인기 상품" 
+					width="50%"
+					>
+					<div class="hot-item">
 						<h2>Hot Item</h2>
-						<p class="article-title">
+						<h3 class="article-title">
 							인기 상품을<br>
 							확인해 보세요
-						</p>
+						</h3>
 						<p class="article-content">
 							가장 HOT한 중고거래 물품을<br>
 							판다 마켓에서 확인해 보세요
 						</p>
 					</div>
 				</div>
-				<div class="container1">
-					<div class="article2">
+
+				<div class="container">
+					<div class="search">
 						<h2>Search</h2>
-						<p class="article-title">
+						<h3 class="article-title">
 							구매를 원하는<br>
 							상품을 검색하세요
-						</p>
+						</h3>
 						<p class="article-content">
 							구매하고 싶은 물품은 검색해서<br>
 							쉽게 찾아보세요
 						</p>
 					</div>
-					<img class="figure" src="img-home2.png">
+					<img class="figure" 
+					src="./images/home/img-home2.png"
+					alt="검색 기능"
+					width="50%"
+					>
 				</div>
-				<div class="container1">
-					<img class="figure" src="img-home3.png">
-					<div class="article3">
+
+				<div class="container">
+					<img class="figure" 
+					src="./images/home/img-home3.png"
+					alt="판매 상품 등록"
+					width="50%"
+					>
+					<div class="register">
 						<h2>Register</h2>
-						<p class="article-title">
+						<h3 class="article-title">
 							판매를 원하는<br>
 							상품을 등록하세요
-						</p>
+						</h3>
 						<p class="article-content">
 							어떤 물건이든 판매하고 싶은 상품을<br>
 							쉽게 등록하세요
 						</p>
 					</div>
 				</div>
-			</div>
-			<div class="section2">
-				<div class="container2">
+			</section>
+
+			<section class="bottom-banner">
+				<div class="bottom-wrapper">
 					<div class="content">
 						<p>
 							믿을 수 있는<br>
@@ -77,21 +96,41 @@
 						</p>
 					</div>
 				</div>
-			</div>
-			<div class="footer">
-				<div>
-					<p>©codeit - 2024</p>
-				</div>
+			</section>
+		</main>
+
+			<footer>
+				<div>©codeit - 2024</div>
 				<div class="footer-info">
-					<a class="link" href="/privacy"><span>Privacy Policy</span></a>
-					<a class="link" href="/faq"><span>FAQ</span></a>
+					<a class="link" href="/privacy">Privacy Policy</a>
+					<a class="link" href="/faq">FAQ</a>
 				</div>
-				<div class="footer-links">
-					<a href="https://www.facebook.com"><span><img src="icon-facebook.png" alt="Facebook Icon"></span></a>
-					<a href="https://x.com"><span><img src="icon-twitter.png" alt="Twitter Icon"></span></a>
-					<a href="https://www.youtube.com"><span><img src="icon-youtube.png" alt="Youtube Icon"></span></a>
-					<a href="https://www.instagram.com"><span><img src="icon-insta.png" alt="Instagram"></span></a>
+
+				<div class="socialMedia">
+					<a 
+					href="https://www.facebook.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					><img src="./images/social/icon-facebook.png" alt="페이스북" width="20"
+					></a>
+					<a 
+					href="https://x.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					><img src="./images/social/icon-twitter.png" alt="트위터" width="20"
+					></a>
+					<a 
+					href="https://www.youtube.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					><img src="./images/social/icon-youtube.png" alt="유튜브" width="20"
+					></a>
+					<a 
+					href="https://www.instagram.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					><img src="./images/social/icon-insta.png" alt="인스타그램" width="20"
+					></a>
 				</div>
-			</div>
-		</div>
+			</footer>
 	</body>
