@@ -7,21 +7,16 @@
         margin-block-end: 0; 
     }
 
-    html {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
+html {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .container {
     width : 640px;
-    margin: 0 auto;
     text-align: center;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
 }
 
 .foam-text {
