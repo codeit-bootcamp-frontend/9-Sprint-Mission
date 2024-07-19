@@ -1,18 +1,39 @@
 body {
-    width: 100%;
+    width: 640px;
     height: 100vh;
     display: flex;
+    margin: auto;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
 }
 
 header {
     margin: 0 0 40px;
+    height: 132px;
+    display: flex;
+    justify-content: center;
 }
 
-#logo {
-    height: 137px;
+#logo img {
+    width: 396px;
+    height: 132px;
+}
+
+@media (max-width: 767px) {
+    body {
+        width: 100%;
+        max-width: 400px;
+        padding: 16px;
+    }
+    header {
+        height: 66px;
+        margin: 0 0 24px;
+    }
+    #logo img {
+        width: 198px;
+        height: 66px;
+    }
 }
 
 main {
@@ -34,7 +55,7 @@ form label {
 }
 
 form input {
-    width: 640px;
+    width: 100%;
     height: 56px;
     padding: 16px 24px;
     font-size: 16px;
@@ -66,7 +87,7 @@ form .pwd-Eye {
 }
 
 form button {
-    width: 640px;
+    width: 100%;
     height: 56px;
     border: 0;
     border-radius: 40px;
@@ -98,6 +119,7 @@ footer {
     text-align: center;
     font-size: 14px;
     display: flex;
+    justify-content: center;
     gap: 4px;
 }
 
