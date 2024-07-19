@@ -54,7 +54,8 @@ body {
   margin: 0 auto;
 }
 
-.login_page {
+.login_page,
+.signup_page {
   width: 640px;
   display: flex;
   flex-direction: column;
@@ -63,7 +64,8 @@ body {
   margin: 231px auto;
 }
 
-.login_page .login_page_header {
+.login_page .login_page_header,
+.signup_page .signup_page_header {
   height: 13.2rem;
   align-content: center;
 }
@@ -200,7 +202,8 @@ body {
   line-height: 2.4rem;
 }
 
-.login_page .link_signup {
+.login_page .link_signup,
+.login_page .link_login {
   color: var(--primary100);
   line-height: 1.671rem;
 }
