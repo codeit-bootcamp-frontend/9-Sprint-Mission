@@ -37,6 +37,7 @@ p {
   align-items: center;
   height: 100vh;
   flex-direction: column;
+  margin: 120px 0px;
 }
 
 .logo {
