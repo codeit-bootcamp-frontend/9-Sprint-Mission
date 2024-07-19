@@ -4,32 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>판다마켓</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
 
 </head>
 <body>
     <header> 
         <div class="header-container">
-            <div class="logo-box">
-                <img class='logo' src="images/logo.png">
-                <a href='index.html' class="title">판다마켓</a> 
-            </div>
-            <button class="header-bt"><a class='header-bt-a' href="login.html">로그인</a></button>
+            <h1 class="logo-domain"><a class='logo' href='index.html' alt="Panda Market"><img class='logo-img' src="images/logo.svg"></a></h1>
+            <div class="header-button"><a class='header-button-a' href="login.html">로그인</a></div>
         </div>
         <div class="banner">
             <div class="container">
                 <div class="banner-main">
-                    <h1 class="banner-main-h1">일상의 모든 물건을 <br>거래해 보세요</h1>
-                    <button class="banner-bt"><a class='banner-bt-a' href="items.html">구경하러 가기</a></button>
+                    <h2 class="banner-main-article">일상의 모든 물건을 <br>거래해 보세요</h2>
+                    <div class="banner-button"><a class='banner-button-a' href="items.html">구경하러 가기</a></div>
                 </div>
             </div>
         </div>
-    </header>    
+    </header>     
 
     <section>
         <div class="container">
             <div class="section1">
-                <img class='anticle_img' src="images/Img_home_01.png">
+                <img class='anticle_img' src="images/Img_home_01.png" alt="">
                 <div class='anticle'>
                     <p class="top">Hot item</p>
                     <h2 class="mid">인기 상품을<br>확인해 보세요</h2>
@@ -43,11 +41,11 @@
         <div class="container">
             <div class="section1 section2">
                 <div class='anticle'>
-                    <p class="top">Search</p>
+                    <span class="top">Search</span>
                     <h2 class="mid">구매를 원하는<br>상품을 검색하세요</h2>
                     <p class="bottom">구매하고 싶은 물품은 검색해서<br>쉽게 찾아보세요</p>
                 </div>
-                <img class='anticle_img' src="images/Img_home_03.png">
+                <img class='anticle_img' src="images/Img_home_02.png" alt="">
             </div>
         </div>
     </section>
@@ -55,9 +53,9 @@
     <section>
         <div class="container">
             <div class="section1 section3">
-                <img class='anticle_img' src="images/Img_home_01.png">
+                <img class='anticle_img' src="images/Img_home_03.png" alt="">
                 <div class='anticle'>
-                    <p class="top">Register</p>
+                    <span class="top">Register</span>
                     <h2 class="mid">판매를 원하는<br>상품을 등록하세요</h2>
                     <p class="bottom">어떤 물건이든 판매하고 싶은 상품을<br>쉽게 등록하세요</p>
                 </div>
@@ -65,26 +63,27 @@
         </div>
     </section>
 
-    <footer>
+    <section class="section4">
         <div class="container">
-            <h1>믿을 수 있는<br>판다마켓 중고거래</h1>
+            <h2 class="section4-anticle">믿을 수 있는<br>판다마켓 중고거래</h2>
         </div>
-    </footer>
+    </section>
     <div class="nav">
         <div class="nav-container">
             <div class="nav-element">
-                <p>©codeit - 2024</p>
-                <div class="footer-a">
-                    <a href="privacy.html">Policy</a>
-                    <a href="faq.html">FAQ</a>
+                <span class="footer-nav-left">©codeit - 2024</span>
+                <div class="footer-nav-mid">
+                    <a class='privary_and_faq' href="privacy.html">Policy</a>
+                    <a class='privary_and_faq' href="faq.html">FAQ</a>
                 </div>
-                <div class="image">
-                    <a href="https://www.facebook.com" target="_blank"><img src="images/ic_facebook.png"></a>
-                    <a href="https://www.twitter.com" target="_blank"><img src="images/ic_twitter.png"></a>
-                    <a href="https://www.youtube.com" target="_blank"><img src="images/ic_youtube.png"></a>
-                    <a href="https://www.instagra.com" target="_blank"><img src="images/ic_instagram.png"></a>
+                <div class="images">
+                    <a class="image" href="https://www.facebook.com" target="_blank"><img src="images/ic_facebook.png" alt="Facebook"></a>
+                    <a class="image" href="https://www.twitter.com" target="_blank"><img src="images/ic_twitter.png" alt="Twitter"></a>
+                    <a class="image" href="https://www.youtube.com" target="_blank"><img src="images/ic_youtube.png" alt="Youtube"></a>
+                    <a class="image" href="https://www.instagra.com" target="_blank"><img src="images/ic_instagram.png" alt="Instagram"></a>
                 </div>
             </div>
+        </div>
     </div>
 </body>
-</html>
+</html> 
