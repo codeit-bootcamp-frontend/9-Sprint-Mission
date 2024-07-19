@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary100: #3692ff;
+  --primary200: #1967d6;
+  --primary300: #1251aa;
+  --error: #f74747;
+  --gray900: #111827;
+  --gray800: #1f2937;
+  --gray700: #374151;
+  --gray600: #4b5563;
+  --gray500: #6b7280;
+  --gray400: #9ca3af;
+  --gray200: #e5e7eb;
+  --gray100: #f3f4f6;
+  --gray50: #f9fafb;
+  --background-color: #cfe5ff;
+  --login-background: #fcfcfc;
+}
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./fonts/ROKAF\ Sans\ Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./fonts/ROKAF\ Sans\ Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+html {
+  font-family: Pretendard, sans-serif;
+  word-break: keep-all;
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--login-background);
+  color: var(--gray700);
+  margin: 0;
+}
+
+.wrap {
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.login_page {
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin: 231px auto;
+}

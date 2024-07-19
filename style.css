@@ -17,6 +17,7 @@
   --gray100: #f3f4f6;
   --gray50: #f9fafb;
   --background-color: #cfe5ff;
+  --login-background: #fcfcfc;
 }
 
 @font-face {
@@ -43,6 +44,10 @@ body {
   background-color: var(--background-color);
   color: var(--gray700);
   margin: 0;
+}
+
+.login_page {
+  background-color: var(--login-background);
 }
 
 .wrap {
