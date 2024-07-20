@@ -14,11 +14,14 @@
 
     <form>
         <div class="container">
-            <label class="label"><span class="name">이메일</span></label>
+            <label class="label">이메일</label>
             <input class='email' name="email" type="email" placeholder="이메일을 입력해주세요.">
             
-            <label class="label"><span class="name">비밀번호</span></label>
-            <input class='password' name="password" type="password" placeholder="비밀번호를 입력해주세요.">
+            <label class="label">비밀번호</label>
+            <div class="password-box">
+                <input class='password' name="password" type="password" placeholder="비밀번호를 입력해주세요.">
+                <button class="eye" type="button"><img src='images/eye.svg' class="eye-img" width="24px" height="24px" alt="eye"></button>
+            </div>
 
             <button class="login-button-box" type='submit'><span class="login-button">로그인</span></button>
         </div>
@@ -38,5 +41,6 @@
             </div>
         </div>
     </footer>
+    <script src="login.js"></script>
 </body>
 </html>

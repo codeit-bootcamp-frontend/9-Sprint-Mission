@@ -1,24 +1,41 @@
-
-
-.email{
-    width: 100%;
-}
-
-.password{
-    width: 100%;
-    background: url('../images/eye.png') no-repeat right 24px bottom 15px/24px 24px;
-}
-
-
-
 .email, .password{
+    width: 100%;
     background-color: #F3F4F6;
-    font-size: 16px;
-    line-height:24px;
     border: 0;
     border-radius: 12px;
     padding: 16px 24px;
+    font-size: 16px;
+    line-height:24px;
     font-weight: 400;
+}
+
+.email{
+    margin: 16px 0 24px;
+}
+
+.password-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin: 16px 0 24px;
+}
+
+.eye{
+    position: absolute;
+    bottom: 16px;
+    right: 24px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+.eye-img{
+    display: inline-block;
+    vertical-align: top;
+    background-color: #F3F4F6;
 }
 
 .email:focus, .password:focus {
@@ -69,13 +86,12 @@ footer{
 
 .footer1-sns{
     display: flex;
-    align-items: center;
     gap: 16px;
 }
 
 .footer1-link{
     display: inline-block;
-    vertical-align: top;
+    vertical-align: baseline;
 }
 
 .footer2{
@@ -110,19 +126,15 @@ footer{
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 0 24px 0;
+        margin-bottom: 24px;
     }   
+}
 
-    .label{
-        font-family: 'Pretendard';
-        font-weight: 700;
-        font-size: 18px;
-        line-height :21.48px;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        margin: 0 0 16px 0;
-    }
+.label{
+    font-family: 'Pretendard',sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height :21.48px;
 }
 
 @media (min-width: 768px){
@@ -140,14 +152,12 @@ footer{
     .logo-domain{
         margin-bottom: 40px;
     }   
-    .label{
-        gap: 16px;
-    }
 }
 
 @media (min-width: 1200px){
     body{
         padding: 231px 0;
     }
+    
     
 }
