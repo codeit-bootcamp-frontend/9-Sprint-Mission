@@ -8,16 +8,17 @@ header{
     position:fixed;
     top:0;
     background-color: #ffffff;
-    margin: 0px auto;
+    margin: 0px;
     width: 100%;
     z-index: 999;
+    text-align: center;
 }
 header .nav{
     display:flex;
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    margin: 0 200px;
+    margin: 0 10%;
 }
 .banner{
     position:relative;
@@ -69,34 +70,30 @@ header .nav{
     gap: 48px;
 }
 
-section img{
+.section-area img{
     border-radius: 24px;
 }
 
-section div{
+.section-area div{
     display: flex;
     flex-direction: column;
     justify-content: center;
     flex-grow: 1;
-    /* gap: 16px; */
-    width: 300px;
 }
 
 
-section p{
+.section-area p{
     color:var(--blue);
     font-weight: 700;
     font-size: 2rem;
 }
 
-section div p,
-section div h1,
-section div h2{
+.section-area div p,
+.section-area div h1,
+.section-area div h2{
     margin:8px;
     flex-wrap: wrap;
 }
-
-
 
 .search{
     text-align: right;
@@ -105,7 +102,7 @@ section div h2{
 footer{
     background-color: var(--gray900);
     color: var(--gray200);
-    font-size:0.8rem;
+    font-size:1.6rem;
     height: 160px;
     padding: 24px 0;
 }
@@ -125,16 +122,21 @@ footer{
     color: var(--gray400);
 }
 
+footer i{
+    color: white;
+}
+
 @media (max-width: 1199px){
+
     header .nav{
         margin: 0 24px;
     }
 
     .banner{
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        /* flex-direction: column; */
+        /* justify-content: center; */
+        /* align-items: center; */
         height: 770px;
     }
     .banner-text{
@@ -154,40 +156,33 @@ footer{
         padding: 15px 70px;
     }
 
-    .banner br{
-        display: inline-block;
-        content: " ";
-        padding: 0 2px;
+    .banner-top .line212,
+    .section-area .line211{
+        display: none;
     }
-    .banner-img{
-        position: absolute;
-        bottom:0;
-    }
+
     .hot{
         margin-top: 0;
     }
     .container{
-        margin-top: 20px;
+        margin-top: 0;
+        width: 100%;
     }
     
     .section-area{
         flex-direction: column;
-    }
-    .section-img{
         width: 100%;
-        height: auto;
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        position: center;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-top: 20px;
     }
-    .section-img img{
-        max-width: 100%;
-        margin: 0 auto;
-        height: auto;
-
-
+    
+    .search {
+        flex-direction: column-reverse;
+    }
+    .footer-area {
+        width: 100%;
+        padding: 0 10%;
     }
 }
 
@@ -197,10 +192,6 @@ footer{
     }
     
     .banner{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
         height: 540px;
     }
 
@@ -211,10 +202,7 @@ footer{
         z-index: 1;
     }
 
-    .banner br{
-        display: block;
 
-    }
     .banner-text h1{
         font-size: 2.5rem;
     }
@@ -223,18 +211,33 @@ footer{
         padding: 14px 40px;
     }
 
-    .banner-img{
-        display: flex;
-        justify-content: flex-end;
-        flex-direction: column;
-        align-items: flex-end;
-    }
-    
     .banner img{
         width:100%;
         max-width: 700px;
         min-width: 400px;
         height: auto;
     }
+    .banner-top .line212{
+        display: inline;
+    }
+
+    .section-area{
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .section-area p{
+        font-size: 1.5rem;
+    }
+
+    .section-area h1{
+        font-size: 2em;
+        font-weight: 900;
+    }
+
+    .section-area h2{
+        font-size: 1.6rem;
+    }
+
     
 }
