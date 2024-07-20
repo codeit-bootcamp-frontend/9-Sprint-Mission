@@ -1,20 +1,4 @@
-body{
-    padding: 231px 0;
-}
 
-.container{
-    width: 640px;
-    margin: 0 auto;
-    
-}
-
-.logo-domain{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 0 40px 0;
-}   
 
 .email{
     width: 100%;
@@ -25,26 +9,16 @@ body{
     background: url('../images/eye.png') no-repeat right 24px bottom 15px/24px 24px;
 }
 
-.label{
-    font-family: 'Pretendard';
-    font-weight: 700;
-    font-size: 18px;
-    line-height :21.48px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin: 0 0 24px 0;
-    
-}
+
 
 .email, .password{
     background-color: #F3F4F6;
+    font-size: 16px;
+    line-height:24px;
     border: 0;
     border-radius: 12px;
     padding: 16px 24px;
     font-weight: 400;
-    font-size: 16px;
-    line-height:24px;
 }
 
 .email:focus, .password:focus {
@@ -64,7 +38,7 @@ body{
 }
 
 .login-button{
-    color: #FFFFFF;
+    color: #fff;
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
@@ -76,7 +50,7 @@ footer{
     font-weight: 500;
 }
 
-.footer1{
+.social_wrap{
     background-color: #E6F2FF;
     display: flex;
     align-items: center;
@@ -119,4 +93,61 @@ footer{
     font-size: 14px;
 }
 
+@media (min-width: 375px){
+    body{
+        padding: 80px 16px 231px;
+    }
+    .container{
+        width: 343px;
+        margin: 0 auto;
+    }
+    .logo-img{
+        width: 198px;
+        height: 66px;
+    }
+    .logo-domain{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 24px 0;
+    }   
 
+    .label{
+        font-family: 'Pretendard';
+        font-weight: 700;
+        font-size: 18px;
+        line-height :21.48px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 0 0 16px 0;
+    }
+}
+
+@media (min-width: 768px){
+    body{
+        padding: 190px 52px 325px;
+    }
+    .container{
+        width: 640px;
+        margin: 0 auto;
+    }
+    .logo-img{
+        width: 396px;
+        height: 132px;
+    }
+    .logo-domain{
+        margin-bottom: 40px;
+    }   
+    .label{
+        gap: 16px;
+    }
+}
+
+@media (min-width: 1200px){
+    body{
+        padding: 231px 0;
+    }
+    
+}

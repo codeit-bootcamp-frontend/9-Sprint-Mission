@@ -1,3 +1,18 @@
-body{
-    padding: 60px 0 178px;
+@media (min-width: 375px){
+    body{
+        padding: 24px 16px 179px;
+    }
+}
+
+@media (min-width: 768px){
+    body{
+        padding: 24px 16px 179px;
+    }
+}
+
+
+@media (min-width: 1200px){
+    body{
+        padding: 60px 0 178px;
+    }
 }
