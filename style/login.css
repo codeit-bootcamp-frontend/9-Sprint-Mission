@@ -20,22 +20,6 @@ header {
     height: 132px;
 }
 
-@media (max-width: 767px) {
-    body {
-        width: 100%;
-        max-width: 400px;
-        padding: 16px;
-    }
-    header {
-        height: 66px;
-        margin: 0 0 24px;
-    }
-    #logo img {
-        width: 198px;
-        height: 66px;
-    }
-}
-
 main {
     display: flex;
     flex-direction: column;
@@ -52,6 +36,7 @@ form label {
     font-size: 18px;
     font-weight: 700;
     color: var(--color-gray800);
+    position: relative;
 }
 
 form input {
@@ -70,13 +55,6 @@ form input {
 
 input:focus {
     outline: 1px solid var(--color-blue);
-}
-
-.password-Box {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    /* justify-content: center; */
 }
 
 form .pwd-Eye {
@@ -128,4 +106,20 @@ footer a {
     color: var(--color-blue);
     line-height: 18px;
     text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+    body {
+        width: 100%;
+        max-width: 400px;
+        padding: 16px;
+    }
+    header {
+        height: 66px;
+        margin: 0 0 24px;
+    }
+    #logo img {
+        width: 198px;
+        height: 66px;
+    }
 }
