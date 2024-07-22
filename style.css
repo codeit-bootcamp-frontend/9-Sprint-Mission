@@ -3,20 +3,46 @@
 }
 
 :root {
-  --primary-color: #3692ff;
-  --secondary-color: #9ca3af;
-  --background-color: #111827;
-  --text-color: #374151;
+  --primary100: #3692ff;
+  --primary200: #1967d6;
+  --primary300: #1251aa;
+  --error: #f74747;
+  --gray900: #111827;
+  --gray800: #1f2937;
+  --gray700: #374151;
+  --gray600: #4b5563;
+  --gray500: #6b7280;
+  --gray400: #9ca3af;
+  --gray200: #e5e7eb;
+  --gray100: #f3f4f6;
+  --gray50: #f9fafb;
+  --background-color: #cfe5ff;
+  --login-background: #fcfcfc;
+}
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./fonts/ROKAF\ Sans\ Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./fonts/ROKAF\ Sans\ Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
 }
 
 html {
   font-family: Pretendard, sans-serif;
   word-break: keep-all;
+  font-size: 62.5%;
 }
 
 body {
-  background-color: #cfe5ff;
-  color: var(--text-color);
+  background-color: var(--background-color);
+  color: var(--gray700);
   margin: 0;
 }
 
@@ -34,18 +60,40 @@ body {
 }
 
 header {
+  max-width: 1920px;
+  width: 100%;
   height: 70px;
   margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #dfdfdf;
-  background-color: #ffffff;
+  background-color: #fff;
   padding: 0 200px;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+
+header .logo_button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8.59px;
 }
 
 header .logo {
   flex-shrink: 0;
+  display: block;
+}
+
+header .logo_title {
+  font-family: "ROKAF Sans";
+  font-weight: 700;
+  font-size: 2.563rem;
+  line-height: 3.46rem;
+  color: var(--primary100);
+  margin: 0;
 }
 
 .btn {
@@ -53,16 +101,16 @@ header .logo {
   justify-content: center;
   align-items: center;
   flex: none;
-  background-color: var(--primary-color);
-  color: #ffffff;
+  background-color: var(--primary100);
+  color: #fff;
 }
 
 header .login {
   border-radius: 8px;
   padding: 12px 23px;
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 600;
-  line-height: 26px;
+  line-height: 2.6rem;
   height: 48px;
   width: 128px;
 }
@@ -78,6 +126,10 @@ header .login {
   position: relative;
 }
 
+.gnb_margin {
+  margin-top: 70px;
+}
+
 .home .container {
   align-items: center;
   flex-direction: column;
@@ -87,28 +139,34 @@ header .login {
 }
 
 .home .title {
-  font-size: 40px;
+  font-size: 4rem;
   font-weight: 700;
-  line-height: 56px;
+  line-height: 5.6rem;
   margin: 0;
 }
 
 .home .view_more {
   border-radius: 40px;
   padding: 16px 124px;
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: 600;
-  line-height: 32px;
+  line-height: 3.2rem;
 }
 
 .home_img {
   position: absolute;
   left: 701px;
+  width: 746px;
+  height: 340px;
   bottom: 0;
 }
 
+.home_img.home_bottom {
+  height: 397px;
+}
+
 main {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 main .container {
@@ -131,23 +189,23 @@ main section {
 }
 
 main .category {
-  font-size: 18px;
+  font-size: 1.8rem;
   font-weight: 700;
-  line-height: 26px;
-  color: var(--primary-color);
+  line-height: 2.6rem;
+  color: var(--primary100);
 }
 
 main .subtitle {
-  font-size: 40px;
+  font-size: 4rem;
   font-weight: 700;
-  line-height: 56px;
+  line-height: 5.6rem;
   margin: 12px 0 24px;
 }
 
 main .description {
-  font-size: 24px;
+  font-size: 2.4rem;
   font-weight: 500;
-  line-height: 32px;
+  line-height: 3.2rem;
 }
 
 main .search {
@@ -157,11 +215,11 @@ main .search {
 
 footer {
   height: 160px;
-  background-color: var(--background-color);
+  background-color: var(--gray900);
   padding: 32px 200px 108px;
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 400;
-  line-height: 19.09px;
+  line-height: 1.909rem;
 }
 
 footer .footer_nav {
@@ -172,7 +230,7 @@ footer .footer_nav {
 }
 
 footer .copyright {
-  color: var(--secondary-color);
+  color: var(--gray400);
 }
 
 footer .center_nav {
@@ -182,7 +240,7 @@ footer .center_nav {
 }
 
 footer .cursor {
-  color: #e5e7eb;
+  color: var(--gray200);
 }
 
 .sns_link {
