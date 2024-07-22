@@ -26,14 +26,12 @@ a {
   text-decoration: none;
 }
 
+body,
 p {
   margin: 0;
 }
-body {
-  margin: 0;
-}
 
-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;

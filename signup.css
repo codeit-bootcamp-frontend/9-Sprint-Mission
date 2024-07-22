@@ -1,0 +1,134 @@
+:root {
+  /* Gray scale colors */
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
+
+  /* Primary Color */
+  --blue: #3692ef;
+  --banner-bg-color: #cfe5ff;
+
+  /* Error color */
+  --red: #f74747;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+body,
+p {
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  margin: 120px 0px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo img {
+  width: 104px;
+  height: 104px;
+}
+
+.logo h1 {
+  font-size: 66px;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 640px;
+  gap: 24px;
+}
+
+.form label {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.form input {
+  height: 56px;
+  width: 640px;
+  border-radius: 12px;
+  padding: 16px 24px;
+  border: none;
+  background-color: var(--gray-100);
+}
+
+.form button {
+  height: 56px;
+  text-align: center;
+  color: white;
+  background-color: var(--gray-400);
+  padding: 16px 124px;
+  border-radius: 40px;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.password-input {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.btn_visibility {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+}
+
+.social-loginbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 24px;
+  width: 640px;
+  padding: 16px 24px;
+  background-color: var(--banner-bg-color);
+  border-radius: 8px;
+  gap: 10px;
+}
+
+.for-login {
+  display: block;
+  width: 240px;
+  margin-top: 24px;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.login-link {
+  color: #3692ef;
+  text-decoration: underline;
+}
