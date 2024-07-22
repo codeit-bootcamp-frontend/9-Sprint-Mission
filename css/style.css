@@ -115,7 +115,6 @@
 
 .nav-element{
     display: grid;
-    grid-template: 1fr/ 1fr 1fr 1fr;
     text-align: center;
 }
 
@@ -141,6 +140,17 @@
     vertical-align: top;
 }
 
+.footer-nav-left {
+    grid-area: left;
+}
+
+.footer-nav-mid {
+    grid-area: mid;
+}
+
+.images {
+    grid-area: images;
+}
 
 
 
@@ -178,8 +188,6 @@
         margin-bottom: 40px;
     }
 
-    
-    
     .anticle_img{
         order: 1;
         width: 344px;
@@ -230,6 +238,14 @@
     .bottom{
         font-size: 16px;
     }
+
+    .nav-element{
+        grid-template: 1fr 1fr/ 1fr 1fr;
+        grid-template-areas: 
+            "mid images"
+            "left .";
+        gap: 10px; /* 필요에 따라 간격을 조정하세요 */
+    }
 }
 @media (min-width: 768px){
     .container {
@@ -251,7 +267,11 @@
         align-items: center;
     }
     .nav-element{
+        
         padding: 32px 104px 108px;
+        grid-template: 1fr/ 1fr 1fr 1fr;
+        grid-template-areas: 
+            "left mid images";
     }
 
     .top{
@@ -318,6 +338,9 @@
 
     .nav-element{
         padding: 32px 240px 108px 240px;
+        grid-template: 1fr/ 1fr 1fr 1fr;
+        grid-template-areas: 
+            "left mid images";
     }
 
     .banner-main{
