@@ -1,39 +1,6 @@
-
-:root{
-    --background-color : #CFE5FF;
-    --blue:#3692FF;
-
-    --gray900:#111827;
-    --gray800 : #1F2937;
-    --gray700:#374151; 
-    --gray600: #4B5563;
-    --gray500: #6B7280;
-    --gray400: #9CA3AF;
-    --gray200: #E5E7EB;
-    --gray100: #F3F4F6;
-    --gray50: #F9FAFB;
+main{
+    margin-top: 70px;
 }
-
-
-*{
-    box-sizing: border-box;
-}
-body{
-    margin:0;
-}
-html{
-    font-family: 'Noto Sans KR', Arial;
-    font-size: 20px;
-    color: var(--gray700);
-}
-h1{
-    font-size: 2rem;
-    font-weight: 800;
-}
-h2{
-    font-size: 1rem;
-}
-
 .logo{
     max-height:50px;
 }
@@ -42,11 +9,10 @@ header{
     top:0;
     background-color: #ffffff;
     margin: 0px auto;
-    /* 로고, 로그인 버튼 높이가 가운데로 오지 않아서 padding 추가 */
-    padding: 4px 0 0; 
     width: 100%;
+    z-index: 999;
 }
-header div{
+header .nav{
     display:flex;
     justify-content: space-between;
     align-items: center;
@@ -54,10 +20,10 @@ header div{
     margin: 0 200px;
 }
 .banner{
+    position:relative;
     display:flex;
     justify-content: center;
     background-color: var(--background-color);
-    /* padding: 0 10%; */
     height: 540px;
 }
 .banner-text{
@@ -65,6 +31,7 @@ header div{
     flex-direction: column;
     justify-content: center;
     flex-shrink: 0;
+    width: 380px;
 }
 .banner a{
     border-radius: 99999px;
@@ -72,7 +39,9 @@ header div{
     color: #ffffff;
     text-decoration: none;
     padding: 20px 100px;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 2rem;
+    text-align: center;
 }
 
 .banner-img{
@@ -94,7 +63,7 @@ header div{
     margin: 96px auto;
 }
 
-section{
+.section-area{
     display:flex;
     margin: 240px 0;
     gap: 48px;
@@ -117,6 +86,7 @@ section div{
 section p{
     color:var(--blue);
     font-weight: 700;
+    font-size: 2rem;
 }
 
 section div p,
@@ -153,4 +123,118 @@ footer{
 .footer-area a{
     text-decoration: none;
     color: var(--gray400);
+}
+
+@media (max-width: 1199px){
+    header .nav{
+        margin: 0 24px;
+    }
+
+    .banner{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 770px;
+    }
+    .banner-text{
+        position: absolute;
+        top: 100px;
+        width: 80%;
+        align-items: center;
+        z-index: 1;
+
+    }
+
+    .banner-text h1{
+        font-size: 3rem;
+    }
+    .banner-text a{
+        font-size: 1.8rem;
+        padding: 15px 70px;
+    }
+
+    .banner br{
+        display: inline-block;
+        content: " ";
+        padding: 0 2px;
+    }
+    .banner-img{
+        position: absolute;
+        bottom:0;
+    }
+    .hot{
+        margin-top: 0;
+    }
+    .container{
+        margin-top: 20px;
+    }
+    
+    .section-area{
+        flex-direction: column;
+    }
+    .section-img{
+        width: 100%;
+        height: auto;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: center;
+    }
+    .section-img img{
+        max-width: 100%;
+        margin: 0 auto;
+        height: auto;
+
+
+    }
+}
+
+@media (max-width: 767px){
+    header .nav{
+        margin: 0 16px;
+    }
+    
+    .banner{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 540px;
+    }
+
+    .banner-text{
+        position: absolute;
+        top: 50px;
+        text-align: center;
+        z-index: 1;
+    }
+
+    .banner br{
+        display: block;
+
+    }
+    .banner-text h1{
+        font-size: 2.5rem;
+    }
+    .banner-text a{
+        font-size: 1.5rem;
+        padding: 14px 40px;
+    }
+
+    .banner-img{
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    
+    .banner img{
+        width:100%;
+        max-width: 700px;
+        min-width: 400px;
+        height: auto;
+    }
+    
 }
