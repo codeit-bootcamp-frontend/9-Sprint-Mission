@@ -115,7 +115,7 @@
 
 .nav-element{
     display: grid;
-    text-align: center;
+    
 }
 
 .nav-container{
@@ -123,25 +123,26 @@
     margin: 0 auto;
 }
 
-.footer-nav-left{
-    color: #9CA3AF;
-    margin: 0;
-}
-
-.privary_and_faq{
+.privary, .faq{
     text-decoration: none;
     color: #E5E7EB;
+}
+
+.privary{
     margin-right: 30px;
 }
 
 .image{
-    margin-right: 12px;
+    width: 20px;
+    height: 20px;
     display: inline-block;
     vertical-align: top;
 }
 
 .footer-nav-left {
     grid-area: left;
+    color: #9CA3AF;
+    margin: 0;
 }
 
 .footer-nav-mid {
@@ -150,6 +151,8 @@
 
 .images {
     grid-area: images;
+    display: flex;
+    gap: 12px;
 }
 
 
@@ -192,6 +195,7 @@
         order: 1;
         width: 344px;
         height: 400px;
+        margin: 0 auto;
     }
     .anticle{
         order: 2;
@@ -240,12 +244,16 @@
     }
 
     .nav-element{
-        grid-template: 1fr 1fr/ 1fr 1fr;
+        grid-template: 1fr 1fr / 6.3fr 3.7fr;
         grid-template-areas: 
             "mid images"
             "left .";
-        gap: 10px; /* 필요에 따라 간격을 조정하세요 */
+        text-align: left;
+        padding: 32px;
+        grid-column-gap: 32px; 
+        grid-row-gap: 60px;    
     }
+
 }
 @media (min-width: 768px){
     .container {
@@ -267,7 +275,6 @@
         align-items: center;
     }
     .nav-element{
-        
         padding: 32px 104px 108px;
         grid-template: 1fr/ 1fr 1fr 1fr;
         grid-template-areas: 
@@ -341,6 +348,7 @@
         grid-template: 1fr/ 1fr 1fr 1fr;
         grid-template-areas: 
             "left mid images";
+        text-align: center;
     }
 
     .banner-main{
