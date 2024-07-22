@@ -3,113 +3,107 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/panda.css" rel="stylesheet" type="text/css" />
     <title>판다마켓</title>
+    <link rel="ico" href="favicon.ico" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/home.css" />
   </head>
   <body>
     <header>
-      <div class="header">
-        <input type="button" class="btn_panda" onclick="location.href='./'" />
-        <input
-          type="button"
-          class="btn_login"
-          onclick="location.href='/login'"
-        />
-      </div>
+      <a href="/"
+        ><img src="/images/header/panda.png" alt="판다마켓 홈" width="153"
+      /></a>
+      <a href="/login.html" id="loginLinkButton" class="button">로그인</a>
     </header>
-    <nav>
-      <div class="txt_home_top">
-        <span>일상의 모든 물건을<br />거래해 보세요</span><br />
-        <input
-          type="button"
-          class="btn_items"
-          onclick="location.href='/items'"
-        />
-      </div>
-      <img class="img_home_top" src="img/landing/Img_home_top.png" />
-    </nav>
-    <div class="container">
-      <div class="sec1">
-        <div class="sec_side"></div>
-        <div class="sec_content">
-          <div class="img_item">
-            <img src="img/landing/Img_home_01.png" />
-          </div>
-          <div class="txt_item">
-            <span class="txt_des1">Hot item</span><br />
-            <span class="txt_des2">인기 상품을<br />확인해 보세요</span><br />
-            <span class="txt_des3"
-              >가장 HOT한 중고거래 물품을<br />판다 마켓에서 확인해 보세요</span
-            >
+    <main>
+      <section id="topBanner" class="banner">
+        <div class="wrapper">
+          <h1>일상의 모든 물건을<br />거래해 보세요</h1>
+          <a href="/items.html" class="button pill-button">구경하러 가기</a>
+        </div>
+      </section>
+      <section id="features" class="wrapper">
+        <div class="feature">
+          <img
+            src="/images/landing/Img_home_01.png"
+            alt="인기상품"
+            width="50%"
+          />
+          <div class="feature-content">
+            <h2 class="feature-tag">Hot item</h2>
+            <h1>인기 상품을<br />확인해 보세요</h1>
+            <p class="feature-description">
+              가장 HOT한 중고거래 물품을<br />판다마켓에서 확인해 보세요
+            </p>
           </div>
         </div>
-      </div>
-      <div class="sec2">
-        <div class="sec_side"></div>
-        <div class="sec_content">
-          <div class="img_item">
-            <img src="img/landing/Img_home_02.png" />
+        <div class="feature">
+          <div class="feature-content">
+            <h2 class="feature-tag">Search</h2>
+            <h1>구매를 원하는<br />상품을 검색하세요</h1>
+            <p class="feature-description">
+              구매하고 싶은 물품은 검색해서
+              <br />쉽게 찾아보세요
+            </p>
           </div>
-          <div class="txt_item">
-            <span class="txt_des1">Search</span><br />
-            <span class="txt_des2">구매를 원하는<br />상품을 검색하세요</span
-            ><br />
-            <span class="txt_des3"
-              >구매하고 싶은 물품은 검색해서<br />쉽게 찾아보세요</span
-            >
+          <img
+            src="/images/landing/Img_home_02.png"
+            alt="검색 기능"
+            width="50%"
+          />
+        </div>
+        <div class="feature">
+          <img
+            src="/images/landing/Img_home_03.png"
+            alt="판매 상품 등록"
+            width="50%"
+          />
+          <div class="feature-content">
+            <h2 class="feature-tag">Register</h2>
+            <h1>판매를 원하는<br />상품을 등록하세요</h1>
+            <p class="feature-description">
+              어떤 물건이든 판매하고 싶은 상품을
+              <br />쉽게 등록하세요
+            </p>
           </div>
         </div>
-      </div>
-      <div class="sec3">
-        <div class="sec_side"></div>
-        <div class="sec_content">
-          <div class="img_item">
-            <img src="img/landing/Img_home_03.png" />
-          </div>
-          <div class="txt_item">
-            <span class="txt_des1">Register</span><br />
-            <span class="txt_des2">판매를 원하는<br />상품을 등록하세요</span
-            ><br />
-            <span class="txt_des3"
-              >어떤 물건이든 판매하고 싶은 상품을<br />쉽게 등록하세요</span
-            >
-          </div>
+      </section>
+      <section id="bottomBanner" class="banner">
+        <div class="wrapper">
+          <h1>믿을 수 있는<br />판다마켓 중고거래</h1>
         </div>
-      </div>
-      <div class="sec_bottom">
-        <div class="sec_side"></div>
-        <div class="sec_content">
-          <div class="img_item">
-            <img src="img/landing/Img_home_bottom.png" />
-          </div>
-          <div class="txt_item">
-            <span class="txt_des">믿을 수 있는<br />판다마켓 중고거래</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
     <footer>
-      <div class="codeit">
-        <span>©codeit - 2024</span>
+      <div>©codeit - 2024</div>
+      <div id="footerMenu">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/faq.html">FAQ</a>
       </div>
-      <div class="info">
-        <a href="/privacy">Privacy Policy</a>
-        <a href="/faq">FAQ</a>
-      </div>
-      <div class="sns">
-        <a href="https://www.facebook.com/codeit.kr" target="_blank"
-          ><img src="img/footer/ic_facebook.png"
-        /></a>
-        <a href="https://x.com" target="_blank"
-          ><img src="img/footer/ic_twitter.png"
+      <div id="socialMedia">
+        <a
+          href="https://www.facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="/images/footer/ic_facebook.png"
         /></a>
         <a
-          href="https://www.youtube.com/channel/UCCM79CPm2WbBYTRaiNEExbg"
+          href="https://www.twitter.com"
           target="_blank"
-          ><img src="img/footer/ic_youtube.png"
+          rel="noopener noreferrer"
+          ><img src="/images/footer/ic_twitter.png"
         /></a>
-        <a href="https://www.instagram.com/codeit_kr" target="_blank"
-          ><img src="img/footer/ic_instagram.png"
+        <a
+          href="https://www.youtube.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="/images/footer/ic_youtube.png"
+        /></a>
+        <a
+          href="https://www.instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><img src="/images/footer/ic_instagram.png"
         /></a>
       </div>
     </footer>

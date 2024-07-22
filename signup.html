@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>로그인 페이지</title>
+    <title>회원가입 페이지</title>
     <link rel="ico" href="favicon.ico" />
     <link rel="stylesheet" href="/styles/global.css" />
-    <link rel="stylesheet" href="/styles/login.css" />
+    <link rel="stylesheet" href="/styles/signup.css" />
   </head>
   <body>
     <main>
@@ -30,6 +30,16 @@
               />
             </div>
           </div>
+          <div class="login-nickname">
+            <div class="txt-up">닉네임</div>
+            <div>
+              <input
+                class="input-up"
+                type="text"
+                placeholder="닉네임을 입력해주세요"
+              />
+            </div>
+          </div>
           <div class="login-password">
             <div class="txt-up">비밀번호</div>
             <div>
@@ -41,8 +51,19 @@
               <img class="eye-icon" src="/images/login/visibility_off.png" />
             </div>
           </div>
+          <div class="login-password2">
+            <div class="txt-up">비밀번호 확인</div>
+            <div>
+              <input
+                class="input-up"
+                type="password"
+                placeholder="비밀번호를 다시 한 번 입력해주세요"
+              />
+              <img class="eye-icon2" src="/images/login/visibility_off.png" />
+            </div>
+          </div>
           <div class="login-botton">
-            <input class="input-btn" type="button" value="로그인" />
+            <input class="input-btn" type="button" value="회원가입" />
           </div>
           <div class="social-login">
             <div id="social-txt">간편 로그인하기</div>
@@ -64,9 +85,9 @@
             </div>
           </div>
           <div class="signup-box">
-            <div id="signup-txt">판다마켓이 처음이신가요?</div>
+            <div id="signup-txt">이미 회원이신가요?</div>
             <div id="signup-link">
-              <a href="/signup.html">회원가입</a>
+              <a href="/login.html">로그인</a>
             </div>
           </div>
         </div>
