@@ -63,7 +63,6 @@ h4 {
 
 a:not([class]) {
   text-decoration-skip-ink: auto;
-  color: currentColor;
 }
 
 img,
@@ -121,11 +120,20 @@ input::placeholder {
 
 .wrap_inner {
   width: 1200px;
+  max-width:100%;
   margin: 0 auto;
 }
 
 .wrap_inner2 {
   width: 640px;
+  max-width: 100%;
   margin: 0 auto;
 }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .wrap_inner {
+    padding:3.22%;
+  }
+}
 /* --- common css --- */
+

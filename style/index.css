@@ -37,7 +37,7 @@ main .banner {
   background-color: var(--color-bg-skyblue);
 }
 
-main .banner .banner_txt>p {
+main .banner .banner_txt > p {
   color: var(--color-gray-1);
   font-size: 40px;
   font-weight: 700;
@@ -137,4 +137,73 @@ footer ul li a {
   color: var(--color-white-2);
   font-size: 16px;
   font-weight: 400;
+}
+
+/* -- tb css -- */
+@media (max-width: 1200px) {
+  header {
+    padding: 0 22px;
+  }
+  main .banner {
+    display: block;
+    position: relative;
+    text-align:center;
+  }
+  main .banner .banner_txt {
+    padding-top:84px;
+    text-align: center;
+  }
+  main .banner .banner_txt.btm_bnr {
+    padding-top:200px;
+  }
+  main .banner .banner_txt .btn_visual {
+    display: inline-block;
+    margin:24px auto 0 auto;
+  }
+  main .banner .img {
+    padding-top:210px;
+  }
+  main .banner .img img {
+    width:100%;
+  }
+  main .box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    padding:0;
+  }
+  main .box + .box {
+    padding-top:52px;
+  }
+  main .box.right {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    text-align: right;
+  }
+  main .box .img {
+    max-width:100%;
+    width:100%;
+  }
+  footer .ft_inner {
+    padding:32px 104px;
+  }
+}
+
+/* -- mo css -- */
+@media (max-width: 768px) {
+  header {
+    padding:0 16px;
+  }
+  header .logo a {
+    color:var(--color-theme);
+    font-weight:700;
+    font-size:25.63px;
+    text-indent: 0px;;
+  }
+  header .logo img {
+    display:none;
+  }
+  main .banner {
+    display:block;
+  }
 }
