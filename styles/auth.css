@@ -8,24 +8,24 @@ body {
   font-family: 'Pretendard Variable', Pretendard, 'Noto Sans KR', sans-serif;
 }
 
-.login-container {
+.auth-form-container {
   max-width: 640px;
   margin: 0 auto;
 }
 
-.login-home-wrapper {
+.auth-home-wrapper {
   text-align: center;
   margin-top: 60px;
   margin-bottom: 40px;
 }
 
-.login-form {
+.auth-form {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.login-input {
+.auth-input {
   display: flex;
   gap: 16px;
   flex-direction: column;
