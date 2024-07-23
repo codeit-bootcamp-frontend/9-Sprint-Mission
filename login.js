@@ -21,3 +21,4 @@ passwordBoxes.forEach((e) => {
         isVisible = !isVisible;
     });
 });
+
