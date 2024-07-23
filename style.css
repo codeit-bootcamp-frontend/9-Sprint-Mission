@@ -295,10 +295,10 @@ footer ul li a {
 .enter_box > div .pwd_box .pwd_icon {
   position: absolute;
   right:24px;
-  top:0;
+  top:50%;
   width: 24px;
-  height: 100%;
-  background:url(/images/icon/ic_pwd_default.png)no-repeat center right;
+  height: auto;
+  margin-top:-12px;
   cursor: pointer;
 }
 
