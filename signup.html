@@ -10,43 +10,45 @@
 <body>
   <div id="signup">
     <div class="wrap_inner2">
-      <h1 class="sub_logo"><a href="/" alt="판다마켓"><img src="images/logo/sub_logo.png" alt="판다마켓"></a></h1>
-      <div class="enter_box">
-        <div>
-          <label>이메일</label>
-          <input type="text" name="" value="" id="" class="form_input" autocomplete="new-password" placeholder="이메일을 입력해주세요">
-        </div>
-        <div>
-          <label>닉네임</label>
-          <input type="text" name="" value="" id="" class="form_input" placeholder="닉네임을 입력해주세요">
-        </div>
-        <div>
-          <label>비밀번호</label>
-          <div class="pwd_box">
-            <input type="password" name="" value="" id="" class="form_input" autocomplete="new-password"
-              placeholder="비밀번호를 입력해주세요">
-            <span class="pwd_icon"><img src="./images/icon/ic_pwd_default.png" alt="password"></span>
+      <h1 class="sub_logo"><a href="/" alt="판다마켓"><img src="./images/logo/sub_logo.png" alt="판다마켓"></a></h1>
+      <form action="post">
+        <div class="enter_box">
+          <div>
+            <label for="email">이메일</label>
+            <input type="email" name="" value="" id="" class="form_input" autocomplete="new-password" placeholder="이메일을 입력해주세요">
           </div>
-        </div>
-        <div>
-          <label>비밀번호 확인</label>
-          <div class="pwd_box">
-            <input type="password" name="" value="" id="" class="form_input" autocomplete="new-password"
-              placeholder="비밀번호를 다시 한 번 입력해주세요">
-            <span class="pwd_icon"><img src="./images/icon/ic_pwd_default.png" alt="password"></span>
+          <div>
+            <label for="name">닉네임</label>
+            <input type="name" name="" value="" id="" class="form_input" placeholder="닉네임을 입력해주세요">
           </div>
+          <div>
+            <label for="password">비밀번호</label>
+            <div class="pwd_box">
+              <input type="password" name="" value="" id="" class="form_input" autocomplete="new-password"
+                placeholder="비밀번호를 입력해주세요">
+              <span class="pwd_icon"><img src="./images/icon/ic_pwd_default.png" alt="password"></span>
+            </div>
+          </div>
+          <div>
+            <label>비밀번호 확인</label>
+            <div class="pwd_box">
+              <input type="password" name="" value="" id="" class="form_input" autocomplete="new-password"
+                placeholder="비밀번호를 다시 한 번 입력해주세요">
+              <span class="pwd_icon"><img src="./images/icon/ic_pwd_default.png" alt="password"></span>
+            </div>
+          </div>
+          <div class="box_btn"><input type="submit" value="회원가입"></div>
+          <div class="simple_login">
+            <p>간편 로그인하기</p>
+            <ul class="simple_sns">
+              <li><a href="https://www.google.com/." target="_blank" rel="noopener noreferrer"><img src="./images/icon/ic_login_google.png" alt="구글로 로그인하기"></a></li>
+              <li><a href="https://www.kakaocorp.com/page/" target="_blank" rel="noopener noreferrer"><img
+                    src="./images/icon/ic_login_kakao.png" alt="카카오로 로그인하기"></a></li>
+            </ul>
+          </div>
+          <p class="txt_joinus">이미 회원이신가요?<a href="./login.html">로그인</a></p>
         </div>
-        <div class="box_btn"><input type="submit" value="회원가입"></div>
-        <div class="simple_login">
-          <p>간편 로그인하기</p>
-          <ul class="simple_sns">
-            <li><a href="https://www.google.com/." target="_blank" rel="noopener noreferrer"><img src="./images/icon/ic_login_google.png" alt="구글로 로그인하기"></a></li>
-            <li><a href="https://www.kakaocorp.com/page/" target="_blank" rel="noopener noreferrer"><img
-                  src="./images/icon/ic_login_kakao.png" alt="카카오로 로그인하기"></a></li>
-          </ul>
-        </div>
-        <p class="txt_joinus">이미 회원이신가요?<a href="./login.html">로그인</a></p>
-      </div>
+      </form>
     </div>
   </div>
 </body>
