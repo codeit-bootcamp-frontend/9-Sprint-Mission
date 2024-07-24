@@ -238,6 +238,11 @@ footer i{
     .section-area h2{
         font-size: 1.6rem;
     }
-
+    .footer-area{
+        position: relative;
+    }
+    .codeit{
+        position: absolute;
+    }
     
 }
