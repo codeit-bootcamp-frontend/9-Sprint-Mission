@@ -101,5 +101,11 @@
   text-align: center;
 }
 
+@media (max-width: 768px) {
+  .sub_logo {
+    width:198px;
+    height:66px;
+  }
+}
 
 

@@ -130,10 +130,22 @@ input::placeholder {
   margin: 0 auto;
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (max-width: 1200px) {
   .wrap_inner {
     padding:3.22%;
   }
+  .wrap_inner2 {
+    width: 100%;
+    padding:0 4.33%;
+  }
 }
-/* --- common css --- */
+
+@media (max-width: 768px) {
+  .wrap_inner {
+    padding: 4%;
+  }
+  .wrap_inner2 {
+    padding: 0 4.26%;
+  }
+}
 
