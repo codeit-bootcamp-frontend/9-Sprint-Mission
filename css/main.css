@@ -1,14 +1,16 @@
 header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+nav {
     background-color: #ffffff;
     display: flex;
     height: 70px;
     justify-content: space-between;
     align-items: center;
     border: 1px solid #dfdfdf;
-    position: sticky;
-    top: 0;
     padding: 0 200px;
-    z-index: 1;
 }
 footer {
     height: 160px;

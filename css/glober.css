@@ -6,12 +6,16 @@
 body {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
+
 a {
   text-decoration: none;
 }
-:hover {
+
+a:hover,
+button:hover {
   cursor: pointer;
 }
+
 html {
   --color-gray900: #111827;
   --color-gray800: #1F2937;
@@ -24,6 +28,7 @@ html {
   --color-gray50: #F9FAFB;
   --color-blue: #3692FF;
 }
+
 ul{
   list-style-type: none;
 }
