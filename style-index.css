@@ -82,15 +82,15 @@ header .nav{
 }
 
 
-.section-area p{
+.text-tag{
     color:var(--blue);
     font-weight: 700;
     font-size: 2rem;
 }
 
-.section-area div p,
-.section-area div h1,
-.section-area div h2{
+.text-big,
+.text-mid,
+.text-tag{
     margin:8px;
     flex-wrap: wrap;
 }
