@@ -197,12 +197,12 @@ footer p {
   color: var(--color-gray400);
 }
 
-.footer-text a {
+.footer-text2 a {
   color: var(--color-white);
   text-decoration: none;
 }
 
-.footer-text {
+.footer-text1, .footer-text2 {
   display: flex;
   gap: 15px;
 }
@@ -210,4 +210,153 @@ footer p {
 .footer-icons {
   display: flex;
   gap: 10px;
+}
+
+@media (min-width: 375px) and (max-width: 767px){
+  body {
+    padding: 0px;
+    margin: 0px;
+    overflow-x: hidden;
+  }
+
+  nav {
+    padding: 0 16px;
+  }
+
+  .logo-box img {
+    display: none;
+  }
+
+  .login {
+    padding: 12px 38px;
+  }
+
+  .main-contents {
+    margin: 0 16px;
+  }
+
+  .top {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .top h1 {
+    font-size: 3.5rem;
+  }
+
+  .top-left {
+    margin-top: 70px;
+    text-align: center;
+  }
+
+  .top-right img {
+    width: 100%;
+    height: auto;
+  }
+
+  .go {
+    font-size: 1.7rem;
+    padding: 12px 71px;
+    border-radius: 40px;
+    color: var(--color-white);
+  }
+
+  .main-contents {
+    width: 100%;
+    height: auto;
+  }
+
+  .hot-item, .search, .register {
+    flex-direction: column;
+    margin-top: 50px;
+    height: auto;
+  }
+
+  .hot-item img, .search img, .register img {
+    width: 100%;
+    height: auto;
+  }
+
+  .search {
+    flex-direction: column-reverse;
+  }
+
+  .hot-item-text h3, .search-text h3, .register-text h3 {
+    br {
+      display: inline-block;
+      content: " ";
+      padding: 0 3px;
+    }
+    font-size: 2.5rem;
+  }
+
+  .hot-item-text p, .search-text p, .register-text p {
+    line-height: 40px;
+  }
+
+  .register {
+    margin-bottom: 70px;
+  }
+
+  .bottom {
+    width: 100%;
+    height: auto;
+  }
+
+  .bottom-contents {
+    flex-direction: column;
+  }
+
+  .bottom img {
+    width: 100%;
+  }
+
+  .bottom-text {
+    margin-top: 150px;
+    text-align: center;
+  }
+
+  footer {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    position: relative;
+  }
+
+  .footer-text1 {
+    position: absolute;
+    bottom: 25px;
+    left: 30px;
+  }
+
+  .footer-text2 {
+    white-space: nowrap;
+    margin-bottom: 70px;
+    margin-right: 20px;
+    gap: 50px;
+  }
+
+  .footer-icons {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 65px;
+  }
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  body {
+    padding: 0px;
+    margin: 0px;
+    overflow-x: hidden;
+  }
+
+  nav {
+    padding: 0 24px;
+  }
+
+  .main-contents {
+    margin: 0 24px;
+  }
+
+  
 }
