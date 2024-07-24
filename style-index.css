@@ -68,13 +68,14 @@ header .nav{
     display:flex;
     margin: 240px 0;
     gap: 48px;
+    background-color: #FCFCFC;
 }
 
 .section-area img{
     border-radius: 24px;
 }
 
-.section-area div{
+.section-description{
     display: flex;
     flex-direction: column;
     justify-content: center;
