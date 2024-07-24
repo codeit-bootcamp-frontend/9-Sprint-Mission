@@ -77,15 +77,21 @@ header .nav{
     border-radius: 24px;
 }
 
-
-
 .section-description{
     display: flex;
     flex-direction: column;
     justify-content: center;
     flex-grow: 1;
 }
+.text-big{
+    font-size: 4rem;
+    font-weight: 800;
+}
 
+.text-mid{
+    font-size: 2.2rem;
+    font-weight: 600;
+}
 .text-tag{
     color:var(--blue);
     font-weight: 700;
@@ -105,11 +111,11 @@ header .nav{
 
 footer{
     background-color: var(--gray900);
-    color: var(--gray200);
     font-size:1.6rem;
     height: 160px;
     padding: 24px 0;
 }
+
 .footer-area{
     display:flex;
     flex-direction: row;
@@ -117,13 +123,14 @@ footer{
     width: 1200px;
     margin: 0 auto;
 }
+
 .codeit{
-    color: var(--gray400);
+    color: var(--dark-gray);
 }
 
 .footer-area a{
     text-decoration: none;
-    color: var(--gray400);
+    color: var(--light-gray);
 }
 
 footer i{
@@ -138,9 +145,6 @@ footer i{
 
     .banner{
         display: flex;
-        /* flex-direction: column; */
-        /* justify-content: center; */
-        /* align-items: center; */
         height: 770px;
     }
     .banner-text{
@@ -158,7 +162,10 @@ footer i{
         font-size: 1.8rem;
         padding: 15px 70px;
     }
-
+    .text-big{
+        font-size: 3.5rem;
+        font-weight: 800;
+    }
     .banner-top .line212,
     .section-area .line211{
         display: none;
@@ -183,10 +190,29 @@ footer i{
     .search {
         flex-direction: column-reverse;
     }
+
+    .section-img{
+        width: 100%;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: center;
+    }
+    .section-img img{
+        width: 100%;
+    }
+
     .footer-area {
         width: 100%;
         padding: 0 10%;
     }
+
+    .privacy-faq{
+        display: flex;
+        gap: 80px;
+    }
+
 }
 
 @media (max-width: 767px){
@@ -213,7 +239,6 @@ footer i{
     .banner img{
         width:100%;
         max-width: 700px;
-        min-width: 400px;
         height: auto;
     }
     .banner-top .line212{
@@ -225,23 +250,22 @@ footer i{
         gap: 16px;
     }
 
-    .section-area p{
-        font-size: 1.5rem;
+    .text-big{
+        font-size: 3rem;
+        font-weight: 800;
     }
-
-    .section-area h1{
-        font-size: 2em;
-        font-weight: 900;
-    }
-
-    .section-area h2{
-        font-size: 1.6rem;
+    footer{
+        padding: 30px 0;
     }
     .footer-area{
         position: relative;
     }
     .codeit{
         position: absolute;
+        bottom: -60px;
     }
-    
+    .privacy-faq{
+        display: flex;
+        gap: 40px;
+    }
 }
