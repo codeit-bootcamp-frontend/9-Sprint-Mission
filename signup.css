@@ -1,36 +1,30 @@
-.header {
+.logo-header {
     display: flex;
     justify-content: center;
 }
 
 .logo {
-    width: 396px;
-    height: 132px;
-    margin: 60px auto 40px;
-}
-
-.main {
-    display: flex;
-    justify-content: center;
+    display: inline-block;
 }
 
 .container {
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 24px;
+    justify-content: center;
 }
 
-.signup {
+.login-form {
     display: flex;
-    align-items: center;
     flex-direction: column;
     gap: 24px;
-
 }
 
 .login-label {
     display: block;
+    width: fit-content;
     font-size: 18px;
     font-weight: 600;
     line-height: 26px;
@@ -50,17 +44,20 @@
     line-height: 26px;
 }
 
-.privacy {
+.password-wrap {
     position: relative;
 }
 
-.visible {
+.see-password-button {
     width: 24px;
     height: 24px;
     position: absolute;
     right: 24px;
     bottom: 16px;
     cursor: pointer;
+    background-image: url(./img/visibliity.png);
+    background-color: var(--gray100);
+    border: none;
 }
 
 .signup-button {
