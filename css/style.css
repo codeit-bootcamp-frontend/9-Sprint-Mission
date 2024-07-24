@@ -67,7 +67,7 @@
     display: flex;
 }
 
-.banner-button {
+.banner-button-box {
     background-color: #3692FF;
     border-radius: 40px;
     border: 0;
@@ -76,7 +76,7 @@
     justify-content: space-between;
 }
 
-.banner-button-a {
+.banner-button {
     color: #F9FAFB; 
     font-size: 20px;
     font-weight: 600;
@@ -93,17 +93,17 @@
     white-space: nowrap; /* 텍스트 개행 방지 */
 }
 
-.top{
+.article-top{
     color: #3692FF;
     font-weight: 700;
 }
 
-.mid{
+.article-mid{
     color: #374151;
     font-weight: 700;
 }
 
-.bottom{
+.article-bottom{
     color: #374151;
     font-weight: 500;
     margin: 0;
@@ -117,11 +117,10 @@
 
 .section4{
     width: 100%;
-    height: 540px;
     background-color: #CFE5FF;
 }
 
-.section4-anticle{
+.section4-article{
     color: #374151;
     font-weight: 700;
 }
@@ -211,13 +210,13 @@
         margin-bottom: 40px;
     }
 
-    .anticle_img{
+    .article_img{
         order: 1;
         width: 344px;
-        height: 400px;
+        height: 259px;
         margin: 0 auto;
     }
-    .anticle{
+    .article{
         order: 2;
     }
 
@@ -233,7 +232,7 @@
         justify-content: center;
     }
 
-    .banner-button {
+    .banner-button-box {
         width: 100%;
         height: 48px;
         padding: 11px 71px;
@@ -243,23 +242,23 @@
         padding: 52px 16px 83px;
     }
 
-    .section4-anticle{
+    .section4-article{
         font-size: 32px;
         text-align: center;
         padding: 121px 0 329px;
         margin: 0;
     }
 
-    .top{
+    .article-top{
         font-size: 16px;
         margin-bottom: 8px;
     }
 
-    .mid{
+    .article-mid{
         font-size: 24px;
         margin-bottom: 16px;
     }
-    .bottom{
+    .article-bottom{
         font-size: 16px;
     }
 
@@ -286,7 +285,7 @@
         padding: 24px 24px 56px 24px;
     }
 
-    .anticle_img{
+    .article_img{
         width: 100%;
         height: 524px;
         margin: 0 auto;
@@ -317,7 +316,7 @@
         align-items: start;  
     }
 
-    .banner-button {
+    .banner-button-box {
         width: 357px;
         height: 56px;
         padding: 12px 124px;
@@ -340,32 +339,28 @@
             "left mid images";
     }
 
-    .top{
+    .article-top{
         font-size: 18px;
         margin-top: 0px;    
         margin-bottom: 16px;
     }
 
-    .mid{
+    .article-mid{
         font-size: 32px;
         margin-top: 0px;
         margin-bottom: 24px;
     }
 
-    .mid br{
+    .article-mid br{
         display: none;
     }
 
-    .bottom{
+    .article-bottom{
         font-size: 18px;
     }
 
-    .section4-anticle{
+    .section4-article{
         padding: 201px 0 614px;
-    }
-
-    .footer{
-        height: 927px;
     }
 
     .section4{
@@ -393,6 +388,10 @@
         justify-content: left;
     }
 
+    .section4{
+        height: 540px;
+    }
+
     .section4-container{
         height: 540px;
         background: url("../images/Img_home_bottom.png") no-repeat right 0 bottom 0 / 746px 397px;  
@@ -415,7 +414,7 @@
         text-align: left;
     }
 
-    .banner-button {
+    .banner-button-box {
         width: 100%;
         height: 56px;
         padding: 16px 124px;
@@ -449,7 +448,7 @@
         text-align: center;
     }
 
-    .section4-anticle{
+    .section4-article{
         padding: 0;
         font-size: 40px;
         text-align: left;
@@ -457,7 +456,7 @@
         margin-bottom: 172.5px;
     }
 
-    .anticle_img{
+    .article_img{
         order: 2;
         width: 588px;
         height: 444px;
@@ -468,21 +467,21 @@
         padding: 0;
     }
 
-    .top{
+    .article-top{
         font-size: 18px;
         margin-bottom: 12px;
     }
 
-    .mid{
+    .article-mid{
         font-size: 40px;
         margin-bottom: 24px;
     }
 
-    .mid br {
+    .article-mid br {
         display: inline;
     }
 
-    .bottom{
+    .article-bottom{
         font-size: 24px;
     }
 
