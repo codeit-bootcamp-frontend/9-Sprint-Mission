@@ -20,8 +20,9 @@ html {
 }
 
 .header-img{
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
+
 .foam-text {
     display: block;
     margin-bottom: 20px;
@@ -40,6 +41,7 @@ html {
     padding : 16px 24px 16px 24px;
     gap : 10px;
     background-color: #F3F4F6;
+    font-size : 16px;
 }
 
 .foam-btn {
@@ -104,15 +106,23 @@ button:focus {
 }
 
 
-
-@media screen and (max-width : 1200px) { 
-    .box { 
-      font-size : 40px; 
-    } 
-  } 
+/* 태블릿 사이즈 */
+@media screen and (max-width : 1200px) {
+    .container {
+        width: 80vw;
+        text-align: center;
+        padding-right: 5%;
+    }
+}
   
-  @media screen and (max-width : 768px) { 
-    .box { 
-      font-size : 30px; 
-    } 
+/* 모바일 사이즈 */
+@media screen and (max-width : 768px) {
+      .container {
+          width: 100vw;
+          margin-left: 16px;
+      }
+
+      .header-panda {
+          width: 198px;
+      }
   }
