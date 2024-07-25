@@ -130,7 +130,6 @@ main {
     padding: 0px 16px;
     margin: 0px;
     overflow-x: hidden;
-    max-width: 400px;
   }
 
   .logo-box {
@@ -149,6 +148,7 @@ main {
   main {
     width: 100%;
     height: auto;
+    max-width: 400px;
   }
 
   #email, #password, #nickname, #password-check {
@@ -165,5 +165,9 @@ main {
   .simple-login {
     width: 100%;
     height: auto;
+  }
+
+  .bottom {
+    margin-bottom: 70px;
   }
 }
