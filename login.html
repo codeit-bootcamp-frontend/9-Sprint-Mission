@@ -11,16 +11,20 @@
 <body>
     <div class="container">
         <header>
-            <a href="/">
-                <img src="img/Property 1=lg.png">
-            </a>
+            <div class="header-img">
+                <a href="/" class="header-img"><img src="img/Property 1=lg.png"></a>
+            </div>
         </header>
         <main>
             <foam>
-                <h2 class="foam-text">이메일</h2>
-                <input type="email" placeholder="이메일을 입력해주세요" class="foam-input">
-                <h2 class="foam-text">비밀번호</h2>
-                <input type="password" placeholder="비밀번호를 입력해주세요" class="foam-input" id="password-input">
+                <div>
+                    <label class="foam-text">이메일</label>
+                    <input type="email" placeholder="이메일을 입력해주세요" class="foam-input">
+                </div>
+                <div>
+                    <label class="foam-text">비밀번호</label>
+                    <input type="password" placeholder="비밀번호를 입력해주세요" class="foam-input" id="password-input">
+                </div>
                 <div>
                     <button class="foam-btn">로그인</button>
                 </div>

@@ -19,7 +19,12 @@ html {
     text-align: center;
 }
 
+.header-img{
+    margin-bottom: 40px;
+}
 .foam-text {
+    display: block;
+    margin-bottom: 20px;
     text-align: left;
     font-size : 18px;
     font-weight: 700;
@@ -31,7 +36,7 @@ html {
     height : 56px;
     border: none;
     border-radius: 12px;
-    margin-top: 20px;
+    margin-bottom: 20px;
     padding : 16px 24px 16px 24px;
     gap : 10px;
     background-color: #F3F4F6;
