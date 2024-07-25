@@ -231,10 +231,6 @@ footer p {
     padding: 12px 38px;
   }
 
-  .main-contents {
-    margin: 0 16px;
-  }
-
   .top {
     width: 100%;
     height: auto;
@@ -265,6 +261,7 @@ footer p {
   .main-contents {
     width: 100%;
     height: auto;
+    padding: 16px;
   }
 
   .hot-item, .search, .register {
@@ -357,10 +354,6 @@ footer p {
     padding: 0 24px;
   }
 
-  .main-contents {
-    margin: 0 24px;
-  }
-
   .login {
     padding: 12px 38px;
   }
@@ -398,6 +391,7 @@ footer p {
   .main-contents {
     width: 100%;
     height: auto;
+    padding: 24px;
   }
 
   .hot-item, .search, .register {
