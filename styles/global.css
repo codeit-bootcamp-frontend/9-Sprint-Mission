@@ -1,30 +1,28 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-button {
-  background: none;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-}
-
 @font-face {
   font-family: "ROKAF Sans";
   src: url("../fonts/ROKAF_Sans_Bold.ttf") format("truetype"),
     url("../fonts/ROKAF_Sans_Medium.ttf") format("truetype");
 }
 
-img {
-  vertical-align: bottom;
+:root {
+  /* Gray scale */
+  --gray-900: #1b1d1f;
+  --gray-800: #26282b;
+  --gray-600: #454c53;
+  --gray-500: #72787f;
+  --gray-400: #9ea4a8;
+  --gray-200: #e5e7eb;
+  --gray-100: #e8ebed;
+  --gray-50: #f7f7f8;
+
+  /* Primary color */
+  --blue: #3692ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
@@ -35,6 +33,8 @@ body {
 
 header {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 70px;
   display: flex;
@@ -43,6 +43,10 @@ header {
   padding: 0 200px;
   background-color: #ffffff;
   border-bottom: 1px solid #dfdfdf;
+}
+
+main {
+  margin-top: 70px;
 }
 
 footer {
@@ -58,12 +62,21 @@ footer {
 #footerMenu {
   display: flex;
   gap: 30px;
-  color: #e5e7eb;
+  color: var(--gray-200);
 }
 
 #socialMedia {
   display: flex;
   gap: 12px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  vertical-align: bottom;
 }
 
 .wrapper {
@@ -79,8 +92,23 @@ h1 {
   letter-spacing: 0.02em;
 }
 
+button {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 .button {
-  background-color: #3692ff;
+  background-color: var(--blue);
   color: #ffffff;
   display: inline-flex;
   align-items: center;
@@ -105,5 +133,9 @@ h1 {
   font-size: 20px;
   font-weight: 700;
   border-radius: 999px;
-  padding: 16px 124px;
+  padding: 16px 126px;
+}
+
+.full-width {
+  width: 100%;
 }
