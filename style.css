@@ -271,6 +271,7 @@ footer p {
     flex-direction: column;
     margin-top: 50px;
     height: auto;
+    align-items: flex-start;
   }
 
   .hot-item img, .search img, .register img {
@@ -280,6 +281,7 @@ footer p {
 
   .search {
     flex-direction: column-reverse;
+    align-items: flex-end;
   }
 
   .hot-item-text h3, .search-text h3, .register-text h3 {
@@ -342,6 +344,7 @@ footer p {
     margin-left: 20px;
     margin-bottom: 65px;
   }
+}
 
 @media (min-width: 768px) and (max-width: 1199px) {
   body {
@@ -358,5 +361,114 @@ footer p {
     margin: 0 24px;
   }
 
+  .login {
+    padding: 12px 38px;
+  }
+
+  .top {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .top h1 {
+    br {
+      display: none;
+    }
+    font-size: 3.5rem;
+  }
+
+  .top-left {
+    margin-top: 70px;
+    text-align: center;
+  }
+
+  .top-right img {
+    width: 100%;
+    height: auto;
+  }
+
+  .go {
+    font-size: 1.7rem;
+    padding: 16px 124px;
+    border-radius: 40px;
+    color: var(--color-white);
+  }
+
+  .main-contents {
+    width: 100%;
+    height: auto;
+  }
+
+  .hot-item, .search, .register {
+    flex-direction: column;
+    margin-top: 50px;
+    height: auto;
+    align-items: flex-start;
+  }
   
+  .hot-item img, .search img, .register img {
+    width: 100%;
+    height: auto;
+  }
+
+  .search {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+  }
+
+  .hot-item-text h3, .search-text h3, .register-text h3 {
+    br {
+      display: inline-block;
+      content: " ";
+      padding: 0 3px;
+    }
+    font-size: 2.5rem;
+  }
+
+  .hot-item-text p, .search-text p, .register-text p {
+    line-height: 40px;
+  }
+
+  .register {
+    margin-bottom: 70px;
+  }
+
+  .bottom {
+    width: 100%;
+    height: auto;
+  }
+
+  .bottom-contents {
+    flex-direction: column;
+  }
+
+  .bottom img {
+    width: 100%;
+  }
+
+  .bottom-text {
+    margin-top: 150px;
+    text-align: center;
+  }
+
+  footer {
+    width: 100%;
+    height: auto;
+    justify-content: center;
+  }
+
+  .footer-text1, .footer-text2 {
+    white-space: nowrap;
+    margin-left: 70px;
+    margin-bottom: 70px;
+    margin-right: 20px;
+    gap: 40px;
+  }
+
+  .footer-icons {
+    margin-right: 20px;
+    margin-left: 70px;
+    margin-bottom: 65px;
+  }
 }
