@@ -115,6 +115,7 @@ dd {
         display: inline-flex;
         justify-content: center;
         align-items: center;
+        text-decoration: none;
         height: 54px;
         width: 100%;
         padding: 16px, 124px, 16px, 124px;
@@ -128,8 +129,6 @@ dd {
 
     .panda-img {
         width: 100%;
-        position: relative;
-        top: 4px;
     }
 
     .content-popular,
@@ -217,6 +216,10 @@ dd {
         display: flex;
         justify-content: space-between;
         margin-top: 20px;
+    }
+
+    .footer-icon{
+        display: flex;
     }
 
     .footer-icon img {
