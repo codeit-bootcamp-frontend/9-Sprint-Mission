@@ -3,51 +3,68 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="robots" content="noindex" />
+    <meta name="description" content="일상의 모든 물건을 거래해보세요" />
+    <meta property="og:title" content="판다마켓 :: 로그인" />
+    <meta property="og:image" content="/icons/logo.png" />
+    <meta property="og:description" content="일상의 모든 물건을 거래해보세요" />
+    <meta property="og:url" content="https://codeit-mission-mck.netlify.app/login" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="codeit-mission-mck.netlify.app" />
+    <meta property="twitter:url" content="https://codeit-mission-mck.netlify.app/login" />
+    <meta name="twitter:title" content="판다마켓 :: 로그인" />
+    <meta name="twitter:description" content="일상의 모든 물건을 거래해보세요" />
+    <meta name="twitter:image" content="https://codeit-mission-mck.netlify.app/icons/logo.png" />
     <title>판다마켓 - 로그인</title>
     <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/loginPage.css" />
+    <link rel="stylesheet" href="/css/login-signup.css">
   </head>
   <body>
     <header>
-      <a href="/" class="signIn-header-logo">
+      <a href="/" class="logo-container">
         <img src="/icons/logo.png" alt="로고" />
         <h1>판다마켓</h1>
       </a>
     </header>
     <main>
-      <form class="main-form">
-        <div class="form-item-box">
-          <label for="user-email">이메일</label>
-          <input type="email" id="user-email" name="user-email" placeholder="이메일을 입력해주세요" />
-        </div>
-        <div class="form-item-box">
-          <label for="user-password">비밀번호</label>
-          <div class="password-box">
-            <input
-              type="password"
-              id="user-password"
-              name="user-password"
-              placeholder="비밀번호를 입력해주세요"
-            />
-            <img src="/icons/btn_visibility_on.png" alt="비밀번호 안보이기 버튼" />
+      <div class="form-wrapper">
+        <form class="main-form">
+          <div class="form-item-box">
+            <label for="user-email">이메일</label>
+            <input type="email" id="user-email" name="user-email" placeholder="이메일을 입력해주세요" />
           </div>
-        </div>
-        <button type="submit">로그인</button>
-      </form>
+          <div class="form-item-box">
+            <label for="user-password">비밀번호</label>
+            <div class="password-box">
+              <input
+                type="password"
+                id="user-password"
+                name="user-password"
+                placeholder="비밀번호를 입력해주세요"
+              />
+              <img src="/icons/btn_visibility_on.png" alt="비밀번호 안보이기 버튼" />
+            </div>
+          </div>
+          <button type="submit">로그인</button>
+        </form>
+      </div>
     </main>
     <footer>
-      <div class="login-footer-contents">
-        <h2>간편 로그인하기</h2>
-        <div class="login-footer-link">
-          <a href="https://www.google.com/" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/googleLogo.png" alt="구글 로고" />
-          </a>
-          <a href="https://www.kakaocorp.com/page/" target="_blank" rel="noopener noreferrer">
-            <img src="/icons/kakaoLogo.png" alt="카카오 로고" />
-          </a>
+      <div class="footer-wrapper">
+        <div class="footer-contents">
+          <h2>간편 로그인하기</h2>
+          <div class="footer-link">
+            <a href="https://www.google.com/" target="_blank" rel="noopener noreferrer">
+              <img src="/icons/googleLogo.png" alt="구글 로고" />
+            </a>
+            <a href="https://www.kakaocorp.com/page/" target="_blank" rel="noopener noreferrer">
+              <img src="/icons/kakaoLogo.png" alt="카카오 로고" />
+            </a>
+          </div>
         </div>
+        <h3 class="signup">판다마켓이 처음이신가요? <a href="/signup.html">회원가입</a></h3>
       </div>
-      <h3 class="signup">판다마켓이 처음이신가요? <a href="/signup.html">회원가입</a></h3>
     </footer>
   </body>
 </html>

@@ -1,5 +1,35 @@
+html {
+  font-family: "Pretendard-Regular";
+}
+
+/* ---------- header ---------- */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 60px;
+  img {
+    width: 103px;
+  }
+  h1 {
+    font-family: "ROKAF Sans";
+    font-weight: 700;
+    font-size: 6.6rem;
+    color: var(--color-theme);
+  }
+}
+
+/* ---------- main ---------- */
+
 main {
   margin-top: 20px;
+}
+
+.form-wrapper {
+  width: 640px;
+  margin: auto;
 }
 
 .main-form {
@@ -8,15 +38,7 @@ main {
   align-items: center;
   justify-content: center;
   gap: 24px;
-  width: 40%;
-  margin: auto;
-}
-
-.form-item-box,
-.main-form button,
-.signup-footer-contents,
-.signin {
-  font-family: "Pretendard-Regular";
+  width: 100%;
 }
 
 .form-item-box {
@@ -24,7 +46,6 @@ main {
   flex-direction: column;
   gap: 16px;
   width: 100%;
-  font-size: 1.8rem;
   label {
     font-size: 1.8rem;
   }
@@ -68,6 +89,7 @@ main {
   border-radius: 40px;
   background-color: var(--color-gray400);
   padding: 16px 124px;
+  font-family: "Pretendard-Regular";
   font-size: 2rem;
   font-weight: 600;
   color: var(--color-white);
@@ -79,16 +101,21 @@ main {
   background-color: var(--color-theme);
 }
 
+/* ---------- footer ---------- */
+
 footer {
   margin-top: 24px;
 }
 
-.signup-footer-contents {
+.footer-wrapper {
+  width: 640px;
+  margin: auto;
+}
+
+.footer-contents {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 40%;
-  margin: auto;
   background-color: var(--color-skyblue);
   padding: 1rem 1.7rem;
   border-radius: 8px;
@@ -99,7 +126,7 @@ footer {
   }
 }
 
-.signup-footer-link {
+.footer-link {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -108,8 +135,9 @@ footer {
   }
 }
 
-.signin {
-  width: 40%;
+.signin,
+.signup {
+  width: 100%;
   margin: auto;
   margin-top: 24px;
   text-align: center;
@@ -120,5 +148,52 @@ footer {
     color: var(--color-blue200);
     font-size: 1.5rem;
     text-decoration: underline;
+  }
+}
+
+/* ---------- 반응형 디자인 ---------- */
+
+/* ---------- 태블릿 사이즈 ---------- */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .logo-container {
+    margin-top: 160px;
+    margin-bottom: 40px;
+  }
+}
+
+/* ---------- 모바일 사이즈 ---------- */
+@media (min-width: 375px) and (max-width: 767px) {
+  .logo-container {
+    margin-top: 80px;
+    margin-bottom: 40px;
+    img {
+      width: 51px;
+    }
+    h1 {
+      font-size: 3.3rem;
+    }
+  }
+
+  .form-wrapper {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .main-form {
+    max-width: 400px;
+  }
+
+  .form-item-box label {
+    font-size: 1.4rem;
+  }
+
+  .footer-wrapper {
+    width: 100%;
+    padding: 0 16px;
+    margin-bottom: 80px;
+  }
+
+  .footer-contents {
+    max-width: 400px;
   }
 }
