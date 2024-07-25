@@ -102,3 +102,17 @@ button:focus {
     background-color: #3692FF;
     border: 1px solid #3692FF;
 }
+
+
+
+@media screen and (max-width : 1200px) { 
+    .box { 
+      font-size : 40px; 
+    } 
+  } 
+  
+  @media screen and (max-width : 768px) { 
+    .box { 
+      font-size : 30px; 
+    } 
+  }
