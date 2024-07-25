@@ -1,7 +1,3 @@
-body{
-    padding: 231px 0;
-}
-
 .email, .password{
     width: 100%;
     background-color: #F3F4F6;
@@ -13,16 +9,11 @@ body{
     font-weight: 400;
 }
 
-.email{
-    margin: 16px 0 24px;
-}
-
 .password-box{
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: relative;
-    margin: 16px 0 24px;
 }
 
 .eye{
@@ -67,10 +58,6 @@ body{
     text-decoration: none;
 }
 
-footer{
-    font-weight: 500;
-}
-
 .social_wrap{
     background-color: #E6F2FF;
     display: flex;
@@ -94,8 +81,9 @@ footer{
 }
 
 .footer1-link{
+    height: 42px;
     display: inline-block;
-    vertical-align: baseline;
+    vertical-align: top;
 }
 
 .footer2{
@@ -111,15 +99,19 @@ footer{
 
 .footer2-text{
     font-size: 14px;
+    margin: 0;
 }
 
 @media (min-width: 375px){
     body{
-        padding: 80px 16px 231px;
+        padding: 80px 0 231px;
     }
     .container{
         width: 343px;
         margin: 0 auto;
+    }
+    .logo{
+        height: 66px;
     }
     .logo-img{
         width: 198px;
@@ -130,28 +122,73 @@ footer{
         display: flex;
         align-items: center;
         justify-content: center;
+        margin-top: 0;
         margin-bottom: 24px;
     }   
+    .label{
+        font-size: 14px;    
+        font-weight: 700;
+    }
+    .email, .password-box{
+        margin: 8px 0 16px;
+    }
 }
 
 
 @media (min-width: 768px){
     body{
-        padding: 190px 52px 325px;
+        padding: 190px 0 325px;
     }
     .container{
         width: 640px;
         margin: 0 auto;
     }
+
+    .logo{
+        height: 132px;
+    }
+
     .logo-img{
         width: 396px;
         height: 132px;
     }
     .logo-domain{
+        margin-top: 0;
         margin-bottom: 40px;
     }   
+    form{
+        width: 640px;
+    }
+    footer{
+        font-weight: 500;
+        width: 640px;
+    }
+
+    .main-text{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .label{
+        font-size: 18px;
+    }
+
+    .email, .password-box{
+        margin: 16px 0 24px;
+    }
 }
 
 @media (min-width: 1200px){
-    
+    body{
+        padding: 231px 0;
+    }
+    .container{
+        width: 640px;
+        margin: 0 auto;
+    }
+
+    form{
+        width: 100%;
+    }
 }
