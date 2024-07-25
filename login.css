@@ -13,7 +13,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 250px auto;
+  margin: 50px auto;
 }
 
 header {
@@ -127,9 +127,8 @@ main {
 
 @media (min-width: 375px) and (max-width: 767px){
   body {
+    margin: 0;
     padding: 0px 16px;
-    margin: 0px;
-    overflow-x: hidden;
   }
 
   .logo-box {
@@ -147,7 +146,6 @@ main {
 
   main {
     width: 100%;
-    height: auto;
     max-width: 400px;
   }
 

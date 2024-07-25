@@ -92,7 +92,7 @@ main {
 .go {
   display: inline-block;
   background-color: var(--color-blue);
-  color: #374151;
+  color: var(--color-white);
   line-height: 24px;
   font-size: 2rem;
   font-weight: 600;
@@ -213,12 +213,6 @@ footer p {
 }
 
 @media (min-width: 375px) and (max-width: 767px){
-  body {
-    padding: 0px;
-    margin: 0px;
-    overflow-x: hidden;
-  }
-
   nav {
     padding: 0 16px;
   }
@@ -232,7 +226,6 @@ footer p {
   }
 
   .top {
-    width: 100%;
     height: auto;
     flex-direction: column;
   }
@@ -248,14 +241,12 @@ footer p {
 
   .top-right img {
     width: 100%;
-    height: auto;
   }
 
   .go {
     font-size: 1.7rem;
     padding: 12px 71px;
     border-radius: 40px;
-    color: var(--color-white);
   }
 
   .main-contents {
@@ -317,8 +308,6 @@ footer p {
   }
 
   footer {
-    width: 100%;
-    height: auto;
     justify-content: center;
     position: relative;
   }
@@ -344,12 +333,6 @@ footer p {
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-  body {
-    padding: 0px;
-    margin: 0px;
-    overflow-x: hidden;
-  }
-
   nav {
     padding: 0 24px;
   }
@@ -359,7 +342,6 @@ footer p {
   }
 
   .top {
-    width: 100%;
     height: auto;
     flex-direction: column;
   }
@@ -385,7 +367,6 @@ footer p {
     font-size: 1.7rem;
     padding: 16px 124px;
     border-radius: 40px;
-    color: var(--color-white);
   }
 
   .main-contents {
