@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>로그인</title>
   <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="font_color.css">
 </head>
 <body>
   <header>
@@ -16,13 +17,17 @@
 
   <main>
     <section class="email">
-      <label for="email">이메일</label>
-      <input id="email" name="email" type="email" placeholder="이메일을 입력해주세요" autocomplete="email">
-    </section>
+      <form>
+        <label for="email">이메일</label>
+        <input id="email" name="email" type="email" placeholder="이메일을 입력해주세요" autocomplete="email">
+      </form>  
+      </section>
 
     <section class="password">
-      <label for="password">비밀번호</label>
-      <input id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
+      <form>
+        <label for="password">비밀번호</label>
+        <input id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
+      </form>
       <div class="visi-off">
         <img src="/icons/btn_visibility_off.png">
       </div>
@@ -36,10 +41,10 @@
       <p>간편 로그인하기</p>
       <div class="icons">
         <a href="https://www.google.com/" target="_blank">
-          <img src="/icons/ic_google.png">
+          <img alt="구글" src="/icons/ic_google.png">
         </a>
         <a href="https://www.kakaocorp.com/" target="_blank">
-          <img src="/icons/ic_kakao.png">
+          <img alt="카카오" src="/icons/ic_kakao.png">
         </a>
       </div>
     </section>
