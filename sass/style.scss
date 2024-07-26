@@ -234,12 +234,21 @@ footer {
         &.password-box {
           .input-wrap {
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
 
-            .close-eyes {
+            .close-eyes, .close-eyes.chk {
+              background: url('../images/icon/close_eyes.svg') center center no-repeat;
+              width: 24px;
+              height: 24px;
               position: absolute;
               right: 24px;
-              bottom: 16px;
               cursor: pointer;
+              
+              &.open-eyes {
+                background: url('../images/icon/open_eyes.svg') center center no-repeat;
+              }
             }
           }
         }
@@ -550,19 +559,6 @@ footer {
             &:focus {
               border: 3px solid $clr-blue;
               transition: all ease .1s;
-            }
-          }
-
-          &.password-box {
-            .input-wrap {
-              position: relative;
-
-              .close-eyes {
-                position: absolute;
-                right: 24px;
-                bottom: 16px;
-                cursor: pointer;
-              }
             }
           }
         }
@@ -876,19 +872,6 @@ footer {
             &:focus {
               border: 3px solid $clr-blue;
               transition: all ease .1s;
-            }
-          }
-
-          &.password-box {
-            .input-wrap {
-              position: relative;
-
-              .close-eyes {
-                position: absolute;
-                right: 24px;
-                bottom: 16px;
-                cursor: pointer;
-              }
             }
           }
         }

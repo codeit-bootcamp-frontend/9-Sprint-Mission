@@ -1,7 +1,9 @@
+const $loginForm = document.querySelector('#form-login');
 const $userEmail = document.querySelector('#email');
 const $emailError = document.querySelector('.email-error');
 const $userPassword = document.querySelector('#password');
 const $passwordError = document.querySelector('.password-error');
+const $closeEyes = document.querySelector('.close-eyes');
 const $loginBtn = document.querySelector('#form-btn');
 
 // 에러 메시지
@@ -48,7 +50,17 @@ function checkPassword(e) {
   }
 }
 
-// 버튼 비활성화
+// 비밀번호 문자열 보이는 함수
+function openEyes(e) {
+  e.target.classList.toggle('open-eyes');
+  if (this.classList.contains('open-eyes')) {
+    $userPassword.type = 'text';
+  } else {
+    $userPassword.type = 'password';
+  }
+}
+
+// 로그인 버튼 비활성화
 function disabledBtn() {
   if (!(
       $userEmail.value &&
@@ -64,21 +76,33 @@ function disabledBtn() {
   }
 }
 
-// 로그인 버튼 URL 이동
-function loginUrl() {
-  if ($loginBtn.disabled = false) {
-    location.href = './items.html';
-  } 
-}
-
-// 버튼 비활성화 이벤트
+// 로그인 버튼 비활성화 이벤트
 $userEmail.addEventListener('keyup', disabledBtn);
 $userPassword.addEventListener('keyup', disabledBtn);
 
-// input 포커스 이벤트
+// 에러 메시지 이벤트
 $userEmail.addEventListener('focusout', checkEmail);
 $userPassword.addEventListener('focusout', checkPassword);
 
-// 로그인 클릭 이벤트
-$loginBtn.addEventListener('click', loginUrl);
+// 비밀번호 문자열 보이는 이벤트
+$closeEyes.addEventListener('click', openEyes);
 
+// 로그인 버튼 URL 이동 이벤트
+$loginBtn.addEventListener('click', () => {
+  $loginForm.submit();
+});
+
+export {
+  $userEmail,
+  $emailError,
+  $userPassword,
+  $passwordError,
+  $closeEyes,
+  emailErrorMsg,
+  passwordErrorMsg,
+  emailValidChk,
+  checkEmail,
+  checkPassword,
+  openEyes,
+  disabledBtn
+};
