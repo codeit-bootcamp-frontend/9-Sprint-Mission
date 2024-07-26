@@ -138,9 +138,11 @@ body {
 @media (max-width: 768px) {
   .wrap-signup {
     padding: 0 16px 0;
-    min-width: 400px;
+    
   }
+  
   .wrap-signup > section {
     width: 100%;
+    max-width: 400px;
   }
 }
