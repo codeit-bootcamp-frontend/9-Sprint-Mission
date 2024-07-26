@@ -85,7 +85,7 @@ footer {
     padding: 10px 24px;
   }
   main {
-    margin-top: 80px;
+    margin-top: 0px;
   }
   footer {
     padding: 32px 24px 160px 24px;
@@ -102,6 +102,7 @@ footer {
   footer {
     height: 160px;
     padding: 32px;
+    position: relative;
   }
 }
 .pill-button {
@@ -151,7 +152,8 @@ footer {
 @media (max-width: 375px) {
   .button {
     padding: 12px 71px;
-    font-size: 16px;
+    font-size: 20px;
+    line-height: 32px;
     font-weight: 600;
   }
 }

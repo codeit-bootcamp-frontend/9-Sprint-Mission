@@ -8,6 +8,14 @@ body {
   font-family: 'Pretendard Variable', Pretendard, 'Noto Sans KR', sans-serif;
 }
 
+.login-img {
+  width: 396px;
+}
+@media (max-width: 375px) {
+  .login-img {
+    width: 198px;
+  }
+}
 .auth-form-container {
   max-width: 640px;
   margin: 0 auto;
@@ -18,6 +26,14 @@ body {
   margin-top: 60px;
   margin-bottom: 40px;
 }
+@media (max-width: 375px) {
+  .login {
+    margin-top: 80px;
+  }
+  .signup {
+    margin-top: 24px;
+  }
+}
 
 .auth-form {
   display: flex;
@@ -25,10 +41,26 @@ body {
   gap: 20px;
 }
 
+@media (max-width: 375px) {
+  .auth-form {
+    padding: 0 16px;
+    gap: 16px;
+  }
+
+  .auth-form .buttom {
+    padding: 16px 124px;
+  }
+}
 .auth-input {
   display: flex;
   gap: 16px;
   flex-direction: column;
+}
+
+@media (max-width: 375px) {
+  .auth-input {
+    gap: 8px;
+  }
 }
 
 label {
@@ -37,6 +69,12 @@ label {
   line-height: 26px;
 }
 
+@media (max-width: 375px) {
+  label {
+    font-size: 14px;
+    line-height: 24px;
+  }
+}
 input {
   font-size: 18px;
   line-height: 26px;
@@ -45,6 +83,12 @@ input {
   padding: 16px 24px;
   background-color: var(--gray-100);
   width: 100%;
+}
+@media (max-width: 375px) {
+  input {
+    font-size: 16px;
+    line-height: 26px;
+  }
 }
 
 input::placeholder {
@@ -83,6 +127,12 @@ input:focus {
   text-align: center;
 }
 
+@media (max-width: 375px) {
+  .auth-label {
+    margin-top: 24px;
+    padding-bottom: 180ㅂpx;
+  }
+}
 .auth-label a {
   color: var(--blue);
   text-decoration: underline;

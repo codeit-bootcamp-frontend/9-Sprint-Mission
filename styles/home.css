@@ -19,6 +19,14 @@
   background-image: url('../images/footer.png');
 }
 
+header .logo {
+  width: 153px;
+}
+@media (max-width: 375px) {
+  header .logo {
+    width: 100px;
+  }
+}
 .card-title {
   font-size: 40px;
   font-weight: 700;
@@ -33,6 +41,12 @@
     line-height: 44px;
   }
 }
+@media (max-width: 375px) {
+  .card-title {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
 
 .banner {
   background-color: var(--color-background);
@@ -42,20 +56,14 @@
   background-size: 55%;
   padding-top: 200px;
 }
+
 @media (max-width: 768px) {
+  #hero,
   .banner {
     background-size: 100%;
     height: 771px;
     text-align: center;
     padding-top: 84px;
-  }
-}
-@media (max-width: 768px) {
-  #bottomBanner,
-  .banner {
-    margin-top: 56px;
-    padding-top: 200px;
-    height: 927px;
   }
 }
 @media (max-width: 375px) {
@@ -67,6 +75,22 @@
   }
 }
 
+@media (max-width: 768px) {
+  #bottomBanner,
+  .banner {
+    margin-top: 56px;
+    padding-top: 200px;
+    height: 927px;
+  }
+}
+@media (max-width: 375px) {
+  #bottomBanner,
+  .banner {
+    padding-top: 120px;
+    height: 540px;
+  }
+}
+
 .banner .pill-button {
   margin-top: 32px;
 }
@@ -74,6 +98,20 @@
 @media (max-width: 375px) {
   .banner .pill-button {
     margin-top: 18px;
+  }
+}
+
+.banner-title {
+  font-size: 40px;
+  line-height: 56px;
+  font-weight: 700;
+}
+
+@media (max-width: 375px) {
+  .banner-title {
+    font-weight: 700;
+    font-size: 32px;
+    list-height: 44.8px;
   }
 }
 .card {
@@ -113,7 +151,12 @@
   font-weight: 700;
   margin-bottom: 12px;
 }
-
+@media (max-width: 375px) {
+  .card-badge {
+    font-size: 16px;
+    line-height: 26px;
+  }
+}
 .card-txt {
   font-size: 24px;
   font-weight: 500;
@@ -122,7 +165,13 @@
   margin-top: 24px;
   color: var(--gray-700);
 }
-
+@media (max-width: 375px) {
+  .card-txt {
+    font-size: 16px;
+    line-height: 26px;
+    margin-top: 16px;
+  }
+}
 .bottom-content {
   display: flex;
   justify-content: center;
@@ -143,4 +192,20 @@
 .footer-sns {
   display: flex;
   gap: 12px;
+}
+
+@media (max-width: 375px) {
+  .source {
+    position: absolute;
+    bottom: 32px;
+  }
+  .footer-inquire {
+    position: absolute;
+    top: 32px;
+  }
+  .footer-sns {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+  }
 }
