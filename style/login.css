@@ -37,6 +37,7 @@ form label {
     font-weight: 700;
     color: var(--color-gray800);
     position: relative;
+    margin: 24px 0 0;
 }
 
 form input {
@@ -50,18 +51,26 @@ form input {
     color: var(--color-gray400);
     background-color: var(--color-gray100);
     font-family: inherit;
-    margin: 16px 0 24px;
+    margin: 16px 0 0;
 }
 
 input:focus {
-    outline: 1px solid var(--color-blue);
+    outline-color: var(--color-blue);
+}
+
+.error-message {
+    color: var(--color-red-error);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 8px 0 0 16px;
+    display: none;
 }
 
 form .pwd-Eye {
     position: absolute;
     height: 24px;
     right: 24px;
-    bottom: 40px;
+    bottom: 16px;
 }
 
 form button {
@@ -73,6 +82,7 @@ form button {
     color: var(--color-gray100);
     font-size: 20px;
     font-weight: 600;
+    margin: 24px 0 0;
 }
 
 .platform-login {
@@ -90,6 +100,7 @@ form button {
 .platform-logo {
     display: flex;
     gap: 16px;
+    height: 44px;
 }
 
 footer {
