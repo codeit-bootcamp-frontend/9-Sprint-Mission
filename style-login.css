@@ -40,7 +40,6 @@ section label{
     height: 8rem;
     border:none;
     border-radius: 20px;
-    background-color: var(--gray100);
 }
 
 .inputidpw{
@@ -50,6 +49,8 @@ section label{
     padding:40px;
     font-size: 2.2rem;
     border: 2px solid #fff;
+    background-color: var(--gray100);
+
 }
 
 .inputidpw::placeholder{
@@ -66,10 +67,14 @@ section label{
     border: 1.5px solid red;
 }
 
+.blue-border{
+    border: 1.5px solid var(--blue);
+}
+
 .msg{    
     display: none;
-    color: red;
-    font-size: 1.5rem;
+    color: var(--red);
+    font-size: 1.8rem;
     font-weight: 500;
     padding: 0 40px ;
 }
@@ -78,7 +83,7 @@ section label{
     display: block;
 }
 
-.inputbox button{
+.signup-btn{
     background-color: var(--gray400);
     border-radius: 40px;
     margin: 28px 0;
@@ -86,6 +91,12 @@ section label{
     font-size: 3rem;
     font-weight: 700;
 }
+
+.disabled-btn{
+    background-color: var(--gray200);
+    color: var(--gray400)
+}
+
 .easy-login{
     display:flex;
     justify-content: space-between;
