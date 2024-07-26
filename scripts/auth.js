@@ -123,7 +123,6 @@ const updateButtonState = () => {
     if (signupForm) {
         isFormValid = isFormValid && isNicknameValid && isPasswordRepeatValid;
     }
-    console.log(isFormValid);
 
     submitButton.disabled = !isFormValid;
 };
@@ -156,3 +155,22 @@ if (passwordInput) {
 if (passwordRepeatInput) {
     passwordRepeatInput.addEventListener("input", checkPasswordRepeatValid);
 }
+
+const viewPassWord = (e) => {
+    const button = e.currentTarget;
+    const input = button.parentElement.querySelector("input");
+    const buttonImg = button.querySelector("img");
+
+    input.type = input.type === "password" ? "text" : "password";
+    buttonImg.src =
+        input.type === "password"
+            ? "./src/icon/Variant.png"
+            : "./src/icon/Default.png";
+};
+
+// querySelectorAll 대신 getElementsByClassName를 쓰면 에러가 발생하는 이유가 궁금합니다.
+const viewPassWordButtons = document.querySelectorAll(".pwd-Eye");
+viewPassWordButtons.forEach((button) => {
+    button.addEventListener("click", viewPassWord);
+});
+console.log(viewPassWordButtons);
