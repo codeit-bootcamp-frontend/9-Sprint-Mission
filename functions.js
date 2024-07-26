@@ -28,4 +28,29 @@ function pwInputFocusout(e){
     }
 }
 
-export {idInputFocusout, pwInputFocusout};
+function nicknameInput(e){
+    if(!e.target.value){
+        e.target.classList.add('red-border');
+        e.target.nextElementSibling.children[0].classList.add('display');
+    }else{
+        e.target.classList.remove('red-border');
+        e.target.nextElementSibling.children[0].classList.remove('display');
+    }
+}
+
+function pwCheckInput(e){
+    if(!e.target.value){
+        e.target.classList.add('red-border');
+        e.target.nextElementSibling.children[0].classList.add('display');
+    }else if(e.target.value !== e.target.parentElement.children[7].value){
+        e.target.classList.add('red-border');
+        e.target.nextElementSibling.children[0].classList.remove('display');
+        e.target.nextElementSibling.children[1].classList.add('display');
+    }else{
+        e.target.classList.remove('red-border');
+        e.target.nextElementSibling.children[0].classList.remove('display');
+        e.target.nextElementSibling.children[1].classList.remove('display');
+    }
+}
+
+export {idInputFocusout, pwInputFocusout, nicknameInput, pwCheckInput};
