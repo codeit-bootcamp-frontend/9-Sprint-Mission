@@ -39,6 +39,8 @@ function pwInputFocusout(e){
 function nicknameInput(e){
     if(!e.target.value){
         e.target.classList.add('red-border');
+        e.target.classList.remove('blue-border');
+
         e.target.nextElementSibling.children[0].classList.add('display');
 
     }else{
@@ -73,7 +75,7 @@ function pwCheckInput(e){
 
 function activeBtn(){
     const inputs = document.querySelectorAll('input');
-    const button = document.querySelector('.signup-btn');
+    const button = document.querySelector('.submit-btn');
     let allValid = true;
 
     inputs.forEach(input => {

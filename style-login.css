@@ -83,7 +83,7 @@ section label{
     display: block;
 }
 
-.signup-btn{
+.submit-btn{
     background-color: var(--gray400);
     border-radius: 40px;
     margin: 28px 0;
