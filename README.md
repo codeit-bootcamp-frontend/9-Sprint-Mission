@@ -1,6 +1,6 @@
 
 
-### 배포된 웹사이트: https://pandamarket2mungyun.netlify.app
+### 배포된 웹사이트: https://pandamarketmungyunweek33.netlify.app/
 
 ### 기본 요구사항 
   - [o] Github에 PR(Pull Request)을 만들어서 미션을 제출합니다.

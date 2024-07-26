@@ -212,7 +212,7 @@
 
     .article_img{
         order: 1;
-        width: 100%;
+        width: 344px;
         height: 259px;
         margin: 0 auto;
     }
@@ -289,7 +289,7 @@
     }
 
     .article_img{
-        width: 100%;
+        width: 696px;
         height: 524px;
         margin: 0 auto;
     }
@@ -340,11 +340,6 @@
         grid-template: 1fr/ 1fr 1fr 1fr;
         grid-template-areas: 
             "left mid images";
-    }
-
-    .article_img{
-        width: 100%;
-        height: 524px;
     }
 
     .article-top{
