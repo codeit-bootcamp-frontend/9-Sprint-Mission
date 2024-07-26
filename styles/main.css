@@ -58,6 +58,10 @@ body {
   line-height: 56px;
 }
 
+.header-image-description span {
+  display: block;
+}
+
 .buy-button {
   border: none;
   border-radius: 40px;
@@ -68,6 +72,7 @@ body {
   font-size: 20px;
   font-weight: 600;
   line-height: 32px;
+  text-align: center;
 }
 
 .header-image {
@@ -146,7 +151,6 @@ footer {
 }
 
 .footer-info-container {
-  height: 160px;
   width: 100%;
   background-color: var(--secondary-gray900);
 }
@@ -263,15 +267,11 @@ footer {
     width: auto;
     display: block ;
   }
+
   .footer-info {
     padding: 32px 104px 108px;
   }
 }
-
-
-
-
-
 
 @media (max-width:768px) {
   .gnb {
@@ -310,9 +310,13 @@ footer {
 
   .section-container {
     flex-direction: column;
-    padding: 40px 16px;
+    padding: 20px 16px;
     width: 100%;
     gap: 24px;
+  }
+
+  .section-container:first-child {
+    padding-top: 52px;
   }
 
   .menu {
@@ -330,5 +334,30 @@ footer {
     display: inline-block;
     font-size: 24px;
     line-height: 33.6px;
+  }
+
+  .footer-image {
+    height: 540px;
+  }
+
+  .footer-image img{
+    height:198px;
+    width: auto;
+  }
+
+.footer-image-description {
+  font-size: 32px;
+  margin-top: 108px;
+}
+
+  .footer-info {
+    flex-wrap: wrap-reverse;
+    padding: 24px;
+    
+  }
+
+  .copy-right {
+   flex-basis: 100%;
+   margin-top: 62px;
   }
 }
