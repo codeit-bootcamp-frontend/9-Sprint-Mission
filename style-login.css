@@ -35,7 +35,7 @@ section label{
     gap: 20px;
 }
 
-.inputbox input,
+.inputidpw,
 .inputbox button{
     height: 8rem;
     border:none;
@@ -43,7 +43,7 @@ section label{
     background-color: var(--gray100);
 }
 
-.inputbox input{
+.inputidpw{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,18 +52,18 @@ section label{
     border: 2px solid #fff;
 }
 
-.inputbox input::placeholder{
+.inputidpw::placeholder{
     font-size: 2.2rem;
     font-weight: 500;
     color: var(--gray400)
 }
-.inputbox form input:focus{
+.inputidpw:focus{
     border: 2px solid var(--blue);
     outline: none;
 }
 
 .red-border{
-    border: 2px solid red;
+    border: 1.5px solid red;
 }
 
 .msg{    

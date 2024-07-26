@@ -1,8 +1,3 @@
-
-const inputId = document.querySelector('#user-name');
-const inputPw = document.querySelector('#password');
-
-
 function idInputFocusout(e){
     if(!e.target.value){
         e.target.classList.add('red-border');
@@ -33,5 +28,4 @@ function pwInputFocusout(e){
     }
 }
 
-inputId.addEventListener('focusout', idInputFocusout);
-inputPw.addEventListener('focusout', pwInputFocusout);
+export {idInputFocusout, pwInputFocusout};
