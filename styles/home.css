@@ -209,3 +209,11 @@ header .logo {
     right: 32px;
   }
 }
+
+/* br 없애기 */
+@media (max-width: 768px) {
+  .banner-title > br,
+  .card-title > br {
+    display: none;
+  }
+}
