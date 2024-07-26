@@ -35,19 +35,19 @@
 }
 
 html {
-  font-family: Pretendard, sans-serif;
+  font-family: "Pretendard", "Abel", sans-serif;
   word-break: keep-all;
   font-size: 62.5%;
 }
 
 body {
-  background-color: var(--gray900);
+  background-color: #fff;
   color: var(--gray700);
   margin: 0;
 }
 
 .wrap {
-  /* max-width: 1920px; */
+  max-width: 100%;
   width: 100%;
   margin: 0 auto;
 }
@@ -131,12 +131,18 @@ header .login {
 }
 
 .home .container {
-  align-items: center;
   flex-direction: column;
   gap: 32px;
   justify-content: center;
   align-items: flex-start;
   position: relative;
+}
+
+.home .content_box {
+  width: 357px;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
 }
 
 .home .title {
@@ -187,6 +193,21 @@ main section {
   width: 588px;
   height: 444px;
   flex: none;
+}
+
+.hot_item .main_content {
+  width: 274px;
+  height: 238px;
+}
+
+.search .main_content {
+  width: 317px;
+  height: 238px;
+}
+
+.register .main_content {
+  width: 335px;
+  height: 238px;
 }
 
 main .category {
@@ -254,4 +275,102 @@ footer .cursor {
   width: 20px;
   height: 20px;
   display: block;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  header {
+    padding: 0 24px;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .home {
+    height: 771px;
+  }
+
+  .home .container {
+    align-items: center;
+    flex-direction: column;
+    padding-top: 84px;
+    justify-content: space-between;
+    position: relative;
+    text-align: center;
+  }
+
+  .home .content_box {
+    width: 100%;
+    align-items: center;
+  }
+
+  .btn {
+    width: 357px;
+  }
+
+  .home_img {
+    position: static;
+    width: 744px;
+    height: 340px;
+  }
+
+  main .container {
+    margin: 24px auto;
+    gap: 52px;
+    width: 696px;
+  }
+
+  main section {
+    flex-direction: column;
+    height: 708px;
+    gap: 24px;
+  }
+
+  main .container .main_content {
+    height: 160px;
+  }
+
+  main .main_img {
+    width: 696px;
+    height: 524px;
+  }
+
+  main .container .main_content {
+    width: 100%;
+  }
+
+  main .container .subtitle {
+    line-height: 4.2rem;
+    font-size: 3.2rem;
+  }
+
+  main .container .description {
+    line-height: 2.6rem;
+    font-size: 1.8rem;
+  }
+
+  main .search {
+    flex-direction: column-reverse;
+  }
+
+  .home.bottom {
+    height: 927px;
+    padding-top: 201px;
+  }
+
+  footer {
+    padding: 32px 104px 108px;
+    font-family: "Abel";
+  }
+
+  footer .copyright {
+    color: #676767;
+  }
+
+  footer .footer_nav {
+    color: #cfcfcf;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
 }
