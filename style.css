@@ -3,6 +3,11 @@
   height: auto;
 }
 
+.top-banner-img,
+.bottom-banner-img {
+  width: 100%;
+}
+
 @media (min-width: 375px) {
   .header {
     padding: 12px 16px;
