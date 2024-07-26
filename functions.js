@@ -1,12 +1,16 @@
 function idInputFocusout(e){
     if(!e.target.value){
         e.target.classList.add('red-border');
+        e.target.classList.remove('blue-border');
+
         e.target.nextElementSibling.children[0].classList.add('display');
         e.target.nextElementSibling.children[1].classList.remove('display');
 
 
     } else if(!e.target.value.includes('@') || !e.target.value.includes('.')){
         e.target.classList.add('red-border');
+        e.target.classList.remove('blue-border');
+
         e.target.nextElementSibling.children[0].classList.remove('display');
         e.target.nextElementSibling.children[1].classList.add('display');
 
@@ -21,10 +25,14 @@ function idInputFocusout(e){
 function pwInputFocusout(e){
     if(!e.target.value){
         e.target.classList.add('red-border');
+        e.target.classList.remove('blue-border');
+
         e.target.nextElementSibling.children[0].classList.add('display');
 
     } else if(e.target.value.length < 8){
         e.target.classList.add('red-border');
+        e.target.classList.remove('blue-border');
+
         e.target.nextElementSibling.children[0].classList.remove('display');
         e.target.nextElementSibling.children[1].classList.add('display');
 
