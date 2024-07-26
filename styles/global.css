@@ -1,3 +1,4 @@
+/* Mobile (default) */
 @font-face {
   font-family: "ROKAF Sans";
   src: url("../fonts/ROKAF_Sans_Bold.ttf") format("truetype"),
@@ -17,12 +18,45 @@
 
   /* Primary color */
   --blue: #3692ff;
+
+  /* Layout dimensions */
+  --header-height: 70px;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+img {
+  vertical-align: bottom;
 }
 
 body {
@@ -36,27 +70,34 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  height: 70px;
+  height: var(--header-height);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 200px;
+  padding: 0 16px;
   background-color: #ffffff;
   border-bottom: 1px solid #dfdfdf;
 }
 
-main {
-  margin-top: 70px;
+.mainClass {
+  margin-top: var(--header-height);
 }
 
 footer {
   background-color: #111827;
   color: #9ca3af;
+  font-size: 16px;
+  padding: 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 32px 200px 108px 200px;
-  font-size: 16px;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+#copyright {
+  order: 3;
+  flex-basis: 100%;
 }
 
 #footerMenu {
@@ -70,19 +111,9 @@ footer {
   gap: 12px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-img {
-  vertical-align: bottom;
-}
-
 .wrapper {
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
+  padding: 0 16px;
 }
 
 h1 {
@@ -90,21 +121,6 @@ h1 {
   font-weight: 700;
   line-height: 56px;
   letter-spacing: 0.02em;
-}
-
-button {
-  background: none;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  line-height: inherit;
-  color: inherit;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
 }
 
 .button {
@@ -130,12 +146,62 @@ button {
 }
 
 .pill-button {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
   border-radius: 999px;
-  padding: 16px 126px;
+  padding: 14.5px 33.5px;
 }
 
 .full-width {
   width: 100%;
+}
+
+.break-on-desktop {
+  display: none;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  header {
+    padding: 0 24px;
+  }
+
+  .wrapper {
+    padding: 0 24px;
+  }
+
+  .pill-button {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 16px 126px;
+  }
+
+  footer {
+    padding: 32px 104px 108px 104px;
+  }
+
+  #copyright {
+    flex-basis: auto;
+    order: 0;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+  header {
+    padding: 0 200px;
+  }
+
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .break-on-desktop {
+    display: inline;
+  }
+
+  footer {
+    padding: 32px 200px 108px 200px;
+  }
 }
