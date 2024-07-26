@@ -36,22 +36,3 @@ a {
   cursor: pointer;
   text-decoration: none;
 }
-
-.signIn-header-logo,
-.signUp-header-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  width: 100%;
-  margin-top: 60px;
-  img {
-    width: 103px;
-  }
-  h1 {
-    font-family: "ROKAF Sans";
-    font-weight: 700;
-    font-size: 6.6rem;
-    color: var(--color-theme);
-  }
-}
