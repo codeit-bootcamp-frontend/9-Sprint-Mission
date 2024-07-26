@@ -287,6 +287,10 @@ footer {
     height: 593px;
   }
 
+  .header-image-box {
+    overflow: hidden;
+  }
+  
   .header-image img {
     height: 204px;
   }
@@ -345,10 +349,10 @@ footer {
     width: auto;
   }
 
-.footer-image-description {
+  .footer-image-description {
   font-size: 32px;
   margin-top: 108px;
-}
+  }
 
   .footer-info {
     flex-wrap: wrap-reverse;
