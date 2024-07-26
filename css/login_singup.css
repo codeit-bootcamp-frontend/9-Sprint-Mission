@@ -15,14 +15,14 @@
   padding-top: 60px;
 }
 
-.logo {
-  display: block;
+.logo-container {
+  display: inline-block;
 }
 
 .login-container {
-  margin: 40px auto 0;
+  margin: 0 auto;
+  padding-top: 40px;
   width: 640px;
-  height: 446px;
 }
 
 .login-form {
@@ -31,6 +31,7 @@
 }
 
 .login-label {
+  margin: 16px 0;
   font-size: 18px;
   font-weight: 600;
   line-height: 26px;
@@ -40,14 +41,25 @@
   cursor: pointer;
 }
 
+.login-label.email {
+  margin-top: 0px;
+}
+
 .login-input {
-  width: 640px;
-  margin: 16px 0 24px;
+  width: 100%;
   padding: 0 24px;
   height: 56px;
   border: 0;
   border-radius: 12px;
   background-color:var(--main-input-color);
+}
+
+.login-input.password {
+  padding-right: 64px;
+}
+
+.login-button {
+  margin-top: 24px;
 }
 
 .password-container {
@@ -59,12 +71,10 @@
   height: 24px;
   border: none;
   position: absolute;
-  top: 32px;
+  bottom: 16px;
   right: 24px;
   background: url(../login/login_password.png) no-repeat center/contain  ;
   cursor: pointer;
-  
-  
 }
 
 .login-input:focus {
@@ -102,21 +112,11 @@
   padding: 0 23px;
   font-size: 16px;
   font-weight: 500;
-  text-align: left;
+  gap: 12px;
 }
 
 .simple-login {
   flex-grow: 1;
-}
-
-.google {
-  vertical-align: top;
-}
-
-.kakaotalk {
-  margin-left: 10px;
-  display: inline-block;
-  vertical-align: top
 }
 
 .login-first {
@@ -138,16 +138,11 @@
   }
 
   .logo {
-    width: 198px;
+    width: 198px; 
     height: auto;
-    display: block;
   }
 
   .login-container {
-    max-width: 400px;
-  }
-
-  .login-input {
     max-width: 400px;
   }
 }

@@ -13,7 +13,6 @@ body {
 
 }
 
-
 .header-line {
   max-width: 1920px;
   margin: 0 auto;
@@ -71,8 +70,6 @@ body {
   z-index: 1;
 }
 
-
-
 .showin {
   font-size: 20px;
   font-weight: 600;
@@ -117,7 +114,7 @@ body {
   color: var(--main-text-color);
 }
 
-.discription {
+.description {
   font-size: 24px;
   font-weight: 500;
 }
@@ -206,7 +203,7 @@ body {
   }
 
   .header-img {
-    width: 100%;
+    width: 744px;
     height: auto;
     right: auto;
   }
@@ -230,24 +227,25 @@ body {
 
   .main-section {
     display: block;
-  }
-
-  .main-section.rtl {
-    flex-direction: row-reverse;
-    text-align: right;
+    margin: 0 auto;
   }
 
   .section-img {
-    width: 100%;
+    width: 696px;
     height: auto;
   }
 
   .main-title {
     margin: 20px 0 40px;
+    font-size: 32px;
   }
 
   .main-title br{
     display: none;
+  }
+
+  .description {
+    font-size: 18px;
   }
 
   .footer-container {
@@ -265,7 +263,7 @@ body {
   }
 
   .footer-img {
-    width: 100%;
+    width: 744px;
     height: auto;
     right: auto;
   }
@@ -287,77 +285,55 @@ body {
 
   .header-content {
     height: 540px;
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 64px;
-    display: flex;
-    justify-content: center;
-    align-items: start;
   }
 
   .header-img {
-    width: 100%;
-    height: auto;
-    right: auto;
+    width: 448px;
   }
 
   .header-content-discription {
     text-align: center;
     padding: 0 68px;
+    font-size: 32px;
+  }
+
+  .header-content-discription br {
+    display: inline;
   }
 
   .showin {
     padding: 12px 71px;
   }
 
-  .main-sections {
-    width: 100%;
-    margin: 0 auto;
-    padding: 64px 24px;
-    gap: 16px;
-  }
-
-  .main-section {
-    display: block;
-  }
-
-  .main-section.rtl {
-    flex-direction: row-reverse;
-    text-align: right;
-  }
-
   .section-img {
-    width: 100%;
-    height: auto;
+    width: 343px;
+  }
+
+  .sub-title {
+    font-size: 16px;
   }
 
   .main-title {
     margin: 20px 0 40px;
+    font-size: 24px;
   }
 
-  .footer-container {
-    margin-top: 0px;
+  .description {
+    font-size: 16px;
   }
 
   .footer-content {
     height: 540px;
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 128px;
-    display: flex;
-    justify-content: center;
-    align-items: start;
   }
 
   .footer-img {
-    width: 100%;
-    height: auto;
-    right: auto;
+    width: 375px;
   }
 
   .footer-content-discription {
     z-index: 1;
     text-align: center;
+    font-size: 32px;
   }
 
   .footer-info-year {
