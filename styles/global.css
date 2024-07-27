@@ -53,14 +53,6 @@ img {
   vertical-align: bottom;
 }
 
-h1 {
-  font-size: 40px;
-  font-weight: 700;
-  line-height: 56px;
-  letter-spacing: 0.02em;
-  color: var(--gray-700);
-}
-
 header {
   position: fixed;
   top: 0;
@@ -93,13 +85,26 @@ footer {
     padding: 10px 24px;
   }
   main {
-    margin-top: 80px;
+    margin-top: 0px;
   }
   footer {
     padding: 32px 24px 160px 24px;
   }
 }
-
+/* 모바일 사이즈 375px */
+@media (max-width: 375px) {
+  header {
+    padding: 10px 16px;
+  }
+  main {
+    margin-top: 0px;
+  }
+  footer {
+    height: 160px;
+    padding: 32px;
+    position: relative;
+  }
+}
 .pill-button {
   font-size: 20px;
   font-weight: 700;
@@ -142,4 +147,13 @@ footer {
   background-color: #9ca3af;
   cursor: default;
   pointer-events: none;
+}
+
+@media (max-width: 375px) {
+  .button {
+    padding: 12px 71px;
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 600;
+  }
 }
