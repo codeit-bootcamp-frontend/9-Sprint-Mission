@@ -5,50 +5,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./reset.css" />
+    <link rel="stylesheet" href="./sm-loginNsignup.css">
     <link rel="stylesheet" href="./login.css" />
     <title>로그인</title>
 </head>
 
-<body>
-    <header class="header">
+<body class="mb-sizing">
+    <header class="logo-header">
         <h1>
-            <a href="./">
-                <img class="logo" src="./img/logo3x.png" alt="판다마켓" />
+            <a class="logo" href="./">
+                <img width="396px" height="132px" src="./img/logo3x.png" alt="판다마켓" />
             </a>
         </h1>
     </header>
 
-    <main class="main">
-        <section class="container">
-            <section class="login">
-                <form action="submit">
+    <main class="container">
+        <div>
+            <form action="submit">
+                <div>
                     <label class="login-label" for="email">이메일</label>
                     <input class="login-input" id="email" type="email" placeholder="이메일을 입력해주세요." />
-                </form>
-                <form class="privacy" action="submit">
-                    <label class="login-label" for="password">비밀번호 </label>
-                    <input class="login-input" id="password" type="password" placeholder="비밀번호를 입력해주세요." />
-                    <img class="visible" src="./img/visibliity.png" alt="비밀번호 보기">
-                </form>
-                <button class="login-button" type="button">로그인</button>
-            </section>
-            <section class="eazy-login">
-                <div class="eazy-login-label">간편 로그인하기</div>
-                <div class="sns-login">
-                    <a class="sns-wrap google" href="https://www.google.com/">
-                        <img class="sns-logo" src="./img/google.png"" alt=" 구글로 로그인" />
-                    </a>
-                    <a class="sns-wrap kakao" href="https://www.kakaocorp.com/page/">
-                        <img class="sns-logo" src="./img/kakao.png" alt="카카오로 로그인" />
-                    </a>
                 </div>
-            </section>
-            <footer>
-                <span class="go-signup">판다마켓이 처음이신가요??
-                    <a class="signup-link" href="./signup.html">회원가입</a></span>
-            </footer>
-        </section>
+                <div class="form-password">
+                    <label class="login-label" for="password">비밀번호 </label>
+                    <div class="password-wrap">
+                        <input class="login-input" id="password" type="password" placeholder="비밀번호를 입력해주세요." />
+                        <button type="button" class="see-password-button" alt="비밀번호 보기">
+                    </div>
+                </div>
+            </form>
+            <button class="login-button" type="submit">로그인</button>
+        </div>
+        <div class="eazy-login">
+            <div class="eazy-login-label">간편 로그인하기</div>
+            <div class="sns-login">
+                <a class="sns-wrap google" href="https://www.google.com/">
+                    <img class="sns-logo" src="./img/google.png"" alt=" 구글로 로그인" />
+                </a>
+                <a class="sns-wrap kakao" href="https://www.kakaocorp.com/page/">
+                    <img class="sns-logo" src="./img/kakao.png" alt="카카오로 로그인" />
+                </a>
+            </div>
+        </div>
+        <footer>
+            <span class="go-signup">판다마켓이 처음이신가요??
+                <a class="signup-link" href="./signup.html">회원가입</a>
+            </span>
+        </footer>
+        </div>
     </main>
+
 </body>
 
 </html>

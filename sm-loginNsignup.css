@@ -1,23 +1,26 @@
-@media (min-width:767px) {
+@media (max-width:766px) {
+
+    * {
+        max-width: 400px;
+    }
+
+    .mb-sizing {
+        margin: 0 auto;
+        padding: 80px 16px;
+    }
+
     .logo-header {
         display: flex;
         justify-content: center;
     }
 
-    .logo {
-        display: inline-block;
+    .logo>img {
+        width: 198px;
+        height: 66px;
     }
 
     .container {
-        margin-top: 40px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 24px;
-        justify-content: center;
-    }
-
-    .login-form {
+        margin: 24px auto;
         display: flex;
         flex-direction: column;
         gap: 24px;
@@ -26,23 +29,35 @@
     .login-label {
         display: block;
         width: fit-content;
-        font-size: 18px;
-        font-weight: 600;
-        line-height: 26px;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 16px;
         color: var(--gray800);
     }
 
     .login-input {
-        border: transparent;
+        width: 100%;
+        margin-top: 8px;
+        border: 1px solid transparent;
         border-radius: 12px;
         background-color: var(--gray100);
         padding: 16px 24px 14px;
-        width: 640px;
-        margin-top: 16px;
-        color: var(--gray400);
+        color: #9Ca3af;
         font-size: 16px;
         font-weight: 400;
         line-height: 26px;
+    }
+
+    .form-nickname {
+        margin-top: 16px;
+    }
+
+    .form-password {
+        margin-top: 16px;
+    }
+
+    .form-password-check {
+        margin-top: 16px;
     }
 
     .password-wrap {
@@ -55,17 +70,34 @@
         position: absolute;
         right: 24px;
         bottom: 16px;
-        cursor: pointer;
         background-image: url(./img/visibliity.png);
         background-color: var(--gray100);
         border: none;
+        cursor: pointer;
+    }
+
+    .login-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 56px;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--gray50);
+        border: transparent;
+        border-radius: 40px;
+        padding: 16px 124px;
+        margin-top: 16px;
+        background-color: var(--gray400);
     }
 
     .signup-button {
         display: flex;
+        margin-top: 16px;
         align-items: center;
         justify-content: center;
-        width: 640px;
+        width: 100%;
         height: 56px;
         font-size: 20px;
         font-weight: 600;
@@ -82,9 +114,9 @@
         justify-content: space-between;
         align-items: center;
         background-color: #E6F2FF;
-        width: 640px;
+        width: 100%;
         height: 74px;
-        border: transparent;
+        border: 1px solid transparent;
         border-radius: 8px;
     }
 
@@ -125,6 +157,8 @@
     }
 
     .go-signup {
+        display: flex;
+        justify-content: center;
         font-size: 14px;
         font-weight: 500;
         line-height: 24p;
