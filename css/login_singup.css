@@ -9,17 +9,20 @@
   --main-ph-color: #9ca3af;
 }
 
-.logo {
-  margin: 60px auto 0;
-  width: 396px;
-  height: 132px;
-  display: block;
+.header-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.logo-container {
+  display: inline-block;
 }
 
 .login-container {
-  margin: 40px auto 0;
+  margin: 0 auto;
+  padding-top: 40px;
   width: 640px;
-  height: 446px;
 }
 
 .login-form {
@@ -28,15 +31,22 @@
 }
 
 .login-label {
+  margin: 16px 0;
   font-size: 18px;
   font-weight: 600;
   line-height: 26px;
   text-align: left;
   color: var(--main-label-color);
+  width: fit-content;
+  cursor: pointer;
+}
+
+.login-label.email {
+  margin-top: 0px;
 }
 
 .login-input {
-  margin: 16px 0 24px;
+  width: 100%;
   padding: 0 24px;
   height: 56px;
   border: 0;
@@ -45,10 +55,25 @@
 }
 
 .login-input.password {
-  background-image: url(login/login_password.png);
-  background-repeat: no-repeat;
-  background-size: 20px 18px;
-  background-position: center right 24px;
+  padding-right: 64px;
+}
+
+.login-button {
+  margin-top: 24px;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-hide {
+  width: 24px;
+  height: 24px;
+  border: none;
+  position: absolute;
+  bottom: 16px;
+  right: 24px;
+  background: url(../login/login_password.png) no-repeat center/contain  ;
   cursor: pointer;
 }
 
@@ -87,26 +112,11 @@
   padding: 0 23px;
   font-size: 16px;
   font-weight: 500;
-  text-align: left;
+  gap: 12px;
 }
 
-.simple {
+.simple-login {
   flex-grow: 1;
-}
-
-.google {
-  width: 44px;
-  height: 44px;
-  display: inline-block;
-  vertical-align: top;
-}
-
-.kakaotalk {
-  margin-left: 10px;
-  width: 44px;
-  height: 44px;
-  display: inline-block;
-  vertical-align: top
 }
 
 .login-first {
@@ -119,4 +129,20 @@
 
 .sign-up {
   color: #3182f6;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .logo {
+    width: 198px; 
+    height: auto;
+  }
+
+  .login-container {
+    max-width: 400px;
+  }
 }
