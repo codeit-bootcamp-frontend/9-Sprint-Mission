@@ -41,9 +41,9 @@ a.header-login:hover {
 	width: 1920px;
 	height: 540px;
 	background-image: url(../images/home/img-panda1.png);
-	background-position: right bottom;
+	background-position: calc(100% - 250px) bottom;
 	background-repeat: no-repeat;
-	background-size: 996px 447px;
+	background-size: 50% auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -55,8 +55,7 @@ a.header-login:hover {
 	font-size: 40px;
 	font-weight: 600;
 	line-height: 56px;
-	padding-left: 405px;
-	left: 360px;
+	padding-left: 20%;
 }
 
 .wrapper h1 {
@@ -173,9 +172,9 @@ p.article-content {
 	width: 1920px;
 	height: 540px;
 	background-image: url(../images/home/img-panda2.png);
-	background-position: right bottom;
+	background-position: calc(100% - 250px) bottom;
 	background-repeat: no-repeat;
-	background-size: 996px 540px;
+	background-size: 50% auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
