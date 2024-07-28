@@ -309,7 +309,7 @@
     .banner-top {
         position: relative;
         height: 540px;
-        background: var(--background-color) url(./img/Img_home_top.png) no-repeat 75% bottom / 746px 340px;
+        background: var(--background-color) url(./img/Img_home_top.png) no-repeat 80% bottom / 746px 340px;
     }
 
     .banner-top-info {
@@ -371,7 +371,7 @@
     .banner-bottom {
         position: relative;
         height: 540px;
-        background: var(--background-color) url(./img/Img_home_bottom.png) no-repeat 75% bottom / 746px 397px
+        background: var(--background-color) url(./img/Img_home_bottom.png) no-repeat 80% bottom / 746px 397px
     }
 
     .banner-bottom-info {
