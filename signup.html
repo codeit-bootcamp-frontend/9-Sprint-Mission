@@ -6,8 +6,7 @@
 		<title>판다마켓</title>
 		<link rel="icon" href="./images/logo/favicon.png">
 		<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
-		<link rel="stylesheet" href="./styles/global.css">
-		<link rel="stylesheet" href="./styles/signup.css">
+		<link rel="stylesheet" href="./styles/login.css">
 	</head>
 
 	<body>
@@ -29,20 +28,20 @@
 						<div class="password">
 							<label for="signup-pw">비밀번호</label>
 							<input class="sign-input signup-pw" name="password" type="password" placeholder="비밀번호를 입력해주세요">
-							<img src="./images/logo/icon-eye.png" class="password-img">
+							<!-- <img src="./images/logo/icon-eye.png" class="password-img"> -->
 						</div>
 
 						<div class="re-password">
 							<label for="re-signup-pw">비밀번호 확인</label>
 							<input class="sign-input re-signup-pw" name="password" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
-							<img src="./images/logo/icon-eye.png" class="re-password-img">
+							<!-- <img src="./images/logo/icon-eye.png" class="re-password-img"> -->
 						</div>
 
 					</div>
 					<button type="submit">로그인</button>
 					
-					<div id="simple-login">
-						<h2>간편 로그인하기</h2>
+					<div class="simple-login">
+						<p>간편 로그인하기</p>
 						<div class="social">
 							<a href="https://www.google.com/"
 							target="_blank"
@@ -60,7 +59,7 @@
 			</section>
 
 			<section class="bottom-banner">
-				<p>이미 회원이신가요?<span><a id="signup" href="./login.html">로그인</a></span></p>
+				<p>이미 회원이신가요?<span><a class="signup" href="./login.html">로그인</a></span></p>
 			</section>	
 		</form>
 	</body>
