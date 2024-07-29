@@ -66,6 +66,15 @@ body {
   outline-color: #3692ff;
 }
 
+.input-style input.focus-out {
+  border:1px solid var(--error-red);
+}
+
+.error-text {
+  color: var(--error-red);
+  padding-left: 20px;
+}
+
 .register-btn {
   text-decoration: none;
   text-align: center;
@@ -77,6 +86,10 @@ body {
   font-size: 20px;
   font-weight: 600;
   line-height: 32px;
+}
+
+.register-btn.active-btn {
+  background-color: var(--primary-blue100);
 }
 
 .easy-login {
