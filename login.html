@@ -6,6 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:url" content="https://pandamarket.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="판다마켓" />
+  <meta property="og:description" content="일상의 모든 물건을 거래해보세요" />
+  <meta property="og:image" content="./images/panda_market.png" />
   <title>판다마켓</title>
 
   <!--favicon -->
@@ -20,17 +25,21 @@
     <h1 class="logo"><a href="/"><img src="./images/logo.svg" alt="판다마켓"></a></h1>
 
     <div class="content-wrap">
-      <form action="post" class="login-form">
+      <form action="./items.html" method="POST" id="form-login" class="login-form">
         <div class="input-box">
           <label for="email">이메일</label>
           <input type="email" id="email" autocomplete="off" placeholder="이메일을 입력해주세요" required>
+          <span class="error email-error"></span>
         </div>
         <div class="input-box password-box">
           <label for="password">비밀번호</label>
-          <input type="password" id="password" autocomplete="off" placeholder="비밀번호를 입력해주세요" required>
-          <span class="close-eyes"><img src="./images/icon/close_eyes.svg" alt="password"></span>
+          <div class="input-wrap">
+            <input type="password" id="password" autocomplete="off" placeholder="비밀번호를 입력해주세요" required>
+             <span class="close-eyes"></span>
+          </div>
+          <span class="error password-error"></span>
         </div>
-        <button type="submit" class="btn">로그인</button>
+        <button type="submit" id="form-btn" class="btn" disabled>로그인</button>
       </form>
 
       <div class="easy-login-wrap">
@@ -47,6 +56,8 @@
       </div>
     </div>
   </section>
+  
+  <script type="module" src="./js/login.js"></script>
 </body>
 
 </html>

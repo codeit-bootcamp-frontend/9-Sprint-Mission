@@ -177,7 +177,8 @@ footer {
 // 로그인 페이지
 .login-wrap {
   max-width: 640px;
-  margin: 60px auto 0;
+  margin: 0 auto;
+  padding: 60px 0;
 
   .logo {
     text-align: center;
@@ -224,17 +225,40 @@ footer {
             border: 3px solid $clr-blue;
             transition: all ease .1s;
           }
+
+          &.red {
+            border: 3px solid $clr-red;
+          }
         }
 
         &.password-box {
-          position: relative;
+          .input-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
 
-          .close-eyes {
-            position: absolute;
-            right: 24px;
-            bottom: 16px;
-            cursor: pointer;
+            .close-eyes, .close-eyes.chk {
+              background: url('../images/icon/close_eyes.svg') center center no-repeat;
+              width: 24px;
+              height: 24px;
+              position: absolute;
+              right: 24px;
+              cursor: pointer;
+              
+              &.open-eyes {
+                background: url('../images/icon/open_eyes.svg') center center no-repeat;
+              }
+            }
           }
+        }
+
+        .error {
+          color: $clr-red;
+          font-size: .875rem;
+          font-weight: 600;
+          padding-left: 24px;
+          margin-top: -5px;
         }
       }
 
@@ -250,7 +274,7 @@ footer {
         transition: all ease .3s;
         cursor: pointer;
 
-        &:hover {
+        &.disabled-none {
           background-color: $clr-blue;
           transition: all ease .3s;
         }
@@ -488,7 +512,8 @@ footer {
   // 로그인 페이지
   .login-wrap {
     max-width: 640px;
-    margin: 60px auto 0;
+    margin: 0 auto;
+    padding: 48px 0;
 
     .logo {
       text-align: center;
@@ -536,17 +561,6 @@ footer {
               transition: all ease .1s;
             }
           }
-
-          &.password-box {
-            position: relative;
-
-            .close-eyes {
-              position: absolute;
-              right: 24px;
-              bottom: 16px;
-              cursor: pointer;
-            }
-          }
         }
 
         .btn {
@@ -561,7 +575,7 @@ footer {
           transition: all ease .3s;
           cursor: pointer;
 
-          &:hover {
+          &.disabled-none {
             background-color: $clr-blue;
             transition: all ease .3s;
           }
@@ -811,7 +825,7 @@ footer {
   // 로그인 페이지
   .login-wrap {
     max-width: 400px;
-    margin: 60px auto 0;
+    margin: 0 auto;
     padding: 24px 16px;
 
     .logo {
@@ -860,17 +874,6 @@ footer {
               transition: all ease .1s;
             }
           }
-
-          &.password-box {
-            position: relative;
-
-            .close-eyes {
-              position: absolute;
-              right: 24px;
-              bottom: 16px;
-              cursor: pointer;
-            }
-          }
         }
 
         .btn {
@@ -885,7 +888,7 @@ footer {
           transition: all ease .3s;
           cursor: pointer;
 
-          &:hover {
+          &.disabled-none {
             background-color: $clr-blue;
             transition: all ease .3s;
           }
