@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login-signup.css">
+    <link rel="stylesheet" href="css/glober.css">
+    <link rel="icon" href="logo/favicon.ico">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"/>
+    <title>로그인</title>
+ </head>
+<body>
+    <header>
+        <a href="/"><img src="../logo/panda-market-logo.png" alt="판다마켓 로고"></a>
+    </header>
+    <section>
+        <div class="loginswrap">
+            <form class="loginwrap">
+                <div class="ulwrap">
+                    <label class="labelText" for="email"><p>이메일</p></label>
+                    <input class="inputText" id="email" type="email" placeholder="이메일을 입력해주세요">
+                </div>
+                <div class="ulwrap">
+                    <label class="labelText" for="password"><p>비밀번호</p></label>
+                    <input class="inputText" id="password" type="password" placeholder="비밀번호를 입력해주세요">
+                    <span><img class="passwordSee" src="../icon/passwordIcon.png" alt="비밀번호 보기 아이콘"></span>
+                </div>
+                <div class="ulwrap">
+                    <button targer="submit" class="loginBtn">로그인</button>
+                </div>
+            </form>
+            <div class="easyLogin">
+                <p>간편 로그인하기</p>
+                <div class="icons">
+                    <a href="https://www.google.com/" target="_blank" rel="noopener noreferrer"><img src="../icon/ic_kakaotalk.png" alt="카카오톡 아이콘"></a>
+                    <a href="https://www.kakaocorp.com/page/" target="_blank" rel="noopener noreferrer"><img src="../icon/ic_google.png" alt="구글 아이콘"></a>
+                </div>
+            </div>
+            <div class="toggle-login-sign">
+                <p>판다마켓이 처음이신가요? <a href="signup.html">회원가입</a></p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,17 +1,5 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-body{
-  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-  color: #1f2937;
-}
-ul{
-  list-style-type: none;
-}
 header {
-  width: 400px;
+  max-width: 400px;
   height: 130px;
   margin-top: 60px;
   margin-left: auto;
@@ -21,14 +9,24 @@ header {
 header img {
   width: 100%;
 }
+body {
+  padding: 30px 0;
+}
 input:focus {
-  background-color: #3692ff;
+  border: solid 1px var(--color-blue);
+}
+.loginswrap {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 auto;
 }
 .loginwrap {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 640px;
+  width: 100%;
   margin: 0 auto;
 }
 .labelText {
@@ -37,7 +35,8 @@ input:focus {
   line-height: 26px;
 }
 .inputText {
-  background-color: #f3f4f6;
+  background-color: var(--color-gray100);
+  font-size: 1.6rem;
   width: 100%;
   height: 56px;
   border-radius: 12px;
@@ -59,7 +58,7 @@ input:focus {
   height: 24px;
 }
 .loginBtn {
-  background-color: #9ca3af;
+  background-color: var(--color-gray400);
   color: #f3f4f6;
   font-size: 20px;
   font-weight: 600;
@@ -67,6 +66,7 @@ input:focus {
   text-align: center;
   padding: 16px 124px;
   border-radius: 40px;
+  border: 0;
 }
 .easyLogin {
   display: flex;
@@ -79,7 +79,7 @@ input:focus {
   line-height: 26px;
   padding: 16px 23px;
   border-radius: 8px;
-  width: 640px;
+  width: 100%;
   height: 74px;
 
 }
@@ -92,12 +92,25 @@ input:focus {
   gap: 16px;
   height: 100%;
 }
-.goSign {
+.toggle-login-sign {
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
   margin: 0 auto;
 }
-.goSign a {
-  color: #3692ff;
+.toggle-login-sign a {
+  color: var(--color-blue);
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding: 30px 15px;
+  }
+  .wrap h2 {
+    font-size: 32px;
+  }
+  .labelText {
+    font-size: 1.4rem;
+  }
 }
