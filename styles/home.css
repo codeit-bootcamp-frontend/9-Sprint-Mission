@@ -1,11 +1,11 @@
 /* Mobile */
 .banner {
   text-align: center;
-  height: 60vh;
+  height: 540px;
   background-color: #cfe5ff;
   background-repeat: no-repeat;
   background-position: 80% bottom;
-  background-size: 55%;
+  background-size: 448px 204px;
 }
 
 #topBanner {
@@ -78,8 +78,8 @@
 /* Tablet */
 @media (min-width: 768px) {
   .banner {
-    height: 90vh;
-    background-size: 120%;
+    height: 771px;
+    background-size: 744px 340px;
   }
 
   .banner h1 {
