@@ -22,6 +22,7 @@
 
 #bottomBanner {
   background-image: url("../images/landing/Img_home_bottom.png");
+  padding: 121px;
 }
 
 #loginLink {
@@ -52,8 +53,7 @@
   flex: 1;
 }
 
-/* 'feature-tag' */
-.feature-content h3 {
+.feature-tag {
   color: var(--blue);
   font-size: 16px;
   line-height: 22.4px;
@@ -61,7 +61,7 @@
   margin-bottom: 8px;
 }
 
-.feature-content h2 {
+.feature-title {
   font-weight: 700;
   font-size: 24px;
   line-height: 33.6px;
@@ -73,6 +73,14 @@
   line-height: 19.2px;
   letter-spacing: 0.08em;
   margin-top: 20px;
+}
+
+.bottom-title {
+  width: 236px;
+  height: 90px;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 44.8px;
 }
 
 /* Tablet */
@@ -114,27 +122,44 @@
     flex: 1;
   }
 
-  /* 'feature-tag' */
-  .feature-content h3 {
+  .feature-tag {
     color: var(--blue);
-    font-size: 16px;
-    line-height: 22.4px;
+    font-size: 18px;
+    line-height: 26px;
     font-weight: 700;
     margin-bottom: 8px;
   }
 
-  .feature-content h2 {
+  .feature-title {
     font-weight: 700;
-    font-size: 24px;
-    line-height: 33.6px;
+    font-size: 32px;
+    line-height: 42px;
   }
 
   .feature-description {
     font-weight: 500;
-    font-size: 16px;
-    line-height: 19.2px;
-    letter-spacing: 0.08em;
+    font-size: 18px;
+    line-height: 26px;
     margin-top: 20px;
+  }
+
+  #bottomBanner {
+    padding: 201px;
+  }
+
+  #bottomBanner .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bottom-title {
+    width: 295px;
+    height: 112px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 56px;
   }
 }
 
@@ -179,12 +204,12 @@
     margin-bottom: 0;
   }
 
-  .feature-content h2 {
+  .feature-title {
     font-size: 40px;
     line-height: 56px;
   }
 
-  .feature-content h3 {
+  .feature-tag {
     font-size: 18px;
   }
 
@@ -192,9 +217,5 @@
     font-size: 24px;
     line-height: 28.8px;
     margin-top: 24px;
-  }
-
-  #bottomBanner h2 {
-    font-size: 40px;
   }
 }
