@@ -15,11 +15,12 @@
   <div id="login">
     <div class="wrap_inner2">
       <h1 class="sub_logo"><a href="/" alt="판다마켓"><img src="./images/logo/sub_logo.png" alt="판다마켓"></a></h1>
-      <form action="post">
+      <form action="/items.html">
         <div class="enter_box">
           <div>
             <label for="email">이메일</label>
             <input type="email" name="" value="" id="email" class="form_input" autocomplete="new-password" placeholder="이메일을 입력해주세요">
+            <div id="error-msg"></div>
           </div>
           <div>
             <label for="password">비밀번호</label>
@@ -27,6 +28,7 @@
               <input type="password" name="" value="" id="password" class="form_input" autocomplete="new-password"
                 placeholder="비밀번호를 입력해주세요">
               <span class="pwd_icon"><img src="./images/icon/ic_pwd_default.png" alt="password"></span>
+              <div id="error-msg"></div>
             </div>
           </div>
           <div class="box_btn"><input type="submit" value="로그인"></div>
@@ -42,5 +44,6 @@
       </form>
     </div>
   </div>
+  <script src="/script/auth.js"></script>
 </body>
 </html>
