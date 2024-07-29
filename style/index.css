@@ -264,11 +264,12 @@ footer ul li a {
   footer .ft_inner {
     flex-wrap: wrap;
     position:relative;
+    height: 100%;
     padding:8.53%;
+    gap: 60px 0;
   }
-  footer p {
-    position:absolute;
-    left:8.53%;
-    bottom:8.53%;
+  footer .order-3 {
+    order:3;
+    flex:0 0 100%;
   }
 }
