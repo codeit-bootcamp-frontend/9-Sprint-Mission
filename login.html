@@ -18,41 +18,62 @@
             </a>
         </header>
         <main>
-            <form>
-                <label for="email"
-                    >이메일
+            <form id="login-form">
+                <label for="email">
+                    이메일
                     <input
                         id="email"
                         type="email"
                         placeholder="이메일을 입력해 주세요"
                     />
                 </label>
-
-                <!-- input을 label로 감쌈 -->
-                <label for="password"
-                    >비밀번호<input
+                <span id="email-empty-error" class="error-message">
+                    이메일을 입력해주세요
+                </span>
+                <span id="email-invalid-error" class="error-message">
+                    잘못된 이메일 입니다
+                </span>
+                <label for="password">
+                    비밀번호
+                    <input
                         id="password"
                         type="password"
-                        placeholder="비밀번호를 입력해주세요" />
+                        placeholder="비밀번호를 입력해주세요"
+                    />
                     <div class="pwd-Eye">
-                        <img src="./src/icon/Variant.png" /></div
-                ></label>
-                <button class="button">로그인</button>
+                        <img src="./src/icon/Variant.png" />
+                    </div>
+                </label>
+                <span id="pw-empty-error" class="error-message">
+                    비밀번호를 입력해주세요
+                </span>
+                <span id="pw-invalid-error" class="error-message">
+                    비밀번호를 8자 이상 입력해주세요
+                </span>
+                <button
+                    id="login-button"
+                    class="button"
+                    disabled
+                    onclick="location.href='items.html'"
+                >
+                    로그인
+                </button>
             </form>
             <section class="platform-login">
                 간편 로그인하기
                 <div class="platform-logo">
-                    <a href="https://www.google.com/"
-                        ><img src="./src/icon/platform/google.png" alt="구글"
-                    /></a>
-                    <a href="https://www.kakaocorp.com/page/"
-                        ><img src="./src/icon/platform/kakao.png" alt="카카오"
-                    /></a>
+                    <a href="https://www.google.com/">
+                        <img src="./src/icon/platform/google.png" alt="구글" />
+                    </a>
+                    <a href="https://www.kakaocorp.com/page/">
+                        <img src="./src/icon/platform/kakao.png" alt="카카오" />
+                    </a>
                 </div>
             </section>
         </main>
         <footer>
             판다마켓이 처음이신가요?<a href="/signup.html">회원가입</a>
         </footer>
+        <script src="scripts/auth.js"></script>
     </body>
 </html>

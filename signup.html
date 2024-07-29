@@ -15,53 +15,85 @@
             /></a>
         </header>
         <main>
-            <form>
-                <label for="email"
-                    >이메일<input
+            <form id="signup-form">
+                <label for="email">
+                    이메일
+                    <input
                         id="email"
                         type="email"
                         placeholder="이메일을 입력해 주세요"
-                /></label>
-
-                <label for="nickname"
-                    >닉네임<input
+                    />
+                </label>
+                <span id="email-empty-error" class="error-message">
+                    이메일을 입력해주세요
+                </span>
+                <span id="email-invalid-error" class="error-message">
+                    잘못된 이메일 입니다
+                </span>
+                <label for="nickname">
+                    닉네임
+                    <input
                         id="nickname"
                         type="text"
                         placeholder="닉네임을 입력해 주세요"
-                /></label>
-
-                <!-- input을 label로 감쌈 -->
-                <label for="password"
-                    >비밀번호<input
+                    />
+                </label>
+                <span id="nickname-empty-error" class="error-message">
+                    닉네임을 입력해주세요
+                </span>
+                <label for="password">
+                    비밀번호
+                    <input
                         id="password"
                         type="password"
-                        placeholder="비밀번호를 입력해주세요" />
+                        placeholder="비밀번호를 입력해주세요"
+                    />
                     <div class="pwd-Eye">
-                        <img src="./src/icon/Variant.png" /></div
-                ></label>
-                <!-- input을 label로 감쌈 -->
-                <label for="password-repeat"
-                    >비밀번호 확인<input
+                        <img src="./src/icon/Variant.png" />
+                    </div>
+                </label>
+                <span id="pw-empty-error" class="error-message">
+                    비밀번호를 입력해주세요
+                </span>
+                <span id="pw-invalid-error" class="error-message">
+                    비밀번호를 8자 이상 입력해주세요
+                </span>
+                <label for="password-repeat">
+                    비밀번호 확인
+                    <input
                         id="password-repeat"
                         type="password"
-                        placeholder="비밀번호를 다시 한 번 입력해주세요" />
+                        placeholder="비밀번호를 다시 한 번 입력해주세요"
+                    />
                     <div class="pwd-Eye">
-                        <img src="./src/icon/Variant.png" /></div
-                ></label>
-                <button class="button">회원가입</button>
+                        <img src="./src/icon/Variant.png" />
+                    </div>
+                </label>
+                <span id="pw-repeat-invalid-error" class="error-message">
+                    비밀번호가 일치하지 않습니다
+                </span>
+                <button
+                    id="signup-button"
+                    class="button"
+                    type="submit"
+                    disabled
+                >
+                    회원가입
+                </button>
             </form>
             <section class="platform-login">
                 간편 로그인하기
                 <div class="platform-logo">
-                    <a href="https://www.google.com/"
-                        ><img src="./src/icon/platform/google.png" alt="구글"
-                    /></a>
-                    <a href="https://www.kakaocorp.com/page/"
-                        ><img src="./src/icon/platform/kakao.png" alt="카카오"
-                    /></a>
+                    <a href="https://www.google.com/">
+                        <img src="./src/icon/platform/google.png" alt="구글" />
+                    </a>
+                    <a href="https://www.kakaocorp.com/page/">
+                        <img src="./src/icon/platform/kakao.png" alt="카카오" />
+                    </a>
                 </div>
             </section>
         </main>
         <footer>이미 회원이신가요?<a href="/login.html">로그인</a></footer>
+        <script src="scripts/auth.js"></script>
     </body>
 </html>
