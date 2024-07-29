@@ -20,11 +20,6 @@
   padding-bottom: 18px;
 }
 
-#bottomBanner {
-  background-image: url("../images/landing/Img_home_bottom.png");
-  padding: 121px;
-}
-
 #loginLink {
   font-size: 16px;
   font-weight: 600;
@@ -73,6 +68,15 @@
   line-height: 19.2px;
   letter-spacing: 0.08em;
   margin-top: 20px;
+}
+
+#bottomBanner {
+  background-image: url("../images/landing/Img_home_bottom.png");
+  padding: 121px;
+}
+
+#bottomBanner .wrapper {
+  display: block;
 }
 
 .bottom-title {
@@ -217,5 +221,18 @@
     font-size: 24px;
     line-height: 28.8px;
     margin-top: 24px;
+  }
+
+  #bottomBanner .wrapper {
+    display: block;
+  }
+
+  .bottom-title {
+    width: 295px;
+    height: 112px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 56px;
   }
 }
