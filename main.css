@@ -1,20 +1,19 @@
-* { 
-    box-sizing : border-box;
-    margin: 0;
-    padding 0;
-    }
-    body, h1, h2, h3, h4, p, figure, blockquote, dl, dd { 
-        margin-block-end: 0; 
-    }
-    
-    .header {
-        display: flex;
-        justify-content: center;
-        height: 80px;
 
-    }
-    .grow {
-        flex-grow: 0.4;
+
+/* header */
+
+    .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 80px;
+        padding: 0 200px;
+        background-color: #ffffff;
     }
 
     .header-box {
@@ -24,7 +23,8 @@
         align-items: center;
     }
 
-    .header-logo, .header-login {
+    .header-logo,
+    .header-login {
         display: inline-block;
     }
 
@@ -34,15 +34,15 @@
         align-items: center;
         cursor: pointer;
     }
-    
+
     .header-right {
-        width : 128px;
+        width: 10%;
         height: 48px;
         border-radius: 8px;
-        padding : 12px, 23px, 12px, 23px;
-        gap : 10px;
-        background-color:#3692FF;
-        color : white;
+        padding: 12px, 23px, 12px, 23px;
+        gap: 10px;
+        background-color: #3692FF;
+        color: white;
         text-decoration: none;
         margin: 20px;
         border-radius: 10px;
@@ -54,136 +54,286 @@
         justify-content: center;
     }
 
-.banner {
-    height: 540px;
-    background-color: #CFE5FF;
+
+    /* 메인 */
+
+    .banner {
+        padding-top: 80px;
+        background-color: #CFE5FF;
+    }
+
+    .banner-bottom {
+        background-color: #CFE5FF;
+    }
+
+    .banner-box {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        padding: 50px 200px 0;
+        margin-top: 80px;
+        text-align: center;
+        position: relative;
+        top : 4px;
+    }
+
+    .banner-text {
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 56px;
+        margin-right: 40px;
+        color: #374151;
+    }
+
+    .banner-text-bottom {
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 56px;
+        margin-right: 40px;
+        color: #374151;
+        margin-bottom: 150px;
+    }
+
+    .banner-btn {
+        background-color: #3692FF;
+        color: white;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        height: 54px;
+        width: 100%;
+        padding: 16px, 124px, 16px, 124px;
+        border-radius: 40px;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 32px;
+        margin-top: 30px;
+        margin-bottom: 80px;
+    }
+
+    .panda-img {
+        width: 100%;
+    }
+
+    .content-popular,
+    .content-serch,
+    .content-upload {
+        padding: 30px 100px 30px;
+    }
+
+    .content-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 200px;
+    }
+
+
+    .content-img {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+    }
+
+    .content-box-right {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .content-text {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 20px
+    }
+
+    .text-top {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 26px;
+        color: #3692FF;
+    }
+
+    .text-middle {
+        font-size: 40px;
+        font-weight: 700;
+        line-height: 56px;
+        color: #374151;
+        margin-top: 10px;
+    }
+
+    .text-bottom {
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 32px;
+        color: #374151;
+        margin-top: 20px
+    }
+
+    .right {
+        text-align: end;
+        margin-right: 20px;
+    }
+
+    .banner-bottom {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+
+    /* footer */
+
+    .footer {
+        background-color: #111827;
+        height: 160px;
+        display: flex;
+        justify-content: center;
+        color: white;
+    }
+
+    .footer-box {
+        width: 70%;
+        height: 20px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .footer-icon{
+        display: flex;
+    }
+
+    .footer-icon img {
+        height: 20px;
+        margin-right: 5px;
+    }
+
+    .privacy {
+        font-size: 16px;
+        font-weight: 400;
+        color: #E5E7EB;
+        text-decoration: none;
+    }
+
+    .faq {
+        font-size: 16px;
+        font-weight: 400;
+        color: #E5E7EB;
+        text-decoration: none;
+        margin-left: 30px;
+    }
+
+
+/* 태블릿 사이즈 */
+@media screen and (max-width : 1200px) {
+    .header {
+        padding: 0 24px;
+    }
+
+    .banner-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .banner-text {
+        margin-right: 0;
+    }
+
+    .banner-btn {
+        width: 80%;
+    }
+
+    .banner-left {
+        padding: 0 30px;
+    }
+
+    .content-box {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+    }
+
+    .content-img {
+        width: 100%;
+        max-width: 1000px;
+        height: auto;
+    }
+
+    .content-conatiner {
+        padding: 20px;
+    }
+
+    .content-popular,
+    .content-serch,
+    .content-upload {
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .reverse {
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-end;
+    }
+
+    .content-text {
+        padding: 30px 0 40px;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .text-top,
+    .text-bottom {
+        font-size: 18px;
+    }
+
+    .text-middle {
+        font-size: 32px;
+    }
+
+    .banner-text-bottom {
+        padding: 100px 190px 50px;
+        text-align: center;
+    }
+
+    .header-right {
+        width: 15%
+    }
 }
 
-.banner-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top : 205px;
-}
+/* 모바일 사이즈 */
+@media screen and (max-width : 768px) {
+    .header {
+        padding: 0 16px;
+    }
 
-.banner-text {
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 56px;
-}
+    .header-right {
+        width: 20%
+    }
 
-.banner-btn {
-    background-color: #3692FF;
-    color: white;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    height: 54px;
-    width: 100%;
-    padding: 16px, 124px, 16px, 124px;
-    border-radius: 40px;
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 32px;
-    margin-top: 30px;
-}
+    .text-top,
+    .text-bottom {
+        font-size: 16px;
+    }
 
-.content-popular, .content-serch {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding : 100px
-}
+    .text-middle {
+        font-size: 24px;
+    }
 
-.content-box {
-    width : 1200px;
-    display: flex;
-}
-
-.content-img {
-    width: 588px;
-    height: 444px;
-}
-
-.content-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 30px;
-    background-color: #FCFCFC;
-}
-
-.text-top {
-    font-size : 18px;
-    font-weight: 700;
-    line-height: 26px;
-    color: #3692FF;
-}
-
-.text-middle {
-    font-size : 40px;
-    font-weight: 700;
-    line-height: 56px;
-    color: #374151;
-    margin-top: 10px;
-}
-
-.text-bottom{
-    font-size : 24px;
-    font-weight: 500;
-    line-height: 32px;
-    color: #374151;
-    margin-top: 20px
-}
-
-.right {
-    text-align: end;
-}
-
-.flex {
-    justify-content: flex-end;
-}
-
-.banner-bottom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    top : 135px;
-}
-
-.footer {
-    background-color: #111827;
-    height: 160px;
-    display: flex;
-    justify-content: center;
-    color : white; 
-}
-
-.footer-box {
-    width: 1120px;
-    height: 20px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.footer-icon img {
-    height: 20px;
-    margin-right: 5px;
-}
-
-.privacy {
-    font-size: 16px;
-    font-weight: 400;
-    color : #E5E7EB;
-    text-decoration: none;
-}
-
-.faq {
-    font-size: 16px;
-    font-weight: 400;
-    color : #E5E7EB;
-    text-decoration: none;
-    margin-left: 30px;
+    .banner-text, .banner-text-bottom {
+        font-size : 32px
+    }
+    .banner-text-bottom {
+        padding: 100px 30px 30px;
+    }
 }

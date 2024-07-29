@@ -1,43 +1,45 @@
-* { 
-    box-sizing : border-box;
-    margin: 0;
-    padding 0;
-    }
-    body, h1, h2, h3, h4, p, figure, blockquote, dl, dd { 
-        margin-block-end: 0; 
-    }
-
-html {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .container {
     width : 640px;
+    margin: 0 auto;
     text-align: center;
 }
 
-.foam-text {
+
+.login {
+    padding : 200px 0 200px 0;
+    width: 640px;
+}
+
+.signup {
+    padding : 60px 0 200px 0;
+}
+
+.header-img{
+    margin-bottom: 20px;
+}
+
+.form-text {
+    display: block;
+    margin-bottom: 20px;
     text-align: left;
     font-size : 18px;
     font-weight: 700;
     line-height: 26px;
 }
 
-.foam-input {
+.form-input {
     width : 100%;
     height : 56px;
     border: none;
     border-radius: 12px;
-    margin-top: 20px;
+    margin-bottom: 20px;
     padding : 16px 24px 16px 24px;
     gap : 10px;
     background-color: #F3F4F6;
+    font-size : 16px;
 }
 
-.foam-btn {
+.form-btn {
     width : 100%;
     height: 56px;
     border: none;
@@ -97,3 +99,30 @@ button:focus {
     background-color: #3692FF;
     border: 1px solid #3692FF;
 }
+
+
+/* 태블릿 사이즈 */
+@media screen and (max-width : 1199px) {
+    .signup {
+        padding : 50px 16px 200px 16px;
+        width: 100%;
+    }
+
+    .login {
+        padding : 200px 16px 200px 16px;
+        width: 100%;
+    }
+}
+/* 모바일 사이즈 */
+@media screen and (max-width : 767px) {
+    .signup {
+        padding-top : 30px;
+    }
+
+    .login {
+        padding-top : 100px;
+    }
+      .header-panda {
+          width: 198px;
+      }
+  }

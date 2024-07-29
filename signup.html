@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
+    <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
-    <div class="container">
+    <div class="container signup">
         <header>
             <a href="/">
-                <img src="img/Property 1=lg.png">
+                <img src="img/Property 1=lg.png" class="header-panda" alt="panda-img">
             </a>
         </header>
         <main>
-            <foam>
-                <h2 class="foam-text">이메일</h2>
-                <input type="email" placeholder="이메일을 입력해주세요" class="foam-input">
-                <h2 class="foam-text">닉네임</h2>
-                <input type="text" placeholder="닉네임을 입력해주세요" class="foam-input">
-                <h2 class="foam-text">비밀번호</h2>
-                <input type="password" placeholder="비밀번호를 입력해주세요" class="foam-input">
-                <h2 class="foam-text">비밀번호 확인</h2>
-                <input type="password" placeholder="비밀번호를 다시 한 번 입력해주세요" class="foam-input">
+            <form>
+            <div>
+                <label class="form-text" for="email">이메일</label>
+                <input type="email" placeholder="이메일을 입력해주세요" class="form-input" id="email">
+            </div>
+            <div>
+                <label class="form-text" for="nickname">닉네임</label>
+                <input type="text" placeholder="닉네임을 입력해주세요" class="form-input" id="nickname">
+            </div>
+            <div>
+                <label class="form-text" for="password">비밀번호</label>
+                <input type="password" placeholder="비밀번호를 입력해주세요" class="form-input" id="password">
+            </div>
+            <div>
+                <label class="form-text" for="password-check">비밀번호 확인</label>
+                <input type="password" placeholder="비밀번호를 다시 한 번 입력해주세요" class="form-input" id="password-check">
+            </div>
                 <div>
-                    <button class="foam-btn">회원가입</button>
+                    <button class="form-btn">회원가입</button>
                 </div>
                 <div class="login-box">
                     <div class="easy-login">간편 로그인하기</div>
@@ -35,13 +44,24 @@
                         <a href="https://www.kakaocorp.com/page"><img src="img/kakao.png" alt="kakao-img"></a>
                     </div>
                 </div>
-            </foam>
+            </form>
         </main>
         <footer class="footer">
             <span class="footer-text"> 이미 회원이신가요?</span>
             <a href="./login.html">로그인</a>
         </footer>
     </div>
+</body>
+
+</html><!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link rel="stylesheet" href="login.css">
+
 </body>
 
 </html>
