@@ -10,46 +10,44 @@
     </head>
     <body>
         <header>
-            <a href="/" id="logo"
-                ><img
-                    src="./src/img/logo/Property 1=lg.png"
-                    alt="판다마켓 로고"
+            <a href="/" id="logo">
+                <img src="./src/img/logo/Property 1=lg.png" alt="판다마켓 로고"
             /></a>
         </header>
         <main>
             <form>
-                <label for="email">이메일</label>
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="이메일을 입력해 주세요"
-                />
-                <label for="nickname">닉네임</label>
-                <input
-                    id="nickname"
-                    type="text"
-                    placeholder="닉네임을 입력해 주세요"
-                />
-                <div class="password-Box">
-                    <label>비밀번호</label>
-                    <input
+                <label for="email"
+                    >이메일<input
+                        id="email"
+                        type="email"
+                        placeholder="이메일을 입력해 주세요"
+                /></label>
+
+                <label for="nickname"
+                    >닉네임<input
+                        id="nickname"
+                        type="text"
+                        placeholder="닉네임을 입력해 주세요"
+                /></label>
+
+                <!-- input을 label로 감쌈 -->
+                <label for="password"
+                    >비밀번호<input
+                        id="password"
                         type="password"
-                        placeholder="비밀번호를 입력해주세요"
-                    />
+                        placeholder="비밀번호를 입력해주세요" />
                     <div class="pwd-Eye">
-                        <img src="./src/icon/Variant.png" />
-                    </div>
-                </div>
-                <div class="password-Box">
-                    <label>비밀번호 확인</label>
-                    <input
+                        <img src="./src/icon/Variant.png" /></div
+                ></label>
+                <!-- input을 label로 감쌈 -->
+                <label for="password-repeat"
+                    >비밀번호 확인<input
+                        id="password-repeat"
                         type="password"
-                        placeholder="비밀번호를 다시 한 번 입력해주세요"
-                    />
+                        placeholder="비밀번호를 다시 한 번 입력해주세요" />
                     <div class="pwd-Eye">
-                        <img src="./src/icon/Variant.png" />
-                    </div>
-                </div>
+                        <img src="./src/icon/Variant.png" /></div
+                ></label>
                 <button class="button">회원가입</button>
             </form>
             <section class="platform-login">

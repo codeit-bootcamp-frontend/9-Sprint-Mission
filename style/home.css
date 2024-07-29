@@ -32,7 +32,7 @@ header {
 }
 
 .banner-Text {
-    max-width: 1200px;
+    padding: 0 200px;
     width: 100%;
     margin: auto;
     gap: 32px;
@@ -71,14 +71,15 @@ header {
 .container.even {
     justify-content: end;
     text-align: right;
+    flex-direction: row-reverse;
 }
 
-.container h2 {
+.container h3 {
     font-size: 18px;
     color: var(--color-blue);
 }
 
-.container h3 {
+.container h2 {
     font-size: 40px;
     margin: 12px 0 24px;
 }
@@ -93,7 +94,7 @@ footer {
     display: flex;
     justify-content: space-between;
     background-color: var(--color-gray900);
-    padding: 32px 200px;
+    padding: 32px 400px;
     font-size: 16px;
     font-weight: 400;
 }
@@ -114,4 +115,105 @@ footer p {
 .footer-icon {
     display: flex;
     gap: 12px;
+}
+
+@media (max-width: 1199px) {
+    header {
+        padding: 0 24px;
+    }
+
+    .banner {
+        height: 771px;
+        background-size: 100%;
+        background-position: 100% bottom;
+        text-align: center;
+        align-items: start;
+    }
+
+    .banner-Text {
+        margin: 116px 0;
+        padding: 0;
+    }
+
+    #top-Banner br {
+        display: none;
+    }
+
+    .button.banner-button {
+        margin: 24px;
+    }
+
+    .containers {
+        padding: 24px;
+        gap: 52px;
+        margin: 0 0 54px;
+    }
+
+    .container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        align-items: start;
+        gap: 64px;
+    }
+
+    .container img {
+        width: 100%;
+    }
+
+    .container.even {
+        flex-direction: column;
+        align-items: end;
+    }
+
+    .container h2 {
+        margin: 16px 0 24px;
+        font-size: 32px;
+    }
+
+    .container h2 br {
+        display: none;
+    }
+
+    .container p {
+        font-size: 18px;
+    }
+
+    footer {
+        padding: 32px 104px;
+    }
+}
+
+@media (max-width: 767px) {
+    header {
+        padding: 0 16px;
+    }
+
+    .banner {
+        height: 540px;
+    }
+    #top-Banner br {
+        display: block;
+    }
+    .banner-Text h1 {
+        font-size: 32px;
+    }
+
+    .containers {
+        padding: 15px;
+        gap: 40px;
+        margin: 0 0 40px;
+    }
+    .container h3 {
+        font-size: 16px;
+    }
+    .container h2 {
+        margin: 8px 0 16px;
+        font-size: 24px;
+    }
+
+    footer {
+        padding: 32px 32px;
+    }
 }
