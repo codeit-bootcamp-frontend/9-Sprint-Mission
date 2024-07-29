@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style-login.css">
+    <title>판다마켓</title>
     <link rel="stylesheet" href="basic-style.css">
+    <link rel="stylesheet" href="style-login.css">
 
 </head>
 
@@ -19,15 +19,24 @@
         <section class="login">
             
             <div class="inputbox">
-                <form action="/" method="POST">
+                <form action="/items.html" method="POST">
                     <label for="user-name"> 이메일</label>
-                        <input id="user-name" name="user-name" placeholder="이메일을 입력해주세요" type="email" autocomplete="email" required>
-                    
+                        
+                        <input class="inputidpw" id="user-name" name="user-name" placeholder="이메일을 입력해주세요" type="email" autocomplete="email" required>
+                        <div class="msg-area">
+                            <span class="msg msg-email">이메일을 입력해주세요.</span>
+                            <span class="msg msg-wrongemail">잘못된 이메일 형식입니다.</span>
+                        </div>
+
                     <label for="password"> 비밀번호</label>
                     
-                        <input id="password" name="password" placeholder="비밀번호를 입력해주세요" type="password" required>
-                    
-                    <button>로그인</button>
+                        <input class="inputidpw"  id="password" name="password" placeholder="비밀번호를 입력해주세요" type="password" required>
+                        <div class="msg-area">
+                            <span class="msg msg-pw">비밀번호를 입력해주세요.</span>
+                            <span class="msg msg-wrongpw">비밀번호를 8자 이상 입력해주세요.</span>
+                        </div>
+
+                    <button class="disabled-btn submit-btn">로그인</button>
                 </form>
             </div>
 
@@ -43,9 +52,11 @@
                 </div>
             </div>
             <div class="question">
-                <p>판다마켓이 처음이신가요? <a href="/signup.html">회원가입</a></p>
+                <div>판다마켓이 처음이신가요? <a href="/signup.html">회원가입</a></div>
             </div>
         </section>
     </main>
+
+    <script src="/login.js" type="module"></script>
 </body>
 </html>

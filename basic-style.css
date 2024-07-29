@@ -2,7 +2,10 @@
 :root{
     --background-color : #CFE5FF;
     --blue:#3692FF;
+    --red: #f74747;
     --light-blue: #E6F2FF;
+    --light-gray: #cfcfcf;
+    --dark-gray: #676767;
 
     --gray900:#111827;
     --gray800 : #1F2937;
@@ -28,13 +31,6 @@ html{
 
 body{
     margin:0;
-}
-h1{
-    font-size: 4rem;
-    font-weight: 800;
-}
-h2{
-    font-size: 2rem;
 }
 
 a{
