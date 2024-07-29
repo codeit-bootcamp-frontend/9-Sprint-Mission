@@ -3,13 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:image" content="/images/Img_home_top.png">
+    <meta property="og:title" content="판다마켓">
+    <meta
+    property="og:description"
+    content="일상의 모든 물건을 거래해 보세요">
+    <meta property="og:url" content="https://basic-jjeankim-sprint.netlify.app">
     <title>판다마켓</title>
-    <link rel="stylesheet" href="basic.css" />
-    <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="public/color.css" />
+    <link rel="stylesheet" href="./styles/basic.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
+    <link rel="stylesheet" href="./styles/color.css" />
   </head>
   <body>
-    <header>
+     <header>
       <div class="gnb">
         <div>
           <a href="/ ">
@@ -22,8 +28,8 @@
         <div class="header-image-box">
           <div class="header-image-description">
             <div>
-              일상의 모든 물건을<br />
-              거래해 보세요
+              <span>일상의 모든 물건을</span>
+              <span>거래해 보세요</span>
             </div>
             <a class="buy-button" href="/items">구경하러 가기</a>
           </div>
@@ -42,17 +48,23 @@
         </div>
         <div class="section-description">
           <div class="menu">Hot item</div>
-          <div class="menu-title">인기 상품을<br />확인해 보세요</div>
+          <div class="menu-title">
+            <span>인기 상품을</span>
+            <span>확인해 보세요</span>
+          </div>
           <div class="menu-description">
             가장 HOT한 중고거래 물품을<br />
             판다 마켓에서 확인해 보세요
           </div>
         </div>
       </section>
-      <section class="section-container">
+      <section class="section-container right-align">
         <div class="section-description right-align">
           <div class="menu">Search</div>
-          <div class="menu-title">구매를 원하는<br />상품을 검색하세요</div>
+          <div class="menu-title">
+            <span>구매를 원하는</span>
+            <span>상품을 검색하세요</span>
+          </div>
           <div class="menu-description">
             구매하고 싶은 물품은 검색해서<br />
             쉽게 찾아보세요
@@ -73,8 +85,11 @@
           />
         </div>
         <div class="section-description">
-          <div class="menu">Register</div>
-          <div class="menu-title">판매를 원하는<br />상품을 등록하세요</div>
+          <div class="menu">register</div>
+          <div class="menu-title">
+            <span>판매를 원하는</span>
+            <span>상품을 등록하세요</span>
+          </div>
           <div class="menu-description">
             어떤 물건이든 판매하고 싶은 상품을<br />
             쉽게 등록하세요
@@ -98,26 +113,29 @@
       <div class="footer-info-container">
         <div class="footer-info">
           <div class="copy-right">©codeit - 2024</div>
-          <div class="policy">
-            <span class="privacy-policy">
-              <a href="/privacy">Privacy Policy</a></span
-            >
-            <span class="faq"> <a href="/faq">FAQ</a></span>
+          
+            <div class="policy">
+              <span class="privacy-policy">
+                <a href="/privacy">Privacy Policy</a></span
+              >
+              <span class="faq"> <a href="/faq">FAQ</a></span>
+            </div>
+            <div class="sns">
+              <a href="https://www.facebook.com/" target="_blank" rel= noopener noreferrer>
+                <img src="images/ic_facebook.png" alt="facebook" />
+              </a>
+              <a href="https://x.com/" target="_blank" rel= noopener noreferrer>
+                <img src="images/ic_twitter.png" alt="twitter" />
+              </a>
+              <a href="https://www.youtube.com/" target="_blank" rel= noopener noreferrer>
+                <img src="images/ic_youtube.png" alt="youtube" />
+              </a>
+              <a href="https://www.instagram.com/" target="_blank" rel= noopener noreferrer>
+                <img src="images/ic_instagram.png" alt="instagram" />
+              </a>
+            
           </div>
-          <div class="sns">
-            <a href="https://www.facebook.com/" target="_blank" rel= noopener noreferrer>
-              <img src="images/ic_facebook.png" alt="facebook" />
-            </a>
-            <a href="https://x.com/" target="_blank" rel= noopener noreferrer>
-              <img src="images/ic_twitter.png" alt="twitter" />
-            </a>
-            <a href="https://www.youtube.com/" target="_blank" rel= noopener noreferrer>
-              <img src="images/ic_youtube.png" alt="youtube" />
-            </a>
-            <a href="https://www.instagram.com/" target="_blank" rel= noopener noreferrer>
-              <img src="images/ic_instagram.png" alt="instagram" />
-            </a>
-          </div>
+          
         </div>
       </div>
     </footer>
