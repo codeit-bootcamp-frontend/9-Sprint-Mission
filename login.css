@@ -1,43 +1,9 @@
-:root {
-  /* Gray scale colors */
-  --gray-900: #111827;
-  --gray-800: #1f2937;
-  --gray-700: #374151;
-  --gray-600: #4b5563;
-  --gray-500: #6b7280;
-  --gray-400: #9ca3af;
-  --gray-200: #e5e7eb;
-  --gray-100: #f3f4f6;
-  --gray-50: #f9fafb;
-
-  /* Primary Color */
-  --blue: #3692ef;
-  --banner-bg-color: #cfe5ff;
-
-  /* Error color */
-  --red: #f74747;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-a {
-  text-decoration: none;
-}
-
-body,
-p {
-  margin: 0;
-}
-
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   flex-direction: column;
-  margin: 120px 0px;
 }
 
 .logo {
@@ -61,7 +27,7 @@ p {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 640px;
+  width: 780px;
   gap: 24px;
 }
 
@@ -73,7 +39,7 @@ p {
 
 .form input {
   height: 56px;
-  width: 640px;
+  width: 100%;
   border-radius: 12px;
   padding: 16px 24px;
   border: none;
@@ -91,6 +57,8 @@ p {
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
+  width: 100%; /* 너비를 100%로 조정 */
+  box-sizing: border-box;
 }
 
 .password-input {
@@ -102,8 +70,7 @@ p {
 .btn_visibility {
   cursor: pointer;
   position: absolute;
-  right: 0;
-  margin-right: 10px;
+  right: 16px; /* 위치 조정 */
 }
 
 .social-loginbar {
@@ -111,8 +78,8 @@ p {
   align-items: center;
   justify-content: space-between;
   margin-top: 24px;
-  width: 640px;
-  padding: 16px 24px;
+  width: 780px;
+  padding: 16px;
   background-color: var(--banner-bg-color);
   border-radius: 8px;
   gap: 10px;
@@ -125,9 +92,24 @@ p {
   font-size: 14px;
   line-height: 24px;
   font-weight: 500;
+  padding: 0 16px;
 }
 
 .signup-link {
   color: #3692ef;
   text-decoration: underline;
+}
+
+/* 모바일 사이즈 스타일 */
+@media (max-width: 767px) {
+  .form,
+  .social-loginbar,
+  .form button {
+    width: 100%;
+  }
+
+  .form,
+  .form button {
+    padding: 0 16px;
+  }
 }
