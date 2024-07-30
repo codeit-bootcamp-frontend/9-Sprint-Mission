@@ -1,4 +1,5 @@
 /* Mobile */
+
 header {
   position: fixed;
   top: 0;
@@ -67,7 +68,7 @@ header {
 }
 
 .feature-tag {
-  color: var(--blue);
+  color: var(--blue-100);
   font-size: 16px;
   line-height: 22.4px;
   font-weight: 700;
@@ -177,7 +178,6 @@ footer {
   }
 
   .feature-tag {
-    color: var(--blue);
     font-size: 18px;
     line-height: 26px;
     font-weight: 700;

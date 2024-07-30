@@ -7,17 +7,24 @@
 
 :root {
   /* Gray scale */
-  --gray-900: #1b1d1f;
-  --gray-800: #26282b;
-  --gray-600: #454c53;
-  --gray-500: #72787f;
-  --gray-400: #9ea4a8;
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
   --gray-200: #e5e7eb;
-  --gray-100: #e8ebed;
-  --gray-50: #f7f7f8;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
 
   /* Primary color */
-  --blue: #3692ff;
+  --blue-300: #1251aa;
+  --blue-200: #1967d6;
+  --blue-100: #3692ff;
+  --blue-50: #3182f6;
+
+  /* Error color */
+  --red: #f74747;
 
   /* Layout dimensions */
   --header-height: 70px;
@@ -31,7 +38,7 @@
 
 a {
   text-decoration: none;
-  color: inherit;
+  color: var(--blue-50);
 }
 
 button,
@@ -71,7 +78,7 @@ body {
 }
 
 .button {
-  background-color: var(--blue);
+  background-color: var(--blue-100);
   color: #ffffff;
   display: inline-flex;
   align-items: center;
@@ -79,15 +86,15 @@ body {
 }
 
 .button:hover {
-  background-color: #1967d6;
+  background-color: var(--blue-200);
 }
 
 .button:focus {
-  background-color: #1251aa;
+  background-color: var(--blue-300);
 }
 
 .button:disabled {
-  background-color: #9ca3af;
+  background-color: var(--gray-400);
   cursor: default;
   pointer-events: none;
 }
