@@ -96,7 +96,7 @@ header .logo {
 }
 
 @media (max-width: 375px) {
-  .banner .pill-button {
+  .banner .button .pill-button {
     margin-top: 18px;
   }
 }
@@ -135,7 +135,20 @@ header .logo {
 }
 .card:nth-child(2) {
   text-align: right;
+  flex-direction: row-reverse;
 }
+
+@media (max-width: 768px) {
+  .card:nth-child(2) {
+    flex-direction: column;
+  }
+}
+@media (max-width: 375px) {
+  .card:nth-child(2) {
+    flex-direction: column;
+  }
+}
+
 .content {
   flex: 1;
 }

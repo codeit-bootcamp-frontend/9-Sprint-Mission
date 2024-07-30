@@ -111,7 +111,11 @@ footer {
   border-radius: 999px;
   padding: 16px 126px;
 }
-
+@media (max-width: 375px) {
+  .pill-button {
+    padding: 12px 71px;
+  }
+}
 .full-width {
   width: 100%;
 }
