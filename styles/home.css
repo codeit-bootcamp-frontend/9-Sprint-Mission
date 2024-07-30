@@ -135,6 +135,10 @@ footer {
 
 /* Tablet */
 @media (min-width: 768px) {
+  header {
+    padding: 0 24px;
+  }
+
   .banner {
     height: 771px;
     background-size: 744px 340px;
@@ -212,14 +216,22 @@ footer {
     line-height: 56px;
   }
 
+  footer {
+    padding: 32px 104px 108px 104px;
+  }
+
   #copyright {
-    order: inherit;
     flex-basis: auto;
+    order: 0;
   }
 }
 
 /* Desktop */
 @media (min-width: 1280px) {
+  header {
+    padding: 0 200px;
+  }
+
   .banner {
     text-align: left;
     height: 540px;
@@ -285,5 +297,9 @@ footer {
     font-weight: 700;
     font-size: 40px;
     line-height: 56px;
+  }
+
+  footer {
+    padding: 32px 200px 108px 200px;
   }
 }

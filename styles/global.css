@@ -109,10 +109,6 @@ body {
 
 /* Tablet */
 @media (min-width: 768px) {
-  header {
-    padding: 0 24px;
-  }
-
   .wrapper {
     padding: 0 24px;
   }
@@ -122,23 +118,10 @@ body {
     font-weight: 700;
     padding: 16px 126px;
   }
-
-  footer {
-    padding: 32px 104px 108px 104px;
-  }
-
-  #copyright {
-    flex-basis: auto;
-    order: 0;
-  }
 }
 
 /* Desktop */
 @media (min-width: 1280px) {
-  header {
-    padding: 0 200px;
-  }
-
   .wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -146,9 +129,5 @@ body {
 
   .break-on-desktop {
     display: inline;
-  }
-
-  footer {
-    padding: 32px 200px 108px 200px;
   }
 }
