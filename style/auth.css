@@ -15,7 +15,7 @@
 }
 
 .enter_box > div+ div {
-  padding-top: 24px;
+  padding-top: 16px;
 }
 
 .enter_box > div label {
@@ -31,13 +31,12 @@
   position: relative;
 }
 
-.enter_box>div .pwd_box .pwd_icon {
+.enter_box > div .pwd_box .pwd_icon {
   position: absolute;
   right: 24px;
-  top: 50%;
+  top: 16px;
   width: 24px;
   height: auto;
-  margin-top: -12px;
   cursor: pointer;
 }
 
@@ -107,7 +106,7 @@
   border:1px solid var(--color-error);
 }
 #error-msg {
-  padding:8px 16px;
+  margin:8px 16px 0;
   color:var(--color-error);
   font-size:14px;
   font-weight:600;
