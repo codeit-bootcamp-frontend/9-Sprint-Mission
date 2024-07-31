@@ -35,6 +35,8 @@ function correct(inputID, i){
 //인풋박스 포커스 이벤트 핸들러
 function InputFocusout(e, idName, i, errMsg1, errMsg2){
     const value = e.target.value;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     //이메일 입력 인풋에서 
     if(idName === 'user-name'){
         //인풋에 값이 없을때
@@ -43,7 +45,7 @@ function InputFocusout(e, idName, i, errMsg1, errMsg2){
             redBorder(idName);
         } 
         //인풋값이 잘못된 형식일때
-        else if (!value.includes('@') || !value.includes('.')){
+        else if (!emailRegex.test(value)) {
             addMessage(idName, i, errMsg2);
             redBorder(idName);
         }
@@ -154,6 +156,8 @@ function activeBtn(){
 
 }
 //  버튼 비활성화 이벤트 할당
-document.querySelectorAll('input').forEach(input => {
+const inputs = document.querySelectorAll('input');
+
+inputs.forEach(input => {
     input.addEventListener('focusout', activeBtn);
 })

@@ -93,7 +93,7 @@ section label{
 
 .disabled-btn{
     background-color: var(--gray200);
-    color: var(--gray400)
+    color: var(--gray400);
 }
 
 .easy-login{
