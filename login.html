@@ -6,6 +6,7 @@
     <title>판다마켓</title>
     <link rel="stylesheet" href="basic-style.css">
     <link rel="stylesheet" href="style-login.css">
+    <link rel="icon" href="./image/panda-icon.png">
 
 </head>
 
@@ -21,20 +22,14 @@
             <div class="inputbox">
                 <form action="/items.html" method="POST">
                     <label for="user-name"> 이메일</label>
-                        
-                        <input class="inputidpw" id="user-name" name="user-name" placeholder="이메일을 입력해주세요" type="email" autocomplete="email" required>
-                        <div class="msg-area">
-                            <span class="msg msg-email">이메일을 입력해주세요.</span>
-                            <span class="msg msg-wrongemail">잘못된 이메일 형식입니다.</span>
-                        </div>
+                    <input class="inputidpw" id="user-name" name="user-name" placeholder="이메일을 입력해주세요" type="email" autocomplete="email" required>
+                    <div class="msg-area">
+                    </div>
 
-                    <label for="password"> 비밀번호</label>
-                    
-                        <input class="inputidpw"  id="password" name="password" placeholder="비밀번호를 입력해주세요" type="password" required>
-                        <div class="msg-area">
-                            <span class="msg msg-pw">비밀번호를 입력해주세요.</span>
-                            <span class="msg msg-wrongpw">비밀번호를 8자 이상 입력해주세요.</span>
-                        </div>
+                    <label for="new-pw"> 비밀번호</label>                    
+                    <input class="inputidpw" id="new-pw" name="new-pw" placeholder="비밀번호를 입력해주세요" type="password" required>
+                    <div class="msg-area">
+                </div>
 
                     <button class="disabled-btn submit-btn">로그인</button>
                 </form>
@@ -57,6 +52,6 @@
         </section>
     </main>
 
-    <script src="/login.js" type="module"></script>
+    <script src="functions.js" type="module"></script>
 </body>
 </html>

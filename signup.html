@@ -6,7 +6,7 @@
     <title>판다마켓</title>
     <link rel="stylesheet" href="basic-style.css">
     <link rel="stylesheet" href="style-login.css">
-
+    <link rel="icon" href="./image/panda-icon.png">
 </head>
 
 <body>
@@ -21,30 +21,26 @@
             <div class="inputbox">
                 <form action="/signup.html" method="POST">
                         <label for="user-name"> 이메일</label>
-                        <input class="inputidpw"  id="user-name" name="user-name" placeholder="이메일을 입력해주세요" type="email" autocomplete="email" required>
+                        <input class="inputidpw" id="user-name" name="user-name" placeholder="이메일을 입력해주세요" type="email" autocomplete="email" required>
                         <div class="msg-area">
-                            <span class="msg msg-email">이메일을 입력해주세요.</span>
-                            <span class="msg msg-wrongemail">잘못된 이메일 형식입니다.</span>
-                        </div>
-                        <label for="nickname"> 닉네임</label>
-                        <input class="inputidpw"  id="nickname" name="nickname" placeholder="닉네임을 입력해주세요" required>
-                        <div class="msg-area">
-                            <span class="msg msg-email">닉네임을 입력해주세요.</span>
-                        </div>
-                        <label for="password"> 비밀번호</label>                    
-                        <input class="inputidpw"  id="password" name="password" placeholder="비밀번호를 입력해주세요" type="password" required>
-                        <div class="msg-area">
-                            <span class="msg msg-pw">비밀번호를 입력해주세요.</span>
-                            <span class="msg msg-wrongpw">비밀번호를 8자 이상 입력해주세요.</span>
-                        </div>
-                        <label for="password-check"> 비밀번호 확인</label>                    
-                        <input class="inputidpw"  id="password-check" name="password-check" placeholder="비밀번호를 다시 한 번 입력해주세요" type="password" required>
-                        <div class="msg-area">
-                            <span class="msg msg-pw">비밀번호를 입력해주세요.</span>
-                            <span class="msg msg-samepw">비밀번호가 일치하지 않습니다.</span>
                         </div>
 
-                        <button class="disabled-btn submit-btn" disabled="true" >회원가입</button>
+                        <label for="nickname"> 닉네임</label>
+                        <input class="inputidpw" id="nickname" name="nickname" placeholder="닉네임을 입력해주세요" required>
+                        <div class="msg-area">
+                        </div>
+
+                        <label for="new-pw"> 비밀번호</label>                    
+                        <input class="inputidpw" id="new-pw" name="new-pw" placeholder="비밀번호를 입력해주세요" type="password" required>
+                        <div class="msg-area">
+                        </div>
+
+                        <label for="new-pw-check"> 비밀번호 확인</label>                    
+                        <input class="inputidpw" id="pw-check" name="pw-check" placeholder="비밀번호를 다시 한 번 입력해주세요" type="password" required>
+                        <div class="msg-area">
+                        </div>
+
+                        <button class="disabled-btn submit-btn" disabled="true">회원가입</button>
                 </form>
             </div>
 
@@ -65,7 +61,7 @@
         </section>
     </main>
 
-    <script src="/signup.js" type="module"></script>
+    <script src="/functions.js" type="module"></script>
 
 </body>
 </html>

@@ -71,8 +71,7 @@ section label{
     border: 1.5px solid var(--blue);
 }
 
-.msg{    
-    display: none;
+.msg-area{    
     color: var(--red);
     font-size: 1.8rem;
     font-weight: 500;
