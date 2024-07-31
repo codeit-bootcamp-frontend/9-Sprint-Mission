@@ -46,14 +46,14 @@ $(function () {
   $("#password").keydown(function (e) {
     if (e.keyCode === 13) {
       // enter key(13) 눌렀을 때 이벤트
-      if (isValidEmail($("#email").val()) && $("#password").val().length >= 8) {
+      if (isValidEmail($("#email").val()) && $("#password").val().length >= 7) {
         submitLogin();
       }
     }
   });
 
   $("input").keydown(function (e) {
-    if (isValidEmail($("#email").val()) && $("#password").val().length >= 8) {
+    if (isValidEmail($("#email").val()) && $("#password").val().length >= 7) {
       $("#loginButton").prop("disabled", false);
     } else {
       $("#loginButton").prop("disabled", true);
