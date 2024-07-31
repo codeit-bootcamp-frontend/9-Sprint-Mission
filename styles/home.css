@@ -22,7 +22,7 @@
 header .logo {
   width: 153px;
 }
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   header .logo {
     width: 100px;
   }
@@ -35,13 +35,13 @@ header .logo {
   color: var(--gray-700);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .card-title {
     font-size: 32px;
     line-height: 44px;
   }
 }
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .card-title {
     font-size: 24px;
     line-height: 32px;
@@ -57,7 +57,7 @@ header .logo {
   padding-top: 200px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   #hero,
   .banner {
     background-size: 100%;
@@ -66,7 +66,7 @@ header .logo {
     padding-top: 84px;
   }
 }
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   #hero,
   .banner {
     margin-top: 70px;
@@ -75,7 +75,7 @@ header .logo {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   #bottomBanner,
   .banner {
     margin-top: 56px;
@@ -83,7 +83,7 @@ header .logo {
     height: 927px;
   }
 }
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   #bottomBanner,
   .banner {
     padding-top: 120px;
@@ -95,7 +95,7 @@ header .logo {
   margin-top: 32px;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .banner .button .pill-button {
     margin-top: 18px;
   }
@@ -107,7 +107,7 @@ header .logo {
   font-weight: 700;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .banner-title {
     font-weight: 700;
     font-size: 32px;
@@ -123,7 +123,7 @@ header .logo {
 .card img {
   width: 50%;
 }
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .card {
     flex-direction: column;
     padding: 21px 0;
@@ -138,12 +138,12 @@ header .logo {
   flex-direction: row-reverse;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .card:nth-child(2) {
     flex-direction: column;
   }
 }
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .card:nth-child(2) {
     flex-direction: column;
   }
@@ -152,7 +152,7 @@ header .logo {
 .content {
   flex: 1;
 }
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .content {
     width: 100%;
   }
@@ -164,7 +164,7 @@ header .logo {
   font-weight: 700;
   margin-bottom: 12px;
 }
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .card-badge {
     font-size: 16px;
     line-height: 26px;
@@ -178,7 +178,7 @@ header .logo {
   margin-top: 24px;
   color: var(--gray-700);
 }
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .card-txt {
     font-size: 16px;
     line-height: 26px;
@@ -203,11 +203,10 @@ header .logo {
   color: var(--gray-900-text);
 }
 .footer-sns {
-  display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 768px) {
   .source {
     position: absolute;
     bottom: 32px;
@@ -224,7 +223,7 @@ header .logo {
 }
 
 /* br 없애기 */
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .banner-title > br,
   .card-title > br {
     display: none;
