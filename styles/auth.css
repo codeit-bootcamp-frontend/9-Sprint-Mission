@@ -30,7 +30,7 @@
 }
 
 .input-item {
-  margin-bottom: 24px;
+  margin-bottom: 12px;
   display: flex;
   flex-direction: column;
 }
@@ -60,7 +60,7 @@ input::placeholder {
 }
 
 input:focus {
-  outline-color: var(--blue);
+  outline-color: var(--blue-100);
 }
 
 .input-wrapper {
@@ -115,6 +115,27 @@ input:focus {
 .auth-switch a {
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.error-line {
+  outline-color: var(--red);
+  outline-style: solid;
+}
+
+.error-email {
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0 24px 10px;
+}
+
+.error-password {
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0 24px 10px;
 }
 
 /* Tablet */
