@@ -11,11 +11,7 @@ body {
 .login-img {
   width: 396px;
 }
-@media (max-width: 768px) {
-  .login-img {
-    width: 198px;
-  }
-}
+
 .auth-form-container {
   max-width: 640px;
   margin: 0 auto;
@@ -26,42 +22,18 @@ body {
   margin-top: 60px;
   margin-bottom: 40px;
 }
-@media (max-width: 768px) {
-  .login {
-    margin-top: 80px;
-  }
-  .signup {
-    margin-top: 24px;
-  }
-}
 
-.auth-form {
+#loginForm,
+#signupForm {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-@media (max-width: 768px) {
-  .auth-form {
-    max-width: 400px;
-    margin: 0 auto;
-    gap: 16px;
-  }
-
-  .auth-form .buttom {
-    padding: 16px 124px;
-  }
-}
 .auth-input {
   display: flex;
   gap: 16px;
   flex-direction: column;
-}
-
-@media (max-width: 768px) {
-  .auth-input {
-    gap: 8px;
-  }
 }
 
 label {
@@ -70,12 +42,6 @@ label {
   line-height: 26px;
 }
 
-@media (max-width: 768px) {
-  label {
-    font-size: 14px;
-    line-height: 24px;
-  }
-}
 input {
   font-size: 18px;
   line-height: 26px;
@@ -84,12 +50,6 @@ input {
   padding: 16px 24px;
   background-color: var(--gray-100);
   width: 100%;
-}
-@media (max-width: 768px) {
-  input {
-    font-size: 16px;
-    line-height: 26px;
-  }
 }
 
 input::placeholder {
@@ -128,12 +88,6 @@ input:focus {
   text-align: center;
 }
 
-@media (max-width: 768px) {
-  .auth-label {
-    margin-top: 24px;
-    padding-bottom: 180px;
-  }
-}
 .auth-label a {
   color: var(--blue);
   text-decoration: underline;
@@ -146,8 +100,62 @@ input:focus {
   align-items: center;
 }
 
-.toggle-password {
+.toggle-password-button {
   position: absolute;
   right: 24px;
-  cursor: pointer;
+}
+
+.error-message {
+  color: #f74747;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 18px;
+  margin-top: 8px;
+  display: none;
+  padding-left: 16px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .login-img {
+    width: 198px;
+  }
+
+  .login {
+    margin-top: 80px;
+  }
+  .signup {
+    margin-top: 24px;
+  }
+
+  #loginForm,
+  #signupForm {
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 16px;
+  }
+
+  #loginForm,
+  #signupForm .buttom {
+    padding: 16px 124px;
+  }
+
+  .auth-input {
+    gap: 8px;
+  }
+
+  label {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  input {
+    font-size: 16px;
+    line-height: 26px;
+  }
+
+  .auth-label {
+    margin-top: 24px;
+    padding-bottom: 180px;
+  }
 }
