@@ -125,6 +125,21 @@ if (usernameInput) {
 if (passwordCheckInput) {
   passwordCheckInput.addEventListener("input", passwordDubbleCheck)
 }
+
+if (loginForm) {
+  loginForm.addEventListener("submit", function (event) {
+    event.preventDefault(); // 기본 제출 동작 방지 폼 기본동작 === 새로고침 그걸 막아줌
+    window.location.href = "items.html";
+  });
+}
+
+if (signupForm) {
+  signupForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    window.location.href = "signin.html";
+  });
+}
+
 //비밀번호 보이기
 function passwordSeeToggle(e) {
   const button = e.currentTarget;
