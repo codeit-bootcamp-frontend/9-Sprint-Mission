@@ -69,7 +69,13 @@ input:focus {
   align-items: center;
 }
 
-.toggle-password {
+.toggle-password-button {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+
+.toggle-password-icon {
   position: absolute;
   right: 24px;
   cursor: pointer;
