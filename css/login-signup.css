@@ -15,6 +15,7 @@ body {
 input:focus {
   border: solid 1px var(--color-blue);
 }
+
 .loginswrap {
   max-width: 640px;
   display: flex;
@@ -58,7 +59,7 @@ input:focus {
   height: 24px;
 }
 .loginBtn {
-  background-color: var(--color-gray400);
+  background-color: var(--color-blue);
   color: #f3f4f6;
   font-size: 20px;
   font-weight: 600;
@@ -67,6 +68,11 @@ input:focus {
   padding: 16px 124px;
   border-radius: 40px;
   border: 0;
+}
+.loginBtn:disabled {
+  background-color: #9ca3af;
+  cursor: default;
+  pointer-events: none;
 }
 .easyLogin {
   display: flex;
@@ -102,6 +108,10 @@ input:focus {
   color: var(--color-blue);
   text-decoration: underline;
 }
+.password-toggle-button {
+  position: absolute;
+  right: 16px;
+}
 
 @media (max-width: 767px) {
   body {
@@ -113,4 +123,15 @@ input:focus {
   .labelText {
     font-size: 1.4rem;
   }
+}
+.error-message {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-red);
+  padding-left: 16px;
+  display: none;
+}
+
+.error-line {
+  border: 1px solid var(--color-red);
 }
