@@ -1,0 +1,11 @@
+.redbox {
+    border: 1px solid #ff0000;
+}
+
+.errMessege {
+    color: #ff0000;
+}
+
+.noHide {
+    background-image: url(../login/passwordNoHide.png);
+}
