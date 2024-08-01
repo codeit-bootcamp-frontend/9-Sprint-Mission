@@ -206,8 +206,8 @@ footer {
     justify-content: space-between;
   }
 
-  .header-image-description span {
-    display: inline-block;
+  .header-image-description br {
+    display: none;
   }
 
   .header-image {
@@ -234,11 +234,14 @@ footer {
     margin-bottom: 16px;
   }
 
-  .menu-title span {
-    display: inline-block;
+  .menu-title {
     font-size: 32px;
     line-height: 42px;
   }
+  .menu-title br {
+    display: none;
+  }
+
 
   .menu-description {
     font-size: 18px;
@@ -278,9 +281,12 @@ footer {
     padding: 10px 16px;
   }
   
-  .header-image-description span {
-    display: block;
+  .header-image-description {
     text-align: center;
+  }
+
+  .header-image-description br {
+    display: block;
   }
 
   .header-image-container {

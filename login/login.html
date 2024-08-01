@@ -17,7 +17,7 @@
             <img src="../images/판다마켓.png" alt="판다마켓" />
           </a>
         </div>
-        <form action="">
+        <form action="" id="login-form">
           <div class="form">
             <div class="input-style">
               <label for="email">이메일</label>
@@ -39,10 +39,11 @@
                 <img
                   src="/images/btn_visibility_off_24px.png"
                   alt="비밀번호 표시"
+                  class="btn-hide-img"
                 />
               </button>
             </div>
-            <a href="" class="register-btn">로그인</a>
+            <button disabled class="register-btn">로그인</button>
             <div class="easy-login">
               <div class="easy-login-info">간편 로그인하기</div>
               <div class="sns-icon">
@@ -66,6 +67,6 @@
         </form>
       </section>
     </div>
-    <script src="/index.js"></script>
+    <script src="/js/login.js" type="module"></script>
   </body>
 </html>
