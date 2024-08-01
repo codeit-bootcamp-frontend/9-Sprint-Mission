@@ -29,7 +29,7 @@
         <span class="login-home-text"><a href="/">판다마켓</a></span>
       </div>
 
-      <form method="post">
+      <form id="submitForm" method="post" action="login.html">
         <div class="input-item">
           <label for="email">이메일</label>
           <input
@@ -38,6 +38,8 @@
             type="email"
             placeholder="이메일을 입력해 주세요"
           />
+          <div id="empty-email" class="error-email"></div>
+          <div id="invalid-email" class="error-email"></div>
         </div>
         <div class="input-item">
           <label for="nickname">닉네임</label>
@@ -47,6 +49,7 @@
             type="text"
             placeholder="닉네임을 입력해 주세요"
           />
+          <div id="empty-nickname" class="error-nickname"></div>
         </div>
         <div class="input-item">
           <label for="password">비밀번호</label>
@@ -65,13 +68,15 @@
               />
             </button>
           </div>
+          <div id="empty-password" class="error-password"></div>
+          <div id="short-password" class="error-password"></div>
         </div>
         <div class="input-item">
-          <label for="passwordConfirmation">비밀번호 확인</label>
+          <label for="confirmPassword">비밀번호 확인</label>
           <div class="input-wrapper">
             <input
-              id="passwordConfirmation"
-              name="passwordConfirmation"
+              id="confirmPassword"
+              name="confirmPassword"
               type="password"
               placeholder="비밀번호를 다시 한 번 입력해 주세요"
             />
@@ -83,9 +88,16 @@
               />
             </button>
           </div>
+          <div id="empty-confirmPassword" class="error-confirmPassword"></div>
+          <div id="invalid-confirmPassword" class="error-confirmPassword"></div>
         </div>
 
-        <button type="submit" class="button pill-button full-width">
+        <button
+          id="submitButton"
+          type="submit"
+          class="button pill-button full-width"
+          onclick="submitForm()"
+        >
           회원가입
         </button>
       </form>

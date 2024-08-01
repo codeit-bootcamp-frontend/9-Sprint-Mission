@@ -29,7 +29,7 @@
         <span class="login-home-text"><a href="/">판다마켓</a></span>
       </div>
 
-      <form id="loginForm" method="post" action="items">
+      <form id="submitForm" method="post" action="items.html">
         <div class="input-item">
           <label for="email">이메일</label>
           <input
@@ -63,10 +63,10 @@
         </div>
 
         <button
-          id="loginButton"
+          id="submitButton"
           type="submit"
           class="button pill-button full-width"
-          onclick="submitLogin()"
+          onclick="submitForm()"
         >
           로그인
         </button>

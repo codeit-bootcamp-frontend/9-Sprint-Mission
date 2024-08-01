@@ -1,14 +1,14 @@
 $(function () {
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 
-  $("#loginButton").prop("disabled", true);
+  $("#submitButton").prop("disabled", true);
 
   function isValidEmail(email) {
     return emailPattern.test(email);
   }
 
   $("#email").on("focusout", function () {
-    const emailVal = $("#email").val();
+    const emailVal = $("#email").val().trim();
 
     if (!emailVal) {
       $("#email").addClass("error-line");
@@ -25,8 +25,21 @@ $(function () {
     }
   });
 
+  /* signup page */
+  $("#nickname").on("focusout", function () {
+    const nicknameVal = $("#nickname").val().trim();
+
+    if (!nicknameVal) {
+      $("#nickname").addClass("error-line");
+      $("#empty-nickname").text("닉네임을 입력해주세요.");
+    } else {
+      $("#nickname").removeClass("error-line");
+      $("#empty-nickname").text("");
+    }
+  });
+
   $("#password").on("focusout", function () {
-    const passwordVal = $("#password").val();
+    const passwordVal = $("#password").val().trim();
 
     if (!passwordVal) {
       $("#password").addClass("error-line");
@@ -43,24 +56,75 @@ $(function () {
     }
   });
 
+  /* signup page */
+  $("#confirmPassword").on("focusout", function () {
+    const confirmPasswordVal = $("#confirmPassword").val().trim();
+
+    if (!confirmPasswordVal) {
+      $("#confirmPassword").addClass("error-line");
+      $("#empty-confirmPassword").text("비밀번호를 다시 한 번 입력해주세요.");
+      $("#invalid-confirmPassword").text("");
+    } else if (confirmPasswordVal !== $("#password").val()) {
+      $("#confirmPassword").addClass("error-line");
+      $("#empty-confirmPassword").text("");
+      $("#invalid-confirmPassword").text("비밀번호가 일치하지 않습니다.");
+    } else if (confirmPasswordVal === $("#password").val()) {
+      $("#confirmPassword").removeClass("error-line");
+      $("#empty-confirmPassword").text("");
+      $("#invalid-confirmPassword").text("");
+    }
+  });
+
   $("#password").keydown(function (e) {
+    if ($("#password").val().length >= 7) {
+      $("#password").removeClass("error-line");
+      $("#empty-password").text("");
+      $("#short-password").text("");
+    }
+
     if (e.keyCode === 13) {
       // enter key(13) 눌렀을 때 이벤트
-      if (isValidEmail($("#email").val()) && $("#password").val().length >= 7) {
-        submitLogin();
+      if (!$("#confirmPassword")) {
+        if (
+          isValidEmail($("#email").val()) &&
+          $("#password").val().length >= 7
+        ) {
+          submitLogin();
+        }
       }
     }
   });
 
-  $("input").keydown(function (e) {
-    if (isValidEmail($("#email").val()) && $("#password").val().length >= 7) {
-      $("#loginButton").prop("disabled", false);
-    } else {
-      $("#loginButton").prop("disabled", true);
+  /* signup page */
+  $("#confirmPassword").keydown(function (e) {
+    if ($("#confirmPassword").val().length >= 7) {
+      $("#confirmPassword").removeClass("error-line");
+      $("#empty-confirmPassword").text("");
+      $("#invalid-confirmPassword").text("");
     }
   });
 
-  function submitLogin() {
-    $("#loginForm").submit();
+  $("input").change(function (e) {
+    if ($("#confirmPassword")) {
+      if (
+        isValidEmail($("#email").val()) &&
+        $("#confirmPassword").val().length >= 8 &&
+        $("#password").val() === $("#confirmPassword").val()
+      ) {
+        $("#submitButton").prop("disabled", false);
+      } else {
+        $("#submitButton").prop("disabled", true);
+      }
+    } else {
+      if (isValidEmail($("#email").val()) && $("#password").val().length >= 8) {
+        $("#submitButton").prop("disabled", false);
+      } else {
+        $("#submitButton").prop("disabled", true);
+      }
+    }
+  });
+
+  function submitForm() {
+    $("#submitForm").submit();
   }
 });

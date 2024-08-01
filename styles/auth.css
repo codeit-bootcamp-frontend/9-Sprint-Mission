@@ -144,6 +144,22 @@ input:focus {
   margin: 0 24px 10px;
 }
 
+.error-nickname {
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0 24px 10px;
+}
+
+.error-confirmPassword {
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0 24px 10px;
+}
+
 /* Tablet */
 @media (min-width: 768px) {
   .pandaFace {
