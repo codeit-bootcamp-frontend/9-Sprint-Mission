@@ -17,8 +17,8 @@
             <img src="../images/판다마켓.png" alt="판다마켓" />
           </a>
         </div>
-        <form action="">
-          <div class="form">
+        <form action="" id="register-form">
+          <div class="form" >
             <div class="input-style">
               <label for="email">이메일</label>
               <input
@@ -36,34 +36,37 @@
               />
             </div>
             <div class="input-style">
+              <button type="button" class="btn-hide">
+                <img
+                  src="/images/btn_visibility_off_24px.png"
+                  alt="비밀번호 표시"
+                  class="btn-hide-img"
+                />
+              </button>
               <label for="password">비밀번호</label>
               <input
                 type="password"
                 id="password"
                 placeholder="비밀번호를 입력해주세요"
               />
-              <button class="btn-hide">
+              
+            </div>
+            <div class="input-style">
+              <button type="button" class="btn-hide">
                 <img
                   src="/images/btn_visibility_off_24px.png"
                   alt="비밀번호 표시"
+                  class="btn-hide-img"
                 />
               </button>
-            </div>
-            <div class="input-style">
               <label for="password-confirm">비밀번호 확인</label>
               <input
                 type="password"
                 id="password-confirm"
                 placeholder="비밀번호를 다시 한 번 입력해주세요"
               />
-              <button class="btn-hide">
-                <img
-                  src="/images/btn_visibility_off_24px.png"
-                  alt="비밀번호 표시"
-                />
-              </button>
             </div>
-            <a href="/login/login.html" class="register-btn">회원가입</a>
+            <button class="register-btn" disabled >회원가입</button>
             <div class="easy-login">
               <div class="easy-login-info">간편 로그인하기</div>
               <div class="sns-icon">
@@ -87,6 +90,6 @@
         </form>
       </section>
     </div>
-    <script src="/page/register.js"></script>
+    <script src="/js/register.js" type="module"></script>
   </body>
 </html>
