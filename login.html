@@ -29,7 +29,7 @@
         <span class="login-home-text"><a href="/">판다마켓</a></span>
       </div>
 
-      <form id="submitForm" method="post" action="items.html">
+      <form id="loginForm" method="post" action="items.html">
         <div class="input-item">
           <label for="email">이메일</label>
           <input
@@ -50,8 +50,13 @@
               type="password"
               placeholder="비밀번호를 입력해 주세요"
             />
-            <button type="button" class="toggle-password-button">
+            <button
+              id="togglePasswordButton"
+              type="button"
+              class="toggle-password-button"
+            >
               <img
+                id="togglePasswordIcon"
                 src="images/icons/eye-invisible.svg"
                 alt="비밀번호 숨김"
                 class="toggle-password-icon"
@@ -63,10 +68,10 @@
         </div>
 
         <button
-          id="submitButton"
+          id="loginButton"
           type="submit"
           class="button pill-button full-width"
-          onclick="submitForm()"
+          onclick="loginForm()"
         >
           로그인
         </button>

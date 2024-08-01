@@ -1,7 +1,9 @@
 $(function () {
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+  const formId = $("form").attr("id");
 
-  $("#submitButton").prop("disabled", true);
+  if (formId === "loginForm") $("#loginButton").prop("disabled", true);
+  else $("#signupButton").prop("disabled", true);
 
   function isValidEmail(email) {
     return emailPattern.test(email);
@@ -80,19 +82,12 @@ $(function () {
       $("#password").removeClass("error-line");
       $("#empty-password").text("");
       $("#short-password").text("");
+      $("#loginButton").prop("disabled", false);
+    } else {
+      $("#loginButton").prop("disabled", true);
     }
 
-    if (e.keyCode === 13) {
-      // enter key(13) 눌렀을 때 이벤트
-      if (!$("#confirmPassword")) {
-        if (
-          isValidEmail($("#email").val()) &&
-          $("#password").val().length >= 7
-        ) {
-          submitLogin();
-        }
-      }
-    }
+    if (formId === "loginForm" && e.keyCode === 13) loginForm();
   });
 
   /* signup page */
@@ -105,26 +100,70 @@ $(function () {
   });
 
   $("input").change(function (e) {
-    if ($("#confirmPassword")) {
+    if (formId === "loginForm") {
+      if (isValidEmail($("#email").val()) && $("#password").val().length >= 8) {
+        $("#loginButton").prop("disabled", false);
+      } else {
+        $("#loginButton").prop("disabled", true);
+      }
+    } else {
       if (
         isValidEmail($("#email").val()) &&
         $("#confirmPassword").val().length >= 8 &&
         $("#password").val() === $("#confirmPassword").val()
       ) {
-        $("#submitButton").prop("disabled", false);
+        $("#signupButton").prop("disabled", false);
       } else {
-        $("#submitButton").prop("disabled", true);
-      }
-    } else {
-      if (isValidEmail($("#email").val()) && $("#password").val().length >= 8) {
-        $("#submitButton").prop("disabled", false);
-      } else {
-        $("#submitButton").prop("disabled", true);
+        $("#signupButton").prop("disabled", true);
       }
     }
   });
 
-  function submitForm() {
-    $("#submitForm").submit();
+  $("#togglePasswordButton").on("click", function (e) {
+    if ($("#togglePasswordIcon").attr("src").endsWith("eye-invisible.svg")) {
+      $("#togglePasswordIcon").attr("src", "images/icons/eye-visible.svg");
+      $("#password").attr("type", "text");
+    } else {
+      $("#togglePasswordIcon").attr("src", "images/icons/eye-invisible.svg");
+      $("#password").attr("type", "password");
+    }
+  });
+
+  $("#toggleConfirmPasswordButton").on("click", function (e) {
+    if (
+      $("#toggleConfirmPasswordIcon").attr("src").endsWith("eye-invisible.svg")
+    ) {
+      $("#toggleConfirmPasswordIcon").attr(
+        "src",
+        "images/icons/eye-visible.svg"
+      );
+      $("#confirmPassword").attr("type", "text");
+    } else {
+      $("#toggleConfirmPasswordIcon").attr(
+        "src",
+        "images/icons/eye-invisible.svg"
+      );
+      $("#confirmPassword").attr("type", "password");
+    }
+  });
+
+  function loginForm() {
+    if (isValidEmail($("#email").val()) && $("#password").val().length >= 8) {
+      $("#loginForm").submit();
+    } else {
+      $("#loginButton").prop("disabled", true);
+    }
+  }
+
+  function signupForm() {
+    if (
+      isValidEmail($("#email").val()) &&
+      $("#confirmPassword").val().length >= 8 &&
+      $("#password").val() === $("#confirmPassword").val()
+    ) {
+      $("#signupForm").submit();
+    } else {
+      $("#signupButton").prop("disabled", true);
+    }
   }
 });
