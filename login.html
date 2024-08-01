@@ -19,6 +19,7 @@
     <title>판다마켓 - 로그인</title>
     <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/login-signup.css">
+    <script src="/js/login.js" defer></script>
   </head>
   <body>
     <header>
@@ -29,24 +30,25 @@
     </header>
     <main>
       <div class="form-wrapper">
-        <form class="main-form">
-          <div class="form-item-box">
+        <form class="main-form" method="post">
+          <div class="form-item-box email">
             <label for="user-email">이메일</label>
-            <input type="email" id="user-email" name="user-email" placeholder="이메일을 입력해주세요" />
+            <input type="email" id="user-email" class="error" name="user-email" placeholder="이메일을 입력해주세요" />
           </div>
-          <div class="form-item-box">
+          <div class="form-item-box password">
             <label for="user-password">비밀번호</label>
             <div class="password-box">
               <input
                 type="password"
                 id="user-password"
+                class="error"
                 name="user-password"
                 placeholder="비밀번호를 입력해주세요"
               />
-              <img src="/icons/btn_visibility_on.png" alt="비밀번호 안보이기 버튼" />
+              <img src="/icons/btn_visibility_on.png" alt="비밀번호 안보이기 버튼" class="visiblePassword" />
             </div>
           </div>
-          <button type="submit">로그인</button>
+          <button type="submit" class="submitBtn disabled" disabled>로그인</button>
         </form>
       </div>
     </main>
