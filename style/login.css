@@ -48,7 +48,7 @@ form input {
     font-weight: 400;
     border: 0;
     border-radius: 12px;
-    color: var(--color-gray400);
+    color: var(--color-gray800); /* 색상 수정 */
     background-color: var(--color-gray100);
     font-family: inherit;
     margin: 16px 0 0;
@@ -63,7 +63,7 @@ input:focus {
     font-size: 14px;
     font-weight: 600;
     margin: 8px 0 0 16px;
-    display: none;
+    /* display: none; */
 }
 
 form .pwd-Eye {
