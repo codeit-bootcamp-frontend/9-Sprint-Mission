@@ -172,9 +172,6 @@ input:placeholder {
 	top: 16px;
 	right: 24px;
 	bottom: 16px;
-	background-image: url(../images/logo/icon-eye.png);
-	background-repeat: no-repeat;
-	background-position: center;
 }
 
 .pw-input button:hover,

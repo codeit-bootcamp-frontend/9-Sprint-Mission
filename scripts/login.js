@@ -149,6 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		updateSubmitButtonState();
 
+		// 페이지 이동
 		if (loginForm) {
 			loginForm.addEventListener("submit", function (event) {
 				event.preventDefault();
@@ -162,4 +163,27 @@ document.addEventListener("DOMContentLoaded", () => {
 				window.location.href = "./signin.html";
 			});
 		}
+
+		function togglePasswordVisible(event) {
+			event.preventDefault();
+
+			const button = event.currentTarget;
+			const inputField = button.parentElement.querySelector("input");
+			const toggleIcon = button.querySelector("img");
+
+			const isPasswordVisible = inputField.type === "text";
+			inputField.type = isPasswordVisible ? "password" : "text";
+
+			toggleIcon.src = isPasswordVisible
+				? "./images/logo/eye-invisible.svg" 
+				: "./images/logo/eye-visible.svg";
+			toggleIcon.alt = isPasswordVisible
+				? "비밀번호 표시" 
+				: "비밀번호 숨김";
+		}
+
+		const toggleButtons = document.querySelectorAll(".password-toggle-icon");
+		toggleButtons.forEach((icon) =>
+			icon.parentElement.addEventListener("click", togglePasswordVisible)
+		);
 })
