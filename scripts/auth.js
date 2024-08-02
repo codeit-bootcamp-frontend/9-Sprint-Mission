@@ -13,12 +13,14 @@ const passwordRepeatInput = document.getElementById('passwordRepeat');
 
 const submitButton = document.querySelector('.auth-form-container button[type="submit"]');
 
-const noError = (input, errorName) => {
-  const errorElement = document.getElementById(errorName);
-  if (errorElement) {
-    errorElement.style.display = 'none';
-    input.style.border = 'none';
-  }
+const noError = (input, errorNames) => {
+  errorNames.forEach((errorName) => {
+    const errorElement = document.getElementById(errorName);
+    if (errorElement) {
+      errorElement.style.display = 'none';
+      input.style.border = 'none';
+    }
+  });
 };
 
 const isError = (input, errorName) => {
@@ -43,76 +45,63 @@ const updateButtonState = () => {
 // 이메일 정규식
 const validateEmail = (email) => /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(email);
 
+// 유효성 검사 공통 코드
+const checkSchema = (input, validators) => {
+  noError(
+    // 입력 필드의 오류 상태를 초기화
+    input,
+    validators.map((init) => init.errorName)
+  );
+
+  let isValid = true;
+
+  for (const { condition, errorName } of validators) {
+    if (!condition()) {
+      isError(input, errorName);
+      isValid = false;
+      /*
+        문제 : break가 없으면 validators 배열의 모든 조건을 검사하기 때문에
+        emailEmptyError에러일 때 emailInvalidError에러까지 발생
+        
+        해결 : break 문을 사용하면 첫 번째 조건이 실패할 때 즉시 루프를 종료
+      */
+      break;
+    }
+  }
+
+  return isValid;
+};
+
 const checkEmailSchema = () => {
   const email = emailInput.value.trim();
-
-  isEmailValid = false;
-  noError(emailInput, 'emailEmptyError');
-  noError(emailInput, 'emailInvalidError');
-
-  if (!email) {
-    isError(emailInput, 'emailEmptyError');
-  } else if (!validateEmail(email)) {
-    isError(emailInput, 'emailInvalidError');
-  } else {
-    isEmailValid = true;
-    noError(emailInput, 'emailEmptyError');
-    noError(emailInput, 'emailInvalidError');
-  }
+  isEmailValid = checkSchema(emailInput, [
+    { condition: () => !!email, errorName: 'emailEmptyError' },
+    { condition: () => validateEmail(email), errorName: 'emailInvalidError' },
+  ]);
   updateButtonState();
 };
 
 const checkNicknameSchema = () => {
   const nickname = nicknameInput.value.trim();
-
-  isNicknameValid = false;
-  noError(nicknameInput, 'nicknameEmptyError');
-
-  if (!nickname) {
-    isError(nicknameInput, 'nicknameEmptyError');
-  } else {
-    isNicknameValid = true;
-    noError(nicknameInput, 'nicknameEmptyError');
-  }
+  isNicknameValid = checkSchema(nicknameInput, [{ condition: () => !!nickname, errorName: 'nicknameEmptyError' }]);
   updateButtonState();
 };
 
 const checkPasswordSchema = () => {
   const password = passwordInput.value.trim();
-
-  isPasswordValid = false;
-  noError(passwordInput, 'passwordEmptyError');
-  noError(passwordInput, 'passwordInvalidError');
-
-  if (!password) {
-    isError(passwordInput, 'passwordEmptyError');
-  } else if (password.length < 8) {
-    isError(passwordInput, 'passwordInvalidError');
-  } else {
-    isPasswordValid = true;
-    noError(passwordInput, 'passwordEmptyError');
-    noError(passwordInput, 'passwordInvalidError');
-  }
+  isPasswordValid = checkSchema(passwordInput, [
+    { condition: () => !!password, errorName: 'passwordEmptyError' },
+    { condition: () => password.length >= 8, errorName: 'passwordInvalidError' },
+  ]);
   updateButtonState();
 };
 
-// 비밀번호 확인 유효성 검사
 const checkPasswordRepeatSchema = () => {
   const passwordRepeat = passwordRepeatInput.value.trim();
-
-  isPasswordRepeatValid = false;
-  noError(passwordRepeatInput, 'passwordRepeatEmptyError');
-  noError(passwordRepeatInput, 'passwordRepeatInvalidError');
-
-  if (!passwordRepeat) {
-    isError(passwordRepeatInput, 'passwordRepeatEmptyError');
-  } else if (passwordRepeat !== passwordInput.value) {
-    isError(passwordRepeatInput, 'passwordRepeatInvalidError');
-  } else {
-    isPasswordRepeatValid = true;
-    noError(passwordRepeatInput, 'passwordRepeatEmptyError');
-    noError(passwordRepeatInput, 'passwordRepeatInvalidError');
-  }
+  isPasswordRepeatValid = checkSchema(passwordRepeatInput, [
+    { condition: () => !!passwordRepeat, errorName: 'passwordRepeatEmptyError' },
+    { condition: () => passwordRepeat === passwordInput.value, errorName: 'passwordRepeatInvalidError' },
+  ]);
   updateButtonState();
 };
 
@@ -158,7 +147,7 @@ if (signupForm) {
 updateButtonState();
 
 // 입력 필드에 이벤트 리스너 추가
-if (emailInput) emailInput.addEventListener('focusout', checkEmailSchema);
-if (nicknameInput) nicknameInput.addEventListener('focusout', checkNicknameSchema);
-if (passwordInput) passwordInput.addEventListener('focusout', checkPasswordSchema);
-if (passwordRepeatInput) passwordRepeatInput.addEventListener('focusout', checkPasswordRepeatSchema);
+emailInput?.addEventListener('focusout', checkEmailSchema);
+nicknameInput?.addEventListener('focusout', checkNicknameSchema);
+passwordInput?.addEventListener('focusout', checkPasswordSchema);
+passwordRepeatInput?.addEventListener('focusout', checkPasswordRepeatSchema);

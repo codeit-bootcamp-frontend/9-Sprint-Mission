@@ -43,48 +43,76 @@ const updateButtonState = () => {
 // 이메일 정규식
 const validateEmail = (email) => /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(email);
 
-// 유효성 검사 공통 코드
-const checkSchema = (input, validators, errorNames) => {
-  let isValid = false;
-
-  for (let i = 0; i < validators.length; i++) {
-    const validator = validators[i];
-    const errorName = errorNames[i];
-
-    if (!validator(input.value)) {
-      isError(input, errorName);
-
-      // 입력이 비어 있는 경우, 다른 오류 메시지를 생략
-      if (errorName.includes('EmptyError')) {
-        break;
-      }
-    } else {
-      noError(input, errorName);
-      isValid = true;
-    }
-  }
-
-  return isValid;
-};
-
 const checkEmailSchema = () => {
-  isEmailValid = checkSchema(emailInput, [(value) => value !== '', validateEmail], ['emailEmptyError', 'emailInvalidError']);
+  const email = emailInput.value.trim();
+
+  isEmailValid = false;
+  noError(emailInput, 'emailEmptyError');
+  noError(emailInput, 'emailInvalidError');
+
+  if (!email) {
+    isError(emailInput, 'emailEmptyError');
+  } else if (!validateEmail(email)) {
+    isError(emailInput, 'emailInvalidError');
+  } else {
+    isEmailValid = true;
+    noError(emailInput, 'emailEmptyError');
+    noError(emailInput, 'emailInvalidError');
+  }
   updateButtonState();
 };
 
 const checkNicknameSchema = () => {
-  isNicknameValid = checkSchema(nicknameInput, [(value) => value !== ''], ['nicknameEmptyError']);
+  const nickname = nicknameInput.value.trim();
+
+  isNicknameValid = false;
+  noError(nicknameInput, 'nicknameEmptyError');
+
+  if (!nickname) {
+    isError(nicknameInput, 'nicknameEmptyError');
+  } else {
+    isNicknameValid = true;
+    noError(nicknameInput, 'nicknameEmptyError');
+  }
   updateButtonState();
 };
 
 const checkPasswordSchema = () => {
-  isPasswordValid = checkSchema(passwordInput, [(value) => value !== '', (value) => value.length >= 8], ['passwordEmptyError', 'passwordInvalidError']);
+  const password = passwordInput.value.trim();
+
+  isPasswordValid = false;
+  noError(passwordInput, 'passwordEmptyError');
+  noError(passwordInput, 'passwordInvalidError');
+
+  if (!password) {
+    isError(passwordInput, 'passwordEmptyError');
+  } else if (password.length < 8) {
+    isError(passwordInput, 'passwordInvalidError');
+  } else {
+    isPasswordValid = true;
+    noError(passwordInput, 'passwordEmptyError');
+    noError(passwordInput, 'passwordInvalidError');
+  }
   updateButtonState();
 };
 
 // 비밀번호 확인 유효성 검사
 const checkPasswordRepeatSchema = () => {
-  isPasswordRepeatValid = checkSchema(passwordRepeatInput, [(value) => value !== '', (value) => value === passwordInput.value], ['passwordRepeatEmptyError', 'passwordRepeatInvalidError']);
+  const passwordRepeat = passwordRepeatInput.value.trim();
+
+  isPasswordRepeatValid = false;
+  noError(passwordRepeatInput, 'passwordRepeatEmptyError');
+  noError(passwordRepeatInput, 'passwordRepeatInvalidError');
+
+  if (!passwordRepeat) {
+    isError(passwordRepeatInput, 'passwordRepeatEmptyError');
+  } else if (passwordRepeat !== passwordInput.value) {
+    isError(passwordRepeatInput, 'passwordRepeatInvalidError');
+  } else {
+    isPasswordRepeatValid = true;
+    noError(passwordRepeatInput, 'passwordRepeatEmptyError');
+    noError(passwordRepeatInput, 'passwordRepeatInvalidError');
+  }
   updateButtonState();
 };
 
@@ -93,6 +121,11 @@ const togglePasswordVisibility = (event) => {
   const button = event.currentTarget;
   const inputField = button.parentElement.querySelector('input');
   const eyeIcon = button.querySelector('.toggle-password-icon');
+
+  if (!eyeIcon) {
+    console.error('Eye icon not found');
+    return;
+  }
 
   const isPasswordType = inputField.type === 'password';
   inputField.type = isPasswordType ? 'text' : 'password';
@@ -110,7 +143,7 @@ eyeButtons.forEach((button) => button.addEventListener('click', togglePasswordVi
 if (loginForm) {
   loginForm.addEventListener('submit', (event) => {
     event.preventDefault(); // 기본 제출 동작 방지
-    window.location.href = 'items.html'; // 폼 제출 후 특정 페이지로 리디렉션
+    window.location.href = 'items.html';
   });
 }
 
@@ -125,7 +158,7 @@ if (signupForm) {
 updateButtonState();
 
 // 입력 필드에 이벤트 리스너 추가
-emailInput?.addEventListener('focusout', checkEmailSchema);
-nicknameInput?.addEventListener('focusout', checkNicknameSchema);
-passwordInput?.addEventListener('focusout', checkPasswordSchema);
-passwordRepeatInput?.addEventListener('focusout', checkPasswordRepeatSchema);
+if (emailInput) emailInput.addEventListener('focusout', checkEmailSchema);
+if (nicknameInput) nicknameInput.addEventListener('focusout', checkNicknameSchema);
+if (passwordInput) passwordInput.addEventListener('focusout', checkPasswordSchema);
+if (passwordRepeatInput) passwordRepeatInput.addEventListener('focusout', checkPasswordRepeatSchema);
