@@ -108,26 +108,30 @@ const inputPw = document.querySelector('#new-pw');
 const inputPwCheck = document.querySelector('#pw-check');
 
 //포커스 아웃 이벤트 리스너 할당하기
+// 이메일
 inputId.addEventListener('focusout', (e) => {
     InputFocusout(e, 'user-name', 0, '이메일을 입력해주세요.', '잘못된 이메일 형식입니다.');
 });
+
+//닉네임
 if(inputNickname){
     inputNickname.addEventListener('focusout', (e) => {
         InputFocusout(e, 'nickname', 1, '닉네임을 입력해주세요.');
     });
 }
-if(inputPwCheck){
+
+// 비밀번호 (회원가입 페이지에서는 index = 2)
     inputPw.addEventListener('focusout', (e) => {
         InputFocusout(e, 'new-pw', 2, '비밀번호를 입력해주세요.', '비밀번호를 8자 이상 입력해주세요.');
     });
-}
 
+// 비밀번호 체크 없으면 로그인 페이지에서는 비밀번호에 index 값 = 1, 이벤트 할당
 if(!inputPwCheck){
     inputPw.addEventListener('focusout', (e) => {
     InputFocusout(e, 'new-pw', 1, '비밀번호를 입력해주세요.', '비밀번호를 8자 이상 입력해주세요.');
     });
 }
-
+// 비밀번호 체크 있으면 (회원가입 페이지에서 index = 3, 이벤트 할당)
 if(inputPwCheck){
     inputPwCheck.addEventListener('focusout', (e) => {
         InputFocusout(e, 'pw-check', 3, '비밀번호를 한번 더 입력해주세요', '비밀번호가 일치하지 않습니다.');
