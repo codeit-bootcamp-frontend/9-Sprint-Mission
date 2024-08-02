@@ -7,6 +7,7 @@ const domEmailWrap = document.querySelector('#email-wrap');
 const domPasswordInput = document.querySelector('#password-input');
 const domPasswordWrap = document.querySelector('#password-wrap');
 const domLoginButton = document.querySelector('.login-button');
+const domPasswordButton = document.querySelector('#show-password');
 
 function emailErrorHandler() {
     const existingEmptyError = document.querySelector('.email-empty-error');
@@ -15,7 +16,7 @@ function emailErrorHandler() {
     if (!domEmailInput.value) {
         if (existingEmptyError) return; //focus가 다시 되었을 때 div를 또 생성하는 예외처리
         if (existingFormatError) existingFormatError.remove(); //형식 에러처리를 한 상황에서 빈값 에러 메시지가 하나 더 생기는 예외처리
-        if (domEmailWrap.classList.remove('complete'));
+        domEmailWrap.classList.remove('complete');
 
         const el = document.createElement('div');
         domEmailInput.style.border = '1px solid #F74747';
@@ -27,6 +28,8 @@ function emailErrorHandler() {
     if (domEmailInput.value && !emailPattern.test(domEmailInput.value)) {
         if (existingFormatError) return; //focus가 다시 되었을 때 div를 또 생성하는 예외처리
         if (existingEmptyError) existingEmptyError.remove(); //빈값 에러처리를 한 상황에서 형식 에러 메시지가 하나 더 생기는 예외처리
+        domEmailWrap.classList.remove('complete');
+
         const el = document.createElement('div');
         domEmailInput.style.border = '1px solid #F74747';
         el.classList.add('email-format-error');
@@ -50,7 +53,7 @@ function passwordErrorHandler() {
     if (!domPasswordInput.value) {
         if (existingPasswordEmptyError) return;
         if (existingPasswordFormatError) existingPasswordFormatError.remove();
-        if (domPasswordWrap.classList.remove('complete'));
+        domPasswordWrap.classList.remove('complete');
 
         const el = document.createElement('div');
         domPasswordInput.style.border = '1px solid #F74747';
@@ -62,6 +65,7 @@ function passwordErrorHandler() {
     if (domPasswordInput.value && !passwordPattern.test(domPasswordInput.value)) {
         if (existingPasswordFormatError) return;
         if (existingPasswordEmptyError) existingPasswordEmptyError.remove();
+        domPasswordWrap.classList.remove('complete');
 
         const el = document.createElement('div');
         domPasswordInput.style.border = '1px solid #F74747';
@@ -87,9 +91,24 @@ function activeLoinButton() {
     }
 }
 
+function togglePassword() {
+    if (domPasswordWrap.classList.contains('see')) {
+        domPasswordWrap.classList.remove('see');
+        domPasswordButton.style.backgroundImage = 'url(/src/img/cant_see.png)';
+        domPasswordInput.type = 'password';
+    }
+    else {
+        domPasswordWrap.classList.add('see');
+        domPasswordButton.style.backgroundImage = 'url(/src/img/seePassword.png)';
+        domPasswordInput.type = 'text';
+    }
+}
+
 domEmailInput.addEventListener('blur', emailErrorHandler);
 domEmailInput.addEventListener('blur', activeLoinButton);
 
 domPasswordInput.addEventListener('blur', passwordErrorHandler);
 domPasswordInput.addEventListener('blur', activeLoinButton);
+
+domPasswordButton.addEventListener('click', togglePassword);
 

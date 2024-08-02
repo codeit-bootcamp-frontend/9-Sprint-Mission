@@ -11,6 +11,7 @@ const domPasswordWrap = document.querySelector('.form-password');
 const domPasswordConfirmWrap = document.querySelector('.form-password-confirm');
 const domNickNameWrap = document.querySelector('.form-nickname');
 const domSignButton = document.querySelector('.signup-button');
+const domPasswordButton = document.querySelectorAll('#see-password');
 
 
 //이메일 에러
@@ -21,7 +22,7 @@ function emailErrorHandler() {
     if (!domEmailInput.value) {
         if (existingEmptyError) return; //focus가 다시 되었을 때 div를 또 생성하는 예외처리
         if (existingFormatError) existingFormatError.remove(); //형식 에러처리를 한 상황에서 빈값 에러 메시지가 하나 더 생기는 예외처리
-        if (document.querySelector('.complete')) document.querySelector('.complete').remove();
+        domEmailWrap.classList.remove('complete');
 
         const el = document.createElement('div');
         domEmailInput.style.border = '1px solid #F74747';
@@ -33,7 +34,7 @@ function emailErrorHandler() {
     if (domEmailInput.value && !emailPattern.test(domEmailInput.value)) {
         if (existingFormatError) return; //focus가 다시 되었을 때 div를 또 생성하는 예외처리
         if (existingEmptyError) existingEmptyError.remove(); //빈값 에러처리를 한 상황에서 형식 에러 메시지가 하나 더 생기는 예외처리
-        if (document.querySelector('.complete')) domEmailWrap.classList.remove('complete');
+        domEmailWrap.classList.remove('complete');
 
         const el = document.createElement('div');
         domEmailInput.style.border = '1px solid #F74747';
@@ -59,7 +60,7 @@ function passwordErrorHandler() {
     if (!domPasswordInput.value) {
         if (existingPasswordEmptyError) return;
         if (existingPasswordFormatError) existingPasswordFormatError.remove();
-        if (document.querySelector('.complete')) domPasswordWrap.classList.remove('complete');
+        domPasswordWrap.classList.remove('complete');
 
         const el = document.createElement('div');
         domPasswordInput.style.border = '1px solid #F74747';
@@ -71,7 +72,7 @@ function passwordErrorHandler() {
     if (domPasswordInput.value && !passwordPattern.test(domPasswordInput.value)) {
         if (existingPasswordFormatError) return;
         if (existingPasswordEmptyError) existingPasswordEmptyError.remove();
-        if (document.querySelector('.complete')) domPasswordWrap.classList.remove('complete');
+        domPasswordWrap.classList.remove('complete');
 
         const el = document.createElement('div');
         domPasswordInput.style.border = '1px solid #F74747';
@@ -92,7 +93,7 @@ function passwordErrorHandler() {
 function passwordConfirmErrorHandler() {
     if (domPasswordConfirmInput.value !== domPasswordInput.value) {
         if (document.querySelector('.password-missmatch-error')) return;
-        if (document.querySelector('.complete')) domPasswordConfirmWrap.classList.remove('complete');
+        domPasswordConfirmWrap.classList.remove('complete');
 
         domPasswordConfirmInput.style.border = '1px solid #F74747';
         const el = document.createElement('div');
@@ -110,7 +111,7 @@ function passwordConfirmErrorHandler() {
 function nicknameErrorHandler() {
     if (!domNameInput.value) {
         if (document.querySelector('.nickname-empty-error')) return;
-        if (document.querySelector('.complete')) domNickNameWrap.classList.remove('complete');
+        domNickNameWrap.classList.remove('complete');
 
         const el = document.createElement('div');
         domNameInput.style.border = '1px solid #F74747';
@@ -134,6 +135,19 @@ function activeSignpButton() {
     }
 }
 
+function togglePassword() {
+    if (domPasswordWrap.classList.contains('see')) {
+        domPasswordWrap.classList.remove('see');
+        domPasswordButton.style.backgroundImage = 'url(/src/img/cant_see.png)';
+        domPasswordInput.type = 'password';
+    }
+    else {
+        domPasswordWrap.classList.add('see');
+        domPasswordButton.style.backgroundImage = 'url(/src/img/seePassword.png)';
+        domPasswordInput.type = 'text';
+    }
+}
+
 domEmailInput.addEventListener('blur', emailErrorHandler);
 domEmailInput.addEventListener('input', emailErrorHandler);
 domEmailInput.addEventListener('input', activeSignpButton);
@@ -150,4 +164,7 @@ domPasswordInput.addEventListener('input', activeSignpButton);
 domPasswordConfirmInput.addEventListener('blur', passwordConfirmErrorHandler);
 domPasswordConfirmInput.addEventListener('input', passwordConfirmErrorHandler);
 domPasswordConfirmInput.addEventListener('input', activeSignpButton);
+
+
+domPasswordButton.addEventListener('click', togglePassword);
 
