@@ -79,32 +79,7 @@ footer {
   padding: 32px 200px 108px 200px;
   font-size: 16px;
 }
-/* 테블릿사이즈 768px */
-@media (max-width: 768px) {
-  header {
-    padding: 10px 24px;
-  }
-  main {
-    margin-top: 0px;
-  }
-  footer {
-    padding: 32px 24px 160px 24px;
-  }
-}
-/* 모바일 사이즈 375px */
-@media (max-width: 375px) {
-  header {
-    padding: 10px 16px;
-  }
-  main {
-    margin-top: 0px;
-  }
-  footer {
-    height: 160px;
-    padding: 32px;
-    position: relative;
-  }
-}
+
 .pill-button {
   font-size: 20px;
   font-weight: 700;
@@ -120,11 +95,6 @@ footer {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
-}
-@media (max-width: 768px) {
-  .wrapper {
-    padding: 0 24px;
-  }
 }
 
 .button {
@@ -149,7 +119,41 @@ footer {
   pointer-events: none;
 }
 
-@media (max-width: 375px) {
+/* Tablet */
+@media (max-width: 1200px) {
+  header {
+    padding: 10px 24px;
+  }
+  main {
+    margin-top: 0px;
+  }
+  footer {
+    padding: 32px 24px 160px 24px;
+  }
+
+  .wrapper {
+    padding: 0 24px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 16px;
+  }
+  main {
+    margin-top: 0px;
+  }
+  footer {
+    height: 160px;
+    padding: 32px;
+    position: relative;
+  }
+
+  .pill-button {
+    padding: 12px 71px;
+  }
+
   .button {
     padding: 12px 71px;
     font-size: 20px;
