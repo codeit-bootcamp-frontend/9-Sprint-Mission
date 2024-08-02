@@ -135,11 +135,6 @@ input:focus {
     gap: 16px;
   }
 
-  #loginForm,
-  #signupForm .buttom {
-    padding: 16px 124px;
-  }
-
   .auth-input {
     gap: 8px;
   }
