@@ -20,8 +20,7 @@
       <div class="auth-input">
         <label for="email">이메일</label>
         <input type="email" name="email" id="email" placeholder="이메일을 입력해주세요">
-        <span id="emailEmptyError" class="error-message">이메일을 입력해 주세요</span>
-        <span id="emailInvalidError" class="error-message">잘못된 이메일 형식입니다</span>
+        <span id="emailError" class="error-message"></span>
       </div>
       <div class="auth-input">
         <label for="password">비밀번호</label>
@@ -31,8 +30,7 @@
             <img src="images/icons/eye-invisible.svg" alt="비밀번호 숨김" class="toggle-password-icon" />
           </button>
         </div>
-        <span id="passwordEmptyError" class="error-message">비밀번호를 입력해 주세요</span>
-        <span id="passwordInvalidError" class="error-message">잘못된 비밀번호 형식입니다</span>
+        <span id="passwordError" class="error-message"></span>
       </div>
 
       <button disabled type="submit" class="button pill-button full-width">

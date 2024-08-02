@@ -13,20 +13,17 @@ const passwordRepeatInput = document.getElementById('passwordRepeat');
 
 const submitButton = document.querySelector('.auth-form-container button[type="submit"]');
 
-const noError = (input, errorNames) => {
-  errorNames.forEach((errorName) => {
-    const errorElement = document.getElementById(errorName);
-    if (errorElement) {
-      errorElement.style.display = 'none';
-      input.style.border = 'none';
-    }
-  });
+const noError = (input, errorElement) => {
+  if (errorElement) {
+    errorElement.style.display = 'none';
+    input.style.border = 'none';
+  }
 };
 
-const isError = (input, errorName) => {
-  const errorElement = document.getElementById(errorName);
+const isError = (input, errorElement, errorMessage) => {
   if (errorElement) {
     errorElement.style.display = 'block';
+    errorElement.textContent = errorMessage;
     input.style.border = '1px solid #f74747';
   }
 };
@@ -46,25 +43,15 @@ const updateButtonState = () => {
 const validateEmail = (email) => /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(email);
 
 // 유효성 검사 공통 코드
-const checkSchema = (input, validators) => {
-  noError(
-    // 입력 필드의 오류 상태를 초기화
-    input,
-    validators.map((init) => init.errorName)
-  );
+const checkSchema = (input, validators, errorElement) => {
+  noError(input, errorElement);
 
   let isValid = true;
 
-  for (const { condition, errorName } of validators) {
+  for (const { condition, errorMessage } of validators) {
     if (!condition()) {
-      isError(input, errorName);
+      isError(input, errorElement, errorMessage);
       isValid = false;
-      /*
-        문제 : break가 없으면 validators 배열의 모든 조건을 검사하기 때문에
-        emailEmptyError에러일 때 emailInvalidError에러까지 발생
-        
-        해결 : break 문을 사용하면 첫 번째 조건이 실패할 때 즉시 루프를 종료
-      */
       break;
     }
   }
@@ -74,34 +61,50 @@ const checkSchema = (input, validators) => {
 
 const checkEmailSchema = () => {
   const email = emailInput.value.trim();
-  isEmailValid = checkSchema(emailInput, [
-    { condition: () => !!email, errorName: 'emailEmptyError' },
-    { condition: () => validateEmail(email), errorName: 'emailInvalidError' },
-  ]);
+  const emailErrorElement = document.getElementById('emailError');
+  isEmailValid = checkSchema(
+    emailInput,
+    [
+      { condition: () => !!email, errorMessage: '이메일을 입력해 주세요' },
+      { condition: () => validateEmail(email), errorMessage: '잘못된 이메일 형식입니다' },
+    ],
+    emailErrorElement
+  );
   updateButtonState();
 };
 
 const checkNicknameSchema = () => {
   const nickname = nicknameInput.value.trim();
-  isNicknameValid = checkSchema(nicknameInput, [{ condition: () => !!nickname, errorName: 'nicknameEmptyError' }]);
+  const nicknameErrorElement = document.getElementById('nicknameError');
+  isNicknameValid = checkSchema(nicknameInput, [{ condition: () => !!nickname, errorMessage: '닉네임을 입력해 주세요' }], nicknameErrorElement);
   updateButtonState();
 };
 
 const checkPasswordSchema = () => {
   const password = passwordInput.value.trim();
-  isPasswordValid = checkSchema(passwordInput, [
-    { condition: () => !!password, errorName: 'passwordEmptyError' },
-    { condition: () => password.length >= 8, errorName: 'passwordInvalidError' },
-  ]);
+  const passwordErrorElement = document.getElementById('passwordError');
+  isPasswordValid = checkSchema(
+    passwordInput,
+    [
+      { condition: () => !!password, errorMessage: '비밀번호를 입력해 주세요' },
+      { condition: () => password.length >= 8, errorMessage: '비밀번호는 8자 이상이어야 합니다' },
+    ],
+    passwordErrorElement
+  );
   updateButtonState();
 };
 
 const checkPasswordRepeatSchema = () => {
   const passwordRepeat = passwordRepeatInput.value.trim();
-  isPasswordRepeatValid = checkSchema(passwordRepeatInput, [
-    { condition: () => !!passwordRepeat, errorName: 'passwordRepeatEmptyError' },
-    { condition: () => passwordRepeat === passwordInput.value, errorName: 'passwordRepeatInvalidError' },
-  ]);
+  const passwordRepeatErrorElement = document.getElementById('passwordRepeatError');
+  isPasswordRepeatValid = checkSchema(
+    passwordRepeatInput,
+    [
+      { condition: () => !!passwordRepeat, errorMessage: '비밀번호 확인을 입력해 주세요' },
+      { condition: () => passwordRepeat === passwordInput.value, errorMessage: '비밀번호가 일치하지 않습니다' },
+    ],
+    passwordRepeatErrorElement
+  );
   updateButtonState();
 };
 
