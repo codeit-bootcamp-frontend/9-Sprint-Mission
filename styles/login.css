@@ -100,7 +100,7 @@ input:placeholder {
 	flex-direction: column;
 }
 
-button {
+.login-button {
 	background: none;
   border: none;
   outline: none;
@@ -118,7 +118,7 @@ button {
 	line-height: 30px;
 }
 
-button:hover {
+.login button:hover {
 	background-color: var(--blue);
 }
 
@@ -171,17 +171,30 @@ button:hover {
 	box-sizing: border-box;
 }
 
-/* 비밀번호 숨기기 버튼 */
-/* .password-img, .re-password-img {
-	position: absolute;
-	left: 592px;
-	right: 16px;
-	top: 58%;
-	transform: translateY(-50%);
+.pw-input,
+.repw-input {
+	position: relative;
+	display: flex;
+}
+
+.pw-input button,
+.repw-input button {
 	width: 24px;
 	height: 24px;
-	pointer-events: none;
-} */
+	border: none;
+	position: absolute;
+	top: 16px;
+	right: 24px;
+	bottom: 16px;
+	background-image: url(../images/logo/icon-eye.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.pw-input button:hover,
+.repw-input button:hover {
+	background-color: var(--gray100);
+}
 
 /* 비밀번호 숨기기 버튼 toggle */
 /* .toggle-password {
