@@ -11,6 +11,9 @@
 
   /* Primary color */
   --blue: #3692ff;
+
+  /* error / red */
+  --error-red: #f74747;
 }
 
 * {
