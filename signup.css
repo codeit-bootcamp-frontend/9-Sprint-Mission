@@ -112,4 +112,16 @@
   .form button {
     padding: 0 16px;
   }
+
+  .logo img {
+    width: 52px;
+    height: 52px;
+  }
+  .logo h1 {
+    font-size: 32px;
+  }
+
+  .form label {
+    font-size: 14px;
+  }
 }
