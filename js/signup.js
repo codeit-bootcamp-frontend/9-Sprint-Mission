@@ -10,39 +10,37 @@ const nicknameInput = document.querySelector('#nickname')
 const passwordCheckInput = document.querySelector('#password-check')
 
 
+
+// 에러메시지
+function showErrorStatus(input, msg) {
+    input.classList.add('changeRed');
+    errorSpan.textContent = msg
+    errorSpan.classList.add('error-msg')
+}
+
+// 이메일
 function addErrorMessage(e) {
     if (e.target.value === "") {
-        emailInput.classList.add('changeRed');
-        errorSpan.textContent = "이메일을 입력해주세요."
-        errorSpan.classList.add('error-msg')
+        showErrorStatus(emailInput,"이메일을 입력해주세요.");
         e.target.parentElement.appendChild(errorSpan)
         }
-    else if (!e.target.value.includes("@")) {
-        emailInput.classList.add('changeRed');
-        errorSpan.textContent = "잘못된 이메일 형식입니다"
-        errorSpan.classList.add('error-msg')
+    else if (!e.target.value.includes("@")) {   
+        showErrorStatus(emailInput,"잘못된 이메일 형식입니다")
         e.target.parentElement.appendChild(errorSpan)
     }
     else {
         emailInput.classList.remove('changeRed');
         errorSpan.remove(errorSpan)
-}}
-
-
-
-
+    }
+}
 
 function pwErrorMessage(e) {
     if (e.target.value === "") {
-        passwordInput.classList.add('changeRed');
-        errorSpan.textContent = "비밀번호를 입력해주세요."
-        errorSpan.classList.add('error-msg')
+        showErrorStatus(passwordInput, "비밀번호를 입력해주세요")
         e.target.parentElement.appendChild(errorSpan)
         }
     else if (e.target.value.length < 8) {
-        passwordInput.classList.add('changeRed');
-        errorSpan.textContent = "비밀번호를 8자 이상 입력해주세요."
-        errorSpan.classList.add('error-msg')
+        showErrorStatus(passwordInput, "비밀번호를 8자 이상 입력해주세요.")
         e.target.parentElement.appendChild(errorSpan)
     }
     else {
@@ -53,18 +51,14 @@ function pwErrorMessage(e) {
 
 function nickNameErrorMessage(e) {
     if (e.target.value === "") {
-        nicknameInput.classList.add('changeRed');
-        errorSpan.textContent = "닉네임을 입력해주세요."
-        errorSpan.classList.add('error-msg')
+        showErrorStatus(nicknameInput, "닉네임을 입력해주세요.")
         e.target.parentElement.appendChild(errorSpan)
         }
 }
 
 function pwcheckErrorMessage(e) {
     if (e.target.value !== passwordInput.value) {
-        passwordCheckInput.classList.add('changeRed');
-        errorSpan.textContent = "비밀번호가 일치하지 않습니다."
-        errorSpan.classList.add('error-msg')
+        showErrorStatus(passwordCheckInput, "비밀번호가 일치하지 않습니다.")
         e.target.parentElement.appendChild(errorSpan)
     }
 }
