@@ -11,7 +11,7 @@
 	</head>
 
 	<body>
-		<form class="login">
+		<form id="sign-up">
 			<section>
 				<header id="login-header">
 					<a href="index.html"><img class="header-logo"
@@ -21,29 +21,37 @@
 
 				<main>
 					<div class="content">
-						<label for="signup-mail" name="email" type="email">이메일</label>
-						<input class="sign-input signup-mail" placeholder="이메일을 입력해주세요">
-						<label for="signup-id" name="username" type="text">닉네임</label>
-						<input class="sign-input signup-id" placeholder="닉네임을 입력해주세요">
+						<label for="signup-email">이메일</label>
+						<input class="sign-input signup-email" name="email" type="email" placeholder="이메일을 입력해주세요">
+						<span id="emailEmptyError" class="error-message">이메일을 입력해 주세요</span>
+						<span id="emailInvalidError" class="error-message">잘못된 이메일 형식입니다</span>
+
+						<label for="signup-id">닉네임</label>
+						<input class="sign-input signup-id" name="username" type="text" placeholder="닉네임을 입력해주세요">
+						<span id="nicknameEmptyError" class="error-message">닉네임을 입력해 주세요</span>
 
 						<div class="password">
 							<label for="signup-pw">비밀번호</label>
 							<div class="pw-input">
 								<input class="sign-input signup-pw" name="password" type="password" placeholder="비밀번호를 입력해주세요">
-								<button></button>
+								<button class="toggle-icon"></button>
 							</div>
+							<span id="passwordEmptyError" class="error-message">비밀번호를 입력해 주세요</span>
+							<span id="passwordInvalidError" class="error-message">비밀번호를 8자 이상 입력해 주세요</span>
 						</div>
 
-						<div class="re-password">
-							<label for="re-signup-pw">비밀번호 확인</label>
-							<div class="repw-input">
-								<input class="sign-input re-signup-pw" name="password" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
-								<button></button>
+						<div class="password-confirm">
+							<label for="signup-pw-confirm">비밀번호 확인</label>
+							<div class="pw-confirm-input">
+								<input class="sign-input signup-pw-confirm" name="password" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
+								<button class="toggle-icon"></button>
 							</div>
+							<span id="passwordConfirmInitError" class="error-message">먼저 조건에 맞는 비밀번호를 입력해 주세요</span>
+							<span id="passwordConfirmError" class="error-message">비밀번호가 일치하지 않습니다</span>
 						</div>
 
 					</div>
-					<button class="login-button" type="submit">로그인</button>
+					<button class="login-button" type="submit">회원가입</button>
 					
 					<div class="simple-login">
 						<p>간편 로그인하기</p>
@@ -67,5 +75,7 @@
 				<p>이미 회원이신가요?<span><a class="signup" href="./login.html">로그인</a></span></p>
 			</section>	
 		</form>
-	</body>
 
+		<script src="scripts/login.js"></script>
+	</body>
+</html>

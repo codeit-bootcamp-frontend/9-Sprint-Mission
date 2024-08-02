@@ -11,7 +11,7 @@
 	</head>
 
 	<body>
-		<form class="login">
+		<form id="login">
 			<section>
 				<header class="login-header">
 					<a href="index.html" class="header-logo"
@@ -21,14 +21,19 @@
 
 				<main>
 					<div class="content">
-						<label for="signup-id" name="email" type="email">이메일</label>
-						<input class="sign-input signup-id" placeholder="이메일을 입력해주세요">
+						<label for="signup-email">이메일</label>
+						<input class="sign-input signup-email" name="email" type="email" placeholder="이메일을 입력해주세요">
+						<span id="emailEmptyError" class="error-message">이메일을 입력해 주세요</span>
+						<span id="emailInvalidError" class="error-message">잘못된 이메일 형식입니다</span>
+
 						<div class="password">
 							<label for="signup-pw">비밀번호</label>
 							<div class="pw-input">
 								<input class="sign-input signup-pw" name="password" type="password" placeholder="비밀번호를 입력해주세요">
-								<button></button>
+								<button class="toggle-icon"></button>
 							</div>
+							<span id="passwordEmptyError" class="error-message">비밀번호를 입력해 주세요</span>
+							<span id="passwordInvalidError" class="error-message">비밀번호를 8자 이상 입력해 주세요</span>
 						</div>
 					</div>
 					<button class="login-button" type="submit">로그인</button>
@@ -55,5 +60,8 @@
 				<p>판다마켓이 처음이신가요?<a class="signup" href="./signup.html">회원가입</a></p>
 			</section>	
 		</form>
+
+		<script src="scripts/login.js"></script>
 	</body>
+</html>
 
