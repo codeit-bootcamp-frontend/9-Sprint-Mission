@@ -97,7 +97,7 @@
   
 }
 
-.login-button:hover {
+.login-button-hover {
   background-color: #3692FF;
   cursor: pointer;
 }
