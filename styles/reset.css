@@ -6,9 +6,23 @@
 
 body {
   font-family: "Pretendard", sans-serif;
+  --warn-color: red;
 }
 
 img {
   display: inline-block;
   vertical-align: top;
+}
+
+.warn-message {
+  color: var(--warn-color);
+}
+
+#warn-border {
+  border: 1px solid var(--warn-color);
+}
+
+#login-button-active {
+  background-color: #3692ff;
+  cursor: pointer;
 }
