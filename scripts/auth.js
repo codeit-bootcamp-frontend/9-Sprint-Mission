@@ -143,9 +143,6 @@ if (signupForm) {
   });
 }
 
-// 버튼 초기 비활성화
-updateButtonState();
-
 // 입력 필드에 이벤트 리스너 추가
 emailInput?.addEventListener('focusout', checkEmailSchema);
 nicknameInput?.addEventListener('focusout', checkNicknameSchema);
