@@ -15,27 +15,33 @@
     </header>
     <section>
         <div class="loginswrap">
-            <form class="loginwrap">
+            <form class="loginwrap" id="signupForm">
                 <div class="ulwrap">
                     <label class="labelText" for="email"><p>이메일</p></label>
                     <input class="inputText" id="email" type="email" placeholder="이메일을 입력해주세요">
+                    <span id="emailError" class="error-message">이메일을 입력해 주세요.</span>
+                    <span id="notEmailFormError" class="error-message">잘못된 이메일 형식입니다</span>
                 </div>
                 <div class="ulwrap">
                   <label class="labelText" for="username"><p>닉네임</p></label>
                   <input class="inputText" id="username" type="text" placeholder="닉네임을 입력해주세요">
+                  <span id="usernameError" class="error-message">닉네임을 입력해 주세요.</span>
                 </div>
                 <div class="ulwrap">
                     <label class="labelText" for="password"><p>비밀번호</p></label>
                     <input class="inputText" id="password" type="password" placeholder="비밀번호를 입력해주세요">
-                    <img class="passwordSee" src="../icon/passwordIcon.png" alt="비밀번호 보기 아이콘">
+                    <button type="button" class="password-toggle-button"><img class="passwordSee" src="../icon/passwordIcon.png" alt="비밀번호 보기 아이콘"></button>
+                    <span id="passwordError" class="error-message">비밀번호를 입력해 주세요.</span>
+                    <span id="passwordLengthError" class="error-message">비밀번호를 8자 이상 입력해주세요.</span>
                 </div>
                 <div class="ulwrap">
                   <label class="labelText" for="passwordcheck"><p>비밀번호 확인</p></label>
                   <input class="inputText" id="passwordcheck" type="password" placeholder="비밀번호를 다시 한 번 입력해주세요">
-                  <img class="passwordSee" src="../icon/passwordIcon.png" alt="비밀번호 보기 아이콘">
+                  <button type="button" class="password-toggle-button"><img class="passwordSee" src="../icon/passwordIcon.png" alt="비밀번호 보기 아이콘"></button>
+                  <span id="passwordSameError" class="error-message">비밀번호가 일치하지 않습니다.</span>
                 </div>
                 <div class="ulwrap">
-                    <button target="submit" class="loginBtn">회원가입</button>
+                    <button target="submit" class="loginBtn" id="signupButton">회원가입</button>
                 </div>
             </form>
             <div class="easyLogin">
@@ -50,5 +56,6 @@
             </div>
         </div>
     </section>
+    <script src="./src/login-signup.js"></script>
 </body>
 </html>
