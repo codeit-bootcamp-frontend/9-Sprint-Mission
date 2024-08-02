@@ -47,7 +47,12 @@ const checkSchema = (input, validators, errorElement) => {
   noError(input, errorElement);
 
   let isValid = true;
-
+  /*
+    문제 : break가 없으면 validators 배열의 모든 조건을 검사하기 때문에
+    emailEmptyError에러일 때 emailInvalidError에러까지 발생
+    
+    해결 : break 문을 사용하면 첫 번째 조건이 실패할 때 즉시 루프를 종료
+  */
   for (const { condition, errorMessage } of validators) {
     if (!condition()) {
       isError(input, errorElement, errorMessage);
@@ -59,6 +64,7 @@ const checkSchema = (input, validators, errorElement) => {
   return isValid;
 };
 
+// 이메일 유효성 검사
 const checkEmailSchema = () => {
   const email = emailInput.value.trim();
   const emailErrorElement = document.getElementById('emailError');
@@ -72,14 +78,14 @@ const checkEmailSchema = () => {
   );
   updateButtonState();
 };
-
+// 닉네임 유효성 검사
 const checkNicknameSchema = () => {
   const nickname = nicknameInput.value.trim();
   const nicknameErrorElement = document.getElementById('nicknameError');
   isNicknameValid = checkSchema(nicknameInput, [{ condition: () => !!nickname, errorMessage: '닉네임을 입력해 주세요' }], nicknameErrorElement);
   updateButtonState();
 };
-
+// 비밀번호 유효성 검사
 const checkPasswordSchema = () => {
   const password = passwordInput.value.trim();
   const passwordErrorElement = document.getElementById('passwordError');
@@ -93,7 +99,7 @@ const checkPasswordSchema = () => {
   );
   updateButtonState();
 };
-
+// 비밀번호 확인 유효성 검사
 const checkPasswordRepeatSchema = () => {
   const passwordRepeat = passwordRepeatInput.value.trim();
   const passwordRepeatErrorElement = document.getElementById('passwordRepeatError');
