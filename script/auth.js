@@ -66,10 +66,10 @@ function validateName(){
     const passwordInput = pwdWrapper.querySelector('.form_input');
     if (passwordInput.type === 'password') {
         passwordInput.type = 'text';
-        pwdIconImg.src = './images/icon/ic_pwd_variant.png';
+        pwdIconImg.src = './images/icon/ic_pwd_default.png';
     } else {
         passwordInput.type = 'password';
-        pwdIconImg.src = './images/icon/ic_pwd_default.png';
+        pwdIconImg.src = './images/icon/ic_pwd_variant.png';
     }
   });
 });
