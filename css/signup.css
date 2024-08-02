@@ -1,3 +1,7 @@
+.nickname-box{
+    margin: 16px 0 24px;
+}
+
 @media (min-width: 375px){
     body{
         padding: 24px 0 179px ;
