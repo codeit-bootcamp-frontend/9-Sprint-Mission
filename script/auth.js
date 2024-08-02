@@ -11,6 +11,7 @@ function validateInput (inputId , errMsg){
   inputId.closest('div').querySelector('#error-msg').textContent = errMsg;
 }
 
+// 이메일 & 비밀번호 초기화
 function validateInputremove (inputId){
   inputId.classList.remove('input-error');
   inputId.closest('div').querySelector('#error-msg').textContent = '';
