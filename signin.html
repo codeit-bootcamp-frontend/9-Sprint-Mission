@@ -21,7 +21,7 @@
         ><img src="images/logo/logo.svg" alt="판다마켓 홈"
       /></a>
 
-      <form method="post">
+      <form method="post" id="loginForm">
         <div class="input-item">
           <label for="email">이메일</label>
           <input
@@ -60,7 +60,12 @@
           >
         </div>
 
-        <button type="submit" class="button pill-button full-width">
+        <button
+          type="submit"
+          id="loginButton"
+          disabled
+          class="button pill-button full-width"
+        >
           로그인
         </button>
       </form>
