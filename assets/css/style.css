@@ -43,7 +43,7 @@
     position: relative;
     width: 100%;
     height: 540px;
-    background: var(--background-color) url(./img/Img_home_top.png) no-repeat bottom / 448px 204px;
+    background: var(--background-color) url('/src/img/Img_home_top.png') no-repeat bottom / 448px 204px;
 }
 
 .banner-top-info {
@@ -83,7 +83,7 @@
     position: relative;
     width: 100%;
     height: 540px;
-    background: var(--background-color) url(./img/Img_home_bottom.png) no-repeat bottom / 375px 198px
+    background: var(--background-color) url('/src/img/Img_home_bottom.png') no-repeat bottom / 375px 198px
 }
 
 .banner-bottom-title {
@@ -217,7 +217,7 @@
     .banner-top {
         width: 100%;
         height: 771px;
-        background: var(--background-color) url(./img/Img_home_top.png) no-repeat bottom / 744px 340px;
+        background: var(--background-color) url('/src/img/Img_home_top.png') no-repeat bottom / 744px 340px;
     }
 
     .banner-top-info {
@@ -265,7 +265,7 @@
     .banner-bottom {
         width: 100%;
         height: 927px;
-        background: var(--background-color) url(./img/Img_home_bottom.png) no-repeat bottom / 744px 340px;
+        background: var(--background-color) url('/src/img/Img_home_bottom.png') no-repeat bottom / 744px 340px;
     }
 
     .banner-bottom-info {
@@ -309,7 +309,7 @@
     .banner-top {
         position: relative;
         height: 540px;
-        background: var(--background-color) url(./img/Img_home_top.png) no-repeat 80% bottom / 746px 340px;
+        background: var(--background-color) url('/src/img/Img_home_top.png') no-repeat 80% bottom / 746px 340px;
     }
 
     .banner-top-info {
@@ -371,7 +371,7 @@
     .banner-bottom {
         position: relative;
         height: 540px;
-        background: var(--background-color) url(./img/Img_home_bottom.png) no-repeat 80% bottom / 746px 397px
+        background: var(--background-color) url('/src/img/Img_home_bottom.png') no-repeat 80% bottom / 746px 397px
     }
 
     .banner-bottom-info {

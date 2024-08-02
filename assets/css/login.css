@@ -67,7 +67,7 @@
         position: absolute;
         right: 24px;
         bottom: 16px;
-        background-image: url(./img/visibliity.png);
+        background-image: url(/src/img/visibliity.png);
         background-color: var(--gray100);
         border: none;
         cursor: pointer;
