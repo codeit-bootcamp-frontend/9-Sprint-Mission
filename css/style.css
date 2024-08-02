@@ -21,32 +21,22 @@
     margin: 0;
 }
 
-.header-button-box {
+.header-button {
     width: 128px;
     height: 48px;
     background-color: #3692FF;
-    padding: 11px 43px;
-    border-radius: 8px;
     border: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.header-button {
+    border-radius: 8px;
+    padding: 11px 43px;
     color: #fff;
-    width: 100%;
     font-size: 16px;
     font-weight: 600;
-    border: 0;
     text-decoration: none;
     display: flex; 
     align-items: center;
     justify-content: center; 
-    width: 100%; 
-    height: 100%; 
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .banner {
@@ -66,30 +56,16 @@
     display: flex;
 }
 
-.banner-button-box {
+.banner-button {
     background-color: #3692FF;
     border-radius: 40px;
     border: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.banner-button {
     color: #F9FAFB; 
-    font-size: 20px;
     font-weight: 600;
     text-decoration: none;
-    display: block; 
-    text-align: center; 
-    width: 100%;
-    height: 100%;
     display: flex; 
-    align-items: center;
-    justify-content: center; 
-    width: 100%; 
-    height: 100%; 
-    white-space: nowrap;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .article-top{
@@ -200,6 +176,13 @@
         padding: 48px 0 336px;
     }
 
+    .banner-button{
+        width: 240px;
+        padding: 11px 71px;
+        font-size: 16px;
+        white-space: nowrap;
+    }
+    
     .section1{
         display: flex;
         align-items: left;
@@ -232,12 +215,6 @@
         background: url("../images/Img_home_bottom.png") no-repeat center bottom / 375px 198px;
         align-items: center;   
         justify-content: center;
-    }
-
-    .banner-button-box {
-        width: 100%;
-        height: 48px;
-        padding: 11px 71px;
     }
 
     .main-text{
@@ -307,6 +284,13 @@
         height: 771px;
     }
 
+    .banner-button{
+        width: 357px;
+        padding: 16px 124px;
+        font-size: 20px;
+        white-space: nowrap;
+    }
+
     .banner-main{
         padding: 84px 0 551px;
     }
@@ -323,12 +307,6 @@
     .banner-container{
         
         align-items: start;  
-    }
-
-    .banner-button-box {
-        width: 357px;
-        height: 56px;
-        padding: 12px 124px;
     }
 
     .section1{
@@ -435,10 +413,8 @@
         text-align: left;
     }
 
-    .banner-button-box {
+    .banner-button{
         width: 100%;
-        height: 56px;
-        padding: 16px 124px;
     }
 
     .section1{

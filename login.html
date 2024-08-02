@@ -13,18 +13,24 @@
     </header>
 
     <main class="main-text">
-        <form>
+        <form id="login-form">
             <div class="container">
                 <label class="label">이메일</label>
-                <input class='email' name="email" type="email" placeholder="이메일을 입력해주세요.">
-                
+                <div class="email-box">
+                    <input id="email" class='email' name="email" type="email" placeholder="이메일을 입력해주세요.">
+                    <span id="email-error" class="error-message"></span>
+                </div>
+
                 <label class="label">비밀번호</label>
                 <div class="password-box">
-                    <input class='password' name="password" type="password" placeholder="비밀번호를 입력해주세요.">
-                    <button class="eye" type="button"><img src='images/eye.svg' class="eye-img" width="24" height="24" alt="eye"></button>
+                    <div class="password-form">
+                        <input id="password" class='password' name="password" type="password" placeholder="비밀번호를 입력해주세요.">
+                        <button class="eye" type="button"><img src='images/eye_close.svg' class="eye-img" width="24" height="24" alt="eye"></button>
+                    </div>
+                    <span id="password-error" class="error-message"></span>
                 </div>
     
-                <button class="login-button-box" type='submit'><span class="login-button">로그인</span></button>
+                <button class="login-button-box" id="login-button" type='submit'>로그인</button>
             </div>
         </form>
     
@@ -43,6 +49,6 @@
             </div>
         </footer>
     </main>
-    <script src="login.js"></script>
+    <script src="./js/login.js"></script>
 </body>
 </html>

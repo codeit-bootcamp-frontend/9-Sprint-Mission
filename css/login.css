@@ -11,8 +11,8 @@
 
 .password-box{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: left;
     position: relative;
 }
 
@@ -34,28 +34,37 @@
 }
 
 .email:focus, .password:focus {
-    border: 2px solid #3692FF;
+    border: 1px solid #3692FF;
     outline: none;
 }
 
-.login-button-box{
+.login-button-box, .password-button-box{
     background-color: #9CA3AF;
     border-radius: 40px;
     padding: 16px 124px;
     border: 0;
     width: 100%;
-    margin: 0 0 24px 0;
+    margin-top: 0;
+    margin-bottom: 24px;
     text-align: center;
     cursor: pointer;
-}
-
-.login-button{
     color: #fff;
     font-size: 20px;
     font-weight: 600;
     line-height: 24px;
-    text-align: center;
-    text-decoration: none;
+}
+
+.login-button-box:disabled, .password-button-box:disabled {
+    cursor: not-allowed;
+}
+
+.enabled {
+    background-color: #3692FF; 
+}
+
+.password-form{
+    width: 100%;
+    position: relative;
 }
 
 .social_wrap{
@@ -102,6 +111,18 @@
     margin: 0;
 }
 
+.error{
+    border: 1px solid #F74747;
+}
+
+.error-message {
+    color: #F74747;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+    display: none; 
+}
+
 @media (min-width: 375px){
     body{
         padding: 80px 0 231px;
@@ -129,7 +150,7 @@
         font-size: 14px;    
         font-weight: 700;
     }
-    .email, .password-box{
+    .email-box, .password-box{
         margin: 8px 0 16px;
     }
 }
@@ -174,7 +195,7 @@
         font-size: 18px;
     }
 
-    .email, .password-box{
+    .email-box, .password-box{
         margin: 16px 0 24px;
     }
 }
