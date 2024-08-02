@@ -11,7 +11,7 @@ const domPasswordWrap = document.querySelector('.form-password');
 const domPasswordConfirmWrap = document.querySelector('.form-password-confirm');
 const domNickNameWrap = document.querySelector('.form-nickname');
 const domSignButton = document.querySelector('.signup-button');
-const domPasswordButton = document.querySelectorAll('#see-password');
+const domsPasswordButton = document.querySelectorAll('#see-password');
 
 
 //이메일 에러
@@ -135,16 +135,19 @@ function activeSignpButton() {
     }
 }
 
-function togglePassword() {
-    if (domPasswordWrap.classList.contains('see')) {
-        domPasswordWrap.classList.remove('see');
-        domPasswordButton.style.backgroundImage = 'url(/src/img/cant_see.png)';
-        domPasswordInput.type = 'password';
+function togglePassword(e) {
+    const button = e.currentTarget;
+    const input = button.previousElementSibling;
+
+    if (button.classList.contains('see')) {
+        button.classList.remove('see');
+        button.style.backgroundImage = 'url(/src/img/cant_see.png)';
+        input.type = 'password';
     }
     else {
-        domPasswordWrap.classList.add('see');
-        domPasswordButton.style.backgroundImage = 'url(/src/img/seePassword.png)';
-        domPasswordInput.type = 'text';
+        button.classList.add('see');
+        button.style.backgroundImage = 'url(/src/img/seePassword.png)';
+        input.type = 'text';
     }
 }
 
@@ -165,6 +168,5 @@ domPasswordConfirmInput.addEventListener('blur', passwordConfirmErrorHandler);
 domPasswordConfirmInput.addEventListener('input', passwordConfirmErrorHandler);
 domPasswordConfirmInput.addEventListener('input', activeSignpButton);
 
-
-domPasswordButton.addEventListener('click', togglePassword);
+domsPasswordButton.forEach((dom) => dom.addEventListener('click', togglePassword));
 
