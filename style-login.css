@@ -71,8 +71,7 @@ section label{
     border: 1.5px solid var(--blue);
 }
 
-.msg{    
-    display: none;
+.msg-area{    
     color: var(--red);
     font-size: 1.8rem;
     font-weight: 500;
@@ -94,7 +93,7 @@ section label{
 
 .disabled-btn{
     background-color: var(--gray200);
-    color: var(--gray400)
+    color: var(--gray400);
 }
 
 .easy-login{

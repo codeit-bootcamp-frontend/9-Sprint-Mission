@@ -1,86 +1,144 @@
-function idInputFocusout(e){
-    if(!e.target.value){
-        e.target.classList.add('red-border');
-        e.target.classList.remove('blue-border');
 
-        e.target.nextElementSibling.children[0].classList.add('display');
-        e.target.nextElementSibling.children[1].classList.remove('display');
+//이메일을 입력해주세요.잘못된 이메일 형식입니다.
+//닉네임을 입력해주세요.
+//비밀번호를 입력해주세요.비밀번호를 8자 이상 입력해주세요.비밀번호가 일치하지 않습니다.
 
 
-    } else if(!e.target.value.includes('@') || !e.target.value.includes('.')){
-        e.target.classList.add('red-border');
-        e.target.classList.remove('blue-border');
-
-        e.target.nextElementSibling.children[0].classList.remove('display');
-        e.target.nextElementSibling.children[1].classList.add('display');
-
-    } else{
-        e.target.classList.add('blue-border');
-        e.target.classList.remove('red-border');
-        e.target.nextElementSibling.children[0].classList.remove('display');
-        e.target.nextElementSibling.children[1].classList.remove('display');
+//인풋 아이디(user-name, new-pw, nickname, pw-check)에 따라 전달받은 메시지를 출력하는 함수
+function addMessage(inputID, i, msg){
+    const selectedInput = document.getElementById(inputID);
+    const divArea = document.querySelectorAll('.msg-area');
+    divArea[i].innerHTML = msg;
+    if(!divArea){
+        selectedInput.nextElementSibling.append(divArea);
     }
 }
 
-function pwInputFocusout(e){
-    if(!e.target.value){
-        e.target.classList.add('red-border');
-        e.target.classList.remove('blue-border');
+// 선택한 인풋 박스에 빨간색 테두리를 표시해주는 함수 &파란색 테두리를 지움
+function redBorder(inputID){
+    const selectedInput = document.getElementById(inputID);
+    selectedInput.classList.add('red-border');
+    selectedInput.classList.remove('blue-border');
+}
 
-        e.target.nextElementSibling.children[0].classList.add('display');
+// 정상 작동 시 호출될 함수 (파란색 테두리 & 에러메시지 지움)
+function correct(inputID, i){
+    const selectedInput = document.getElementById(inputID);
+    const divArea = document.querySelectorAll('.msg-area');
 
-    } else if(e.target.value.length < 8){
-        e.target.classList.add('red-border');
-        e.target.classList.remove('blue-border');
-
-        e.target.nextElementSibling.children[0].classList.remove('display');
-        e.target.nextElementSibling.children[1].classList.add('display');
-
-    } else{
-        e.target.classList.remove('red-border');
-        e.target.classList.add('blue-border');
-        e.target.nextElementSibling.children[0].classList.remove('display');
-        e.target.nextElementSibling.children[1].classList.remove('display');
+    selectedInput.classList.add('blue-border');
+    if(divArea[i]){
+        divArea[i].innerHTML = "";
     }
 }
 
-function nicknameInput(e){
-    if(!e.target.value){
-        e.target.classList.add('red-border');
-        e.target.classList.remove('blue-border');
+//인풋박스 포커스 이벤트 핸들러
+function InputFocusout(e, idName, i, errMsg1, errMsg2){
+    const value = e.target.value;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-        e.target.nextElementSibling.children[0].classList.add('display');
+    //이메일 입력 인풋에서 
+    if(idName === 'user-name'){
+        //인풋에 값이 없을때
+        if(!value){
+            addMessage(idName, i, errMsg1);
+            redBorder(idName);
+        } 
+        //인풋값이 잘못된 형식일때
+        else if (!emailRegex.test(value)) {
+            addMessage(idName, i, errMsg2);
+            redBorder(idName);
+        }
+        // 그외 나머지 = 정상작동
+        else{
+            correct(idName, i);
+        }
+    }
+    //닉네임 입력 인풋에서
+    else if(idName === 'nickname'){
+        if(!value){
+            addMessage(idName, i, errMsg1);
+            redBorder(idName);
+        } 
+        else{
+            correct(idName, i);
+        }
+    }
 
-    }else{
-        e.target.classList.remove('red-border');
-        e.target.classList.add('blue-border');
-        e.target.nextElementSibling.children[0].classList.remove('display');
+    //비밀번호 입력 인풋에서
+    else if(idName === 'new-pw'){
+        if(!value){
+            addMessage(idName, i, errMsg1);
+            redBorder(idName);
+        } 
+        //8글자 미만일때
+        else if (value.length < 8){
+            addMessage(idName, i, errMsg2);
+            redBorder(idName);
+        }
+        // 그외 나머지 = 정상작동
+        else{
+            correct(idName, i);
+        }
+    }
+
+    //비밀번호 확인 인풋에서
+    else if(idName === 'pw-check'){
+        const pwValue = document.querySelector('#new-pw').value;
+        // console.log(pwValue); 
+        if(!value){
+            addMessage(idName, i, errMsg1);
+            redBorder(idName);
+        } 
+        //일치하지 않을때
+        else if (value !== pwValue ){
+            addMessage(idName, i, errMsg2);
+            redBorder(idName);
+        }
+        // 그외 나머지 = 정상작동
+        else{
+            correct(idName, i);
+        }
     }
 }
 
-function pwCheckInput(e){
-    if(!e.target.value){
-        e.target.classList.add('red-border');
-        e.target.classList.remove('blue-border');
-        e.target.nextElementSibling.children[0].classList.add('display');
-        e.target.nextElementSibling.children[1].classList.remove('display');
+const inputId = document.querySelector('#user-name');
+const inputNickname = document.querySelector('#nickname');
+const inputPw = document.querySelector('#new-pw');
+const inputPwCheck = document.querySelector('#pw-check');
 
+//포커스 아웃 이벤트 리스너 할당하기
+// 이메일
+inputId.addEventListener('focusout', (e) => {
+    InputFocusout(e, 'user-name', 0, '이메일을 입력해주세요.', '잘못된 이메일 형식입니다.');
+});
 
-    }else if(e.target.value !== e.target.parentElement.children[7].value){
-        e.target.classList.add('red-border');
-        e.target.classList.remove('blue-border');
-        e.target.nextElementSibling.children[0].classList.remove('display');
-        e.target.nextElementSibling.children[1].classList.add('display');
-
-    }else{
-        e.target.classList.remove('red-border');
-        e.target.classList.add('blue-border');
-        e.target.nextElementSibling.children[0].classList.remove('display');
-        e.target.nextElementSibling.children[1].classList.remove('display');
-    }
+//닉네임
+if(inputNickname){
+    inputNickname.addEventListener('focusout', (e) => {
+        InputFocusout(e, 'nickname', 1, '닉네임을 입력해주세요.');
+    });
 }
 
+// 비밀번호 (회원가입 페이지에서는 index = 2)
+    inputPw.addEventListener('focusout', (e) => {
+        InputFocusout(e, 'new-pw', 2, '비밀번호를 입력해주세요.', '비밀번호를 8자 이상 입력해주세요.');
+    });
 
+// 비밀번호 체크 없으면 로그인 페이지에서는 비밀번호에 index 값 = 1, 이벤트 할당
+if(!inputPwCheck){
+    inputPw.addEventListener('focusout', (e) => {
+    InputFocusout(e, 'new-pw', 1, '비밀번호를 입력해주세요.', '비밀번호를 8자 이상 입력해주세요.');
+    });
+}
+// 비밀번호 체크 있으면 (회원가입 페이지에서 index = 3, 이벤트 할당)
+if(inputPwCheck){
+    inputPwCheck.addEventListener('focusout', (e) => {
+        InputFocusout(e, 'pw-check', 3, '비밀번호를 한번 더 입력해주세요', '비밀번호가 일치하지 않습니다.');
+    })
+}
+
+// 버튼 비활성화 핸들러
 function activeBtn(){
     const inputs = document.querySelectorAll('input');
     const button = document.querySelector('.submit-btn');
@@ -101,4 +159,9 @@ function activeBtn(){
     }
 
 }
-export {idInputFocusout, pwInputFocusout, nicknameInput, pwCheckInput, activeBtn};
+//  버튼 비활성화 이벤트 할당
+const inputs = document.querySelectorAll('input');
+
+inputs.forEach(input => {
+    input.addEventListener('focusout', activeBtn);
+})
