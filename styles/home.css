@@ -4,6 +4,12 @@ body {
 	font-family: "Pretendard Variable", Pretendard, sans-serif;
 }
 
+@media (min-width: 1280px) {
+.banner-img {
+	margin-top: 200px;
+}
+
+}
 header {
 	display: flex;
 	justify-content: space-between;
@@ -46,7 +52,6 @@ button {
 .button:focus {
   background-color: #1251aa;
 }
-
 
 header {
 	padding: 10px;
@@ -99,7 +104,6 @@ a.header-login:hover {
 .banner-img {
 	width: 746px;
 	height: 340px;
-	margin-top: 200px;
 }
 
 .wrapper {
@@ -310,7 +314,7 @@ p.article-content {
 	.banner-img {
 		width: 448px;
 		height: 204px;
-		margin-top: 132px;
+		/* margin-top: 132px; */
 	}
 
   .features-item {
