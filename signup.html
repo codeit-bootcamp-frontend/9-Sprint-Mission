@@ -17,8 +17,12 @@
       <form class="form">
         <label for="email">이메일</label>
         <input type="text" id="email" placeholder="이메일을 입력해주세요." />
+        <span id="email-error"></span>
+
         <label for="nickname">닉네임</label>
         <input type="text" id="nickname" placeholder="닉네임을 입력해주세요." />
+        <span id="nickname-error"></span>
+
         <label for="password">비밀번호</label>
         <div class="password-input">
           <input
@@ -32,6 +36,7 @@
             alt="btn_visibility"
           />
         </div>
+        <span id="password-error"></span>
         <label for="password">비밀번호 확인</label>
         <div class="password-input">
           <input
@@ -45,6 +50,7 @@
             alt="btn_visibility"
           />
         </div>
+        <span id="password-check-error"></span>
         <button type="submit">회원가입</button>
         <div class="social-loginbar">
           <span>간편 로그인하기</span>

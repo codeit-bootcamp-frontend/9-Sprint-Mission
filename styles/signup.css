@@ -100,6 +100,15 @@
   text-decoration: underline;
 }
 
+#password-error,
+#email-error,
+#nickname-error,
+#password-check-error {
+  color: red;
+  display: none;
+  padding-left: 8px;
+}
+
 /* 모바일 사이즈 스타일 */
 @media (max-width: 767px) {
   .form,
