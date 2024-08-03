@@ -14,11 +14,11 @@
   padding-top: 40px;
 }
 
-.enter_box>div+div {
-  padding-top: 24px;
+.enter_box > div+ div {
+  padding-top: 16px;
 }
 
-.enter_box>div label {
+.enter_box > div label {
   display: block;
   color: var(--color-black);
   font-size: 18px;
@@ -31,13 +31,12 @@
   position: relative;
 }
 
-.enter_box>div .pwd_box .pwd_icon {
+.enter_box > div .pwd_box .pwd_icon {
   position: absolute;
   right: 24px;
-  top: 50%;
+  top: 16px;
   width: 24px;
   height: auto;
-  margin-top: -12px;
   cursor: pointer;
 }
 
@@ -102,6 +101,17 @@
   text-align: center;
 }
 
+/* input error */
+.form_input.input-error {
+  border:1px solid var(--color-error);
+}
+#error-msg {
+  margin:8px 16px 0;
+  color:var(--color-error);
+  font-size:14px;
+  font-weight:600;
+  text-align:left;
+}
 @media (max-width: 768px) {
   .sub_logo {
     width:198px;

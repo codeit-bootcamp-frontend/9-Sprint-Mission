@@ -95,6 +95,7 @@ html {
   --color-bg-footer: #111827;
   --color-bg-input: #F3F4F6;
   --color-bg-sns: #E6F2FF;
+  --color-error: #F74747;
 }
 
 input:focus {
