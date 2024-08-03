@@ -57,6 +57,11 @@ body {
   height: 56px;
 }
 
+input:-internal-autofill-selected {
+  /* background-color: light-dark(rgb(232, 240, 254), rgba(70, 90, 126, 0.4)) !important; */
+  background-color: red !important;
+}
+
 .input::placeholder {
   font-size: 16px;
   line-height: 26px;
@@ -64,6 +69,15 @@ body {
 
 .input-style input:focus {
   outline-color: #3692ff;
+}
+
+.input-style input.focus-out {
+  border: 1px solid var(--error-red);
+}
+
+.error-text {
+  color: var(--error-red);
+  padding-left: 20px;
 }
 
 .register-btn {
@@ -78,6 +92,11 @@ body {
   font-weight: 600;
   line-height: 32px;
 }
+
+.register-btn.active-btn {
+  background-color: var(--primary-blue100);
+}
+
 
 .easy-login {
   display: flex;
@@ -135,12 +154,12 @@ body {
   padding: 0;
 }
 
+
 @media (max-width: 768px) {
   .wrap-signup {
     padding: 0 16px 0;
-    
   }
-  
+
   .wrap-signup > section {
     width: 100%;
     max-width: 400px;
