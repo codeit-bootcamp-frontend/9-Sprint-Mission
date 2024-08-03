@@ -6,6 +6,7 @@
   <title>판다마켓</title>
   <link rel="stylesheet" href="./css/login_singup.css">
   <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/js.css">
 </head>
 <body>
   <header class="header-container">
@@ -22,9 +23,10 @@
       <label class="login-label" for="password">비밀번호</label>
       <div class="password-container">
         <input class="login-input password" id="password" name="password" type="password" placeholder="비밀번호를 입력해주세요">
-        <button class="password-hide" type="button"></button>
+        <button class="password-hide" type="button" alt="비밀번호 보기"></button>
       </div>
-      <button class="login-button" type="submit">로그인</button>
+      <!-- onclick="location.href='./items.html'" 버튼 태그에 온클릭을 넣으면 js보다 우선 실행됨 -->
+      <button class="login-button" type="button" alt="로그인">로그인</button>
     </form>
     <div class="login-simple">
       <span class="simple-login">간편 로그인하기</span>
@@ -32,8 +34,9 @@
       <a href="https://kakao.com"><img class="kakaotalk" src="./logo/logo_kakaotalk.png" width="44px" height="44px" alt="카카오톡"></a>
     </div>
     <div class="login-first">
-      <em>판다마켓이 처음이신가요? <a class="sign-up" href="/signup.html">회원가입</a></em>
+      <em>판다마켓이 처음이신가요? <a class="sign-up" href="./signup.html">회원가입</a></em>
     </div>
   </main>
+  <script src="./index.js"></script>
 </body>
 </html>
