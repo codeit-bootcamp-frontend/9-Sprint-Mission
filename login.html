@@ -6,33 +6,46 @@
 		<title>판다마켓</title>
 		<link rel="icon" href="./images/logo/favicon.png">
 		<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
-		<link rel="stylesheet" href="./styles/global.css">
 		<link rel="stylesheet" href="./styles/login.css">
+		<link rel="stylesheet" href="./styles/global.css">
 	</head>
 
 	<body>
-		<form class="login">
+		<form id="login">
 			<section>
-				<header id="login-header">
-					<a href="index.html"><img class="header-logo"
-						src="./images/logo/property-logo1.png" 
-						alt="판다마켓 홈" ></a>
+				<header class="login-header">
+					<a href="index.html" class="header-logo"
+						><img src="./images/logo/property-logo1.png" alt="판다마켓 홈" 
+					></a>
 				</header>
 
 				<main>
 					<div class="content">
-						<label for="isignup-id" name="email" type="text">이메일</label>
-						<input id="signup-id" placeholder="이메일을 입력해주세요">
+						<label for="signup-email">이메일</label>
+						<input class="sign-input signup-email" name="email" type="email" placeholder="이메일을 입력해주세요">
+						<span id="emailEmptyError" class="error-message">이메일을 입력해 주세요</span>
+						<span id="emailInvalidError" class="error-message">잘못된 이메일 형식입니다</span>
+
 						<div class="password">
 							<label for="signup-pw">비밀번호</label>
-							<img src="./images/logo/icon-eye.png" class="password-img">
-							<input id="signup-pw" name="password" type="password" placeholder="비밀번호를 입력해주세요">
+							<div class="pw-input">
+								<input class="sign-input signup-pw" name="password" type="password" placeholder="비밀번호를 입력해주세요">
+								<button type="button">
+									<img
+									class="password-toggle-icon"
+									src="./images/logo/eye-invisible.svg"
+									alt="비밀번호 숨김 상태 아이콘"
+									/> 
+								</button>
+							</div>
+							<span id="passwordEmptyError" class="error-message">비밀번호를 입력해 주세요</span>
+							<span id="passwordInvalidError" class="error-message">비밀번호를 8자 이상 입력해 주세요</span>
 						</div>
 					</div>
-					<button type="submit">로그인</button>
+					<button class="login-button" type="submit">로그인</button>
 					
-					<div id="simple-login">
-						<h2>간편 로그인하기</h2>
+					<div class="simple-login">
+						<p>간편 로그인하기</p>
 						<div class="social">
 							<a href="https://www.google.com/"
 							target="_blank"
@@ -50,8 +63,11 @@
 			</section>
 
 			<section class="bottom-banner">
-				<p>판다마켓이 처음이신가요?<span><a id="signup" href="./signup.html">회원가입</a></span></p>
+				<p>판다마켓이 처음이신가요?<a class="signup" href="./signup.html">회원가입</a></p>
 			</section>	
 		</form>
+
+		<script src="scripts/login.js"></script>
 	</body>
+</html>
 
