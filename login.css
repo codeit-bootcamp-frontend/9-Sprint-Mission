@@ -32,7 +32,7 @@
     height : 56px;
     border: none;
     border-radius: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding : 16px 24px 16px 24px;
     gap : 10px;
     background-color: #F3F4F6;
@@ -99,6 +99,23 @@ button:focus {
     background-color: #3692FF;
     border: 1px solid #3692FF;
 }
+
+/* js사용 */
+
+.form-input.changeRed {
+    border: 2px solid red;
+}
+
+.error-msg {
+    font-size: 14px;
+    color : red;
+    text-align: left;
+    font-weight: 700;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    display: block;
+}
+
 
 
 /* 태블릿 사이즈 */
