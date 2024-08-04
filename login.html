@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="common.css" />
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="./styles/common.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
+    <script src="./scripts/auth.js" defer></script>
     <title>판다마켓</title>
   </head>
   <body>
@@ -16,6 +17,8 @@
       <form class="form">
         <label for="email">이메일</label>
         <input type="email" id="email" placeholder="이메일을 입력해주세요." />
+        <span id="email-error"></span>
+
         <label for="password">비밀번호</label>
         <div class="password-input">
           <input
@@ -29,7 +32,9 @@
             alt="숨김 버튼 이미지"
           />
         </div>
-        <button>로그인</button>
+        <span id="password-error"></span>
+
+        <button type="submit">로그인</button>
         <div class="social-loginbar">
           <span>간편 로그인하기</span>
           <div class="social-icon">
