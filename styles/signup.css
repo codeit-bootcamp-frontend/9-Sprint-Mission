@@ -78,13 +78,13 @@
     position: relative;
 }
 
-.see-password-button {
+.show-password-button {
     width: 24px;
     height: 24px;
     position: absolute;
     right: 24px;
     bottom: 16px;
-    background-image: url(/src/img/cant_see.png);
+    background-image: url(../images/cant_see.png);
     background-color: var(--gray100);
     border: none;
     cursor: pointer;
@@ -234,14 +234,14 @@
         position: relative;
     }
 
-    .see-password-button {
+    .show-password-button {
         width: 24px;
         height: 24px;
         position: absolute;
         right: 24px;
         bottom: 16px;
         cursor: pointer;
-        background-image: url(/src/img/cant_see.png);
+        background-image: url(../images/cant_see.png);
         background-color: var(--gray100);
         border: none;
     }

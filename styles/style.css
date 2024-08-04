@@ -40,17 +40,19 @@
 }
 
 .banner-top {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
     width: 100%;
     height: 540px;
-    background: var(--background-color) url('/src/img/Img_home_top.png') no-repeat bottom / 448px 204px;
+    background: var(--background-color) url('../images/Img_home_top.png') no-repeat bottom / 448px 204px;
 }
 
 .banner-top-info {
-    padding-top: 48px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 48px;
     gap: 18px;
 }
 
@@ -68,7 +70,6 @@
     border: 1px solid transparent;
     border-radius: 40px;
     padding: 12px 71px;
-    margin-top: 18px;
     text-decoration: none;
     background-color: var(--color);
     color: var(--gray100);
@@ -80,10 +81,9 @@
 }
 
 .banner-bottom {
-    position: relative;
     width: 100%;
     height: 540px;
-    background: var(--background-color) url('/src/img/Img_home_bottom.png') no-repeat bottom / 375px 198px
+    background: var(--background-color) url('../images/Img_home_bottom.png') no-repeat bottom / 375px 198px
 }
 
 .banner-bottom-title {
@@ -96,7 +96,6 @@
 
 .banner-bottom-info {
     padding-top: 121px;
-    margin: 0 auto;
     text-align: center;
 }
 
@@ -106,7 +105,7 @@
     flex-direction: column;
 }
 
-.contents {
+.content-wrap {
     display: flex;
     margin: 52px auto;
     flex-direction: column;
@@ -114,16 +113,12 @@
     width: 344px;
 }
 
-.contents-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-}
-
 .content {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    background-color: #FCFCFC;
+    border-radius: 14.2px;
 }
 
 .content-img {
@@ -215,13 +210,10 @@
     }
 
     .banner-top {
+        padding-top: 84px;
         width: 100%;
         height: 771px;
-        background: var(--background-color) url('/src/img/Img_home_top.png') no-repeat bottom / 744px 340px;
-    }
-
-    .banner-top-info {
-        padding-top: 84px;
+        background: var(--background-color) url('../images/Img_home_top.png') no-repeat bottom / 744px 340px;
     }
 
     .banner-top-title {
@@ -239,7 +231,7 @@
         line-height: 32px;
     }
 
-    .contents {
+    .content-wrap {
         width: 696px;
         margin: 24px auto;
         gap: 52px;
@@ -263,9 +255,11 @@
     }
 
     .banner-bottom {
+        display: flex;
+        justify-content: center;
         width: 100%;
         height: 927px;
-        background: var(--background-color) url('/src/img/Img_home_bottom.png') no-repeat bottom / 744px 340px;
+        background: var(--background-color) url('../images/Img_home_bottom.png') no-repeat bottom / 744px 340px;
     }
 
     .banner-bottom-info {
@@ -307,18 +301,18 @@
     }
 
     .banner-top {
-        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-left: 20%;
+        padding-top: 0px;
         height: 540px;
-        background: var(--background-color) url('/src/img/Img_home_top.png') no-repeat 80% bottom / 746px 340px;
+        background: var(--background-color) url('../images/Img_home_top.png') no-repeat 80% bottom / 746px 340px;
     }
 
     .banner-top-info {
         padding: 0;
-        position: absolute;
         align-items: start;
-        top: 240px;
-        left: 405px;
-        gap: 32px;
     }
 
     .banner-top-title {
@@ -335,7 +329,7 @@
         font-weight: 600;
     }
 
-    .contents {
+    .content-wrap {
         width: 955px;
         margin: 138px auto;
         gap: 276px;
@@ -369,16 +363,16 @@
     }
 
     .banner-bottom {
-        position: relative;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding-left: 20%;
         height: 540px;
-        background: var(--background-color) url('/src/img/Img_home_bottom.png') no-repeat 80% bottom / 746px 397px
+        background: var(--background-color) url('../images/Img_home_bottom.png') no-repeat 80% bottom / 746px 397px
     }
 
     .banner-bottom-info {
-        position: absolute;
-        padding: 0;
-        top: 255px;
-        left: 405px;
+        padding: 0px;
     }
 
     .banner-bottom-title {
