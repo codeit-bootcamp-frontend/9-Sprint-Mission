@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>판다마켓 - 회원가입</title>
+    <title>판다마켓 - 로그인</title>
     <link rel="icon" href="images/logo/favicon.ico" />
     <link
       rel="stylesheet"
@@ -21,7 +21,7 @@
         ><img src="images/logo/logo.svg" alt="판다마켓 홈"
       /></a>
 
-      <form method="post" id="signupForm">
+      <form method="post" id="loginForm">
         <div class="input-item">
           <label for="email">이메일</label>
           <input
@@ -35,18 +35,6 @@
           >
           <span id="wrong-email-error" class="error-message"
             >잘못된 이메일 형식입니다.</span
-          >
-        </div>
-        <div class="input-item">
-          <label for="nickname">닉네임</label>
-          <input
-            id="nickname"
-            name="nickname"
-            type="text"
-            placeholder="닉네임을 입력해 주세요"
-          />
-          <span id="nickname-error" class="error-message"
-            >닉네임을 입력해주세요.</span
           >
         </div>
         <div class="input-item">
@@ -71,33 +59,14 @@
             >비밀번호를 8자 이상 입력해주세요.</span
           >
         </div>
-        <div class="input-item">
-          <label for="passwordConfirmation">비밀번호 확인</label>
-          <div class="input-wrapper">
-            <input
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              type="password"
-              placeholder="비밀번호를 다시 한 번 입력해 주세요"
-            />
-            <img
-              src="images/icons/eye-invisible.svg"
-              alt="비밀번호 숨김"
-              class="toggle-password"
-            />
-          </div>
-          <span id="passwordConfirmation-error" class="error-message"
-            >비밀번호가 일치하지 않습니다..</span
-          >
-        </div>
 
         <button
           type="submit"
+          id="loginButton"
           disabled
-          id="signupButton"
           class="button pill-button full-width"
         >
-          회원가입
+          로그인
         </button>
       </form>
 
@@ -120,7 +89,7 @@
       </div>
 
       <div class="auth-switch">
-        이미 회원이신가요? <a href="signin.html">로그인</a>
+        판다마켓이 처음이신가요? <a href="signup.html">회원가입</a>
       </div>
     </div>
     <script src="./scripts/auth.js"></script>
