@@ -34,7 +34,7 @@
         <div class="userEmail-wrap">
           <label class="email-label" for="userEmail">이메일</label>
           <input
-            id="userEmail"
+            class="userEmail"
             name="userEmail"
             placeholder="이메일을 입력해주세요"
           />
@@ -42,8 +42,8 @@
         <div class="nickname-wrap">
           <label class="nickname-label" for="nickname">닉네임</label>
           <input
-            id="nickname"
-            name="nickname"
+            class="nickName"
+            name="nickName"
             placeholder="닉네임을 입력해주세요"
           />
         </div>
@@ -51,12 +51,12 @@
           <label class="password-label" for="password">비밀번호</label>
           <div class="input-wrap">
             <input
-              id="password"
+              class="password"
               name="password"
               type="password"
               placeholder="비밀번호를 입력해주세요"
             />
-            <button class="password-visiblity-button"></button>
+            <button class="password-visiblity-button-off"></button>
           </div>
         </div>
         <div class="password-check-wrap">
@@ -65,12 +65,12 @@
           </label>
           <div class="input-wrap">
             <input
-              id="passwordCheck"
+              class="passwordCheck"
               name="passwordCheck"
               type="password"
               placeholder="비밀번호를 다시 한 번 입력해주세요"
             />
-            <button class="password-check-visiblity-button"></button>
+            <button class="password-check-visiblity-button-off"></button>
           </div>
         </div>
         <button class="signup-button" type="submit">회원가입</button>
@@ -105,5 +105,6 @@
         <a class="login-link" href="login.html">로그인</a>
       </div>
     </main>
+    <script src="signup.js"></script>
   </body>
 </html>
