@@ -13,10 +13,12 @@
 
 #hero {
   background-image: url('../images/banner_section.png');
+  background-size: inherit;
 }
 
 #bottomBanner {
   background-image: url('../images/footer.png');
+  background-size: inherit;
 }
 
 header .logo {

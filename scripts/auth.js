@@ -1,3 +1,4 @@
+// 유효성 검사 초기 상태 값
 let isEmailValid = false;
 let isNicknameValid = false;
 let isPasswordValid = false;
@@ -12,23 +13,22 @@ const passwordRepeatInput = document.getElementById('passwordRepeat');
 
 const submitButton = document.querySelector('.auth-form-container button[type="submit"]');
 
-const noError = (input, errorName) => {
-  const errorElement = document.getElementById(errorName);
+const noError = (input, errorElement) => {
   if (errorElement) {
     errorElement.style.display = 'none';
     input.style.border = 'none';
   }
 };
 
-const isError = (input, errorName) => {
-  const errorElement = document.getElementById(errorName);
+const isError = (input, errorElement, errorMessage) => {
   if (errorElement) {
     errorElement.style.display = 'block';
+    errorElement.textContent = errorMessage;
     input.style.border = '1px solid #f74747';
   }
 };
 
-// 버튼 활성화 검사
+// 버튼 비활성화 함수
 const updateButtonState = () => {
   let isFormValid = isEmailValid && isPasswordValid;
 
@@ -39,84 +39,79 @@ const updateButtonState = () => {
   submitButton.disabled = !isFormValid;
 };
 
-const validateEmail = (email) => {
-  const emailRegex = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
-  return emailRegex.test(email); // 정규식 테스트
+// 이메일 정규식
+const validateEmail = (email) => /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(email);
+
+// 유효성 검사 공통 코드
+const checkSchema = (input, validators, errorElement) => {
+  noError(input, errorElement);
+
+  let isValid = true;
+  /*
+    문제 : break가 없으면 validators 배열의 모든 조건을 검사하기 때문에
+    emailEmptyError에러일 때 emailInvalidError에러까지 발생
+    
+    해결 : break 문을 사용하면 첫 번째 조건이 실패할 때 즉시 루프를 종료
+  */
+  for (const { condition, errorMessage } of validators) {
+    if (!condition()) {
+      isError(input, errorElement, errorMessage);
+      isValid = false;
+      break;
+    }
+  }
+
+  return isValid;
 };
 
+// 이메일 유효성 검사
 const checkEmailSchema = () => {
   const email = emailInput.value.trim();
-
-  isEmailValid = false;
-  noError(emailInput, 'emailEmptyError');
-  noError(emailInput, 'emailInvalidError');
-
-  if (!email) {
-    isError(emailInput, 'emailEmptyError');
-  } else if (!validateEmail(email)) {
-    isError(emailInput, 'emailInvalidError');
-  } else {
-    isEmailValid = true;
-    noError(emailInput, 'emailEmptyError');
-    noError(emailInput, 'emailInvalidError');
-  }
+  const emailErrorElement = document.getElementById('emailError');
+  isEmailValid = checkSchema(
+    emailInput,
+    [
+      { condition: () => !!email, errorMessage: '이메일을 입력해 주세요' },
+      { condition: () => validateEmail(email), errorMessage: '잘못된 이메일 형식입니다' },
+    ],
+    emailErrorElement
+  );
   updateButtonState();
 };
-
+// 닉네임 유효성 검사
 const checkNicknameSchema = () => {
   const nickname = nicknameInput.value.trim();
-
-  isNicknameValid = false;
-  noError(nicknameInput, 'nicknameEmptyError');
-
-  if (!nickname) {
-    isError(nicknameInput, 'nicknameEmptyError');
-  } else {
-    isNicknameValid = true;
-    noError(nicknameInput, 'nicknameEmptyError');
-  }
-};
-
-const checkPasswordSchema = () => {
-  const password = passwordInput.value.trim();
-
-  isPasswordValid = false;
-  noError(passwordInput, 'passwordEmptyError');
-  noError(passwordInput, 'passwordInvalidError');
-
-  if (!password) {
-    isError(passwordInput, 'passwordEmptyError');
-  } else if (password.length < 8) {
-    isError(passwordInput, 'passwordInvalidError');
-  } else {
-    isPasswordValid = true;
-    noError(passwordInput, 'passwordEmptyError');
-    noError(passwordInput, 'passwordInvalidError');
-  }
+  const nicknameErrorElement = document.getElementById('nicknameError');
+  isNicknameValid = checkSchema(nicknameInput, [{ condition: () => !!nickname, errorMessage: '닉네임을 입력해 주세요' }], nicknameErrorElement);
   updateButtonState();
 };
-
+// 비밀번호 유효성 검사
+const checkPasswordSchema = () => {
+  const password = passwordInput.value.trim();
+  const passwordErrorElement = document.getElementById('passwordError');
+  isPasswordValid = checkSchema(
+    passwordInput,
+    [
+      { condition: () => !!password, errorMessage: '비밀번호를 입력해 주세요' },
+      { condition: () => password.length >= 8, errorMessage: '비밀번호는 8자 이상이어야 합니다' },
+    ],
+    passwordErrorElement
+  );
+  updateButtonState();
+};
 // 비밀번호 확인 유효성 검사
 const checkPasswordRepeatSchema = () => {
   const passwordRepeat = passwordRepeatInput.value.trim();
-
-  isPasswordRepeatValid = false;
-  noError(passwordRepeatInput, 'passwordRepeatEmptyError');
-  noError(passwordRepeatInput, 'passwordRepeatInvalidError');
-
-  if (!passwordRepeat) {
-    isError(passwordRepeatInput, 'passwordRepeatEmptyError');
-  } else if (passwordRepeat !== passwordInput.value) {
-    isError(passwordRepeatInput, 'passwordRepeatInvalidError');
-  } else {
-    isPasswordRepeatValid = true;
-    noError(passwordRepeatInput, 'passwordRepeatEmptyError');
-    noError(passwordRepeatInput, 'passwordRepeatInvalidError');
-  }
-
-  if (signupForm) {
-    updateButtonState();
-  }
+  const passwordRepeatErrorElement = document.getElementById('passwordRepeatError');
+  isPasswordRepeatValid = checkSchema(
+    passwordRepeatInput,
+    [
+      { condition: () => !!passwordRepeat, errorMessage: '비밀번호 확인을 입력해 주세요' },
+      { condition: () => passwordRepeat === passwordInput.value, errorMessage: '비밀번호가 일치하지 않습니다' },
+    ],
+    passwordRepeatErrorElement
+  );
+  updateButtonState();
 };
 
 // 눈 아이콘 토글
@@ -158,15 +153,7 @@ if (signupForm) {
 }
 
 // 입력 필드에 이벤트 리스너 추가
-if (emailInput) {
-  emailInput.addEventListener('focusout', checkEmailSchema);
-}
-if (nicknameInput) {
-  nicknameInput.addEventListener('focusout', checkNicknameSchema);
-}
-if (passwordInput) {
-  passwordInput.addEventListener('focusout', checkPasswordSchema);
-}
-if (passwordRepeatInput) {
-  passwordRepeatInput.addEventListener('focusout', checkPasswordRepeatSchema);
-}
+emailInput?.addEventListener('focusout', checkEmailSchema);
+nicknameInput?.addEventListener('focusout', checkNicknameSchema);
+passwordInput?.addEventListener('focusout', checkPasswordSchema);
+passwordRepeatInput?.addEventListener('focusout', checkPasswordRepeatSchema);
