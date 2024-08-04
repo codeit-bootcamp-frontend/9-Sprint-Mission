@@ -102,6 +102,10 @@ main {
   }
 }
 
+.visiblePassword {
+  cursor: pointer;
+}
+
 .submitBtn {
   width: 100%;
   border: none;
@@ -119,10 +123,10 @@ main {
   background-color: var(--color-theme);
 }
 
-.submitBtn.disabled {
+.submitBtn:disabled {
   cursor: default;
 }
-.submitBtn.disabled:hover {
+.submitBtn:disabled:hover {
   background-color: var(--color-gray400);
 }
 

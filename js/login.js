@@ -1,3 +1,5 @@
+import { validClearInput, showError } from "./utils.js";
+
 const emailInput = document.getElementById("user-email");
 const passwordInput = document.getElementById("user-password");
 const formItemBoxEmail = document.querySelector(".form-item-box.email");
@@ -11,28 +13,18 @@ let isPasswordValid = false;
 
 // 이메일 focusOut 발생 시 실행함수
 const onFocusOutEmail = (e) => {
-  let errorSpan = formItemBoxEmail.querySelector("span");
-  let errorClass = formItemBoxEmail.classList.add("error");
+  const email = e.target.value.trim();
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
 
-  if (!errorSpan) {
-    errorSpan = document.createElement("span");
-    formItemBoxEmail.appendChild(errorSpan);
-  }
-
-  if (e.target.value.trim() === "") {
-    errorSpan.style.display = "block";
-    errorSpan.textContent = "이메일을 입력해주세요.";
-    errorClass;
+  // 에러시에 span 태그 표출 및 감싸고 있는 div박스에 error 클래스 추가하여 에러스타일 적용 
+  if (email === "") {
+    showError(formItemBoxEmail, "이메일을 입력해주세요.");
     isEmailValid = false;
-  } else if (!e.target.value.includes("@")) {
-    errorSpan.style.display = "block";
-    errorSpan.textContent = "잘못된 이메일 형식입니다.";
-    errorClass;
+  } else if (!emailRegex.test(email)) {
+    showError(formItemBoxEmail, "잘못된 이메일 형식입니다.")
     isEmailValid = false;
   } else {
-    errorSpan.style.display = "none";
-    errorSpan.textContent = "";
-    formItemBoxEmail.classList.remove("error");
+    validClearInput(formItemBoxEmail);
     isEmailValid = true;
   }
 
@@ -41,28 +33,16 @@ const onFocusOutEmail = (e) => {
 
 // 비밀번호 focusOut 발생 시 실행함수
 const onFocusOutPassword = (e) => {
-  let errorSpan = formItemBoxPassword.querySelector("span");
-  let errorClass = formItemBoxPassword.classList.add("error");
+  const password = e.target.value.trim();
 
-  if (!errorSpan) {
-    errorSpan = document.createElement("span");
-    formItemBoxPassword.appendChild(errorSpan);
-  }
-
-  if (e.target.value.trim() === "") {
-    errorSpan.style.display = "block";
-    errorSpan.textContent = "비밀번호를 입력해주세요.";
-    errorClass;
+  if (password === "") {
+    showError(formItemBoxPassword, "비밀번호를 입력해주세요.");
     isPasswordValid = false;
-  } else if (e.target.value.length < 8) {
-    errorSpan.style.display = "block";
-    errorSpan.textContent = "비밀번호를 8자 이상 입력해주세요.";
-    errorClass;
+  } else if (password.length < 8) {
+    showError(formItemBoxPassword, "비밀번호를 8자 이상 입력해주세요.");
     isPasswordValid = false;
   } else {
-    errorSpan.style.display = "none";
-    errorSpan.textContent = "";
-    formItemBoxPassword.classList.remove("error");
+    validClearInput(formItemBoxPassword);
     isPasswordValid = true;
   }
 
@@ -73,10 +53,8 @@ const onFocusOutPassword = (e) => {
 const toggleEnableBtn = () => {
   if (isEmailValid && isPasswordValid) {
     submitBtn.removeAttribute("disabled");
-    submitBtn.classList.remove("disabled");
   } else {
     submitBtn.setAttribute("disabled", true);
-    submitBtn.classList.add("disabled");
   }
 };
 
