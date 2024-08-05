@@ -21,29 +21,35 @@
             <form class="login-form" action="submit">
                 <div class="form-email">
                     <label class="login-label" for="email">이메일</label>
-                    <input id="input-email" class="login-input" id="email" type="email" placeholder="이메일을 입력해주세요." />
+                    <input id="email-input" class="login-input" id="email" type="email" placeholder="이메일을 입력해주세요." />
+                    <span id="email-empty-error" class="error-message">이메일을 입력해주세요.</span>
+                    <span id="email-format-error" class="error-message">잘못된 이메일 형식입니다.</span>
                 </div>
                 <div class="form-nickname">
                     <label class="login-label" for="text">닉네임</label>
-                    <input id="input-nickname" class="login-input" id="email" type="email" placeholder="닉네임을 입력해주세요." />
+                    <input id="nickname-input" class="login-input" id="email" type="email" placeholder="닉네임을 입력해주세요." />
+                    <span id="nickname-empty-error" class="error-message">닉네임을 입력해 주세요.</span>
                 </div>
                 <div class="form-password">
                     <label class="login-label" for="password">비밀번호 </label>
                     <div class="password-wrap">
-                        <input id="input-password" class="login-input" id="password" type="password"
+                        <input id="password-input" class="login-input" id="password" type="password"
                             placeholder="비밀번호를 입력해주세요." />
-                        <button id="see-password" type="button" class="show-password-button">
+                        <button type="button" class="show-password-button">
                     </div>
+                    <span id="password-empty-error" class="error-message">비밀번호를 입력해주세요.</span>
+                    <span id="password-format-error" class="error-message">비밀번호를 8자 이상 입력해주세요.</span>
                 </div>
                 <div class="form-password-confirm">
                     <label class="login-label" for="password">비밀번호 확인 </label>
                     <div class="password-wrap">
-                        <input id="input-password-confirm" class="login-input" id="password" type="password"
+                        <input id="password-confirm-input" class="login-input" id="password" type="password"
                             placeholder="비밀번호를 다시 한 번 입력해주세요." />
-                        <button id="see-password" type="button" class="show-password-button">
+                        <button type="button" class="show-password-button">
                     </div>
+                    <span id="password-confirm-error" class="error-message">비밀번호가 일치하지 않습니다.</span>
                 </div>
-                <button class=" signup-button" type="submit">회원가입</button>
+                <button class="signup-button" type="submit">회원가입</button>
             </form>
         </div>
         <div class="eazy-login">
@@ -58,11 +64,11 @@
             </div>
         </div>
         <footer>
-            <span class="go-signup">이미 회원이신가요?
-                <a class="signup-link" href="./login.html">로그인</a></span>
+            <span class="go-signup">이미 회원이신가요?<a class="signup-link" href="./login.html">로그인</a></span>
         </footer>
         </section>
-        <script src="./js/auth.js"></script>
+
+        <script src="./js/signup.js"></script>
 </body>
 </main>
 
