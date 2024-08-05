@@ -27,12 +27,8 @@
                         placeholder="이메일을 입력해 주세요"
                     />
                 </label>
-                <span id="email-empty-error" class="error-message">
-                    이메일을 입력해주세요
-                </span>
-                <span id="email-invalid-error" class="error-message">
-                    잘못된 이메일 입니다
-                </span>
+                <!-- 에러 메세지 span 변경 -->
+                <span id="email-error" class="error-message"></span>
                 <label for="password">
                     비밀번호
                     <input
@@ -44,12 +40,8 @@
                         <img src="./src/icon/Variant.png" />
                     </div>
                 </label>
-                <span id="pw-empty-error" class="error-message">
-                    비밀번호를 입력해주세요
-                </span>
-                <span id="pw-invalid-error" class="error-message">
-                    비밀번호를 8자 이상 입력해주세요
-                </span>
+                <!-- 에러 메세지 span 변경 -->
+                <span id="pw-error" class="error-message"></span>
                 <button
                     id="login-button"
                     class="button"

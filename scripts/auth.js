@@ -14,16 +14,18 @@ const submitButton =
     document.getElementById("login-button");
 
 // 에러 메세지 출력
-const showErrorMessage = (input, errorId) => {
+// 에러 발생 시 textContent가 변경 되도록 수정
+const showErrorMessage = (input, errorId, message) => {
     const errorElement = document.getElementById(errorId);
-    errorElement.style.display = "block";
+    errorElement.textContent = message;
     input.style.border = "2px solid var(--color-red-error)";
 };
 
 // 에러 메세지 숨김
+// 에러 발생 시 textContent에 null값이 들어가도록 수정
 const hideErrorMessage = (input, errorId) => {
     const errorElement = document.getElementById(errorId);
-    errorElement.style.display = "none";
+    errorElement.textContent = null;
     input.style.border = "none";
 };
 
@@ -34,38 +36,40 @@ const checkEmail = (email) => {
 };
 
 // 이메일 input 유효성 검사
-const checkEmailValid = () => {
+const isEmailEmpty = () => {
     const emailValid = emailInput.value;
 
     isEmailValid = false;
-    hideErrorMessage(emailInput, "email-empty-error");
-    hideErrorMessage(emailInput, "email-invalid-error");
+    hideErrorMessage(emailInput, "email-error");
 
     if (!emailValid) {
-        showErrorMessage(emailInput, "email-empty-error");
+        showErrorMessage(emailInput, "email-error", "이메일을 입력해주세요");
     } else if (!checkEmail(emailValid)) {
-        showErrorMessage(emailInput, "email-invalid-error");
+        showErrorMessage(emailInput, "email-error", "잘못된 이메일 입니다");
     } else {
         isEmailValid = true;
-        hideErrorMessage(emailInput, "email-empty-error");
-        hideErrorMessage(emailInput, "email-invalid-error");
+        hideErrorMessage(emailInput, "email-error");
     }
 
     updateButtonState();
 };
 
 // 닉네임 input 유효성 검사
-const checkNickNameValid = () => {
+const isNicknameEmpty = () => {
     const nicknameValid = nickNameInput.value;
 
     isNicknameValid = false;
-    hideErrorMessage(nickNameInput, "nickname-empty-error");
+    hideErrorMessage(nickNameInput, "nickname-error");
 
     if (!nicknameValid) {
-        showErrorMessage(nickNameInput, "nickname-empty-error");
+        showErrorMessage(
+            nickNameInput,
+            "nickname-error",
+            "닉네임을 입력해주세요"
+        );
     } else {
         isNicknameValid = true;
-        hideErrorMessage(nickNameInput, "nickname-empty-error");
+        hideErrorMessage(nickNameInput, "nickname-error");
     }
 
     // 회원가입 페이지일 경우에만 실행
@@ -75,37 +79,44 @@ const checkNickNameValid = () => {
 };
 
 // 비밀번호 input 유효성 검사
-const checkPassWordValid = () => {
+const isPasswordEmpty = () => {
     const passwordValid = passwordInput.value;
 
     isPasswordValid = false;
-    hideErrorMessage(passwordInput, "pw-empty-error");
-    hideErrorMessage(passwordInput, "pw-invalid-error");
+
+    hideErrorMessage(passwordInput, "pw-error");
 
     if (!passwordValid) {
-        showErrorMessage(passwordInput, "pw-empty-error");
+        showErrorMessage(passwordInput, "pw-error", "비밀번호를 입력해주세요");
     } else if (passwordValid.length < 8) {
-        showErrorMessage(passwordInput, "pw-invalid-error");
+        showErrorMessage(
+            passwordInput,
+            "pw-error",
+            "비밀번호를 8자 이상 입력해주세요"
+        );
     } else {
         isPasswordValid = true;
-        hideErrorMessage(passwordInput, "pw-empty-error");
-        hideErrorMessage(passwordInput, "pw-invalid-error");
+        hideErrorMessage(passwordInput, "pw-error");
     }
     updateButtonState();
 };
 
 // 비밀번호-확인 input 유효성 검사
-const checkPasswordRepeatValid = () => {
+const isPasswordRepeatEmpty = () => {
     const passwordRepeatValid = passwordRepeatInput.value;
 
     isPasswordRepeatValid = false;
-    hideErrorMessage(passwordRepeatInput, "pw-repeat-invalid-error");
+    hideErrorMessage(passwordRepeatInput, "pw-repeat-error");
 
     if (passwordRepeatValid !== passwordInput.value) {
-        showErrorMessage(passwordRepeatInput, "pw-repeat-invalid-error");
+        showErrorMessage(
+            passwordRepeatInput,
+            "pw-repeat-error",
+            "비밀번호가 일치하지 않습니다"
+        );
     } else {
         isPasswordRepeatValid = true;
-        hideErrorMessage(passwordRepeatInput, "pw-repeat-invalid-error");
+        hideErrorMessage(passwordRepeatInput, "pw-repeat-error");
     }
 
     // 회원가입 페이지일 경우에만 실행
@@ -114,17 +125,25 @@ const checkPasswordRepeatValid = () => {
     }
 };
 
+// form 유효성 검사와 버튼 활성화 검사 함수 분리
+const isFormValid = () => {
+    if (signupForm) {
+        // 회원가입 페이지: 이메일, 비밀번호 + 닉네임 비밀번호-확인 까지 검사
+        return (
+            isEmailValid &&
+            isPasswordValid &&
+            isNicknameValid &&
+            isPasswordRepeatValid
+        );
+    } else {
+        // 로그인 페이지: 이메일과 비밀번호가 유효한지 검사
+        return isEmailValid && isPasswordValid;
+    }
+};
+
 // 버튼 활성화 검사
 const updateButtonState = () => {
-    // 로그인 페이지: 이메일과 비밀번호가 유효한지 검사
-    let isFormValid = isEmailValid && isPasswordValid;
-
-    // 회원가입 페이지: 이메일, 비밀번호 + 닉네임 비밀번호-확인 까지 검사
-    if (signupForm) {
-        isFormValid = isFormValid && isNicknameValid && isPasswordRepeatValid;
-    }
-
-    submitButton.disabled = !isFormValid;
+    submitButton.disabled = !isFormValid();
 };
 
 // 로그인 버튼 클릭 시 items 페이지로 이동
@@ -143,17 +162,22 @@ if (signupForm) {
     });
 }
 
+// focusout 될때 뿐만이 아니라 입력 받는 중간에도 유효성 검사를 하도록 변경
 if (emailInput) {
-    emailInput.addEventListener("input", checkEmailValid);
+    emailInput.addEventListener("input", isEmailEmpty);
+    emailInput.addEventListener("focusout", isEmailEmpty);
 }
 if (nickNameInput) {
-    nickNameInput.addEventListener("input", checkNickNameValid);
+    nickNameInput.addEventListener("input", isNicknameEmpty);
+    nickNameInput.addEventListener("focusout", isNicknameEmpty);
 }
 if (passwordInput) {
-    passwordInput.addEventListener("input", checkPassWordValid);
+    passwordInput.addEventListener("input", isPasswordEmpty);
+    passwordInput.addEventListener("focusout", isPasswordEmpty);
 }
 if (passwordRepeatInput) {
-    passwordRepeatInput.addEventListener("input", checkPasswordRepeatValid);
+    passwordRepeatInput.addEventListener("input", isPasswordRepeatEmpty);
+    passwordRepeatInput.addEventListener("focusout", isPasswordRepeatEmpty);
 }
 
 const viewPassWord = (e) => {
