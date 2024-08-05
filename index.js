@@ -9,114 +9,118 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 //포커스아웃되면  email 에러메세지 발생하는 함수
 function emailInputError(e) {
   if (e.target.value === "") {
-    e.target.classList.add("redbox");
+    e.target.classList.add("red-box");
     const emailErrMessege = document.createElement("span");
     emailErrMessege.textContent = "이메일을 입력해주세요";
-    emailErrMessege.classList.add("errMessege");
+    emailErrMessege.classList.add("err-messege");
     emailInput.after(emailErrMessege);
     return;
   }
 
   if (!emailRegex.test(e.target.value)) {
-    e.target.classList.add("redbox");
+    e.target.classList.add("red-box");
     const emailErrMessege = document.createElement("span");
     emailErrMessege.textContent = "잘못된 이메일 형식입니다";
-    emailErrMessege.classList.add("errMessege");
+    emailErrMessege.classList.add("err-messege");
     emailInput.after(emailErrMessege);
     return;
   }
 
-  if (e.target.value) {
-    e.target.classList.remove("redbox");
-    return;
-  }
+  e.target.classList.remove("red-box");
 }
 
 //포커스인되면 email 에러메세지 제거하는 함수
 function emailInputErrorRemove(e) {
-  if (e.target.nextElementSibling.tagName === "SPAN") {
-    e.target.nextElementSibling.remove();
+  const removeTarget = e.target.nextElementSibling;
+  if (
+    removeTarget.tagName === "SPAN" &&
+    removeTarget.classList.contains("err-messege")
+  ) {
+    removeTarget.remove();
   }
 }
 
 //포커스아웃되면 password 에러메세지 발생하는 함수
 function passwordInputError(e) {
   if (e.target.value === "") {
-    e.target.classList.add("redbox");
+    e.target.classList.add("red-box");
     const passwordErrMessege = document.createElement("span");
     passwordErrMessege.textContent = "비밀번호을 입력해주세요";
-    passwordErrMessege.classList.add("errMessege");
+    passwordErrMessege.classList.add("err-messege");
     passwordInput.parentElement.after(passwordErrMessege);
     return;
   }
 
   if (e.target.value.length < 8) {
-    e.target.classList.add("redbox");
+    e.target.classList.add("red-box");
     const passwordErrMessege = document.createElement("span");
     passwordErrMessege.textContent = "비밀번호를 8자 이상 입력해주세요";
-    passwordErrMessege.classList.add("errMessege");
+    passwordErrMessege.classList.add("err-messege");
     passwordInput.parentElement.after(passwordErrMessege);
     return;
   }
 
-  if (e.target.value) {
-    e.target.classList.remove("redbox");
-    return;
-  }
+  e.target.classList.remove("red-box");
 }
 
 //포커스인되면 password 에러메세지 제거하는 함수
 function passwordInputErrorRemove(e) {
-  if (e.target.parentElement.nextElementSibling.tagName === "SPAN") {
-    e.target.parentElement.nextElementSibling.remove();
+  const removeTarget = e.target.parentElement.nextElementSibling;
+  if (
+    removeTarget.tagName === "SPAN" &&
+    removeTarget.classList.contains("err-messege")
+  ) {
+    removeTarget.remove();
   }
 }
 
 //포커스아웃되면 username 에러메세지 발생하는 함수
 function usernameInputError(e) {
   if (e.target.value === "") {
-    e.target.classList.add("redbox");
+    e.target.classList.add("red-box");
     const usernameErrMessege = document.createElement("span");
     usernameErrMessege.textContent = "닉네임을 입력해주세요";
-    usernameErrMessege.classList.add("errMessege");
+    usernameErrMessege.classList.add("err-messege");
     usernameInput.after(usernameErrMessege);
     return;
   }
 
-  if (e.target.value) {
-    e.target.classList.remove("redbox");
-    return;
-  }
+  e.target.classList.remove("red-box");
 }
 
 //포커스인되면 username 에러메세지 제거하는 함수
 function usernameInputErrorRemove(e) {
-  if (e.target.nextElementSibling.tagName === "SPAN") {
-    e.target.nextElementSibling.remove();
+  const removeTarget = e.target.nextElementSibling;
+  if (
+    removeTarget.tagName === "SPAN" &&
+    removeTarget.classList.contains("err-messege")
+  ) {
+    removeTarget.remove();
   }
 }
 
 //포커스아웃되면 passwordCheck 에러메세지 발생하는 함수
 function passwordCheckInputError(e) {
   if (e.target.value !== passwordInput.value) {
-    e.target.classList.add("redbox");
+    e.target.classList.add("red-box");
     const passwordCheckErrMessege = document.createElement("span");
     passwordCheckErrMessege.textContent = "비밀번호가 일치하지 않습니다";
-    passwordCheckErrMessege.classList.add("errMessege");
+    passwordCheckErrMessege.classList.add("err-messege");
     passwordCheckInput.parentElement.after(passwordCheckErrMessege);
     return;
   }
 
-  if (e.target.value) {
-    e.target.classList.remove("redbox");
-    return;
-  }
+  e.target.classList.remove("red-box");
 }
 
 //포커스인되면 passwordCheck 에러메세지 제거하는 함수
 function passwordCheckInputErrorRemove(e) {
-  if (e.target.parentElement.nextElementSibling.tagName === "SPAN") {
-    e.target.parentElement.nextElementSibling.remove();
+  const removeTarget = e.target.parentElement.nextElementSibling;
+  if (
+    removeTarget.tagName === "SPAN" &&
+    removeTarget.classList.contains("err-messege")
+  ) {
+    removeTarget.remove();
   }
 }
 
@@ -168,18 +172,17 @@ function inputCheck() {
   }
 }
 
-//로그인, 회원가입 버튼 비활성화 조건 함수
+//로그인, 회원가입 버튼 활성화 조건 함수
 loginButton.addEventListener("click", function (e) {
+  e.preventDefault();
   inputCheck();
   if (e.target.textContent === "로그인") {
-    //window.open('./items.html') 새로운창이 열림
-    document.location.href = "./items.html"; //버튼 타입을 submit-> button
+    document.location.href = "./items.html";
     return;
   }
 
   if (e.target.textContent === "회원가입") {
-    //window.open('./signin.html') 새로운창이 열림
-    document.location.href = "./signin.html"; //버튼 타입을 submit-> button
+    document.location.href = "./signin.html";
     return;
   }
 });
@@ -200,13 +203,13 @@ passwordHide.forEach(function (hide) {
   hide.addEventListener("click", function (e) {
     if (e.target.previousElementSibling.type === "password") {
       e.target.previousElementSibling.type = "";
-      e.target.classList.add("noHide");
+      e.target.classList.add("no-hide");
       return;
     }
 
     if (e.target.previousElementSibling.type !== "password") {
       e.target.previousElementSibling.type = "password";
-      e.target.classList.remove("noHide");
+      e.target.classList.remove("no-hide");
       return;
     }
   });

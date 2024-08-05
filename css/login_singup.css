@@ -51,7 +51,7 @@
   height: 56px;
   border: 0;
   border-radius: 12px;
-  background-color:var(--main-input-color);
+  background-color: var(--main-input-color);
 }
 
 .login-input.password {
@@ -69,12 +69,12 @@
   position: absolute;
   bottom: 16px;
   right: 24px;
-  background: url(../login/passwordHide.png) no-repeat center/contain  ;
+  background: url(../login/passwordHide.png) no-repeat center/contain;
   cursor: pointer;
 }
 
 .login-input:focus {
-  border:1px solid #3692ff;
+  border: 1px solid #3692ff;
   outline: none;
 }
 
@@ -87,18 +87,17 @@
 
 .login-button {
   margin-top: 24px;
-  background-color:#9ca3af;
+  background-color: #9ca3af;
   height: 56px;
   border: 0;
   border-radius: 40px;
   color: #f9fafb;
   font-size: 20px;
   font-weight: 600;
-  
 }
 
 .login-button-hover {
-  background-color: #3692FF;
+  background-color: #3692ff;
   cursor: pointer;
 }
 
@@ -133,6 +132,18 @@
   color: #3182f6;
 }
 
+.red-box {
+  border: 1px solid #f00;
+}
+
+.err-messege {
+  color: #f00;
+}
+
+.no-hide {
+  background-image: url(../login/passwordNoHide.png);
+}
+
 @media (max-width: 767px) {
   body {
     padding-left: 16px;
@@ -140,7 +151,7 @@
   }
 
   .logo {
-    width: 198px; 
+    width: 198px;
     height: auto;
   }
 
