@@ -31,4 +31,3 @@ Netlify 배포 주소: https://sprint4-chungo.netlify.app/
 ## 스크린샷
 ![image](https://github.com/user-attachments/assets/b5a8655f-f27d-487b-8d10-33293699f0c9)
 ![image](https://github.com/user-attachments/assets/64fd064e-66d7-4791-ba1a-b4784ea470c6)
-<br>
