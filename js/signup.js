@@ -37,15 +37,14 @@ function validateFormatRight(input) {
 
 //"이메일을 입력해 주세요." 또는 "비밀번호를 입력해 주세요." 에러메시지를 띄어주는 함수
 function printEmptyErrorMessage(input) {
-
     //input의 종류가 Email인지 Password인지 탐색
     if (input == isEmailInput) {
-
         //"이메일 형식이 아닙니다." 에러메시지가 있을 경우 삭제하기
         if (isEmailFormatError.style.display == 'block') isEmailFormatError.style.display = 'none';
         let isEmptyError = document.querySelector("#email-empty-error");
         isEmptyError.style.display = "block";
     }
+
     else if (input == isPasswordInput) {
         //"비밀번호를 8자 이상 입력해 주세요." 에러메시지가 있을 경우 삭제하기
         if (isPasswordFormatError.style.display == 'block') isPasswordFormatError.style.display = 'none';
@@ -61,17 +60,15 @@ function printEmptyErrorMessage(input) {
 
 //"이메일 형식이 아닙니다" OR "비밀번호를 8자 이상 입력해 주세요." 에러메시지를 띄어주는 함수
 function printFormatErrorMessage(input) {
-
     //input의 종류가 Email인지 Password인지 탐색
     if (input == isEmailInput) {
-
         //"이메일을 입력해주세요." 에러메세지가 있을 경우 삭제하기.
         if (isEmailEmptyError.style.display == 'block') isEmailEmptyError.style.display = 'none';
         let isFormatError = document.querySelector("#email-format-error");
         isFormatError.style.display = "block";
     }
-    else if (input == isPasswordInput) {
 
+    else if (input == isPasswordInput) {
         //"비밀번호를 입력해주세요." 에러메세지가 있을 경우 삭제하기.
         if (isPasswordEmptyError.style.display == 'block') isPasswordEmptyError.style.display = 'none';
         let isFormatError = document.querySelector("#password-format-error");
@@ -124,7 +121,6 @@ function inputErrorHandler(targetDOM) {
         let isDataExist = validateDataExist(targetDOM);
         let isFormatRight = validateFormatRight(targetDOM);
 
-
         if (isDataExist && isFormatRight) {
             targetDOM.classList.add('complete');
             deleteErrorMessage();
@@ -136,6 +132,7 @@ function inputErrorHandler(targetDOM) {
             printEmptyErrorMessage(targetDOM);
             offLoginButton(targetDOM);
         }
+
         if (isDataExist && !isFormatRight) {
             targetDOM.classList.remove('complete');
             printFormatErrorMessage(targetDOM);
@@ -143,7 +140,6 @@ function inputErrorHandler(targetDOM) {
         }
     }
 }
-
 
 isEmailInput.addEventListener('blur', inputErrorHandler(isEmailInput));
 isEmailInput.addEventListener('input', inputErrorHandler(isEmailInput));

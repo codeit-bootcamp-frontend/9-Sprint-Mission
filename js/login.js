@@ -98,12 +98,12 @@ function inputErrorHandler(targetDOM) {
             deleteErrorMessage();
             onLoginButton(targetDOM);
         }
-        else if (!isDataExist) {
+        if (!isDataExist) {
             targetDOM.classList.remove('complete');
             printEmptyErrorMessage(targetDOM);
             offLoginButton(targetDOM);
         }
-        else if (isDataExist && !isFormatRight) {
+        if (isDataExist && !isFormatRight) {
             targetDOM.classList.remove('complete');
             printFormatErrorMessage(targetDOM);
             offLoginButton(targetDOM);
