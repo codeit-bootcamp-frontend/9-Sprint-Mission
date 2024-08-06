@@ -57,11 +57,6 @@ body {
   height: 56px;
 }
 
-input:-internal-autofill-selected {
-  /* background-color: light-dark(rgb(232, 240, 254), rgba(70, 90, 126, 0.4)) !important; */
-  background-color: red !important;
-}
-
 .input::placeholder {
   font-size: 16px;
   line-height: 26px;

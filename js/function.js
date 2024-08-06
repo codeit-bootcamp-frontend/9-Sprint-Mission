@@ -3,7 +3,7 @@ const inputNickName = document.getElementById("nick-name");
 const inputPassword = document.getElementById("password");
 const inputPasswordConfirm = document.getElementById("password-confirm");
 
-//에러메세지 출력하는 span요소 만들기
+//에러메세지 출력하는 span요소 만들기 => span display none과 텍스트 변경으로 처리해보기
 const creatSpanEl = (input, text) => {
   input.nextElementSibling?.remove();
   input.classList.add("focus-out");
@@ -21,22 +21,19 @@ const checkInput = (input, validation) => {
   });
 };
 
+//input의 상태값
 let emailState = false;
 let passwordState = false;
 let nickNameState = false;
 let passwordConfirmState = false;
 
-//이메일 유효성 검사
+//이메일 유효성 검사 => 이메일 정규표현식 변수에 담기
 const emailValidation = (input) => {
   if (!input.value) {
     emailState = false;
-    console.log(emailState);
     return creatSpanEl(input, "이메일을 입력해주세요.");
   }
-  if (
-    /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(input.value) ===
-    false
-  ) {
+  if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i.test(input.value) ===false) {
     emailState = false;
     return creatSpanEl(input, "잘못된 이메일 형식입니다.");
   }
@@ -84,7 +81,7 @@ const passwordMatchValidation = (input) => {
 
 const btnHide = document.querySelectorAll(".btn-hide");
 
-//비밀번호 표시 버튼
+//비밀번호 표시 버튼 => 로직과 스타일 분리하기, 이미지 크기 지정하기
 btnHide.forEach((btn) => {
   btn.addEventListener("click", () => {
     if (
@@ -129,15 +126,16 @@ const submitState = () => {
   }
 };
 
-submitbtn.addEventListener('click',(e) => {
+// 버튼 타입 submit으로 변경하기
+submitbtn.addEventListener("click", (e) => {
   e.preventDefault();
-  if(loginForm) {
-    window.location.href = '/items'
+  if (loginForm) {
+    window.location.href = "/items";
   }
   if (registerForm) {
-    window.location.href = '../login/login.html'
+    window.location.href = "../login/login.html";
   }
-})
+});
 
 export {
   inputEmail,
