@@ -1,114 +1,119 @@
-//input 에러처리 정규표현식 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailPattern = /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
 const passwordPattern = /^.{8,}$/;
 
-const domEmailInput = document.querySelector('#email-input');
-const domEmailWrap = document.querySelector('#email-wrap');
-const domPasswordInput = document.querySelector('#password-input');
-const domPasswordWrap = document.querySelector('#password-wrap');
-const domLoginButton = document.querySelector('.login-button');
-const domPasswordButton = document.querySelector('#show-password');
+const isEmailInput = document.querySelector("#email-input");
+const isPasswordInput = document.querySelector("#password-input");
+const isEmailEmptyError = document.querySelector("#email-empty-error");
+const isEmailFormatError = document.querySelector("#email-format-error");
+const isPasswordEmptyError = document.querySelector("#password-empty-error");
+const isPasswordFormatError = document.querySelector("#password-format-error");
+const isLoginButton = document.querySelector(".login-button");
+const isPasswordVisibleButton = document.querySelector("#show-password");
 
-function emailErrorHandler() {
-    const existingEmptyError = document.querySelector('.email-empty-error');
-    const existingFormatError = document.querySelector('.email-format-error');
-
-    if (!domEmailInput.value) {
-        if (existingEmptyError) return; //focus가 다시 되었을 때 div를 또 생성하는 예외처리
-        if (existingFormatError) existingFormatError.remove(); //형식 에러처리를 한 상황에서 빈값 에러 메시지가 하나 더 생기는 예외처리
-        domEmailWrap.classList.remove('complete');
-
-        const el = document.createElement('div');
-        domEmailInput.style.border = '1px solid #F74747';
-        el.classList.add('email-empty-error');
-        el.innerHTML = '이메일을 입력해 주세요.';
-        domEmailWrap.appendChild(el);
-    }
-
-    if (domEmailInput.value && !emailPattern.test(domEmailInput.value)) {
-        if (existingFormatError) return; //focus가 다시 되었을 때 div를 또 생성하는 예외처리
-        if (existingEmptyError) existingEmptyError.remove(); //빈값 에러처리를 한 상황에서 형식 에러 메시지가 하나 더 생기는 예외처리
-        domEmailWrap.classList.remove('complete');
-
-        const el = document.createElement('div');
-        domEmailInput.style.border = '1px solid #F74747';
-        el.classList.add('email-format-error');
-        el.innerHTML = '잘못된 이메일 형식입니다.';
-        domEmailWrap.appendChild(el);
-    }
-
-    if (domEmailInput.value && emailPattern.test(domEmailInput.value)) {
-        domEmailWrap.classList.add('complete');
-        if (existingEmptyError) existingEmptyError.remove();
-        if (existingFormatError) existingFormatError.remove();
-        domEmailInput.style.border = '1px solid transparent';
-    }
-
+//해당 input 값이 존재하는지 확인하는 함수
+function validateDataExist(input) {
+    if (input.value) return true;
+    else return false;
 }
 
-function passwordErrorHandler() {
-    const existingPasswordEmptyError = document.querySelector('.password-empty-error');
-    const existingPasswordFormatError = document.querySelector('.password-format-error');
+//해당 input 값이 형식이 맞는지 확인하는 함수
+function validateFormatRight(input) {
+    if (input == isEmailInput) return emailPattern.test(input.value);
+    else if (input == isPasswordInput) return passwordPattern.test(input.value);
+}
 
-    if (!domPasswordInput.value) {
-        if (existingPasswordEmptyError) return;
-        if (existingPasswordFormatError) existingPasswordFormatError.remove();
-        domPasswordWrap.classList.remove('complete');
+//"이메일을 입력해 주세요." 또는 "비밀번호를 입력해 주세요." 에러메시지를 띄어주는 함수
+function printEmptyErrorMessage(input) {
 
-        const el = document.createElement('div');
-        domPasswordInput.style.border = '1px solid #F74747';
-        el.classList.add('password-empty-error');
-        el.innerHTML = '비밀번호를 입력해 주세요.';
-        domPasswordWrap.appendChild(el);
+    //input의 종류가 Email인지 Password인지 탐색
+    if (input == isEmailInput) {
+
+        //"이메일 형식이 아닙니다." 에러메시지가 있을 경우 삭제하기
+        if (isEmailFormatError.style.display == 'block') isEmailFormatError.style.display = 'none';
+        let isEmptyError = document.querySelector("#email-empty-error");
+        isEmptyError.style.display = "block";
     }
+    else if (input == isPasswordInput) {
 
-    if (domPasswordInput.value && !passwordPattern.test(domPasswordInput.value)) {
-        if (existingPasswordFormatError) return;
-        if (existingPasswordEmptyError) existingPasswordEmptyError.remove();
-        domPasswordWrap.classList.remove('complete');
-
-        const el = document.createElement('div');
-        domPasswordInput.style.border = '1px solid #F74747';
-        el.classList.add('password-format-error');
-        el.innerHTML = '비밀번호를 8자 이상 입력해 주세요.';
-        domPasswordWrap.appendChild(el);
-    }
-
-    if (domPasswordInput.value && passwordPattern.test(domPasswordInput.value)) {
-        domPasswordWrap.classList.add('complete');
-        if (existingPasswordEmptyError) existingPasswordEmptyError.remove();
-        if (existingPasswordFormatError) existingPasswordFormatError.remove();
-        domPasswordInput.style.border = '1px solid transparent';
+        //"비밀번호를 8자 이상 입력해 주세요." 에러메시지가 있을 경우 삭제하기
+        if (isPasswordFormatError.style.display == 'block') isPasswordFormatError.style.display = 'none';
+        let isEmptyError = document.querySelector("#password-empty-error");
+        isEmptyError.style.display = "block";
     }
 }
 
-function activeLoinButton() {
-    if (domEmailWrap.classList.contains('complete') && domPasswordWrap.classList.contains('complete')) {
-        domLoginButton.classList.add('active');
-        domLoginButton.addEventListener('click', () => window.location.href = './items.html');
-    } else {
-        domLoginButton.classList.remove('active');
+//"이메일 형식이 아닙니다" OR "비밀번호를 8자 이상 입력해 주세요." 에러메시지를 띄어주는 함수
+function printFormatErrorMessage(input) {
+
+    //input의 종류가 Email인지 Password인지 탐색
+    if (input == isEmailInput) {
+
+        //"이메일을 입력해주세요." 에러메세지가 있을 경우 삭제하기.
+        if (isEmailEmptyError.style.display == 'block') isEmailEmptyError.style.display = 'none';
+        let isFormatError = document.querySelector("#email-format-error");
+        isFormatError.style.display = "block";
+    }
+    else if (input == isPasswordInput) {
+
+        //"비밀번호를 입력해주세요." 에러메세지가 있을 경우 삭제하기.
+        if (isPasswordEmptyError.style.display == 'block') isPasswordEmptyError.style.display = 'none';
+        let isFormatError = document.querySelector("#password-format-error");
+        isFormatError.style.display = "block";
     }
 }
 
-function togglePassword() {
-    if (domPasswordWrap.classList.contains('see')) {
-        domPasswordWrap.classList.remove('see');
-        domPasswordButton.style.backgroundImage = 'url(/src/img/cant_see.png)';
-        domPasswordInput.type = 'password';
-    }
-    else {
-        domPasswordWrap.classList.add('see');
-        domPasswordButton.style.backgroundImage = 'url(/src/img/seePassword.png)';
-        domPasswordInput.type = 'text';
+//로그인 정보가 모두 맞을 시 보여지는 에러메시지를 모두 삭제해주는 함수
+function deleteErrorMessage() {
+    if (isEmailEmptyError.style.display == 'block') isEmailEmptyError.style.display = 'none';
+    if (isEmailFormatError.style.display == 'block') isEmailFormatError.style.display = 'none';
+    if (isPasswordEmptyError.style.display == 'block') isPasswordEmptyError.style.display = 'none';
+    if (isPasswordFormatError.style.display == 'block') isPasswordFormatError.style.display = 'none';
+}
+
+//input 값이 잘 입력되었다면 'complete'클래스를 추가하고, email과 password 입력값이 "모두" 잘 들어왔을 경우 로그인창을 활성화하는 함수 
+function onLoginButton(dom) {
+    dom.classList.add('complete');
+    if (isEmailInput.classList.contains('complete') && isPasswordInput.classList.contains('complete')) isLoginButton.classList.add('active');
+}
+
+//input 값이 이상할 경우 'complete'클래스를 삭제하고, email과 password 입력값이 "하나라도" 잘못된 경우 로그인창을 비활성화하는ㄴ 함수 
+function offLoginButton(dom) {
+    dom.classList.remove('complete');
+    if (!(isEmailInput.classList.contains('complete') && isPasswordInput.classList.contains('complete'))) isLoginButton.classList.remove('active');
+}
+
+//password의 타입이 password이면 text로 바꾸고 text라면 password로 바꿔주는 함수
+function togglePasswordVisible() {
+    if (isPasswordInput.getAttribute('type') == 'password') isPasswordInput.setAttribute('type', 'text');
+    else if (isPasswordInput.getAttribute('type') == 'text') isPasswordInput.setAttribute('type', 'password');
+}
+
+function inputErrorHandler(targetDOM) {
+    return function () {
+        let isDataExist = validateDataExist(targetDOM);
+        let isFormatRight = validateFormatRight(targetDOM);
+
+        if (isDataExist && isFormatRight) {
+            targetDOM.classList.add('complete');
+            deleteErrorMessage();
+            onLoginButton(targetDOM);
+        }
+        if (!isDataExist) {
+            targetDOM.classList.remove('complete');
+            printEmptyErrorMessage(targetDOM);
+            offLoginButton(targetDOM);
+        }
+        if (isDataExist && !isFormatRight) {
+            targetDOM.classList.remove('complete');
+            printFormatErrorMessage(targetDOM);
+            offLoginButton(targetDOM);
+        }
     }
 }
 
-domEmailInput.addEventListener('blur', emailErrorHandler);
-domEmailInput.addEventListener('blur', activeLoinButton);
 
-domPasswordInput.addEventListener('blur', passwordErrorHandler);
-domPasswordInput.addEventListener('blur', activeLoinButton);
-
-domPasswordButton.addEventListener('click', togglePassword);
-
+isEmailInput.addEventListener('blur', inputErrorHandler(isEmailInput));
+isEmailInput.addEventListener('input', inputErrorHandler(isEmailInput));
+isPasswordInput.addEventListener('blur', inputErrorHandler(isPasswordInput));
+isPasswordInput.addEventListener('input', inputErrorHandler(isPasswordInput));
+isPasswordVisibleButton.addEventListener('click', togglePasswordVisible);

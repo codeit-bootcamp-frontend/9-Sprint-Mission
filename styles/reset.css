@@ -31,3 +31,19 @@ input:focus {
     border: 1px solid #3692FF;
     outline: none;
 }
+
+.error-message {
+    width: fit-content;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 8px;
+    padding-left: 16px;
+    color: #F74747;
+    display: none;
+}
+
+.active {
+    background-color: #3182F6 !important;
+    cursor: pointer;
+}

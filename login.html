@@ -22,18 +22,22 @@
         <main class="container">
             <div>
                 <form action="submit">
-                    <div id="email-wrap">
+                    <div>
                         <label class="login-label" for="email">이메일</label>
                         <input id="email-input" class="login-input" id="email" type="email"
                             placeholder="이메일을 입력해주세요." />
+                        <span id="email-empty-error" class="error-message">이메일을 입력해주세요.</span>
+                        <span id="email-format-error" class="error-message">잘못된 형식입니다.</span>
                     </div>
-                    <div id="password-wrap" class="form-password">
+                    <div class="form-password">
                         <label class="login-label" for="password">비밀번호 </label>
                         <div class="password-wrap">
                             <input id="password-input" class="login-input" id="password" type="password"
                                 placeholder="비밀번호를 입력해주세요." />
-                            <button id="show-password" type="button" class="show-password-button">
+                            <button id="show-password" type="button" class="show-password-button" />
                         </div>
+                        <span id="password-empty-error" class="error-message">비밀번호를 입력해주세요.</span>
+                        <span id="password-format-error" class="error-message">비밀번호를 8자 이상 입력해주세요.</span>
                     </div>
                 </form>
                 <button class="login-button" type="submit">로그인</button>
@@ -51,7 +55,7 @@
             </div>
             <footer>
                 <span class="go-signup">판다마켓이 처음이신가요??
-                    <a class="signup-link" href="./signup.html">회원가입</a>
+                    <a class="signup-link" href="./signup.html"> 회원가입</a>
                 </span>
             </footer>
         </main>
