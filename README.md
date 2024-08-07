@@ -1,6 +1,6 @@
 # 9기 스프린트 미션
 
-[판다마켓 Netlify](https://pandawon2.netlify.app/)
+- [판다마켓 Netlify](https://pandawon2.netlify.app/)
 
 # React + Vite
 
