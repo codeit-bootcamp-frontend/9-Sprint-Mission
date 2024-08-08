@@ -14,7 +14,11 @@ header {
   border-bottom: 1px solid #dfdfdf;
 }
 
-.mainClass {
+.header-area {
+  margin-top: var(--header-height);
+}
+
+.main-class {
   margin-top: var(--header-height);
 }
 

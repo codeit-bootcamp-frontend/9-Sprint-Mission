@@ -1,6 +1,6 @@
 function Main() {
   return (
-    <main className="mainClass">
+    <main className="main-class">
       <section id="topBanner" className="banner">
         <div className="wrapper">
           <h1 id="bannerTitle">
