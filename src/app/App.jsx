@@ -21,7 +21,7 @@ function App() {
           <Route path="feed" element={<FeedPage />} />
         </Routes>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
