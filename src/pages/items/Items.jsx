@@ -3,7 +3,7 @@ import BestItemsSection from "./components/best-items";
 import AllItemsSection from "./components/all-items";
 import "./Items.css";
 
-function UsedItemsPage() {
+function ItemsPage() {
   return (
     <div className="wrapper">
       <BestItemsSection />
@@ -12,4 +12,4 @@ function UsedItemsPage() {
   );
 }
 
-export default UsedItemsPage;
+export default ItemsPage;

@@ -1,7 +1,7 @@
 import React from "react";
 
-function AddItemPage() {
-  return <div>AddItemPage</div>;
+function RegisterItemPage() {
+  return <div>RegisterItemPage</div>;
 }
 
-export default AddItemPage;
+export default RegisterItemPage;

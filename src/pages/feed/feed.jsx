@@ -1,5 +1,5 @@
-function Feed() {
-  return <div>Feed</div>;
+function FeedPage() {
+  return <div>FeedPage</div>;
 }
 
-export default Feed;
+export default FeedPage;

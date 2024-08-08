@@ -1,4 +1,6 @@
-function Main() {
+import { Link } from "react-router-dom";
+
+function HomePage() {
   return (
     <main className="main-class">
       <section id="topBanner" className="banner">
@@ -8,9 +10,9 @@ function Main() {
             <br />
             거래해 보세요
           </h1>
-          <a className="button pill-button" href="/items">
+          <Link to="/items" className="button pill-button">
             구경하러 가기
-          </a>
+          </Link>
         </div>
       </section>
       <section id="features" className="wrapper">
@@ -94,4 +96,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default HomePage;
