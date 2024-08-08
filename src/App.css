@@ -10,8 +10,9 @@ header button {
 nav {
   background-color: #ffffff;
   display: flex;
+  gap: 10px;
   height: 70px;
-  justify-content: space-between;
+  justify-content: baseline;
   align-items: center;
   border: 1px solid #dfdfdf;
   padding: 0 200px;
@@ -23,4 +24,13 @@ nav {
   left: 20px;
   height: 51px;
   width: 153px;
+}
+.usericon {
+  margin-left: auto;
+}
+.menu {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 21px 15px;
 }
