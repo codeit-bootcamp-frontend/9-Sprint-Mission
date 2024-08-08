@@ -26,7 +26,7 @@ a {
   color: #f9fafb;
 }
 
-.blind-text {
+.blind{
   position: absolute;
   width: 1px;
   height: 1px;

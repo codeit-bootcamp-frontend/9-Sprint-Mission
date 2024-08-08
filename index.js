@@ -203,13 +203,13 @@ passwordHide.forEach(function (hide) {
   hide.addEventListener("click", function (e) {
     if (e.target.previousElementSibling.type === "password") {
       e.target.previousElementSibling.type = "";
-      e.target.classList.add("no-hide");
+      e.target.classList.add("password-no-hide");
       return;
     }
 
     if (e.target.previousElementSibling.type !== "password") {
       e.target.previousElementSibling.type = "password";
-      e.target.classList.remove("no-hide");
+      e.target.classList.remove("password-no-hide");
       return;
     }
   });

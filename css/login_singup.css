@@ -71,7 +71,13 @@
   right: 24px;
   background: url(../login/passwordHide.png) no-repeat center/contain;
   cursor: pointer;
+  
+  &.password-no-hide {
+    background-image: url(../login/passwordNoHide.png);
+  }
+ 
 }
+
 
 .login-input:focus {
   border: 1px solid #3692ff;
@@ -138,10 +144,6 @@
 
 .err-messege {
   color: #f00;
-}
-
-.no-hide {
-  background-image: url(../login/passwordNoHide.png);
 }
 
 @media (max-width: 767px) {
