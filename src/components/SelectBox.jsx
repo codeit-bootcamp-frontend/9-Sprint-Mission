@@ -5,11 +5,13 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-export default function BasicSelect() {
+export default function SelectBox({ onChange }) {
   const [order, setOrder] = React.useState('');
 
   const handleChange = (event) => {
-    setOrder(event.target.value);
+    const newOrder = event.target.value;
+    setOrder(newOrder);
+    onChange(newOrder === 1 ? 'recent' : 'favorite');
   };
 
   return (

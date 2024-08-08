@@ -23,6 +23,8 @@
 
   --gray-900-text: #e5e7eb;
   --color-background: #cfe5ff;
+
+  --header-height: 70px;
 }
 header {
   position: fixed;
@@ -80,6 +82,10 @@ footer {
   align-items: center;
   padding: 32px 200px 108px 200px;
   font-size: 16px;
+}
+
+.TopHeader {
+  margin-top: var(--header-height);
 }
 
 .pill-button {

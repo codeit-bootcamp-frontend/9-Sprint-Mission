@@ -18,7 +18,7 @@ export const getItems = async (params = {}) => {
   const data = await response.json();
 
   // 데이터 확인
-  console.log(data);
+  // console.log(data);
 
   // 데이터 반환
   return data;

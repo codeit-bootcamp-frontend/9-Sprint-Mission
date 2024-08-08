@@ -1,21 +1,29 @@
 import React from 'react';
 import './Header.css';
+import { Link, NavLink } from 'react-router-dom';
 import Logo from '../../assets/images/logo/logo.svg';
 import Profile from '../../assets/images/icons/ic-profile.png';
+
+const ActiveLinkStyle = ({ isActive }) => {
+  console.log(isActive);
+
+  return { color: isActive ? 'var(--blue)' : undefined };
+};
+
 const Header = () => {
   return (
-    <header>
+    <header className="Header">
       <div className="header-left-wrap">
-        <a href="/">
+        <Link to="/">
           <img src={Logo} alt="판다마켓 홈" width="153" />
-        </a>
+        </Link>
         <div className="header-menu-wrap">
-          <a className="" href="">
+          <NavLink to="/community" style={ActiveLinkStyle}>
             자유게시판
-          </a>
-          <a className="" href="items.html">
+          </NavLink>
+          <NavLink to="/items" style={ActiveLinkStyle}>
             중고마켓
-          </a>
+          </NavLink>
         </div>
       </div>
       <img src={Profile} alt="사용자" width="40" />
