@@ -22,23 +22,6 @@
   background-size: inherit;
 }
 
-header .logo {
-  width: 153px;
-}
-
-.header-left-wrap {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
-.header-menu-wrap {
-  display: flex;
-  gap: 30px;
-  font-size: 18px;
-  font-weight: 700;
-}
-
 .card-title {
   font-size: 40px;
   font-weight: 700;
