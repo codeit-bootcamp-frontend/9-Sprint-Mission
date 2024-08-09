@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { getProducts } from "../../../shared/api/item/items";
 
+const getPageSize = () => {
+  const width = window.innerWidth;
+  if (width < 768) {
+    return 4;
+  } else if (width < 1280) {
+    return 6;
+  } else {
+    return 10;
+  }
+};
+
 function AllItemsSection() {
   const [items, setItems] = useState([]);
-  const params = {};
+  const [pageSize, setPageSize] = useState(getPageSize());
 
-  const handleFetchItems = (respondedData) => {
-    setItems(respondedData);
+  const handleFetchedItems = async (searchParams) => {
+    await getProducts(setItems, searchParams);
   };
 
-  const fetch = async (handleFetchItems) =>
-    await getProducts(handleFetchItems, params);
-
   useEffect(() => {
-    fetch(handleFetchItems);
-  });
+    const handleResize = () => setPageSize(getPageSize());
+    window.addEventListener("resize", handleResize);
+    handleFetchedItems({ pageSize, orderBy: "favorite" });
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [pageSize]);
 
   return (
     <>
