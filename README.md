@@ -29,7 +29,7 @@
 ![image](https://github.com/user-attachments/assets/e04fecef-b442-416c-8438-ec5b0bd7c5e0)
 
 ### tablet
-![image](https://github.com/user-attachments/assets/d3737996-05cb-45ec-8c80-3e55cad05488)
+![image](https://github.com/user-attachments/assets/1e70f366-2da6-4f64-a4ea-bb650fe0b5b4)
 
 ### mobile
 ![image](https://github.com/user-attachments/assets/849653ba-4d4a-4666-9ca5-44791f617309)
