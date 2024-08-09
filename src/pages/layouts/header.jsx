@@ -12,7 +12,7 @@ function Header() {
     <header className="globalHeader">
       <div className="headerLeft">
         <Link to="/" className="headerLogo" aria-label="홈으로 이동">
-          <img src={Logo} alt="판다마켓 로고" width="153" />
+          <Logo />
         </Link>
 
         <nav>
