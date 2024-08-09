@@ -1,5 +1,5 @@
 import React from "react";
-import heartIcon from "../../assets/icon/heart/heart_S.svg";
+import heartIcon from "../../../assets/icon/heart.svg";
 import "./ProductItem.css";
 
 const ProductItem = ({ item }) => {

@@ -11,7 +11,5 @@ export const getProduct = async (params) => {
         .catch((error) => {
             return error;
         });
-    console.log(params);
-    console.log(response.data);
     return response.data;
 };

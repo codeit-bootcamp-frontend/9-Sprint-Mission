@@ -17,21 +17,30 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .topNav h2 {
     font-size: 20px;
     color: var(--gray900);
+    white-space: nowrap;
 }
 
-.topNav .topNavRigth {
+.topNavRigth {
     display: flex;
     gap: 12px;
+    position: relative;
+}
+
+.topNavRigth .searchIcon {
+    position: absolute;
+    top: 9px;
+    left: 16px;
 }
 
 .topNavRigth input {
     background-color: var(--gray100);
-    padding: 9px 20px 9px 16px;
+    padding: 9px 20px 9px 44px;
     width: 325px;
     height: 42px;
     font-family: inherit;
@@ -39,14 +48,17 @@
     border-radius: 12px;
 }
 
-.topNavRigth a {
-    padding: 11px 23px;
+.topNav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 23px;
     height: 42px;
     background-color: var(--blue);
     color: var(--gray100);
     border: 0;
     border-radius: 8px;
     font-size: 16px;
+    white-space: nowrap;
 }
 
 .topNav select {
@@ -73,9 +85,15 @@
         width: 100%;
         padding: 24px;
     }
+
     .items {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    .topNav input {
+        width: 242px;
+    }
+
     .bestItems {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -84,6 +102,13 @@
 @media (max-width: 767px) {
     .items {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .topNavRigth {
+        margin-top: 8px;
+        flex: 100%;
+    }
+    .topNav input {
+        flex: 100%;
     }
     .bestItems {
         grid-template-columns: repeat(1, 1fr);
