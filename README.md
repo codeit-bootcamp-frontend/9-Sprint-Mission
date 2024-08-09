@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# 스프린트 미션 5
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 요구사항
 
-## Available Scripts
+- Javascript
+- React 18.3.1
+- react-router-dom 6.26.0
+- axios 1.7.3
 
-In the project directory, you can run:
+### 배포 웹사이트: https://codeit-react-mck.netlify.app
 
-### `npm start`
+### 기본
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [x] 중고마켓 페이지 주소는 “/items” 입니다.
+- [x] 페이지 주소가 “/items” 일때 상단네비게이션바의 '중고마켓' 버튼의 색상은 “3692FF”입니다.
+- [x] 상단 네비게이션 바는 이전 미션에서 구현한 랜딩 페이지와 동일한 스타일로 만들어 주세요.
+- [x] 상품 데이터 정보는 https://panda-market-api.vercel.app/docs/#/ 에 명세된 GET 메소드 “/products” 를 사용해주세요.
+- [x] '상품 등록하기' 버튼을 누르면 “/additem” 로 이동합니다. ( 빈 페이지 )
+- [x] 전체 상품에서 드롭 다운으로 “최신 순” 또는 “좋아요 순”을 선택해서 정렬을 할 수 있습니다.
+- [x] 반응형 구현
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 심화
 
-### `npm test`
+- [x] 페이지네이션 기능을 구현합니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 변경사항
 
-### `npm run build`
+- 라우팅을 위해 react-router-dom을 사용하였습니다.
+- axios를 사용해서 데이터를 가져왔습니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 스크린샷
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+|                            중고마켓 페이지                              |                     중고마켓 페이지(태블릿)                      |
+| :--------------------------------------------------------------------: | :--------------------------------------------------------------: |
+|   <img src="/public/itemPage_desktop.png" width="400" height="400">    | <img src="/public/itemPage_tablet.png" width="400" height="400"> |
+|                        중고마켓 페이지 (모바일)                          |
+| :--------------------------------------------------------------------: |
+|    <img src="/public/itemPage_mobile.png" width="400" height="400">    |
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 멘토에게
 
-### `npm run eject`
+- 페이지네이션 구현 시에 페이지를 클릭하고 다음페이지나 이전페이지로 들어가면 해당 페이지만 배경색이 바뀌고 나머지 요소의 배경색은 지워줬는데, 다른 페이지로 건너뛰어서 이동하면 삭제되도록 만들지 못했습니다. 
+- pageSize를 설정하면 각 사이즈별로 해당되는 값으로 변하긴 하는데, 10으로 다시 요청되기도 하는 등 불안정한 상태입니다. 화면사이즈에 따른 변경로직을 잘못 작성한 것인지, useEffect를 잘못 사용한 것인지 잘 모르겠습니다. 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
