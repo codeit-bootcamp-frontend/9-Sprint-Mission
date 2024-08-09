@@ -1,0 +1,29 @@
+header {
+    padding: 0 200px;
+    border-bottom: 1px solid #dfdfdf;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.leftMenu {
+    display: flex;
+    align-items: center;
+}
+
+.leftMenu a {
+    padding: 21px 15px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray600);
+}
+
+.leftMenu .selected {
+    color: var(--blue);
+}
