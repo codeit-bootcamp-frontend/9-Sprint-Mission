@@ -10,7 +10,7 @@ const getPageSize = () => {
   } else if (width < 1280) {
     return 6;
   } else {
-    return 10;
+    return 12;
   }
 };
 
