@@ -1,0 +1,41 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin-top: 43px;
+  text-align: center;
+}
+
+.pagination button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 50%;
+  background: #fff;
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 40px;
+}
+.pagination button.page-arrow {
+  background-repeat: no-repeat;
+  background-position: center;
+  text-indent: -9999px;
+}
+.pagination button.page-arrow.-prev {
+  background-image: url("../../../images/icon/arrow_left.svg");
+}
+.pagination button.page-arrow.-next {
+  background-image: url("../../../images/icon/arrow_right.svg");
+}
+.pagination button:hover,
+.pagination button.active {
+  border-color: #2f80ed;
+  background-color: #2f80ed;
+  color: #fff;
+}
+
+.pagination button:disabled {
+  opacity: 0.3;
+}

@@ -1,6 +1,7 @@
 @font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-family: "Pretendard-Regular";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+    format("woff");
   font-weight: 400;
   font-style: normal;
 }
@@ -9,7 +10,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Pretendard-Regular';
+  font-family: "Pretendard-Regular";
   box-sizing: border-box;
   text-decoration: none;
 }
@@ -76,6 +77,12 @@ button,
 textarea,
 select {
   font: inherit;
+  cursor: pointer;
+}
+select {
+  -webkit-appearance: none; /* Remove default styling in webkit browsers */
+  -moz-appearance: none; /* Remove default styling in Firefox */
+  appearance: none; /* Remove default styling in modern browsers */
 }
 /* --- reset css --- */
 
@@ -85,21 +92,21 @@ html {
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
   --color-white: #ffffff;
-  --color-white-2: #E5E7EB;
+  --color-white-2: #e5e7eb;
   --color-gray-1: #374151;
-  --color-gray-2: #9CA3AF;
-  --color-black: #1F2937;
-  --color-theme: #3692FF;
-  --color-theme-hover: #1967D6;
+  --color-gray-2: #9ca3af;
+  --color-black: #1f2937;
+  --color-theme: #3692ff;
+  --color-theme-hover: #1967d6;
   --color-bg-skyblue: #cfe5ff;
   --color-bg-footer: #111827;
-  --color-bg-input: #F3F4F6;
-  --color-bg-sns: #E6F2FF;
-  --color-error: #F74747;
+  --color-bg-input: #f3f4f6;
+  --color-bg-sns: #e6f2ff;
+  --color-error: #f74747;
 }
 
 input:focus {
-  outline-color: #3692FF;
+  outline-color: #3692ff;
   color: var(--color-black);
 }
 
@@ -121,7 +128,7 @@ input::placeholder {
 
 .wrap_inner {
   width: 1200px;
-  max-width:100%;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -133,11 +140,11 @@ input::placeholder {
 
 @media (max-width: 1200px) {
   .wrap_inner {
-    padding:3.22%;
+    padding: 3.22%;
   }
   .wrap_inner2 {
     width: 100%;
-    padding:0 4.33%;
+    padding: 0 4.33%;
   }
 }
 
@@ -149,4 +156,3 @@ input::placeholder {
     padding: 0 4.26%;
   }
 }
-
