@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getProducts } from "../../../shared/api/item/items";
+import ItemCard from "./item-card";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -31,13 +32,15 @@ function BestItemsSection() {
   }, [pageSize]);
 
   return (
-    <>
-      <div className="wrapper">
-        {items.map((item) => (
-          <p key={item.id}>{item.name}</p>
+    <div className="bestItemsContainer">
+      <h1 className="sectionTitle">베스트 상품</h1>
+
+      <div className="bestItemsCardSection">
+        {items?.map((item) => (
+          <ItemCard item={item} key={`best-item-${item.id}`} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

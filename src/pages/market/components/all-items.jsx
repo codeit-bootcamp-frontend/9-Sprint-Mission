@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getProducts } from "../../../shared/api/item/items";
+import ItemCard from "./item-card";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -31,13 +33,32 @@ function AllItemsSection() {
   }, [pageSize]);
 
   return (
-    <>
-      <div className="wrapper">
-        {items.map((item) => (
-          <p key={item.id}>{item.name}</p>
+    <div>
+      <div className="allItemsSectionHeader">
+        <h1 className="sectionTitle">판매 중인 상품</h1>
+        <Link to="/register-item" className="loginLink button">
+          상품 등록하기
+        </Link>
+      </div>
+
+      <div className="allItemsSectionHeader">
+        <div className="searchBarWrapper">
+          <input
+            className="searchBarInput"
+            placeholder="검색할 상품을 입력해 주세요"
+          />
+        </div>
+        <div className="sortButtonWrapper"></div>
+      </div>
+
+      <div className="allItemsCardSection">
+        {items?.map((item) => (
+          <ItemCard item={item} key={`market-item-${item.id}`} />
         ))}
       </div>
-    </>
+
+      <div className="paginationBarWrapper"></div>
+    </div>
   );
 }
 
