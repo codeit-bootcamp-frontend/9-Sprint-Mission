@@ -1,0 +1,52 @@
+.Header {
+  .header-wrap {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 0 200px;
+    @include tablet {
+      padding: 0 24px;
+      @include mobile {
+        padding: 0 16px;
+      }
+    }
+
+    .logo-wrap {
+      margin-right: 5rem;
+      @include tablet {
+        margin-right: 3rem;
+        @include mobile {
+          margin-right: 1rem;
+          width: 35%;
+        }
+      }
+    }
+
+    .menu-wrap {
+      ul {
+        display: flex;
+        gap: 20px;
+
+        li {
+          a {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: $gray600;
+            @include mobile {
+              font-size: 1.6rem;
+            }
+
+            &.active {
+              color: $clr-blue;
+            }
+          }
+        }
+      }
+    }
+
+    .user-wrap {
+      margin-left: auto;
+    }
+  }
+}

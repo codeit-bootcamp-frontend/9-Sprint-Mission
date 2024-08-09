@@ -1,0 +1,101 @@
+.product-search-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 0 1rem;
+  @include mobile {
+    flex-direction: column;
+    align-items: baseline;
+  }
+
+  .product-search {
+    display: flex;
+    gap: 12px;
+    @include mobile {
+      display: grid;
+    }
+
+    .product-search-input {
+      position: relative;
+      display: flex;
+      align-items: center;
+      @include mobile {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+      }
+
+      input {
+        width: 325px;
+        padding: 1.2rem 4.5rem;
+        background-color: $gray100;
+        border: none;
+        font-size: 1.6rem;
+        color: $gray900;
+        border-radius: 12px;
+        @include tablet {
+          width: 242px;
+          @include mobile {
+            width: 100%;
+          }
+        }
+
+        &::placeholder {
+          font-size: 1.6rem;
+          color: $gray400;
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      .search-button {
+        position: absolute;
+        left: 20px;
+        background: url('../images/icon/search.svg') center center no-repeat;
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+    .product-button {
+      background-color: $clr-blue;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: $gray100;
+      border-radius: 8px;
+      padding: 12px 23px;
+      @include mobile {
+        grid-column: 2 / 4;
+        grid-row: 1 / 2;
+      }
+    }
+
+    .product-select {
+      width: 130px;
+      border: 1px solid $gray200;
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: $gray800;
+      appearance: none;
+      background: url('../images/icon/arrow-select.svg') no-repeat right 24px center;
+      @include mobile {
+        width: 100%;
+        grid-column: 3 / 4;
+        grid-row: 2 / 3;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      option {
+        font-size: 1.6rem;
+        font-weight: 400;
+        color: $gray800;
+      }
+    }
+  }
+}
