@@ -1,0 +1,40 @@
+.gnb-menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 200px;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.gnb-img {
+  width: 153px;
+  height: 51px;
+  margin-right: 32px ;
+}
+
+.gnb-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gnb-board > a {
+  text-decoration: none;
+  padding: 21px 15px;
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: #4b5563;
+}
+
+.login-img-box {
+  vertical-align: center;
+}
+
+.login-img {
+  width: 40px;
+  height: 40px;
+  
+}
+

@@ -1,0 +1,24 @@
+.pagenation-contatiner {
+  justify-content: center;
+  margin-top: 43px;
+  display: flex;
+  gap: 4px;
+  padding: 0;
+}
+
+.pagenation-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #E5E7EB;
+  border-radius: 50%;
+  list-style: none;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #6B7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}

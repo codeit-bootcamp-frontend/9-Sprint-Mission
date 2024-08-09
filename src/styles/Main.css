@@ -1,0 +1,115 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-layout {
+  width: 1200px;
+}
+
+.item-container h2 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #111827;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-form {
+  display: flex;
+  gap: 12px;
+ 
+}
+
+.search-container {
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url(../assets/ic_search.png);
+  background-size: cover;
+  border: none;
+  margin-left: 16px;
+}
+
+.search-input {
+  width: 325px;
+  height: 42px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+
+.search-input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #9ca3af;
+}
+
+.item-add-btn {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #f3f4f6;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #3692ff;
+}
+
+.select-btn {
+  
+  background-image: url("../assets/ic_arrow_down.png");
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  background-position: 90px 10px;
+  text-align: left;
+}
+
+.order-btn {
+  background-color: #ffffff;
+  width: 130px;
+  height: 42px;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 12px;
+}
+
+.select-container {
+  position: relative;
+}
+
+.order {
+  position: absolute;
+  z-index: 2;
+  bottom: -95px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.order .order-btn {
+  border: 0 none;
+  border-top: 1px solid #e5e7eb;
+  border-radius: 0;
+}
+
+.order .order-btn:first-child {
+  border-top: 0;
+}
