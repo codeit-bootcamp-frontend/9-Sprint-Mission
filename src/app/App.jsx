@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "../styles/home.css";
-import ItemsPage from "../pages/items/Items";
+import ItemsPage from "../pages/market/Items";
 import RegisterItemPage from "../pages/register/register-item";
-import FeedPage from "../pages/feed/feed";
-import SigninPage from "../pages/signin/signin";
+import BoardPage from "../pages/board/board";
+import LoginPage from "../pages/login/login";
 import HomePage from "../pages/home/home";
 import Header from "../pages/layouts/header";
 import Footer from "../pages/layouts/footer";
@@ -12,13 +11,13 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <div className="head-area">
+      <div className="header-area">
         <Routes>
           <Route index element={<HomePage />} />
-          <Route path="signin" element={<SigninPage />} />
+          <Route path="login" element={<LoginPage />} />
           <Route path="items" element={<ItemsPage />} />
-          <Route path="additem" element={<RegisterItemPage />} />
-          <Route path="feed" element={<FeedPage />} />
+          <Route path="register" element={<RegisterItemPage />} />
+          <Route path="board" element={<BoardPage />} />
         </Routes>
       </div>
       {/* <Footer /> */}

@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import HotItem from "../../shared/assets/images/landing/Img_home_01.png";
+import SearchItem from "../../shared/assets/images/landing/Img_home_02.png";
+import RegisterItem from "../../shared/assets/images/landing/Img_home_03.png";
+import "./home.css";
 
 function HomePage() {
   return (
@@ -17,11 +21,7 @@ function HomePage() {
       </section>
       <section id="features" className="wrapper">
         <div className="feature">
-          <img
-            className="imgHome"
-            src="images/landing/Img_home_01.png"
-            alt="인기상품"
-          />
+          <img className="imgHome" src={HotItem} alt="인기상품" />
           <div className="feature-content">
             <div className="feature-tag">Hot item</div>
             <div className="feature-title">
@@ -39,11 +39,7 @@ function HomePage() {
           </div>
         </div>
         <div className="feature">
-          <img
-            className="imgHome"
-            src="images/landing/Img_home_02.png"
-            alt="검색 기능"
-          />
+          <img className="imgHome" src={SearchItem} alt="검색 기능" />
           <div className="feature-content">
             <div className="feature-tag">Search</div>
             <div className="feature-title">
@@ -61,11 +57,7 @@ function HomePage() {
           </div>
         </div>
         <div className="feature">
-          <img
-            className="imgHome"
-            src="images/landing/Img_home_03.png"
-            alt="판매 상품 등록"
-          />
+          <img className="imgHome" src={RegisterItem} alt="판매 상품 등록" />
           <div className="feature-content">
             <div className="feature-tag">Register</div>
             <div className="feature-title">

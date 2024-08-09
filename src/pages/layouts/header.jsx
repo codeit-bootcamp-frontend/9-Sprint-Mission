@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import "./header.css";
 
 function getLinkStyle({ isActive }) {
-  return { color: isActive ? "var(--blue)" : undefined };
+  return { color: isActive ? "var(--blue-100)" : "black" };
 }
 
 function Header() {
@@ -18,7 +18,7 @@ function Header() {
         <nav>
           <ul>
             <li>
-              <NavLink to="/community" style={getLinkStyle}>
+              <NavLink to="/board" style={getLinkStyle}>
                 자유게시판
               </NavLink>
             </li>
