@@ -23,7 +23,7 @@ function BestItemsSection() {
   useEffect(() => {
     const handleResize = () => setPageSize(getPageSize());
     window.addEventListener("resize", handleResize);
-    handleFetchedItems({ pageSize, orderBy: "recent" });
+    handleFetchedItems({ pageSize, orderBy: "favorite" });
 
     return () => {
       window.removeEventListener("resize", handleResize);

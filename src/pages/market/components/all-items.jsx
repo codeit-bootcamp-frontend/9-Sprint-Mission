@@ -23,7 +23,7 @@ function AllItemsSection() {
   useEffect(() => {
     const handleResize = () => setPageSize(getPageSize());
     window.addEventListener("resize", handleResize);
-    handleFetchedItems({ pageSize, orderBy: "favorite" });
+    handleFetchedItems({ pageSize, orderBy: "recent" });
 
     return () => {
       window.removeEventListener("resize", handleResize);
