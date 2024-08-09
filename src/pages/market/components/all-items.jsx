@@ -19,7 +19,8 @@ function AllItemsSection() {
   const [pageSize, setPageSize] = useState(getPageSize());
 
   const handleFetchedItems = async (searchParams) => {
-    await getProducts(setItems, searchParams);
+    const responseInfo = await getProducts(searchParams);
+    setItems(responseInfo.data.list);
   };
 
   useEffect(() => {
