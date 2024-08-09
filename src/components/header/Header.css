@@ -1,0 +1,75 @@
+html {
+  font-family: "Pretendard-Regular";
+}
+
+.navBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  position: fixed;
+  width: 100%;
+  padding: 9px 200px;
+  z-index: 20;
+  background-color: var(--color-white);
+  box-shadow: 1px 2px 9px -1px rgba(0, 0, 0, 0.2);
+}
+
+.navContents {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+}
+
+.logoBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "ROKAF Sans";
+  font-weight: 700;
+  color: var(--color-theme);
+  text-decoration: none;
+  font-size: 2.5rem;
+}
+
+.logoBox img {
+  width: 40px;
+}
+
+.navMenu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  a {
+    color: #4B5563;
+    font-weight: 700;
+    font-size: 18px;
+  }
+}
+
+.navBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .navBar {
+    padding: 0 24px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .navBar {
+    padding: 0 16px;
+  }
+
+  .logoBox img {
+    display: none;
+  }
+
+  .navContents {
+    gap: 2rem;
+  }
+}
