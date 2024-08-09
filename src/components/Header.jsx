@@ -12,10 +12,10 @@ function Header() {
     <header>
       <div className="hd_wrap">
         <h1 className="logo">
-          <a href="/">
+          <Link to={`/`}>
             <img src={Logo} alt="판다마켓" />
             판다마켓
-          </a>
+          </Link>
         </h1>
         <nav>
           <ul className="category-menu">
