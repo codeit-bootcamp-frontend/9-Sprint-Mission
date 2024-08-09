@@ -4,6 +4,7 @@ import pandaLogo from "./panda-market-logo.png";
 import userIcon from "./svg/userIcon.svg";
 import UsedMarket from "./compornents/UsedMarket";
 import CommunityBoard from "./compornents/CommunityBoard";
+import Additem from "./compornents/Additem";
 import {
   Link,
   Route,
@@ -20,6 +21,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/items" index element={<UsedMarket />} />
+            <Route path="/additem" element={<Additem />} />
             <Route path="/communityBoard" index element={<CommunityBoard />} />
           </Routes>
         </main>

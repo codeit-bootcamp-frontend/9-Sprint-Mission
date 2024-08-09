@@ -16,7 +16,7 @@ nav {
   align-items: center;
   border: 1px solid #dfdfdf;
   padding: 0 200px;
-  font-size: 1.6rem;
+  font-size: 1.8em;
 }
 .header-img {
   display: flex;
@@ -33,4 +33,15 @@ nav {
   font-weight: 700;
   text-align: center;
   padding: 21px 15px;
+}
+@media (max-width: 1199px) {
+  nav {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  nav {
+    padding: 0 16px;
+  }
 }

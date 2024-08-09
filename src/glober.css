@@ -4,7 +4,10 @@
   padding: 0;
 }
 body {
-  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 a {
@@ -15,22 +18,25 @@ a:hover,
 button:hover {
   cursor: pointer;
 }
+button:disabled {
+  cursor: default;
+}
 
 html {
   --color-gray900: #111827;
-  --color-gray800: #1F2937;
+  --color-gray800: #1f2937;
   --color-gray700: #374151;
-  --color-gray600: #4B5563;
-  --color-gray500: #6B7280;
-  --color-gray400: #9CA3AF;
-  --color-gray200: #E5E7EB;
-  --color-gray100: #F3F4F6;
-  --color-gray50: #F9FAFB;
-  --color-blue: #3692FF;
-  --color-red: #F74747;
+  --color-gray600: #4b5563;
+  --color-gray500: #6b7280;
+  --color-gray400: #9ca3af;
+  --color-gray200: #e5e7eb;
+  --color-gray100: #f3f4f6;
+  --color-gray50: #f9fafb;
+  --color-blue: #3692ff;
+  --color-red: #f74747;
   font-size: 10px;
 }
 
-ul{
+ul {
   list-style-type: none;
 }
