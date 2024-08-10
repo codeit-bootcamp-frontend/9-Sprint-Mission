@@ -16,7 +16,7 @@ const getPageSize = () => {
 
 const AllProduct = () => {
   const [allItems, setAllItems] = useState([]);
-  const [sortOrder, setSortOrder] = useState('updatedAt');
+  const [sortOrder, setSortOrder] = useState('recent');
   const [pageSize, setPageSize] = useState(getPageSize());
 
   // 데이터 로드 함수
@@ -28,7 +28,7 @@ const AllProduct = () => {
   // pageSize와 sortOrder 변경 시 데이터 로드
   useEffect(() => {
     fetchPandaMarket();
-  }, [pageSize, sortOrder]);
+  }, [sortOrder, pageSize]);
 
   // 페이지 크기 변경 시 pageSize 업데이트
   useEffect(() => {
@@ -45,9 +45,9 @@ const AllProduct = () => {
   // 정렬 함수
   const sortItems = (items, order) => {
     return [...items].sort((a, b) => {
-      if (order === 'favoriteCount') {
+      if (order === 'favorite') {
         return b.favoriteCount - a.favoriteCount;
-      } else if (order === 'updatedAt') {
+      } else if (order === 'recent') {
         return new Date(b.updatedAt) - new Date(a.updatedAt);
       }
       return 0;

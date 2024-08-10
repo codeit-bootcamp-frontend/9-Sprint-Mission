@@ -9,8 +9,8 @@ const Search = ({ sortOrder, handleChangeSelect }) => {
         <button className="product-button">상품 등록하기</button>
       </form>
       <select className="product-select" name="search" value={sortOrder} onChange={handleChangeSelect}>
-        <option value="updatedAt">최신순</option>
-        <option value="favoriteCount">좋아요순</option>
+        <option value="recent">최신순</option>
+        <option value="favorite">좋아요순</option>
       </select>
     </div>
   );

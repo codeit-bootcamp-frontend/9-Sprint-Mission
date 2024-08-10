@@ -1,6 +1,8 @@
-export async function getPandaMarket({ pageSize, orderBy }) {
+export async function getPandaMarket({ orderBy, pageSize }) {
   try {
-    const response = await fetch(`https://panda-market-api.vercel.app/products?pageSize=${pageSize}&render=${orderBy}`);
+    const response = await fetch(
+      `https://panda-market-api.vercel.app/products?orderBy=${orderBy}&pageSize=${pageSize}`,
+    );
     const body = await response.json();
     return body;
   } catch (error) {

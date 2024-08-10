@@ -9,7 +9,6 @@ function App() {
       <header className="Header">
         <Header />
       </header>
-
       <section className="Product">
         <Product />
       </section>
