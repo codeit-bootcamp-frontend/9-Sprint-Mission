@@ -48,6 +48,10 @@ html {
   }
 }
 
+a.active {
+  color: var(--color-theme);
+}
+
 .navBtn {
   background: none;
   border: none;

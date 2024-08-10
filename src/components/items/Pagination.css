@@ -1,5 +1,7 @@
 .paginationContainer {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
   justify-content: center;
   margin-top: 40px;
@@ -35,4 +37,20 @@
 .pageNumber.current {
   background-color: var(--color-theme);
   color: white;
+}
+
+@keyframes mobileBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.mobileMsg {
+  color: var(--color-theme);
+  font-size: 14px;
+  animation: mobileBlink 1.5s infinite;
 }

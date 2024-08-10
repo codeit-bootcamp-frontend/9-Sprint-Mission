@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
@@ -11,8 +11,8 @@ const Header = () => {
             판다마켓
           </Link>
           <div className="navMenu">
-            <Link to="/freeBoard">자유게시판</Link>
-            <Link to="/items">중고마켓</Link>
+            <NavLink to="/freeBoard" className={({ isActive }) => isActive ? "active" : ""}>자유게시판</NavLink>
+            <NavLink to="/items" className={({ isActive }) => isActive ? "active" : ""}>중고마켓</NavLink>
           </div>
         </div>
         <button type="button" className="navBtn">
