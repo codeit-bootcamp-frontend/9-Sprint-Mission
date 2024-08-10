@@ -1,0 +1,36 @@
+.pagesWrap {
+    display: flex;
+    justify-content: space-between;
+    gap: 4px;
+    width: 304px;
+    height: 40px;
+    margin: 43px auto;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    padding: 12.5px;
+    border: 1px solid var(--gray100);
+    border-radius: 40px;
+    background-color: #ffffff;
+    color: #6B7280;
+}
+
+.active {
+    color: #ffffff;
+    background-color: #2F80ED;
+    border: 1px solid #2F80ED;
+}
+
+.page:hover {
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #2F80ED;
+    border: 1px solid #2F80ED;
+}

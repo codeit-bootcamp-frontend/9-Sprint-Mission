@@ -1,0 +1,36 @@
+.header {
+    height: 70px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 200px;
+    border-bottom: 1px solid #DFDFDF;
+}
+
+.logo {
+    width: 153px;
+    height: 51px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.header-category {
+    display: flex;
+    flex-grow: 1;
+    margin-left: 32px;
+}
+
+.pick1 {
+    font-size: 18px;
+    padding: 15px 21px;
+    color: #4B5563;
+}
+
+.pick2 {
+    font-size: 18px;
+    padding: 15px 21px;
+    color: #4B5563;
+}
