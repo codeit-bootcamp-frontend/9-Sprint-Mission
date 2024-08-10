@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../Api.js";
 import { ProductList } from "../components/ProductList.js";
-import "../styles/Main.css";
+import "./Main.css";
 import { Pagenation } from "./PageNation.js";
 
 function Main() {

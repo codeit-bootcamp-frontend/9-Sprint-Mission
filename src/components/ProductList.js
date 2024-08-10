@@ -1,4 +1,4 @@
-import "../styles/ProductList.css";
+import "./ProductList.css";
 import heartImg from "../assets/ic_heart.png";
 import { useEffect } from "react";
 

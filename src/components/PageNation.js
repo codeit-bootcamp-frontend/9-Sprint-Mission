@@ -1,4 +1,4 @@
-import '../styles/Pagenation.css';
+import './Pagenation.css';
 
 export function Pagenation() {
   return(

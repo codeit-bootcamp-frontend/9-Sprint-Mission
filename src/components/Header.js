@@ -1,6 +1,6 @@
 import gnbImg from "../assets/Group 19.png";
 import loginImg from "../assets/Frame 2609463.png";
-import "../styles/Header.css";
+import "./Header.css";
 
 function Header() {
   return (
