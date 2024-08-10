@@ -9,10 +9,15 @@ function BestProductList({ className }) {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getProducts("favoriteCount", 0, 10);
+        const data = await getProducts({
+          order: "favorite",
+          offset: 0,
+          limit: 10,
+        });
         setBestProducts(data.list);
+        console.log(data.list);
       } catch (error) {
-        console.error("Failed to fetch products:", error);
+        console.error(error);
       }
     };
 

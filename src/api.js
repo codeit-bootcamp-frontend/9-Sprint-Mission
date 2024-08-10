@@ -1,7 +1,7 @@
 const BASE_URL = "https://panda-market-api.vercel.app";
 
 export const getProducts = async ({ order, offset, limit }) => {
-  const query = `order=${order}&offset=${offset}&limit=${limit}`;
+  const query = `orderBy=${order}&offset=${offset}&pageSize=${limit}`;
   try {
     const response = await fetch(`${BASE_URL}/products?${query}`);
 
