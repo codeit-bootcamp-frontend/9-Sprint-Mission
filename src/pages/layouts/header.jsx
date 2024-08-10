@@ -1,5 +1,6 @@
 import React from "react";
 import Logo from "../../shared/assets/images/logo/logo.svg";
+import Avatar from "../../shared/assets/images/login/default_avatar.png";
 import { Link, NavLink } from "react-router-dom";
 import "./header.css";
 
@@ -31,9 +32,7 @@ function Header() {
         </nav>
       </div>
 
-      <Link to="/login" className="loginLink button">
-        로그인
-      </Link>
+      <img className="default-avatar" src={Avatar} />
     </header>
   );
 }
