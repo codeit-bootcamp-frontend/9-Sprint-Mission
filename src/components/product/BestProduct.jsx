@@ -22,14 +22,10 @@ const BestProduct = () => {
 
   // 데이터 로드 및 정렬 함수
   const fetchPandaMarket = async () => {
-    try {
-      const products = await getPandaMarket({ pageSize });
-      // 좋아요 수를 기준으로 정렬
-      const sortedItems = products.list.sort((a, b) => b.favoriteCount - a.favoriteCount);
-      setBestItems(sortedItems);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
+    const products = await getPandaMarket({ pageSize });
+    // 좋아요 수를 기준으로 정렬
+    const sortedItems = products.list.sort((a, b) => b.favoriteCount - a.favoriteCount);
+    setBestItems(sortedItems);
   };
 
   useEffect(() => {
