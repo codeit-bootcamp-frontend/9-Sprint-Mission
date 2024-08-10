@@ -1,4 +1,4 @@
-import ApiInstance from "../base";
+import ApiInstance from "../../../shared/api/base";
 
 const getProducts = async (params = {}) => {
   const query = new URLSearchParams(params).toString();

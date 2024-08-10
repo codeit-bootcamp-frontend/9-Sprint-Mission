@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getProducts } from "../../../shared/api/item/items";
+import { getProducts } from "../../../entities/item/api/items";
 import ItemCard from "./item-card";
 
 const getPageSize = () => {
