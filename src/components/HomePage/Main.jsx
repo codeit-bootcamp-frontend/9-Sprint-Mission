@@ -3,6 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import MainBnr from "../../images/Img_home_top.png";
 import Bnr01 from "../../images/Img_home_01.png";
+import Bnr02 from "../../images/Img_home_02.png";
+import Bnr03 from "../../images/Img_home_03.png";
+import BtmBnr from "../../images/Img_home_bottom.png";
 
 function Main() {
   return (
@@ -58,12 +61,12 @@ function Main() {
             </p>
           </div>
           <div className="img">
-            <img src={Bnr01} alt="구매상품 배너" />
+            <img src={Bnr02} alt="구매상품 배너" />
           </div>
         </div>
         <div className="box">
           <div className="img">
-            <img src={Bnr01} alt="등록상품 배너" />
+            <img src={Bnr03} alt="등록상품 배너" />
           </div>
           <div className="info">
             <span className="badge">Register</span>
@@ -90,7 +93,7 @@ function Main() {
             </p>
           </div>
           <div className="img">
-            <img src={Bnr01} alt="중고거래 배너" />
+            <img src={BtmBnr} alt="중고거래 배너" />
           </div>
         </div>
       </div>
