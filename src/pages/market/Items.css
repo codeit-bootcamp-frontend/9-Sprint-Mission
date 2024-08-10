@@ -85,6 +85,13 @@
   margin-left: 8px;
 }
 
+.sortName {
+  width: 80px;
+  position: relative;
+  float: left;
+  top: 8px;
+}
+
 .searchBarWrapper {
   display: flex;
   background-color: #f3f4f6;
@@ -140,6 +147,11 @@
 
 .dropdownItem:last-child {
   border-bottom: none;
+}
+
+.dropdownIcon {
+  width: 30px;
+  height: 30px;
 }
 
 @media (min-width: 768px) {

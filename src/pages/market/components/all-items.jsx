@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../../../entities/item/api/items";
 import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
+import DropDownIcon from "../../../shared/assets/images/icons/dropdown.svg";
 import ItemCard from "./item-card";
 
 const getPageSize = () => {
@@ -19,6 +20,7 @@ function AllItemsSection() {
   const [items, setItems] = useState([]);
   const [pageSize, setPageSize] = useState(getPageSize());
   const [orderBy, setOrderBy] = useState("recent");
+  const [isDropdown, setIsDropdown] = useState(false);
 
   const handleFetchedItems = async (searchParams) => {
     const responseInfo = await getProducts(searchParams);
@@ -27,6 +29,11 @@ function AllItemsSection() {
 
   const handleSortDropdown = (sortType) => {
     setOrderBy(sortType);
+    setIsDropdown(false);
+  };
+
+  const handleDropdown = () => {
+    setIsDropdown(!isDropdown);
   };
 
   useEffect(() => {
@@ -59,21 +66,31 @@ function AllItemsSection() {
           </Link>
         </div>
         <div className="sortButtonWrapper">
-          <div className="dropdownList">
-            <div
-              className="dropdownItem"
-              onClick={() => handleSortDropdown("recent")}
-            >
-              최신순
+          {isDropdown && (
+            <div className="dropdownList">
+              <div
+                className="dropdownItem"
+                onClick={() => handleSortDropdown("recent")}
+              >
+                최신순
+              </div>
+              <div
+                className="dropdownItem"
+                onClick={() => handleSortDropdown("favorite")}
+              >
+                인기순
+              </div>
             </div>
-            <div
-              className="dropdownItem"
-              onClick={() => handleSortDropdown("favorite")}
-            >
-              인기순
+          )}
+          <button
+            className="sortDropdownTriggerButton"
+            onClick={handleDropdown}
+          >
+            <div className="sortName">
+              {orderBy === "recent" ? "최신순" : "인기순"}
             </div>
-          </div>
-          <button className="sortDropdownTriggerButton"></button>
+            <DropDownIcon className="dropdownIcon" />
+          </button>
         </div>
       </div>
 
