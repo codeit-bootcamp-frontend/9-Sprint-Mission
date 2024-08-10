@@ -10,7 +10,7 @@ import BestProductList from "./components/BestProductList";
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [order, setOrder] = useState("createdAt");
+  const [order, setOrder] = useState("recent");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const limit = 10;
@@ -40,7 +40,7 @@ function App() {
 
     const options = {
       order,
-      offset: (page - 1) * limit,
+      page,
       limit,
     };
     handleLoad(options);
@@ -51,14 +51,10 @@ function App() {
 
       <div className="container">
         <h2 className="best-product-title">베스트 상품</h2>
-        {<BestProductList className={"best-product-list"} />}
+        {<BestProductList />}
 
         <Searchbar onChange={handleOrderChange} />
-        <ProductList
-          products={products}
-          order={order}
-          className={"products-list"}
-        />
+        <ProductList products={products} />
       </div>
 
       <Pagination

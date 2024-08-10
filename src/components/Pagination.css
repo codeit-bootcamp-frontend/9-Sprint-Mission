@@ -29,3 +29,15 @@
   background-color: #2f80ed;
   color: #f9fafb;
 }
+
+@media (max-width: 1200px) {
+  .pagination {
+    padding: 40px 0 72px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pagination {
+    padding: 40px 0 35px;
+  }
+}

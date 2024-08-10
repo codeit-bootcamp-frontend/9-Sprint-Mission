@@ -19,6 +19,9 @@ nav {
 }
 
 .logo-link {
+  display: flex;
+  align-items: center;
+  gap: 8.59px;
   width: 153px;
   height: 51px;
 }
@@ -42,6 +45,11 @@ nav {
   text-decoration: none;
 }
 
+.profile {
+  width: 40px;
+  height: 40px;
+}
+
 @media (max-width: 1200px) {
   .navbar-container {
     width: 696px;
@@ -51,9 +59,36 @@ nav {
 }
 
 @media (max-width: 768px) {
-  .navbar {
+  .navbar-container {
     width: 344px;
     margin: 0 auto;
     padding: 10px 0 9px;
+  }
+
+  .logo-link {
+    width: 81px;
+    height: 40px;
+  }
+
+  .logo-img {
+    display: none;
+  }
+
+  .logo-text {
+    width: 81px;
+    height: 40px;
+  }
+
+  .navbar-left,
+  .nav-link {
+    gap: 8px;
+  }
+
+  .nav-link {
+    padding: 0;
+  }
+
+  .nav-link-text {
+    font-size: 16px;
   }
 }

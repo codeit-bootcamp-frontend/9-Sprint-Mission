@@ -1,0 +1,100 @@
+.product-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr 325px 133px 130px;
+  grid-gap: 12px;
+  align-items: center;
+  margin: 40px 0 24px;
+
+  grid-template-areas: "title . search button options";
+}
+
+.product-title {
+  grid-area: title;
+}
+
+.product-search {
+  display: flex;
+  align-items: center;
+  grid-area: search;
+  gap: 4px;
+  border: 0;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  width: 325px;
+  height: 42px;
+  padding: 9px 0 9px 16px;
+}
+
+.product-form-input {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+  border: 0;
+  width: 100%;
+  background-color: #f3f4f6;
+  outline: none;
+}
+
+.product-form-input::placeholder {
+  color: #9ca3af;
+}
+
+.product-form-button {
+  width: 133px;
+  height: 42px;
+  padding: 8px auto;
+  background-color: #3692ff;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  grid-area: button;
+  text-align: center;
+  color: #f3f4f6;
+  font-size: 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.product-form-options {
+  display: flex;
+  align-items: top;
+  width: 130px;
+  height: 42px;
+  padding: 10px 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #1f2937;
+  grid-area: options;
+}
+
+@media (max-width: 1200px) {
+  .product-nav {
+    grid-template-columns: 1fr 0 264px 133px 130px;
+  }
+
+  .product-search {
+    width: 264px;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-nav {
+    grid-template: 1fr 1fr/1.2fr 1fr 91px 42px;
+    grid-template-areas:
+      "title  . button button"
+      "search search  search options";
+    grid-column-gap: 0;
+    grid-row-gap: 8px;
+    margin: 24px 0 16px;
+  }
+
+  .product-search {
+    width: 288px;
+  }
+
+  .product-form-options {
+    width: 42px;
+  }
+}

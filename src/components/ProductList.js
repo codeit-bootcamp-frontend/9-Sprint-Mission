@@ -1,12 +1,11 @@
 import "./ProductList.css";
 import ProductListItems from "./ProductListItems";
 
-function ProductList({ products, order, className }) {
-  const sortedProducts = products.sort((a, b) => b[order] - a[order]);
+function ProductList({ products }) {
   return (
     <div>
-      <ul className={className}>
-        {sortedProducts.map((product) => (
+      <ul className="products-list">
+        {products.map((product) => (
           <li key={product.id}>
             <ProductListItems product={product} />
           </li>

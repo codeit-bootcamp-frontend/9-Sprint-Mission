@@ -3,7 +3,7 @@ import "./ProductList.css";
 import ProductListItems from "./ProductListItems";
 import { getProducts } from "../api";
 
-function BestProductList({ className }) {
+function BestProductList() {
   const [bestProducts, setBestProducts] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ function BestProductList({ className }) {
       try {
         const data = await getProducts({
           order: "favorite",
-          offset: 0,
+          page: 1,
           limit: 10,
         });
         setBestProducts(data.list);
@@ -26,7 +26,7 @@ function BestProductList({ className }) {
 
   return (
     <div>
-      <ul className={className}>
+      <ul className="best-product-list">
         {bestProducts.map((product) => (
           <li key={product.id}>
             <ProductListItems product={product} />

@@ -1,6 +1,7 @@
 import React from "react";
 import "./Navbar.css";
-import logoImg from "../assets/logo.svg";
+import logoImg from "../assets/판다얼굴.svg";
+import logoText from "../assets/판다마켓.svg";
 import proFile from "../assets/profile.svg";
 
 function Navbar() {
@@ -9,7 +10,20 @@ function Navbar() {
       <div className="navbar-container">
         <div className="navbar-left">
           <a className="logo-link" href="/">
-            <img src={logoImg} alt="로고" width="153" height="51" />
+            <img
+              className="logo-img"
+              src={logoImg}
+              alt="로고이미지"
+              width="40"
+              height="40"
+            />
+            <img
+              className="logo-text"
+              src={logoText}
+              alt="판다마켓"
+              width="103"
+              height="35"
+            />
           </a>
 
           <div className="nav-link">
@@ -21,7 +35,7 @@ function Navbar() {
             </a>
           </div>
         </div>
-        <a href="/">
+        <a href="/" className="profile">
           <img src={proFile} alt="프로필" width="40" height="40" />
         </a>
       </div>
