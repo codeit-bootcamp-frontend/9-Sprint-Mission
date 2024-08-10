@@ -6,11 +6,11 @@ import ItemCard from './ItemCard';
 const getPageSize = () => {
   const width = window.innerWidth;
   if (width < 768) {
-    return 4; // Mobile viewport
-  } else if (width < 1280) {
-    return 6; // Tablet viewport
+    return 4;
+  } else if (width < 1200) {
+    return 6;
   } else {
-    return 10; // Desktop viewport
+    return 10;
   }
 };
 
@@ -25,10 +25,12 @@ const AllProduct = () => {
     setAllItems(products.list);
   };
 
+  // pageSize와 sortOrder 변경 시 데이터 로드
   useEffect(() => {
     fetchPandaMarket();
-  }, [pageSize, sortOrder]); // 페이지 크기와 정렬 상태 변경 시 데이터 로드
+  }, [pageSize, sortOrder]);
 
+  // 페이지 크기 변경 시 pageSize 업데이트
   useEffect(() => {
     const handleResize = () => {
       setPageSize(getPageSize());
@@ -48,9 +50,12 @@ const AllProduct = () => {
       } else if (order === 'updatedAt') {
         return new Date(b.updatedAt) - new Date(a.updatedAt);
       }
-      return 0; // 기본 정렬
+      return 0;
     });
   };
+
+  // 정렬 적용
+  const sortedItems = sortItems(allItems, sortOrder);
 
   // 셀렉트 박스 이벤트 핸들러
   const handleChangeSelect = event => {
@@ -58,16 +63,17 @@ const AllProduct = () => {
     setSortOrder(order);
   };
 
-  // 정렬 적용
-  const sortedItems = sortItems(allItems, sortOrder);
-
   return (
     <div id="product-all">
       <div className="product-search-wrap">
         <h2 className="product-tit">전체 상품</h2>
         <Search sortOrder={sortOrder} handleChangeSelect={handleChangeSelect} />
       </div>
-      <ul className="product-wrap">{sortedItems && sortedItems.map(item => <ItemCard item={item} key={item.id} />)}</ul>
+      <ul className="product-wrap">
+        {sortedItems.map(item => (
+          <ItemCard item={item} key={item.id} />
+        ))}
+      </ul>
     </div>
   );
 };

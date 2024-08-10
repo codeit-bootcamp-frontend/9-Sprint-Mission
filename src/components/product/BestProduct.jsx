@@ -5,13 +5,10 @@ import ItemCard from './ItemCard';
 const getPageSize = () => {
   const width = window.innerWidth;
   if (width < 768) {
-    // Mobile viewport
     return 1;
-  } else if (width < 1280) {
-    // Tablet viewport
+  } else if (width < 1200) {
     return 2;
   } else {
-    // Desktop viewport
     return 4;
   }
 };
@@ -28,35 +25,31 @@ const BestProduct = () => {
     setBestItems(sortedItems);
   };
 
+  // pageSize가 변경 시 데이터 로드
   useEffect(() => {
-    // 페이지 크기 변경 시 pageSize 업데이트
+    fetchPandaMarket();
+  }, [pageSize]);
+
+  // 페이지 크기 변경 시 pageSize 업데이트
+  useEffect(() => {
     const handleResize = () => {
-      const newPageSize = getPageSize();
-      if (newPageSize !== pageSize) {
-        setPageSize(newPageSize);
-      }
+      setPageSize(getPageSize());
+      window.addEventListener('resize', handleResize);
     };
 
-    window.addEventListener('resize', handleResize);
-
-    // 초기 데이터 로드
-    fetchPandaMarket();
-
-    // Cleanup function
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []); // 빈 배열로 설정하여 처음 렌더링 시만 호출
-
-  useEffect(() => {
-    // pageSize가 변경될 때 데이터 재요청
-    fetchPandaMarket();
-  }, [pageSize]);
+  }, []);
 
   return (
     <div id="product-best">
       <h2 className="product-tit">베스트 상품</h2>
-      <ul className="product-wrap">{bestItems && bestItems.map(item => <ItemCard item={item} key={item.id} />)}</ul>
+      <ul className="product-wrap">
+        {bestItems.map(item => (
+          <ItemCard item={item} key={item.id} />
+        ))}
+      </ul>
     </div>
   );
 };

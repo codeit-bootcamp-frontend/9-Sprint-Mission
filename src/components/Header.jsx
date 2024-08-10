@@ -1,30 +1,37 @@
+import { NavLink } from 'react-router-dom';
 import logoImg from '../assets/images/logo.svg';
 import userIcon from '../assets/images/icon/user.svg';
 
 const Header = () => {
+  const menuStyle = ({ isActive }) => {
+    return { color: isActive ? 'active' : '' };
+  };
+
   return (
     <div className="header-wrap">
       <h1 className="logo-wrap">
-        <a href="#">
-          <img src={logoImg} alt="logo" />
-        </a>
+        <NavLink to="/">
+          <img src={logoImg} alt="판다마켓" />
+        </NavLink>
       </h1>
       <nav className="menu-wrap">
         <ul>
           <li>
-            <a href="#">자유게시판</a>
+            <NavLink to="/" style={menuStyle}>
+              자유게시판
+            </NavLink>
           </li>
           <li>
-            <a href="#" className="active">
+            <NavLink to="/items" style={menuStyle}>
               중고마켓
-            </a>
+            </NavLink>
           </li>
         </ul>
       </nav>
       <div className="user-wrap">
-        <a href="#">
+        <NavLink to="/profile">
           <img src={userIcon} alt="user" />
-        </a>
+        </NavLink>
       </div>
     </div>
   );
