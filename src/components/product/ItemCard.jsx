@@ -5,7 +5,7 @@ const ItemCard = ({ item }) => {
     <li>
       <a href="#" className="product-box">
         <div className="img-box">
-          <img src={images} alt={name} />
+          <img src={images[0]} alt={name} />
         </div>
         <p className="txt">{name}</p>
         <h3 className="price">{price}원</h3>
