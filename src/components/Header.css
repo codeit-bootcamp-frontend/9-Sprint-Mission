@@ -1,4 +1,4 @@
-.gnb-menu{
+.gnb {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,7 +9,7 @@
 .gnb-img {
   width: 153px;
   height: 51px;
-  margin-right: 32px ;
+  margin-right: 32px;
 }
 
 .gnb-board {
@@ -18,10 +18,14 @@
   align-items: center;
 }
 
-.gnb-board > a {
-  text-decoration: none;
-  padding: 21px 15px;
-  display: block;
+.gnb-menus {
+  display: flex;
+  padding: 0;
+}
+
+.gnb-menu {
+  list-style: none;
+  margin-right: 30px;
   font-size: 18px;
   font-weight: 700;
   line-height: 26px;
@@ -35,6 +39,31 @@
 .login-img {
   width: 40px;
   height: 40px;
-  
 }
 
+@media (max-width: 1200px) {
+  .gnb {
+    padding: 0 24px;
+  }
+  .gnb-board {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .gnb {
+    padding: 0 16px;
+  }
+  
+  .gnb-board {
+    gap: 8px;
+  }
+
+  .gnb-menus {
+    gap: 8px ;
+  }
+
+  .gnb-menu {
+    margin-right: 4px;
+  }
+}

@@ -3,42 +3,53 @@ import { getProducts } from "../Api.js";
 import { ProductList } from "../components/ProductList.js";
 import "./Main.css";
 import { Pagenation } from "./PageNation.js";
+import { Link } from "react-router-dom";
 
 function Main() {
-  const [products, setProducts] = useState([]);
-  const [productsF, setProductsF] = useState([]);
+  const [order, setOrder] = useState("recent");
+  const [productsTotal, setProductsTotal] = useState([]);
+  const [productsFavorite, setProductsFavorite] = useState([]);
+  const [page, setPage] = useState(1);
 
-  async function handleLoad(query) {
+  async function handleLoadTotal(query) {
     const { list } = await getProducts(query);
-    setProducts(list);
+    setProductsTotal(list);
   }
 
-  async function handleLoadF(query) {
+  async function handleLoadFavorite(query) {
     const { list } = await getProducts(query);
-    setProductsF(list);
+    setProductsFavorite(list);
   }
+
+  const sortedProducts = productsFavorite.sort((a,b) => b[order] - a[order]);
+  
+  const handleRecentClick = () => setOrder('recent');
+
+  const handleFavoriteClick = () => setOrder('favorite');
 
   useEffect(() => {
-    handleLoad({
+    handleLoadTotal({
       pageSize: 4,
       order: "recent",
+      page:1
     });
-    handleLoadF({
+    handleLoadFavorite({
       pageSize: 10,
-      order: "favorite",
+      order: order,
+      page: page,
     });
-  }, []);
+  }, [order, page]);
 
   return (
     <div className="main-container">
       <div className="main-layout">
         <section className="item-container">
           <h2>베스트 상품</h2>
-          <ProductList products={products} title="best" />
+          <ProductList products={productsTotal} title="best" />
         </section>
         <section className="item-container">
           <div className="search-bar">
-            <h2>전체 상품</h2>
+            <h2>전체 상품</h2> 
             <div className="search-form">
               <div className="search-container">
                 <button type="button" className="search-icon"></button>
@@ -47,25 +58,27 @@ function Main() {
                   placeholder="검색할 상품을 입력해주세요"
                 ></input>
               </div>
-              <button className="item-add-btn">상품 등록하기</button>
+              <Link to="/additem" className="item-add-btn">
+                상품 등록하기
+              </Link>
               <div className="select-container">
                 <button className="select-btn order-btn" type="button">
-                  최신순
-                </button>
+                  {order === "recent" ? "최신순" : "좋아요순"}
+                </button> 
                 <div className="order">
-                  <button type="button" className="order-btn">
+                  <button  onClick={handleRecentClick}  type="button" className="order-btn">
                     최신순
                   </button>
-                  <button type="button" className="order-btn">
+                  <button  onClick={handleFavoriteClick} type="button" className="order-btn">
                     좋아요순
                   </button>
                 </div>
               </div>
             </div>
           </div>
-          <ProductList products={productsF} title="total" />
+          <ProductList products={sortedProducts} title="total" />
         </section>
-        <Pagenation />
+        <Pagenation setPage={setPage} />
       </div>
     </div>
   );

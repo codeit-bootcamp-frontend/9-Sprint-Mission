@@ -11,14 +11,19 @@
   height: 40px;
   border: 1px solid #E5E7EB;
   border-radius: 50%;
-  list-style: none;
   padding: 0;
   font-size: 16px;
   font-weight: 600;
   line-height: 26px;
   color: #6B7280;
+  background-color: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
   
+}
+
+.current-page {
+  background-color:#2F80ED ;
+  color: #FFFFFF;
 }
