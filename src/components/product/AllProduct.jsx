@@ -70,7 +70,7 @@ const AllProduct = () => {
         <Search sortOrder={sortOrder} handleChangeSelect={handleChangeSelect} />
       </div>
       <ul className="product-wrap">
-        {sortedItems.map(item => (
+        {sortedItems?.map(item => (
           <ItemCard item={item} key={item.id} />
         ))}
       </ul>
