@@ -7,12 +7,12 @@ export default function Product({ props }) {
 
   return (
     <div className='product-item'>
-      <img className='product-image' src={images[0]} alt='상품 이미지' />
-      <p>{name}</p>
+      <img className='image' src={images[0]} alt='상품 이미지' />
+      <p className='name'>{name}</p>
       <p className='price'>{price}</p>
       <p>
-        <FaRegHeart className='icon' />
-        {favoriteCount}
+        <FaRegHeart className='icon' size='16' />
+        <span className='favorite-count'>{favoriteCount}</span>
       </p>
     </div>
   );

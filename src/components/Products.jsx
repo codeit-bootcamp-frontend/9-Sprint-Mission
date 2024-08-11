@@ -37,31 +37,36 @@ export default function Products() {
   }, [orderBy]);
 
   return (
-    <section>
-      <div id='search-bar'>
-        <h3>전체 상품</h3>
-        <div className='right'>
-          <div className='input-bar'>
-            <input type='text' placeholder='검색할 상품을 입력해주세요' />
+    <>
+      <section>
+        <div id='search-bar'>
+          <h3>전체 상품</h3>
+          <div className='right'>
+            <div className='input-bar'>
+              <input type='text' placeholder='검색할 상품을 입력해주세요' />
+            </div>
+            <button>상품등록하기</button>
+            <select onChange={handleChange}>
+              <option value='recent'>최신순</option>
+              <option value='favorite'>좋아요순</option>
+            </select>
           </div>
-          <button>상품등록하기</button>
-          <select onChange={handleChange}>
-            <option value='recent'>최신순</option>
-            <option value='favorite'>좋아요순</option>
-          </select>
         </div>
-      </div>
-      <div id='product-lists'>
-        <ul>
-          {items.map((item) => {
-            return (
-              <li className='product-list'>
-                <Product props={item} />
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
+      </section>
+      <section>
+        <div>
+          <ul id='product-lists'>
+            {items.map((item) => {
+              return (
+                <li className='product-list'>
+                  <Product props={item} />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        <div id='pagination'></div>
+      </section>
+    </>
   );
 }

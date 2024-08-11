@@ -32,3 +32,9 @@
   padding: 12px 20px;
   border-radius: 12px;
 }
+
+#product-lists {
+  display: grid;
+  grid-template-columns: repeat(5, 250px);
+  row-gap: 40px;
+}
