@@ -1,0 +1,19 @@
+.product-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.product-item p {
+  display: flex;
+  align-items: center;
+}
+
+.product-item .product-image {
+  width: 221px;
+  height: 221px;
+}
+
+.product-item .icon {
+  margin-right: 5px;
+}
