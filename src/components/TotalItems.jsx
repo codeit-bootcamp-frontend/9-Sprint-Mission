@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import styles from "../assets/styles/TotalItems.module.css";
 import getItems from "../api";
+import Dropdown from "./Dropdown";
 
-function TotalItems() {
-  const ORDER = { order: "recent", page: 1, pageSize: 10 };
+function TotalItems({ currentPage }) {
+  const [order, setOrder] = useState("recent"); // or 'recent'
   const [items, setItems] = useState([]);
-  const [page, setPage] = useState(1);
+  const [isDropdownView, setDropdownView] = useState(false);
+  const QUERY = { order: order, page: currentPage, pageSize: 10 };
+
+  const handleOrderChange = (e) => setOrder(e.currentTarget.value);
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const { list } = await getItems(ORDER);
+        const { list } = await getItems(QUERY);
         setItems(list);
       } catch (error) {
         console.error("Failed to fetch items:", error);
@@ -18,7 +22,7 @@ function TotalItems() {
     };
 
     fetchItems();
-  }, []);
+  }, [order, currentPage]);
 
   return (
     <div className={styles.container}>
@@ -32,15 +36,42 @@ function TotalItems() {
         <button type="submit" className={styles.registerButton}>
           상품 등록하기
         </button>
-        <button type="button" className={styles.dropdownButton}></button>
+        {order === "favorite" && (
+          <button
+            type="button"
+            onClick={() => {
+              setDropdownView(!isDropdownView);
+            }}
+            className={styles.dropdownButton}
+          >
+            {isDropdownView ? "좋아요순 ▼" : "좋아요순 ▲"}
+            {isDropdownView && <Dropdown onSelect={handleOrderChange} />}
+          </button>
+        )}
+        {order === "recent" && (
+          <button
+            type="button"
+            onClick={() => {
+              setDropdownView(!isDropdownView);
+            }}
+            className={styles.dropdownButton}
+          >
+            {isDropdownView ? "최신순 ▼" : "최신순 ▲"}
+            {isDropdownView && <Dropdown onSelect={handleOrderChange} />}
+          </button>
+        )}
       </div>
 
       <div className={styles.itemsWrap}>
         {items.map((item) => {
           return (
-            <div className="item">
-              <img src={item.images[0]} className={styles.itemImg} />
-              <div key={item.id}>
+            <div key={item.id} className="item">
+              <img
+                src={item.images[0]}
+                className={styles.itemImg}
+                alt={item.name}
+              />
+              <div>
                 <p className={styles.itemDescription}>{item.description}</p>
                 <h2 className={styles.itemPrice}>{item.price}원</h2>
                 <div className={styles.itemGoodWrap}>

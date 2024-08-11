@@ -25,9 +25,13 @@ function BestItems() {
       <div className={styles.itemsWrap}>
         {items.map((item) => {
           return (
-            <div>
-              <img src={item.images[0]} className={styles.itemImg} />
-              <div key={item.id}>
+            <div key={item.id}>
+              <img
+                src={item.images[0]}
+                className={styles.itemImg}
+                alt={item.name}
+              />
+              <div>
                 <p className={styles.itemDescription}>{item.description}</p>
                 <h2 className={styles.itemPrice}>{item.price}원</h2>
                 <div className={styles.itemGoodWrap}>
