@@ -9,8 +9,8 @@ export default function Header() {
         <img className="logo" src={logo} alt="판다마켓" />
       </a>
       <div className="header-category">
-        <h1 className="pick1">자유게시판</h1>
-        <h1 className="pick2">중고마켓</h1>
+        <h1 className="list">자유게시판</h1>
+        <h1 className="list">중고마켓</h1>
       </div>
       <img className="user-icon" src={userIcon} />
     </div>

@@ -11,6 +11,10 @@ function TotalItems({ currentPage }) {
 
   const handleOrderChange = (e) => setOrder(e.currentTarget.value);
 
+  const handleButtonClick = () => {
+    window.location.href = "../../public/additem.html";
+  };
+
   useEffect(() => {
     const fetchItems = async () => {
       try {
@@ -33,7 +37,11 @@ function TotalItems({ currentPage }) {
           placeholder="검색할 상품을 입력해주세요"
           className={styles.searchBar}
         />
-        <button type="submit" className={styles.registerButton}>
+        <button
+          type="button"
+          className={styles.registerButton}
+          onClick={handleButtonClick}
+        >
           상품 등록하기
         </button>
         {order === "favorite" && (
