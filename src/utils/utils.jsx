@@ -7,6 +7,7 @@ export const getBestProducts = async (order, pageSize, setProducts) => {
 
     if (response.status === 200) {
       setProducts(response.data.list);
+      console.log(response.data)
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {

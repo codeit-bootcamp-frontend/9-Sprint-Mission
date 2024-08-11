@@ -4,7 +4,7 @@ import { getAllProducts } from "../../utils/utils";
 import Pagination from "./Pagination";
 import "./AllProducts.css";
 
-const AllProducts = () => {
+const AllProducts = ({ width }) => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -15,7 +15,6 @@ const AllProducts = () => {
   const [isLoading, setLoading] = useState(false);
   const [isMobile, setMobile] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
-  const [width, setWidth] = useState(window.innerWidth);
   
   // select 태그를 이용한 정렬함수
   const onChangeSelect = (e) => {
@@ -44,17 +43,6 @@ const AllProducts = () => {
   useEffect(() => {
     getAllProducts(page, pageSize, order, keyword, setProducts, setLoading, setError, setTotalPage);
   }, [page, pageSize, order, keyword]);
-
-  // 사용환경 확인
-  useEffect(() => {
-    const onResize = () => {
-      setWidth(window.innerWidth);
-    }
-
-    window.addEventListener("resize", onResize);
-
-    return () => window.removeEventListener("resize", onResize);
-  }, []);
 
   // 사용환경에 따른 pageSize 조절
   useEffect(() => {

@@ -2,12 +2,25 @@ import { useEffect, useState } from "react";
 import "./BestProducts.css";
 import { getBestProducts } from "../../utils/utils";
 
-const BestProducts = () => {
+const BestProducts = ({ width }) => {
   const [products, setProducts] = useState([]);
+  const [pageSize, setPageSize] = useState(4);
 
+  // 사용환경에 따른 pageSize 조절
   useEffect(() => {
-    getBestProducts("favorite", 4, setProducts);
-  }, []);
+    if (width > 375 && width < 767) {
+      setPageSize(1);
+    } else if (width >= 768 && width < 1199) {
+      setPageSize(2);
+    } else {
+      setPageSize(4);
+    }
+  }, [width]);
+
+  // 베스트 상품 가져오기
+  useEffect(() => {
+    getBestProducts("favorite", pageSize, setProducts);
+  }, [pageSize]);
 
   return (
     <div className="bestProductsContainer">
