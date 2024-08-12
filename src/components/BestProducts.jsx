@@ -21,9 +21,6 @@ const ProductItem = ({ product }) => {
 
 const BestProducts = () => {
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(4);
-  const [orderBy, setOrderBy] = useState("favorite");
   const [visibleCount, setVisibleCount] = useState(1);
 
   const handleLoad = async (options) => {
@@ -39,7 +36,7 @@ const BestProducts = () => {
   };
 
   useEffect(() => {
-    handleLoad({ page, pageSize, orderBy });
+    handleLoad({ page: 1, pageSize: 4, orderBy: "favorite" });
 
     const updateVisibleCount = () => {
       const width = window.innerWidth;
