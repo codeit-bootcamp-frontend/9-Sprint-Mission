@@ -1,0 +1,85 @@
+/* 모든 요소의 여백과 패딩을 제거하고, box-sizing을 border-box로 설정 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 문서의 기본 폰트 설정 및 전역 스타일 초기화 */
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  font-family: "Pretendard", sans-serif;
+}
+
+/* 주요 블록 요소의 기본 스타일 초기화 */
+body {
+  margin: 0;
+  line-height: 1.5;
+  background-color: #fff;
+}
+
+/* HTML5 요소를 블록 요소로 설정 */
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+/* 목록 스타일 초기화 */
+ol,
+ul {
+  list-style: none;
+}
+
+/* 이미지와 비디오의 최대 너비를 부모 요소의 너비로 제한 */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 표의 기본 스타일 초기화 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+/* 폼 요소의 기본 스타일 초기화 */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+/* 하이퍼링크 스타일 초기화 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 기본 문단 스타일 초기화 */
+p {
+  margin: 0;
+}
+
+/* 기본 타이포그래피 스타일 설정 */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
