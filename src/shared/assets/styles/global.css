@@ -1,0 +1,144 @@
+/* Mobile (default) */
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("../fonts/ROKAF_Sans_Bold.ttf") format("truetype"),
+    url("../fonts/ROKAF_Sans_Medium.ttf") format("truetype");
+}
+
+:root {
+  /* Gray scale */
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
+
+  /* Primary color */
+  --blue-300: #1251aa;
+  --blue-200: #1967d6;
+  --blue-100: #3692ff;
+  --blue-50: #3182f6;
+
+  /* Error color */
+  --red: #f74747;
+
+  /* Layout dimensions */
+  --header-height: 70px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: var(--blue-50);
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+body {
+  color: #374151;
+  word-break: keep-all;
+  font-family: "Pretendard", sans-serif;
+}
+
+.header-area {
+  margin-top: var(--header-height);
+}
+
+.wrapper {
+  width: 100%;
+  padding: 0 16px;
+}
+
+.button {
+  background-color: var(--blue-100);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+  background-color: var(--blue-200);
+}
+
+.button:focus {
+  background-color: var(--blue-300);
+}
+
+.button:disabled {
+  background-color: var(--gray-400);
+  cursor: default;
+  pointer-events: none;
+}
+
+.pill-button {
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 14.5px 33.5px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.break-on-desktop {
+  display: none;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .wrapper {
+    padding: 0 24px;
+  }
+
+  .pill-button {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 16px 126px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .break-on-desktop {
+    display: inline;
+  }
+}
