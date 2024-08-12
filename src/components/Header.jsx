@@ -22,7 +22,12 @@ const Header = () => {
         </nav>
       </div>
       <div className="btn-visibility-on-wrap">
-        <img src={btn_visibility_on} width="40" height="40" />
+        <img
+          src={btn_visibility_on}
+          width="40"
+          height="40"
+          alt="visibility-on"
+        />
       </div>
     </header>
   );

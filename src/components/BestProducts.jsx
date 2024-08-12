@@ -10,6 +10,7 @@ const ProductItem = ({ product }) => {
         src={product.images[0]}
         width="343"
         height="343"
+        alt="상품"
       />
       <div className="product-name">{product.name}</div>
       <div className="product-price">{product.price}</div>
