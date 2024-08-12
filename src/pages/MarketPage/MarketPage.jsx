@@ -5,6 +5,7 @@ import './MarketPage.css';
 import AllItem from './components/AllItem.jsx';
 import BestItem from './components/BestItem.jsx';
 import { useState } from 'react';
+import { SelectOrderBox } from 'components/SelectOrderBox';
 
 const MarketPage = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -29,13 +30,14 @@ const MarketPage = () => {
       <div className="Search-Nav">
         <p>전체 상품</p>
         <div className="Search-wrap">
-          <SearchInput value={searchKeyword} onChange={handleSearchChange} />
+          {/* <SearchInput value={searchKeyword} onChange={handleSearchChange} />
           <NavLink to="/additem">
             <button variant="contained" className="Register-Button">
               상품 등록하기
             </button>
           </NavLink>
-          <SelectBox onChange={handleOrderChange} />
+          <SelectBox onChange={handleOrderChange} /> */}
+          <SelectOrderBox />
         </div>
       </div>
       <AllItem searchKeyword={searchKeyword} orderBy={orderBy} />

@@ -1,0 +1,26 @@
+.Pagenation-wrap {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.Circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: 40px;
+  color: var(--gray-500);
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 600;
+}
+
+.Circle img {
+  width: 20px;
+  height: 20px;
+}
