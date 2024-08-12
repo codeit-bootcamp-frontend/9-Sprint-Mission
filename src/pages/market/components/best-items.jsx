@@ -34,7 +34,7 @@ function BestItemsSection() {
 
   return (
     <div className="bestItemsContainer">
-      <h1 className="sectionTitle">베스트 상품</h1>
+      <div className="sectionTitle">베스트 상품</div>
 
       <div className="bestItemsCardSection">
         {items?.map((item) => (

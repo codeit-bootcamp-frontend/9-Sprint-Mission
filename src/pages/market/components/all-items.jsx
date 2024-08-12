@@ -57,10 +57,7 @@ function AllItemsSection() {
   return (
     <div>
       <div className="allItemsSectionHeader">
-        <h1 className="sectionTitle">전체 상품</h1>
-      </div>
-
-      <div className="allItemsSectionHeader">
+        <div className="sectionTitle">전체 상품</div>
         <div className="searchBarWrapper">
           <SearchIcon />
           <input
