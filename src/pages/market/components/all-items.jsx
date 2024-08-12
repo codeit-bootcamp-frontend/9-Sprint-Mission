@@ -4,6 +4,7 @@ import { getProducts } from "../../../entities/item/api/items";
 import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
 import DropDownIcon from "../../../shared/assets/images/icons/dropdown.svg";
 import ItemCard from "./item-card";
+import Pagination from "../../../shared/ui/pagination";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -12,19 +13,22 @@ const getPageSize = () => {
   } else if (width < 1280) {
     return 6;
   } else {
-    return 12;
+    return 10;
   }
 };
 
 function AllItemsSection() {
   const [items, setItems] = useState([]);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(getPageSize());
+  const [totalCount, setTotalCount] = useState(0);
   const [orderBy, setOrderBy] = useState("recent");
   const [isDropdown, setIsDropdown] = useState(false);
 
   const handleFetchedItems = async (searchParams) => {
     const responseInfo = await getProducts(searchParams);
     setItems(responseInfo.data.list);
+    setTotalCount(responseInfo.data.totalCount);
   };
 
   const handleSortDropdown = (sortType) => {
@@ -36,15 +40,19 @@ function AllItemsSection() {
     setIsDropdown(!isDropdown);
   };
 
+  const onPageChange = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
   useEffect(() => {
     const handleResize = () => setPageSize(getPageSize());
     window.addEventListener("resize", handleResize);
-    handleFetchedItems({ pageSize, orderBy });
+    handleFetchedItems({ page, pageSize, orderBy });
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [pageSize, orderBy]);
+  }, [page, pageSize, orderBy]);
 
   return (
     <div>
@@ -100,7 +108,14 @@ function AllItemsSection() {
         ))}
       </div>
 
-      <div className="paginationBarWrapper"></div>
+      <div className="paginationBarWrapper">
+        <Pagination
+          totalCount={totalCount}
+          pageSize={pageSize}
+          currentPage={page}
+          onPageChange={onPageChange}
+        />
+      </div>
     </div>
   );
 }
