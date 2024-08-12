@@ -1,0 +1,122 @@
+/* login.html & signup.html 공통 */
+.sub_logo {
+  width: 396px;
+  height: 132px;
+  margin: 0 auto;
+}
+
+.sub_logo img {
+  width: 100%;
+  height: auto;
+}
+
+.enter_box {
+  padding-top: 40px;
+}
+
+.enter_box > div+ div {
+  padding-top: 16px;
+}
+
+.enter_box > div label {
+  display: block;
+  color: var(--color-black);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: left;
+  line-height: 26px;
+}
+
+.enter_box>div .pwd_box {
+  position: relative;
+}
+
+.enter_box > div .pwd_box .pwd_icon {
+  position: absolute;
+  right: 24px;
+  top: 16px;
+  width: 24px;
+  height: auto;
+  cursor: pointer;
+}
+
+.enter_box .box_btn > * {
+  display: block;
+  width: 100%;
+  height: 56px;
+  color: var(--color-bg-input);
+  background-color: var(--color-gray-2);
+  border: 0;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 56px;
+  cursor: pointer;
+  transition: all .3s ease;
+}
+
+.enter_box .box_btn:hover>* {
+  background-color: var(--color-theme);
+}
+
+.enter_box .simple_login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  padding: 16px 23px;
+  background-color: var(--color-bg-sns);
+  border-radius: 8px;
+}
+
+.enter_box .simple_login>p {
+  color: var(--color-black);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.enter_box .simple_login ul {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.enter_box .txt_joinus {
+  padding-top: 24px;
+  color: var(--color-black);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.enter_box .txt_joinus>a {
+  padding-left: 4px;
+  color: var(--color-theme);
+  font: inherit;
+  text-decoration: underline;
+}
+
+#login,
+#signup {
+  padding: 60px 0;
+  text-align: center;
+}
+
+/* input error */
+.form_input.input-error {
+  border:1px solid var(--color-error);
+}
+#error-msg {
+  margin:8px 16px 0;
+  color:var(--color-error);
+  font-size:14px;
+  font-weight:600;
+  text-align:left;
+}
+@media (max-width: 768px) {
+  .sub_logo {
+    width:198px;
+    height:66px;
+  }
+}
+
+
