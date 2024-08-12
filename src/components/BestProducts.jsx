@@ -39,7 +39,7 @@ const BestProducts = () => {
   };
 
   useEffect(() => {
-    handleLoad({ page: 1, pageSize: 4, orderBy: "favorite" });
+    handleLoad({ page, pageSize, orderBy });
 
     const updateVisibleCount = () => {
       const width = window.innerWidth;

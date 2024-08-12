@@ -42,10 +42,10 @@ const AllProducts = () => {
   const [totalPageNum, setTotalPageNum] = useState();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-  const handleLoad = async (options) => {
+  const handleLoad = async ({ orderBy, page, pageSize }) => {
     let result;
     try {
-      result = await getProducts(options);
+      result = await getProducts({ orderBy, page, pageSize });
     } catch (error) {
       console.log(error.message);
       return;
