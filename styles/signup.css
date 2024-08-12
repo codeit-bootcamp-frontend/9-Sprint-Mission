@@ -1,0 +1,162 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  max-width: 1920px;
+  font-family: "Pretendard Variable", Pretendard;
+}
+
+.wrap-signup {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.wrap-signup > section {
+  margin-top: 231px;
+  width: 640px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.input-style {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+}
+
+.input-style label {
+  color: var(--secondary-gray800);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.input-style input {
+  background-color: var(--secondary-gray100);
+  border: none;
+  border-radius: 12px;
+  padding: 16px 24px 14px;
+  height: 56px;
+}
+
+.input::placeholder {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.input-style input:focus {
+  outline-color: #3692ff;
+}
+
+.input-style input.focus-out {
+  border: 1px solid var(--error-red);
+}
+
+.error-text {
+  color: var(--error-red);
+  padding-left: 20px;
+}
+
+.register-btn {
+  text-decoration: none;
+  text-align: center;
+  border: none;
+  border-radius: 40px;
+  background-color: var(--secondary-gray400);
+  color: var(--secondary-gray100);
+  padding: 12px 124px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.register-btn.active-btn {
+  background-color: var(--primary-blue100);
+}
+
+
+.easy-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 74px;
+  background-color: #e6f2ff;
+  padding: 16px 23px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.easy-login-info {
+  color: var(--secondary-gray800);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+}
+.sns-icon {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.sns-icon > div {
+  width: 42px;
+}
+
+.sns-icon a img {
+  display: block;
+  width: 100%;
+}
+
+.register {
+  text-align: center;
+  color: var(--secondary-gray800);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.register a {
+  color: var(--primary-blue100);
+}
+
+.btn-hide {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 58px;
+  right: 15px;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+
+@media (max-width: 768px) {
+  .wrap-signup {
+    padding: 0 16px 0;
+  }
+
+  .wrap-signup > section {
+    width: 100%;
+    max-width: 400px;
+  }
+}
