@@ -1,0 +1,93 @@
+.Product {
+  @include tablet {
+    padding: 0 24px;
+
+    @include mobile {
+      padding: 0 16px;
+    }
+  }
+
+  .product-tit {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $gray900;
+    margin: 3rem 0 2rem;
+  }
+
+  // 검색 바
+  @import 'Search';
+
+  #product-best {
+    .product-wrap {
+      grid-template: repeat(1, 1fr) / repeat(4, 1fr);
+      gap: 16px;
+
+      @include tablet {
+        grid-template: repeat(1, 1fr) / repeat(2, 1fr);
+        @include mobile {
+          grid-template: repeat(1, 1fr) / repeat(1, 1fr);
+        }
+      }
+    }
+  }
+
+  #product-all {
+    .product-wrap {
+      grid-template: repeat(2, 1fr) / repeat(5, 1fr);
+      gap: 24px;
+
+      @include tablet {
+        grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+        @include mobile {
+          grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+        }
+      }
+    }
+  }
+
+  .product-wrap {
+    display: grid;
+
+    .product-box {
+      display: grid;
+      gap: 16px;
+
+      .img-box {
+        overflow: hidden;
+        border-radius: 16px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .txt {
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: $gray800;
+      }
+
+      .price {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: $gray800;
+      }
+
+      .heart-wrap {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: $gray600;
+
+        .heart-button {
+          background: url('../images/icon/heart.svg') center center no-repeat;
+          width: 14px;
+          height: 12px;
+        }
+      }
+    }
+  }
+}
