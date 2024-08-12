@@ -1,8 +1,8 @@
 import React from "react";
 import "./Navbar.css";
-import logoImg from "../assets/판다얼굴.svg";
-import logoText from "../assets/판다마켓.svg";
-import proFile from "../assets/profile.svg";
+import logoImg from "../../assets/판다얼굴.svg";
+import logoText from "../../assets/판다마켓.svg";
+import proFile from "../../assets/profile.svg";
 
 function Navbar() {
   return (

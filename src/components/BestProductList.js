@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./ProductList.css";
+import "./ProductList/ProductList.css";
 import ProductListItems from "./ProductListItems";
 import { getProducts } from "../api";
 
 function BestProductList() {
-  const [bestProducts, setBestProducts] = useState([]);
+  const [bestProduct, setBestProduct] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -14,7 +14,7 @@ function BestProductList() {
           page: 1,
           limit: 10,
         });
-        setBestProducts(data.list);
+        setBestProduct(data.list);
         console.log(data.list);
       } catch (error) {
         console.error(error);
@@ -27,7 +27,7 @@ function BestProductList() {
   return (
     <div>
       <ul className="best-product-list">
-        {bestProducts.map((product) => (
+        {bestProduct.map((product) => (
           <li key={product.id}>
             <ProductListItems product={product} />
           </li>

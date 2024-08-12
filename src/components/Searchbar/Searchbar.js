@@ -1,4 +1,4 @@
-import searchImg from "../assets/search.svg";
+import searchImg from "../../assets/search.svg";
 import "./Searchbar.css";
 function Searchbar({ onChange }) {
   return (
