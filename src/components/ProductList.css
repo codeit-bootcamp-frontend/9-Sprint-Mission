@@ -1,0 +1,139 @@
+* {
+  font-family: "Pretendard", sans-serif;
+}
+
+.products-list,
+.best-product-list {
+  display: grid;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  color: #1f2937;
+  gap: 24px;
+}
+
+/* 베스트 상품 리스트 기본 설정 */
+.best-product-list {
+  grid-template: 1fr / repeat(4, 1fr);
+}
+
+.best-product-list li:nth-child(n + 5) {
+  display: none;
+}
+
+.best-product-list li {
+  width: 282px;
+}
+
+.best-product-list li img {
+  width: 282px;
+  height: 282px;
+}
+
+.products-list {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.products-list li:nth-child(n + 11) {
+  display: none;
+}
+
+.products-list li {
+  width: 221px;
+}
+
+.products-list li img {
+  width: 221px;
+  height: 221px;
+}
+
+.product-list-text {
+  margin-top: 16px;
+}
+
+.best-product-title,
+.product-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.best-product-title {
+  margin: 24px 0 16px;
+}
+
+.product-description {
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.product-price {
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+.product-favoritecount {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4b5563;
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+@media (max-width: 1200px) {
+  .best-product-list {
+    grid-template-columns: repeat(2, 1fr);
+    height: 430px;
+    gap: 10px;
+  }
+
+  .best-product-list li:nth-child(n + 3) {
+    display: none;
+  }
+
+  .best-product-list li img {
+    width: 343px;
+    height: 343px;
+  }
+
+  .products-list {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  .products-list li:nth-child(n + 7) {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .best-product-list {
+    grid-template-columns: 1fr;
+  }
+
+  .best-product-list li:nth-child(n + 2) {
+    display: none;
+  }
+
+  .products-list {
+    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .products-list li:nth-child(n + 5) {
+    display: none;
+  }
+
+  .products-list li {
+    width: 168px;
+  }
+
+  .products-list li img {
+    width: 168px;
+    height: 168px;
+  }
+}

@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+### 배포된 웹사이트: https://pandamarket5mungyun.netlify.app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 기본 요구사항
 
-## Available Scripts
+- [x] Github에 PR(Pull Request)을 만들어서 미션을 제출합니다.
+- [x] 피그마 디자인에 맞게 페이지를 만들어 주세요.
+- [x] React를 사용합니다.
 
-In the project directory, you can run:
+### 체크리스트 [기본]
 
-### `npm start`
+#### 중고마켓
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [] 중고마켓 페이지 주소는 “/items” 입니다.
+- [] 페이지 주소가 “/items” 일때 상단네비게이션바의 '중고마켓' 버튼의 색상은 “3692FF”입니다.
+- [x] 상단 네비게이션 바는 이전 미션에서 구현한 랜딩 페이지와 동일한 스타일로 만들어 주세요.
+- [x] 상품 데이터 정보는 https://panda-market-api.vercel.app/docs/#/ 에 명세된 GET 메소드 “/products” 를 사용해주세요.
+- [] '상품 등록하기' 버튼을 누르면 “/additem” 로 이동합니다. ( 빈 페이지 )
+- [x] 전체 상품에서 드롭 다운으로 “최신 순” 또는 “좋아요 순”을 선택해서 정렬을 할 수 있습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### 중고마켓 반응형
 
-### `npm test`
+- [x] 베스트 상품
+- [x] 전체 상품
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 체크리스트 [심화]
 
-### `npm run build`
+- [x] 페이지 네이션 기능을 구현합니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 멘토님께 
+- 페이지 이동 부분은 관련 개념을 더 학습하고 구현하겠습니다!
+- 페이지 주소도 index.html 그대로 두었습니다
+- 아직 리엑트가 익숙하지 않네요😂
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 스크린샷
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+|                                               풀스크린                                               |
+| :------------------------------------------------------------------------------------------------: |
+|  ![full](https://github.com/user-attachments/assets/566bc6e6-e2a6-4137-9d0e-b061e226c90f)  |
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<hr>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+|                                              테블릿                                               |
+| :-------------------------------------------------------------------------------------------------: |
+| ![tablet](https://github.com/user-attachments/assets/1e76c1ad-4f0f-47d8-8dfc-ef04ddd3d0b3) |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<hr>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+|                                              모바일                                               |
+| :-------------------------------------------------------------------------------------------------: |
+| ![moblie](https://github.com/user-attachments/assets/4515d2ca-37cf-4e61-bab3-b1d9ab9ab888) |
