@@ -1,0 +1,32 @@
+.dropdown {
+    position: absolute;
+    z-index: 99;
+    top: 50px;
+    display: flex;
+    flex-direction: column;
+    width: 130px;
+    height: 84px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.element1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 42px;
+    padding: 12px 12px 0px 0px;
+    border-bottom: 1px solid var(--gray100);
+}
+
+.element2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 42px;
+    padding: 12px 12px 0px 0px;
+}
