@@ -15,7 +15,7 @@ const Header = () => {
     <header className="Header">
       <div className="header-left-wrap">
         <Link to="/">
-          <img src={Logo} alt="판다마켓 홈" width="153" />
+          <img className="logo" src={Logo} alt="판다마켓 홈" width="153" />
         </Link>
         <div className="header-menu-wrap">
           <NavLink to="/community" style={ActiveLinkStyle}>

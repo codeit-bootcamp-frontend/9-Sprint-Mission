@@ -33,7 +33,7 @@ const BestItem = () => {
       if (window.innerWidth >= 1200) {
         // 데스크탑 사이즈
         setPageSize(PAGESIZE_DEFAULT);
-      } else if (window.innerWidth >= 768) {
+      } else if (window.innerWidth >= 744) {
         // 태블릿 사이즈
         setPageSize(PAGESIZE_TABLET);
       } else {
@@ -56,7 +56,7 @@ const BestItem = () => {
     <div className="Best-Items">
       {bestItems.slice(0, pageSize).map((item) => (
         <div key={item.id} className="Item">
-          <img src={item.images} alt={item.name} width="282" />
+          <img className="Best-Item-Img" src={item.images} alt={item.name} width="282" />
           <p>{item.name}</p>
           <p>{item.price.toLocaleString()}원</p>
           <p className="Favorite">

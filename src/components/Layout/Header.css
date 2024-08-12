@@ -12,6 +12,11 @@
   border-bottom: 1px solid #dfdfdf;
 }
 
+@media (max-width: 1200px) {
+  .Header {
+    padding: 0 24px;
+  }
+}
 .Header a:hover {
   color: var(--blue);
 }
@@ -27,4 +32,17 @@
   gap: 30px;
   font-size: 18px;
   font-weight: 700;
+}
+
+@media (max-width: 744px) {
+  .header-left-wrap {
+    gap: 16px;
+  }
+  .header-menu-wrap {
+    font-size: 16px;
+    gap: 8px;
+  }
+  .header-left-wrap .logo {
+    width: 100px;
+  }
 }

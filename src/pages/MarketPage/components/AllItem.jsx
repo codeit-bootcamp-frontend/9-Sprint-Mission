@@ -35,18 +35,14 @@ const AllItem = ({ searchKeyword, orderBy }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth <= 1920) {
-        console.log('데스크탑', window.innerWidth);
-
+      if (window.innerWidth >= 1200) {
         // 데스크탑 사이즈
         setPageSize(PAGESIZE_DEFAULT);
-      } else if (window.innerWidth <= 768) {
-        console.log('태블릿', window.innerWidth);
+      } else if (window.innerWidth >= 744) {
         // 태블릿 사이즈
         setPageSize(PAGESIZE_TABLET);
       } else {
         // 모바일 사이즈
-        console.log('모바일   ', window.innerWidth);
         setPageSize(PAGESIZE_MOBILE);
       }
     };
@@ -68,14 +64,13 @@ const AllItem = ({ searchKeyword, orderBy }) => {
 
   // 총 페이지 수 계산
   const totalPages = Math.ceil(totalCount / pageSize);
-  console.log('페이지', page, '총페이지', totalPages);
 
   return (
     <div>
       <div className="All-Items">
         {items.map((item) => (
-          <div key={item.id} className="Item">
-            <img src={item.images} alt={item.name} width="200" />
+          <div className="Item" key={item.id}>
+            <img className="All-Item-Img" src={item.images} alt={item.name} width="200" />
             <p>{item.name}</p>
             <p>{item.price.toLocaleString()}원</p>
             <p className="Favorite">

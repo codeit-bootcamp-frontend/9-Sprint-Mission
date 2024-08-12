@@ -1,35 +1,88 @@
-@font-face {
-  font-family: 'Pretendard-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-}
-
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+/* css초기화 */
 * {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-size: 62.5%;
 }
 
-html {
-  --color-white: #ffffff;
-  --color-gray50: #f9fafb;
-  --color-gray100: #f3f4f6;
-  --color-gray200: #e5e7eb;
-  --color-gray400: #9ca3af;
-  --color-gray700: #374151;
-  --color-gray800: #1f2937;
-  --color-black: #111827;
-  --color-skyblue: #e6f2ff;
-  --color-theme: #3692ff;
-  --color-theme-hover: #1967d6;
-  --color-blue200: #3182f6;
-  --color-bg-skyblue: #cfe5ff;
+/* css 색상 변수등록*/
+
+:root {
+  --blue: #3692ff;
+
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
+
+  --gray-900-text: #e5e7eb;
+  --color-background: #cfe5ff;
+
+  --header-height: 70px;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #dfdfdf;
+  z-index: 999;
+}
+
+body {
+  color: var(--gray-700);
+  word-break: keep-all;
+  font-family: 'Pretendard Variable', Pretendard, 'Noto Sans KR', sans-serif;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 a {
-  cursor: pointer;
   text-decoration: none;
+  color: inherit;
+}
+
+img {
+  vertical-align: bottom;
+}
+
+main {
+  margin-top: 70px;
+}
+
+footer {
+  background-color: var(--gray-900);
+  color: #9ca3af;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 200px 108px 200px;
+  font-size: 16px;
 }
 
 .TopHeader {
@@ -93,7 +146,7 @@ a {
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+@media (max-width: 743px) {
   header {
     padding: 10px 16px;
   }

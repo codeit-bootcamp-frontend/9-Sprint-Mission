@@ -3,7 +3,7 @@ import Header from './components/Layout/Header';
 import MarketPage from './pages/MarketPage/MarketPage';
 import AddItemPage from './pages/AddItemPage/AddItemPage';
 import HomePage from './pages/HomePage/HomePage';
-import './styles/global.css';
+import './styles/index.css';
 import { CommunityPage } from './pages/CommunityPage/CommunityPage';
 
 function App() {

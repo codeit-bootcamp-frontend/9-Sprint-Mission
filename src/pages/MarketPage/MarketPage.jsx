@@ -21,7 +21,7 @@ const MarketPage = () => {
   };
 
   return (
-    <div className="App">
+    <div className="MarketPage">
       <div className="Search-Nav">
         <p>베스트 상품</p>
       </div>
