@@ -15,6 +15,7 @@
 .title {
     font-size: 20px;
     flex-grow: 1;
+    color: #111827;
 }
 
 .searchBar {
@@ -37,17 +38,15 @@
 }
 
 .dropdownButton {
+    width: 130px;
+    height: 42px;
     position: relative;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 24px;
     font-size: 16px;
-    font-weight: 400;
     border-radius: 12px;
     border: 1px solid #E5E7EB;
-    padding: 12px 20px;
     margin-left: 12px;
 }
 
@@ -103,4 +102,40 @@
     font-size: 12px;
     font-weight: 500;
     color: var(--gray600);
+}
+
+@media (max-width:1199px) {
+    .container {
+        width: 90vw;
+    }
+
+    .searchBar {
+        width: 242px;
+        height: 42px;
+    }
+
+    .registerButton {
+        width: 133px;
+        height: 42px;
+    }
+
+    .dropdownButton {
+        width: 130px;
+        height: 42px;
+    }
+
+    .itemsWrap {
+        grid-template-columns: 221px 221px 221px;
+        grid-template-rows: 317px 317px;
+        gap: 40px 16px;
+    }
+
+}
+
+@media (max-width:376px) {
+    .itemsWrap {
+        grid-template-columns: 168px 168px;
+        grid-template-rows: 264px 264px;
+        gap: 32px 8px;
+    }
 }

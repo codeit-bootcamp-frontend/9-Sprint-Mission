@@ -1,8 +1,8 @@
 .header {
-    height: 70px;
-    align-items: center;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
     padding: 0 200px;
     border-bottom: 1px solid #DFDFDF;
 }
@@ -23,14 +23,37 @@
     margin-left: 32px;
 }
 
-.pick1 {
+.list {
     font-size: 18px;
     padding: 15px 21px;
     color: #4B5563;
 }
 
-.pick2 {
-    font-size: 18px;
-    padding: 15px 21px;
-    color: #4B5563;
+@media (max-width:1199px) {
+    .header {
+        padding: 0 24px;
+    }
+}
+
+@media (max-width:376px) {
+    .header {
+        padding: 0 16px;
+    }
+
+    .logo {
+        width: 81px;
+        height: 27px;
+    }
+
+    .header-category {
+        display: flex;
+        flex-grow: 1;
+        margin-left: 8px;
+    }
+
+    .list {
+        font-size: 16px;
+        padding: 0 22px;
+        color: #4B5563;
+    }
 }
