@@ -4,17 +4,20 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import '../MarketPage.css';
 import { PagenationBar } from './PagenationBar';
 
-const PAGESIZE = 10;
+const PAGESIZE_DEFAULT = 10; // 데스크탑 사이즈 기본 페이지 사이즈
+const PAGESIZE_TABLET = 6; // 태블릿 사이즈 페이지 사이즈
+const PAGESIZE_MOBILE = 4; // 모바일 사이즈 페이지 사이즈
 
 const AllItem = ({ searchKeyword, orderBy }) => {
   const [page, setPage] = useState(1);
-  // const [orderBy, setOrderBy] = useState('recent');
-  const [keyword, setKeyword] = useState('');
   const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+  const [pageSize, setPageSize] = useState(PAGESIZE_DEFAULT);
 
   // 데이터 로딩 함수
   const handleAllDataLoad = async (options) => {
+    console.log('handleAllDataLoad', options.pageSizes);
+
     try {
       const data = await getItems(options);
       const { list, totalCount } = data;
@@ -27,8 +30,36 @@ const AllItem = ({ searchKeyword, orderBy }) => {
   };
 
   useEffect(() => {
-    handleAllDataLoad({ page, pageSize: PAGESIZE, orderBy, keyword: searchKeyword });
-  }, [page, orderBy, searchKeyword]); // page, orderBy, keyword가 변경될 때마다 데이터 로드
+    handleAllDataLoad({ page, pageSize, orderBy, keyword: searchKeyword });
+  }, [page, pageSize, orderBy, searchKeyword]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 1920) {
+        console.log('데스크탑', window.innerWidth);
+
+        // 데스크탑 사이즈
+        setPageSize(PAGESIZE_DEFAULT);
+      } else if (window.innerWidth <= 768) {
+        console.log('태블릿', window.innerWidth);
+        // 태블릿 사이즈
+        setPageSize(PAGESIZE_TABLET);
+      } else {
+        // 모바일 사이즈
+        console.log('모바일   ', window.innerWidth);
+        setPageSize(PAGESIZE_MOBILE);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    // 이벤트 리스너 등록
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup 함수
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // 페이지 변경 핸들러
   const handlePageChange = (newPage) => {
@@ -36,7 +67,8 @@ const AllItem = ({ searchKeyword, orderBy }) => {
   };
 
   // 총 페이지 수 계산
-  const totalPages = Math.ceil(totalCount / PAGESIZE);
+  const totalPages = Math.ceil(totalCount / pageSize);
+  console.log('페이지', page, '총페이지', totalPages);
 
   return (
     <div>

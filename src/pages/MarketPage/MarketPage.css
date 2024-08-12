@@ -30,6 +30,20 @@
   justify-items: center;
   padding: 24px 0;
   margin-bottom: 42px;
+  overflow-x: hidden;
+}
+/* 태블릿사이즈 */
+@media (max-width: 1200px) {
+  .All-Items {
+    padding: 24px 0;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+/* 모바일사이즈 */
+@media (max-width: 768px) {
+  .All-Items {
+    padding: 8px 0;
+  }
 }
 .Item {
   display: flex;
@@ -70,6 +84,19 @@
   padding: 24px 0;
 }
 
+@media (max-width: 1200px) {
+  .Best-Items {
+    padding: 16px 0;
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .Best-Items {
+    padding: 8px 0;
+    grid-template-columns: 1fr;
+  }
+}
 .Favorite {
   display: flex;
   align-items: center;

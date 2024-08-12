@@ -1,0 +1,119 @@
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+html {
+  --color-white: #ffffff;
+  --color-gray50: #f9fafb;
+  --color-gray100: #f3f4f6;
+  --color-gray200: #e5e7eb;
+  --color-gray400: #9ca3af;
+  --color-gray700: #374151;
+  --color-gray800: #1f2937;
+  --color-black: #111827;
+  --color-skyblue: #e6f2ff;
+  --color-theme: #3692ff;
+  --color-theme-hover: #1967d6;
+  --color-blue200: #3182f6;
+  --color-bg-skyblue: #cfe5ff;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.TopHeader {
+  margin-top: var(--header-height);
+}
+
+.pill-button {
+  font-size: 20px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 16px 126px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.button {
+  background-color: var(--blue);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+  background-color: #1967d6;
+}
+
+.button:focus {
+  background-color: #1251aa;
+}
+
+.button:disabled {
+  background-color: #9ca3af;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* Tablet */
+@media (max-width: 1200px) {
+  header {
+    padding: 10px 24px;
+  }
+  main {
+    margin-top: 0px;
+  }
+  footer {
+    padding: 32px 24px 160px 24px;
+  }
+
+  .wrapper {
+    padding: 0 24px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 16px;
+  }
+  main {
+    margin-top: 0px;
+  }
+  footer {
+    height: 160px;
+    padding: 32px;
+    position: relative;
+  }
+
+  .pill-button {
+    padding: 12px 71px;
+  }
+
+  .button {
+    padding: 12px 71px;
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 600;
+  }
+}

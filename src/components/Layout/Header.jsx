@@ -1,8 +1,8 @@
 import React from 'react';
 import './Header.css';
 import { Link, NavLink } from 'react-router-dom';
-import Logo from '../../assets/images/logo/logo.svg';
-import Profile from '../../assets/images/icons/ic-profile.png';
+import Logo from '../../api/assets/images/logo/logo.svg';
+import Profile from '../../api/assets/images/icons/ic-profile.png';
 
 const ActiveLinkStyle = ({ isActive }) => {
   console.log(isActive);

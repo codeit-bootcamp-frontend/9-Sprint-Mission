@@ -1,7 +1,7 @@
 export const getItems = async (params = {}) => {
   // 기본값을 params 객체의 프로퍼티로 할당
 
-  const { page = 1, pageSize = 10, orderBy = { orderBy }, keyword = { keyword } } = params;
+  const { page = 1, pageSize = 10, orderBy = 'orderBy', keyword = 'keyword' } = params;
 
   // 쿼리 문자열 생성
   const query = `page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`;

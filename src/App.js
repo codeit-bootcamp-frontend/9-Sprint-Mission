@@ -10,14 +10,14 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <div className="TopHeader">
+      <main className="TopHeader">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="community" element={<CommunityPage />} />
           <Route path="items" element={<MarketPage />} />
           <Route path="additem" element={<AddItemPage />} />
         </Routes>
-      </div>
+      </main>
     </BrowserRouter>
   );
 }
