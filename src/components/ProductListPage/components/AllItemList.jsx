@@ -72,7 +72,6 @@ function AllItemList() {
         </div>
         <ul className="product-list">
           {sortedItems.map((item) => {
-            // item은 배열의 요소
             return (
               <li key={item.id}>
                 <ItemBox item={item} />
