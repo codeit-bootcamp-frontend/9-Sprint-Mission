@@ -1,35 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { getProducts } from "../../../entities/item/api/items";
-import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
-import DropDownIcon from "../../../shared/assets/images/icons/dropdown.svg";
+import usePageSize, { SORT_TYPE } from "../lib/usePageSize";
+import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
+import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
+import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.svg";
 import Pagination from "../../../shared/ui/pagination";
 
-const getPageSize = () => {
-  const width = window.innerWidth;
-  if (width < 768) {
-    return 4;
-  } else if (width < 1280) {
-    return 6;
-  } else {
-    return 10;
-  }
-};
-
 function AllItemsSection() {
-  const [items, setItems] = useState([]);
+  const pageSize = usePageSize(SORT_TYPE.rescent);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(getPageSize());
-  const [totalCount, setTotalCount] = useState(0);
-  const [orderBy, setOrderBy] = useState("recent");
+  const { products, totalCount } = useProducts(
+    page,
+    pageSize,
+    SORT_TYPE.rescent
+  );
+  const [orderBy, setOrderBy] = useState(SORT_TYPE.rescent);
   const [isDropdown, setIsDropdown] = useState(false);
-
-  const handleFetchedItems = async (searchParams) => {
-    const responseInfo = await getProducts(searchParams);
-    setItems(responseInfo.data.list);
-    setTotalCount(responseInfo.data.totalCount);
-  };
 
   const handleSortDropdown = (sortType) => {
     setOrderBy(sortType);
@@ -43,16 +30,6 @@ function AllItemsSection() {
   const onPageChange = (pageNumber) => {
     setPage(pageNumber);
   };
-
-  useEffect(() => {
-    const handleResize = () => setPageSize(getPageSize());
-    window.addEventListener("resize", handleResize);
-    handleFetchedItems({ page, pageSize, orderBy });
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [page, pageSize, orderBy]);
 
   return (
     <div>
@@ -100,7 +77,7 @@ function AllItemsSection() {
       </div>
 
       <div className="allItemsCardSection">
-        {items?.map((item) => (
+        {products?.map((item) => (
           <ItemCard item={item} key={`market-item-${item.id}`} />
         ))}
       </div>
