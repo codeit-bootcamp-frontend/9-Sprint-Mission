@@ -8,14 +8,10 @@ import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.sv
 import Pagination from "../../../shared/ui/pagination";
 
 function AllItemsSection() {
-  const pageSize = usePageSize(SORT_TYPE.rescent);
+  const pageSize = usePageSize(SORT_TYPE.recent);
+  const [orderBy, setOrderBy] = useState(SORT_TYPE.recent);
   const [page, setPage] = useState(1);
-  const { products, totalCount } = useProducts(
-    page,
-    pageSize,
-    SORT_TYPE.rescent
-  );
-  const [orderBy, setOrderBy] = useState(SORT_TYPE.rescent);
+  const { products, totalCount } = useProducts(page, pageSize, orderBy);
   const [isDropdown, setIsDropdown] = useState(false);
 
   const handleSortDropdown = (sortType) => {
