@@ -5,6 +5,7 @@ import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
 import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
 import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.svg";
+import DropdownList from "../../../shared/ui/dropdownlist";
 import Pagination from "../../../shared/ui/pagination";
 
 function AllItemsSection() {
@@ -50,28 +51,13 @@ function AllItemsSection() {
           </Link>
         </div>
         <div className="sortButtonWrapper">
-          {isDropdown && (
-            <div className="dropdownList">
-              <div
-                className="dropdownItem"
-                onClick={() => handleSortDropdown("recent")}
-              >
-                최신순
-              </div>
-              <div
-                className="dropdownItem"
-                onClick={() => handleSortDropdown("favorite")}
-              >
-                인기순
-              </div>
-            </div>
-          )}
+          {isDropdown && <DropdownList onSortSelection={handleSortDropdown} />}
           <button
             className="sortDropdownTriggerButton"
             onClick={handleDropdown}
           >
             <div className="sortName">
-              {orderBy === "recent" ? "최신순" : "인기순"}
+              {orderBy === SORT_TYPE.recent ? "최신순" : "인기순"}
             </div>
             <DropDownIcon className="dropdownIcon" />
           </button>
