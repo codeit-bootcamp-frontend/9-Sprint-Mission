@@ -5,7 +5,19 @@ export const getProducts = async ({ orderBy = "recent" }) => {
   const response = await fetch(`${BASE_URL}/products${query}`);
 
   if (!response.ok) {
-    throw new Error("상품을 불러오는데 실패했습니다.");
+    throw new Error("전체 상품을 불러오는데 실패했습니다.");
+  }
+
+  const data = response.json();
+  return data;
+};
+
+export const getBestProducts = async () => {
+  const query = `?orderBy=favorite`;
+  const response = await fetch(`${BASE_URL}/products${query}`);
+
+  if (!response.ok) {
+    throw new Error("베스트 상품을 불러오는데 실패했습니다.");
   }
 
   const data = response.json();

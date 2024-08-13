@@ -38,3 +38,19 @@
   grid-template-columns: repeat(5, 250px);
   row-gap: 40px;
 }
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#pagination .button {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 100%;
+  cursor: pointer;
+}

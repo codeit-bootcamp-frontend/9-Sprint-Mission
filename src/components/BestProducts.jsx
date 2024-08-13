@@ -1,5 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getBestProducts } from "../utils/api";
+import Product from "./Product";
+import "./BestProducts.css";
 
 export default function BestProducts() {
-  return <div>베스트 상품</div>;
+  const [bestItems, setBestItems] = useState([]);
+
+  const handleLoadBestItems = async () => {
+    let result;
+
+    try {
+      result = await getBestProducts();
+    } catch (error) {
+      console.log(error);
+      return;
+    } finally {
+    }
+
+    const { list } = result;
+    const bestProducts = list.slice(0, 4);
+    console.log(bestProducts);
+
+    setBestItems([...bestProducts]);
+  };
+
+  useEffect(() => {
+    handleLoadBestItems();
+  }, []);
+
+  return (
+    <div>
+      <ul id='best-lists'>
+        {bestItems.map((item) => {
+          return (
+            <li key={item.id} className='product-list'>
+              <Product key={item.id} props={item} />
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
 }

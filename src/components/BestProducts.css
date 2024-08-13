@@ -1,0 +1,5 @@
+#best-lists {
+  display: grid;
+  grid-template-columns: repeat(4, 250px);
+  row-gap: 40px;
+}

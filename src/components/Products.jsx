@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+
 import "./Products.css";
 import { getProducts } from "../utils/api";
 import Product from "./Product";
@@ -58,14 +60,21 @@ export default function Products() {
           <ul id='product-lists'>
             {items.map((item) => {
               return (
-                <li className='product-list'>
-                  <Product props={item} />
+                <li key={item.id} className='product-list'>
+                  <Product key={item.id} props={item} />
                 </li>
               );
             })}
           </ul>
         </div>
-        <div id='pagination'></div>
+        <div id='pagination'>
+          <button className='button'>
+            <FaAngleLeft />
+          </button>
+          <button className='button'>
+            <FaAngleRight />
+          </button>
+        </div>
       </section>
     </>
   );
