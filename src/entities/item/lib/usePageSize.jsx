@@ -13,14 +13,15 @@ const getPageSize = (sortName) => {
   }
 };
 
-export default function usePageSize(sort = SORT_TYPE.recent) {
+function usePageSize(sort = SORT_TYPE.recent) {
   const [pageSize, setPageSize] = useState(getPageSize(sort));
 
   useEffect(() => {
     const handleResize = () => {
       setPageSize(getPageSize(sort));
-      window.addEventListener("resize", handleResize);
     };
+
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -29,3 +30,5 @@ export default function usePageSize(sort = SORT_TYPE.recent) {
 
   return pageSize;
 }
+
+export default usePageSize;

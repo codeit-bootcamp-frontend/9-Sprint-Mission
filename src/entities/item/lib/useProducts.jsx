@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../../../shared/api/items/items";
 
-export default function useProducts(page, pageSize, orderBy) {
-  const [products, setProducts] = useState([]);
+function useProducts(page, pageSize, orderBy) {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
-    const handleFetchedItems = async ({ page, pageSize, orderBy }) => {
-      const responseInfo = await getProducts({ page, pageSize, orderBy });
-      setProducts(responseInfo.data.list);
-      setTotalCount(responseInfo.data.totalCount);
+    const fetchItems = async ({ page, pageSize, orderBy }) => {
+      setLoading(true);
+      try {
+        const responseInfo = await getProducts({ page, pageSize, orderBy });
+        setItems(responseInfo.data.list);
+        setTotalCount(responseInfo.data.totalCount);
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    handleFetchedItems({ page, pageSize, orderBy });
+    fetchItems({ page, pageSize, orderBy });
   }, [page, pageSize, orderBy]);
 
-  return { products, totalCount };
+  return { items, totalCount };
 }
+
+export default useProducts;
