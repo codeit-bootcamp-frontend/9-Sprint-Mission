@@ -76,6 +76,7 @@ input,
 button,
 textarea,
 select {
+  border: 0;
   font: inherit;
   cursor: pointer;
 }
@@ -93,6 +94,7 @@ html {
   text-size-adjust: none;
   --color-white: #ffffff;
   --color-white-2: #e5e7eb;
+  --color-white-3: #f3f4f6;
   --color-gray-1: #374151;
   --color-gray-2: #9ca3af;
   --color-black: #1f2937;
@@ -113,6 +115,19 @@ input:focus {
 input::placeholder {
   color: var(--color-gray-2);
   font-size: 16px;
+}
+
+textarea {
+  width: 100%;
+  margin-top: 15px;
+  padding: 15px 24px;
+  border-radius: 12px;
+  background-color: var(--color-bg-input);
+}
+
+textarea:focus {
+  border: 2px solid var(--color-theme);
+  outline: none;
 }
 
 .form_input {
@@ -136,6 +151,32 @@ input::placeholder {
   width: 640px;
   max-width: 100%;
   margin: 0 auto;
+}
+.title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h2.pagetitle {
+  color: var(--color-black);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+h3.subtitle {
+  padding-top: 24px;
+  color: var(--color-black);
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.btnCancel {
+  display: block;
+  width: 24px;
+  height: 24px;
+  background: url("../images/icon/ic_X.svg") no-repeat center/22px auto;
+  text-indent: -9999px;
 }
 
 @media (max-width: 1200px) {

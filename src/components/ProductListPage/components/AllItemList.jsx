@@ -42,7 +42,7 @@ function AllItemList() {
     <>
       <div className="product-wrap">
         <div className="title-wrap">
-          <h2 className="list-title">전체 상품</h2>
+          <h2 className="pagetitle list-title">전체 상품</h2>
           <div className="search">
             <form method="get" action="">
               <div className="search-box">

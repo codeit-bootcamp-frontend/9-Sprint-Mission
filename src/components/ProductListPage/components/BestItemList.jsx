@@ -2,13 +2,12 @@ import { useEffect } from "react";
 import { getProducts } from "../../../Api";
 import { useState } from "react";
 import ItemBox from "./ItemBox";
-//import Paginations from "../../Pagination";
 
 function BestItemList() {
   const [itemList, setItemList] = useState([]); //eslint-disable-line no-unused-vars
   const [order, setOrder] = useState(""); //eslint-disable-line no-unused-vars
   const page = 1;
-  const pageSize = 10; // 페이지당 제품 수
+  const pageSize = 4; // 페이지당 제품 수
 
   useEffect(() => {
     async function fetchProducts() {
@@ -23,7 +22,7 @@ function BestItemList() {
   return (
     <>
       <div className="product-wrap">
-        <h2 className="list-title">베스트 상품</h2>
+        <h2 className="pagetitle">베스트 상품</h2>
         <ul className="product-list best">
           {bestItems?.map((item) => {
             return (

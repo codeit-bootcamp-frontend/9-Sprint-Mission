@@ -1,0 +1,44 @@
+.Additem {
+  padding: 25px 0 60px;
+}
+
+.btnAdditem {
+  display: block;
+  width: 74px;
+  height: 42px;
+  background-color: var(--color-gray-2);
+  border-radius: 8px;
+  color: var(--color-white-3);
+  font-weight: 600;
+  line-height: 42px;
+  transition: all 0.3s ease;
+}
+.btnAdditem.active {
+  background-color: var(--color-theme);
+}
+
+.textareaProduct {
+  min-height: 282px;
+}
+
+.hashtag {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px 12px;
+  margin-top: 14px;
+}
+
+.hashtag > li {
+  display: flex;
+  align-items: center;
+  gap: 0 8px;
+  padding: 5px 16px;
+  border-radius: 26px;
+  background-color: var(--color-bg-input);
+}
+
+.hashtag > li > span {
+  color: var(--color-black);
+}
