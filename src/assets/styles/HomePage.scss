@@ -1,0 +1,312 @@
+// pc
+main {
+  section {
+    &.main-top {
+      height: 540px;
+      background: $main-bg url('../images/img_home_top.png') 75% bottom no-repeat;
+      position: relative;
+
+      .tit-wrap {
+        gap: 32px;
+
+        .main-tit-btn {
+          width: 357px;
+          height: 56px;
+          font-size: 2rem;
+          color: #ffffff;
+          font-weight: 600;
+          border-radius: 40px;
+          background-color: $clr-blue;
+          transition: all ease 0.3s;
+          cursor: pointer;
+          @include flex-center();
+
+          &:hover {
+            background-color: $clr-blue-hover;
+            transition: all ease 0.3s;
+          }
+        }
+      }
+    }
+
+    &.main-bottom {
+      height: 540px;
+      background: $main-bg url('../images/img_home_bottom.png') 75% bottom no-repeat;
+      position: relative;
+    }
+
+    .tit-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+      inset: 0;
+    }
+
+    .main-tit {
+      font-size: 4rem;
+      color: $gray700;
+      font-weight: 700;
+      line-height: 56px;
+    }
+
+    &.main-middle {
+      .main-middle-wrap {
+        display: grid;
+        gap: 276px;
+        margin: 138px auto 276px;
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 64px;
+
+          &:nth-child(2) {
+            flex-direction: row-reverse;
+            text-align: right;
+          }
+
+          .tit-box {
+            display: grid;
+            gap: 12px;
+
+            .small-txt {
+              font-size: 1.8rem;
+              font-weight: 700;
+              color: $clr-blue;
+            }
+
+            .sub-txt {
+              font-size: 2.4rem;
+              font-weight: 500;
+              color: $gray700;
+              line-height: 28.8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// tablet
+@include tablet {
+  main {
+    section {
+      &.main-top {
+        height: 771px;
+        background: $main-bg url('../images/img_home_top.png') center bottom no-repeat;
+        background-size: contain;
+        position: relative;
+
+        .tit-wrap {
+          gap: 24px;
+          margin-top: 84px;
+
+          .main-tit-btn {
+            width: 357px;
+            height: 56px;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 40px;
+            background-color: $clr-blue;
+            transition: all ease 0.3s;
+            cursor: pointer;
+            @include flex-center();
+
+            &:hover {
+              background-color: $clr-blue-hover;
+              transition: all ease 0.3s;
+            }
+          }
+        }
+      }
+
+      &.main-bottom {
+        height: 927px;
+        background: $main-bg url('../images/img_home_bottom.png') center bottom no-repeat;
+        background-size: contain;
+        position: relative;
+
+        .tit-wrap {
+          margin-top: 201px;
+        }
+      }
+
+      .tit-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        inset: 0;
+      }
+
+      .main-tit {
+        color: $gray700;
+        font-weight: 700;
+        line-height: 56px;
+        text-align: center;
+
+        .br-none {
+          display: none;
+        }
+      }
+
+      &.main-middle {
+        .main-middle-wrap {
+          display: grid;
+          gap: 52px;
+          padding: 24px;
+          margin: 0 0 50px 0;
+
+          .main-tit {
+            font-size: 3.2rem;
+          }
+
+          li {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+
+            &:nth-child(2) {
+              flex-direction: column;
+              align-items: flex-end;
+              text-align: right;
+            }
+
+            .tit-box {
+              display: grid;
+              gap: 24px;
+
+              .small-txt {
+                font-weight: 700;
+                color: $clr-blue;
+              }
+
+              .sub-txt {
+                font-size: 1.8rem;
+                font-weight: 500;
+                color: $gray700;
+                line-height: 26px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// mobile
+@include mobile {
+  main {
+    section {
+      &.main-top {
+        height: 540px;
+        background: $main-bg url('../images/img_home_top.png') center bottom no-repeat;
+        background-size: 130%;
+        position: relative;
+
+        .tit-wrap {
+          gap: 24px;
+          margin-top: 48px;
+
+          .main-tit-btn {
+            width: 240px;
+            height: 48px;
+            font-size: 1.8rem;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 40px;
+            background-color: $clr-blue;
+            transition: all ease 0.3s;
+            cursor: pointer;
+            @include flex-center();
+
+            &:hover {
+              background-color: $clr-blue-hover;
+              transition: all ease 0.3s;
+            }
+          }
+        }
+      }
+
+      &.main-bottom {
+        height: 540px;
+        background: $main-bg url('../images/img_home_bottom.png') center bottom no-repeat;
+        background-size: contain;
+        position: relative;
+
+        .tit-wrap {
+          margin-top: 121px;
+        }
+      }
+
+      .tit-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        inset: 0;
+      }
+
+      .main-tit {
+        font-size: 3.2rem;
+        color: $gray700;
+        font-weight: 700;
+        line-height: 44.8px;
+        text-align: center;
+      }
+
+      &.main-middle {
+        .main-middle-wrap {
+          display: grid;
+          gap: 52px;
+          margin: 15px 15px 60px;
+
+          .main-tit {
+            font-size: 2.4rem;
+
+            .br-none {
+              display: none;
+            }
+          }
+
+          li {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+
+            &:nth-child(2) {
+              flex-direction: column;
+              align-items: flex-end;
+              text-align: right;
+            }
+
+            .tit-box {
+              display: grid;
+              gap: 16px;
+
+              .small-txt {
+                font-size: 1rem;
+                font-weight: 700;
+                color: $clr-blue;
+              }
+
+              .sub-txt {
+                font-size: 1.6rem;
+                font-weight: 500;
+                color: $gray700;
+                line-height: 25.2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

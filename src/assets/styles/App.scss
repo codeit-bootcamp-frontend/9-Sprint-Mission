@@ -3,6 +3,9 @@
 
 .App {
   @import 'Header';
-  @import 'Product';
-  @import 'Paging';
+  @import 'LoginPage';
+  @import 'HomePage';
+  @import 'ProductPage';
+  @import 'AdditemPage';
+  @import 'Footer';
 }

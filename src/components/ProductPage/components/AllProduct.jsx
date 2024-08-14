@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getPandaMarket } from '../../api';
+import { getPandaMarket } from '../../../api';
 import Search from './Search';
 import ItemCard from './ItemCard';
+import Pagination from './Pagination';
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -33,8 +34,8 @@ const AllProduct = () => {
   useEffect(() => {
     const handleResize = () => {
       setPageSize(getPageSize());
-      window.addEventListener('resize', handleResize);
     };
+    window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -58,6 +59,7 @@ const AllProduct = () => {
           <ItemCard item={item} key={item.id} />
         ))}
       </ul>
+      <Pagination />
     </div>
   );
 };

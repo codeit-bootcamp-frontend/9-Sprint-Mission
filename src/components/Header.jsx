@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logoImg from '../assets/images/logo.svg';
-import userIcon from '../assets/images/icon/user.svg';
+import userIcon from '../assets/images/icon/login.svg';
 
 const Header = () => {
   const getLinkStyle = ({ isActive }) => {
@@ -11,14 +11,14 @@ const Header = () => {
     <header className="Header">
       <div className="header-wrap">
         <h1 className="logo-wrap">
-          <NavLink to="/">
+          <Link to="/">
             <img src={logoImg} alt="판다마켓" />
-          </NavLink>
+          </Link>
         </h1>
         <nav className="menu-wrap">
           <ul>
             <li>
-              <NavLink to="/" style={getLinkStyle}>
+              <NavLink to="/community" style={getLinkStyle}>
                 자유게시판
               </NavLink>
             </li>
@@ -30,9 +30,9 @@ const Header = () => {
           </ul>
         </nav>
         <div className="user-wrap">
-          <NavLink to="/profile">
-            <img src={userIcon} alt="user" />
-          </NavLink>
+          <Link to="/login">
+            <img src={userIcon} alt="login" />
+          </Link>
         </div>
       </div>
     </header>

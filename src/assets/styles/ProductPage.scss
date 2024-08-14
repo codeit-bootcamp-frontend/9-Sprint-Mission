@@ -14,37 +14,6 @@
     margin: 3rem 0 2rem;
   }
 
-  // 검색 바
-  @import 'Search';
-
-  #product-best {
-    .product-wrap {
-      grid-template: repeat(1, 1fr) / repeat(4, 1fr);
-      gap: 16px;
-
-      @include tablet {
-        grid-template: repeat(1, 1fr) / repeat(2, 1fr);
-        @include mobile {
-          grid-template: repeat(1, 1fr) / repeat(1, 1fr);
-        }
-      }
-    }
-  }
-
-  #product-all {
-    .product-wrap {
-      grid-template: repeat(2, 1fr) / repeat(5, 1fr);
-      gap: 24px;
-
-      @include tablet {
-        grid-template: repeat(2, 1fr) / repeat(3, 1fr);
-        @include mobile {
-          grid-template: repeat(2, 1fr) / repeat(2, 1fr);
-        }
-      }
-    }
-  }
-
   .product-wrap {
     display: grid;
 
@@ -90,4 +59,40 @@
       }
     }
   }
+
+  // 베스트 상품
+  #product-best {
+    .product-wrap {
+      grid-template: repeat(1, 1fr) / repeat(4, 1fr);
+      gap: 16px;
+
+      @include tablet {
+        grid-template: repeat(1, 1fr) / repeat(2, 1fr);
+        @include mobile {
+          grid-template: repeat(1, 1fr) / repeat(1, 1fr);
+        }
+      }
+    }
+  }
+
+  // 전체 상품
+  #product-all {
+    .product-wrap {
+      grid-template: repeat(2, 1fr) / repeat(5, 1fr);
+      gap: 24px;
+
+      @include tablet {
+        grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+        @include mobile {
+          grid-template: repeat(2, 1fr) / repeat(2, 1fr);
+        }
+      }
+    }
+  }
+
+  // 검색 바
+  @import 'Search';
+
+  // 페이징네이션
+  @import 'Pagination';
 }

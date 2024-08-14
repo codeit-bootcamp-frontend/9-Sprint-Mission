@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPandaMarket } from '../../api';
+import { getPandaMarket } from '../../../api';
 import ItemCard from './ItemCard';
 
 const getPageSize = () => {
@@ -31,8 +31,8 @@ const BestProduct = () => {
   useEffect(() => {
     const handleResize = () => {
       setPageSize(getPageSize());
-      window.addEventListener('resize', handleResize);
     };
+    window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);

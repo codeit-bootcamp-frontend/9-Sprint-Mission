@@ -1,6 +1,6 @@
-const Paging = () => {
+const Pagination = () => {
   return (
-    <footer className="Paging">
+    <section className="Pagination">
       <div className="container">
         <div className="paging-wrap">
           <button type="button" className="left-arrow"></button>
@@ -14,8 +14,8 @@ const Paging = () => {
           <button type="button" className="right-arrow"></button>
         </div>
       </div>
-    </footer>
+    </section>
   );
 };
 
-export default Paging;
+export default Pagination;

@@ -1,0 +1,128 @@
+// pc
+footer {
+  display: flex;
+  height: 160px;
+  padding: 32px 200px;
+  background-color: $gray900;
+
+  .footer-wrap {
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 1520px;
+
+    p,
+    a {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: $gray400;
+    }
+
+    a {
+      cursor: pointer;
+    }
+
+    .footer-btn {
+      display: flex;
+      gap: 30px;
+
+      a {
+        color: $gray200;
+      }
+    }
+
+    .footer-icon {
+      display: flex;
+      gap: 12px;
+    }
+  }
+}
+
+// tablet
+@include tablet {
+  footer {
+    display: flex;
+    justify-content: center;
+    height: 160px;
+    padding: 32px 100px;
+    background-color: $gray900;
+
+    .footer-wrap {
+      display: flex;
+      justify-content: space-between;
+      flex-basis: 1520px;
+
+      p,
+      a {
+        font-weight: 400;
+        color: $gray400;
+      }
+
+      a {
+        cursor: pointer;
+      }
+
+      .footer-btn {
+        display: flex;
+        gap: 30px;
+
+        a {
+          color: $gray200;
+        }
+      }
+
+      .footer-icon {
+        display: flex;
+        gap: 12px;
+      }
+    }
+  }
+}
+
+// mobile
+@include mobile {
+  footer {
+    display: flex;
+    justify-content: center;
+    height: 160px;
+    padding: 32px;
+    background-color: $gray900;
+
+    .footer-wrap {
+      display: grid;
+      grid-template-areas:
+        'btn icon'
+        'copy copy';
+      gap: 60px;
+
+      p,
+      a {
+        font-weight: 400;
+        color: $gray400;
+      }
+
+      p {
+        grid-area: copy;
+      }
+
+      a {
+        cursor: pointer;
+      }
+
+      .footer-btn {
+        display: flex;
+        gap: 30px;
+        grid-area: btn;
+
+        a {
+          color: $gray200;
+        }
+      }
+
+      .footer-icon {
+        display: flex;
+        gap: 12px;
+        grid-area: icon;
+      }
+    }
+  }
+}
