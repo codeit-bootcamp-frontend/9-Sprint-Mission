@@ -5,7 +5,8 @@ import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
 import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
 import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.svg";
-import Pagination from "../../../shared/ui/Pagination";
+import DropdownList from "./dropdownlist";
+import Pagination from "./pagination";
 
 function AllItemsSection() {
   const pageSize = usePageSize(SORT_TYPE.recent);
@@ -50,6 +51,7 @@ function AllItemsSection() {
           </Link>
         </div>
         <div className="sortButtonWrapper">
+          {isDropdown && <DropdownList onSortSelection={handleSortDropdown} />}
           <button
             className="sortDropdownTriggerButton"
             onClick={handleDropdown}
