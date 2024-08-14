@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { getItems } from '../../../api/api';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import '../MarketPage.css';
 import { PagenationBar } from './PagenationBar';
-import { PagenationButton } from './PagenationButton';
 
 const PAGESIZE_DEFAULT = 10; // 데스크탑 사이즈 기본 페이지 사이즈
 const PAGESIZE_TABLET = 6; // 태블릿 사이즈 페이지 사이즈
@@ -13,26 +12,27 @@ const AllItem = ({ searchKeyword, orderBy }) => {
   const [page, setPage] = useState(1);
   const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
-  const [pageSize, setPageSize] = useState(PAGESIZE_DEFAULT);
+  const [pageSize, setPageSize] = useState(null);
+
+  const QUERY = useMemo(() => ({ page, pageSize, orderBy, keyword: searchKeyword }), [page, pageSize, orderBy, searchKeyword]);
 
   // 데이터 로딩 함수
-  const handleAllDataLoad = async (options) => {
-    console.log('handleAllDataLoad', options.pageSizes);
-
+  const handleAllDataLoad = async (QUERY) => {
     try {
-      const data = await getItems(options);
+      const data = await getItems(QUERY);
       const { list, totalCount } = data;
       setItems(list);
       setTotalCount(totalCount);
-      console.log(list, totalCount);
     } catch (error) {
       console.error('Failed to fetch items', error);
     }
   };
 
   useEffect(() => {
-    handleAllDataLoad({ page, pageSize, orderBy, keyword: searchKeyword });
-  }, [page, pageSize, orderBy, searchKeyword]);
+    if (pageSize !== null) {
+      handleAllDataLoad(QUERY);
+    }
+  }, [pageSize, QUERY]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,9 +59,7 @@ const AllItem = ({ searchKeyword, orderBy }) => {
   }, []);
 
   // 페이지 변경 핸들러
-  const handlePageChange = (newPage) => {
-    setPage(newPage);
-  };
+  const handlePageChange = (newPage) => setPage(newPage);
 
   // 총 페이지 수 계산
   const totalPages = Math.ceil(totalCount / pageSize);
@@ -81,8 +79,8 @@ const AllItem = ({ searchKeyword, orderBy }) => {
           </div>
         ))}
       </div>
-      {/* <PagenationBar page={page} totalPages={totalPages} onPageChange={handlePageChange} /> */}
-      <PagenationButton />
+      <PagenationBar totalPages={totalPages} onPageChange={handlePageChange} />
+      {/* <PagenationButton /> */}
     </div>
   );
 };

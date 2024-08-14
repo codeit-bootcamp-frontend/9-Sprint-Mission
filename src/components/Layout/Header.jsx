@@ -5,8 +5,6 @@ import Logo from '../../api/assets/images/logo/logo.svg';
 import Profile from '../../api/assets/images/icons/ic-profile.png';
 
 const ActiveLinkStyle = ({ isActive }) => {
-  console.log(isActive);
-
   return { color: isActive ? 'var(--blue)' : undefined };
 };
 
