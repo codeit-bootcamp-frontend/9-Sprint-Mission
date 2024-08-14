@@ -5,7 +5,7 @@ import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
 import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
 import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.svg";
-import DropdownList from "./dropdownlist";
+import DropdownList from "./dropdown-list";
 import Pagination from "./pagination";
 
 function AllItemsSection() {
