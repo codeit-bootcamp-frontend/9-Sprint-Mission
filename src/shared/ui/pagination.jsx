@@ -1,20 +1,15 @@
-import { useState, useEffect } from "react";
 import "./pagination.css";
-import LeftArrow from "../../../shared/assets/images/icons/arrow_left.svg";
-import RightArrow from "../../../shared/assets/images/icons/arrow_right.svg";
+import LeftArrow from "../assets/images/icons/arrow_left.svg";
+import RightArrow from "../assets/images/icons/arrow_right.svg";
+
+const VISIBLE_PAGES = 5;
 
 const Pagination = ({ totalCount, pageSize, currentPage, onPageChange }) => {
-  const visiblePages = 5;
   const totalPages = Math.ceil(totalCount / pageSize);
-  const [start, setStart] = useState(1);
+  const start =
+    Math.floor((currentPage - 1) / VISIBLE_PAGES) * VISIBLE_PAGES + 1;
   const isFirst = start === 1;
-  const isLast = start + (visiblePages - 1) >= totalPages;
-
-  useEffect(() => {
-    if (currentPage === start + visiblePages)
-      setStart((prev) => prev + visiblePages);
-    if (currentPage < start) setStart((prev) => prev - visiblePages);
-  }, [currentPage, visiblePages, start]);
+  const isLast = start + (VISIBLE_PAGES - 1) >= totalPages;
 
   return (
     <div className="pagination">
@@ -24,7 +19,7 @@ const Pagination = ({ totalCount, pageSize, currentPage, onPageChange }) => {
       >
         <LeftArrow />
       </button>
-      {[...Array(visiblePages)].map((page, i) => (
+      {[...Array(VISIBLE_PAGES)].map((_, i) => (
         <>
           {start + i <= totalPages && (
             <button
@@ -40,7 +35,7 @@ const Pagination = ({ totalCount, pageSize, currentPage, onPageChange }) => {
         </>
       ))}
       <button
-        onClick={() => onPageChange(start + visiblePages)}
+        onClick={() => onPageChange(start + VISIBLE_PAGES)}
         className={`paginationButton ${isLast && "invisible"}`}
       >
         <RightArrow />

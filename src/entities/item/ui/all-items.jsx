@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import usePageSize, { SORT_TYPE } from "../lib/usePageSize";
 import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
 import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
 import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.svg";
-import DropdownList from "./dropdown-list";
-import Pagination from "./pagination";
+import DropdownList from "../../../shared/ui/dropdown-list";
+import Pagination from "../../../shared/ui/pagination";
 
 function AllItemsSection() {
   const pageSize = usePageSize(SORT_TYPE.recent);
@@ -27,12 +27,6 @@ function AllItemsSection() {
   const onPageChange = (pageNumber) => {
     setPage(pageNumber);
   };
-
-  // window resize 시 데이터 재요청
-  useEffect(() => {
-    // 아이템 목록을 가져오는 훅이 이미 사용 중이므로, 별도로 호출할 필요 없음
-    // 상태를 변경할 수 있는 방법은 useProducts 훅 내에서 useEffect를 통해 관리됨
-  }, [pageSize]);
 
   return (
     <div>
