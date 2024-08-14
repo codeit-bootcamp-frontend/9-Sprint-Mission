@@ -5,7 +5,6 @@ import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
 import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
 import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.svg";
-import DropdownList from "../../../shared/ui/Dropdownlist";
 import Pagination from "../../../shared/ui/Pagination";
 
 function AllItemsSection() {
@@ -51,7 +50,6 @@ function AllItemsSection() {
           </Link>
         </div>
         <div className="sortButtonWrapper">
-          {isDropdown && <DropdownList onSortSelection={handleSortDropdown} />}
           <button
             className="sortDropdownTriggerButton"
             onClick={handleDropdown}
