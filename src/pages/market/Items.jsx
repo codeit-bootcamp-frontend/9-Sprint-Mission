@@ -1,6 +1,6 @@
 import React from "react";
-import BestItemsSection from "./components/best-items";
-import AllItemsSection from "./components/all-items";
+import BestItemsSection from "../../entities/item/ui/best-items";
+import AllItemsSection from "../../entities/item/ui/all-items";
 import "./Items.css";
 
 function ItemsPage() {
