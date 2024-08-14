@@ -1,4 +1,3 @@
-import React from "react";
 import "./DropdownList.css";
 
 function DropdownList({ onSortSelection }) {
