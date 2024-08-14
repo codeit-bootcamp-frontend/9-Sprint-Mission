@@ -1,5 +1,5 @@
 import React from "react";
-import "./dropdownList.css";
+import "./DropdownList.css";
 
 function DropdownList({ onSortSelection }) {
   return (
