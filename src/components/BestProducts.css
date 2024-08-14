@@ -1,5 +1,14 @@
 #best-lists {
   display: grid;
-  grid-template-columns: repeat(4, 250px);
-  row-gap: 40px;
+  grid-template-columns: repeat(4, 282px);
+  gap: 16px;
+}
+
+.product-item .best-image {
+  width: 282px;
+  height: 282px;
+}
+
+#best-products {
+  margin-top: 40px;
 }

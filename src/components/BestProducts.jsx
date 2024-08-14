@@ -29,12 +29,12 @@ export default function BestProducts() {
   }, []);
 
   return (
-    <div>
+    <div className='wrapper' id='best-products'>
       <ul id='best-lists'>
         {bestItems.map((item) => {
           return (
             <li key={item.id} className='product-list'>
-              <Product key={item.id} props={item} />
+              <Product key={item.id} props={item} isBestProducts={true} />
             </li>
           );
         })}

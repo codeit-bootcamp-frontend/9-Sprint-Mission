@@ -2,6 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 40px;
+  width: 1150px;
 }
 
 #search-bar .right {
@@ -33,10 +36,14 @@
   border-radius: 12px;
 }
 
+#all-products {
+  margin-top: 40px;
+}
 #product-lists {
   display: grid;
-  grid-template-columns: repeat(5, 250px);
+  grid-template-columns: repeat(5, 221px);
   row-gap: 40px;
+  gap: 16px;
 }
 
 #pagination {
@@ -44,6 +51,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-top: 40px;
 }
 
 #pagination .button {

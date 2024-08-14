@@ -5,11 +5,21 @@ import "./Products.css";
 import { getProducts } from "../utils/api";
 import Product from "./Product";
 
-export default function Products() {
+// 보여줄 페이지 갯수
+const PAGE_COUNT = 5;
+
+export default function Products({ itemCountPerPage }) {
   const [items, setItems] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [orderBy, setOrderBy] = useState("recent");
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [start, setStart] = useState(1); // 시작 페이지 설정
+
+  const totalPages = Math.ceil(totalCount / itemCountPerPage); // 총 페이지 개수
+  const noPrev = start === 1; // 이전 페이지가 없는 경우
+  const noNext = start + PAGE_COUNT - 1 >= totalCount; // 다음 페이지가 없는 경우
 
   const loadProducts = async (options) => {
     let result;
@@ -24,9 +34,9 @@ export default function Products() {
     } finally {
       setIsLoading(false);
     }
-    const { list } = result;
+    const { list, totalCount } = result;
     setItems(list);
-
+    setTotalCount(totalCount);
     // pagination 구현하기 offset 이용
   };
 
@@ -34,9 +44,32 @@ export default function Products() {
     setOrderBy(e.target.value);
   };
 
+  const handlePrev = () => {
+    setCurrentPage(start - 1);
+  };
+
+  const handleNext = () => {
+    setCurrentPage(start + PAGE_COUNT);
+  };
+
+  const handlePageClick = (e) => {
+    // console.log(e.target.value);
+    setCurrentPage(Number(e.target.innerText));
+  };
+
   useEffect(() => {
-    loadProducts({ orderBy });
-  }, [orderBy]);
+    loadProducts({ orderBy, currentPage, itemCountPerPage });
+  }, [orderBy, currentPage, itemCountPerPage]);
+
+  useEffect(() => {
+    if (currentPage === start + PAGE_COUNT) {
+      setStart((prev) => prev + PAGE_COUNT);
+    }
+
+    if (currentPage < start) {
+      setStart((prev) => prev - PAGE_COUNT);
+    }
+  }, [currentPage, PAGE_COUNT, start]);
 
   return (
     <>
@@ -55,8 +88,8 @@ export default function Products() {
           </div>
         </div>
       </section>
-      <section>
-        <div>
+      <section id='all-products'>
+        <div className='wrapper'>
           <ul id='product-lists'>
             {items.map((item) => {
               return (
@@ -68,10 +101,29 @@ export default function Products() {
           </ul>
         </div>
         <div id='pagination'>
-          <button className='button'>
+          <button className='button' disabled={noPrev} onClick={handlePrev}>
             <FaAngleLeft />
           </button>
-          <button className='button'>
+          {[...Array(PAGE_COUNT)].map((_, i) => {
+            // start + i가 totalPages 이하인 경우에만 버튼을 렌더링
+            if (start + i <= totalCount) {
+              return (
+                <li key={i}>
+                  <button
+                    className={
+                      currentPage === start + i ? "active button" : "button"
+                    }
+                    onClick={handlePageClick}
+                  >
+                    {start + i}
+                  </button>
+                </li>
+              );
+            }
+            // 조건이 맞지 않으면 null을 반환
+            return null;
+          })}
+          <button className='button' disabled={noNext} onClick={handleNext}>
             <FaAngleRight />
           </button>
         </div>
