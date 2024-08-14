@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./pagination.css";
-import LeftArrow from "../assets/images/icons/arrow_left.svg";
-import RightArrow from "../assets/images/icons/arrow_right.svg";
+import LeftArrow from "../../../shared/assets/images/icons/arrow_left.svg";
+import RightArrow from "../../../shared/assets/images/icons/arrow_right.svg";
 
 const Pagination = ({ totalCount, pageSize, currentPage, onPageChange }) => {
   const visiblePages = 5;
