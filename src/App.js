@@ -15,12 +15,14 @@ function App() {
         <Header />
 
         <Routes>
-          <Route path="/" element={<Navigate to="/additem" />} />
+          <Route path="/" element={<Navigate to="items/additem" />} />
           {/* <Route path="/" index element={<HomePage />} /> */}
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="items" element={<Product />} />
-          <Route path="additem" element={<Additem />} />
+          <Route path="items">
+            <Route index element={<Product />} />
+            <Route path=":additem" element={<Additem />} />
+          </Route>
         </Routes>
 
         <Footer />

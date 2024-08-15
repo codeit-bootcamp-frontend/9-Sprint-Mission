@@ -7,7 +7,7 @@ const Search = ({ handleChangeSelect }) => {
         <input placeholder="검색할 상품을 입력해주세요" />
         <button type="button" className="search-button"></button>
       </form>
-      <Link to="/additem" className="product-button">
+      <Link to="/items/additem" className="product-button">
         상품 등록하기
       </Link>
       <select className="product-select" name="search" onChange={handleChangeSelect}>

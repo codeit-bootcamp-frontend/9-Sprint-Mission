@@ -4,6 +4,12 @@
   .AdditemForm {
     display: grid;
     gap: 32px;
+    @include tablet {
+      padding: 0 24px;
+      @include mobile {
+        padding: 0 15px;
+      }
+    }
 
     .AdditemForm-submit-wrap {
       display: flex;
@@ -23,6 +29,10 @@
         background-color: $gray400;
         border-radius: 8px;
         padding: 12px 32px;
+
+        &.active {
+          background-color: $clr-blue;
+        }
       }
     }
 
@@ -55,42 +65,88 @@
           height: 282px;
           resize: none;
         }
+
+        &:focus {
+          outline: none;
+          border: 3px solid $clr-blue;
+          transition: all ease 0.1s;
+        }
       }
 
       .AdditemForm-FileInput-wrap {
         display: flex;
+        gap: 24px;
+        @include tablet {
+          gap: 10px;
+        }
 
-        .AdditemForm-file {
-          position: relative;
-          width: 282px;
-          height: 282px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          border-radius: 12px;
-          background-color: $gray100;
-          gap: 12px;
+        .AdditemForm-file-wrap {
+          .AdditemForm-file {
+            position: relative;
+            width: 282px;
+            height: 282px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background-color: $gray100;
+            gap: 12px;
+            @include tablet {
+              width: 168px;
+              height: 168px;
+            }
 
-          input[type='file'] {
-            opacity: 0;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
-          }
+            input[type='file'] {
+              opacity: 0;
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              cursor: pointer;
+            }
 
-          span {
-            font-size: 1.6rem;
-            font-weight: 400;
-            color: $gray400;
+            span {
+              font-size: 1.6rem;
+              font-weight: 400;
+              color: $gray400;
+            }
           }
         }
 
-        .reset-button {
-          background: none;
+        .AdditemForm-img-wrap {
+          position: relative;
+
+          .AdditemForm-img {
+            width: 282px;
+            height: 282px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: block;
+            object-position: center;
+            object-fit: cover;
+            @include tablet {
+              width: 168px;
+              height: 168px;
+            }
+          }
+
+          .reset-button {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+          }
+        }
+      }
+
+      .AdditemForm-error {
+        font-size: 1.6rem;
+        font-weight: 400;
+        color: $clr-red;
+        @include tablet {
+          font-size: 1.4rem;
         }
       }
     }
