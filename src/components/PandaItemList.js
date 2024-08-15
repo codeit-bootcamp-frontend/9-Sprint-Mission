@@ -3,23 +3,23 @@ import heartIcon from "../img/ic_heart.png";
 
 function PandaItem({ item }) {
   return (
-    <div className="panda-item">
+    <a href="#" className="panda-item">
       <img
         className="product-img"
         src={item.images}
-        alt="제품 이미지"
+        alt=""
         width="220"
         height="220"
       />
       <div className="item-description">
-        <p className="item-name">{item.name}</p>
+        <b className="item-name">{item.name}</b>
         <strong className="item-price">{item.price.toLocaleString()}원</strong>
         <div className="favorite-count">
           <img src={heartIcon} alt="하트" width="16" height="16" />
           <p className="favorite-count">{item.favoriteCount}</p>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 

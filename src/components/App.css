@@ -1,7 +1,10 @@
 html {
   font-family: "Pretendard", "sans-serif";
-  box-sizing: border-box; /*적용이 안됨 왜지*/
   font-size: 62.5%;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 li {
@@ -27,7 +30,6 @@ a:active {
 nav {
   position: fixed;
   top: 0;
-  box-sizing: border-box;
 
   height: 70px;
   width: 100%;
@@ -108,6 +110,7 @@ p {
 .item-name {
   font-size: 1.4rem;
   line-height: 2.4rem;
+  font-weight: 600;
 }
 .item-price {
   font-size: 1.6rem;
@@ -137,14 +140,13 @@ p {
   padding: 9px 16px;
   border-radius: 8px;
   margin-right: 8px;
-  box-sizing: border-box;
   width: 320px;
   height: 42px;
 }
 .search-input {
   background-color: #f3f4f6;
   border: none;
-  width: 200px;
+  width: 250px;
   padding-right: 40px;
 }
 .search-input::placeholder {
@@ -155,7 +157,6 @@ p {
   outline: none;
 }
 .add-btn {
-  box-sizing: border-box;
   width: 132px;
   height: 42px;
   border-radius: 8px;

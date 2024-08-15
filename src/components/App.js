@@ -65,15 +65,15 @@ function App() {
       <Header />
       <main>
         <section>
-          <div className="section-title">
+          <h2 className="section-title">
             <div>베스트 상품</div>
-          </div>
+          </h2>
           <div className="best-items">
             <PandaItemList items={bestItems} />
           </div>
         </section>
         <section>
-          <div className="section-title">
+          <h2 className="section-title">
             <div>전체 상품</div>
             <div className="option-wrapper">
               <form onSubmit={handleSearchSubmit}>
@@ -89,17 +89,15 @@ function App() {
                     name="search"
                     placeholder="검색할 상품을 입력해주세요"
                   ></input>
-                  <button type="submit" style={{ display: "none" }}></button>
                 </div>
               </form>
-
               <NavLink to="/additem">
                 <button type="button" className="add-btn">
                   상품 등록하기
                 </button>
               </NavLink>
             </div>
-          </div>
+          </h2>
           <div className="all-items">
             <PandaItemList items={allItems} />
           </div>
