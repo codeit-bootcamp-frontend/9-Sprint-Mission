@@ -1,0 +1,57 @@
+.image-upload-wrapper {
+  display: flex;
+  align-items: flex-start; /* Align items to the top */
+  justify-content: flex-start; /* Align items to the left */
+  width: 100%;
+  margin: 0 0 10px;
+}
+
+.image-upload-placeholder {
+  width: 200px;
+  height: 200px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #ccc;
+  cursor: pointer;
+  margin-right: 20px; /* Space between placeholder and image preview */
+}
+
+.image-upload-placeholder img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+}
+
+.image-upload-input {
+  visibility: hidden;
+}
+
+.image-preview {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-remove-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}

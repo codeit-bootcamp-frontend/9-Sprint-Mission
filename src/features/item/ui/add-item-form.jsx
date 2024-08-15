@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./add-item-form.css";
 import addProducts from "../../../shared/api/items/add-item";
+import ImageUpload from "../../../shared/ui/image-upload";
 
 const AddItemForm = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [tags, setTags] = useState([]);
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleNameChange = (e) => setName(e.target.value);
@@ -16,13 +17,11 @@ const AddItemForm = () => {
   const handleTagsChange = (e) => {
     setTags(e.target.value.split(",").map((tag) => tag.trim()));
   };
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
-  };
 
-  const validateForm = () => {
-    setIsFormValid(name && description && price > 0 && image);
-  };
+  useEffect(() => {
+    const isFormFilled = name && description && price > 0 && tags.length > 0;
+    setIsFormValid(isFormFilled);
+  }, [name, description, price, tags]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,8 +35,8 @@ const AddItemForm = () => {
     formData.append("tags", JSON.stringify(tags));
     // https://panda-market-api.vercel.app/images/upload
     // 위 API 로 먼저 image를 올린 후에 url 을 받아서 image 항목에 입력함
-    if (image) {
-      formData.append("image", image);
+    if (images.length > 0) {
+      formData.append("images", images);
     }
 
     const responseInfo = await addProducts(formData);
@@ -47,59 +46,55 @@ const AddItemForm = () => {
   return (
     <form className="add-item-container" onSubmit={handleSubmit}>
       <div className="item-header">
-        <h2>상품 등록하기</h2>
+        <div className="item-title">상품 등록하기</div>
         <button className="submit-button" type="submit" disabled={!isFormValid}>
           등록
         </button>
       </div>
-      <div className="image-upload">
-        <div>
-          <input
-            type="file"
-            onChange={handleImageChange}
-            onBlur={validateForm}
-          />
-        </div>
-        {image && (
-          <div>
-            <img src={URL.createObjectURL(image)} alt="상품 이미지" />
-          </div>
-        )}
+      <div className="form-group">
+        <label htmlFor="imageUpload">상품 이미지</label>
+        <br />
+        <ImageUpload
+          id="imageUpload"
+          image={images[0]}
+          setImage={setImages[0]}
+        />
       </div>
       <div className="form-group">
         <label htmlFor="name">상품명</label>
+        <br />
         <input
           type="text"
           id="name"
           value={name}
           onChange={handleNameChange}
-          onBlur={validateForm}
           placeholder="상품명을 입력해주세요"
         />
       </div>
       <div className="form-group">
         <label htmlFor="description">상품 소개</label>
+        <br />
         <textarea
           id="description"
           value={description}
           onChange={handleDescriptionChange}
-          onBlur={validateForm}
           placeholder="상품 소개를 입력해주세요"
         />
       </div>
       <div className="form-group">
         <label htmlFor="price">판매가격</label>
+        <br />
         <input
-          type="text"
+          type="number"
           id="price"
           value={price}
           onChange={handlePriceChange}
-          onBlur={validateForm}
           placeholder="판매 가격을 입력해주세요"
         />
       </div>
       <div className="form-group">
         <label htmlFor="tags">태그</label>
+        <br />
         <input
           type="text"
           id="tags"
