@@ -3,49 +3,33 @@ import { getPandaMarket } from '../../../api';
 import Search from './Search';
 import ItemCard from './ItemCard';
 import Pagination from './Pagination';
-
-const getPageSize = () => {
-  const width = window.innerWidth;
-  if (width < 768) {
-    return 4;
-  } else if (width < 1200) {
-    return 6;
-  } else {
-    return 10;
-  }
-};
+import usePageSize, { orderByType } from '../../hooks/usePageSize';
 
 const AllProduct = () => {
+  const pageSize = usePageSize(orderByType.recent);
   const [allItems, setAllItems] = useState([]);
-  const [sortOrder, setSortOrder] = useState('recent');
-  const [pageSize, setPageSize] = useState(getPageSize());
+  const [orderBy, setOrderBy] = useState('recent');
+  const [page, setPage] = useState(1);
+  const [totalPageNum, setTotalPageNum] = useState();
 
-  // pageSize와 sortOrder 변경 시 데이터 로드
   useEffect(() => {
-    const fetchPandaMarket = async () => {
-      const products = await getPandaMarket({ orderBy: sortOrder, pageSize });
+    const fetchPandaMarket = async ({ orderBy, pageSize, page }) => {
+      const products = await getPandaMarket({ orderBy, pageSize, page });
       setAllItems(products.list);
+      setTotalPageNum(Math.ceil(products.totalCount) / pageSize);
     };
 
-    fetchPandaMarket();
-  }, [sortOrder, pageSize]);
-
-  // 페이지 크기 변경 시 pageSize 업데이트
-  useEffect(() => {
-    const handleResize = () => {
-      setPageSize(getPageSize());
-    };
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    fetchPandaMarket({ orderBy, pageSize, page });
+  }, [orderBy, pageSize, page]);
 
   // 셀렉트 박스 이벤트 핸들러
   const handleChangeSelect = event => {
     const order = event.target.value;
-    setSortOrder(order);
+    setOrderBy(order);
+  };
+
+  const onPageChange = pageNumber => {
+    setPage(pageNumber);
   };
 
   return (
@@ -59,7 +43,7 @@ const AllProduct = () => {
           <ItemCard item={item} key={item.id} />
         ))}
       </ul>
-      <Pagination />
+      <Pagination totalPageNum={totalPageNum} activePageNum={page} onPageChange={onPageChange} />
     </div>
   );
 };

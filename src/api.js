@@ -1,8 +1,11 @@
-export async function getPandaMarket({ orderBy, pageSize }) {
+export async function getPandaMarket(params = {}) {
+  // URLSearchParams을 이용하면 파라미터 값을 자동으로 쉽게 인코딩할 수 있다.
+  const query = new URLSearchParams(params).toString();
   try {
-    const response = await fetch(
-      `https://panda-market-api.vercel.app/products?orderBy=${orderBy}&pageSize=${pageSize}`,
-    );
+    const response = await fetch(`https://panda-market-api.vercel.app/products?${query}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
     const body = await response.json();
     return body;
   } catch (error) {
