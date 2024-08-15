@@ -10,8 +10,21 @@ const ImageUpload = ({ image, setImage }) => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result);
+        if (reader.result) {
+          try {
+            setImage(reader.result);
+          } catch (error) {
+            console.error("setImage error: ", error);
+          }
+        } else {
+          console.error("FileReader result error");
+        }
       };
+
+      reader.onerror = () => {
+        console.error("Failed to read the file");
+      };
+
       reader.readAsDataURL(file);
     }
   };
