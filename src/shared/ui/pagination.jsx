@@ -13,17 +13,18 @@ const Pagination = ({ totalCount, pageSize, currentPage, onPageChange }) => {
 
   return (
     <div className="pagination">
-      <button
-        onClick={() => onPageChange(start - 1)}
-        className={`paginationButton ${isFirst && "invisible"}`}
-      >
-        <LeftArrow />
-      </button>
+      <div>
+        <button
+          onClick={() => onPageChange(start - 1)}
+          className={`paginationButton ${isFirst && "invisible"}`}
+        >
+          <LeftArrow />
+        </button>
+      </div>
       {[...Array(VISIBLE_PAGES)].map((_, i) => (
-        <>
+        <div key={`pagination-${i}`}>
           {start + i <= totalPages && (
             <button
-              key={i}
               onClick={() => onPageChange(start + i)}
               className={`paginationButton ${
                 currentPage === start + i && "active"
@@ -32,14 +33,16 @@ const Pagination = ({ totalCount, pageSize, currentPage, onPageChange }) => {
               {start + i}
             </button>
           )}
-        </>
+        </div>
       ))}
-      <button
-        onClick={() => onPageChange(start + VISIBLE_PAGES)}
-        className={`paginationButton ${isLast && "invisible"}`}
-      >
-        <RightArrow />
-      </button>
+      <div>
+        <button
+          onClick={() => onPageChange(start + VISIBLE_PAGES)}
+          className={`paginationButton ${isLast && "invisible"}`}
+        >
+          <RightArrow />
+        </button>
+      </div>
     </div>
   );
 };

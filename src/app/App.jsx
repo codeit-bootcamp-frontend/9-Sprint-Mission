@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ItemsPage from "../pages/market/Items";
-import RegisterItemPage from "../pages/register/register-item";
+import AddItemPage from "../pages/add/add-item";
 import BoardPage from "../pages/board/board";
 import LoginPage from "../pages/login/login";
 import HomePage from "../pages/home/home";
@@ -16,7 +16,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="items" element={<ItemsPage />} />
-          <Route path="additem" element={<RegisterItemPage />} />
+          <Route path="additem" element={<AddItemPage />} />
           <Route path="board" element={<BoardPage />} />
         </Routes>
       </div>

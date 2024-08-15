@@ -60,7 +60,7 @@ function AllItemsSection() {
 
       <div className="allItemsCardSection">
         {items?.map((item) => (
-          <ItemCard item={item} key={`market-item-${item.id}`} />
+          <ItemCard key={`market-item-${item.id}`} item={item} />
         ))}
       </div>
 
