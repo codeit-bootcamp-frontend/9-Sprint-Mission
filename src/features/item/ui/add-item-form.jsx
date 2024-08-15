@@ -8,7 +8,7 @@ const AddItemForm = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [tags, setTags] = useState([]);
-  const [images, setImages] = useState([]);
+  const [image, setImage] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleNameChange = (e) => setName(e.target.value);
@@ -35,8 +35,8 @@ const AddItemForm = () => {
     formData.append("tags", JSON.stringify(tags));
     // https://panda-market-api.vercel.app/images/upload
     // 위 API 로 먼저 image를 올린 후에 url 을 받아서 image 항목에 입력함
-    if (images.length > 0) {
-      formData.append("images", images);
+    if (image) {
+      formData.append("images", [image]);
     }
 
     const responseInfo = await addProducts(formData);
@@ -54,11 +54,7 @@ const AddItemForm = () => {
       <div className="form-group">
         <label htmlFor="imageUpload">상품 이미지</label>
         <br />
-        <ImageUpload
-          id="imageUpload"
-          image={images[0]}
-          setImage={setImages[0]}
-        />
+        <ImageUpload id="imageUpload" image={image} setImage={setImage} />
       </div>
       <div className="form-group">
         <label htmlFor="name">상품명</label>
