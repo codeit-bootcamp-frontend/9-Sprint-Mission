@@ -16,14 +16,11 @@ const AllItem = ({ searchKeyword, orderBy }) => {
 
   // 데이터 로딩 함수
   const handleAllDataLoad = async (options) => {
-    console.log('handleAllDataLoad', options.pageSizes);
-
     try {
       const data = await getItems(options);
       const { list, totalCount } = data;
       setItems(list);
       setTotalCount(totalCount);
-      console.log(list, totalCount);
     } catch (error) {
       console.error('Failed to fetch items', error);
     }

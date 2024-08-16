@@ -128,18 +128,12 @@
 
 @media (max-width: 1200px) {
   .Best-Items {
-    padding: 16px 0;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
   }
   .Best-Item-Img {
     width: 343px;
-  }
-}
-
-@media (max-width: 744px) {
-  .Best-Items {
-    padding: 8px 0;
-    grid-template-columns: 1fr;
   }
 }
 

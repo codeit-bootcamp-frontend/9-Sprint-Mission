@@ -8,7 +8,6 @@ const PAGESIZE_TABLET = 2; // 태블릿 사이즈 페이지 사이즈
 const PAGESIZE_MOBILE = 1; // 모바일 사이즈 페이지 사이즈
 
 const BestItem = () => {
-  const [page, setPage] = useState(1);
   const [bestItems, setBestItems] = useState([]);
   const [pageSize, setPageSize] = useState(PAGESIZE_DEFAULT);
 
@@ -18,15 +17,16 @@ const BestItem = () => {
       const data = await getItems(options);
       const { list } = data;
       setBestItems(list);
-      console.log(list);
     } catch (error) {
       console.error('Failed to fetch best items', error);
     }
   };
 
+  // handleResize에 의해서 pageSize가 변경되면 데이터를 다시 로드
+  // pageSize가 변경되면 useEffect가 실행되고 handleBestDataLoad가 실행되어 데이터를 다시 로드
   useEffect(() => {
-    handleBestDataLoad({ page, pageSize, orderBy: 'favorite', keyword: '' });
-  }, [page, pageSize]);
+    handleBestDataLoad({ pageSize, orderBy: 'favorite', keyword: '' });
+  }, [pageSize]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -42,15 +42,15 @@ const BestItem = () => {
       }
     };
 
-    // Initial check
     handleResize();
 
-    // 이벤트 리스너 등록
+    // 첫로드시 resize이벤트를 등록하고 handleResize실행
     window.addEventListener('resize', handleResize);
 
+    console.log('창크기', window.innerWidth, 'pagSize변경', pageSize);
     // Cleanup 함수
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [pageSize]);
 
   return (
     <div className="Best-Items">
