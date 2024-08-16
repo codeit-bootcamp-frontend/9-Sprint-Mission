@@ -30,12 +30,12 @@ a:active {
 nav {
   position: fixed;
   top: 0;
-
   height: 70px;
   width: 100%;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   padding: 10px;
+  z-index: 99;
 }
 .navbar-wrapper {
   display: flex;
@@ -59,8 +59,8 @@ nav {
 main {
   display: flex;
   flex-direction: column;
-  margin: 64px auto;
-  width: 90%;
+  margin: 70px auto;
+  width: 1200px;
 }
 h2,
 p,
@@ -178,10 +178,13 @@ li {
   gap: 24px;
 }
 
-.all-items .product-img,
 .best-items .product-img {
   width: 100%;
   height: 100%;
+}
+.img-box {
+  border-radius: 16px;
+  overflow: hidden;
 }
 
 .panda-item {

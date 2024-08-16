@@ -3,14 +3,16 @@ import heartIcon from "../img/ic_heart.png";
 
 function PandaItem({ item }) {
   return (
-    <a href="#" className="panda-item">
-      <img
-        className="product-img"
-        src={item.images}
-        alt=""
-        width="220"
-        height="220"
-      />
+    <a href="/" className="panda-item">
+      <div className="img-box">
+        <img
+          className="product-img"
+          src={item.images}
+          alt="이미지"
+          width="220"
+          height="220"
+        />
+      </div>
       <div className="item-description">
         <b className="item-name">{item.name}</b>
         <strong className="item-price">{item.price.toLocaleString()}원</strong>
@@ -25,7 +27,7 @@ function PandaItem({ item }) {
 
 function PandaItemList({ items }) {
   return (
-    <ul className>
+    <ul>
       {items.map((item) => {
         return (
           <li key={item.id}>

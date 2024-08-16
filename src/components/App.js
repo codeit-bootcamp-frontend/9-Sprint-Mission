@@ -3,6 +3,7 @@ import "./App.css";
 import { Header } from "./Header";
 import { BestItems } from "./BestItems";
 import { AllItems } from "./AllItems";
+import Pagination from "./Pagination";
 
 function App() {
   return (
@@ -10,8 +11,9 @@ function App() {
       <Header />
       <main>
         <BestItems />
-        <AllItems order />
+        <AllItems />
       </main>
+      {/* <Pagination /> */}
     </>
   );
 }
