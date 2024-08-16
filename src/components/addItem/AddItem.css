@@ -227,6 +227,11 @@
     width: 346px;
   }
 
+  .deleteBtn {
+    top: 12px;
+    left: 130px;
+  }
+
   .tagList {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
