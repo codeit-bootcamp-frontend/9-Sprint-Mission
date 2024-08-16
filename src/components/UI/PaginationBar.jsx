@@ -32,7 +32,7 @@ const PaginationBar = ({ totalPageNum, currentPageNum, onPageChange }) => {
 
 	return (
 		//왼쪽 화살표 버튼
-		<div className="paginationaBar">
+		<div className="paginationBar">
 			<button
 				className="paginationButton"
 				disabled={currentPageNum === 1} 
