@@ -33,6 +33,7 @@ export function BestProductList({ title }) {
     handleLoad({
       order: "favorite",
       pageSize: 4,
+      page: 1
     });
   }, []);
 

@@ -25,10 +25,6 @@
   height: 282px;
 }
 
-.product-list.total .product-item-container {
-  height: 220px;
-}
-
 .product-item-container .product-img {
   display: block;
   margin-left: -5px;
@@ -93,8 +89,6 @@
   .product-list.best .product-item-container {
     height: 343px;
   }
-
- 
 }
 
 @media (max-width: 768px) {
@@ -119,3 +113,4 @@
 
   
 }
+

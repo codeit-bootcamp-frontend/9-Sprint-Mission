@@ -3,6 +3,7 @@ import heartImg from "../assets/ic_heart.png";
 import { useEffect, useState } from "react";
 import { getProducts } from "../Api";
 import { Link } from "react-router-dom";
+import { PageNation } from "./PageNation";
 
 function TotalProductListItem({ product }) {
   const { images, name, description, price, favoriteCount } = product;
@@ -26,33 +27,41 @@ function TotalProductListItem({ product }) {
 export function TotalProductList() {
   const [products, setProducts] = useState([]);
   const [order, setOrder] = useState("recent");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [totalPage, setTotalPage] = useState();
 
-  async function handleLoad(query) {
-    const { list } = await getProducts(query);
+  // const handleLoad = useCallback(
+  //   async (query) => {
+  //     const { list, totalCount } = await getProducts(query);
+  //     setProducts(list);
+  //     setTotalPage(Math.ceil(totalCount / pageSize));
+  //   },
+  //   [pageSize]
+  // );
+
+  const handleLoad = async (query) => {
+    const { list, totalCount } = await getProducts(query);
     setProducts(list);
-  }
+    setTotalPage(Math.ceil(totalCount / query.pageSize));
+  };
 
   const handleRecentClick = () => {
     setOrder("recent");
-    handleLoad({
-      order: 'recent',
-      pageSize: 10,
-    })
-  }
+  };
   const handleFavoriteClick = () => {
     setOrder("favorite");
-    handleLoad({
-      order: 'favorite',
-      pageSize: 10,
-    })
-  }
+  };
 
   useEffect(() => {
     handleLoad({
-      order: "recent",
-      pageSize: 10,
+      order,
+      pageSize,
+      page,
     });
-  }, []);
+  }, [order, page, pageSize]);
+
+  const onChangePage = (pageNum) => setPage(pageNum);
 
   return (
     <>
@@ -99,6 +108,11 @@ export function TotalProductList() {
           </li>
         ))}
       </ul>
+      <PageNation
+        totalPage={totalPage}
+        currentPage={page}
+        onChange={onChangePage}
+      />
     </>
   );
 }
