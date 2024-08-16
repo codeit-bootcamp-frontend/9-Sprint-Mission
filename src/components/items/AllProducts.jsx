@@ -85,7 +85,7 @@ const AllProducts = ({ width }) => {
       <div className="allProductsHeader">
         <h1 className="title">전체 상품</h1>
         <div className="headerMenu">
-          <Link to="/items/additem" className="addItem">
+          <Link to="/additem" className="addItem">
             상품 등록하기
           </Link>
           <div className="searchFormWrapper">

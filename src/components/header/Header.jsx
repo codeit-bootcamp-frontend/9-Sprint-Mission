@@ -12,7 +12,7 @@ const Header = () => {
           </Link>
           <div className="navMenu">
             <NavLink to="/freeBoard" className={({ isActive }) => isActive ? "active" : ""}>자유게시판</NavLink>
-            <NavLink to="/items" className={({ isActive }) => isActive ? "active" : ""}>중고마켓</NavLink>
+            <NavLink to="/items" className={({ isActive }) => isActive || window.location.pathname === "/additem" ? "active" : ""}>중고마켓</NavLink>
           </div>
         </div>
         <button type="button" className="navBtn">

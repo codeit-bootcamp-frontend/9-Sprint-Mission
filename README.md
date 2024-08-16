@@ -28,7 +28,6 @@
 
 - 미션5에서의 AllProducts와 BestProducts 개선사항을 반영했습니다.
 - form의 각 요소의 검증을 위해 제출 시 checkInputs 함수를 거치도록 했습니다.
-- 기본사항 세 번째 조건에 의해 additem을 items의 자식 링크로 변경했습니다.
 
 ## 스크린샷
 
