@@ -3,7 +3,7 @@ import "./PaginationBar.css";
 import { ReactComponent as LeftArrow } from "../../assets/icons/arrow_left.svg";
 import { ReactComponent as RightArrow } from "../../assets/icons/arrow_right.svg";
 
-const PaginationBar = ({ }) => {
+const PaginationBar = ({ totalPageNum, currentPageNum, onPageChange }) => {
 	const maxVisiblePages = 5; //최대한 보여줄 수 있는 페이지 수
 	let startPage; //시작 페이지 변수
 
