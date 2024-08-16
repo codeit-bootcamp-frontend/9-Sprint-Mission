@@ -1,43 +1,71 @@
 import { useEffect, useState } from "react";
 import "./BestProducts.css";
-import { getBestProducts } from "../../utils/utils";
+import { getProducts } from "../../api/api";
+import { useParams } from "react-router-dom";
 
 const BestProducts = ({ width }) => {
+  const { order = "favorite" } = useParams();
+
   const [products, setProducts] = useState([]);
-  const [pageSize, setPageSize] = useState(4);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // 사용환경에 따른 pageSize 조절
-  useEffect(() => {
+  const calculatePageSize = (width) => {
     if (width > 375 && width < 767) {
-      setPageSize(1);
+      return 1;
     } else if (width >= 768 && width < 1199) {
-      setPageSize(2);
+      return 2;
     } else {
-      setPageSize(4);
+      return 4;
     }
-  }, [width]);
+  };
+
+  const pageSize = calculatePageSize(width);
 
   // 베스트 상품 가져오기
   useEffect(() => {
-    getBestProducts("favorite", pageSize, setProducts);
-  }, [pageSize]);
+    const getBestProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const bestProducts = await getProducts({ params: { order, pageSize } });
+        setProducts(bestProducts.list);
+      } catch (error) {
+        console.error("베스트상품 getBestProducts에서 오류 발생", error);
+        setError("베스트상품 목록을 가져오지 못했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getBestProducts();
+  }, [pageSize, order]);
 
   return (
     <div className="bestProductsContainer">
       <h1 className="title">베스트 상품</h1>
-      <div className="productsBox">
-        {products.map((item) => (
-          <div key={item.id} className="products">
-            <img src={item.images} alt={item.name} className="productImg" />
-            <h2 className="productTitle">{item.name}</h2>
-            <h2 className="productPrice">{item.price.toLocaleString("ko-KR")}원</h2>
-            <span className="like">
-              <img src="./like.png" alt="좋아요" />
-              {item.favoriteCount}
-            </span>
+      {!isLoading ? (
+        !error ? (
+          <div className="productsBox">
+            {products.map((item) => (
+              <div key={item.id} className="products">
+                <img src={item.images} alt={item.name} className="productImg" />
+                <h2 className="productTitle">{item.name}</h2>
+                <h2 className="productPrice">{item.price.toLocaleString("ko-KR")}원</h2>
+                <span className="like">
+                  <img src="/like.png" alt="좋아요" />
+                  {item.favoriteCount}
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        ) : (
+          <p className="error">{error}</p>
+        )
+      ) : (
+        <p className="loading">베스트상품 목록을 가져오고 있습니다.</p>
+      )}
     </div>
   );
 };

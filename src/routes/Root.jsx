@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/header/Header";
-import UseScrollToTop from "../hooks/useScrollToTop";
+import useScrollToTop from "../hooks/useScrollToTop";
 
 const Root = () => {
+  useScrollToTop();
   return (
     <>
-      <UseScrollToTop />
       <Header />
       <Outlet />
     </>
