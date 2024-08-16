@@ -4,7 +4,7 @@ import ItemCard from "./item-card";
 
 function BestItemsSection() {
   const pageSize = usePageSize(SORT_TYPE.favorite);
-  const { items } = useProducts(1, pageSize, SORT_TYPE.favorite);
+  const { items } = useProducts(1, pageSize, SORT_TYPE.favorite, "");
 
   return (
     <div className="bestItemsContainer">
