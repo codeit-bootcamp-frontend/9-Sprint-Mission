@@ -1,0 +1,42 @@
+.ItemForm-main {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0 69px;
+}
+
+.ItemForm-main-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.ItemForm-main-input,
+.ItemForm-main-textarea {
+  padding: 16px 24px;
+  background-color: #f3f4f6;
+  border: 0;
+  border-radius: 12px;
+  margin-bottom: 32px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+}
+
+.ItemForm-main-input {
+  height: 56px;
+}
+
+.ItemForm-main-input::placeholder,
+.ItemForm-main-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.ItemForm-main-textarea {
+  height: 282px;
+  resize: none;
+}
+
+.Tag-main-input {
+  margin: 0;
+}

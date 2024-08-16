@@ -1,0 +1,30 @@
+.Taglist {
+  display: flex;
+  margin-top: 14px;
+  margin-bottom: 0px;
+  padding: 0;
+  gap: 12px;
+}
+
+.Taglist li {
+  list-style-type: none;
+}
+
+.Tagitems {
+  padding: 6px 12px 6px 16px;
+  background-color: #f3f4f6;
+  border-radius: 26px;
+  font-size: 16px;
+  font-weight: 400px;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.Tagitems-button {
+  width: 20px;
+  height: 20px;
+  border: 0;
+  cursor: pointer;
+}

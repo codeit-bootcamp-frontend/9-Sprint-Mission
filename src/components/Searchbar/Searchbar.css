@@ -49,12 +49,19 @@
   cursor: pointer;
   grid-area: button;
   text-align: center;
-  color: #f3f4f6;
-  font-size: 16px;
-  font-weight: 600;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.product-form-button-link {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f3f4f6;
+  text-decoration: none;
+}
 .product-form-options {
   display: flex;
   align-items: top;

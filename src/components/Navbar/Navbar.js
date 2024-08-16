@@ -3,13 +3,14 @@ import "./Navbar.css";
 import logoImg from "../../assets/판다얼굴.svg";
 import logoText from "../../assets/판다마켓.svg";
 import proFile from "../../assets/profile.svg";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-left">
-          <a className="logo-link" href="/">
+          <Link to="/" className="logo-link">
             <img
               className="logo-img"
               src={logoImg}
@@ -24,7 +25,7 @@ function Navbar() {
               width="103"
               height="35"
             />
-          </a>
+          </Link>
 
           <div className="nav-link">
             <a className="nav-link-text" href="/">

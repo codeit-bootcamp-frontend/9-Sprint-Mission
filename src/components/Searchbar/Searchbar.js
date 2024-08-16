@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import searchImg from "../../assets/search.svg";
 import "./Searchbar.css";
 function Searchbar({ onChange }) {
@@ -12,9 +13,11 @@ function Searchbar({ onChange }) {
           type="text"
         />
       </div>
-      <button className="product-form-button" type="submit">
-        상품 등록하기
-      </button>
+      <div className="product-form-button">
+        <Link to="/additem" className="product-form-button-link">
+          상품 등록하기
+        </Link>
+      </div>
       <select className="product-form-options" onChange={onChange}>
         <option value="recent">최신순</option>
         <option value="favorite">좋아요순</option>
