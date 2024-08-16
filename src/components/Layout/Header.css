@@ -17,7 +17,7 @@
 }
 
 .globalHeader nav ul li a:hover {
-	color: var(--blue);
+	color: var(--blue-100);
 } 
 /* 체크사항: 이건 jsx에서 이미 스타일을 줘서 없어도 되지 않나? */
 
