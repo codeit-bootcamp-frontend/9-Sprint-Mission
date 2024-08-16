@@ -15,11 +15,8 @@ function App() {
       element: <Root />,
       children: [
         { index: true, element: <Items /> },
+        { path: "/items/additem", element: <AddItemPage /> }
       ],
-    },
-    {
-      path: "/additem",
-      element: <AddItemPage />
     },
     {
       path: "/freeBoard",

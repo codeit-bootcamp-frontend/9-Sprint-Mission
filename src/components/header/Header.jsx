@@ -7,7 +7,7 @@ const Header = () => {
       <nav className="navBar">
         <div className="navContents">
           <Link to="/items" className="logoBox">
-            <img src="./logo.png" alt="로고" />
+            <img src="/logo.png" alt="로고" />
             판다마켓
           </Link>
           <div className="navMenu">
@@ -16,7 +16,7 @@ const Header = () => {
           </div>
         </div>
         <button type="button" className="navBtn">
-          <img src="./sessionBtn.png" alt="개인메뉴버튼" />
+          <img src="/sessionBtn.png" alt="개인메뉴버튼" />
         </button>
       </nav>
     </header>

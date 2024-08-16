@@ -1,13 +1,12 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getAllProducts } from "../../utils/utils";
+import { getProducts } from "../../api/api";
 import Pagination from "./Pagination";
 import "./AllProducts.css";
 
 const AllProducts = ({ width }) => {
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
   const [order, setOrder] = useState("recent");
   const [keyword, setKeyword] = useState("");
   const [inputKeyword, setInputKeyword] = useState("");
@@ -15,7 +14,27 @@ const AllProducts = ({ width }) => {
   const [isLoading, setLoading] = useState(false);
   const [isMobile, setMobile] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
-  
+
+  // 사용환경에 따른 pageSize 조절 (심화사항에 적절하게 설정하라고 하여 화면을 넘지 않도록 태블릿부터 10개로 했습니다.)
+  const calculatePageSize = (width) => {
+    if (width > 375 && width < 767) {
+      return 4;
+    }  else {
+      return 10;
+    }
+  };
+
+  const pageSize = calculatePageSize(width);
+
+  // 모바일 확인
+  useEffect(() => {
+    if (width > 375 && width < 767) {
+      setMobile(true);
+    } else {
+      setMobile(false);
+    }
+  }, [width]);
+
   // select 태그를 이용한 정렬함수
   const onChangeSelect = (e) => {
     const userSelect = e.target.value;
@@ -41,34 +60,37 @@ const AllProducts = ({ width }) => {
 
   // 페이지 렌더링 시 표출할 제품 목록 가져오는 함수
   useEffect(() => {
-    getAllProducts(page, pageSize, order, keyword, setProducts, setLoading, setError, setTotalPage);
-  }, [page, pageSize, order, keyword]);
+    const getAllProducts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-  // 사용환경에 따른 pageSize 조절
-  useEffect(() => {
-    if (width > 375 && width < 767) {
-      setMobile(true);
-      setPageSize(4);
-    } else if (width > 768 && width < 1199) {
-      setMobile(false);
-      setPageSize(6);
-    } else {
-      setPageSize(10);
-      setMobile(false);
+        const allProducts = await getProducts({ params: { page, pageSize, order, keyword } });
+
+        setProducts(allProducts.list);
+        setTotalPage(Math.ceil(allProducts.totalCount / pageSize));
+      } catch (error) {
+        setError("전체 상품정보를 가져오지 못했습니다.");
+        console.error("전체상품 getProducts에서 오류 발생", error);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [width])
 
+    getAllProducts();
+  }, [page, pageSize, order, keyword]);
+  
   return (
     <div className="allProductsContainer">
       <div className="allProductsHeader">
         <h1 className="title">전체 상품</h1>
         <div className="headerMenu">
-          <Link to="/additem" className="addItem">
+          <Link to="/items/additem" className="addItem">
             상품 등록하기
           </Link>
           <div className="searchFormWrapper">
             <div className="searchBox">
-              <img src="./search.png" alt="검색아이콘" />
+              <img src="/search.png" alt="검색아이콘" />
               <form className="searchForm" onSubmit={onSearch}>
                 <input
                   value={inputKeyword}
@@ -107,7 +129,7 @@ const AllProducts = ({ width }) => {
                 <h2 className="productTitle">{item.name}</h2>
                 <h2 className="productPrice">{item.price.toLocaleString("ko-KR")}원</h2>
                 <span className="like">
-                  <img src="./like.png" alt="좋아요" />
+                  <img src="/like.png" alt="좋아요" />
                   {item.favoriteCount}
                 </span>
               </div>
@@ -120,7 +142,6 @@ const AllProducts = ({ width }) => {
         <p className="loading">제품목록을 가져오고 있습니다.</p>
       )}
       <Pagination
-        error={setError}
         isLoading={setLoading}
         setPage={setPage}
         page={page}

@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 // 페이지 전환 시 제일 상단으로 끌어올려주는 커스텀 훅
 
-const UseScrollToTop = () => {
+const useScrollToTop = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
@@ -11,4 +11,4 @@ const UseScrollToTop = () => {
     }, [pathname]);
 };
 
-export default UseScrollToTop;
+export default useScrollToTop;
