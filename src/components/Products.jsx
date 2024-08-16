@@ -8,7 +8,7 @@ import Product from "./Product";
 // 보여줄 페이지 갯수
 const PAGE_COUNT = 5;
 
-export default function Products({ itemCountPerPage }) {
+export default function Products({ itemCountPerPage = 10 }) {
   const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [orderBy, setOrderBy] = useState("recent");
@@ -19,8 +19,9 @@ export default function Products({ itemCountPerPage }) {
 
   const totalPages = Math.ceil(totalCount / itemCountPerPage); // 총 페이지 개수
   const noPrev = start === 1; // 이전 페이지가 없는 경우
-  const noNext = start + PAGE_COUNT - 1 >= totalCount; // 다음 페이지가 없는 경우
+  const noNext = start + PAGE_COUNT - 1 >= totalPages; // 다음 페이지가 없는 경우
 
+  // console.log(items);
   const loadProducts = async (options) => {
     let result;
 
@@ -37,7 +38,6 @@ export default function Products({ itemCountPerPage }) {
     const { list, totalCount } = result;
     setItems(list);
     setTotalCount(totalCount);
-    // pagination 구현하기 offset 이용
   };
 
   const handleChange = (e) => {
@@ -106,7 +106,7 @@ export default function Products({ itemCountPerPage }) {
           </button>
           {[...Array(PAGE_COUNT)].map((_, i) => {
             // start + i가 totalPages 이하인 경우에만 버튼을 렌더링
-            if (start + i <= totalCount) {
+            if (start + i <= totalPages) {
               return (
                 <li key={i}>
                   <button

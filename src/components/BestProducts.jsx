@@ -3,14 +3,14 @@ import { getBestProducts } from "../utils/api";
 import Product from "./Product";
 import "./BestProducts.css";
 
-export default function BestProducts() {
+export default function BestProducts({ itemCount = 4 }) {
   const [bestItems, setBestItems] = useState([]);
 
   const handleLoadBestItems = async () => {
     let result;
 
     try {
-      result = await getBestProducts();
+      result = await getBestProducts(itemCount);
     } catch (error) {
       console.log(error);
       return;

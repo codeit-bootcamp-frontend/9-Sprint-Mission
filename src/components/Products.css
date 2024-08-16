@@ -62,3 +62,8 @@
   border-radius: 100%;
   cursor: pointer;
 }
+
+#pagination .active {
+  background: #2f80ed;
+  color: white;
+}
