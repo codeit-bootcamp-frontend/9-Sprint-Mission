@@ -12,3 +12,25 @@
 #best-products {
   margin-top: 40px;
 }
+
+@media (max-width: 1199px) {
+  #best-lists {
+    grid-template-columns: repeat(2, 343px);
+  }
+
+  #best-lists .product-item .best-image {
+    width: 343px;
+    height: 343px;
+  }
+}
+
+@media (max-width: 767px) {
+  #best-lists {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  #best-lists .product-item .best-image {
+    width: 343px;
+    height: 343px;
+  }
+}

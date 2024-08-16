@@ -18,15 +18,13 @@ export default function BestProducts({ itemCount = 4 }) {
     }
 
     const { list } = result;
-    const bestProducts = list.slice(0, 4);
-    console.log(bestProducts);
 
-    setBestItems([...bestProducts]);
+    setBestItems([...list]);
   };
 
   useEffect(() => {
     handleLoadBestItems();
-  }, []);
+  }, [itemCount]);
 
   return (
     <div className='wrapper' id='best-products'>
