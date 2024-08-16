@@ -5,6 +5,7 @@ import { ReactComponent as SearchIcon } from "../../../assets/icons/ic_search.sv
 import { Link } from "react-router-dom";
 import DropdownList from "../../../components/UI/DropdownList";
 import PaginationBar from "../../../components/UI/PaginationBar"; 
+import ItemCard from "./ItemCard";
 
 const getPageSize = () => {
 	const width = window.innerWidth;
