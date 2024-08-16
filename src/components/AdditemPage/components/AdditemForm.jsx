@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import FileInput from './FileInput';
+import Tag from './Tag';
 
 const INITIAL_VALUES = {
   imgFile: null,
   title: '',
   price: 0,
   content: '',
-  tag: '',
+  tag: [],
 };
 
 const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
   const [value, setValue] = useState(initialValues);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [tags, setTags] = useState([]);
+  const [tagValue, setTagValue] = useState();
 
   // 폼 필드 변경 처리 => name: 필드의 이름, value: 새로운 값
   const handleChange = (name, value) => {
@@ -30,26 +33,41 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
 
   useEffect(() => {
     const { title, price, content, tag } = value;
-    const allFieldsFilled = title && price && content && tag;
-    setIsDisabled(allFieldsFilled);
+    const allFieldsFilled = title && price > 0 && content && tag[0];
+    if (allFieldsFilled) {
+      setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
+    }
   }, [value]);
 
-  // const handleSubmit = async e => {
-  //   e.preventDefault();
-  //   // 새 폼 데이터 인스턴스 생성
-  //   const formData = new FormData();
-  //   // 각 필드의 값을 지정
-  //   formData.append('imgFile', value.imgFile);
-  //   formData.append('title', value.title);
-  //   formData.append('price', value.price);
-  //   formData.append('content', value.content);
-  //   formData.append('tag', value.tag);
-  // };
+  //////////////// 태그 ////////////////
+  const addTag = tag => {
+    if (tag && !tags.includes(tag)) {
+      setTags(prevTags => [...prevTags, tag]);
+      setValue(prevValue => ({
+        ...prevValue,
+        tag: [...tags, tag],
+      }));
+      setTagValue('');
+    }
+  };
 
-  console.log(isDisabled);
+  const handleTagChange = e => {
+    setTagValue(e.target.value);
+  };
+
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addTag('#' + tagValue);
+    }
+  };
+
+  console.log('value 값: ', value);
+  console.log('tag 값: ', tagValue);
 
   return (
-    // <form className="AdditemForm" onSubmit={handleSubmit}>
     <form className="AdditemForm">
       <div className="AdditemForm-submit-wrap">
         <h2 className="AdditemForm-main-tit">상품 등록하기</h2>
@@ -106,10 +124,12 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
           type="text"
           id="tag"
           name="tag"
-          value={value.tag}
+          value={tagValue}
           placeholder="태그를 입력해주세요"
-          onChange={handleInputChange}
+          onChange={handleTagChange}
+          onKeyDown={handleKeyDown}
         />
+        <Tag tags={tags} />
       </div>
     </form>
   );
