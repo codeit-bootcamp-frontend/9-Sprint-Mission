@@ -7,7 +7,7 @@ function BestItems({favoriteData}) {
             favoriteData.list.map((item)=>{
               return(
                 <div key={item.id}> 
-                  <img src={item.images}/>
+                  <img src={item.images} alt="item-images"/>
                   <div className="item-detail">
                   <p> {item.name}</p>
                   <p className="item-price">{item.price}원 </p>

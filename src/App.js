@@ -5,6 +5,7 @@ import BestItems from "./components/BestItems"
 import AllItems from "./components/AllItems"
 import { Routes, Route, Link } from 'react-router-dom';
 import axios from "axios";
+import Additem from "./pages/additem/Additem";
 function App() {
 
     // 베스트 반응형 데이터
@@ -78,9 +79,9 @@ function App() {
       <NavbarPanda></NavbarPanda>
 
       <Routes>
-        <Route path="items" element={
+        <Route path="/" element={
           <>
-                <BestItems favoriteData={favoriteData}></BestItems>
+                <BestItems favoriteData={favoriteData}/>
 
       
                 <div className="container">
@@ -96,7 +97,7 @@ function App() {
                     ></input>                      
                       <Link to="/additem" ><button className="handler-additem">상품 등록하기 </button></Link>
                      
-                      <select onChange={()=>{setStatus(status == "favorite" ? "recent" : "favorite")}} className="handler-select">
+                      <select onChange={()=>{setStatus(status === "favorite" ? "recent" : "favorite")}} className="handler-select">
                         <option>최신순</option>
                         <option>좋아요순</option>
                       </select>
@@ -104,7 +105,8 @@ function App() {
                   </div>
                   <AllItems data={data}></AllItems>
                 </div>
-          </>}></Route>        
+          </>}></Route>   
+          <Route path="/additem" element={<Additem/>}></Route>     
       </Routes>
     </div>
   );
