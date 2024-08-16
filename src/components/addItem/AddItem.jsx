@@ -12,7 +12,7 @@ const AddItem = () => {
     images: null,
     name: "",
     description: "",
-    price: 0,
+    price: "",
     tags: [],
   });
 
