@@ -1,24 +1,9 @@
 import { useState, useRef } from "react";
 import "./Tag.css";
-import XImg from "../../assets/X.svg";
+import Tagitems from "../Tagitems/Tagitems";
 
-function Tagitems({ item }) {
-  // const handleDeleteClick = () => {
-  //   onDelete(item.id);
-  // };
-
-  return (
-    <div className="Tagitems">
-      <span>#{item.value}</span>
-      <button className="Tagitems-button">
-        <img src={XImg} alt="취소" width="20" height="20" />
-      </button>
-    </div>
-  );
-}
-
-function Tag({ name, className, values = [], onChange }) {
-  const isRef = useRef(0);
+function Tag({ className, values = [], onChange }) {
+  const isRef = useRef(1);
   const [items, setItems] = useState(values);
   const [tag, setTag] = useState("");
 
@@ -27,15 +12,21 @@ function Tag({ name, className, values = [], onChange }) {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter" && tag.trim() !== "") {
+    if (e.key === "Enter" && tag !== "") {
       const newTag = { id: isRef.current++, value: tag };
-      setItems((prevItems) => {
-        const updatedItems = [...prevItems, newTag];
-        onChange(name, [...updatedItems]);
-        return [...updatedItems];
-      });
+      const updatedItems = [...items, newTag];
+
+      setItems(updatedItems);
+      onChange(updatedItems);
+
       setTag("");
     }
+  };
+
+  const handleTagDelete = (id) => {
+    const updatedItems = items.filter((item) => item.id !== id);
+    setItems(updatedItems);
+    onChange(updatedItems);
   };
 
   return (
@@ -52,7 +43,7 @@ function Tag({ name, className, values = [], onChange }) {
       <ul className="Taglist">
         {items.map((item) => (
           <li key={item.id}>
-            <Tagitems item={item} />
+            <Tagitems item={item} onDelete={handleTagDelete} />
           </li>
         ))}
       </ul>

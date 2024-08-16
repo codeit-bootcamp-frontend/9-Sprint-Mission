@@ -1,7 +1,12 @@
 import "./ItemForm.css";
 import FileInput from "../FileInput/FileInput";
 import Tag from "../Tag/Tag";
-function ItemForm({ values, handleChange, handleInputChange }) {
+function ItemForm({
+  values,
+  handleChange,
+  handleInputChange,
+  handleTagChange,
+}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
@@ -57,8 +62,8 @@ function ItemForm({ values, handleChange, handleInputChange }) {
       <Tag
         name="tags"
         className="ItemForm-main-input Tag-main-input"
-        values={values.tag}
-        onChange={handleChange}
+        values={values.tags}
+        onChange={handleTagChange}
       />
     </form>
   );

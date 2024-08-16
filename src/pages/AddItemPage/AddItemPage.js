@@ -32,12 +32,19 @@ function AddItemPage() {
     setValues(INITIAL_VALUES);
   };
 
+  const handleTagChange = (updatedItems) => {
+    setValues((prevValues) => ({
+      ...prevValues,
+      tags: updatedItems,
+    }));
+  };
+
   const isFormValid = () => {
     return (
       values.imgFile !== null &&
-      values.title.trim() !== "" &&
-      values.content.trim() !== "" &&
-      values.price.trim() !== "" &&
+      values.title !== "" &&
+      values.content !== "" &&
+      values.price !== "" &&
       values.tags.length !== 0
     );
   };
@@ -61,6 +68,7 @@ function AddItemPage() {
           values={values}
           handleChange={handleChange}
           handleInputChange={handleInputChange}
+          handleTagChange={handleTagChange}
         />
       </div>
     </>
