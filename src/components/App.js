@@ -10,7 +10,7 @@ function App() {
       <Header />
       <main>
         <BestItems />
-        <AllItems />
+        <AllItems order />
       </main>
     </>
   );

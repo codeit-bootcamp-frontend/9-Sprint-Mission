@@ -3,6 +3,7 @@ import { getPandaItems } from "../api";
 import { PandaItemList } from "./PandaItemList";
 import { NavLink } from "react-router-dom";
 import searchIcon from "../img/ic_search.png";
+import Container from "./Container";
 
 export function AllItems() {
   const [loading, setLoading] = useState(false);
@@ -10,6 +11,7 @@ export function AllItems() {
   const [allItems, setAllItems] = useState([]);
 
   const [search, setSearch] = useState("");
+  const [orderBy, setOrderBy] = useState("recent");
 
   const loadAllItems = async () => {
     setLoading(true);
@@ -18,8 +20,8 @@ export function AllItems() {
       const response = await getPandaItems({
         page: 1,
         pageSize: 10,
-        orderBy: "recent",
-        search: "",
+        orderBy,
+        search,
       });
       setAllItems(response.list || []);
     } catch (err) {
@@ -34,9 +36,13 @@ export function AllItems() {
     setSearch(e.target["search"].value.trim());
   };
 
+  const handleOrderChange = (newOrderBy) => {
+    setOrderBy(newOrderBy);
+  };
+
   useEffect(() => {
     loadAllItems();
-  }, [search]);
+  }, [search, orderBy]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -48,26 +54,28 @@ export function AllItems() {
 
   return (
     <section>
-      <h2 className="section-title">
-        <div>전체 상품</div>
-        <div className="option-wrapper">
-          <form onSubmit={handleSearchSubmit}>
-            <div className="search-wrapper">
-              <img src={searchIcon} alt="검색아이콘" width="24" height="24" />
-              <input
-                className="search-input"
-                name="search"
-                placeholder="검색할 상품을 입력해주세요"
-              ></input>
-            </div>
-          </form>
+      <div className="section-title-wrapper">
+        <h2>전체 상품</h2>
+        <form className="item-option" onSubmit={handleSearchSubmit}>
+          {/* 상품 검색 */}
+          <div className="search-wrapper">
+            <img src={searchIcon} alt="검색아이콘" width="24" height="24" />
+            <input
+              className="search-input"
+              name="search"
+              placeholder="검색할 상품을 입력해주세요"
+            ></input>
+          </div>
+          {/* 상품 등록 버튼 */}
           <NavLink to="/additem">
             <button type="button" className="add-btn">
               상품 등록하기
             </button>
           </NavLink>
-        </div>
-      </h2>
+          <Container currentOrder={orderBy} onOrderChange={handleOrderChange} />
+        </form>
+      </div>
+      {/* 아이템 보여주기 */}
       <div className="all-items">
         <PandaItemList items={allItems} />;
       </div>

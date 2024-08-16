@@ -39,9 +39,9 @@ export function BestItems() {
 
   return (
     <section>
-      <h2 className="section-title">
-        <div>베스트 상품</div>
-      </h2>
+      <div className="section-title-wrapper">
+        <h2>베스트 상품</h2>
+      </div>
       <div className="best-items">
         <PandaItemList items={bestItems} />;
       </div>
