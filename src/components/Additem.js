@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Header } from "./Header";
 import styles from "./styles/Additem.module.css";
 
@@ -37,40 +37,87 @@ export function Additem() {
     (value) => value.trim() !== ""
   );
 
+  //file 이미지 미리보기
+  const [preview, setPreview] = useState();
+  const [file, setFile] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFile(file);
+    }
+  };
+
+  useEffect(() => {
+    if (!file) return;
+
+    const nextPreview = URL.createObjectURL(file);
+    setPreview(nextPreview);
+
+    return () => URL.revokeObjectURL(nextPreview);
+  }, [file]);
+
   return (
     <>
       <Header />
       <main>
         <form className={styles.addForm} action="#">
           <h1 className={styles.pageName}>상품 등록하기</h1>
-          <label className={styles.labelName} id={styles.addImg}>
+
+          <label className={styles.labelName}>
             상품 이미지
             <input
-              onChange={handleChange}
+              id="addImg"
+              className={styles.hiddenInput}
+              onChange={handleFileChange}
               name="productImg"
               type="file"
+              accept="image/jpeg, image/png"
+              ref={fileInputRef}
             ></input>
+            <div className={styles.fileInputWrapper}>
+              {/* 파일 인풋 대체 div */}
+              <div className={styles.fileAddImg}></div>
+
+              {/* 이미지 파일 미리보기 */}
+              <div className={styles.filePreview}>
+                {preview && (
+                  <img
+                    src={preview}
+                    alt="이미지 미리보기"
+                    className={styles.previewImg}
+                  />
+                )}
+              </div>
+            </div>
           </label>
-          <label className={styles.labelName} id={styles.addName}>
+
+          <label className={styles.labelName}>
             상품명
             <input
+              id="addName"
               onChange={handleChange}
               name="productName"
               placeholder="상품명을 입력해주세요"
               type="text"
             ></input>
           </label>
-          <label className={styles.labelName} id={styles.addDescription}>
+
+          <label className={styles.labelName}>
             상품 소개
             <textarea
+              id="addDescription"
               name="productDescription"
               placeholder="상품 소개를 입력해주세요"
               onChange={handleChange}
             ></textarea>
           </label>
-          <label className={styles.labelName} id={styles.addPrice}>
+
+          <label className={styles.labelName}>
             판매 가격
             <input
+              id="addPrice"
               name="productPrice"
               placeholder="판매 가격을 입력해주세요"
               type="text"
@@ -78,15 +125,18 @@ export function Additem() {
               onChange={onChangeNum}
             ></input>
           </label>
-          <label className={styles.labelName} id={styles.addTag}>
+
+          <label className={styles.labelName}>
             태그
             <input
+              id="addTag"
               onChange={handleChange}
               name="productTag"
               placeholder="태그를 입력해주세요"
               type="text"
             ></input>
           </label>
+
           <button
             type="submit"
             disabled={!isFilled}
