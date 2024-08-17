@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import searchIcon from "../img/ic_search.png";
 import Container from "./Container";
 
-export function AllItems() {
+export function AllItems({ width }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [allItems, setAllItems] = useState([]);
@@ -52,8 +52,17 @@ export function AllItems() {
     return <div>Error: {error}</div>;
   }
 
+  const getVisibleItemsCount = () => {
+    if (width <= 780) return 4;
+    if (width <= 991) return 6;
+    return 10;
+  };
+
+  const visibleItemsCount = getVisibleItemsCount();
+  const visibleItems = allItems.slice(0, visibleItemsCount);
+
   return (
-    <section>
+    <section id="section-all">
       <div className="section-title-wrapper">
         <h2>전체 상품</h2>
         <form className="item-option" onSubmit={handleSearchSubmit}>
@@ -72,12 +81,13 @@ export function AllItems() {
               상품 등록하기
             </button>
           </NavLink>
+          {/* 정렬 기준 드롭다운 */}
           <Container currentOrder={orderBy} onOrderChange={handleOrderChange} />
         </form>
       </div>
       {/* 아이템 보여주기 */}
       <div className="all-items">
-        <PandaItemList items={allItems} />;
+        <PandaItemList items={visibleItems} />;
       </div>
     </section>
   );

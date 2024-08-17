@@ -182,6 +182,10 @@ li {
   width: 100%;
   height: 100%;
 }
+
+.all-items .product-img {
+  object-fit: cover;
+}
 .img-box {
   border-radius: 16px;
   overflow: hidden;
@@ -217,4 +221,64 @@ li {
 .favorite-count .p {
   font-size: 1.6rem;
   line-height: 1.6rem;
+}
+@media screen and (max-width: 992px) {
+  main {
+    width: 800px;
+  }
+
+  .best-items ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .all-items ul {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+  .all-items .img-box {
+    width: 100%;
+  }
+
+  .img-box img {
+    width: 100%;
+    height: 100%;
+  }
+}
+@media screen and (max-width: 781px) {
+  main {
+    width: 600px;
+  }
+  .best-items ul {
+    grid-template-columns: 390px;
+  }
+  .all-items ul {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+  }
+  section {
+    width: 390px;
+    margin: 0 auto;
+  }
+
+  #section-all .section-title-wrapper {
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    height: 100%;
+  }
+  #section-all h2 {
+    margin: 10px 0;
+  }
+  .add-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+  }
+
+  .select-order .current-order {
+    background: url("../img/ic_sort.png") no-repeat center;
+    background-size: 24px;
+    width: 42px;
+    font-size: 0;
+  }
 }
