@@ -67,6 +67,18 @@ a {
   color: inherit;
 }
 
+input {
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+textarea {
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
 img {
   vertical-align: bottom;
 }
