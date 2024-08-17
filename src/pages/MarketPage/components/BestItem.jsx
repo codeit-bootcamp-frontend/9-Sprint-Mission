@@ -13,6 +13,8 @@ const BestItem = () => {
 
   // 데이터 로딩 함수
   const handleBestDataLoad = async (options) => {
+    console.log('handleBestDataLoad 실행');
+
     try {
       const data = await getItems(options);
       const { list } = data;
@@ -29,6 +31,7 @@ const BestItem = () => {
   }, [pageSize]);
 
   useEffect(() => {
+    console.log('handleResize 실행');
     const handleResize = () => {
       if (window.innerWidth >= 1200) {
         // 데스크탑 사이즈
@@ -54,7 +57,7 @@ const BestItem = () => {
 
   return (
     <div className="Best-Items">
-      {bestItems.slice(0, pageSize).map((item) => (
+      {bestItems.map((item) => (
         <div key={item.id} className="Item">
           <img className="Best-Item-Img" src={item.images} alt={item.name} width="282" />
           <p>{item.name}</p>

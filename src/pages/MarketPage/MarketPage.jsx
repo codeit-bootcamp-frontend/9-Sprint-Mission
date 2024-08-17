@@ -16,7 +16,6 @@ const MarketPage = () => {
   };
 
   const handleOrderChange = (newOrderBy) => {
-    console.log(newOrderBy);
     setOrderBy(newOrderBy);
   };
 
@@ -36,6 +35,7 @@ const MarketPage = () => {
             </button>
           </NavLink>
           <SelectBox onChange={handleOrderChange} />
+          {/* <SelectOrderBox /> */}
         </div>
       </div>
       <AllItem searchKeyword={searchKeyword} orderBy={orderBy} />

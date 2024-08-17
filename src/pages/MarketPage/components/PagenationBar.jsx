@@ -2,10 +2,10 @@ import React from 'react';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 
-export const PagenationBar = ({ page, totalPages, onPageChange }) => {
+export const PagenationBar = ({ totalPages, onPageChange }) => {
   return (
     <Stack spacing={2} style={{ alignItems: 'center' }}>
-      <Pagination count={totalPages} page={page} onChange={(event, value) => onPageChange(value)} color="primary" />
+      <Pagination count={totalPages} onChange={(event, page) => onPageChange(page)} color="primary" />
     </Stack>
   );
 };
