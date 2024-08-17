@@ -38,6 +38,12 @@ function FileInput({ name, value, onChange }) {
     };
   }, [value]);
 
+  useEffect(() => {
+    if (!preview) {
+      setShowWarning(false);
+    }
+  }, [preview]);
+
   return (
     <div className="FileInput-main">
       <div className="FileInput-top">

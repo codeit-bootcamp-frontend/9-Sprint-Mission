@@ -74,6 +74,11 @@
   .FileInput-main {
     gap: 10px;
   }
+
+  .FileInput-top {
+    display: flex;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 768px) {

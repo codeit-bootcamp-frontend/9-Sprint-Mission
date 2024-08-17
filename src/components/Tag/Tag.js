@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./Tag.css";
 import Tagitems from "../Tagitems/Tagitems";
 
@@ -7,12 +7,17 @@ function Tag({ className, values = [], onChange }) {
   const [items, setItems] = useState(values);
   const [tag, setTag] = useState("");
 
+  useEffect(() => {
+    setItems(values);
+  }, [values]);
+
   const handleChange = (e) => {
     setTag(e.target.value);
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && tag !== "") {
+      e.preventDefault();
       const newTag = { id: isRef.current++, value: tag };
       const updatedItems = [...items, newTag];
 

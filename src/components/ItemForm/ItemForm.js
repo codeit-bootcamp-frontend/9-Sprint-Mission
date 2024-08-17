@@ -6,14 +6,28 @@ function ItemForm({
   handleChange,
   handleInputChange,
   handleTagChange,
+  onSubmit,
 }) {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(values);
+  const isFormValid = () => {
+    return (
+      values.title !== "" &&
+      values.content !== "" &&
+      values.price !== "" &&
+      values.tags.length !== 0
+    );
   };
-
   return (
-    <form onSubmit={handleSubmit} className="ItemForm-main">
+    <form onSubmit={onSubmit} className="ItemForm-main">
+      <div className="AddItem-bar">
+        <h2 className="AddItem-bar-title">상품 등록하기</h2>
+        <button
+          className="AddItem-bar-button"
+          type="submit"
+          disabled={!isFormValid()}
+        >
+          등록
+        </button>
+      </div>
       <label htmlFor="image" className="ItemForm-main-title">
         상품이미지
       </label>

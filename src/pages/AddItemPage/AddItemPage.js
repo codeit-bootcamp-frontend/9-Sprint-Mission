@@ -39,36 +39,16 @@ function AddItemPage() {
     }));
   };
 
-  const isFormValid = () => {
-    return (
-      values.imgFile !== null &&
-      values.title !== "" &&
-      values.content !== "" &&
-      values.price !== "" &&
-      values.tags.length !== 0
-    );
-  };
-
   return (
     <>
       <Navbar />
       <div className="container">
-        <form className="AddItem-bar">
-          <h2 className="AddItem-bar-title">상품 등록하기</h2>
-          <button
-            onClick={handleSubmit}
-            className="AddItem-bar-button"
-            type="submit"
-            disabled={!isFormValid()}
-          >
-            등록
-          </button>
-        </form>
         <ItemForm
           values={values}
           handleChange={handleChange}
           handleInputChange={handleInputChange}
           handleTagChange={handleTagChange}
+          onSubmit={handleSubmit}
         />
       </div>
     </>
