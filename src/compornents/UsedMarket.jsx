@@ -19,7 +19,7 @@ function UsedMarket() {
     };
 
     fetchTotalPages();
-  }, []);
+  }, [currentPage]);
 
   const startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
   const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);

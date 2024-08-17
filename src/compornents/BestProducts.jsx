@@ -51,14 +51,18 @@ function BestProducts({ currentPage, pageSize, orderBy }) {
           {products.map((product) => (
             <li key={product.id} className="product">
               <span>
-                <img className="product-img" src={product.images} />
+                <img
+                  className="product-img"
+                  src={product.images}
+                  alt={`${product.name}의 이미지 입니다.`}
+                />
               </span>
               <span className="product-name">{product.name}</span>
               <span className="product-price">
                 {formatPrice(product.price)}원
               </span>
               <span className="product-favorite">
-                <img src={like} />
+                <img src={like} alt="좋아요 버튼" />
                 {product.favoriteCount}
               </span>
             </li>
