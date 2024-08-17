@@ -63,7 +63,7 @@ export default function Products({ itemCountPerPage = 10 }) {
     if (currentPage < start) {
       setStart((prev) => prev - PAGE_COUNT);
     }
-  }, [currentPage, PAGE_COUNT, start]);
+  }, [currentPage, start]);
 
   return (
     <>
