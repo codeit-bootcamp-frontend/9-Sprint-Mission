@@ -249,6 +249,10 @@ li {
   main {
     width: 600px;
   }
+  .category {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
   .best-items ul {
     grid-template-columns: 390px;
   }
