@@ -1,8 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import PlusImage from "../assets/images/icons/ic_plus.svg";
+import DeleteImage from "../assets/images/icons/ic_delete.svg";
 import "./image-upload.css";
 
-const ImageUpload = ({ image, setImage }) => {
+const ImageUpload = ({ image, setImage, onRemoveImage }) => {
   const fileInputRef = useRef(null);
 
   const handleImageChange = (event) => {
@@ -37,6 +38,7 @@ const ImageUpload = ({ image, setImage }) => {
     <div className="image-upload-wrapper">
       <div className="image-upload-placeholder" onClick={triggerFileUpload}>
         <PlusImage alt="Upload" />
+        <p className="upload-text">이미지 등록</p>
         <input
           type="file"
           ref={fileInputRef}
@@ -49,10 +51,10 @@ const ImageUpload = ({ image, setImage }) => {
         <div className="image-preview">
           <img src={image} alt="Uploaded" />
           <button
-            onClick={() => setImage(null)}
+            onClick={() => onRemoveImage()}
             className="image-remove-button"
           >
-            ×
+            <DeleteImage alt="Delete" />
           </button>
         </div>
       )}

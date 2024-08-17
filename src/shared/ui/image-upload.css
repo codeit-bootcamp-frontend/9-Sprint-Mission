@@ -7,8 +7,8 @@
 }
 
 .image-upload-placeholder {
-  width: 200px;
-  height: 200px;
+  width: 168px;
+  height: 168px;
   background-color: #f9f9f9;
   border-radius: 8px;
   display: flex;
@@ -21,9 +21,16 @@
 }
 
 .image-upload-placeholder img {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   margin-bottom: 10px;
+}
+
+.upload-text {
+  margin-top: 8px;
+  font-size: 16px;
+  line-height: 26px;
+  color: var(--gray-400);
 }
 
 .image-upload-input {
@@ -47,11 +54,32 @@
 
 .image-remove-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  font-size: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .image-upload-placeholder {
+    width: 168px;
+    height: 168px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1280px) {
+  .image-upload-placeholder {
+    width: 280px;
+    height: 280px;
+  }
 }
