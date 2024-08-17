@@ -8,7 +8,7 @@ export default function Header() {
     <header id='header'>
       <div className='left'>
         <div className='logo'>
-          <img className='logo_img' src={logoImg} />
+          <img className='logo_img' src={logoImg} alt='로고이미지' />
           <a className='logo_button' href='/'>
             판다마켓
           </a>
@@ -27,7 +27,7 @@ export default function Header() {
         </nav>
       </div>
       <div className='right'>
-        <img className='profile' src={profileImg} />
+        <img className='profile' src={profileImg} alt='프로필 사진' />
       </div>
     </header>
   );
