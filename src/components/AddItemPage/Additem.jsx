@@ -7,7 +7,7 @@ const INITIAL_VALUES = {
   imgFile: null,
   title: "",
   content: "",
-  price: 0,
+  price: "",
   hashtag: "",
 };
 
@@ -17,17 +17,30 @@ function Additem() {
   const [values, setValues] = useState(INITIAL_VALUES);
   const [hashtags, setHashtags] = useState([]);
 
-  // 상품 이미지 파일
+  // 상품명, 상품소개, 판매가격, 태그
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    handleChange(name, value);
+
+    // 숫자만 허용하는 경우
+    if (name === "price" && /^\d*$/.test(value)) {
+      setValues((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+      }));
+    } else if (name !== "price") {
+      // 숫자만 허용하지 않는 다른 입력 필드
+      setValues((prevValues) => ({
+        ...prevValues,
+        [name]: value,
+      }));
+    }
   };
 
-  // 상품명, 상품소개, 판매가격, 태그
-  const handleChange = (name, value) => {
+  // 상품이미지
+  const handleChange = (e) => {
     setValues((prevValues) => ({
       ...prevValues,
-      [name]: value,
+      imgFile: e.target.files[0],
     }));
   };
 
@@ -140,7 +153,7 @@ function Additem() {
               />
               <h3 className="subtitle">판매 가격</h3>
               <input
-                type="number"
+                type="text"
                 name="price"
                 value={values.price}
                 onChange={handleInputChange}
