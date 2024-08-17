@@ -34,7 +34,7 @@ function UsedMarket() {
     <>
       {/* BestProducts에는 pageSize를 따로 내려 줄 필요는 없다. BestProducts 안에는 어차피 모든 페이지를 불러와 그 중에 최상단 4개를 보여주는 함수가 있어서. */}
       <div className="products-wrap">
-        <BestProducts currentPage={currentPage} />
+        <BestProducts currentPage={currentPage} orderBy={"favorite"} />
         <AllProducts currentPage={currentPage} pageSize={pageSize} />
       </div>
       <div className="pagination">

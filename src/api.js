@@ -4,10 +4,10 @@ const instance = axios.create({
   baseURL: "https://panda-market-api.vercel.app/",
 });
 
-export const getProducts = async (limit = 10, page = 1) => {
+export const getProducts = async (limit = 10, page = 1, orderBy = "recent") => {
   try {
     const response = await instance.get("/products", {
-      params: { limit, page },
+      params: { limit, page, orderBy },
     });
     return response.data;
   } catch (error) {
