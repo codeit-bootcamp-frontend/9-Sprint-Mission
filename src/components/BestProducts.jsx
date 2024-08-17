@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { getBestProducts } from "../utils/api";
 import Product from "./Product";
 import "./BestProducts.css";
