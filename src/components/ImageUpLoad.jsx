@@ -2,17 +2,21 @@ import { useState } from 'react';
 import ic_plus from '../api/assets/images/icons/ic_plus.png';
 import ic_imgdel from '../api/assets/images/icons/ic_imgdel.png';
 import styled from 'styled-components';
+import '../pages/AddItemPage/AddItemPage.css';
 
 const StyledImageContainer = styled.div`
   position: relative;
   display: inline-block;
-  margin-top: 10px;
 `;
 
 const StyledImage = styled.img`
   border-radius: 12px;
   width: 282px;
   height: 100%;
+  @media (max-width: 1200px) {
+    width: 168px;
+    height: 168px;
+  }
 `;
 
 const DeleteButton = styled.button`
@@ -52,6 +56,10 @@ const StyledLabel = styled.label`
   font-weight: 400;
   color: var(--gray-400);
   cursor: pointer;
+  @media (max-width: 1200px) {
+    width: 168px;
+    height: 168px;
+  }
 `;
 
 const ErrorMessage = styled.span`
@@ -96,7 +104,7 @@ export const ImageUpLoad = () => {
 
   return (
     <div className="ImageUpLoad">
-      <div className="Img-Error">
+      <div>
         <StyledLabel htmlFor="fileUpload">
           <img src={ic_plus} alt="" width="48" />
           이미지 등록

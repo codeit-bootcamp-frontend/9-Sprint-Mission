@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './AddItemPage.css';
 import '../MarketPage/MarketPage.css';
@@ -28,17 +29,48 @@ const TextAreaStyle = styled.textarea`
     color: var(--gray-400);
   }
 `;
+
+const ErrorMessage = styled.span`
+  color: #f74747;
+  font-size: 14px;
+  margin-top: 8px;
+`;
+
 const AddItemPage = () => {
+  const [formData, setFormData] = useState({
+    productName: '',
+    productDescription: '',
+    productPrice: '',
+    productTags: '',
+  });
+  const [priceError, setPriceError] = useState(false);
+
+  const isFormValid = Object.values(formData).every((value) => value.trim() !== '') && !priceError;
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'productPrice') {
+      const regex = /^[0-9]*$/;
+      if (value === '' || (regex.test(value) && Number(value) >= 0)) {
+        setPriceError(false);
+      } else {
+        setPriceError(true);
+      }
+    }
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="AddItemPage">
       <div className="Label-Nav">
         <p>전체 상품</p>
         <div className="Label-wrap">
-          <NavLink to="/additem">
-            <button variant="contained" className="Register-Button">
-              등록
-            </button>
-          </NavLink>
+          <button variant="contained" className="Register-Button" disabled={!isFormValid}>
+            등록
+          </button>
         </div>
       </div>
       <form className="AddItem-Form">
@@ -48,22 +80,24 @@ const AddItemPage = () => {
         </div>
         <div className="Input-wrap">
           <p>상품명</p>
-          <InputStyle type="text" placeholder="상품명을 입력해주세요" />
+          <InputStyle type="text" name="productName" placeholder="상품명을 입력해주세요" value={formData.productName} onChange={handleChange} />
         </div>
         <div className="Input-wrap">
           <p>상품 소개</p>
-          <TextAreaStyle name="" id="" placeholder="상품 소개를 입력해주세요"></TextAreaStyle>
+          <TextAreaStyle name="productDescription" placeholder="상품 소개를 입력해주세요" value={formData.productDescription} onChange={handleChange}></TextAreaStyle>
         </div>
         <div className="Input-wrap">
           <p>판매가격</p>
-          <InputStyle type="number" placeholder="판매 가격을 입력해주세요" />
+          <InputStyle type="text" name="productPrice" placeholder="판매 가격을 입력해주세요" value={formData.productPrice} onChange={handleChange} />
+          {priceError && <ErrorMessage>판매가격은 0 이상의 숫자여야 합니다.</ErrorMessage>}
         </div>
         <div className="Input-wrap">
           <p>태그</p>
-          <InputStyle type="text" placeholder="태그를 입력해주세요" />
+          <InputStyle type="text" name="productTags" placeholder="태그를 입력해주세요" value={formData.productTags} onChange={handleChange} />
         </div>
       </form>
     </div>
   );
 };
+
 export default AddItemPage;

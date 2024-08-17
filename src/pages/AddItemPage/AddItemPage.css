@@ -5,10 +5,27 @@
   margin-top: 100px;
 }
 
+@media (max-width: 1200px) {
+  .AddItemPage {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 744px) {
+  .AddItemPage {
+    padding: 0 16px;
+  }
+}
+
 .ImageUpLoad {
   display: flex;
   height: 282px;
   gap: 24px;
+}
+@media (max-width: 1200px) {
+  .ImageUpLoad {
+    height: 168px;
+  }
 }
 
 .Input-wrap {
@@ -46,4 +63,18 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
+}
+
+.Register-Button {
+  background-color: var(--blue);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.Register-Button:disabled {
+  background-color: var(--gray-400);
+  cursor: not-allowed;
 }
