@@ -3,6 +3,11 @@ import { Header } from "./Header";
 import styles from "./styles/Additem.module.css";
 
 export function Additem() {
+  const [preview, setPreview] = useState();
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
+  const fileInputRef = useRef(null);
+
   const [formValues, setFormValues] = useState({
     productImg: "",
     productName: "",
@@ -38,14 +43,27 @@ export function Additem() {
   );
 
   //file 이미지 미리보기
-  const [preview, setPreview] = useState();
-  const [file, setFile] = useState(null);
-  const fileInputRef = useRef(null);
-
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFile(file);
+    }
+  };
+
+  const handleFileClick = (e) => {
+    if (file) {
+      setError("*이미지 등록은 최대 1개까지 가능합니다.");
+      e.preventDefault();
+    }
+  };
+
+  const handleDeleteBtn = (e) => {
+    e.preventDefault();
+    setFile(null);
+    setPreview(null);
+    setError("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = null;
     }
   };
 
@@ -78,7 +96,10 @@ export function Additem() {
             ></input>
             <div className={styles.fileInputWrapper}>
               {/* 파일 인풋 대체 div */}
-              <div className={styles.fileAddImg}></div>
+              <div
+                className={styles.fileAddImg}
+                onClick={handleFileClick}
+              ></div>
 
               {/* 이미지 파일 미리보기 */}
               <div className={styles.filePreview}>
@@ -90,7 +111,17 @@ export function Additem() {
                   />
                 )}
               </div>
+              {/* 파일 삭제 버튼 */}
+              {preview && (
+                <button
+                  className={styles.deleteBtn}
+                  type="button"
+                  onClick={handleDeleteBtn}
+                ></button>
+              )}
             </div>
+            {/* 파일 개수 제한 에러메시지 */}
+            {error && <b className={styles.errorMsg}>{error}</b>}
           </label>
 
           <label className={styles.labelName}>
