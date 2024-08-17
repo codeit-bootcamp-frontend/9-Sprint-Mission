@@ -1,5 +1,5 @@
 import "./App.css";
-import "./glober.css";
+import "./global.css";
 import pandaLogo from "./panda-market-logo.png";
 import userIcon from "./svg/userIcon.svg";
 import UsedMarket from "./compornents/UsedMarket";
@@ -22,7 +22,7 @@ function App() {
           <Routes>
             <Route path="/items" index element={<UsedMarket />} />
             <Route path="/additem" element={<Additem />} />
-            <Route path="/communityBoard" index element={<CommunityBoard />} />
+            <Route path="/communityBoard" element={<CommunityBoard />} />
           </Routes>
         </main>
       </Router>
@@ -34,9 +34,22 @@ function AppHeader() {
   const location = useLocation();
 
   const menuItems = [
-    { path: "/communityBoard", label: "자유게시판" },
-    { path: "/items", label: "중고마켓" },
+    {
+      path: "/communityBoard",
+      label: "자유게시판",
+    },
+    {
+      path: "/items",
+      label: "중고마켓",
+    },
   ];
+
+  const isActive = (path) => {
+    if (path === "/items") {
+      return location.pathname === "/items" || location.pathname === "/additem";
+    }
+    return location.pathname === path;
+  };
 
   return (
     <header className="App-header">
@@ -48,9 +61,7 @@ function AppHeader() {
           <Link
             key={item.path}
             to={item.path}
-            className={`menu ${
-              location.pathname === item.path ? "active" : ""
-            }`}
+            className={`menu ${isActive(item.path) ? "active" : ""}`}
           >
             {item.label}
           </Link>

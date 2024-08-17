@@ -50,4 +50,7 @@ a {
   nav {
     padding: 0 16px;
   }
+  .menu {
+    font-size: 1.6rem;
+  }
 }
