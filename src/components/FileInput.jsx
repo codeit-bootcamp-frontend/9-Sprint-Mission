@@ -6,7 +6,7 @@ const cx = classNames.bind(styles);
 
 function FileInput({ name, value, onChange }) {
   const [preview, setPreview] = useState();
-  
+
   const inputRef = useRef();
 
   const handleChange = (e) => {
@@ -19,7 +19,6 @@ function FileInput({ name, value, onChange }) {
     if (!inputNode) return; // dom 노드 생성 후
     inputNode.value = "";
     onChange(name, null);
-  
   };
 
   useEffect(() => {
@@ -45,22 +44,24 @@ function FileInput({ name, value, onChange }) {
           ref={inputRef}
           onChange={handleChange}
         />
-        {value && (
-          <img
-            src={preview}
-            alt={"이미지 미리보기"}
-            className={cx("preview")}
-          />
-        )}
-        {value && (
-          <button
-            type="button"
-            onClick={handleClearClick}
-            className={cx("removeBtn")}
-          ></button>
-        )}
+        <div className={cx("previewBox")}>
+          {value && (
+            <img
+              src={preview}
+              alt={"이미지 미리보기"}
+              className={cx("preview")}
+            />
+          )}
+          {value && (
+            <button
+              type="button"
+              onClick={handleClearClick}
+              className={cx("removeBtn")}
+            ></button>
+          )}
         </div>
-        {/* <p className={cx("errorText")}>*이미지 등록은 최대 1개까지 가능합니다.</p> */}
+      </div>
+      {/* <p className={cx("errorText")}>*이미지 등록은 최대 1개까지 가능합니다.</p> */}
     </>
   );
 }

@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   gap: 24px;
-  position: relative;
+  
 }
 
 .addBtn {
@@ -40,6 +40,10 @@
   display: none;
 }
 
+.previewBox {
+  position: relative;
+}
+
 .preview {
   width: 282px;
   height: 282px;
@@ -56,8 +60,8 @@
   background-size: cover;
   cursor: pointer;
   position: absolute;
-  left: 550px;
-  top: 12px;
+  right: 5%;
+  top:5%;
 }
 
 .errorText {
@@ -76,9 +80,12 @@
   .addBtn {
     width: 168px;
     height: 168px;
-    border-radius: 12px;
+  }
+
+  .preview {
+    width: 168px;
+    height: 168px;
+    
   }
 }
 
-@media (max-width: 768px) {
-}
