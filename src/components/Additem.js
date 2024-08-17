@@ -40,9 +40,9 @@ export function Additem() {
     return returnString;
   };
 
-  const isFilled = Object.values(formValues).every(
-    (value) => value.trim() !== ""
-  );
+  const isFilled = Object.entries(formValues)
+    .filter(([key]) => key !== "productTag")
+    .every(([_, value]) => value.trim() !== "");
 
   //file 이미지 미리보기
   const handleFileChange = (e) => {
