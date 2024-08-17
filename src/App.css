@@ -1,0 +1,53 @@
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+header button {
+  border: 0;
+  background-color: transparent;
+}
+nav {
+  background-color: #ffffff;
+  display: flex;
+  gap: 10px;
+  height: 70px;
+  justify-content: baseline;
+  align-items: center;
+  border: 1px solid #dfdfdf;
+  padding: 0 200px;
+  font-size: 1.8em;
+}
+a {
+  color: black;
+}
+.menu.active {
+  color: #3692ff;
+}
+.header-img {
+  display: flex;
+  top: 27px;
+  left: 20px;
+  height: 51px;
+  width: 153px;
+}
+.usericon {
+  margin-left: auto;
+}
+.menu {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 21px 15px;
+}
+@media (max-width: 1199px) {
+  nav {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  nav {
+    padding: 0 16px;
+  }
+}
