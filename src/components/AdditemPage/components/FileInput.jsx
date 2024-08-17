@@ -51,21 +51,21 @@ const FileInput = ({ name, value, onChange }) => {
 
   return (
     <div className="AdditemForm-input-wrap">
-      <label htmlFor="imgFile" className="AdditemForm-sub-tit">
+      <label htmlFor="images" className="AdditemForm-sub-tit">
         상품 이미지
       </label>
       <div className="AdditemForm-FileInput-wrap">
         <div className="AdditemForm-file-wrap">
           <div className="AdditemForm-file">
             <input
-              id="imgFile"
+              id="images"
               type="file"
               accept="image/png, image/jpeg"
               ref={inputRef}
               onChange={handleChange}
               disabled={fileSelected}
             />
-            <img src={plusImg} />
+            <img src={plusImg} alt="이미지 등록" />
             <span>이미지 등록</span>
           </div>
         </div>

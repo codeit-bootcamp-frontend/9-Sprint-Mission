@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './components/LoginPage/Login';
 import Signup from './components/LoginPage/Signup';
@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import HomePage from './components/HomePage/HomePage';
 import Product from './components/ProductPage/Product';
 import Additem from './components/AdditemPage/Additem';
-import './assets/styles/App.scss';
+import './assets/styles/App.css';
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
         <Header />
 
         <Routes>
-          <Route path="/" element={<Navigate to="items/additem" />} />
-          {/* <Route path="/" index element={<HomePage />} /> */}
+          {/* <Route path="/" element={<Navigate to="items/additem" />} /> */}
+          <Route path="/" index element={<HomePage />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="items">

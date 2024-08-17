@@ -21,14 +21,14 @@ const TagName = styled.li`
   gap: 8px;
 `;
 
-const Tag = ({ tags }) => {
+const Tag = ({ tags, handleTagDelete }) => {
   return (
     <TagStyle>
       {/* map () 괄호 주의하기 / {} 중괄호 return 으로 반환 */}
       {tags.map((tag, index) => (
         <TagName key={index}>
           {tag}
-          <button>
+          <button onClick={() => handleTagDelete(tag)}>
             <img src={resetImg} alt="선택해제" />
           </button>
         </TagName>

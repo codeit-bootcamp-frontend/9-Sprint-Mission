@@ -1,4 +1,3 @@
-import { Outlet } from 'react-router-dom';
 import BestProduct from './components/BestProduct';
 import AllProduct from './components/AllProduct';
 
@@ -11,7 +10,6 @@ const Product = () => {
 
         {/* 전체 상품 */}
         <AllProduct />
-        <Outlet />
       </div>
     </section>
   );
