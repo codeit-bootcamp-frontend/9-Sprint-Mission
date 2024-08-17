@@ -1,0 +1,46 @@
+.headerContainer {
+  max-width: 1920px;
+  padding: 10px 200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.headerLogoLink {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.headerLogo {
+  width: 153px;
+  height: 51px;
+}
+
+.headerItems {
+  margin-left: 47px;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  gap: 30px;
+}
+
+.headerItem {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: #4b5563;
+}
+
+.headerProfile {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.headerProfileImg {
+  width: 40px;
+  height: 40px;
+}

@@ -1,6 +1,5 @@
-import "./ProductList.css";
-import "./reset.css";
-import heart from "../image/heart.png";
+import heart from "../assets/heart.png";
+import styles from "./ProductList.module.css";
 
 function formatPrice(value) {
   return `${value.toLocaleString()}원`;
@@ -10,18 +9,18 @@ function ProductListItem({ item }) {
   return (
     <div>
       <img
-        className="item-image"
+        className={styles.itemImage}
         src={item.images}
         alt={item.name}
         width={221}
         height={221}
       />
-      <div className="item-description">
-        <strong className="item-name">{item.name}</strong>
-        <em className="item-price">{formatPrice(item.price)}</em>
-        <em className="item-like">
+      <div className={styles.itemDescription}>
+        <strong className={styles.itemName}>{item.name}</strong>
+        <em className={styles.itemPrice}>{formatPrice(item.price)}</em>
+        <em className={styles.itemLike}>
           <img
-            className="item-like-img"
+            className={styles.itemLikeImg}
             src={heart}
             alt="좋아요"
             width={16}

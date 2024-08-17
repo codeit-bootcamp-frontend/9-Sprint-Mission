@@ -1,0 +1,78 @@
+.addItemForm {
+  margin: 0 auto;
+  padding-top: 24px;
+  width: 1200px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 100px;
+}
+
+.registButton {
+  position: absolute;
+  right: 0;
+  padding: 12px 23px;
+  border-radius: 8px;
+  background-color: #9ca3af;
+  color: #f3f4f6;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.formName {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #1f2937;
+}
+
+.inputName {
+  margin-top: 32px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: #1f2937;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.inputStyle {
+  margin-top: 16px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  padding: 16px 24px;
+  height: 56px;
+  border: 0;
+}
+
+.textAreaStyle {
+  height: 282px;
+}
+
+.tagContainer {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+}
+
+.tag {
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  padding: 6px 12px;
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 1199px) {
+  .addItemForm {
+    width: 100%;
+    padding: 24px 24px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .addItemForm {
+    padding: 24px 15px 0;
+  }
+}

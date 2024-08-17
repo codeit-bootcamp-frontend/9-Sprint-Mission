@@ -1,17 +1,11 @@
 * {
   box-sizing: border-box;
-}
-
-body,
-ul,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: "Pretendard", sans-serif;
 }
 
 li {
@@ -25,9 +19,15 @@ img {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 em,
 strong {
   font-style: normal;
+}
+
+button {
+  border: none;
+  cursor: pointer;
 }
