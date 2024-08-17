@@ -4,6 +4,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import "./Products.css";
 import { getProducts } from "../utils/api";
 import Product from "./Product";
+import { Link } from "react-router-dom";
 
 // 보여줄 페이지 갯수
 const PAGE_COUNT = 5;
@@ -12,8 +13,6 @@ export default function Products({ itemCountPerPage = 10 }) {
   const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [orderBy, setOrderBy] = useState("recent");
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [start, setStart] = useState(1); // 시작 페이지 설정
 
@@ -26,14 +25,9 @@ export default function Products({ itemCountPerPage = 10 }) {
     let result;
 
     try {
-      setError(false);
-      setIsLoading(true);
       result = await getProducts(options);
     } catch (error) {
-      setError(true);
       return;
-    } finally {
-      setIsLoading(false);
     }
     const { list, totalCount } = result;
     setItems(list);
@@ -80,7 +74,9 @@ export default function Products({ itemCountPerPage = 10 }) {
             <div className='input-bar'>
               <input type='text' placeholder='검색할 상품을 입력해주세요' />
             </div>
-            <button>상품등록하기</button>
+            <Link to='/additem' className='additem'>
+              상품등록하기
+            </Link>
             <select onChange={handleChange}>
               <option value='recent'>최신순</option>
               <option value='favorite'>좋아요순</option>

@@ -27,16 +27,19 @@ export default function BestProducts({ itemCount = 4 }) {
   }, [itemCount]);
 
   return (
-    <div className='wrapper' id='best-products'>
-      <ul id='best-lists'>
-        {bestItems.map((item) => {
-          return (
-            <li key={item.id} className='product-list'>
-              <Product key={item.id} props={item} isBestProducts={true} />
-            </li>
-          );
-        })}
-      </ul>
+    <div className='wrapper'>
+      {/* <h3 id='best-title'>베스트 상품</h3> */}
+      <div id='best-products'>
+        <ul id='best-lists'>
+          {bestItems.map((item) => {
+            return (
+              <li key={item.id} className='product-list'>
+                <Product key={item.id} props={item} isBestProducts={true} />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 }

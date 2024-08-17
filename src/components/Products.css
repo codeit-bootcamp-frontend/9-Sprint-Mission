@@ -22,7 +22,7 @@
   border: none;
 }
 
-#search-bar button {
+#search-bar .additem {
   background-color: var(--blue);
   border: none;
   height: 42px;
@@ -94,5 +94,9 @@
   #product-lists .product-item .image {
     width: 168px;
     height: 168px;
+  }
+
+  #search-bar {
+    display: grid;
   }
 }
