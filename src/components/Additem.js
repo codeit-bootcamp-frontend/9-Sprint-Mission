@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Header } from "./Header";
 import styles from "./styles/Additem.module.css";
+import { Tag } from "./Tag";
 
 export function Additem() {
   const [preview, setPreview] = useState();
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
+  const [tags, setTags] = useState([]);
   const fileInputRef = useRef(null);
 
   const [formValues, setFormValues] = useState({
@@ -64,6 +66,18 @@ export function Additem() {
     setError("");
     if (fileInputRef.current) {
       fileInputRef.current.value = null;
+    }
+  };
+
+  const handleTagSubmit = (e) => {
+    e.preventDefault();
+    const tagValue = formValues.productTag.trim();
+    if (tagValue) {
+      setTags((prevTags) => [...prevTags, tagValue]);
+      setFormValues((prevValues) => ({
+        ...prevValues,
+        productTag: "",
+      }));
     }
   };
 
@@ -156,7 +170,16 @@ export function Additem() {
               onChange={onChangeNum}
             ></input>
           </label>
+          <button
+            type="submit"
+            disabled={!isFilled}
+            className={`${styles.addBtn} ${!isFilled ? styles.disabled : ""}`}
+          >
+            등록
+          </button>
+        </form>
 
+        <form onSubmit={handleTagSubmit} className={styles.addForm}>
           <label className={styles.labelName}>
             태그
             <input
@@ -165,16 +188,15 @@ export function Additem() {
               name="productTag"
               placeholder="태그를 입력해주세요"
               type="text"
+              value={formValues.productTag}
             ></input>
+            <div>
+              {tags.map((tag, index) => (
+                <Tag key={index} value={tag} />
+              ))}
+            </div>
+            <button type="submit" className={styles.hiddenInput}></button>
           </label>
-
-          <button
-            type="submit"
-            disabled={!isFilled}
-            className={`${styles.addBtn} ${!isFilled ? styles.disabled : ""}`}
-          >
-            등록
-          </button>
         </form>
       </main>
     </>
