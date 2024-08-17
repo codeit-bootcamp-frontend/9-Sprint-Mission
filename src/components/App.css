@@ -5,6 +5,7 @@ html {
 
 * {
   box-sizing: border-box;
+  font-family: "Pretendard";
 }
 
 li {
@@ -62,6 +63,7 @@ main {
   margin: 70px auto;
   width: 1200px;
 }
+h1,
 h2,
 p,
 ul,
