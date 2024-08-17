@@ -40,10 +40,11 @@ const AddItemForm = () => {
     }
   };
 
-  const handleImageRemove = () => {
+  const handleImageRemove = (clearFileInputRef) => {
     try {
       setImage(null); // 이미지 상태를 null로 설정하여 삭제
       setImageError(""); // 에러 메시지 초기화
+      clearFileInputRef();
     } catch (error) {
       console.error("Failed to remove image: ", error);
     }

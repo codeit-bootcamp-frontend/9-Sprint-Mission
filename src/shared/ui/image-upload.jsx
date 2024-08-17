@@ -34,6 +34,10 @@ const ImageUpload = ({ image, setImage, onRemoveImage }) => {
     fileInputRef.current.click();
   };
 
+  const clearFileInputRef = () => {
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
   return (
     <div className="image-upload-wrapper">
       <div className="image-upload-placeholder" onClick={triggerFileUpload}>
@@ -51,7 +55,7 @@ const ImageUpload = ({ image, setImage, onRemoveImage }) => {
         <div className="image-preview">
           <img src={image} alt="Uploaded" />
           <button
-            onClick={() => onRemoveImage()}
+            onClick={() => onRemoveImage(clearFileInputRef)}
             className="image-remove-button"
           >
             <DeleteImage alt="Delete" />
