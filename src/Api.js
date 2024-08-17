@@ -2,7 +2,7 @@ const BASE_URL = "https://panda-market-api.vercel.app/products";
 export async function getProducts(page, pageSize, order) {
   try {
     const response = await fetch(
-      `${BASE_URL}?page=${page}&pageSize=${pageSize}&order=${order}`
+      `${BASE_URL}?page=${page}&pageSize=${pageSize}&orderBy=${order}`
     );
     if (!response.ok) {
       throw new Error("Network response was not ok");
