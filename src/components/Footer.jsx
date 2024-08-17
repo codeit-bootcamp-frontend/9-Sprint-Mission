@@ -13,16 +13,16 @@ const Footer = () => {
           <a href="./faq.html">FAQ</a>
         </div>
         <div className="footer-icon">
-          <a href="https://www.facebook.com/" target="_blank">
+          <a href="https://www.facebook.com/">
             <img src={icFacebook} alt="facebook" />
           </a>
-          <a href="https://x.com/" target="_blank">
+          <a href="https://x.com/">
             <img src={icTwitter} alt="twitter" />
           </a>
-          <a href="https://www.instagram.com/" target="_blank">
+          <a href="https://www.instagram.com/">
             <img src={icInstagram} alt="instagram" />
           </a>
-          <a href="https://www.youtube.com/" target="_blank">
+          <a href="https://www.youtube.com/">
             <img src={icYoutube} alt="youtube" />
           </a>
         </div>
