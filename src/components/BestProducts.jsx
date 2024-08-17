@@ -6,7 +6,7 @@ import "./BestProducts.css";
 export default function BestProducts({ itemCount = 4 }) {
   const [bestItems, setBestItems] = useState([]);
 
-  const handleLoadBestItems = async () => {
+  const handleLoadBestItems = useCallback(async () => {
     let result;
 
     try {
@@ -20,11 +20,11 @@ export default function BestProducts({ itemCount = 4 }) {
     const { list } = result;
 
     setBestItems([...list]);
-  };
+  }, [itemCount]);
 
   useEffect(() => {
     handleLoadBestItems();
-  }, [itemCount]);
+  }, [itemCount, handleLoadBestItems]);
 
   return (
     <div className='wrapper'>
