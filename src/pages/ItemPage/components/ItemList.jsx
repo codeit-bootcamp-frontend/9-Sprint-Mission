@@ -3,24 +3,13 @@ import ProductItem from "./ProductItem";
 import { Link } from "react-router-dom";
 import searchIcon from "../../../assets/icon/search.svg";
 import { getProduct } from "../../../utils/api/api";
-
-const getWindowSize = () => {
-    const width = window.innerWidth;
-
-    if (width < 767) {
-        return 4;
-    } else if (width < 1200) {
-        return 6;
-    } else {
-        return 10;
-    }
-};
+import { getPageSize } from "../../../utils/functions/getPageSize";
 
 const ItemList = () => {
     const [product, setProduct] = useState([]);
     const [page, setPage] = useState(1);
     const [order, setOrder] = useState("recent");
-    const [pageSize, setPageSize] = useState(getWindowSize());
+    const [pageSize, setPageSize] = useState(getPageSize() * 2 + 2);
 
     const handleOrderChange = (e) => {
         setOrder(e.target.value);
@@ -33,12 +22,12 @@ const ItemList = () => {
     };
 
     useEffect(() => {
-        productLoad({ page, pageSize: pageSize, orderBy: order });
+        productLoad({ page, pageSize, orderBy: order });
     }, [page, pageSize, order]);
 
     useEffect(() => {
         const handleResize = () => {
-            setPageSize(getWindowSize());
+            setPageSize(getPageSize() * 2 + 2);
         };
 
         window.addEventListener("resize", handleResize);

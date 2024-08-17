@@ -1,15 +1,17 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import logoIcon from "../../assets/icon/logoIcon.svg";
 import logoText from "../../assets/icon/logoText.svg";
 import profileIcon from "../../assets/icon/profile.svg";
 import "./Header.css";
 
 const setLinkStyle = ({ isActive }) => {
+    console.log(isActive);
     return isActive ? "selected" : "";
 };
 
 const Header = () => {
+    const location = useLocation();
     return (
         <header>
             <div className="leftMenu">
@@ -20,7 +22,15 @@ const Header = () => {
                 <NavLink to="/" className={setLinkStyle}>
                     자유게시판
                 </NavLink>
-                <NavLink to="/items" className={setLinkStyle}>
+                <NavLink
+                    to="/items"
+                    className={
+                        location.pathname === "/items" ||
+                        location.pathname === "/additem"
+                            ? "selected"
+                            : ""
+                    }
+                >
                     중고마켓
                 </NavLink>
             </div>

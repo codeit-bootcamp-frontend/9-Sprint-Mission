@@ -16,12 +16,6 @@ header {
     display: none;
 }
 
-.title {
-    font-weight: 700;
-    font-size: 25px;
-    color: var(--blue);
-}
-
 .leftMenu {
     display: flex;
     align-items: center;
