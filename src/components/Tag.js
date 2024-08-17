@@ -11,8 +11,8 @@ export function Tag({ value }) {
     line-height: 2.6rem;
     font-weight: 400;
     border-radius: 26px;
-    padding: 5px 16px;
-    margin-right: 12px;
+    padding: 5px 40px 5px 16px;
+    overflow: hidden;
     margin-bottom: 12px;
   `;
 

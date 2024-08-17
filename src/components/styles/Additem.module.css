@@ -120,6 +120,20 @@
   line-height: 2.6rem;
   font-weight: 400;
 }
+.TagDeleteBtn {
+  position: relative;
+  left: -36px;
+  bottom: -3px;
+  background-color: #9ca3af;
+  border-radius: 999px;
+  width: 20px;
+  height: 20px;
+  background-image: url(/src/img/ic_X.png);
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
+
 @media screen and (max-width: 992px) {
   .fileAddImg {
     width: 168px;

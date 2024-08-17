@@ -69,6 +69,10 @@ export function Additem() {
     }
   };
 
+  const handleTagDeleteBtn = (tagToDelete) => {
+    setTags((prevTags) => prevTags.filter((tag) => tag !== tagToDelete));
+  };
+
   const handleTagSubmit = (e) => {
     e.preventDefault();
     const tagValue = formValues.productTag.trim();
@@ -192,7 +196,14 @@ export function Additem() {
             ></input>
             <div>
               {tags.map((tag, index) => (
-                <Tag key={index} value={tag} />
+                <span>
+                  <Tag key={index} value={tag} />
+                  <button
+                    type="button"
+                    className={styles.TagDeleteBtn}
+                    onClick={() => handleTagDeleteBtn(tag)}
+                  ></button>
+                </span>
               ))}
             </div>
             <button type="submit" className={styles.hiddenInput}></button>
