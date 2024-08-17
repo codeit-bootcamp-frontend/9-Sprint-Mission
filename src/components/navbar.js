@@ -1,4 +1,15 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+
 function NavbarPanda() {
+  let navigate = useNavigate()
+  let [classState, setClassState] = useState(false)
+  
+  let handleClick = () => {
+    setClassState(!classState)
+  }
+
   return (
   <nav className="navbar">
     <div className="nav-container">
@@ -7,8 +18,10 @@ function NavbarPanda() {
           <img src="/판다 얼굴.png"  className="panda-face" alt="logo-face"/>
           <img src="/판다마켓.png" alt="logo-title"/>
         </div>
-        <a className="nav-content">자유게시판</a>
-        <a className="nav-content">중고마켓</a>
+        <Link to="/" className="nav-content">자유게시판</Link>
+        <Link to="/items"  onClick={handleClick}
+          className={classState == false ? 'nav-content' : 'nav-active'}
+        >중고마켓</Link>
       </div>
 
       <div><img src="/Frame 2609463.png" alt="logo-icon"/></div>
