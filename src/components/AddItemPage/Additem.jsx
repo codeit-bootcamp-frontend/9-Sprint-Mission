@@ -36,11 +36,11 @@ function Additem() {
     }
   };
 
-  // 상품이미지
-  const handleChange = (e) => {
+  // 상품 이미지
+  const handleChange = (name, value) => {
     setValues((prevValues) => ({
       ...prevValues,
-      imgFile: e.target.files[0],
+      [name]: value,
     }));
   };
 
