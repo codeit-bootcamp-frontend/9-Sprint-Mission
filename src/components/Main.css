@@ -2,11 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 94px;
 }
 
 .main-layout {
   width: 1200px;
+}
+
+.item-container {
+  margin-bottom: 40px;
 }
 
 .item-container h2 {
@@ -14,8 +17,8 @@
   font-weight: 700;
   line-height: 32px;
   color: #111827;
-  margin-top: 24px;
   margin-bottom: 16px;
   display: block;
+  margin-top: 0;
 }
 

@@ -1,7 +1,14 @@
 import gnbImg from "../assets/Group 19.png";
 import loginImg from "../assets/Frame 2609463.png";
 import "./Header.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+
+function getLinkStyle({ isActive }) {
+
+  return {
+    color: isActive ? "#3692ff" : "#4B5563",
+  };
+}
 
 function Header() {
   return (
@@ -17,7 +24,9 @@ function Header() {
             <Link>자유게시판</Link>
           </li>
           <li className="gnb-menu">
-            <Link to="/items">중고마켓</Link>
+            <NavLink to="/additem" style={getLinkStyle}>
+              중고마켓
+            </NavLink>
           </li>
         </ul>
       </div>

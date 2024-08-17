@@ -3,13 +3,13 @@
   left: 0;
   right: 0;
   top: 0;
-  
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 200px;
   border-bottom: 1px solid #dfdfdf;
   background-color: #fff;
+  z-index: 1;
 }
 
 .gnb-img {
