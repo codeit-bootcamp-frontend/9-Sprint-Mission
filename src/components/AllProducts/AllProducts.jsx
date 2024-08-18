@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../services/api";
-import DropdownList from "./DropdownList";
-import PaginationBar from "./PagenationBar";
+import { getProducts } from "../../services/api";
+import ProductsOrderDropdownList from "../ProductsOrderDropdownList/ProductsOrderDropdownList";
+import PaginationBar from "../PaginationBar/PagenationBar";
 import "./AllProducts.css";
-import { ReactComponent as SortIcon } from "../assets/ic_sort.svg";
+import { ReactComponent as SortIcon } from "../../assets/ic_sort.svg";
 import { Link } from "react-router-dom";
 
 const getPageSize = () => {
@@ -19,7 +19,7 @@ const getPageSize = () => {
 
 const ProductItem = ({ product }) => {
   return (
-    <li key={product.id}>
+    <li>
       <img
         className="allProduct-img"
         src={product.images[0]}
@@ -42,20 +42,6 @@ const AllProducts = () => {
   const [totalPageNum, setTotalPageNum] = useState();
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
-  const handleLoad = async ({ orderBy, page, pageSize }) => {
-    let result;
-    try {
-      result = await getProducts({ orderBy, page, pageSize });
-    } catch (error) {
-      console.log(error.message);
-      return;
-    }
-    const { list } = result;
-    const { totalCount } = result;
-    setProducts(list);
-    setTotalPageNum(Math.ceil(totalCount / pageSize));
-  };
-
   const handleSortSelection = (sortOption) => {
     setOrderBy(sortOption);
     setIsDropdownVisible(false);
@@ -72,6 +58,21 @@ const AllProducts = () => {
   useEffect(() => {
     const handleResize = () => {
       setPageSize(getPageSize());
+    };
+
+    const handleLoad = async ({ orderBy, page, pageSize }) => {
+      let result;
+      try {
+        result = await getProducts({ orderBy, page, pageSize });
+      } catch (error) {
+        console.log(error.message);
+        return;
+      }
+
+      const { list, totalCount } = result;
+
+      setProducts(list);
+      setTotalPageNum(Math.ceil(totalCount / pageSize));
     };
 
     window.addEventListener("resize", handleResize);
@@ -103,13 +104,13 @@ const AllProducts = () => {
             <SortIcon />
           </button>
           {isDropdownVisible && (
-            <DropdownList onSortSelection={handleSortSelection} />
+            <ProductsOrderDropdownList onSortSelection={handleSortSelection} />
           )}
         </div>
       </div>
       <ul className="allProduct-list">
         {products.map((product) => (
-          <ProductItem product={product} />
+          <ProductItem key={product.id} product={product} />
         ))}
       </ul>
       <PaginationBar
