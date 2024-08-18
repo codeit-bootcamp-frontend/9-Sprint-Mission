@@ -1,30 +1,30 @@
-.item-image {
+.itemImage {
   width: 100%;
   height: auto;
 }
 
-.item-description {
+.itemDescription {
   margin-top: 16px;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.item-name {
+.itemName {
   font-size: 14px;
   font-weight: 500;
   line-height: 24px;
   color: #1f2937;
 }
 
-.item-price {
+.itemPrice {
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
   color: #1f2937;
 }
 
-.item-like {
+.itemLike {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -34,7 +34,7 @@
   color: #4b5563;
 }
 
-.item-like-img {
+.itemLikeImg {
   width: 16px;
   height: 16px;
 }
