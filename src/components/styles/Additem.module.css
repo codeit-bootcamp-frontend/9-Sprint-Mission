@@ -1,0 +1,149 @@
+.pageName {
+  font-size: 2rem;
+  line-height: 3.2rem;
+  font-weight: 700;
+  margin-top: 29px;
+}
+.addForm {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.labelName {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 2.6rem;
+}
+.addForm input,
+.addForm textarea {
+  background-color: #f3f4f6;
+  height: 56px;
+  padding: 16px 24px 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  color: #000;
+}
+.addForm input,
+.addForm textarea:focus {
+  outline: none;
+}
+
+.addForm input::placeholder,
+.addForm textarea::placeholder {
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  color: #9ca3af;
+}
+
+.addForm textarea {
+  height: 282px;
+  resize: none;
+}
+.addForm {
+  position: relative;
+}
+
+.addBtn {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  background-color: #3692ff;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  height: 42px;
+  padding: 8px 23px;
+  cursor: pointer;
+}
+.disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+.fileAddImg {
+  display: inline-block;
+  width: 282px;
+  height: 282px;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  background-image: url("/src/img/add_file.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 80px;
+  cursor: pointer;
+}
+.hiddenInput {
+  display: none;
+}
+
+.filePreview {
+  width: 282px;
+  height: 282px;
+  margin-left: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.filePreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.fileInputWrapper {
+  display: flex;
+  flex-direction: row;
+}
+.deleteBtn {
+  position: relative;
+  top: 12px;
+  right: 36px;
+  background-color: #9ca3af;
+  border-radius: 999px;
+  width: 24px;
+  height: 24px;
+  background-image: url(/src/img/ic_X.png);
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
+.errorMsg {
+  color: red;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 400;
+}
+.TagDeleteBtn {
+  position: relative;
+  left: -36px;
+  bottom: -3px;
+  background-color: #9ca3af;
+  border-radius: 999px;
+  width: 20px;
+  height: 20px;
+  background-image: url(/src/img/ic_X.png);
+  background-position: center;
+  background-size: cover;
+  border: none;
+}
+
+@media screen and (max-width: 992px) {
+  .fileAddImg {
+    width: 168px;
+    height: 168px;
+  }
+  .fileInputWrapper {
+    height: 168px;
+  }
+  .filePreview {
+    width: 168px;
+    height: 168px;
+  }
+}

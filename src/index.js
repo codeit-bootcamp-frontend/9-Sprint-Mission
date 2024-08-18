@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/App";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Additem } from "./components/Additem";
 
 function MainRouter() {
   return (
@@ -10,6 +11,7 @@ function MainRouter() {
       <Routes>
         <Route path="/" element={<Navigate to="/items" replace />} />
         <Route path="/items" element={<App />} />
+        <Route path="/additem" element={<Additem />} />
       </Routes>
     </BrowserRouter>
   );
