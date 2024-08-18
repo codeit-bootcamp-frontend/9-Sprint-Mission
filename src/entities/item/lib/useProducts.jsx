@@ -18,8 +18,8 @@ function useProducts(page, pageSize, orderBy, keyword) {
         orderBy,
         keyword,
       });
-      setItems(responseInfo.data.list);
-      setTotalCount(responseInfo.data.totalCount);
+      setItems(responseInfo.list);
+      setTotalCount(responseInfo.totalCount);
     } catch (error) {
       setError(error);
     } finally {
