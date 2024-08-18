@@ -1,10 +1,10 @@
-import "./ProductList.css";
+import "./BestProductList.css";
 import heartImg from "../assets/ic_heart.png";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { getProducts } from "../Api";
 
-function ProductListItem({ product }) {
+function BestProductListItem({ product }) {
   const { images, name, description, price, favoriteCount } = product;
-
   return (
     <>
       <div className="product-item-container">
@@ -22,12 +22,26 @@ function ProductListItem({ product }) {
   );
 }
 
-export function ProductList({ products, title }) {
+export function BestProductList({ title }) {
+  const [products, setProducts] = useState([]);
+
+  async function handleLoad(query) {
+    const { list } = await getProducts(query);
+    setProducts(list);
+  }
+  useEffect(() => {
+    handleLoad({
+      order: "favorite",
+      pageSize: 4,
+      page: 1
+    });
+  }, []);
+
   return (
-    <ul className={`product-list ${title}`}>
+    <ul className='product-list best'>
       {products.map((product) => (
         <li key={product.id}>
-          <ProductListItem product={product} />
+          <BestProductListItem product={product} />
         </li>
       ))}
     </ul>

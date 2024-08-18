@@ -1,0 +1,91 @@
+.productImg {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.imgBox {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  
+}
+
+.addBtn {
+  width: 282px;
+  height: 282px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.registerImg {
+  display: inline-block;
+  background-image: url("../assets/ic_plus.png");
+  background-repeat: no-repeat;
+  background-size: 48px 48px;
+  background-position: 50% 0;
+  padding-top: 60px;
+  color: #9ca3af;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+#imgInput {
+  display: none;
+}
+
+.previewBox {
+  position: relative;
+}
+
+.preview {
+  width: 282px;
+  height: 282px;
+  border-radius: 12px;
+}
+
+.removeBtn {
+  width: 22px;
+  height: 24px;
+  border: none;
+  background-color: transparent;
+  background-image: url(../assets/ic_X.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  position: absolute;
+  right: 5%;
+  top:5%;
+}
+
+.errorText {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #f74747;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .imgBox {
+    gap: 10px;
+  }
+
+  .addBtn {
+    width: 168px;
+    height: 168px;
+  }
+
+  .preview {
+    width: 168px;
+    height: 168px;
+    
+  }
+}
+
