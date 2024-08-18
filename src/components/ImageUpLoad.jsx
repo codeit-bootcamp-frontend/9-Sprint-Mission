@@ -67,6 +67,7 @@ const ErrorMessage = styled.span`
   font-size: 16px;
   font-weight: 400;
   margin-top: 16px;
+  margin-bottom: 24px;
 `;
 
 export const ImageUpLoad = () => {
@@ -76,7 +77,6 @@ export const ImageUpLoad = () => {
   const onchangeImageUpload = (e) => {
     const { files } = e.target;
     if (files.length > 3) {
-      console.log('이미지는 3개까지');
       setError(true);
       return;
     }
@@ -103,23 +103,25 @@ export const ImageUpLoad = () => {
   };
 
   return (
-    <div className="ImageUpLoad">
-      <div>
-        <StyledLabel htmlFor="fileUpload">
-          <img src={ic_plus} alt="" width="48" />
-          이미지 등록
-        </StyledLabel>
-        {error && <ErrorMessage>*이미지 등록은 최대 3개까지 가능합니다.</ErrorMessage>}
+    <div>
+      <div className="ImageUpLoad">
+        <div>
+          <StyledLabel htmlFor="fileUpload">
+            <img src={ic_plus} alt="" width="48" />
+            이미지 등록
+          </StyledLabel>
+        </div>
+        {uploadImgUrls.map((url, index) => (
+          <StyledImageContainer key={index}>
+            <StyledImage src={url} alt={`img-${index}`} />
+            <DeleteButton onClick={() => handleDeleteImage(index)}>
+              <DelIcon src={ic_imgdel} alt="delete" />
+            </DeleteButton>
+          </StyledImageContainer>
+        ))}
+        <StyledInput id="fileUpload" type="file" accept="image/*" multiple onChange={onchangeImageUpload} />
       </div>
-      {uploadImgUrls.map((url, index) => (
-        <StyledImageContainer key={index}>
-          <StyledImage src={url} alt={`img-${index}`} />
-          <DeleteButton onClick={() => handleDeleteImage(index)}>
-            <DelIcon src={ic_imgdel} alt="delete" />
-          </DeleteButton>
-        </StyledImageContainer>
-      ))}
-      <StyledInput id="fileUpload" type="file" accept="image/*" multiple onChange={onchangeImageUpload} />
+      {error && <ErrorMessage>*이미지 등록은 최대 3개까지 가능합니다.</ErrorMessage>}
     </div>
   );
 };
