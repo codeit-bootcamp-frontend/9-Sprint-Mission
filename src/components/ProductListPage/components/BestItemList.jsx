@@ -1,43 +1,53 @@
 import { useEffect } from "react";
-//import { getProducts } from "../../../Api";
+import { getProducts } from "../../../Api";
 import { useState } from "react";
 import ItemBox from "./ItemBox";
-//import Paginations from "../../Pagination";
+
+const getPageSize = () => {
+  const width = window.innerWidth;
+  if (width < 768) {
+    return 1;
+  } else if (width < 1200) {
+    return 2;
+  } else {
+    return 4;
+  }
+};
 
 function BestItemList() {
-  const [itemList, setItemList] = useState([]); //eslint-disable-line no-unused-vars
-
-  const PrdItemData = async () => {
-    try {
-      const response = await fetch(
-        `https://panda-market-api.vercel.app/products?page=1&pageSize=4`
-      );
-      const products = await response.json();
-      setItemList(products.list);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const bestItems = itemList.sort((a, b) => b.favoriteCount - a.favoriteCount);
+  const [itemList, setItemList] = useState([]);
+  const [pageSize, setPageSize] = useState(getPageSize());
+  const order = "favorite";
+  const page = 1;
 
   useEffect(() => {
-    PrdItemData();
-  }, []);
+    async function fetchProducts() {
+      const { list } = await getProducts(page, pageSize, order);
+      setItemList(list);
+    }
+    fetchProducts();
+    const handleResize = () => {
+      setPageSize(getPageSize());
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [page, pageSize, order]);
 
   return (
     <>
       <div className="product-wrap">
-        <h2 className="list-title">베스트 상품</h2>
+        <h2 className="pagetitle">베스트 상품</h2>
         <ul className="product-list best">
-          {bestItems &&
-            bestItems.map((item) => {
-              return (
-                <li key={item.id}>
-                  <ItemBox item={item} />
-                </li>
-              );
-            })}
+          {itemList?.map((item) => {
+            return (
+              <li key={item.id}>
+                <ItemBox item={item} />
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>
