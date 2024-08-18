@@ -4,6 +4,7 @@ import './AddItemPage.css';
 import '../MarketPage/MarketPage.css';
 import { ImageUpLoad } from 'components/ImageUpLoad';
 import styled from 'styled-components';
+import { TagChip } from 'components/TagChip';
 
 const InputStyle = styled.input`
   border-radius: 12px;
@@ -44,8 +45,9 @@ const AddItemPage = () => {
     productTags: '',
   });
   const [priceError, setPriceError] = useState(false);
+  const [tags, setTags] = useState([]);
 
-  const isFormValid = Object.values(formData).every((value) => value.trim() !== '') && !priceError;
+  const isFormValid = formData.productName.trim() !== '' && formData.productDescription.trim() !== '' && formData.productPrice.trim() !== '' && tags.length > 0 && !priceError;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,6 +63,21 @@ const AddItemPage = () => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && formData.productTags.trim() !== '') {
+      e.preventDefault();
+      setTags([...tags, formData.productTags.trim()]);
+      setFormData({
+        ...formData,
+        productTags: '',
+      });
+    }
+  };
+
+  const handleDeleteTag = (index) => {
+    setTags(tags.filter((_, i) => i !== index));
   };
 
   return (
@@ -93,7 +110,8 @@ const AddItemPage = () => {
         </div>
         <div className="Input-wrap">
           <p>태그</p>
-          <InputStyle type="text" name="productTags" placeholder="태그를 입력해주세요" value={formData.productTags} onChange={handleChange} />
+          <InputStyle type="text" name="productTags" placeholder="태그를 입력해주세요" value={formData.productTags} onChange={handleChange} onKeyDown={handleKeyDown} />
+          <TagChip tags={tags} onDelete={handleDeleteTag} />
         </div>
       </form>
     </div>

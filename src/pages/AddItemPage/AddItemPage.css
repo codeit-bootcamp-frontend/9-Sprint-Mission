@@ -78,3 +78,9 @@
   background-color: var(--gray-400);
   cursor: not-allowed;
 }
+
+.TagChip {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
