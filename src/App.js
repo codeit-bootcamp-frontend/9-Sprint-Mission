@@ -12,6 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Items />}></Route>
+        <Route path="/Items" element={<Items />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/usedMarket" element={<UsedMarket />}></Route>
         <Route path="/addItem" element={<AddItem />}></Route>
