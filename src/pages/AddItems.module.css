@@ -32,6 +32,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .register_button {
@@ -43,6 +44,13 @@
     line-height: 26px;
     background-color: #9CA3AF;
     color: #ffffff;
+}
+
+.input_img_container {
+    width: 100%;
+    height: 282px;
+    display: flex;
+    gap: 24px;
 }
 
 .input_img_wrap {
@@ -79,8 +87,41 @@
     background-position: top;
 }
 
+.input_preview_wrap {
+    position: relative;
+}
+
+.input_preveiw {
+    width: 282px;
+    height: 282px;
+    border-radius: 12px;
+    background-size: cover;
+}
+
+.input_close_button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border-radius: 50%;
+    background-color: #9CA3AF;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.input_close_button:hover {
+    background-color: #3692FF;
+}
+
 .input_file {
     display: none;
+}
+
+.input_img_errorMessage {
+    margin-top: px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #F74747;
 }
 
 .input_name {

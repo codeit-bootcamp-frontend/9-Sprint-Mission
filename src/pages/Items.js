@@ -4,15 +4,16 @@ import TotalItems from "../components/TotalItems";
 import PageNavigator from "../components/PageNavigator";
 
 export default function Items() {
-  const context = useOutletContext();
+  const { page, setPage, handlePageClick } = useOutletContext();
+
   return (
     <>
       <BestItems />
-      <TotalItems currentPage={context.page} />
+      <TotalItems currentPage={page} />
       <PageNavigator
-        setPage={context.setPage}
-        onPageClick={context.handlePageClick}
-        currentPage={context.page}
+        setPage={setPage}
+        onPageClick={handlePageClick}
+        currentPage={page}
       />
     </>
   );
