@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
-import { getProducts } from "./api";
+import { getProducts } from "../../api";
 import React from "react";
-import "./App.css";
-import Navbar from "./components/Navbar";
-import ProductList from "./components/ProductList";
-import Pagination from "./components/Pagination";
-import Searchbar from "./components/Searchbar";
-import BestProductList from "./components/BestProductList";
+import "./ItemsPage.css";
+import Navbar from "../../components/Navbar/Navbar";
+import ProductList from "../../components/ProductList/ProductList";
+import Pagination from "../../components/Pagination/Pagination";
+import Searchbar from "../../components/Searchbar/Searchbar";
+import BestProductList from "../../components/BestProductList";
 
-function App() {
+const LIMIT = 10;
+
+function ItemsPage() {
   const [products, setProducts] = useState([]);
   const [order, setOrder] = useState("recent");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const limit = 10;
+
   const pageLimit = 5;
 
   const handlePageChange = (newPage) => {
@@ -32,7 +34,7 @@ function App() {
       try {
         const data = await getProducts(options);
         setProducts(data.list);
-        setTotalPages(Math.ceil(data.totalCount / limit));
+        setTotalPages(Math.ceil(data.totalCount / LIMIT));
       } catch (error) {
         console.error(error);
       }
@@ -41,7 +43,7 @@ function App() {
     const options = {
       order,
       page,
-      limit,
+      limit: LIMIT,
     };
     handleLoad(options);
   }, [order, page]);
@@ -67,4 +69,4 @@ function App() {
   );
 }
 
-export default App;
+export default ItemsPage;
