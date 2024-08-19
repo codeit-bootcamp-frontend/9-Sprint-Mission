@@ -1,8 +1,7 @@
 .container {
     width: 1200px;
     height: 1186px;
-    margin: 0 auto;
-    margin-top: 24px;
+    margin: 24px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,12 +19,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-}
-
-.active {
-    background-color: #3692FF;
-    color: #ffffff;
+    gap: 11px;
 }
 
 .register_wrap {
@@ -36,6 +30,17 @@
 }
 
 .register_button {
+    padding: 12px 23px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    background-color: #3692FF;
+    color: #ffffff;
+}
+
+.register_button:disabled {
     padding: 12px 23px;
     border-radius: 8px;
     border: none;
@@ -180,4 +185,39 @@
     color: #1F2937;
     background-image: url(../assets/icon/ic_X.png);
     background-position: right;
+}
+
+.tagList_wrap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.tagList {
+    width: 110px;
+    height: 36px;
+    padding: 6px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    border-radius: 26px;
+    background-color: #F3F4F6;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.tagList_close_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    font-size: 8px;
+    border-radius: 50%;
+    background-color: #9CA3AF;
+    color: #F3F4F6;
+    border: none;
+    cursor: pointer;
 }
