@@ -13,6 +13,8 @@ const AllItem = ({ searchKeyword, orderBy }) => {
   const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const [pageSize, setPageSize] = useState(null);
+  // 총 페이지 수 계산
+  const totalPages = pageSize && totalCount ? Math.ceil(totalCount / pageSize) : 0;
 
   const QUERY = useMemo(() => ({ page, pageSize, orderBy, keyword: searchKeyword }), [page, pageSize, orderBy, searchKeyword]);
 
@@ -60,9 +62,6 @@ const AllItem = ({ searchKeyword, orderBy }) => {
 
   // 페이지 변경 핸들러
   const handlePageChange = (newPage) => setPage(newPage);
-
-  // 총 페이지 수 계산
-  const totalPages = Math.ceil(totalCount / pageSize);
 
   return (
     <div>

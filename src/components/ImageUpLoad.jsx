@@ -85,14 +85,22 @@ export const ImageUpLoad = () => {
     const newUploadUrls = [];
     const readers = [];
 
+    /*
+    FileReader: JavaScript의 API로, 파일을 읽어 들여 다양한 형식(텍스트, 데이터 URL 등)으로 변환할 수 있습니다.
+    reader: 모든 FileReader 객체를 추적하기 위해 배열에 저장
+    readAsDataURL: 파일을 Base64 인코딩된 문자열로 변환하고, 그 결과를 reader.result에 저장합니다.
+    onloadend: 파일 읽기가 완료되면 자동으로 호출되는 이벤트
+    */
     for (let i = 0; i < files.length && i < 3; i++) {
       const reader = new FileReader();
       readers.push(reader);
       reader.readAsDataURL(files[i]);
       reader.onloadend = () => {
-        newUploadUrls.push(reader.result);
+        newUploadUrls.push(reader.result); // 변환된 이미지 URL을 배열에 저장해 나중에 상태에 반영
         if (newUploadUrls.length === readers.length) {
-          setUploadImgUrls(newUploadUrls);
+          // 현재까지 읽은 파일의 수(newUploadUrls.length)와 전체 파일의 수(readers.length)가 같은지 확인합니다.
+          // 모든 파일이 정상적으로 읽혔는지 확인
+          setUploadImgUrls(newUploadUrls); // 이미지 URL을 상태에 반영하여 이미지를 화면에 표시
         }
       };
     }

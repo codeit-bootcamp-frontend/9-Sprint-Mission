@@ -13,8 +13,6 @@ const BestItem = () => {
 
   // 데이터 로딩 함수
   const handleBestDataLoad = async (options) => {
-    console.log('handleBestDataLoad 실행');
-
     try {
       const data = await getItems(options);
       const { list } = data;
@@ -31,7 +29,6 @@ const BestItem = () => {
   }, [pageSize]);
 
   useEffect(() => {
-    console.log('handleResize 실행');
     const handleResize = () => {
       if (window.innerWidth >= 1200) {
         // 데스크탑 사이즈
@@ -50,7 +47,6 @@ const BestItem = () => {
     // 첫로드시 resize이벤트를 등록하고 handleResize실행
     window.addEventListener('resize', handleResize);
 
-    console.log('창크기', window.innerWidth, 'pagSize변경', pageSize);
     // Cleanup 함수
     return () => window.removeEventListener('resize', handleResize);
   }, [pageSize]);
