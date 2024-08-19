@@ -23,15 +23,15 @@ const Xbutton = styled.input`
 `;
 
 const Tag = ({ item, index, handleDeleteTag }) => {
-  const handleDelete = () => {
-    handleDeleteTag(index);
+  const handleDelete = (e) => {
+    handleDeleteTag(index, e.target.name);
   };
 
   return (
     <div>
       <TagSpan>
         #{item}
-        <Xbutton type="button" onClick={handleDelete}></Xbutton>
+        <Xbutton name="tag" type="button" onClick={handleDelete}></Xbutton>
       </TagSpan>
     </div>
   );

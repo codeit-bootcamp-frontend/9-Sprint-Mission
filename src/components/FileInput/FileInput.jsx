@@ -30,21 +30,21 @@ const Button = styled.input`
   right: 13px;
 `;
 
-const resizeFile = (file) =>
-  new Promise((resolve) => {
-    Resizer.imageFileResizer(
-      file,
-      168,
-      168,
-      "PNG",
-      100,
-      0,
-      (uri) => {
-        resolve(uri);
-      },
-      "blob"
-    );
-  });
+// const resizeFile = (file) =>
+//   new Promise((resolve) => {
+//     Resizer.imageFileResizer(
+//       file,
+//       168,
+//       168,
+//       "PNG",
+//       100,
+//       0,
+//       (uri) => {
+//         resolve(uri);
+//       },
+//       "blob"
+//     );
+//   });
 
 const FileInput = ({ name, value, onChange }) => {
   const [preview, setPreview] = useState();

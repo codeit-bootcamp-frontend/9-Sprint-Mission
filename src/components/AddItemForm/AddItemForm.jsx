@@ -99,13 +99,13 @@ const AddItemForm = () => {
     }
   };
 
-  const handleDeleteTag = (index) => {
+  const handleDeleteTag = (index, name) => {
     const filteredTagValues = values["tag"].filter((value) => {
       return value !== values["tag"][index];
     });
     setValues((prevValues) => ({
       ...prevValues,
-      ["tag"]: filteredTagValues,
+      [name]: filteredTagValues,
     }));
   };
 
