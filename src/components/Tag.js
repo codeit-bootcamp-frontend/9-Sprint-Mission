@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export function Tag({ value }) {
+export function Tag({ value, index }) {
   const Hashtag = styled.span`
     display: inline-flex;
     align-items: center;
@@ -16,5 +16,5 @@ export function Tag({ value }) {
     margin-bottom: 12px;
   `;
 
-  return <Hashtag>#{value}</Hashtag>;
+  return <Hashtag key={index}>#{value}</Hashtag>;
 }

@@ -150,6 +150,9 @@
   border: none;
 }
 
+.tagWrapper {
+  margin-top: 16px;
+}
 @media screen and (max-width: 992px) {
   .fileAddImg {
     width: 168px;

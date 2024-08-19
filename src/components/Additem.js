@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Header } from "./Header";
 import styles from "./styles/Additem.module.css";
 import { Tag } from "./Tag";
+import throttle from "../throttle";
 
 export function Additem() {
   const [preview, setPreview] = useState();
@@ -81,27 +82,23 @@ export function Additem() {
   // 태그 관련 함수
 
   // 1. 엔터로 태그 추가하기
-  // const handleTagSubmit = (e) => {
-  //   e.preventDefault();
-  //   const tagValue = formValues.productTag.trim();
-  //   if (tagValue) {
-  //     setTags((prevTags) => [...prevTags, tagValue]);
-  //     setFormValues((prevValues) => ({
-  //       ...prevValues,
-  //       productTag: "",
-  //     }));
-  //   }
-  // };
-
-  // const activeEnter = (e) => {
-  //   if (e.key === "Enter") {
-  //     activeButton();
-  //   }
-  // };
+  const handleTagEnter = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const tagValue = formValues.productTag.trim();
+      if (tagValue) {
+        setTags((prevTags) => [...prevTags, tagValue]); // 태그 배열에 값 넘겨주기
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          productTag: "", //입력란 초기화
+        }));
+      }
+    }
+  };
 
   // 2. 태그 삭제
   const handleTagDeleteBtn = (tagToDelete) => {
-    setTags((prevTags) => prevTags.filter((tag) => tag !== tagToDelete));
+    setTags((prevTags) => prevTags.filter((index) => index !== tagToDelete));
   };
 
   useEffect(() => {
@@ -203,23 +200,27 @@ export function Additem() {
           <div>
             <input
               id="addTag"
-              onChange={handleChange}
               name="productTag"
-              placeholder="태그를 입력해주세요"
               type="text"
+              placeholder="태그를 입력해주세요"
               value={formValues.productTag}
+              onChange={handleChange}
+              onKeyDown={handleTagEnter}
             ></input>
-            {tags.map((tag, index) => (
-              <span key={index}>
-                <Tag value={tag} />
-                <button
-                  type="button"
-                  className={styles.TagDeleteBtn}
-                  onClick={() => handleTagDeleteBtn(tag)}
-                ></button>
-              </span>
-            ))}
+            <div className={styles.tagWrapper}>
+              {tags.map((tag, index) => (
+                <span>
+                  <Tag value={tag} key={index} />
+                  <button
+                    type="button"
+                    className={styles.TagDeleteBtn}
+                    onClick={() => handleTagDeleteBtn(tag)}
+                  ></button>
+                </span>
+              ))}
+            </div>
           </div>
+
           <button
             type="submit"
             disabled={!isFilled}
