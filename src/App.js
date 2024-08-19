@@ -1,10 +1,9 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import NavbarPanda from "./components/navbar";
-import BestItems from "./components/BestItems"
-import AllItems from "./components/AllItems"
-import { Routes, Route, Link } from 'react-router-dom';
-import axios from "axios";
+import { Routes, Route } from 'react-router-dom';
+import Additem from "./pages/additem/Additem";
+import Items from "./pages/items/Items";
 function App() {
 
     // 베스트 반응형 데이터
@@ -74,37 +73,10 @@ function App() {
 
   return (
     <div className="App">
-      
-      <NavbarPanda></NavbarPanda>
-
+      <NavbarPanda/>
       <Routes>
-        <Route path="items" element={
-          <>
-                <BestItems favoriteData={favoriteData}></BestItems>
-
-      
-                <div className="container">
-                  <div className="main-handler">
-                    <div>
-                      <p className="hanler-title">전체 상품</p>
-                    </div>
-                    <div className="handler-box">
-                    <input
-                      type="text"
-                      className="handler-search"
-                      placeholder=" 🔎 검색할 상품을 입력해주세요"
-                    ></input>                      
-                      <Link to="/additem" ><button className="handler-additem">상품 등록하기 </button></Link>
-                     
-                      <select onChange={()=>{setStatus(status == "favorite" ? "recent" : "favorite")}} className="handler-select">
-                        <option>최신순</option>
-                        <option>좋아요순</option>
-                      </select>
-                    </div>
-                  </div>
-                  <AllItems data={data}></AllItems>
-                </div>
-          </>}></Route>        
+        <Route path="/items" element={ <Items favoriteData={favoriteData} data={data} status={status} setStatus={setStatus}/> }/>
+        <Route path="/additem" element={<Additem/>}/>
       </Routes>
     </div>
   );

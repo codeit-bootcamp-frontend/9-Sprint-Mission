@@ -29,11 +29,18 @@
   align-items: center;
   gap : 40px;
 }
-.nav-content{
+.nav-content {
   font-size: 18px;
   font-weight: 700;
   text-decoration: none;
   color :#4B5563
+}
+
+.nav-active {
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  color : #3693FF
 }
 
 .container {
