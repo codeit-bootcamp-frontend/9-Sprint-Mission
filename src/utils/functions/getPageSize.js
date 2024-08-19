@@ -1,4 +1,4 @@
-export const getWindowSize = () => {
+export const getPageSize = () => {
     const width = window.innerWidth;
 
     if (width < 767) {

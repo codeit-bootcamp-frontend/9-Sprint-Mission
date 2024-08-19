@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import { getProduct } from "../../../utils/api/api";
-
-const getWindowSize = () => {
-    const width = window.innerWidth;
-
-    if (width < 767) {
-        return 1;
-    } else if (width < 1200) {
-        return 2;
-    } else {
-        return 4;
-    }
-};
+import { getPageSize } from "../../../utils/functions/getPageSize";
 
 const BestItemList = () => {
     const [product, setProduct] = useState([]);
-    const [pageSize, setPageSize] = useState(getWindowSize());
+    const [pageSize, setPageSize] = useState(getPageSize());
 
     const productLoad = async (options) => {
         let result = await getProduct(options);
@@ -25,12 +14,12 @@ const BestItemList = () => {
     };
 
     useEffect(() => {
-        productLoad({ page: 1, pageSize: pageSize, orderBy: "favorite" });
+        productLoad({ page: 1, pageSize, orderBy: "favorite" });
     }, [pageSize]);
 
     useEffect(() => {
         const handleResize = () => {
-            setPageSize(getWindowSize());
+            setPageSize(getPageSize());
         };
 
         window.addEventListener("resize", handleResize);
