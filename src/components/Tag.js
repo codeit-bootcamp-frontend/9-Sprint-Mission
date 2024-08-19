@@ -11,8 +11,12 @@ export function Tag({ value, index }) {
     line-height: 2.6rem;
     font-weight: 400;
     border-radius: 26px;
-    padding: 5px 40px 5px 16px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 16px;
+    padding-right: 42px;
     overflow: hidden;
+    margin-right: 12px;
     margin-bottom: 12px;
   `;
 

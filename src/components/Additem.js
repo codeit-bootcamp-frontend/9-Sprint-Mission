@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Header } from "./Header";
 import styles from "./styles/Additem.module.css";
 import { Tag } from "./Tag";
-import throttle from "../throttle";
 
 export function Additem() {
   const [preview, setPreview] = useState();
@@ -209,14 +208,14 @@ export function Additem() {
             ></input>
             <div className={styles.tagWrapper}>
               {tags.map((tag, index) => (
-                <span>
+                <div className={styles.tagBox}>
                   <Tag value={tag} key={index} />
                   <button
                     type="button"
                     className={styles.TagDeleteBtn}
                     onClick={() => handleTagDeleteBtn(tag)}
                   ></button>
-                </span>
+                </div>
               ))}
             </div>
           </div>
