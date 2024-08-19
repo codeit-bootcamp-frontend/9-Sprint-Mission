@@ -1,0 +1,35 @@
+.product-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-item p {
+  display: flex;
+  align-items: center;
+}
+
+.product-item .name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.product-item .price {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.product-item .image {
+  width: 221px;
+  height: 221px;
+}
+
+.product-item .favorite-count {
+  color: #4b5563;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.product-item .icon {
+  margin-right: 4px;
+}
