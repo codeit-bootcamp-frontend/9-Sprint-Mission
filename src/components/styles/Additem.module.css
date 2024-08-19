@@ -15,14 +15,20 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 32px;
+  margin-bottom: 16px;
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 2.6rem;
+  width: fit-content;
+}
+.labelName:first-child {
+  margin: 0;
 }
 .addForm input,
 .addForm textarea {
   background-color: #f3f4f6;
   height: 56px;
+  width: 100%;
   padding: 16px 24px 14px;
   border: none;
   border-radius: 12px;
@@ -30,9 +36,9 @@
   line-height: 2.6rem;
   color: #000;
 }
-.addForm input,
+.addForm input:focus,
 .addForm textarea:focus {
-  outline: none;
+  outline: 1px solid #3692ff;
 }
 
 .addForm input::placeholder,
@@ -84,11 +90,9 @@
 .hiddenInput {
   display: none;
 }
-
 .filePreview {
   width: 282px;
   height: 282px;
-  margin-left: 10px;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -98,13 +102,16 @@
   object-fit: fill;
 }
 .fileInputWrapper {
+  position: relative;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  gap: 24px;
 }
 .deleteBtn {
-  position: relative;
+  position: absolute;
   top: 12px;
-  right: 36px;
+  left: calc(282px * 2 - 8px);
   background-color: #9ca3af;
   border-radius: 999px;
   width: 24px;
@@ -113,6 +120,15 @@
   background-position: center;
   background-size: cover;
   border: none;
+}
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
 }
 .errorMsg {
   color: red;
@@ -145,5 +161,9 @@
   .filePreview {
     width: 168px;
     height: 168px;
+  }
+
+  .deleteBtn {
+    left: calc(168px * 2 - 8px);
   }
 }
