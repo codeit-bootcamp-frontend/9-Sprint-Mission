@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import './AddItemPage.css';
 import '../MarketPage/MarketPage.css';
 import { ImageUpLoad } from 'components/ImageUpLoad';

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ic_plus from '../api/assets/images/icons/ic_plus.png';
 import ic_imgdel from '../api/assets/images/icons/ic_imgdel.png';
 import styled from 'styled-components';
@@ -73,6 +73,7 @@ const ErrorMessage = styled.span`
 export const ImageUpLoad = () => {
   const [uploadImgUrls, setUploadImgUrls] = useState([]);
   const [error, setError] = useState(false);
+  const fileInputRef = useRef(null);
 
   const onchangeImageUpload = (e) => {
     const { files } = e.target;
@@ -97,9 +98,13 @@ export const ImageUpLoad = () => {
     }
   };
 
-  const handleDeleteImage = (index) => {
+  const handleDeleteImage = (index, e) => {
+    e.preventDefault();
     const newUploadImgUrls = uploadImgUrls.filter((_, i) => i !== index);
     setUploadImgUrls(newUploadImgUrls);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''; // input 초기화
+    }
   };
 
   return (
@@ -114,12 +119,12 @@ export const ImageUpLoad = () => {
         {uploadImgUrls.map((url, index) => (
           <StyledImageContainer key={index}>
             <StyledImage src={url} alt={`img-${index}`} />
-            <DeleteButton onClick={() => handleDeleteImage(index)}>
+            <DeleteButton onClick={(e) => handleDeleteImage(index, e)}>
               <DelIcon src={ic_imgdel} alt="delete" />
             </DeleteButton>
           </StyledImageContainer>
         ))}
-        <StyledInput id="fileUpload" type="file" accept="image/*" multiple onChange={onchangeImageUpload} />
+        <StyledInput id="fileUpload" type="file" accept="image/*" multiple onChange={onchangeImageUpload} ref={fileInputRef} />
       </div>
       {error && <ErrorMessage>*이미지 등록은 최대 3개까지 가능합니다.</ErrorMessage>}
     </div>
