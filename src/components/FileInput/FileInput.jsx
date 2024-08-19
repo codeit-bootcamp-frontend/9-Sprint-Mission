@@ -1,4 +1,3 @@
-import Resizer from "react-image-file-resizer";
 import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import xIcon from "../../assets/ic_X.png";
@@ -29,22 +28,6 @@ const Button = styled.input`
   top: 14px;
   right: 13px;
 `;
-
-// const resizeFile = (file) =>
-//   new Promise((resolve) => {
-//     Resizer.imageFileResizer(
-//       file,
-//       168,
-//       168,
-//       "PNG",
-//       100,
-//       0,
-//       (uri) => {
-//         resolve(uri);
-//       },
-//       "blob"
-//     );
-//   });
 
 const FileInput = ({ name, value, onChange }) => {
   const [preview, setPreview] = useState();
