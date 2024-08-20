@@ -50,10 +50,11 @@ const AddItemForm = () => {
     }
   };
 
+  const isFormFilled = name && description && price > 0 && tags.length > 0;
+
   useEffect(() => {
-    const isFormFilled = name && description && price > 0 && tags.length > 0;
     setIsFormValid(isFormFilled);
-  }, [name, description, price, tags]);
+  }, [isFormFilled]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
