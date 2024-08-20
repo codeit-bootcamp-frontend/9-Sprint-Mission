@@ -1,0 +1,223 @@
+.container {
+    width: 1200px;
+    height: 1186px;
+    margin: 24px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 32px;
+    color: #1F2937;
+}
+
+.wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.register_wrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.register_button {
+    padding: 12px 23px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    background-color: #3692FF;
+    color: #ffffff;
+}
+
+.register_button:disabled {
+    padding: 12px 23px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 26px;
+    background-color: #9CA3AF;
+    color: #ffffff;
+}
+
+.input_img_container {
+    width: 100%;
+    height: 282px;
+    display: flex;
+    gap: 24px;
+}
+
+.input_img_wrap {
+    width: 282px;
+    height: 282px;
+    background-color: #F3F4F6;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input_img_inner_wrap {
+    width: 74px;
+    height: 86px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.input_img_label {
+    display: flex;
+    align-items: flex-end;
+    width: 74x;
+    height: 86px;
+    background: #F3F4F6;
+    color: #9CA3AF;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    background-image: url(../assets/icon/plus.png);
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.input_preview_wrap {
+    position: relative;
+}
+
+.input_preveiw {
+    width: 282px;
+    height: 282px;
+    border-radius: 12px;
+    background-size: cover;
+}
+
+.input_close_button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border-radius: 50%;
+    background-color: #9CA3AF;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.input_close_button:hover {
+    background-color: #3692FF;
+}
+
+.input_file {
+    display: none;
+}
+
+.input_img_errorMessage {
+    margin-top: px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #F74747;
+}
+
+.input_name {
+    width: 100%;
+    height: 56px;
+    padding: 16px 24px;
+    background-color: #F3F4F6;
+    color: #9CA3AF;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.input_description {
+    width: 100%;
+    height: 282px;
+    padding: 16px 24px;
+    border: none;
+    resize: none;
+    border-radius: 12px;
+    background-color: #F3F4F6;
+    color: #9CA3AF;
+}
+
+.input_price {
+    width: 100%;
+    height: 56px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    background-color: #F3F4F6;
+    color: #9CA3AF;
+}
+
+.input_tag {
+    width: 100%;
+    height: 56px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    background-color: #F3F4F6;
+    color: #9CA3AF;
+}
+
+.tag_list {
+    display: flex;
+    gap: 12px;
+}
+
+.tag {
+    width: 96px;
+    height: 36px;
+    border-radius: 26px;
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: 400;
+    background-color: #F3F4F6;
+    color: #1F2937;
+    background-image: url(../assets/icon/ic_X.png);
+    background-position: right;
+}
+
+.tagList_wrap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.tagList {
+    width: 110px;
+    height: 36px;
+    padding: 6px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    border-radius: 26px;
+    background-color: #F3F4F6;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.tagList_close_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    font-size: 8px;
+    border-radius: 50%;
+    background-color: #9CA3AF;
+    color: #F3F4F6;
+    border: none;
+    cursor: pointer;
+}

@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header";
+import BestItems from "./components/BestItems";
+import TotalItems from "./components/TotalItems";
+import PageNivagator from "./components/PageNavigator";
+import { useState } from "react";
 
 function App() {
+  const [page, setPage] = useState(1);
+
+  const handlePageClick = (clickPage) => setPage(clickPage);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <BestItems />
+      <TotalItems currentPage={page} />
+      <PageNivagator
+        setPage={setPage}
+        onPageClick={handlePageClick}
+        currentPage={page}
+      />
     </div>
   );
 }

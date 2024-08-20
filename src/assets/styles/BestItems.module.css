@@ -9,10 +9,8 @@
 }
 
 .itemsWrap {
-    margin-top: 16px;
-    width: 282px;
-    height: 378px;
     display: flex;
+    margin-top: 16px;
     gap: 24px;
 }
 
@@ -56,4 +54,22 @@
     font-size: 12px;
     font-weight: 500;
     color: var(--gray600);
+}
+
+@media (max-width:1199px) {
+    .container {
+        width: 90vw;
+        height: 482px;
+    }
+
+    .itemImg {
+        width: 343px;
+        height: 343px;
+    }
+}
+
+@media (max-width: 376px) {
+    .container {
+        height: 434px;
+    }
 }
