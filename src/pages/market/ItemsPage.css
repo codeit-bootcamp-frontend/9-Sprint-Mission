@@ -142,7 +142,7 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1200px) {
   .bestItemsCardSection {
     grid-template-columns: repeat(4, 1fr);
   }

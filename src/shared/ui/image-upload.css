@@ -38,6 +38,7 @@
 }
 
 .image-preview {
+  margin-top: 8px;
   position: relative;
   width: 200px;
   height: 200px;
@@ -71,15 +72,15 @@
 /* Tablet */
 @media (min-width: 768px) {
   .image-upload-placeholder {
-    width: 168px;
-    height: 168px;
+    width: 200px;
+    height: 200px;
   }
 }
 
 /* Desktop */
 @media (min-width: 1280px) {
   .image-upload-placeholder {
-    width: 280px;
-    height: 280px;
+    width: 220px;
+    height: 220px;
   }
 }

@@ -113,7 +113,6 @@ textarea {
   }
 
   .form-group label {
-    width: 30%;
     margin-right: 20px;
   }
 
@@ -124,7 +123,7 @@ textarea {
 }
 
 /* desktop */
-@media (min-width: 1280px) {
+@media (min-width: 1200px) {
   .add-item-container {
     width: 1200px;
     padding: 15px;
