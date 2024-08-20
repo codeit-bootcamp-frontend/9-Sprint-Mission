@@ -57,6 +57,7 @@ function FileInput({ name, value, onChange }) {
               type="button"
               onClick={handleClearClick}
               className={cx("removeBtn")}
+              aria-label="delete"
             ></button>
           )}
         </div>
