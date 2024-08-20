@@ -1,7 +1,6 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import FileInput from './FileInput';
 import Tag from './Tag';
-import { postPandaMarket } from '../../../api';
 
 const INITIAL_VALUES = {
   images: null,
@@ -14,14 +13,7 @@ const INITIAL_VALUES = {
 const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
   const [value, setValue] = useState(initialValues);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [tags, setTags] = useState([]);
   const [tagValue, setTagValue] = useState();
-
-  const logFormData = formData => {
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-  };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -37,9 +29,14 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
     formData.append('tags', JSON.stringify(value.tags));
 
     // 로그 출력으로 FormData 내용 확인
+    const logFormData = formData => {
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+    };
     logFormData(formData);
 
-    await postPandaMarket(formData);
+    // await postPandaMarket(formData);
     // 성공적으로 추가된 후 초기화
     setValue(INITIAL_VALUES);
   };
@@ -70,14 +67,13 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
     }
   }, [value]);
 
-  ////////////////////// 태그 //////////////////////
+  // 태그 추가 함수
   const addTag = tag => {
-    // tag가 존재하고 tags 배열에 포함되지 않은 경우 실행
-    if (tag && !tags.includes(tag)) {
-      setTags(prevTags => [...prevTags, tag]);
+    // 빈칸 X, 중복 X
+    if (tag && tag.trim() !== '' && !value.tags.includes(tag)) {
       setValue(prevValue => ({
         ...prevValue,
-        tags: [...tags, tag],
+        tags: [...prevValue.tags, tag],
       }));
       setTagValue('');
     }
@@ -90,27 +86,17 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      addTag('#' + tagValue);
+      addTag(tagValue);
     }
   };
 
-  const handleTagDelete = useCallback(
-    tagToDelete => {
-      setTags(prevTags => {
-        const updatedTags = prevTags.filter(tag => tag !== tagToDelete);
-        setValue(prevValue => ({
-          ...prevValue,
-          tags: updatedTags,
-        }));
-
-        return updatedTags;
-      });
-    },
-    [setValue],
-  );
-
-  console.log('value 값: ', value);
-  console.log('tag 값: ', tagValue);
+  const handleTagDelete = tagDelete => {
+    setValue(prevValue => ({
+      ...prevValue,
+      tags: prevValue.tags.filter(tag => tag !== tagDelete),
+    }));
+    console.log('value 값', value);
+  };
 
   return (
     <form className="AdditemForm" onSubmit={handleSubmit}>
@@ -174,7 +160,7 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
           onChange={handleTagChange}
           onKeyDown={handleKeyDown}
         />
-        <Tag tags={tags} handleTagDelete={handleTagDelete} />
+        <Tag tags={value.tags} handleTagDelete={handleTagDelete} />
       </div>
     </form>
   );

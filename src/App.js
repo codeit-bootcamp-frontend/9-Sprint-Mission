@@ -21,7 +21,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="items">
             <Route index element={<Product />} />
-            <Route path=":additem" element={<Additem />} />
+            <Route path="additem" element={<Additem />} />
           </Route>
         </Routes>
 
