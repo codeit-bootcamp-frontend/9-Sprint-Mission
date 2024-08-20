@@ -1,7 +1,7 @@
 import React from "react";
-import "./DropdownList.css";
+import "./ProductsOrderDropdownList.css";
 
-function DropdownList({ onSortSelection }) {
+function ProductsOrderDropdownList({ onSortSelection }) {
   return (
     <div className="dropdownList">
       <div className="dropdownItem" onClick={() => onSortSelection("recent")}>
@@ -13,4 +13,4 @@ function DropdownList({ onSortSelection }) {
     </div>
   );
 }
-export default DropdownList;
+export default ProductsOrderDropdownList;

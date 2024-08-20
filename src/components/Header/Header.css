@@ -12,7 +12,7 @@
   }
 
   .logo-img {
-    background-image: url("../assets/text_logo.png");
+    background-image: url("../../assets/text_logo.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -47,7 +47,7 @@
   }
 
   .logo-img {
-    background-image: url("../assets/logo.png");
+    background-image: url("../../assets/logo.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

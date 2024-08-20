@@ -1,5 +1,5 @@
-import BestProducts from "../components/BestProducts";
-import AllProducts from "../components/AllProducts";
+import BestProducts from "../components/BestProducts/BestProducts";
+import AllProducts from "../components/AllProducts/AllProducts";
 
 const Items = () => {
   return (

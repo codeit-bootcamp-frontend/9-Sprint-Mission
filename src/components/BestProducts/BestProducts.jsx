@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../services/api";
+import { getProducts } from "../../services/api";
 import "./BestProducts.css";
 
 const ProductItem = ({ product }) => {
   return (
-    <li key={product.id}>
+    <li>
       <img
         className="product-img"
         src={product.images[0]}
@@ -23,20 +23,20 @@ const BestProducts = () => {
   const [products, setProducts] = useState([]);
   const [visibleCount, setVisibleCount] = useState(1);
 
-  const handleLoad = async (options) => {
-    let result;
-    try {
-      result = await getProducts(options);
-    } catch (error) {
-      console.log(error.message);
-      return;
-    }
-    const { list } = result;
-    setProducts(list);
-  };
-
   useEffect(() => {
-    handleLoad({ page: 1, pageSize: 4, orderBy: "favorite" });
+    const handleLoad = async (options) => {
+      let result;
+      try {
+        result = await getProducts(options);
+      } catch (error) {
+        console.log(error.message);
+        return;
+      }
+      const { list } = result;
+      setProducts(list);
+    };
+
+    handleLoad({ page: 1, orderBy: "favorite" });
 
     const updateVisibleCount = () => {
       const width = window.innerWidth;
@@ -63,7 +63,7 @@ const BestProducts = () => {
       <h2 className="bestProducts-title">베스트 상품</h2>
       <ul className="bestProductList-wrap">
         {products.slice(0, visibleCount).map((product) => (
-          <ProductItem product={product} />
+          <ProductItem key={product.id} product={product} />
         ))}
       </ul>
     </section>

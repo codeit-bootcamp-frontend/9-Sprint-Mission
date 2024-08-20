@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import "./reset.css";
+import "../reset.css";
 import "./Header.css";
-import btn_visibility_on from "../assets/btn_visibility_on.png";
+import btn_visibility_on from "../../assets/btn_visibility_on.png";
 
 const Header = () => {
   return (

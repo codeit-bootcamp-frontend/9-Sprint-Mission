@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Items from "./pages/Items";
 import Board from "./pages/Board";
 import UsedMarket from "./pages/UsedMarket";
@@ -12,6 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Items />}></Route>
+        <Route path="/Items" element={<Items />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/usedMarket" element={<UsedMarket />}></Route>
         <Route path="/addItem" element={<AddItem />}></Route>
