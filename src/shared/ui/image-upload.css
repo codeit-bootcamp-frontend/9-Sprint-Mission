@@ -34,7 +34,7 @@
 }
 
 .image-upload-input {
-  visibility: hidden;
+  display: none;
 }
 
 .image-preview {
