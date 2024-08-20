@@ -67,7 +67,7 @@ function AllItemsSection() {
           />
         </div>
         <div className="addItemWrapper">
-          <Link to="/additem" className="loginLink button">
+          <Link to="/additem" className="menu-link button">
             상품 등록하기
           </Link>
         </div>

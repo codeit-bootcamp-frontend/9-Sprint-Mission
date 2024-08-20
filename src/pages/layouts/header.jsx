@@ -10,7 +10,9 @@ const getMobileSize = () => {
 };
 
 function getLinkStyle({ isActive }) {
-  return { color: isActive ? "var(--blue-100)" : "var(--gray-600)" };
+  return {
+    color: isActive ? "var(--blue-100)" : "var(--gray-600)",
+  };
 }
 
 function Header() {

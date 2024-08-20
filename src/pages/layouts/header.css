@@ -27,22 +27,19 @@
   color: #4b5563;
 }
 
-.global-header nav ul li a:hover {
-  color: var(--blue-100);
-}
-
-.header-menu {
+a.header-menu {
   color: var(--gray-600);
   font-size: 16px;
   font-weight: 700;
   line-height: 26px;
 }
 
-.login-link {
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 8px;
-  padding: 11.5px 23px;
+a.header-menu.active {
+  color: var(--blue-100);
+}
+
+a.header-menu:hover {
+  color: var(--blue-200);
 }
 
 .default-avatar {
@@ -75,7 +72,7 @@
     padding-left: 10px;
   }
 
-  .header-menu {
+  a.header-menu {
     font-size: 18px;
   }
 }
