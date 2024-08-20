@@ -1,28 +1,24 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import LogoL from "../../shared/assets/images/logo/logo.svg";
-import LogoM from "../../shared/assets/images/logo/logo_m.svg";
+import Logo from "../../shared/assets/images/logo/logo.svg";
 import Avatar from "../../shared/assets/images/login/default_avatar.png";
 import "./header.css";
 
-const getWindowSize = () => {
-  if (window.innerWidth < 768) {
-    return <LogoM />;
-  } else {
-    return <LogoL />;
-  }
+const getMobileSize = () => {
+  if (window.innerWidth < 768) return true;
+  else return false;
 };
 
 function getLinkStyle({ isActive }) {
-  return { color: isActive ? "var(--blue-100)" : "black" };
+  return { color: isActive ? "var(--blue-100)" : "var(--gray-600)" };
 }
 
 function Header() {
-  const [logoTag, setLogoTag] = useState(getWindowSize);
+  const [isMobileSize, setIsMobileSize] = useState(getMobileSize);
 
   useEffect(() => {
     const handleResize = () => {
-      setLogoTag(getWindowSize);
+      setIsMobileSize(getMobileSize);
     };
     window.addEventListener("resize", handleResize);
 
@@ -32,21 +28,24 @@ function Header() {
   });
 
   return (
-    <header className="globalHeader">
-      <div className="headerLeft">
-        <Link to="/" className="headerLogo" aria-label="홈으로 이동">
-          {logoTag}
+    <header className="global-header">
+      <div className="header-left">
+        <Link to="/" className="header-logo" aria-label="홈으로 이동">
+          <div className="logo-image">
+            {!isMobileSize && <Logo />}
+            <span className="logo-title">판다마켓</span>
+          </div>
         </Link>
 
         <nav>
           <ul>
             <li>
-              <NavLink to="/board" style={getLinkStyle}>
+              <NavLink className="header-menu" to="/board">
                 자유게시판
               </NavLink>
             </li>
             <li>
-              <NavLink to="/items" style={getLinkStyle}>
+              <NavLink className="header-menu" to="/items">
                 중고마켓
               </NavLink>
             </li>

@@ -1,13 +1,24 @@
-.headerLeft {
+.header-left {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.headerLogo {
+.header-logo {
   margin-right: 16px;
 }
 
-.globalHeader nav ul {
+.logo-title {
+  color: var(--blue-100);
+  font-family: "ROKAF Sans";
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 27px;
+  bottom: 10px;
+  left: 10px;
+}
+
+.global-header nav ul {
   display: flex;
   list-style: none;
   gap: 8px;
@@ -16,11 +27,18 @@
   color: #4b5563;
 }
 
-.globalHeader nav ul li a:hover {
+.global-header nav ul li a:hover {
   color: var(--blue-100);
 }
 
-.loginLink {
+.header-menu {
+  color: var(--gray-600);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.login-link {
   font-size: 16px;
   font-weight: 600;
   border-radius: 8px;
@@ -33,18 +51,45 @@
 }
 
 @media (min-width: 768px) {
-  .globalHeader nav ul {
+  .global-header {
+    left: 30px;
+  }
+
+  .global-header nav ul {
     gap: 36px;
     font-size: 18px;
   }
 
-  .headerLogo {
-    margin-right: 35px;
+  .header-left {
+    width: 360px;
+  }
+
+  .header-logo {
+    margin-right: 30px;
+  }
+
+  .logo-title {
+    font-size: 25px;
+    line-height: 40px;
+    float: right;
+    padding-left: 10px;
+  }
+
+  .header-menu {
+    font-size: 18px;
   }
 }
 
-@media (min-width: 1280px) {
-  .headerLogo {
-    margin-right: 47px;
+@media (min-width: 1200px) {
+  .global-header {
+    left: 60px;
+  }
+
+  .header-left {
+    width: 400px;
+  }
+
+  .header-logo {
+    margin-right: 50px;
   }
 }

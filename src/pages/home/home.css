@@ -139,10 +139,6 @@ footer {
 
 /* Tablet */
 @media (min-width: 768px) {
-  header {
-    padding: 0 24px;
-  }
-
   .banner {
     height: 771px;
     background-size: 744px 340px;
@@ -230,11 +226,7 @@ footer {
 }
 
 /* Desktop */
-@media (min-width: 1280px) {
-  header {
-    padding: 0 200px;
-  }
-
+@media (min-width: 1200px) {
   .banner {
     text-align: left;
     height: 540px;

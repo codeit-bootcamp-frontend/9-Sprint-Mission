@@ -132,7 +132,7 @@ body {
 }
 
 /* Desktop */
-@media (min-width: 1280px) {
+@media (min-width: 1200px) {
   .wrapper {
     max-width: 1200px;
     margin: 0 auto;
