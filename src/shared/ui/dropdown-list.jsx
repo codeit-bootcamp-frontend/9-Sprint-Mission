@@ -1,14 +1,17 @@
 import "./dropdown-list.css";
 
-function DropdownList({ onSortSelection }) {
+function DropdownList({ sortOptions, onSortSelection }) {
   return (
     <div className="dropdownList">
-      <div className="dropdownItem" onClick={() => onSortSelection("recent")}>
-        최신순
-      </div>
-      <div className="dropdownItem" onClick={() => onSortSelection("favorite")}>
-        인기순
-      </div>
+      {sortOptions.map((option) => (
+        <div
+          key={option.value}
+          className="dropdownItem"
+          onClick={() => onSortSelection(option.value)}
+        >
+          {option.label}
+        </div>
+      ))}
     </div>
   );
 }

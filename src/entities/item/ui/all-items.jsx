@@ -21,6 +21,10 @@ function AllItemsSection() {
     searchQuery
   );
   const [isDropdown, setIsDropdown] = useState(false);
+  const sortOptions = [
+    { label: "최신순", value: "recent" },
+    { label: "인기순", value: "favorite" },
+  ];
 
   const handleSortDropdown = (sortType) => {
     setOrderBy(sortType);
@@ -68,7 +72,12 @@ function AllItemsSection() {
           </Link>
         </div>
         <div className="sortButtonWrapper">
-          {isDropdown && <DropdownList onSortSelection={handleSortDropdown} />}
+          {isDropdown && (
+            <DropdownList
+              sortOptions={sortOptions}
+              onSortSelection={handleSortDropdown}
+            />
+          )}
           <button
             className="sortDropdownTriggerButton"
             onClick={handleDropdown}
