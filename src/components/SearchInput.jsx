@@ -8,7 +8,6 @@ const SearchInput = ({ value, onChange }) => {
   return (
     <>
       <TextField
-        style={{ height: 'inherit' }}
         id="filled-search"
         label="검색"
         type="search"

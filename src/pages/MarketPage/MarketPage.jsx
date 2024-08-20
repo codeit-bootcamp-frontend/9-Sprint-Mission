@@ -1,4 +1,3 @@
-import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import SearchInput from '../../components/SearchInput';
 import SelectBox from '../../components/SelectBox';
@@ -17,12 +16,11 @@ const MarketPage = () => {
   };
 
   const handleOrderChange = (newOrderBy) => {
-    console.log(newOrderBy);
     setOrderBy(newOrderBy);
   };
 
   return (
-    <div className="App">
+    <div className="MarketPage">
       <div className="Search-Nav">
         <p>베스트 상품</p>
       </div>
@@ -37,6 +35,7 @@ const MarketPage = () => {
             </button>
           </NavLink>
           <SelectBox onChange={handleOrderChange} />
+          {/* <SelectOrderBox /> */}
         </div>
       </div>
       <AllItem searchKeyword={searchKeyword} orderBy={orderBy} />

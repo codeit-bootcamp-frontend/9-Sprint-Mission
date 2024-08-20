@@ -3,21 +3,21 @@ import Header from './components/Layout/Header';
 import MarketPage from './pages/MarketPage/MarketPage';
 import AddItemPage from './pages/AddItemPage/AddItemPage';
 import HomePage from './pages/HomePage/HomePage';
-import './styles/global.css';
+import './styles/index.css';
 import { CommunityPage } from './pages/CommunityPage/CommunityPage';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
-      <div className="TopHeader">
+      <main className="TopHeader">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="community" element={<CommunityPage />} />
           <Route path="items" element={<MarketPage />} />
           <Route path="additem" element={<AddItemPage />} />
         </Routes>
-      </div>
+      </main>
     </BrowserRouter>
   );
 }

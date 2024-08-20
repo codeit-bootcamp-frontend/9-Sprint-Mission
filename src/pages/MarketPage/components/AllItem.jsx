@@ -1,49 +1,74 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { getItems } from '../../../api/api';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import '../MarketPage.css';
 import { PagenationBar } from './PagenationBar';
 
-const PAGESIZE = 10;
+const PAGESIZE_DEFAULT = 10; // 데스크탑 사이즈 기본 페이지 사이즈
+const PAGESIZE_TABLET = 6; // 태블릿 사이즈 페이지 사이즈
+const PAGESIZE_MOBILE = 4; // 모바일 사이즈 페이지 사이즈
 
 const AllItem = ({ searchKeyword, orderBy }) => {
   const [page, setPage] = useState(1);
-  // const [orderBy, setOrderBy] = useState('recent');
-  const [keyword, setKeyword] = useState('');
   const [items, setItems] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+  const [pageSize, setPageSize] = useState(null);
+  // 총 페이지 수 계산
+  const totalPages = pageSize && totalCount ? Math.ceil(totalCount / pageSize) : 0;
+
+  const QUERY = useMemo(() => ({ page, pageSize, orderBy, keyword: searchKeyword }), [page, pageSize, orderBy, searchKeyword]);
 
   // 데이터 로딩 함수
-  const handleAllDataLoad = async (options) => {
+  const handleAllDataLoad = async (QUERY) => {
     try {
-      const data = await getItems(options);
+      const data = await getItems(QUERY);
       const { list, totalCount } = data;
       setItems(list);
       setTotalCount(totalCount);
-      console.log(list, totalCount);
     } catch (error) {
       console.error('Failed to fetch items', error);
     }
   };
 
   useEffect(() => {
-    handleAllDataLoad({ page, pageSize: PAGESIZE, orderBy, keyword: searchKeyword });
-  }, [page, orderBy, searchKeyword]); // page, orderBy, keyword가 변경될 때마다 데이터 로드
+    if (pageSize !== null) {
+      handleAllDataLoad(QUERY);
+    }
+  }, [pageSize, QUERY]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1200) {
+        // 데스크탑 사이즈
+        setPageSize(PAGESIZE_DEFAULT);
+      } else if (window.innerWidth >= 744) {
+        // 태블릿 사이즈
+        setPageSize(PAGESIZE_TABLET);
+      } else {
+        // 모바일 사이즈
+        setPageSize(PAGESIZE_MOBILE);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    // 이벤트 리스너 등록
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup 함수
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // 페이지 변경 핸들러
-  const handlePageChange = (newPage) => {
-    setPage(newPage);
-  };
-
-  // 총 페이지 수 계산
-  const totalPages = Math.ceil(totalCount / PAGESIZE);
+  const handlePageChange = (newPage) => setPage(newPage);
 
   return (
     <div>
       <div className="All-Items">
         {items.map((item) => (
-          <div key={item.id} className="Item">
-            <img src={item.images} alt={item.name} width="200" />
+          <div className="Item" key={item.id}>
+            <img className="All-Item-Img" src={item.images} alt={item.name} width="200" />
             <p>{item.name}</p>
             <p>{item.price.toLocaleString()}원</p>
             <p className="Favorite">
@@ -53,7 +78,8 @@ const AllItem = ({ searchKeyword, orderBy }) => {
           </div>
         ))}
       </div>
-      <PagenationBar page={page} totalPages={totalPages} onPageChange={handlePageChange} />
+      <PagenationBar totalPages={totalPages} onPageChange={handlePageChange} />
+      {/* <PagenationButton /> */}
     </div>
   );
 };

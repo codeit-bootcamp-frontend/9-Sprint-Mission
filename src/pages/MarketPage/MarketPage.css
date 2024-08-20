@@ -1,7 +1,38 @@
-.App {
+.MarketPage {
   max-width: 1200px;
   margin: 70px auto 24px auto;
   margin-top: 70px;
+}
+
+@media (max-width: 1200px) {
+  .MarketPage {
+    padding: 0 24px; /* 태블릿에서 여백 추가 */
+  }
+}
+
+@media (max-width: 744px) {
+  .MarketPage {
+    padding: 0 16px; /* 모바일에서 여백 추가 */
+  }
+
+  .Search-Nav p {
+    flex-direction: column;
+    gap: 16px; /* 요소 간의 간격 추가 */
+  }
+
+  .Search-wrap {
+    display: flex;
+    gap: 12px; /* 요소 간의 간격 추가 */
+    align-items: stretch; /* 자식 요소들이 가로 전체를 차지하도록 설정 */
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .Search-wrap .Register-Button {
+    align-self: center; /* 버튼을 중앙 정렬 */
+    width: 100%; /* 버튼을 가로 전체에 맞게 설정 */
+  }
 }
 
 .Search-Nav {
@@ -30,7 +61,26 @@
   justify-items: center;
   padding: 24px 0;
   margin-bottom: 42px;
+  overflow-x: hidden;
 }
+
+/* 태블릿 사이즈 */
+@media (max-width: 1200px) {
+  .All-Items {
+    padding: 24px 0;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+/* 모바일 사이즈 */
+@media (max-width: 744px) {
+  .All-Items {
+    padding: 8px 0;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 60px;
+  }
+}
+
 .Item {
   display: flex;
   flex-direction: column;
@@ -38,14 +88,20 @@
   font-weight: 500;
   margin-bottom: 40px;
 }
-
+@media (max-width: 744px) {
+  .All-Item-Img {
+    width: 168px;
+  }
+}
 .Item :nth-child(2) {
   font-size: 14px;
 }
+
 .Item :nth-child(3) {
   font-size: 16px;
   font-weight: 700;
 }
+
 .Item :nth-child(4) {
   font-size: 12px;
 }
@@ -68,6 +124,17 @@
   grid-template-columns: 1fr 1fr 1fr 1fr;
   justify-items: center;
   padding: 24px 0;
+}
+
+@media (max-width: 1200px) {
+  .Best-Items {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+  .Best-Item-Img {
+    width: 343px;
+  }
 }
 
 .Favorite {

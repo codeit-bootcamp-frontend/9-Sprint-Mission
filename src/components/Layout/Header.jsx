@@ -1,12 +1,10 @@
 import React from 'react';
 import './Header.css';
 import { Link, NavLink } from 'react-router-dom';
-import Logo from '../../assets/images/logo/logo.svg';
-import Profile from '../../assets/images/icons/ic-profile.png';
+import Logo from '../../api/assets/images/logo/logo.svg';
+import Profile from '../../api/assets/images/icons/ic-profile.png';
 
 const ActiveLinkStyle = ({ isActive }) => {
-  console.log(isActive);
-
   return { color: isActive ? 'var(--blue)' : undefined };
 };
 
@@ -15,7 +13,7 @@ const Header = () => {
     <header className="Header">
       <div className="header-left-wrap">
         <Link to="/">
-          <img src={Logo} alt="판다마켓 홈" width="153" />
+          <img className="logo" src={Logo} alt="판다마켓 홈" width="153" />
         </Link>
         <div className="header-menu-wrap">
           <NavLink to="/community" style={ActiveLinkStyle}>
