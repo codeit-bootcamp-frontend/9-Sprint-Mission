@@ -1,0 +1,11 @@
+@import '_reset';
+@import '_base';
+
+.App {
+  @import 'Header';
+  @import 'LoginPage';
+  @import 'HomePage';
+  @import 'ProductPage';
+  @import 'AdditemPage';
+  @import 'Footer';
+}

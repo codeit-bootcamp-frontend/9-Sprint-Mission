@@ -1,0 +1,33 @@
+.Pagination {
+  .paging-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 4rem;
+    padding-bottom: 5rem;
+
+    button {
+      width: 40px;
+      height: 40px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      background-color: #fff;
+      border: 1px solid $gray200;
+      border-radius: 100px;
+      color: $gray500;
+
+      &.active {
+        background-color: $clr-blue;
+        color: #fff;
+      }
+
+      &.left-arrow {
+        background: url('../images/icon/arrow_left.svg') center center no-repeat;
+      }
+
+      &.right-arrow {
+        background: url('../images/icon/arrow_right.svg') center center no-repeat;
+      }
+    }
+  }
+}
