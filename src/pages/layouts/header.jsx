@@ -9,12 +9,6 @@ const getMobileSize = () => {
   else return false;
 };
 
-function getLinkStyle({ isActive }) {
-  return {
-    color: isActive ? "var(--blue-100)" : "var(--gray-600)",
-  };
-}
-
 function Header() {
   const [isMobileSize, setIsMobileSize] = useState(getMobileSize);
 
