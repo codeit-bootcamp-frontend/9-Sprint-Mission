@@ -1,22 +1,21 @@
-function ItemDetailSection({ product }) {
-  if (!product) return <div></div>;
+function ItemDetailSection({ itemDetail }) {
   return (
     <div className="product-detail">
       <div className="product-image">
-        <img src={product.images[0]} />
+        <img src={itemDetail.images[0]} />
       </div>
 
       <div className="product-info">
         <div>
-          <div className="product-name">{product.name}</div>
+          <div className="product-name">{itemDetail.name}</div>
           <span className="product-price">
-            {product.price.toLocaleString()}원
+            {itemDetail.price.toLocaleString()}원
           </span>
         </div>
-        <div className="product-description">{product.description}</div>
+        <div className="product-description">{itemDetail.description}</div>
       </div>
       <div className="tags">
-        {product.tags?.map((tag, i) => (
+        {itemDetail.tags?.map((tag, i) => (
           <span key={`tag-${i}`} className="tag">
             #{tag}
           </span>

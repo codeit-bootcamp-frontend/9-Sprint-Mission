@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import usePageSize, { SORT_TYPE } from "../lib/usePageSize";
 import useProducts from "../lib/useProducts";
