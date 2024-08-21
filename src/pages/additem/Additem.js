@@ -79,7 +79,7 @@ function Additem() {
             </label>
 
             {/* 보더문제 */}
-            <label>
+            <label >
               <img src={preview} className="previewImg"></img>
             </label>
           </div>
