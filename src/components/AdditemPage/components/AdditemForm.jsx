@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import styled from 'styled-components';
 import FileInput from './FileInput';
 import Tag from './Tag';
 
@@ -10,10 +11,20 @@ const INITIAL_VALUES = {
   tags: [],
 };
 
+const Button = styled.button`
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #f3f4f6;
+  background-color: ${({ disabled }) => (disabled ? `#9CA3AF` : `#3692FF`)};
+  border-radius: 8px;
+  padding: 12px 32px;
+`;
+
 const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
   const [value, setValue] = useState(initialValues);
-  const [isDisabled, setIsDisabled] = useState(false);
   const [tagValue, setTagValue] = useState();
+
+  const { name, price, description, tags } = value;
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -56,17 +67,6 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
     handleChange(name, value);
   };
 
-  // 등록 활성화 버튼
-  useEffect(() => {
-    const { name, price, description, tags } = value;
-    const allFieldsFilled = name && price > 0 && description && tags[0];
-    if (allFieldsFilled) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
-  }, [value]);
-
   // 태그 추가 함수
   const addTag = tag => {
     // 빈칸 X, 중복 X
@@ -102,9 +102,9 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
     <form className="AdditemForm" onSubmit={handleSubmit}>
       <div className="AdditemForm-submit-wrap">
         <h2 className="AdditemForm-main-tit">상품 등록하기</h2>
-        <button type="submit" className={'submit-button' + (isDisabled ? ' active' : '')} disabled={!isDisabled}>
+        <Button type="submit" disabled={!name || !(price > 0) || !description || !tags[0]}>
           등록
-        </button>
+        </Button>
       </div>
       <FileInput name="images" value={value.images} onChange={handleChange} />
       <div className="AdditemForm-input-wrap">

@@ -21,19 +21,6 @@
         font-weight: 700;
         color: $gray800;
       }
-
-      .submit-button {
-        font-size: 1.6rem;
-        font-weight: 600;
-        color: $gray100;
-        background-color: $gray400;
-        border-radius: 8px;
-        padding: 12px 32px;
-
-        &.active {
-          background-color: $clr-blue;
-        }
-      }
     }
 
     .AdditemForm-input-wrap {
