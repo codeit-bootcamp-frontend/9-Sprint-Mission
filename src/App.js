@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import HomePage from './components/HomePage/HomePage';
 import Product from './components/ProductPage/Product';
 import Additem from './components/AdditemPage/Additem';
+import Notfound from './components/Notfound';
 import './assets/styles/App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route index element={<Product />} />
             <Route path="additem" element={<Additem />} />
           </Route>
+          <Route path="*" element={<Notfound />} />
         </Routes>
 
         <Footer />
