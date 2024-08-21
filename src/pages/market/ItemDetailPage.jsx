@@ -9,7 +9,7 @@ function ItemDetailPage() {
   const { itemDetail } = useProductDetail(productId);
 
   return (
-    <div className="wrapper">
+    <div className="item-detail-wrapper">
       {itemDetail ? (
         <>
           <ItemDetailSection itemDetail={itemDetail} />
