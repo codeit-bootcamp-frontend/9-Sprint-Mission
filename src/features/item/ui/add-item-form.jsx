@@ -74,8 +74,10 @@ const AddItemForm = () => {
       formData.append("images", [image]);
     }
 
-    const responseInfo = await addProducts(formData);
-    console.log(responseInfo.data);
+    formData.forEach((value, key) => {
+      console.log("key: " + key + ", value: " + value);
+    });
+    //const responseInfo = await addProducts(formData);
   };
 
   return (
@@ -91,6 +93,7 @@ const AddItemForm = () => {
         <br />
         <ImageUpload
           id="imageUpload"
+          name="imageUpload"
           image={image}
           setImage={handleImageUpload}
           onRemoveImage={handleImageRemove}
