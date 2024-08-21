@@ -34,6 +34,17 @@ a:visited {
 a:active {
   color: #3692ff;
 }
+
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+}
+
 .navbar .category .active {
   color: #3692ff;
 }
@@ -65,11 +76,24 @@ nav {
   font-weight: 600;
   color: #4b5563;
 }
-
+.my-profile-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+.my-profile {
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/profile_guest.png);
+  background-position: center;
+  background-size: cover;
+}
 main {
   display: flex;
   flex-direction: column;
-  margin: 70px auto;
+  margin: 94px auto;
   width: 1200px;
 }
 
@@ -227,7 +251,7 @@ main {
 }
 @media screen and (max-width: 992px) {
   main {
-    margin: 86px 24px;
+    margin: 94px 24px;
     width: auto;
   }
 
@@ -249,7 +273,6 @@ main {
 }
 @media screen and (max-width: 781px) {
   main {
-    margin-top: 94px;
     margin-right: 14px;
     margin-left: 15px;
     width: auto;
