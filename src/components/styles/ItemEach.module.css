@@ -1,3 +1,6 @@
+button {
+  cursor: pointer;
+}
 .productWrapper {
   display: flex;
   gap: 24px;
@@ -21,10 +24,20 @@
   color: #1f2937;
 }
 .prucuctTitle {
+  display: flex;
+  justify-content: space-between;
   font-size: 2.4rem;
   line-height: 3.2rem;
 }
-
+.kebabIcon {
+  width: 24px;
+  height: 24px;
+  background-image: url(../../img/ic_kebab.png);
+  background-position: center;
+  background-size: cover;
+  background-color: transparent;
+  border: none;
+}
 .productPrice {
   font-size: 4rem;
   line-height: 4.8rem;

@@ -47,7 +47,10 @@ export function ItemEach({ id }) {
           <div className={styles.productInfoBox}>
             <div>
               <div className={styles.productHeader}>
-                <h1 className={styles.prucuctTitle}>{item.name} 팔아요</h1>
+                <h1 className={styles.prucuctTitle}>
+                  {item.name} 팔아요
+                  <button type="button" className={styles.kebabIcon}></button>
+                </h1>
                 <div className={styles.productPrice}>
                   {item.price.toLocaleString()}원
                 </div>
