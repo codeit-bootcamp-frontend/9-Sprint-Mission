@@ -40,8 +40,8 @@
 .image-preview {
   margin-top: 8px;
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 168px;
+  height: 168px;
   background-color: #f9f9f9;
   border-radius: 8px;
   overflow: hidden;
@@ -75,11 +75,21 @@
     width: 200px;
     height: 200px;
   }
+
+  .image-preview {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 /* Desktop */
-@media (min-width: 1280px) {
+@media (min-width: 1200px) {
   .image-upload-placeholder {
+    width: 220px;
+    height: 220px;
+  }
+
+  .image-preview {
     width: 220px;
     height: 220px;
   }
