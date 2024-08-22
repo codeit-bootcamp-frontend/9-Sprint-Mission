@@ -1,0 +1,287 @@
+.detailContainer {
+  width: 1200px;
+  margin: auto;
+  margin-bottom: 94px;
+  padding-top: 94px;
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+.detailInfoBox {
+  display: flex;
+  gap: 24px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--color-gray200);
+
+  .infoImg,
+  .emptyImageBox {
+    width: 486px;
+    height: 486px;
+    border-radius: 16px;
+  }
+}
+
+.productsInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 62px;
+  width: 100%;
+}
+
+.infoInner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.infoTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-bottom: 1px solid var(--color-gray200);
+  font-weight: 600;
+  color: var(--color-gray800);
+  padding-bottom: 16px;
+  h2 {
+    font-size: 24px;
+  }
+
+  h3 {
+    font-size: 40px;
+  }
+}
+
+.titleBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    background: none;
+    border: none;
+    padding: 0;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.infoDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #4b5563;
+
+  h2 {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+
+.infoTags {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4b5563;
+  }
+}
+
+.tagList {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .tagItem {
+    padding: 6px 16px;
+    border-radius: 26px;
+    background-color: var(--color-gray100);
+    font-size: 16px;
+    color: var(--color-gray800);
+  }
+}
+
+.emptyTag {
+  font-size: 16px;
+}
+
+.authorBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 9999px;
+  }
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h3 {
+    font-weight: 500;
+    font-size: 14px;
+    color: #4b5563;
+  }
+
+  span {
+    font-size: 14px;
+    color: var(--color-gray400);
+  }
+}
+
+.likeBtnBox {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.likeBtn {
+  background: none;
+  border: 1px solid var(--color-gray200);
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 12px;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+
+  span {
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--color-gray500);
+  }
+}
+
+.bar {
+  border-left: 1px solid var(--color-gray200);
+  height: 34px;
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 64px;
+  background-color: var(--color-theme);
+  border: none;
+  border-radius: 40px;
+  width: 240px;
+  margin: auto;
+  white-space: nowrap;
+
+  p {
+    font-size: 18px;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--color-gray100);
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.backLink:hover {
+  background-color: var(--color-theme-hover);
+}
+
+/* 반응형 공통 */
+@media (max-width: 767px) {
+  .infoDescription {
+    h2 {
+      font-size: 14px;
+    }
+  }
+
+  .infoTags {
+    h2 {
+      font-size: 14px;
+    }
+  }
+
+  .likeBtn {
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+/* 태블릿 스타일 */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .detailContainer {
+    width: 696px;
+  }
+
+  .detailInfoBox {
+    .infoImg,
+    .emptyImageBox {
+      width: 340px;
+      height: 340px;
+    }
+  }
+
+  .infoTitle {
+    h2 {
+      font-size: 20px;
+    }
+  
+    h3 {
+      font-size: 32px;
+    }
+  }
+}
+
+/* 모바일 스타일 */
+@media (min-width: 375px) and (max-width: 767px) {
+  .detailContainer {
+    width: 344px;
+  }
+
+  .detailInfoBox {
+    flex-direction: column;
+  
+    .infoImg,
+    .emptyImageBox {
+      width: 344px;
+      height: 343px;
+    }
+  }
+
+  .infoTitle {
+    h2 {
+      font-size: 16px;
+    }
+  
+    h3 {
+      font-size: 24px;
+    }
+  }
+}

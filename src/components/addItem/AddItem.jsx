@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
-import CheckInputs from "../../utils/CheckInputs";
+import { useState } from "react";
 import "./AddItem.css";
+import AddItemInput from "./AddItemInput";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AddItem = () => {
+  const navigate = useNavigate();
+
   const [src, setSrc] = useState(null);
-  const [tagId, setTagId] = useState(0);
-  const [tagInput, setTagInput] = useState("");
   const [error, setError] = useState("");
-  const [isReady, setReady] = useState(false);
   const [values, setValues] = useState({
     images: null,
     name: "",
@@ -17,20 +18,8 @@ const AddItem = () => {
   });
 
   // 등록버튼 활성화 여부
-  useEffect(() => {
-    if (values.name && values.description && values.price && values.tags.length !== 0) {
-      setReady(true);
-    } else {
-      setReady(false);
-    }
-  }, [values.name, values.description, values.price, values.tags]);
-
-  // tag id 증가 함수
-  const generateTagId = () => {
-    setTagId((prevId) => prevId + 1);
-    return tagId;
-  };
-
+  const isReady = values.name && values.description && values.price && values.tags.length !== 0;
+  
   // 이미지 파일 변경함수
   const onChangeFile = (e) => {
     const { files } = e.target;
@@ -42,11 +31,15 @@ const AddItem = () => {
         setError("*이미지 등록은 최대 1개까지 가능합니다.");
         return;
       }
+
       setError("");
       setValues((prevValues) => ({
         ...prevValues,
         images: file,
       }));
+
+      // value를 초기화해야 취소 후 다시 같은 이미지를 업로드해도 미리보기가 잘 뜬다. 
+      e.target.value = "";
 
       // 미리보기 생성
       const imageRead = new FileReader();
@@ -58,53 +51,6 @@ const AddItem = () => {
     } 
   };
 
-  // 상품명, 설명, 가격 변경 및 검증함수
-  const onChangeContents = (e) => {
-    const {
-      target: { name, value },
-    } = e;
-
-    setValues((prevValues) => {
-      const newValues = { ...prevValues };
-
-      if (name === "itemName") {
-        newValues.name = value;
-      } else if (name === "itemDescription") {
-        newValues.description = value;
-      } else if (name === "itemPrice") {
-        newValues.price = value;
-      }
-
-      return newValues;
-    });
-  };
-
-  // 입력한 태그명 변경함수
-  const onChangeTag = (e) => {
-    const newTag = e.target.value;
-    setTagInput(newTag);
-  };
-
-  // 태그 입력하여 엔터눌렀을 때 실행함수
-  const onTagKeyDown = (e) => {
-    if (e.key === "Enter" && tagInput.trim() !== "") {
-      e.preventDefault();
-
-      const newTag = {
-        id: generateTagId(),
-        name: tagInput.trim(),
-      };
-
-      const newValues = {
-        ...values,
-        tags: [...values.tags, newTag],
-      };
-
-      setValues(newValues);
-      setTagInput("");
-    }
-  };
-
   // 업로드 이미지 삭제 함수
   const onDeleteImg = () => {
     setSrc(null);
@@ -114,27 +60,21 @@ const AddItem = () => {
     }));
   };
 
-  // 추가한 태그 삭제함수
-  const onDeleteTag = (clickTag) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      tags: prevValues.tags.filter((tag) => tag.id !== clickTag),
-    }));
-  };
-
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const isValid = CheckInputs({ params: values });
+      const response = await axios.post("https://panda-market-api.vercel.app/products/", {
+        values
+      });
 
-      if (!isValid) {
-        console.log("유효성 검사 통과 못함");
-        return;
+      if (response.status === 200) {
+        const data = response.data;
+        navigate(`/items/${data.id}`);
       }
-
-      // 스프린트 미션7에서 api 연결 추가
     } catch (error) {
-      console.error("addItem onSubmit에서 오류 발생.", error);
+      if (axios.isAxiosError(error)) {
+        console.error("addItem onSubmit에서 오류 발생.", error);
+      }
     } finally {
       setError("");
       setValues({
@@ -175,76 +115,7 @@ const AddItem = () => {
           </div>
           {error !== "" && <p className="errorMsg">{error}</p>}
         </div>
-        <div className="addItemContentsBox">
-          <label htmlFor="itemName" className="contentsTitle">
-            상품명
-          </label>
-          <input
-            type="text"
-            onChange={onChangeContents}
-            value={values.name}
-            id="itemName"
-            name="itemName"
-            className="contents"
-            placeholder="상품명을 입력해주세요."
-            required
-          />
-        </div>
-        <div className="addItemContentsBox">
-          <label htmlFor="itemDescription" className="contentsTitle">
-            상품 소개
-          </label>
-          <textarea
-            id="itemDescription"
-            onChange={onChangeContents}
-            value={values.description}
-            name="itemDescription"
-            rows={10}
-            className="itemDescription"
-            placeholder="상품 소개를 입력해주세요."
-            required
-          />
-        </div>
-        <div className="addItemContentsBox">
-          <label htmlFor="itemPrice" className="contentsTitle">
-            판매 가격
-          </label>
-          <input
-            type="number"
-            id="itemPrice"
-            onChange={onChangeContents}
-            value={values.price.toLocaleString("ko-KR")}
-            name="itemPrice"
-            className="contents"
-            placeholder="판매 가격을 입력해주세요."
-            required
-          />
-        </div>
-        <div className="addItemContentsBox">
-          <label htmlFor="itemTag" className="contentsTitle">
-            태그
-          </label>
-          <input
-            type="text"
-            id="itemTag"
-            onChange={onChangeTag}
-            onKeyDown={onTagKeyDown}
-            value={tagInput}
-            name="itemTag"
-            className="contents"
-            placeholder="태그를 입력해주세요."
-          />
-          <ul className="tagList">
-            {values.tags.map((tag) => (
-              <li key={tag.id} className="tagListItem">
-                {tag.name}
-                <button className="tagDeleteBtn" onClick={() => onDeleteTag(tag.id)}>
-                  <img src="/delete.png" alt="삭제" />
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <AddItemInput values={values} setValues={setValues} />
       </form>
     </div>
   );

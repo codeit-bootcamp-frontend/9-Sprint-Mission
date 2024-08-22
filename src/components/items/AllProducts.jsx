@@ -12,7 +12,6 @@ const AllProducts = ({ width }) => {
   const [inputKeyword, setInputKeyword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  const [isMobile, setMobile] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
 
   // 사용환경에 따른 pageSize 조절 (심화사항에 적절하게 설정하라고 하여 화면을 넘지 않도록 태블릿부터 10개로 했습니다.)
@@ -27,13 +26,7 @@ const AllProducts = ({ width }) => {
   const pageSize = calculatePageSize(width);
 
   // 모바일 확인
-  useEffect(() => {
-    if (width > 375 && width < 767) {
-      setMobile(true);
-    } else {
-      setMobile(false);
-    }
-  }, [width]);
+  const isMobile = width > 375 && width < 767;  
 
   // select 태그를 이용한 정렬함수
   const onChangeSelect = (e) => {
@@ -69,6 +62,7 @@ const AllProducts = ({ width }) => {
 
         setProducts(allProducts.list);
         setTotalPage(Math.ceil(allProducts.totalCount / pageSize));
+        
       } catch (error) {
         setError("전체 상품정보를 가져오지 못했습니다.");
         console.error("전체상품 getProducts에서 오류 발생", error);
@@ -124,7 +118,7 @@ const AllProducts = ({ width }) => {
         !error ? (
           <div className="allProductsContents">
             {products.map((item) => (
-              <div key={item.id} className="allProducts">
+              <Link to={`/items/${item.id}`} key={item.id} className="allProducts">
                 <img src={item.images} alt={item.name} className="productImg" />
                 <h2 className="productTitle">{item.name}</h2>
                 <h2 className="productPrice">{item.price.toLocaleString("ko-KR")}원</h2>
@@ -132,7 +126,7 @@ const AllProducts = ({ width }) => {
                   <img src="/like.png" alt="좋아요" />
                   {item.favoriteCount}
                 </span>
-              </div>
+              </Link>
             ))}
           </div>
         ) : (
