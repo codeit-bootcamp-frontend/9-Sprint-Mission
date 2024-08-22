@@ -149,10 +149,22 @@
   border: none;
   border-radius: 8px;
   padding: 12px, 23px, 12px, 23px;
-  background-color: #9ca3af;
   color: #f3f4f6;
   font-size: 16px;
   font-weight: 600;
+  background-color: #9ca3af;
+}
+
+.changeColor {
+  width: 8%;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px, 23px, 12px, 23px;
+  color: #f3f4f6;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #3692ff;
 }
 .main__CommentBox {
   display: flex;
@@ -161,7 +173,7 @@
   margin-top: 30px;
 }
 .commentBox__container {
-  width: 80%;
+  width: 95%;
   padding: 10px;
 }
 .commentBox__comment {
@@ -173,6 +185,36 @@
   width: 100%;
   margin-left: 5px;
 }
+.commentBox__editMode {
+  width: 106%;
+  height: 80px;
+  border: none;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  padding: 10px;
+}
+.commentBox__editModeBtn {
+  width: 106%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+.commentBox__editModeBtn--cancel {
+  background-color: white;
+  border: none;
+}
+.commentBox__editModeBtn--complete {
+  width: 106px;
+  height: 42px;
+  background-color: #3692ff;
+  color: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
 .commentBox__icon {
   width: 32px;
   height: 32px;
@@ -182,7 +224,32 @@
 }
 .commentBox__edit {
   width: 5%;
+  height: 50%;
   padding: 10px;
+}
+
+.commentBox__editBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.editBox {
+  width: 139px;
+  height: 92px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  position: absolute;
+  bottom: -40px;
+  z-index: 1;
+  background-color: white;
 }
 
 .link {
@@ -195,6 +262,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: 20px auto;
   gap: 15px;
+  margin-top: 40px;
 }

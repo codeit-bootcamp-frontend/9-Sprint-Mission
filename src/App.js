@@ -5,7 +5,6 @@ import { Routes, Route } from "react-router-dom";
 import Additem from "./pages/additem/Additem";
 import Items from "./pages/items/Items";
 import DetailPage from "./pages/detail/DetailPage";
-import axios from "axios";
 
 function App() {
   // 베스트 반응형 데이터
