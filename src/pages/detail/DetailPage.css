@@ -24,7 +24,7 @@
 }
 
 .productsContentBox {
-  width: 690px;
+  width: 60%;
   height: auto;
   gap: 62px;
 }
@@ -98,6 +98,7 @@
   display: flex;
   justify-content: right;
   border-left: 2px solid #f3f4f6;
+  padding: 5px;
 }
 .userBoxLike__count {
   width: 80%;
@@ -107,6 +108,11 @@
   padding: 4px 12px 4px 12px;
   gap: 10px;
   display: flex;
+  align-items: center;
+}
+.userBoxLike__img {
+  width: 30%;
+  height: 70%;
 }
 .userBoxLike__favoriteCount {
   display: flex;
@@ -175,6 +181,10 @@
 .commentBox__container {
   width: 95%;
   padding: 10px;
+}
+.commentBox__top {
+  display: flex;
+  width: 106%;
 }
 .commentBox__comment {
   display: flex;
@@ -247,7 +257,7 @@
   padding: 20px;
   gap: 20px;
   position: absolute;
-  bottom: -40px;
+  bottom: -120px;
   z-index: 1;
   background-color: white;
 }
@@ -265,4 +275,55 @@
   margin: 20px auto;
   gap: 15px;
   margin-top: 40px;
+}
+
+/* 태블릿 사이즈 */
+@media screen and (max-width: 1199px) {
+  .container {
+    width: 696px;
+    height: auto;
+  }
+  .productsImg {
+    width: 340px;
+    height: 340px;
+  }
+  .productsContentBox {
+    width: 50%;
+  }
+  .userBoxLike {
+    width: 40%;
+  }
+  .header {
+    align-items: flex-start;
+  }
+  .askBoxButton__btn,
+  .changeColor {
+    width: 10%;
+  }
+}
+
+/* 모바일 사이즈 */
+@media screen and (max-width: 767px) {
+  .container {
+    width: 344px;
+  }
+  .header {
+    flex-direction: column;
+  }
+  .productsContentBox {
+    width: 100%;
+  }
+  .productsContentTitle {
+    margin-top: 10px;
+  }
+  .askBoxButton__btn,
+  .changeColor {
+    width: 22%;
+  }
+  .askBoxTextarea {
+    font-size: 12px;
+  }
+  .link {
+    margin-top: 80px;
+  }
 }

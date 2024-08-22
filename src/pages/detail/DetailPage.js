@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./DetailPage.css";
 import { useNavigate, useParams } from "react-router-dom";
-import EditBox from "../../components/detailcomponents/editBox";
+// import EditBox from "../../components/detailcomponents/editBox";
 
 function DetailPage({ data }) {
   // id값 데이터만 get해오기
@@ -49,6 +49,7 @@ function DetailPage({ data }) {
 
   let [activeBtn, setActiveBtn] = useState(false);
   let [activeComment, setActiveComment] = useState(true);
+  let [editBox, setEditBox] = useState(false);
 
   return (
     <div className="container">
@@ -85,7 +86,11 @@ function DetailPage({ data }) {
             </div>
             <div className="userBoxLike">
               <div className="userBoxLike__count">
-                <img src="/heart.png" alt="하트이미지" />
+                <img
+                  src="/heart.png"
+                  alt="하트이미지"
+                  className="userBoxLike__img"
+                />
                 <div className="userBoxLike__favoriteCount">
                   {targetProduct.favoriteCount}
                 </div>
@@ -128,12 +133,45 @@ function DetailPage({ data }) {
               <div className="main__CommentBox">
                 <div className="commentBox__container">
                   {activeComment === true ? (
-                    <div className="commentBox__comment">{item.content}</div>
+                    <>
+                      <div className="commentBox__top">
+                        <div className="commentBox__comment">
+                          {item.content}
+                        </div>
+                        <img
+                          src="/edit.png"
+                          alt="더보기이미지"
+                          onClick={() => {
+                            setEditBox(!editBox);
+                          }}
+                        />
+                      </div>
+                      <div className="commentBox__editBox">
+                        <div className="commentBox__edit"></div>
+                        {editBox === true ? (
+                          <div className="editBox">
+                            <div
+                              onClick={() => {
+                                setActiveComment(false);
+                              }}
+                            >
+                              수정하기
+                            </div>
+                            <div>삭제하기</div>
+                          </div>
+                        ) : null}
+                      </div>
+                    </>
                   ) : (
                     <>
                       <input className="commentBox__editMode"></input>
                       <div className="commentBox__editModeBtn">
-                        <button className="commentBox__editModeBtn--cancel">
+                        <button
+                          className="commentBox__editModeBtn--cancel"
+                          onClick={() => {
+                            setActiveComment(true);
+                          }}
+                        >
                           취소
                         </button>
                         <button className="commentBox__editModeBtn--complete">
@@ -143,7 +181,6 @@ function DetailPage({ data }) {
                     </>
                   )}
 
-                  {/* <div className="commentBox__comment">{item.content}</div> */}
                   <div className="userBox inCommentBox">
                     <div className="userBoxIcon">
                       <div className="commentBox__icon">
@@ -165,20 +202,6 @@ function DetailPage({ data }) {
                     </div>
                   </div>
                 </div>
-
-                <EditBox setActiveComment={setActiveComment} />
-                {/* <div className="commentBox__editBox">
-                <div className="commentBox__edit">
-                  <img
-                    src="/edit.png"
-                    alt="더보기이미지"
-                    onClick={() => {
-                      setEditBox(!editBox);
-                    }}
-                  />
-                </div>
-                {editBox === true ? <EditBox /> : null}
-              </div> */}
               </div>
             );
           })

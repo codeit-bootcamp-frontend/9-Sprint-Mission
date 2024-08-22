@@ -4,6 +4,27 @@ import "../../pages/detail/DetailPage.css";
 function EditBox({ setActiveComment }) {
   let [editBox, setEditBox] = useState(false);
 
+  //   function handleClickEdit () {
+  //     if (editBox === true) {
+  //         return(
+
+  //                 <div className="editBox">
+  //                   <div
+  //                     onClick={() => {
+  //                       setActiveComment(false);
+  //                     }}
+  //                   >
+  //                     수정하기
+  //                   </div>
+  //                   <div>삭제하기</div>
+  //                 </div>
+
+  //         )
+  //     } else {
+  //         return ()
+  //     }
+  //   }
+
   return (
     <>
       <div className="commentBox__editBox">
