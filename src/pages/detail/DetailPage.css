@@ -195,6 +195,9 @@
   width: 100%;
   margin-left: 5px;
 }
+.commentBox__img {
+  height: 17px;
+}
 .commentBox__editMode {
   width: 106%;
   height: 80px;

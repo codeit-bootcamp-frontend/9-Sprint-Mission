@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./DetailPage.css";
 import { useNavigate, useParams } from "react-router-dom";
-// import EditBox from "../../components/detailcomponents/editBox";
+import ProductHeader from "../../components/detailcomponents/ProductHeader";
+import AskBox from "../../components/detailcomponents/AskBox";
+import Comment from "../../components/detailcomponents/Comment";
+import CommentEdit from "../../components/detailcomponents/CommentEdit";
+import CommentUser from "../../components/detailcomponents/CommentUser";
 
 function DetailPage({ data }) {
   // id값 데이터만 get해오기
@@ -47,13 +51,12 @@ function DetailPage({ data }) {
 
   let navigate = useNavigate();
 
-  let [activeBtn, setActiveBtn] = useState(false);
   let [activeComment, setActiveComment] = useState(true);
-  let [editBox, setEditBox] = useState(false);
 
   return (
     <div className="container">
-      <div className="header">
+      <ProductHeader targetProduct={targetProduct} dateChange={dateChange} />
+      {/* <div className="header">
         <div className="productsImg">
           <img src={targetProduct.images} alt="상품이미지" />
         </div>
@@ -98,10 +101,11 @@ function DetailPage({ data }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="mainContent">
-        <div className="main__AskBox">
+        <AskBox />
+        {/* <div className="main__AskBox">
           <div className="askBoxLabel">
             <label htmlFor="ask" className="askBoxTitle">
               문의하기
@@ -125,7 +129,7 @@ function DetailPage({ data }) {
               등록
             </button>
           </div>
-        </div>
+        </div> */}
 
         {comments.list.length !== 0 ? (
           comments.list.map((item) => {
@@ -133,55 +137,57 @@ function DetailPage({ data }) {
               <div className="main__CommentBox">
                 <div className="commentBox__container">
                   {activeComment === true ? (
-                    <>
-                      <div className="commentBox__top">
-                        <div className="commentBox__comment">
-                          {item.content}
-                        </div>
-                        <img
-                          src="/edit.png"
-                          alt="더보기이미지"
-                          onClick={() => {
-                            setEditBox(!editBox);
-                          }}
-                        />
-                      </div>
-                      <div className="commentBox__editBox">
-                        <div className="commentBox__edit"></div>
-                        {editBox === true ? (
-                          <div className="editBox">
-                            <div
-                              onClick={() => {
-                                setActiveComment(false);
-                              }}
-                            >
-                              수정하기
-                            </div>
-                            <div>삭제하기</div>
-                          </div>
-                        ) : null}
-                      </div>
-                    </>
+                    <Comment item={item} setActiveComment={setActiveComment} />
                   ) : (
-                    <>
-                      <input className="commentBox__editMode"></input>
-                      <div className="commentBox__editModeBtn">
-                        <button
-                          className="commentBox__editModeBtn--cancel"
-                          onClick={() => {
-                            setActiveComment(true);
-                          }}
-                        >
-                          취소
-                        </button>
-                        <button className="commentBox__editModeBtn--complete">
-                          수정완료
-                        </button>
-                      </div>
-                    </>
+                    // <>
+                    //   <div className="commentBox__top">
+                    //     <div className="commentBox__comment">
+                    //       {item.content}
+                    //     </div>
+                    //     <img
+                    //       src="/edit.png"
+                    //       alt="더보기이미지"
+                    //       onClick={() => {
+                    //         setEditBox(!editBox);
+                    //       }}
+                    //     />
+                    //   </div>
+                    //   <div className="commentBox__editBox">
+                    //     <div className="commentBox__edit"></div>
+                    //     {editBox === true ? (
+                    //       <div className="editBox">
+                    //         <div
+                    //           onClick={() => {
+                    //             setActiveComment(false);
+                    //           }}
+                    //         >
+                    //           수정하기
+                    //         </div>
+                    //         <div>삭제하기</div>
+                    //       </div>
+                    //     ) : null}
+                    //   </div>
+                    // </>
+                    <CommentEdit setActiveComment={setActiveComment} />
+                    // <>
+                    //   <input className="commentBox__editMode"></input>
+                    //   <div className="commentBox__editModeBtn">
+                    //     <button
+                    //       className="commentBox__editModeBtn--cancel"
+                    //       onClick={() => {
+                    //         setActiveComment(true);
+                    //       }}
+                    //     >
+                    //       취소
+                    //     </button>
+                    //     <button className="commentBox__editModeBtn--complete">
+                    //       수정완료
+                    //     </button>
+                    //   </div>
+                    // </>
                   )}
-
-                  <div className="userBox inCommentBox">
+                  <CommentUser item={item} dateChange={dateChange} />
+                  {/* <div className="userBox inCommentBox">
                     <div className="userBoxIcon">
                       <div className="commentBox__icon">
                         <img
@@ -200,7 +206,7 @@ function DetailPage({ data }) {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             );
