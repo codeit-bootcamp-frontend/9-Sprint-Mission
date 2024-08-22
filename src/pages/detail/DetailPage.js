@@ -7,11 +7,12 @@ import AskBox from "../../components/detailcomponents/AskBox";
 import Comment from "../../components/detailcomponents/Comment";
 import CommentEdit from "../../components/detailcomponents/CommentEdit";
 import CommentUser from "../../components/detailcomponents/CommentUser";
+import NoComment from "../../components/detailcomponents/Nocomment";
+import BackToList from "../../components/detailcomponents/BackToList";
 
 function DetailPage({ data }) {
   // id값 데이터만 get해오기
   let { id } = useParams();
-
   const [targetProduct, setTargetProduct] = useState({});
   useEffect(() => {
     axios
@@ -22,7 +23,7 @@ function DetailPage({ data }) {
       .catch((err) => {
         console.error("targetProduct 오류", err);
       });
-  }, []);
+  }, [id]);
 
   // comments get해오기
   const [comments, setComments] = useState({ list: [] });
@@ -37,7 +38,7 @@ function DetailPage({ data }) {
       .catch((err) => {
         console.error("comments 오류", err);
       });
-  }, []);
+  }, [id]);
 
   // 만든 날짜 형식 변경
   function dateChange(target) {
@@ -50,87 +51,13 @@ function DetailPage({ data }) {
   }
 
   let navigate = useNavigate();
-
   let [activeComment, setActiveComment] = useState(true);
 
   return (
     <div className="container">
       <ProductHeader targetProduct={targetProduct} dateChange={dateChange} />
-      {/* <div className="header">
-        <div className="productsImg">
-          <img src={targetProduct.images} alt="상품이미지" />
-        </div>
-        <div className="productsContentBox">
-          <div className="productsContentTitle">
-            <h4>{targetProduct.name}</h4>
-            <p>{targetProduct.price} 원</p>
-          </div>
-          <div>
-            <p className="productsTitle">상품소개</p>
-            <p className="productsDescription">{targetProduct.description}</p>
-          </div>
-          <div>
-            <p className="productsTitle">상품태그</p>
-            <div className="productsTagBox">
-              <div className="productsTags">tags</div>
-            </div>
-          </div>
-          <div className="userBox">
-            <div className="userBoxIcon">
-              <div>
-                <img src="/ic_profile.png" alt="id-icon" width="100%" />
-              </div>
-              <div className="userBoxId">
-                <div className="userBoxId__id"> 총명한 판다 </div>
-                <div className="userBoxId__date">
-                  {dateChange(targetProduct.updatedAt)}
-                </div>
-              </div>
-            </div>
-            <div className="userBoxLike">
-              <div className="userBoxLike__count">
-                <img
-                  src="/heart.png"
-                  alt="하트이미지"
-                  className="userBoxLike__img"
-                />
-                <div className="userBoxLike__favoriteCount">
-                  {targetProduct.favoriteCount}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
       <div className="mainContent">
         <AskBox />
-        {/* <div className="main__AskBox">
-          <div className="askBoxLabel">
-            <label htmlFor="ask" className="askBoxTitle">
-              문의하기
-            </label>
-          </div>
-          <textarea
-            type="text"
-            id="ask"
-            className="askBoxTextarea"
-            placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
-            onChange={(e) => {
-              e.target.value === "" ? setActiveBtn(false) : setActiveBtn(true);
-            }}
-          ></textarea>
-          <div className="askBoxButton">
-            <button
-              className={
-                activeBtn === false ? "askBoxButton__btn" : "changeColor"
-              }
-            >
-              등록
-            </button>
-          </div>
-        </div> */}
-
         {comments.list.length !== 0 ? (
           comments.list.map((item) => {
             return (
@@ -139,93 +66,17 @@ function DetailPage({ data }) {
                   {activeComment === true ? (
                     <Comment item={item} setActiveComment={setActiveComment} />
                   ) : (
-                    // <>
-                    //   <div className="commentBox__top">
-                    //     <div className="commentBox__comment">
-                    //       {item.content}
-                    //     </div>
-                    //     <img
-                    //       src="/edit.png"
-                    //       alt="더보기이미지"
-                    //       onClick={() => {
-                    //         setEditBox(!editBox);
-                    //       }}
-                    //     />
-                    //   </div>
-                    //   <div className="commentBox__editBox">
-                    //     <div className="commentBox__edit"></div>
-                    //     {editBox === true ? (
-                    //       <div className="editBox">
-                    //         <div
-                    //           onClick={() => {
-                    //             setActiveComment(false);
-                    //           }}
-                    //         >
-                    //           수정하기
-                    //         </div>
-                    //         <div>삭제하기</div>
-                    //       </div>
-                    //     ) : null}
-                    //   </div>
-                    // </>
                     <CommentEdit setActiveComment={setActiveComment} />
-                    // <>
-                    //   <input className="commentBox__editMode"></input>
-                    //   <div className="commentBox__editModeBtn">
-                    //     <button
-                    //       className="commentBox__editModeBtn--cancel"
-                    //       onClick={() => {
-                    //         setActiveComment(true);
-                    //       }}
-                    //     >
-                    //       취소
-                    //     </button>
-                    //     <button className="commentBox__editModeBtn--complete">
-                    //       수정완료
-                    //     </button>
-                    //   </div>
-                    // </>
                   )}
                   <CommentUser item={item} dateChange={dateChange} />
-                  {/* <div className="userBox inCommentBox">
-                    <div className="userBoxIcon">
-                      <div className="commentBox__icon">
-                        <img
-                          src={item.writer.image}
-                          alt="id-icon"
-                          width="100%"
-                        />
-                      </div>
-                      <div className="userBoxId">
-                        <div className="userBoxId__id">
-                          {item.writer.nickname}
-                        </div>
-                        <div className="userBoxId__date">
-                          {" "}
-                          {dateChange(item.updatedAt)}{" "}
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             );
           })
         ) : (
-          <div>
-            <img src="/no-comment.png" alt="코멘트없음" />
-          </div>
+          <NoComment />
         )}
-
-        <button
-          className="link"
-          onClick={() => {
-            navigate("/items");
-          }}
-        >
-          목록으로 돌아가기
-          <img src="/arrow_left.png" alt="뒤로가기이미지" />
-        </button>
+        <BackToList navigate={navigate} />
       </div>
     </div>
   );
