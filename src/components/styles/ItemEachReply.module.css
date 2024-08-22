@@ -1,0 +1,43 @@
+.replyForm {
+  position: relative;
+}
+.replyLabel {
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 600;
+  color: #111827;
+}
+.replyTextarea {
+  width: 100%;
+  border: none;
+  resize: none;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  padding: 16px 24px;
+  margin-top: 9px;
+  margin-bottom: 58px;
+}
+.replyTextarea ::placeholder {
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.replyTextarea:focus {
+  outline: 1px solid #3692ff;
+}
+.replySubmitBtn {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  height: 42px;
+  background-color: #9ca3af;
+  border-radius: 8px;
+  border: none;
+  color: #f3f4f6;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 600;
+  padding: 8px 23px;
+}

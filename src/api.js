@@ -25,3 +25,15 @@ export async function getItemById({ id }) {
   }
   return bodyEach;
 }
+
+export async function getReplyById({ id, limit, cursor }) {
+  const query = `limit=${limit}&cursor=${cursor}`;
+  const responseReply = await fetch(
+    `${baseUrl}/products/${id}/comments?${query}`
+  );
+  const bodyReply = await responseReply.json();
+  if (!responseReply.ok) {
+    throw new Error("아이템을 불러오는데 실패했습니다.");
+  }
+  return bodyReply;
+}
