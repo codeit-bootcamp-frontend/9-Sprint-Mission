@@ -1,15 +1,22 @@
+.item-detail-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .item-detail {
-  max-width: 375px;
-  margin: 0 auto;
-  padding: 16px;
+  max-width: 344px;
+  width: 100%;
+  margin-top: 16px;
   background-color: #ffffff;
   border-radius: 12px;
 }
 
 .product-image img {
   width: 100%;
-  max-width: 343px;
-  max-height: 343px;
+  max-width: 344px;
+  max-height: 344px;
   border-radius: 12px;
 }
 
@@ -40,31 +47,6 @@
 
 .kebab-icon-container {
   position: relative;
-}
-
-.dropdown-menu {
-  display: block;
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background-color: #ffffff;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  z-index: 1000;
-  min-width: 120px;
-  padding: 8px 0;
-}
-
-.dropdown-item {
-  display: block;
-  padding: 8px 16px;
-  font-size: 14px;
-  color: #333;
-  text-decoration: none;
-}
-
-.dropdown-item:hover {
-  background-color: #f1f1f1;
 }
 
 .product-price {
@@ -172,29 +154,129 @@
 }
 
 .area-line {
+  max-width: 375px;
+  width: 100%;
   border-width: 1px;
   border-style: solid;
   border-color: var(--gray-200);
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 6px;
+  margin: 16px 6px;
 }
 
 .comments-section {
-  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 344px;
 }
 
 .comment-title {
+  width: 100%;
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 12px;
+  float: left;
+}
+
+.comment-input-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  background-color: #f8f9fa;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.comment-input {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  border: none;
+  border-radius: 8px;
+  resize: none;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.comment-input::placeholder {
+  color: #aaa;
+}
+
+.comment-submit-button {
+  align-self: flex-end;
+  background-color: #4a90e2;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.comment-submit-button:hover {
+  background-color: #357ab9;
+}
+
+.comment-submit-button:disabled {
+  background-color: #b0c4de;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .comment {
+  max-width: 375px;
+  width: 100%;
+  display: flex;
+  padding: 12px 0;
   border-bottom: 1px solid #e5e7eb;
-  padding-bottom: 12px;
-  margin-bottom: 12px;
+}
+
+.comment-profile-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+}
+
+.comment-content-container {
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.comment-user {
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.comment-time {
+  font-size: 12px;
+  color: #999;
+  margin-right: auto;
+}
+
+.comment-kebab-container {
+  position: relative;
+}
+
+.comment-kebab-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.comment-content {
+  font-size: 14px;
+  color: #333;
 }
 
 .comment-empty {
@@ -204,23 +286,13 @@
   margin-top: 16px;
 }
 
-.comment-user {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-.comment-content {
-  font-size: 14px;
-  color: #333;
-}
-
 .back-button-area {
   min-width: 375px;
   min-height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 24px;
 }
 
 .back-button-text {

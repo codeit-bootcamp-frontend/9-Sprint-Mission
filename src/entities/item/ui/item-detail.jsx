@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DropdownMenu from "../../../shared/ui/dropdown-menu";
 import KebabIcon from "../../../shared/assets/images/icons/ic_kebab.svg";
 import ProfileIcon from "../../../shared/assets/images/icons/ic_profile.svg";
 import HeartIcon from "../../../shared/assets/images/icons/ic_heart.svg";
@@ -16,6 +17,18 @@ function ItemDetailSection({ itemDetail }) {
     setLiked(!liked);
   };
 
+  const handleDropdownItemClick = (item) => {
+    if (item.action) {
+      item.action();
+    }
+    setDropdownVisible(false);
+  };
+
+  const dropdownItems = [
+    { label: "수정하기", action: () => console.log("Edit clicked") },
+    { label: "삭제하기", action: () => console.log("Delete clicked") },
+  ];
+
   return (
     <div className="item-detail">
       <div className="product-image">
@@ -27,14 +40,10 @@ function ItemDetailSection({ itemDetail }) {
           <div className="kebab-icon-container" onClick={toggleDropdown}>
             <KebabIcon alt="item detail options" className="kebab-icon" />
             {dropdownVisible && (
-              <div className="dropdown-menu">
-                <a href="#" className="dropdown-item">
-                  수정하기
-                </a>
-                <a href="#" className="dropdown-item">
-                  삭제하기
-                </a>
-              </div>
+              <DropdownMenu
+                items={dropdownItems}
+                onItemClick={handleDropdownItemClick}
+              />
             )}
           </div>
         </div>
