@@ -1,7 +1,7 @@
-import XImg from "../../assets/X.svg";
-import "./Tagitems.css";
+import XImg from "../../../assets/X.svg";
+import "./Tagitem.css";
 
-function Tagitems({ item, onDelete }) {
+function Tagitem({ item, onDelete }) {
   const handleDeleteClick = () => onDelete(item.id);
 
   return (
@@ -20,4 +20,4 @@ function Tagitems({ item, onDelete }) {
   );
 }
 
-export default Tagitems;
+export default Tagitem;

@@ -1,6 +1,8 @@
 import "./ItemForm.css";
-import FileInput from "../FileInput/FileInput";
 import Tag from "../Tag/Tag";
+import LabelInput from "../Label/LabelInput";
+import Label from "../Label/Label";
+
 function ItemForm({
   values,
   handleChange,
@@ -28,21 +30,20 @@ function ItemForm({
           등록
         </button>
       </div>
-      <label htmlFor="image" className="ItemForm-main-title">
-        상품이미지
-      </label>
-      <FileInput
+
+      <LabelInput
+        category="image"
+        title="상품이미지"
         name="imgFile"
         value={values.imgFile}
         onChange={handleChange}
       />
-      <label htmlFor="title" className="ItemForm-main-title">
-        상품명
-      </label>
-      <input
+
+      <Label
+        category="title"
+        title="상품명"
         name="title"
         placeholder="상품명을 입력해주세요"
-        className="ItemForm-main-input"
         value={values.title}
         onChange={handleInputChange}
       />
@@ -58,14 +59,11 @@ function ItemForm({
         onChange={handleInputChange}
       ></textarea>
 
-      <label htmlFor="price" className="ItemForm-main-title">
-        판매가격
-      </label>
-      <input
+      <Label
+        category="price"
+        title="판매가격"
         name="price"
-        type="text"
         placeholder="판매 가격을 입력해주세요"
-        className="ItemForm-main-input"
         value={values.price}
         onChange={handleInputChange}
       />
