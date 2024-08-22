@@ -45,20 +45,20 @@ function CommentsSection({ productId }) {
     return <div>오류: {error}</div>;
   }
 
-  if (comments.length === 0) {
-    return <div className="comment-empty">상품 댓글이 없습니다.</div>;
-  }
-
   return (
-    <section className="comments">
+    <div className="comments-section">
       <div className="comment-title">문의하기</div>
-      {comments.map((comment) => (
-        <div key={comment.id} className="comment">
-          <div className="comment-user"></div>
-          <div className="comment-content">{comment.content}</div>
-        </div>
-      ))}
-    </section>
+      {comments.length > 0 ? (
+        comments.map((comment) => (
+          <div key={comment.id} className="comment">
+            <div className="comment-user">{comment.ownerId}</div>
+            <div className="comment-content">{comment.content}</div>
+          </div>
+        ))
+      ) : (
+        <div className="comment-empty">상품 댓글이 없습니다.</div>
+      )}
+    </div>
   );
 }
 

@@ -1,80 +1,194 @@
-.item-detail-wrapper {
-  position: relative;
-  top: 16px;
-}
-
-.product-detail {
-  width: 100%;
+.item-detail {
   max-width: 375px;
   margin: 0 auto;
-  padding: 0 16px;
-}
-
-.product-image {
-  width: 100%;
-  margin-top: 16px;
+  padding: 16px;
+  background-color: #ffffff;
+  border-radius: 12px;
 }
 
 .product-image img {
   width: 100%;
-  height: auto;
+  max-width: 343px;
+  max-height: 343px;
   border-radius: 12px;
 }
 
 .product-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 24px;
+  margin-top: 16px;
+  font-family: Arial, sans-serif;
+  color: #333;
 }
 
-.product-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #1f2937;
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.product-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.kebab-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.kebab-icon-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 1000;
+  min-width: 120px;
+  padding: 8px 0;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
 }
 
 .product-price {
   font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+.product-description-container {
+  margin-bottom: 16px;
+}
+
+.product-menu {
+  color: var(--gray-800);
+  font-size: 14px;
   font-weight: 600;
-  color: #1f2937;
-  margin-top: 8px;
+  line-height: 24px;
 }
 
-.product-description p {
-  font-size: 16px;
-  line-height: 26px;
-  color: #1f2937;
-  margin-top: 8px;
+.product-description {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
 }
 
-.tags {
+.product-tags-container {
+  margin-bottom: 40px;
+}
+
+.product-tags {
+  margin-top: 12px;
+}
+
+.product-tag {
+  display: inline-block;
+  background-color: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 16px;
+  font-size: 12px;
+  color: #333;
+  margin-right: 4px;
+}
+
+.writer-info {
   display: flex;
-  gap: 8px;
+  align-items: center;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+.profile-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
+.writer-details {
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
+}
+
+.writer-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.date {
+  font-size: 12px;
+  color: #999;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 32px;
+  border-radius: 35px;
+  border: 1px solid #ccc;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.heart-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+
+.likes span {
+  font-size: 14px;
+  color: #333;
+}
+
+.area-line {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--gray-200);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 6px;
+}
+
+.comments-section {
   margin-top: 16px;
 }
 
-.tag {
-  background: #f3f4f6;
-  padding: 6px 16px;
-  border-radius: 26px;
-  font-size: 16px;
-  color: #1f2937;
-}
-
-.comments {
-  height: 200px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 0 20px;
-}
-
 .comment-title {
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 12px;
 }
 
 .comment {
@@ -84,127 +198,38 @@
 }
 
 .comment-empty {
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 16px;
+  color: #999;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.comment-user {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.comment-content {
+  font-size: 14px;
+  color: #333;
+}
+
+.back-button-area {
+  min-width: 375px;
+  min-height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.comment-user {
-  font-size: 14px;
-  font-weight: 500;
-  color: #4b5563;
-  margin-bottom: 4px;
-}
-
-.comment-content {
-  font-size: 20px;
-  font-weight: 400;
-  color: var(--gray-900);
-  position: relative;
-  margin-top: 10px;
-}
-
-.back-button {
-  width: 100%;
+.back-button-text {
+  width: 240px;
   height: 48px;
-  background: #3692ff;
-  border: none;
+  color: var(--gray-100);
+  background-color: var(--blue-100);
   border-radius: 40px;
-  font-size: 18px;
-  color: #f3f4f6;
-  font-weight: 600;
-  margin-top: 24px;
-  cursor: pointer;
-}
-
-/* Tablet */
-@media (min-width: 768px) {
-  .item-detail-wrapper {
-    top: 20px;
-  }
-
-  .product-detail {
-    max-width: 700px;
-    padding: 0 32px;
-  }
-
-  .product-image {
-    max-width: 340px;
-    margin: 0 auto;
-    float: left;
-  }
-
-  .product-info {
-    padding: 0 10px;
-    margin: 0 10px;
-  }
-
-  .product-title {
-    font-size: 20px;
-  }
-
-  .product-price {
-    font-size: 28px;
-  }
-
-  .product-description p {
-    font-size: 18px;
-  }
-
-  .comments {
-    top: 220px;
-    width: 100%;
-  }
-
-  .back-button {
-    width: 200px;
-    margin: 32px auto 0;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1200px) {
-  .product-detail {
-    max-width: 1200px;
-    padding: 0 64px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 32px;
-    align-items: flex-start;
-  }
-
-  .product-image {
-    max-width: 100%;
-    border-radius: 12px;
-  }
-
-  .product-info {
-    padding-left: 0;
-  }
-
-  .product-title {
-    font-size: 24px;
-  }
-
-  .product-price {
-    font-size: 32px;
-  }
-
-  .product-description p {
-    font-size: 20px;
-  }
-
-  .tags {
-    margin-top: 24px;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .back-button {
-    width: 250px;
-    margin-top: 40px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
