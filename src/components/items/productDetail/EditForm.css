@@ -1,0 +1,67 @@
+.editForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
+}
+
+.editItemContents {
+  background-color: var(--color-gray100);
+  border: none;
+  border-radius: 12px;
+  padding: 16px 24px;
+  resize: none;
+  font-size: 16px;
+  color: var(--color-gray800);
+  font-family: inherit;
+}
+
+.editBtnBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.cancelBtn,
+.editBtn {
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+}
+
+.cancelBtn {
+  padding: 12px 10px;
+  color: #737373;
+  border-radius: 8px;
+  transition: all .1s ease-in-out;
+}
+
+.cancelBtn:hover {
+  background-color: var(--color-gray200);
+}
+
+.editBtn {
+  padding: 12px 23px;
+  border-radius: 8px;
+  background-color: var(--color-theme);
+  transition: all .1s ease-in-out;
+  color: var(--color-gray100);
+}
+
+.editBtn:hover {
+  background-color: var(--color-theme-hover);
+}
+
+.editBtn:disabled {
+  background-color: var(--color-gray400);
+  cursor: default;
+}
+
+/* 반응형 공통 */
+@media (max-width: 767px) {
+  .editItemContents {
+    font-size: 14px;
+  }
+}
+
