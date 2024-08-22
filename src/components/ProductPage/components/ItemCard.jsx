@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 const ItemCard = ({ item }) => {
-  const { images, name, price, favoriteCount } = item;
+  const { images, name, price, favoriteCount, id } = item;
 
   return (
     <li>
-      <a href="#" className="product-box">
+      <Link to={`/items/${id}`} className="product-box">
         <div className="img-box">
           <img src={images[0]} alt={name} />
         </div>
@@ -13,7 +15,7 @@ const ItemCard = ({ item }) => {
           <button className="heart-button" type="button"></button>
           <p className="count">{favoriteCount}</p>
         </div>
-      </a>
+      </Link>
     </li>
   );
 };

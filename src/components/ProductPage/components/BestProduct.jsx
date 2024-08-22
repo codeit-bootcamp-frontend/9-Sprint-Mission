@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { getPandaMarket } from '../../../api';
-import ItemCard from './ItemCard';
-import usePageSize, { orderByType } from '../../hooks/usePageSize';
+import { useEffect, useState } from "react";
+import { getPandaMarket } from "../../../api";
+import ItemCard from "./ItemCard";
+import usePageSize, { orderByType } from "../../hooks/usePageSize";
 
 const BestProduct = () => {
   const pageSize = usePageSize(orderByType.favorite);
@@ -9,7 +9,7 @@ const BestProduct = () => {
 
   useEffect(() => {
     const fetchPandaMarket = async () => {
-      const products = await getPandaMarket({ orderBy: 'favorite', pageSize });
+      const products = await getPandaMarket({ orderBy: "favorite", pageSize });
       setBestItems(products.list);
     };
 
@@ -21,7 +21,7 @@ const BestProduct = () => {
       <h2 className="product-tit">베스트 상품</h2>
 
       <ul className="product-wrap">
-        {bestItems?.map(item => (
+        {bestItems?.map((item) => (
           <ItemCard item={item} key={item.id} />
         ))}
       </ul>

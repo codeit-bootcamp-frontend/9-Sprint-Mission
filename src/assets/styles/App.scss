@@ -1,11 +1,12 @@
-@import '_reset';
-@import '_base';
+@import "_reset";
+@import "_base";
 
 .App {
-  @import 'Header';
-  @import 'LoginPage';
-  @import 'HomePage';
-  @import 'ProductPage';
-  @import 'AdditemPage';
-  @import 'Footer';
+  @import "Header";
+  @import "LoginPage";
+  @import "HomePage";
+  @import "ProductPage";
+  @import "AdditemPage";
+  @import "DetailitemPage";
+  @import "Footer";
 }
