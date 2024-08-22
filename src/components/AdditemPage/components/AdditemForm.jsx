@@ -95,14 +95,18 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
       ...prevValue,
       tags: prevValue.tags.filter(tag => tag !== tagDelete),
     }));
-    console.log('value 값', value);
   };
+
+  console.log('value 값', value);
 
   return (
     <form className="AdditemForm" onSubmit={handleSubmit}>
       <div className="AdditemForm-submit-wrap">
         <h2 className="AdditemForm-main-tit">상품 등록하기</h2>
-        <Button type="submit" disabled={!name || !(price > 0) || !description || !tags[0]}>
+        <Button
+          type="submit"
+          disabled={!name || !(price > 0) || !description || !tags[0]}
+        >
           등록
         </Button>
       </div>
