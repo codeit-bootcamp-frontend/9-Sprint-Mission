@@ -1,9 +1,10 @@
 import axios from "axios";
 import "./CommentEdit.css";
 
-const CommentEdit = ({ setEditCommentId, commentId }) => {
+const CommentEdit = ({ setEditCommentId, setOpenCommentId, commentId }) => {
   const onEdit = () => {
     setEditCommentId((prevId) => prevId === commentId ? null : commentId);
+    setOpenCommentId(null);
   };
 
   // 댓글 삭제 요청
@@ -23,6 +24,8 @@ const CommentEdit = ({ setEditCommentId, commentId }) => {
         if (axios.isAxiosError(error)) {
           console.error("상세페이지 CommentEdit onDelete DELETE 요청에서 오류 발생", error);
         }
+      } finally {
+        setOpenCommentId(null);
       }
     }
   };

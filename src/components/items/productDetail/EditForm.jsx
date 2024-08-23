@@ -2,11 +2,12 @@ import { useState } from "react";
 import "./EditForm.css";
 import axios from "axios";
 
-const EditForm = ({ content, commentId, setEditCommentId }) => {
+const EditForm = ({ content, commentId, setOpenCommentId, setEditCommentId }) => {
   const [newContent, setNewContent] = useState("");
   
   const onCancel = () => {
     setEditCommentId(null);
+    setOpenCommentId(null);
   };
   
   const onChangeContent = (e) => {
@@ -26,6 +27,9 @@ const EditForm = ({ content, commentId, setEditCommentId }) => {
       if (axios.isAxiosError(error)) {
         console.error("상세페이지 EditForm onEdit PATCH 요청에서 오류 발생", error);
       }
+    } finally {
+      setEditCommentId(null);
+      setOpenCommentId(null);
     }
   };
 
