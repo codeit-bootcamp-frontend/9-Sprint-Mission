@@ -12,6 +12,8 @@
 .sellerProfile {
   width: 32px;
   height: 32px;
+  overflow: hidden;
+  border-radius: 999px;
   background-image: url("../../img/profile_guest.png");
   background-position: center;
   background-size: cover;

@@ -28,14 +28,14 @@ export async function getItemById({ id }) {
 }
 
 //댓글 가져오기
-export async function getReplyById({ id, limit, cursor }) {
-  const query = `limit=${limit}&cursor=${cursor}`;
+export async function getReplyById({ id, limit }) {
+  const query = `limit=${limit}`;
   const responseReply = await fetch(
     `${baseUrl}/products/${id}/comments?${query}`
   );
-  const bodyReply = await responseReply.json();
   if (!responseReply.ok) {
     throw new Error("아이템을 불러오는데 실패했습니다.");
   }
+  const bodyReply = await responseReply.json();
   return bodyReply;
 }

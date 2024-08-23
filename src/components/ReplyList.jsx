@@ -3,6 +3,8 @@ import { getReplyById } from "../api";
 import styles from "../components/styles/ReplyList.module.css";
 import { Kebab } from "./Kebab";
 import { Dropdown } from "./Dropdown";
+import { formatDate } from "../utils/formDate";
+import { getHoursDiff } from "../utils/diffDate";
 
 export function ReplyList({ id, limit, cursor }) {
   const [replies, setReplies] = useState([]);
@@ -12,8 +14,10 @@ export function ReplyList({ id, limit, cursor }) {
   const loadReplyList = async () => {
     setLoading(true);
     try {
-      const replyList = await getReplyById({ id, limit, cursor });
+      const replyObj = await getReplyById({ id, limit });
+      const replyList = replyObj.list;
       setReplies(replyList);
+      console.log(replies);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -23,7 +27,7 @@ export function ReplyList({ id, limit, cursor }) {
 
   useEffect(() => {
     loadReplyList();
-  }, []);
+  }, [id, limit]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -35,60 +39,60 @@ export function ReplyList({ id, limit, cursor }) {
 
   return (
     <div className={styles.repliesWrapper}>
-      <Reply replies={replies} />
-      <Reply replies={replies} />
-      <Reply replies={replies} />
+      {replies.map((reply, index) => (
+        <Reply key={index} reply={reply} />
+      ))}
     </div>
   );
 }
 
-function Reply({ replies: reply }) {
+// 개별 reply 컴포넌트
+function Reply({ reply }) {
   const [isOpen, setIsOpen] = useState(false);
   const handleKebabClick = () => {
     setIsOpen(!isOpen);
+  };
+  // 댓글 작성 시간
+  const replyTime = () => {
+    const diffHr = getHoursDiff(reply.createdAt);
+
+    if (diffHr <= 24) {
+      return `${diffHr}시간 전`;
+    }
+    return formatDate(reply.createdAt);
   };
 
   useEffect(() => {}, [reply]);
 
   return (
     <>
-      {reply.length > 0 ? (
+      {reply ? (
         <div className={styles.replyItem}>
           <div className={styles.replyContent}>
             {reply.content}
-            <Kebab />
-            <Dropdown />
+            <Kebab onClick={handleKebabClick} />
+            <Dropdown className={`${isOpen ? "" : "hidden"}`} />
           </div>
 
           <div className={styles.replyWriter}>
-            <div className={styles.sellerProfile}></div>
+            <div className={styles.sellerProfile}>
+              <img
+                src={reply.writer.image}
+                alt="댓글 작성자 프로필 이미지"
+                width="32"
+                height="32"
+              />
+            </div>
             <div className={styles.replayWriterInfo}>
-              <div className={styles.replyNickname}>{reply.nickname}</div>
-              <div className={styles.replyCreatedAt}>{reply.createdAt}</div>
+              <div className={styles.replyNickname}>
+                {reply.writer.nickname}
+              </div>
+              <div className={styles.replyCreatedAt}>{replyTime()}</div>
             </div>
           </div>
         </div>
       ) : (
-        <div className={styles.replyItem}>
-          <div>
-            <div className={styles.replyContent}>
-              {reply.content}테스트용 댓글입니다.
-              <Kebab onClick={handleKebabClick} />
-              <Dropdown className={`${isOpen ? "" : "hidden"}`} />
-            </div>
-          </div>
-          <div className={styles.replyWriter}>
-            <div className={styles.sellerProfile}></div>
-            <div className={styles.replayWriterInfo}>
-              <div className={styles.replyNickname}>
-                {reply.nickname}테스트용 판다
-              </div>
-              <div className={styles.replyCreatedAt}>
-                {reply.createdAt}1시간전
-              </div>
-            </div>
-          </div>
-        </div>
+        <div>등록된 댓글이 없습니다.</div>
       )}
     </>
   );
