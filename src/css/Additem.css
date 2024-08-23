@@ -74,7 +74,7 @@
 
 .custom-file-upload.disabled-label {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.4;
   pointer-events: none;
 }
 

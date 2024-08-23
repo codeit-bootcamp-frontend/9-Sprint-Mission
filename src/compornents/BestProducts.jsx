@@ -3,29 +3,15 @@ import { getProducts } from "../api.js";
 import like from "../svg/like.svg";
 import "../css/Products.css";
 
-function BestProducts({ currentPage, pageSize, orderBy }) {
+function BestProducts({ orderBy }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchBestProducts = async () => {
-      // let allProducts = [];
-      let page = 1;
-      // let totalProducts = 0;
       try {
-        // do {
-        const data = await getProducts(pageSize, page, orderBy);
+        const data = await getProducts(4, 1, orderBy);
 
-        //   if (page === 1) {
-        //     totalProducts = data.totalCount; // 전체 데이터 개수 가져오기
-        //   }
-
-        //   allProducts = [...allProducts, ...data.list]; // 데이터를 누적
-        //   page++; // 다음 페이지로 넘어가기
-        // } while (allProducts.length < totalProducts);
-
-        const topProducts = data.list
-          .sort((a, b) => b.favoriteCount - a.favoriteCount)
-          .slice(0, 4);
+        const topProducts = data.list;
 
         setProducts(topProducts);
 
@@ -36,12 +22,7 @@ function BestProducts({ currentPage, pageSize, orderBy }) {
     };
 
     fetchBestProducts();
-  }, [currentPage, pageSize, orderBy]);
-
-  //금액 단위마다 콤마 찍기 위해 정규식 사용
-  function formatPrice(price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
+  }, [orderBy]);
 
   return (
     <>
@@ -59,7 +40,7 @@ function BestProducts({ currentPage, pageSize, orderBy }) {
               </span>
               <span className="product-name">{product.name}</span>
               <span className="product-price">
-                {formatPrice(product.price)}원
+                {product.price.toLocaleString()}원
               </span>
               <span className="product-favorite">
                 <img src={like} alt="좋아요 버튼" />

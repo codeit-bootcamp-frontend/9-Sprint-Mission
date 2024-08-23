@@ -5,42 +5,34 @@ import search from "../svg/search.svg";
 import "../css/Products.css";
 import { Link } from "react-router-dom";
 
-function AllProducts({ currentPage, pageSize }) {
+function AllProducts({ pageSize, page, orderBy }) {
   const [products, setProducts] = useState([]);
   const [sortType, setSortType] = useState("최신순");
 
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const data = await getProducts(pageSize, currentPage);
-        let sortedProducts = data.list;
+        let orderByField = orderBy;
+
         if (sortType === "최신순") {
-          // 최신순 정렬
-          sortedProducts = sortedProducts.sort((a, b) => b.id - a.id);
+          orderByField = "recent"; // 최신순에 맞는 필드로 설정
         } else if (sortType === "좋아요순") {
-          // 좋아요순 정렬
-          sortedProducts = sortedProducts.sort(
-            (a, b) => b.favoriteCount - a.favoriteCount
-          );
+          orderByField = "favorite"; // 좋아요순에 맞는 필드로 설정
         }
-        setProducts(sortedProducts);
-        // console.log(products);
+
+        const data = await getProducts(pageSize, page, orderByField);
+        setProducts(data.list);
       } catch (error) {
         console.error("Failed to fetch products");
       }
     };
 
     fetchAllProducts();
-  }, [currentPage, pageSize, sortType]);
+  }, [page, pageSize, sortType, orderBy]);
 
   const handleSortChange = (event) => {
     setSortType(event.target.value);
   };
-
-  //금액 단위마다 콤마 찍기 위해 정규식 사용
-  function formatPrice(price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
 
   return (
     <div className="all-products-wrap">
@@ -67,16 +59,14 @@ function AllProducts({ currentPage, pageSize }) {
       <ul className="products-wrap">
         {products.map((product) => (
           <li key={product.id} className="product">
-            <span>
-              <img
-                className="product-img"
-                src={product.images}
-                alt={`${product.name}의 이미지 입니다.`}
-              />
-            </span>
+            <img
+              className="product-img"
+              src={product.images}
+              alt={`${product.name}의 이미지 입니다.`}
+            />
             <span className="product-name">{product.name}</span>
             <span className="product-price">
-              {formatPrice(product.price)}원
+              {product.price.toLocaleString()}원
             </span>
             <span className="product-favorite">
               <img src={like} alt="좋아요 버튼" />
