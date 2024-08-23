@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import ProductHeader from "../../components/detailcomponents/ProductHeader";
 import AskBox from "../../components/detailcomponents/AskBox";
 import Comment from "../../components/detailcomponents/Comment";
-import CommentEdit from "../../components/detailcomponents/CommentEdit";
 import CommentUser from "../../components/detailcomponents/CommentUser";
 import NoComment from "../../components/detailcomponents/Nocomment";
 import BackToList from "../../components/detailcomponents/BackToList";
@@ -51,8 +50,6 @@ function DetailPage({ data }) {
   }
 
   let navigate = useNavigate();
-  let [activeComment, setActiveComment] = useState(true);
-
   return (
     <div className="container">
       <ProductHeader targetProduct={targetProduct} dateChange={dateChange} />
@@ -61,13 +58,9 @@ function DetailPage({ data }) {
         {comments.list.length !== 0 ? (
           comments.list.map((item) => {
             return (
-              <div className="main__CommentBox">
+              <div className="main__CommentBox" key={item.id}>
                 <div className="commentBox__container">
-                  {activeComment === true ? (
-                    <Comment item={item} setActiveComment={setActiveComment} />
-                  ) : (
-                    <CommentEdit setActiveComment={setActiveComment} />
-                  )}
+                  <Comment item={item} />
                   <CommentUser item={item} dateChange={dateChange} />
                 </div>
               </div>

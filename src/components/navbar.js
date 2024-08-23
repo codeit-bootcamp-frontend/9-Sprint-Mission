@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function NavbarPanda() {
-  let navigate = useNavigate();
   let [classState, setClassState] = useState(false);
 
   let handleClick = () => {
@@ -23,7 +22,7 @@ function NavbarPanda() {
           <Link
             to="/items"
             onClick={handleClick}
-            className={classState == false ? "nav-content" : "nav-active"}
+            className={classState === false ? "nav-content" : "nav-active"}
           >
             중고마켓
           </Link>

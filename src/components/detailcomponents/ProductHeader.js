@@ -6,8 +6,8 @@ function ProductHeader({ targetProduct, dateChange }) {
       </div>
       <div className="productsContentBox">
         <div className="productsContentTitle">
-          <h4>{targetProduct.name}</h4>
-          <p>{targetProduct.price} 원</p>
+          <p className="productsContentTitle__h">{targetProduct.name}</p>
+          <p className="productsContentTitle__p">{targetProduct.price} 원</p>
         </div>
         <div>
           <p className="productsTitle">상품소개</p>
@@ -16,7 +16,9 @@ function ProductHeader({ targetProduct, dateChange }) {
         <div>
           <p className="productsTitle">상품태그</p>
           <div className="productsTagBox">
-            <div className="productsTags">tags</div>
+            {targetProduct.tags?.map((item) => {
+              return <div className="productsTags">#{item}</div>;
+            })}
           </div>
         </div>
         <div className="userBox">

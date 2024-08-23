@@ -1,7 +1,11 @@
 import { useState } from "react";
+import CommentEdit from "./CommentEdit";
 
-function Comment({ item, setActiveComment }) {
+function Comment({ item }) {
   let [editBox, setEditBox] = useState(false);
+  let [isEdit, setIsEdit] = useState(false);
+
+  if (isEdit) return <CommentEdit setIsEdit={setIsEdit} />;
   return (
     <>
       <div className="commentBox__top">
@@ -17,18 +21,18 @@ function Comment({ item, setActiveComment }) {
       </div>
       <div className="commentBox__editBox">
         <div className="commentBox__edit"></div>
-        {editBox === true ? (
+        {editBox === true && (
           <div className="editBox">
             <div
               onClick={() => {
-                setActiveComment(false);
+                setIsEdit(true);
               }}
             >
               수정하기
             </div>
             <div>삭제하기</div>
           </div>
-        ) : null}
+        )}
       </div>
     </>
   );

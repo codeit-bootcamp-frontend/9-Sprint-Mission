@@ -72,16 +72,6 @@ function App() {
     };
   }, [status]);
 
-  // let [allData, setAllData] = useState({});
-
-  // useEffect(() => {
-  //   axios
-  //     .get("https://panda-market-api.vercel.app/products/136")
-  //     .then((res) => {
-  //       setAllData(res.data);
-  //     }, []);
-  //   console.log(allData);
-  // });
   return (
     <div className="App">
       <NavbarPanda />

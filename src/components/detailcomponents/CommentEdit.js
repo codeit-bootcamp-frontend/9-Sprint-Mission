@@ -1,4 +1,4 @@
-function CommentEdit({ setActiveComment }) {
+function CommentEdit({ setIsEdit }) {
   return (
     <>
       <input className="commentBox__editMode"></input>
@@ -6,7 +6,7 @@ function CommentEdit({ setActiveComment }) {
         <button
           className="commentBox__editModeBtn--cancel"
           onClick={() => {
-            setActiveComment(true);
+            setIsEdit(true);
           }}
         >
           취소
