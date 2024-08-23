@@ -67,9 +67,9 @@ function CommentsSection({ productId }) {
     { label: "삭제하기", action: () => console.log("Delete clicked") },
   ];
 
-  const detailDate = (createdAt) => {
+  const detailDate = (updatedAt) => {
     let now = new Date();
-    let utc = new Date(createdAt);
+    let utc = new Date(updatedAt);
     let offset = utc.getTimezoneOffset();
     let local = new Date(utc.getTime() + offset * 60000);
     const milliSeconds = now.getTime() - local.getTime();
@@ -133,7 +133,7 @@ function CommentsSection({ productId }) {
               <div className="comment-header">
                 <div className="comment-user">{comment.writer.nickname}</div>
                 <div className="comment-time">
-                  {detailDate(comment.createdAt)}
+                  {detailDate(comment.updatedAt)}
                 </div>
                 <div className="comment-kebab-container">
                   <KebabIcon
