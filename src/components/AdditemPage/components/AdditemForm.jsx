@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import FileInput from './FileInput';
-import Tag from './Tag';
+import { useState } from "react";
+import styled from "styled-components";
+import FileInput from "./FileInput";
+import Tag from "./Tag";
 
 const INITIAL_VALUES = {
   images: null,
-  name: '',
+  name: "",
   price: 0,
-  description: '',
+  description: "",
   tags: [],
 };
 
-const Button = styled.button`
+export const Button = styled.button`
   font-size: 1.6rem;
   font-weight: 600;
   color: #f3f4f6;
@@ -26,21 +26,21 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
 
   const { name, price, description, tags } = value;
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const form = e.target;
     // 새 폼 데이터 인스턴스 생성
     const formData = new FormData(form);
     // 각 필드의 값을 지정(key, value)
-    formData.append('images', value.images);
-    formData.append('name', value.name);
-    formData.append('price', value.price);
-    formData.append('description', value.description);
-    formData.append('tags', JSON.stringify(value.tags));
+    formData.append("images", value.images);
+    formData.append("name", value.name);
+    formData.append("price", value.price);
+    formData.append("description", value.description);
+    formData.append("tags", JSON.stringify(value.tags));
 
     // 로그 출력으로 FormData 내용 확인
-    const logFormData = formData => {
+    const logFormData = (formData) => {
       for (let pair of formData.entries()) {
         console.log(`${pair[0]}: ${pair[1]}`);
       }
@@ -55,49 +55,49 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
   // 폼 필드 변경 처리 => name: 필드의 이름, value: 새로운 값
   const handleChange = (name, value) => {
     // 기존의 상태를 복사하고, 지정된 name에 해당하는 값을 새로 전달된 value로 업데이트
-    setValue(prevValues => ({
+    setValue((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
 
   // 입력 필드 값 변경 처리 함수
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
   };
 
   // 태그 추가 함수
-  const addTag = tag => {
+  const addTag = (tag) => {
     // 빈칸 X, 중복 X
-    if (tag && tag.trim() !== '' && !value.tags.includes(tag)) {
-      setValue(prevValue => ({
+    if (tag && tag.trim() !== "" && !value.tags.includes(tag)) {
+      setValue((prevValue) => ({
         ...prevValue,
         tags: [...prevValue.tags, tag],
       }));
-      setTagValue('');
+      setTagValue("");
     }
   };
 
-  const handleTagChange = e => {
+  const handleTagChange = (e) => {
     setTagValue(e.target.value);
   };
 
-  const handleKeyDown = e => {
-    if (e.key === 'Enter') {
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
       e.preventDefault();
       addTag(tagValue);
     }
   };
 
-  const handleTagDelete = tagDelete => {
-    setValue(prevValue => ({
+  const handleTagDelete = (tagDelete) => {
+    setValue((prevValue) => ({
       ...prevValue,
-      tags: prevValue.tags.filter(tag => tag !== tagDelete),
+      tags: prevValue.tags.filter((tag) => tag !== tagDelete),
     }));
   };
 
-  console.log('value 값', value);
+  console.log("value 값", value);
 
   return (
     <form className="AdditemForm" onSubmit={handleSubmit}>
@@ -159,7 +159,7 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
           type="text"
           id="tags"
           name="tags"
-          value={tagValue || ''}
+          value={tagValue || ""}
           placeholder="태그를 입력해주세요"
           onChange={handleTagChange}
           onKeyDown={handleKeyDown}

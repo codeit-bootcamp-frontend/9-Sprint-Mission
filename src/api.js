@@ -1,4 +1,4 @@
-const BASE_URL = 'https://panda-market-api.vercel.app';
+const BASE_URL = "https://panda-market-api.vercel.app";
 
 // 상품 조회하기
 export const getPandaMarket = async (params = {}) => {
@@ -12,16 +12,18 @@ export const getPandaMarket = async (params = {}) => {
     const body = await response.json();
     return body;
   } catch (error) {
-    console.error('Failed to fetch products:', error);
+    console.error("Failed to fetch products:", error);
     throw error;
   }
 };
 
 // 상품 등록하기
-export const postPandaMarket = async formData => {
-  const response = await fetch(`${BASE_URL}/products`, {
-    method: 'POST',
-    body: formData,
+export const postPandaMarket = async (params = {}) => {
+  const query = new URLSearchParams(params).toString();
+  const response = await fetch(`${BASE_URL}/products?${query}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(),
   });
   if (!response.ok) {
     throw new Error(`HTTP error: ${response.status}`);
