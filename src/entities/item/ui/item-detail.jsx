@@ -78,7 +78,9 @@ function ItemDetailSection({ itemDetail }) {
                 <HeartIcon className="heart-icon" alt="unliked" />
               )}
             </button>
-            <span>{liked ? 124 : 123}</span>
+            <span>
+              {liked ? itemDetail.favoriteCount + 1 : itemDetail.favoriteCount}
+            </span>
           </div>
         </div>
       </div>
