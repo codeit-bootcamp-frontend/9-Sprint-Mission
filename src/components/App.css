@@ -94,6 +94,7 @@ main {
   display: flex;
   flex-direction: column;
   margin: 94px auto;
+  margin-bottom: 222px;
   width: 1200px;
 }
 
@@ -252,6 +253,7 @@ main {
 @media screen and (max-width: 992px) {
   main {
     margin: 94px 24px;
+    margin-bottom: 243px;
     width: auto;
   }
 
@@ -275,6 +277,8 @@ main {
   main {
     margin-right: 14px;
     margin-left: 15px;
+    margin-bottom: 65px;
+
     width: auto;
   }
   .category {

@@ -36,3 +36,9 @@
 .replyCreatedAt {
   color: #9ca3af;
 }
+
+@media screen and (max-width: 781px) {
+  .replyContent {
+    margin-top: 40px;
+  }
+}
