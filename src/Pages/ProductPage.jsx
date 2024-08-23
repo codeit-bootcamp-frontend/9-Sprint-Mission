@@ -60,11 +60,10 @@ const ProductInfo = styled.div`
   position: relative;
 
   ${Kebab} {
-  position: absolute;
-  right: 0;
-  top:0;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
-
 `;
 
 const TitleSection = styled.div`
@@ -137,6 +136,7 @@ const UserInfo = styled.div`
   }
 
   button {
+    cursor: pointer;
     width: 100px;
     height: 40px;
     border: 1px solid #e5e7eb;
