@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { getItemById } from "../api";
-import { Tag } from "./Tag";
 import "./App.css";
 import styles from "./styles/ItemEach.module.css";
 import heartIcon from "../img/ic_heart.png";
+import { TagOnly } from "./TagOnly";
 
 export function ItemEach({ id }) {
   const [item, setItem] = useState(null);
@@ -63,7 +63,7 @@ export function ItemEach({ id }) {
                 <h2 className={styles.productInfoTitle}>상품 태그</h2>
                 <div className={styles.productTags}>
                   {item.tags.map((tag, index) => (
-                    <Tag value={tag} key={index} />
+                    <TagOnly value={tag} key={index} />
                   ))}
                 </div>
               </div>
