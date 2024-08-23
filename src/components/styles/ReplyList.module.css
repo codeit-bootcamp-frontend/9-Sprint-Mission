@@ -1,3 +1,7 @@
+.repliesWrapper {
+  margin-bottom: 64px;
+}
+
 .replyItem {
   display: flex;
   flex-direction: column;
@@ -39,9 +43,17 @@
 .replyCreatedAt {
   color: #9ca3af;
 }
+@media screen and (max-width: 992px) {
+  .repliesWrapper {
+    margin-bottom: 56px;
+  }
+}
 
 @media screen and (max-width: 781px) {
   .replyContent {
     margin-top: 40px;
+  }
+  .repliesWrapper {
+    margin-bottom: 40px;
   }
 }

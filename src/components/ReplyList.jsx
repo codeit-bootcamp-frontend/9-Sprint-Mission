@@ -12,7 +12,7 @@ function Reply({ replies: reply }) {
 
   useEffect(() => {
     console.log(isOpen);
-  }, [isOpen]);
+  }, [reply]);
 
   return (
     <>
@@ -89,10 +89,10 @@ export function ReplyList({ id, limit, cursor }) {
   }
 
   return (
-    <>
+    <div className={styles.repliesWrapper}>
       <Reply replies={replies} />
       <Reply replies={replies} />
       <Reply replies={replies} />
-    </>
+    </div>
   );
 }
