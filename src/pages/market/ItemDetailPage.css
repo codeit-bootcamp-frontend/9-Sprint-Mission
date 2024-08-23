@@ -1,4 +1,4 @@
-.item-detail-wrapper {
+.item-detail-comment-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,7 +23,7 @@
 .product-info {
   margin-top: 16px;
   font-family: Arial, sans-serif;
-  color: #333;
+  color: var(--gray-800);
 }
 
 .product-header {
@@ -36,7 +36,7 @@
 .product-name {
   font-size: 18px;
   font-weight: bold;
-  color: #333;
+  color: var(--gray-800);
 }
 
 .kebab-icon {
@@ -51,7 +51,7 @@
 
 .product-price {
   font-size: 24px;
-  color: #333;
+  color: var(--gray-800);
   font-weight: bold;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .product-menu {
-  color: var(--gray-800);
+  color: var(--gray-600);
   font-size: 14px;
   font-weight: 600;
   line-height: 24px;
@@ -70,7 +70,7 @@
   margin-top: 12px;
   font-size: 14px;
   line-height: 1.5;
-  color: #666;
+  color: var(--gray-600);
 }
 
 .product-tags-container {
@@ -83,11 +83,11 @@
 
 .product-tag {
   display: inline-block;
-  background-color: #f3f4f6;
+  background-color: var(--gray-100);
   padding: 4px 8px;
   border-radius: 16px;
   font-size: 12px;
-  color: #333;
+  color: var(--gray-800);
   margin-right: 4px;
 }
 
@@ -96,7 +96,6 @@
   align-items: center;
   margin-top: 16px;
   font-size: 14px;
-  color: #666;
 }
 
 .profile-icon {
@@ -113,12 +112,12 @@
 
 .writer-name {
   font-weight: bold;
-  color: #333;
+  color: var(--gray-600);
 }
 
 .date {
   font-size: 12px;
-  color: #999;
+  color: var(--gray-400);
 }
 
 .likes {
@@ -150,12 +149,12 @@
 
 .likes span {
   font-size: 14px;
-  color: #333;
+  color: var(--gray-500);
 }
 
 .area-line {
-  max-width: 375px;
-  width: 100%;
+  min-width: 375px;
+  width: 98%;
   border-width: 1px;
   border-style: solid;
   border-color: var(--gray-200);
@@ -171,7 +170,7 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
-  max-width: 344px;
+  min-width: 400px;
 }
 
 .comment-title {
@@ -179,37 +178,38 @@
   font-size: 16px;
   font-weight: bold;
   float: left;
+  margin: 0 24px;
+  padding: 0 16px;
 }
 
 .comment-input-section {
-  width: 100%;
+  width: 98%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 16px;
-  background-color: #f8f9fa;
-  padding: 12px;
   border-radius: 8px;
+  margin: 16px;
+  padding: 12px;
 }
 
 .comment-input {
   width: 100%;
   height: 80px;
-  padding: 8px;
   border: none;
   border-radius: 8px;
   resize: none;
   font-size: 14px;
-  color: #333;
+  color: var(--gray-800);
   margin-bottom: 8px;
+  padding: 8px;
 }
 
 .comment-input::placeholder {
-  color: #aaa;
+  color: var(--gray-400);
 }
 
 .comment-submit-button {
   align-self: flex-end;
-  background-color: #4a90e2;
+  background-color: var(--blue-100);
   color: white;
   padding: 8px 16px;
   border: none;
@@ -219,11 +219,11 @@
 }
 
 .comment-submit-button:hover {
-  background-color: #357ab9;
+  background-color: var(--blue-200);
 }
 
 .comment-submit-button:disabled {
-  background-color: #b0c4de;
+  background-color: var(--gray-100);
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -260,7 +260,7 @@
 
 .comment-time {
   font-size: 12px;
-  color: #999;
+  color: var(--gray-400);
   margin-right: auto;
 }
 
@@ -276,12 +276,12 @@
 
 .comment-content {
   font-size: 14px;
-  color: #333;
+  color: var(--gray-800);
 }
 
 .comment-empty {
   font-size: 16px;
-  color: #999;
+  color: var(--gray-400);
   text-align: center;
   margin-top: 16px;
 }
@@ -304,4 +304,312 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .item-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 12px;
+    align-items: start;
+  }
+
+  .product-image {
+    width: 100%;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .product-info {
+    width: 100%;
+    max-width: 440px;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto;
+  }
+
+  .product-header {
+    margin-bottom: 12px;
+    align-self: start;
+  }
+
+  .product-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--gray-800);
+  }
+
+  .product-price {
+    font-size: 28px;
+    color: var(--gray-800);
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  .product-description-container {
+    margin-bottom: 12px;
+    align-self: start;
+  }
+
+  .product-menu {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .product-description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  .product-tags-container {
+    margin-bottom: 12px;
+    align-self: start;
+  }
+
+  .product-tags {
+    margin-top: 12px;
+  }
+
+  .product-tag {
+    display: inline-block;
+    background-color: #f3f4f6;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    color: #333;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+
+  .writer-info {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: #666;
+    align-self: start;
+  }
+
+  .profile-icon {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+  }
+
+  .writer-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .writer-name {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  .date {
+    font-size: 12px;
+    color: #999;
+  }
+
+  .likes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+    padding: 4px 12px;
+    cursor: pointer;
+  }
+
+  .like-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  .heart-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .likes span {
+    font-size: 12px;
+    color: #333;
+  }
+
+  .comments-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    min-width: 768px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+  .item-detail {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    align-items: start;
+  }
+
+  .product-image {
+    width: 100%;
+    max-width: 486px;
+  }
+
+  .product-image img {
+    max-width: 486px;
+    max-height: 486px;
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .product-info {
+    width: 100%;
+    max-width: 690px;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto;
+  }
+
+  .product-header {
+    margin-bottom: 16px;
+    align-self: start;
+  }
+
+  .product-name {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .product-price {
+    font-size: 32px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  .product-description-container {
+    margin-bottom: 16px;
+    align-self: start;
+  }
+
+  .product-menu {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+
+  .product-description {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #666;
+  }
+
+  .product-tags-container {
+    margin-bottom: 16px;
+    align-self: start;
+  }
+
+  .product-tags {
+    margin-top: 12px;
+  }
+
+  .product-tag {
+    display: inline-block;
+    background-color: #f3f4f6;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 14px;
+    color: #333;
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+
+  .writer-info {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666;
+    align-self: start;
+  }
+
+  .profile-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+  }
+
+  .writer-details {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .writer-name {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 4px;
+  }
+
+  .date {
+    font-size: 12px;
+    color: #999;
+  }
+
+  .likes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 35px;
+    padding: 4px 12px;
+    cursor: pointer;
+  }
+
+  .like-button {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+
+  .heart-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .likes span {
+    font-size: 14px;
+    color: #333;
+  }
 }

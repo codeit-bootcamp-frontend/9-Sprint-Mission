@@ -10,7 +10,7 @@ function ItemDetailPage() {
   const { itemDetail } = useProductDetail(productId);
 
   return (
-    <div className="item-detail-wrapper">
+    <div className="item-detail-comment-wrapper">
       {itemDetail ? (
         <>
           <ItemDetailSection itemDetail={itemDetail} />

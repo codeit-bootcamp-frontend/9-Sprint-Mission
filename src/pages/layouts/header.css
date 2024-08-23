@@ -48,10 +48,6 @@ a.header-menu:hover {
 }
 
 @media (min-width: 768px) {
-  .global-header {
-    left: 30px;
-  }
-
   .global-header nav ul {
     gap: 36px;
     font-size: 18px;

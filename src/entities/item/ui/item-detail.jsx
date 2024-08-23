@@ -54,32 +54,32 @@ function ItemDetailSection({ itemDetail }) {
           <div className="product-menu">상품소개</div>
           <div className="product-description">{itemDetail.description}</div>
         </div>
-      </div>
-      <div className="product-tags-container">
-        <div className="product-menu">상품태그</div>
-        <div className="product-tags">
-          {itemDetail.tags?.map((tag, i) => (
-            <span key={`tag-${i}`} className="product-tag">
-              #{tag}
-            </span>
-          ))}
+        <div className="product-tags-container">
+          <div className="product-menu">상품태그</div>
+          <div className="product-tags">
+            {itemDetail.tags?.map((tag, i) => (
+              <span key={`tag-${i}`} className="product-tag">
+                #{tag}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="writer-info">
-        <ProfileIcon className="profile-icon" alt="profile" />
-        <div className="writer-details">
-          <div className="writer-name">총명한판다</div>
-          <div className="date">2024.08.22</div>
-        </div>
-        <div className="likes">
-          <button className="like-button" onClick={toggleLike}>
-            {liked ? (
-              <HeartOnIcon className="heart-icon" alt="liked" />
-            ) : (
-              <HeartIcon className="heart-icon" alt="unliked" />
-            )}
-          </button>
-          <span>{liked ? 124 : 123}</span>
+        <div className="writer-info">
+          <ProfileIcon className="profile-icon" alt="profile" />
+          <div className="writer-details">
+            <div className="writer-name">총명한판다</div>
+            <div className="date">2024.08.22</div>
+          </div>
+          <div className="likes">
+            <button className="like-button" onClick={toggleLike}>
+              {liked ? (
+                <HeartOnIcon className="heart-icon" alt="liked" />
+              ) : (
+                <HeartIcon className="heart-icon" alt="unliked" />
+              )}
+            </button>
+            <span>{liked ? 124 : 123}</span>
+          </div>
         </div>
       </div>
     </div>
