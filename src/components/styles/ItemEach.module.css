@@ -28,6 +28,7 @@ button {
   justify-content: space-between;
   font-size: 2.4rem;
   line-height: 3.2rem;
+  font-weight: 600;
 }
 .kebabIcon {
   width: 24px;
@@ -119,4 +120,34 @@ button {
   color: #6b7280;
   gap: 4px;
   margin-left: 24px;
+}
+
+@media screen and (max-width: 992px) {
+  .prucuctTitle {
+    font-size: 2rem;
+    line-height: 3.2rem;
+  }
+  .productPrice {
+    font-size: 3.2rem;
+    line-height: 4.2rem;
+  }
+  .productImg {
+    width: 340px;
+    height: 340px;
+  }
+  .productWrapper {
+    gap: 16px;
+  }
+}
+
+@media screen and (max-width: 781px) {
+  main {
+    width: 344px;
+    margin: 0 auto;
+  }
+  .productWrapper {
+    flex-direction: column;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #e5e7eb;
+  }
 }

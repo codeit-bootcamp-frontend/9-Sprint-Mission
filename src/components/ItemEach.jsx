@@ -37,13 +37,15 @@ export function ItemEach({ id }) {
     <>
       {item && (
         <div className={styles.productWrapper}>
-          <img
-            className={styles.productImg}
-            src={item.images}
-            alt={item.name}
-            width="486"
-            height="486"
-          />
+          <div>
+            <img
+              className={styles.productImg}
+              src={item.images}
+              alt={item.name}
+              width="486"
+              height="486"
+            />
+          </div>
           <div className={styles.productInfoBox}>
             <div>
               <div className={styles.productHeader}>
