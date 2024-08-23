@@ -89,7 +89,9 @@ function AllItemList() {
           {itemList.map((item) => {
             return (
               <li key={item.id}>
-                <ItemBox item={item} />
+                <Link to={`${item.id}`}>
+                  <ItemBox item={item} />
+                </Link>
               </li>
             );
           })}

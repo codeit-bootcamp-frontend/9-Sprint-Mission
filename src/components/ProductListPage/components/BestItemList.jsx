@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { getProducts } from "../../../Api";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import ItemBox from "./ItemBox";
 
 const getPageSize = () => {
@@ -44,7 +45,9 @@ function BestItemList() {
           {itemList?.map((item) => {
             return (
               <li key={item.id}>
-                <ItemBox item={item} />
+                <Link to={`${item.id}`}>
+                  <ItemBox item={item} />
+                </Link>
               </li>
             );
           })}
