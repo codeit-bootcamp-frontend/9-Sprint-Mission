@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import kebab from "../assets/ic_kebab.png";
 import UserInfo from "../components/UserInfo";
 import EditBox from "./EditBox";
+import noInquiryImg from "../assets/Frame 2610489.png";
 
 export const Kebab = styled.button`
   border: none;
@@ -19,7 +20,11 @@ const Board = styled.ul`
   margin: 0 0 64px 0;
   list-style: none;
   padding: 0 0 12px 0;
-  border-bottom: 1px solid #e5e7eb;
+
+  li {
+    padding-bottom: 24px;
+    border-bottom: 1px solid #e5e7eb;
+  }
 
   .content-box {
     display: flex;
@@ -37,6 +42,18 @@ const Board = styled.ul`
   }
 `;
 
+const NoInquiry = styled.div`
+  margin-bottom: 48px;
+  display: flex;
+  justify-content: center;
+
+  img {
+  width: 196px;
+  height: auto;
+  }
+  
+`;
+
 function InquiryBoard() {
   const { productId } = useParams();
   const [comments, setComments] = useState({});
@@ -51,20 +68,24 @@ function InquiryBoard() {
   }, [productId]);
 
   return (
-    <Board>
-      {comments.list?.map((comment) => (
-        <li key={comment.id}>
-          <div className="content-box">
-            <div>{comment.content}</div>
-            <div className="kebab">
-              <Kebab></Kebab>
-              <EditBox />
-            </div>
-          </div>
-          <UserInfo comment={comment} />
-        </li>
-      ))}
-    </Board>
+    <>
+      {comments.list?.length > 0 ? (
+        <Board>
+          {comments.list.map((comment) => (
+            <li key={comment.id}>
+              <div className="content-box">
+                <div>{comment.content}</div>
+                <div className="kebab">
+                  <Kebab></Kebab>
+                  <EditBox />
+                </div>
+              </div>
+              <UserInfo comment={comment} />
+            </li>
+          ))}
+        </Board>
+      ) : <NoInquiry><img src={noInquiryImg} alt="아직 문의가 없어요" /></NoInquiry>}
+    </>
   );
 }
 

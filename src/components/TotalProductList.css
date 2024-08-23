@@ -15,6 +15,7 @@
 .product-item-container {
   overflow: hidden;
   border-radius: 16px;
+  margin-bottom: 16px;
 }
 
 .product-list.total > li {

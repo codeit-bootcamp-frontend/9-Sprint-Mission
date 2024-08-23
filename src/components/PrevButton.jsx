@@ -3,7 +3,7 @@ import back from "../assets/ic_back.png";
 
 
 const PrevButton = styled.button`
-
+  
   height: 48px;
   background-color: #3692ff;
   border: none;

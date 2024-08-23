@@ -104,7 +104,7 @@ export function TotalProductList() {
       <ul className="product-list total">
         {products.map((product) => (
           <li key={product.id}>
-            <TotalProductListItem product={product} />
+            <Link to={`/items/${product.id}`}><TotalProductListItem product={product} /></Link>
           </li>
         ))}
       </ul>
