@@ -4,30 +4,31 @@ import styles from "../components/styles/ReplyList.module.css";
 import { Kebab } from "./Kebab";
 import { Dropdown } from "./Dropdown";
 
-function Reply({ replies }) {
+function Reply({ replies: reply }) {
   const [isOpen, setIsOpen] = useState(false);
-  const handleKebabClick = (e) => {
-    setIsOpen(true);
+  const handleKebabClick = () => {
+    setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    console.log(isOpen);
+  }, [isOpen]);
 
   return (
     <>
-      {replies.length > 0 ? (
+      {reply.length > 0 ? (
         <div className={styles.replyItem}>
           <div className={styles.replyContent}>
-            {replies.content}
+            {reply.content}
             <Kebab />
-            <Dropdown
-              className={`${isOpen ? "" : styles.hidden}`}
-              onClick={handleKebabClick}
-            />
+            <Dropdown />
           </div>
 
           <div className={styles.replyWriter}>
             <div className={styles.sellerProfile}></div>
             <div className={styles.replayWriterInfo}>
-              <div className={styles.replyNickname}>{replies.nickname}</div>
-              <div className={styles.replyCreatedAt}>{replies.createdAt}</div>
+              <div className={styles.replyNickname}>{reply.nickname}</div>
+              <div className={styles.replyCreatedAt}>{reply.createdAt}</div>
             </div>
           </div>
         </div>
@@ -35,19 +36,19 @@ function Reply({ replies }) {
         <div className={styles.replyItem}>
           <div>
             <div className={styles.replyContent}>
-              {replies.content}테스트용 댓글입니다.
-              <Kebab />
-              <Dropdown />
+              {reply.content}테스트용 댓글입니다.
+              <Kebab onClick={handleKebabClick} />
+              <Dropdown className={`${isOpen ? "" : "hidden"}`} />
             </div>
           </div>
           <div className={styles.replyWriter}>
             <div className={styles.sellerProfile}></div>
             <div className={styles.replayWriterInfo}>
               <div className={styles.replyNickname}>
-                {replies.nickname}테스트용 판다
+                {reply.nickname}테스트용 판다
               </div>
               <div className={styles.replyCreatedAt}>
-                {replies.createdAt}1시간전
+                {reply.createdAt}1시간전
               </div>
             </div>
           </div>

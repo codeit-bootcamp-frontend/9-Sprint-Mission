@@ -10,6 +10,11 @@
   border: 1px solid #d1d5db;
   overflow: hidden;
 }
+
+.hidden {
+  display: none;
+}
+
 .dropdown button {
   height: 46px;
   background-color: transparent;
@@ -21,9 +26,6 @@
 }
 .dropdown button:last-child {
   border: none;
-}
-.hidden {
-  display: none;
 }
 
 @media screen and (max-width: 781px) {
