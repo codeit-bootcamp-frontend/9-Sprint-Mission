@@ -15,16 +15,16 @@ function Header() {
     <div className="gnb">
       <div className="gnb-board">
         <h1>
-          <Link>
+          
             <img className="gnb-img" src={gnbImg} alt="판다마켓"></img>
-          </Link>
+          
         </h1>
         <ul className="gnb-menus">
           <li className="gnb-menu">
             <Link>자유게시판</Link>
           </li>
           <li className="gnb-menu">
-            <NavLink to="/additem" style={getLinkStyle}>
+            <NavLink to="/items" style={getLinkStyle}>
               중고마켓
             </NavLink>
           </li>

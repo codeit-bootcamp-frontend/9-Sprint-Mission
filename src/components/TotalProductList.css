@@ -80,7 +80,6 @@
 .search-form {
   display: flex;
   gap: 12px;
- 
 }
 
 .search-container {
@@ -167,16 +166,16 @@
   border-top: 0;
 }
 
-@media (max-width:1200px) {
+@media (max-width: 1200px) {
   .main-layout {
     width: 710px;
   }
   .search-input {
     width: 242px;
   }
-} 
+}
 
-@media (max-width:768px)  {
+@media (max-width: 768px) {
   .main-layout {
     width: 344px;
   }

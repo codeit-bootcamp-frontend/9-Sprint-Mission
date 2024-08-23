@@ -3,6 +3,10 @@
   box-sizing: border-box;
 }
 
+p {
+  margin: 0;
+}
+
 body {
   margin: 0;
   font-family: "Pretendard Variable", Pretendard;
@@ -19,5 +23,19 @@ a:visited {
 }
 
 .container {
-  margin-top: 127px;
+  margin: 127px auto 0;
+  max-width: 1200px;
+}
+
+@media (max-width: 1200px){
+  .container {
+    padding: 0 24px ;
+  }
+}
+  
+@media (max-width:768px) {
+  .container {
+    padding: 0 15px ;
+    margin-top: 100px ;
+  }
 }
