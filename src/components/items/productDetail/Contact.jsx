@@ -9,8 +9,8 @@ const Contact = ({ productId }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const [edit, setEdit] = useState(false);
+  const [openCommentId, setOpenCommentId] = useState(null);
+  const [editCommentId, setEditCommentId] = useState(null);
 
   // 댓글 목록 불러오기
   useEffect(() => {
@@ -63,9 +63,9 @@ const Contact = ({ productId }) => {
     setNewComment(e.target.value);
   };
 
-  // 메뉴 모달 토글 함수
-  const onEditMenuToggle = () => {
-    setModalOpen((prev) => !prev);
+  // 메뉴 모달 토글 함수 (동전뒤집기처럼 boolean으로 했다가 다른 댓글의 모달도 떠서 댓글id로 관리해주는 것으로 수정)
+  const onEditMenuToggle = (commentId) => {
+    setOpenCommentId((prevId) => prevId === commentId ? null : commentId);
   };
 
   return (
@@ -94,13 +94,13 @@ const Contact = ({ productId }) => {
           comments.list.map((comment) => (
             <div key={comment.id} className="commentsListBox">
               <div className="listContents">
-                {!edit ? <p>{comment.content}</p> : <EditForm content={comment.content} commentId={comment.id} setEdit={setEdit} setModalOpen={setModalOpen} />}
-                {!edit && (
+                {editCommentId !== comment.id ? <p>{comment.content}</p> : <EditForm content={comment.content} commentId={comment.id} setEditCommentId={setEditCommentId} />}
+                {editCommentId !== comment.id && (
                   <div className="modalBox">
-                    <button onClick={onEditMenuToggle} className="editMenuBtn">
+                    <button onClick={() => onEditMenuToggle(comment.id)} className="editMenuBtn">
                       <img src="/itemMenu.png" alt="아이템 메뉴" />
                     </button>
-                    {modalOpen && <CommentEdit setEdit={setEdit} commentId={comment.id} />}
+                    {openCommentId === comment.id && <CommentEdit setEditCommentId={setEditCommentId} commentId={comment.id} />}
                   </div>
                 )}
               </div>

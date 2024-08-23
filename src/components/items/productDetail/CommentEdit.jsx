@@ -1,9 +1,9 @@
 import axios from "axios";
 import "./CommentEdit.css";
 
-const CommentEdit = ({ setEdit, commentId }) => {
+const CommentEdit = ({ setEditCommentId, commentId }) => {
   const onEdit = () => {
-    setEdit(true);
+    setEditCommentId((prevId) => prevId === commentId ? null : commentId);
   };
 
   // 댓글 삭제 요청

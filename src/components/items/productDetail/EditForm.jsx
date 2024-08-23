@@ -2,12 +2,11 @@ import { useState } from "react";
 import "./EditForm.css";
 import axios from "axios";
 
-const EditForm = ({ content, commentId, setEdit, setModalOpen }) => {
+const EditForm = ({ content, commentId, setEditCommentId }) => {
   const [newContent, setNewContent] = useState("");
   
   const onCancel = () => {
-    setEdit(false);
-    setModalOpen(false);
+    setEditCommentId(null);
   };
   
   const onChangeContent = (e) => {
