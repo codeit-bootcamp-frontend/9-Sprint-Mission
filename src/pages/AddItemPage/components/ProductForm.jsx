@@ -6,42 +6,6 @@ import Label from "./Label";
 import TextArea from "./TextArea";
 import Tags from "./Tags";
 
-const StyledForm = styled.form`
-    width: 1200px;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    .title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 42px;
-        h2 {
-            font-size: 20px;
-            font-weight: 700;
-        }
-        button {
-            padding: 12px 23px;
-            background-color: var(--blue);
-            color: var(--gray100);
-            font-size: 16px;
-            font-weight: 700;
-            border: 0;
-            border-radius: 8px;
-
-            &:hover {
-                background-color: var(--blue-hover);
-            }
-            &:focus {
-                background-color: var(--blue-focus);
-            }
-            &:disabled {
-                background-color: var(--gray400);
-            }
-        }
-    }
-`;
-
 const INITIAL_VALUE = {
     name: "",
     description: "",
@@ -160,5 +124,41 @@ const ProductForm = () => {
         </StyledForm>
     );
 };
+
+const StyledForm = styled.form`
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 42px;
+        h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        button {
+            padding: 12px 23px;
+            background-color: var(--blue);
+            color: var(--gray100);
+            font-size: 16px;
+            font-weight: 700;
+            border: 0;
+            border-radius: 8px;
+
+            &:hover {
+                background-color: var(--blue-hover);
+            }
+            &:focus {
+                background-color: var(--blue-focus);
+            }
+            &:disabled {
+                background-color: var(--gray400);
+            }
+        }
+    }
+`;
 
 export default ProductForm;

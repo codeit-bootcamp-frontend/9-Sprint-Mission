@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import ItemPage from "./pages/ItemPage/ItemPage";
 import AddItemPage from "./pages/AddItemPage/AddItemPage";
 import GlobalStyle from "./styles/GlobalStyle";
+import ProductPage from "./pages/ProductPage/ProductPage";
 
 const App = () => {
     return (
@@ -12,6 +13,7 @@ const App = () => {
             <Header />
             <Routes>
                 <Route path="items" element={<ItemPage />} />
+                <Route path="items/:productId" element={<ProductPage />} />
                 <Route path="additem" element={<AddItemPage />} />
             </Routes>
         </BrowserRouter>
