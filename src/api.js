@@ -1,4 +1,4 @@
-//API로부터 데이터 가져오기
+//API로부터 전체 아이템 데이터 가져오기
 const baseUrl = "https://panda-market-api.vercel.app";
 export async function getPandaItems({
   page = 1,
@@ -17,6 +17,7 @@ export async function getPandaItems({
   return body;
 }
 
+// id로 아이템 정보 가져오기
 export async function getItemById({ id }) {
   const responseEach = await fetch(`${baseUrl}/products/${id}`);
   const bodyEach = await responseEach.json();
@@ -26,6 +27,7 @@ export async function getItemById({ id }) {
   return bodyEach;
 }
 
+//댓글 가져오기
 export async function getReplyById({ id, limit, cursor }) {
   const query = `limit=${limit}&cursor=${cursor}`;
   const responseReply = await fetch(

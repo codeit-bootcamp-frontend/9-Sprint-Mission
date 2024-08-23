@@ -4,15 +4,51 @@ import styles from "../components/styles/ReplyList.module.css";
 import { Kebab } from "./Kebab";
 import { Dropdown } from "./Dropdown";
 
+export function ReplyList({ id, limit, cursor }) {
+  const [replies, setReplies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const loadReplyList = async () => {
+    setLoading(true);
+    try {
+      const replyList = await getReplyById({ id, limit, cursor });
+      setReplies(replyList);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadReplyList();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div className={styles.repliesWrapper}>
+      <Reply replies={replies} />
+      <Reply replies={replies} />
+      <Reply replies={replies} />
+    </div>
+  );
+}
+
 function Reply({ replies: reply }) {
   const [isOpen, setIsOpen] = useState(false);
   const handleKebabClick = () => {
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    console.log(isOpen);
-  }, [reply]);
+  useEffect(() => {}, [reply]);
 
   return (
     <>
@@ -55,44 +91,5 @@ function Reply({ replies: reply }) {
         </div>
       )}
     </>
-  );
-}
-
-export function ReplyList({ id, limit, cursor }) {
-  const [replies, setReplies] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const loadReplyList = async () => {
-    setLoading(true);
-    try {
-      const replyList = await getReplyById({ id, limit, cursor });
-      setReplies(replyList);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-      console.log(replies);
-    }
-  };
-
-  useEffect(() => {
-    loadReplyList();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  return (
-    <div className={styles.repliesWrapper}>
-      <Reply replies={replies} />
-      <Reply replies={replies} />
-      <Reply replies={replies} />
-    </div>
   );
 }
