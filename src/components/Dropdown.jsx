@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import styles from "../components/styles/Dropdown.module.css";
-export function Dropdown({ className }) {
-  useEffect(() => {}, [className]);
-
+export function Dropdown({ isOpen }) {
   return (
-    <div className={`${styles.dropdown} ${className}}`}>
-      <button>수정하기</button>
-      <button>삭제하기</button>
+    <div className={`${styles.dropdown} ${isOpen ? "" : styles.hidden}`}>
+      <button type="button">수정하기</button>
+      <button type="button">삭제하기</button>
     </div>
   );
 }

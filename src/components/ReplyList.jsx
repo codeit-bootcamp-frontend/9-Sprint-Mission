@@ -17,7 +17,6 @@ export function ReplyList({ id, limit, cursor }) {
       const replyObj = await getReplyById({ id, limit });
       const replyList = replyObj.list;
       setReplies(replyList);
-      console.log(replies);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -51,6 +50,7 @@ function Reply({ reply }) {
   const [isOpen, setIsOpen] = useState(false);
   const handleKebabClick = () => {
     setIsOpen(!isOpen);
+    console.log(isOpen);
   };
   // 댓글 작성 시간
   const replyTime = () => {
@@ -71,7 +71,7 @@ function Reply({ reply }) {
           <div className={styles.replyContent}>
             {reply.content}
             <Kebab onClick={handleKebabClick} />
-            <Dropdown className={`${isOpen ? "" : "hidden"}`} />
+            <Dropdown isOpen={isOpen} />
           </div>
 
           <div className={styles.replyWriter}>
