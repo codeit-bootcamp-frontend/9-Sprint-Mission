@@ -1,0 +1,33 @@
+.dropdown {
+  position: absolute;
+  top: 34px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  width: 139px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  overflow: hidden;
+}
+.dropdown button {
+  height: 46px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #d1d5db;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 400;
+}
+.dropdown button:last-child {
+  border: none;
+}
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 781px) {
+  .dropdown {
+    width: 102px;
+  }
+}

@@ -1,13 +1,28 @@
 import { useEffect, useState } from "react";
 import { getReplyById } from "../api";
 import styles from "../components/styles/ReplyList.module.css";
+import { Kebab } from "./Kebab";
+import { Dropdown } from "./Dropdown";
 
 function Reply({ replies }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleKebabClick = (e) => {
+    setIsOpen(true);
+  };
+
   return (
     <>
       {replies.length > 0 ? (
         <div className={styles.replyItem}>
-          <div className={styles.replyContent}>{replies.content}</div>
+          <div className={styles.replyContent}>
+            {replies.content}
+            <Kebab />
+            <Dropdown
+              className={`${isOpen ? "" : styles.hidden}`}
+              onClick={handleKebabClick}
+            />
+          </div>
+
           <div className={styles.replyWriter}>
             <div className={styles.sellerProfile}></div>
             <div className={styles.replayWriterInfo}>
@@ -18,8 +33,12 @@ function Reply({ replies }) {
         </div>
       ) : (
         <div className={styles.replyItem}>
-          <div className={styles.replyContent}>
-            {replies.content}테스트용 댓글입니다.
+          <div>
+            <div className={styles.replyContent}>
+              {replies.content}테스트용 댓글입니다.
+              <Kebab />
+              <Dropdown />
+            </div>
           </div>
           <div className={styles.replyWriter}>
             <div className={styles.sellerProfile}></div>
@@ -52,8 +71,8 @@ export function ReplyList({ id, limit, cursor }) {
       setError(err.message);
     } finally {
       setLoading(false);
+      console.log(replies);
     }
-    console.log(replies);
   };
 
   useEffect(() => {

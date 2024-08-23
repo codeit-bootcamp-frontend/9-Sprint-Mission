@@ -4,6 +4,7 @@ import "./App.css";
 import styles from "./styles/ItemEach.module.css";
 import heartIcon from "../img/ic_heart.png";
 import { TagOnly } from "./TagOnly";
+import { Kebab } from "./Kebab";
 
 export function ItemEach({ id }) {
   const [item, setItem] = useState(null);
@@ -51,7 +52,7 @@ export function ItemEach({ id }) {
               <div className={styles.productHeader}>
                 <h1 className={styles.prucuctTitle}>
                   {item.name} 팔아요
-                  <button type="button" className={styles.kebabIcon}></button>
+                  <Kebab />
                 </h1>
                 <div className={styles.productPrice}>
                   {item.price.toLocaleString()}원

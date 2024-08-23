@@ -27,6 +27,9 @@
   color: #4b5563;
 }
 .replyContent {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
   font-size: 1.4rem;
   line-height: 2.4rem;
   font-weight: 400;

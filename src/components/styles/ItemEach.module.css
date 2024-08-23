@@ -30,15 +30,7 @@ button {
   line-height: 3.2rem;
   font-weight: 600;
 }
-.kebabIcon {
-  width: 24px;
-  height: 24px;
-  background-image: url(../../img/ic_kebab.png);
-  background-position: center;
-  background-size: cover;
-  background-color: transparent;
-  border: none;
-}
+
 .productPrice {
   font-size: 4rem;
   line-height: 4.8rem;
