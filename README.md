@@ -1,4 +1,4 @@
-### 배포된 웹사이트: https://pandamarket6mungyun.netlify.app
+### 배포된 웹사이트: https://pandamarket7mungyun.netlify.app
 
 ### 기본 요구사항
 
