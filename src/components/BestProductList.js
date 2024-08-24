@@ -15,7 +15,6 @@ function BestProductList() {
           limit: 10,
         });
         setBestProduct(data.list);
-        console.log(data.list);
       } catch (error) {
         console.error(error);
       }
@@ -26,9 +25,10 @@ function BestProductList() {
 
   return (
     <div>
+      <h2 className="best-product-title">베스트 상품</h2>
       <ul className="best-product-list">
         {bestProduct.map((product) => (
-          <li key={product.id}>
+          <li className="best-product-list-element" key={product.id}>
             <ProductListItems product={product} />
           </li>
         ))}

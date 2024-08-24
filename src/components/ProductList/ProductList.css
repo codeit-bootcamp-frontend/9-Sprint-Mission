@@ -39,6 +39,7 @@
 
 .products-list li {
   width: 221px;
+  cursor: pointer;
 }
 
 .products-list li img {

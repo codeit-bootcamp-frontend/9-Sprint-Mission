@@ -44,7 +44,7 @@ function Tag({ className, values = [], onChange }) {
       <ul className="Taglist">
         {items.map((item) => (
           <li key={item.id}>
-            <Tagitem item={item} onDelete={handleTagDelete} />
+            <Tagitem item={item} isDelete={true} onDelete={handleTagDelete} />
           </li>
         ))}
       </ul>

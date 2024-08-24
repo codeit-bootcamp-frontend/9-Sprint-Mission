@@ -1,16 +1,19 @@
 .container {
   width: 1200px;
   margin: 0 auto;
+  padding: 24px 0 155px;
 }
 
 @media (max-width: 1200px) {
   .container {
     width: 696px;
+    padding: 24px 0 167px;
   }
 }
 
 @media (max-width: 768px) {
   .container {
     width: 344px;
+    padding: 16px 0 42px;
   }
 }

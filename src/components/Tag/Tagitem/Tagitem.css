@@ -1,4 +1,4 @@
-.Tagitems {
+.Tagitem {
   padding: 6px 12px 6px 16px;
   background-color: #f3f4f6;
   border-radius: 26px;
@@ -10,7 +10,7 @@
   gap: 9px;
 }
 
-.Tagitems-button {
+.Tagitem-button {
   width: 20px;
   height: 20px;
   border: 0;
