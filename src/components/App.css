@@ -252,11 +252,9 @@ main {
 }
 @media screen and (max-width: 992px) {
   main {
-    margin: 94px 24px;
-    margin-bottom: 243px;
+    margin: 94px 24px 243px;
     width: auto;
   }
-
   .best-items ul {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -266,11 +264,14 @@ main {
   }
   .all-items .img-box {
     width: 100%;
+    aspect-ratio: 1 /1;
+    overflow: hidden;
   }
 
   .img-box img {
-    overflow: hidden;
     border-radius: 16px;
+    width: 100%;
+    height: 100%;
   }
 }
 @media screen and (max-width: 781px) {
@@ -278,7 +279,6 @@ main {
     margin-right: 14px;
     margin-left: 15px;
     margin-bottom: 65px;
-    width: auto;
   }
   .category {
     font-size: 1.6rem;
@@ -288,12 +288,11 @@ main {
     grid-template-columns: 390px;
   }
   .all-items ul {
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
   }
   section {
-    width: 390px;
-    margin: 0 auto;
+    margin: 0 15px;
   }
 
   #section-all .section-title-wrapper {
