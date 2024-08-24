@@ -25,10 +25,10 @@ function App() {
 
           <Route path="items">
             <Route index element={<Product />} />
-            <Route path=":id" element={<Detailitem />} />
+            <Route path=":productId" element={<Detailitem />} />
             <Route path="additem" element={<Additem />} />
           </Route>
-          {/* <Route path="*" element={<Notfound />} /> */}
+          <Route path="*" element={<Notfound />} />
         </Routes>
 
         <Footer />

@@ -31,3 +31,51 @@ export const postPandaMarket = async (params = {}) => {
   const body = await response.json();
   return body;
 };
+
+// 상품 댓글 조회하기
+export const getProductsComments = async (productId) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/products/${productId}/comments?limit=10`
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    const body = await response.json();
+    return body;
+  } catch (error) {
+    console.error("Failed to fetch product:", error);
+    throw error;
+  }
+};
+
+// 상품 댓글 등록하기
+export const postProductsComments = async (productId, content) => {
+  const response = await fetch(`${BASE_URL}/products/${productId}/comments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content }),
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+  const body = await response.json();
+  return body;
+};
+
+// 상품 댓글 수정하기
+export const patchProductsComments = async (id, productId, content) => {
+  const response = await fetch(
+    `${BASE_URL}/products/${productId}/comments/${id}`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+  const body = await response.json();
+  return body;
+};

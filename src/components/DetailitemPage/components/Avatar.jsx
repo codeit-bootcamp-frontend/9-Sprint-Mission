@@ -10,6 +10,7 @@ const AvatarStyle = styled.div`
 const UserImg = styled.img`
   width: 40px;
   height: 40px;
+  border-radius: 100%;
 `;
 
 const UserName = styled.h3`
@@ -27,10 +28,10 @@ const UserDate = styled.p`
   color: #9ca3af;
 `;
 
-const Avatar = ({ text, userName, date }) => {
+const Avatar = ({ text, image, userName, date }) => {
   return (
     <AvatarStyle>
-      <UserImg src={AvatarImg} alt={text} />
+      <UserImg src={image ? image : AvatarImg} alt={text} />
       <div>
         <UserName>{userName}</UserName>
         <UserDate>{date}</UserDate>

@@ -1,13 +1,14 @@
 const size = {
   mobile: "375px",
   tablet: "768px",
-  pc: "1200px",
+  desktop: "1200px",
 };
 
 const theme = {
   mobile: `(max-width: ${size.tablet})`,
-  tablet: `(max-width: ${size.pc})`,
-  pc: `(min-width: ${size.pc})`,
+  tablet: `(max-width: ${size.desktop})`,
+  desktop: `(min-width: ${size.desktop})`,
+
   mainBg: "#cfe5ff",
   clrBlue: "#3692ff",
   clrBlueHover: "#1967d6",

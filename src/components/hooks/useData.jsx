@@ -8,7 +8,7 @@ const useData = () => {
 
   useEffect(() => {
     const fetchPandaMarket = async () => {
-      const products = await getPandaMarket({ orderBy: "favorite", pageSize });
+      const products = await getPandaMarket();
       setItems(products.list);
     };
 
