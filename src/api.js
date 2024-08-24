@@ -20,4 +20,15 @@ export const getProducts = async (
   }
 };
 
+export const getProductDetail = async (productId) => {
+  // 실제 API 호출 부분, 예시로 아래와 같이 작성할 수 있습니다.
+  const response = await instance.get(`/products/${productId}`);
+  return response.data;
+};
+
+export const getProductComment = async (productId) => {
+  const response = await instance.get(`/products/${productId}/comments`);
+  return response.data;
+};
+
 export default instance;

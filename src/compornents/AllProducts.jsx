@@ -3,11 +3,12 @@ import { getProducts } from "../api.js";
 import like from "../svg/like.svg";
 import search from "../svg/search.svg";
 import "../css/Products.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AllProducts({ pageSize, page, orderBy }) {
   const [products, setProducts] = useState([]);
   const [sortType, setSortType] = useState("최신순");
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -32,6 +33,9 @@ function AllProducts({ pageSize, page, orderBy }) {
 
   const handleSortChange = (event) => {
     setSortType(event.target.value);
+  };
+  const handleProductClick = (productId) => {
+    navigate(`/items/${productId}`);
   };
 
   return (
@@ -58,7 +62,11 @@ function AllProducts({ pageSize, page, orderBy }) {
       </div>
       <ul className="products-wrap">
         {products.map((product) => (
-          <li key={product.id} className="product">
+          <li
+            key={product.id}
+            className="product"
+            onClick={() => handleProductClick(product.id)}
+          >
             <img
               className="product-img"
               src={product.images}

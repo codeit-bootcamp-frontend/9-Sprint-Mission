@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../api.js";
 import like from "../svg/like.svg";
 import "../css/Products.css";
+import { useNavigate } from "react-router-dom";
 
 function BestProducts({ orderBy }) {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBestProducts = async () => {
@@ -24,13 +26,21 @@ function BestProducts({ orderBy }) {
     fetchBestProducts();
   }, [orderBy]);
 
+  const handleProductClick = (productId) => {
+    navigate(`/items/${productId}`);
+  };
+
   return (
     <>
       <div className="best-products-wrap">
         <h1 className="productType">베스트 상품</h1>
         <ul className="products-wrap">
           {products.map((product) => (
-            <li key={product.id} className="product">
+            <li
+              key={product.id}
+              className="product"
+              onClick={() => handleProductClick(product.id)}
+            >
               <span>
                 <img
                   className="product-img"
