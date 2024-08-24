@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { getProducts } from "../api.js";
+import { useNavigate } from "react-router-dom";
+import { getProducts } from "../api";
 import like from "../svg/like.svg";
 import "../css/Products.css";
-import { useNavigate } from "react-router-dom";
 
 function BestProducts({ orderBy }) {
   const [products, setProducts] = useState([]);
