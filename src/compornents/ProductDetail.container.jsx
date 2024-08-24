@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+/** @jsxImportSource @emotion/react */
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ProductDetailPresenter from "./ProductDetail.presenter";
 import { getProductDetail, getProductComment } from "../api"; // 상세 정보를 가져오는 API 함수
 
 function ProductDetail() {
   const { id } = useParams(); // URL에서 제품 ID를 가져옴
   const [product, setProduct] = useState(null);
-  const [comment, setComment] = useState(null);
+  const [comment, setComment] = useState([]);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -19,7 +21,7 @@ function ProductDetail() {
     const fetchProductComments = async () => {
       try {
         const data = await getProductComment(id);
-        setComment(data);
+        setComment(data.list);
       } catch (error) {
         console.error("Failed to fetch product details", error);
       }
@@ -32,23 +34,11 @@ function ProductDetail() {
   if (!product) {
     return <div>Loading...</div>;
   }
+  console.log(comment.id);
 
   return (
     <>
-      <div>
-        <img src={product.images} alt={`${product.name}의 이미지`} />
-      </div>
-      <div className="product-detail">
-        <h2>{product.name}</h2>
-        <p>{product.price.toLocaleString()}원</p>
-      </div>
-      <div>
-        <p>상품 소개</p>
-        <p>{product.description}</p>
-        <p>상품 태그</p>
-        <p>{product.tags.map((tag) => `#${tag}`)}</p>
-      </div>
-      <div></div>
+      <ProductDetailPresenter product={product} comment={comment} />
     </>
   );
 }

@@ -90,7 +90,7 @@ function Additem() {
 
     if (!values.images) {
       const userNotImgUprode = window.confirm(
-        "등록상품에 이미지가 존재하지 않습니다. 그래도 등록하시겠습니까?"
+        "등록상품에 이미지가 존재하지 않습니다. 그래도 등록하시겠습니까?",
       );
       if (!userNotImgUprode) {
         return; // 사용자가 취소를 눌렀을 경우 제출 중지
@@ -170,6 +170,7 @@ function Additem() {
               placeholder="상품 소개를 입력해주세요"
               onChange={handleChange}
               title="상품소개"
+              type="textarea"
             />
           </div>
           <div className="product-wrap">

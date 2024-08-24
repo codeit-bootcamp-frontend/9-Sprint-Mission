@@ -7,7 +7,7 @@ const instance = axios.create({
 export const getProducts = async (
   pageSize = 10,
   page = 1,
-  orderBy = "recent"
+  orderBy = "recent",
 ) => {
   try {
     const response = await instance.get("/products", {
@@ -26,8 +26,10 @@ export const getProductDetail = async (productId) => {
   return response.data;
 };
 
-export const getProductComment = async (productId) => {
-  const response = await instance.get(`/products/${productId}/comments`);
+export const getProductComment = async (productId, limit = 5) => {
+  const response = await instance.get(`/products/${productId}/comments`, {
+    params: { limit },
+  });
   return response.data;
 };
 

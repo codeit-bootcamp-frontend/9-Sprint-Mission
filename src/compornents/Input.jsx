@@ -14,15 +14,28 @@ export default function Input({
       <label htmlFor={forId} className={className}>
         {title}
       </label>
-      <input
-        name={name}
-        value={value}
-        id={forId}
-        placeholder={placeholder}
-        type={type}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-      />
+      {type === "textarea" ? (
+        <textarea
+          name={name}
+          value={value}
+          id={forId}
+          placeholder={placeholder}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          className={className}
+        />
+      ) : (
+        <input
+          name={name}
+          value={value}
+          id={forId}
+          placeholder={placeholder}
+          type={type}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          className={className}
+        />
+      )}
     </>
   );
 }

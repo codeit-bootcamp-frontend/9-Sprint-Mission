@@ -16,12 +16,14 @@ module.exports = {
     },
   },
   plugins: [
-    "react", // React 관련 플러그인
+    "react",
+    "@emotion", // React 관련 플러그인
   ],
   rules: {
     "no-console": "warn", // 콘솔 사용 금지
     "no-unused-vars": "warn", // 사용하지 않는 변수는 경고
     "react/prop-types": "warn", // 프로퍼티 타입 정의하지 않은 경우 경고
     "react/react-in-jsx-scope": "off",
+    "react/no-unknown-property": ["error", { ignore: ["css"] }],
   },
 };
