@@ -285,7 +285,7 @@ main {
     line-height: 2.6rem;
   }
   .best-items ul {
-    grid-template-columns: 390px;
+    grid-template-columns: 1fr;
   }
   .all-items ul {
     width: 100%;
@@ -316,5 +316,17 @@ main {
     background-size: 24px;
     width: 42px;
     font-size: 0;
+  }
+  .item-option {
+    width: 100%;
+  }
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f3f4f6;
+    padding: 9px 16px;
+    border-radius: 8px;
+    width: 80%;
+    height: 42px;
   }
 }
