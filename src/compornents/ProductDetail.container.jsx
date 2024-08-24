@@ -5,6 +5,7 @@ import { getProductDetail, getProductComment } from "../api"; // 상세 정보�
 function ProductDetail() {
   const { id } = useParams(); // URL에서 제품 ID를 가져옴
   const [product, setProduct] = useState(null);
+  const [comment, setComment] = useState(null);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
@@ -18,7 +19,7 @@ function ProductDetail() {
     const fetchProductComments = async () => {
       try {
         const data = await getProductComment(id);
-        setProduct(data);
+        setComment(data);
       } catch (error) {
         console.error("Failed to fetch product details", error);
       }
