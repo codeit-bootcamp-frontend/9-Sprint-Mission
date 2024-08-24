@@ -25,9 +25,5 @@ a {
 em,
 strong {
   font-style: normal;
-}
-
-button {
-  border: none;
-  cursor: pointer;
+  display: inline-block;
 }

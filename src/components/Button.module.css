@@ -1,0 +1,19 @@
+.button-container {
+  margin-top: 64px;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  background-color: #3692ff;
+  padding: 12px 64px;
+  border: none;
+  border-radius: 40px;
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

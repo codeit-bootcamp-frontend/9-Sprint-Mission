@@ -1,23 +1,23 @@
+import { Link } from "react-router-dom";
 import heart from "../assets/heart.png";
-import styles from "./ProductList.module.css";
+import styles from "./AllProductList.module.css";
 
-function formatPrice(value) {
-  return `${value.toLocaleString()}원`;
-}
-
-function ProductListItem({ item }) {
+function AllProductListItem({ item }) {
   return (
     <div>
-      <img
-        className={styles.itemImage}
-        src={item.images}
-        alt={item.name}
-        width={221}
-        height={221}
-      />
+      <Link to={`/items/${item.id}`}>
+        <img
+          className={styles.itemImage}
+          src={item.images}
+          alt={item.name}
+          width={221}
+          height={221}
+        />
+      </Link>
+
       <div className={styles.itemDescription}>
         <strong className={styles.itemName}>{item.name}</strong>
-        <em className={styles.itemPrice}>{formatPrice(item.price)}</em>
+        <em className={styles.itemPrice}>{item["price"].toLocaleString()}원</em>
         <em className={styles.itemLike}>
           <img
             className={styles.itemLikeImg}
@@ -33,13 +33,13 @@ function ProductListItem({ item }) {
   );
 }
 
-function ProductList({ items, className }) {
+function AllProductList({ items, className }) {
   return (
     <ul className={className}>
       {items.map((item) => {
         return (
           <li key={item.id}>
-            <ProductListItem item={item} />
+            <AllProductListItem item={item} />
           </li>
         );
       })}
@@ -47,4 +47,4 @@ function ProductList({ items, className }) {
   );
 }
 
-export default ProductList;
+export default AllProductList;
