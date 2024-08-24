@@ -37,12 +37,12 @@
 
 ## 스크린샷
 
-|                                           풀스크린                                           |
+|                                           모바일                                           |
 | :------------------------------------------------------------------------------------------: |
-| ![풀스크린](https://github.com/user-attachments/assets/17afabc5-c7c1-4b68-aeff-da4ca1ef7476) |
+| ![풀스크린](https://github.com/user-attachments/assets/7550fc04-60f8-40fb-b9ff-446f6eeb9d1d) |
 
 <hr>
 
-|                                           모바일                                           |
+|                                           풀스크린                                           |
 | :----------------------------------------------------------------------------------------: |
-| ![모바일](https://github.com/user-attachments/assets/99b8bd1e-6564-404e-a75e-2b7bc0000a21) |
+| ![모바일](https://github.com/user-attachments/assets/21ddab46-c8fe-4be6-ba87-f2b58838b71f) |
