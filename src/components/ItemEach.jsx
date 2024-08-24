@@ -92,7 +92,6 @@ export function ItemEach({ id }) {
           </div>
         </div>
       )}
-      ;
     </>
   );
 }
