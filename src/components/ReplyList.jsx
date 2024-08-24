@@ -21,6 +21,7 @@ export function ReplyList({ id, limit, cursor }) {
       setError(err.message);
     } finally {
       setLoading(false);
+      console.log(replies);
     }
   };
 
@@ -35,7 +36,9 @@ export function ReplyList({ id, limit, cursor }) {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
+  if (replies.length === 0) {
+    return <div className={styles.noReplyBg}></div>;
+  }
   return (
     <div className={styles.repliesWrapper}>
       {replies.map((reply, index) => (
@@ -66,34 +69,28 @@ function Reply({ reply }) {
 
   return (
     <>
-      {reply ? (
-        <div className={styles.replyItem}>
-          <div className={styles.replyContent}>
-            {reply.content}
-            <Kebab onClick={handleKebabClick} />
-            <Dropdown isOpen={isOpen} />
-          </div>
+      <div className={styles.replyItem}>
+        <div className={styles.replyContent}>
+          {reply.content}
+          <Kebab onClick={handleKebabClick} />
+          <Dropdown isOpen={isOpen} />
+        </div>
 
-          <div className={styles.replyWriter}>
-            <div className={styles.sellerProfile}>
-              <img
-                src={reply.writer.image}
-                alt="댓글 작성자 프로필 이미지"
-                width="32"
-                height="32"
-              />
-            </div>
-            <div className={styles.replayWriterInfo}>
-              <div className={styles.replyNickname}>
-                {reply.writer.nickname}
-              </div>
-              <div className={styles.replyCreatedAt}>{replyTime()}</div>
-            </div>
+        <div className={styles.replyWriter}>
+          <div className={styles.sellerProfile}>
+            <img
+              src={reply.writer.image}
+              alt="댓글 작성자 프로필 이미지"
+              width="32"
+              height="32"
+            />
+          </div>
+          <div className={styles.replayWriterInfo}>
+            <div className={styles.replyNickname}>{reply.writer.nickname}</div>
+            <div className={styles.replyCreatedAt}>{replyTime()}</div>
           </div>
         </div>
-      ) : (
-        <div>등록된 댓글이 없습니다.</div>
-      )}
+      </div>
     </>
   );
 }

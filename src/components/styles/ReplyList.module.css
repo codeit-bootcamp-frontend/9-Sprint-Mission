@@ -45,9 +45,26 @@
 .replyCreatedAt {
   color: #9ca3af;
 }
+.noReplyBg {
+  background-image: url("../../img/noreply.png");
+  background-position: center;
+  background-size: cover;
+  width: 196px;
+  height: 230px;
+  margin: 0 auto;
+  margin-top: 24px;
+  margin-bottom: 48px;
+}
+
 @media screen and (max-width: 992px) {
   .repliesWrapper {
     margin-bottom: 56px;
+  }
+  .noReplyBg {
+    height: 174px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 48px;
   }
 }
 
