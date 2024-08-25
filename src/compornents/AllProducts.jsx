@@ -1,41 +1,36 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "../api.js";
-import like from "../svg/like.svg";
-import search from "../svg/search.svg";
-import "../css/Products.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { getProducts } from '../api.js';
+import like from '../svg/like.svg';
+import search from '../svg/search.svg';
+import '../css/Products.css';
+import { Link, useNavigate } from 'react-router-dom';
 
-function AllProducts({ pageSize, page, orderBy }) {
+function AllProducts({ pageSize, page, orderBy, onOrderByChange }) {
   const [products, setProducts] = useState([]);
-  const [sortType, setSortType] = useState("최신순");
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        let orderByField = orderBy;
-
-        if (sortType === "최신순") {
-          orderByField = "recent"; // 최신순에 맞는 필드로 설정
-        } else if (sortType === "좋아요순") {
-          orderByField = "favorite"; // 좋아요순에 맞는 필드로 설정
-        }
-
-        const data = await getProducts(pageSize, page, orderByField);
+        const data = await getProducts(pageSize, page, orderBy);
         setProducts(data.list);
       } catch (error) {
-        console.error("Failed to fetch products");
+        console.error('Failed to fetch products');
       }
     };
 
     fetchAllProducts();
-  }, [page, pageSize, sortType, orderBy]);
+  }, [page, pageSize, orderBy]);
 
   const handleSortChange = (event) => {
-    setSortType(event.target.value);
+    const selectedSortType =
+      event.target.value === '최신순' ? 'recent' : 'favorite';
+    onOrderByChange(selectedSortType); // 상위 컴포넌트에 정렬 기준 변경 사항 전달
   };
+
   const handleProductClick = (productId) => {
-    navigate(`/items/${productId}`);
+    // 제품 클릭 시, 상세 페이지로 이동하는 로직 추가
+    navigate(`/items/${productId}?page=${page}&orderBy=${orderBy}`);
   };
 
   return (
@@ -53,7 +48,7 @@ function AllProducts({ pageSize, page, orderBy }) {
         </Link>
         <select
           className="select-type"
-          value={sortType}
+          value={orderBy === 'recent' ? '최신순' : '좋아요순'}
           onChange={handleSortChange}
         >
           <option>최신순</option>

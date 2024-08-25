@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getProducts } from "../api";
-import like from "../svg/like.svg";
-import "../css/Products.css";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getProducts } from '../api';
+import like from '../svg/like.svg';
+import '../css/Products.css';
 
-function BestProducts({ orderBy }) {
+function BestProducts({ page, orderBy }) {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchBestProducts = async () => {
       try {
-        const data = await getProducts(4, 1, orderBy);
+        const data = await getProducts(4, 1, 'favorite');
 
         const topProducts = data.list;
 
@@ -19,15 +19,16 @@ function BestProducts({ orderBy }) {
 
         // console.log(topProducts); // 전체 데이터를 불러왔는지 콘솔에 출력
       } catch (error) {
-        console.error("Failed to fetch products:", error);
+        console.error('Failed to fetch products:', error);
       }
     };
 
     fetchBestProducts();
-  }, [orderBy]);
+  }, ['favorite']);
 
   const handleProductClick = (productId) => {
-    navigate(`/items/${productId}`);
+    // 제품 클릭 시, 상세 페이지로 이동하는 로직 추가
+    navigate(`/items/${productId}?page=${page}&orderBy=${orderBy}`);
   };
 
   return (
