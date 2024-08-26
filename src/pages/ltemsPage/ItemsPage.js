@@ -1,20 +1,27 @@
-import { useState, useEffect } from "react";
-import { getProducts } from "../../api";
-import React from "react";
+import { React, useState, useEffect } from "react";
+import { getProducts, getProduct } from "../../api";
+import { useParams } from "react-router-dom";
+
 import "./ItemsPage.css";
 import Navbar from "../../components/Navbar/Navbar";
 import ProductList from "../../components/ProductList/ProductList";
 import Pagination from "../../components/Pagination/Pagination";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import BestProductList from "../../components/BestProductList";
+import ItemViewer from "../../components/ItemViewer/ItemViewer";
+import Comment from "../../components/Comment/Comment";
+import ReturnButton from "../../components/ReturnButton/ReturnButton";
 
 const LIMIT = 10;
 
 function ItemsPage() {
+  const param = useParams();
+
   const [products, setProducts] = useState([]);
   const [order, setOrder] = useState("recent");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [viewer, setViewer] = useState({});
 
   const pageLimit = 5;
 
@@ -47,24 +54,49 @@ function ItemsPage() {
     };
     handleLoad(options);
   }, [order, page]);
+
+  useEffect(() => {
+    const handleLoad = async () => {
+      if (!param.id) return;
+
+      try {
+        const data = await getProduct({ id: param.id });
+        setViewer(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    handleLoad();
+  }, [param.id]);
+
   return (
     <>
-      <Navbar />
-
-      <div className="container">
-        <h2 className="best-product-title">베스트 상품</h2>
-        {<BestProductList />}
-
-        <Searchbar onChange={handleOrderChange} />
-        <ProductList products={products} />
-      </div>
-
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        pageLimit={pageLimit}
-        onPageChange={handlePageChange}
-      />
+      {!param.id ? (
+        <>
+          <Navbar />
+          <div className="container">
+            <BestProductList />
+            <Searchbar onChange={handleOrderChange} />
+            <ProductList products={products} />
+          </div>
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            pageLimit={pageLimit}
+            onPageChange={handlePageChange}
+          />
+        </>
+      ) : (
+        <>
+          <Navbar />
+          <div className="container">
+            <ItemViewer viewer={viewer} />
+            <Comment id={param.id} />
+            <ReturnButton />
+          </div>
+        </>
+      )}
     </>
   );
 }

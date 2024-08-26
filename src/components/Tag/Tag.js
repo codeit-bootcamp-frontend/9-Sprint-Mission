@@ -1,15 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import "./Tag.css";
-import Tagitems from "../Tagitems/Tagitems";
+import Tagitem from "./Tagitem/Tagitem";
 
 function Tag({ className, values = [], onChange }) {
   const isRef = useRef(1);
   const [items, setItems] = useState(values);
   const [tag, setTag] = useState("");
-
-  useEffect(() => {
-    setItems(values);
-  }, [values]);
 
   const handleChange = (e) => {
     setTag(e.target.value);
@@ -48,7 +44,7 @@ function Tag({ className, values = [], onChange }) {
       <ul className="Taglist">
         {items.map((item) => (
           <li key={item.id}>
-            <Tagitems item={item} onDelete={handleTagDelete} />
+            <Tagitem item={item} isDelete={true} onDelete={handleTagDelete} />
           </li>
         ))}
       </ul>

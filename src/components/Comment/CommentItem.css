@@ -1,0 +1,120 @@
+.CommentItem {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 64px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+}
+
+.CommentItem-top {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.CommentItem-content {
+  margin: 0;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+.CommentItem-bottom {
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.CommentItem-bottom-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.CommentItem-bottom-image {
+  border-radius: 9999px;
+}
+
+.CommentItem-nickname {
+  color: #4b5563;
+}
+
+.CommentItem-timeage {
+  margin: 0;
+  color: #9ca3af;
+}
+
+.dropdown {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  gap: 10px;
+}
+
+.Dropdown-section {
+  display: flex;
+  flex-direction: column;
+  width: 139px;
+  height: 92px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: #fff;
+}
+
+.Dropdown-update,
+.Dropdown-delete {
+  font-size: 16px;
+  color: #6b7280;
+  text-align: center;
+}
+
+.Dropdown-update {
+  padding: 12px 0 8px;
+  border-radius: 8px 8px 0 0;
+  border: 1px;
+}
+
+.Dropdown-delete {
+  padding: 8px 0 12px;
+}
+
+.CommentItem-editbox {
+  width: 100%;
+  background-color: #f3f4f6;
+  height: 80px;
+  border: 0;
+  border-radius: 12px;
+  outline: none;
+  padding: 16px 0 40px 24px;
+  margin-bottom: 16px;
+}
+
+.CommentItem-edit-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.CommentItem-delete-button {
+  color: #737373;
+  padding: 14px 20px 7px;
+  border: 0;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.CommentItem-edit-button {
+  color: #f3f4f6;
+  padding: 12px 23px;
+  border: 0;
+  border-radius: 12px;
+  background-color: #3692ff;
+  cursor: pointer;
+}

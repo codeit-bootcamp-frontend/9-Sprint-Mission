@@ -1,8 +1,6 @@
-function ProductListItems({ product }) {
-  function formatPrice(price) {
-    return new Intl.NumberFormat("ko-KR").format(price);
-  }
+import formatPrice from "../utils/formatPrice";
 
+function ProductListItems({ product }) {
   return (
     <>
       <img src={product.images[0]} alt={product.name} />

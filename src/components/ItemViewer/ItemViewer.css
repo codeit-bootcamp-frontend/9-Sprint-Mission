@@ -1,0 +1,143 @@
+.viewer {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0 40px;
+  border-bottom: 1px solid #e5e7eb;
+  justify-content: center;
+  width: 100%;
+}
+
+.viewer-image {
+  border-radius: 16px;
+}
+
+.viewer-info-content {
+  color: #1f2937;
+  font-weight: 600;
+  border-bottom: 1px solid #e5e7eb;
+  width: 690px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+}
+
+.viewer-info-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.viewer-info-header > img {
+  cursor: pointer;
+}
+
+.viewer-info-name {
+  font-size: 24px;
+  margin: 0;
+}
+
+.viewer-info-price {
+  font-size: 40px;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.viewer-info-description {
+  margin-bottom: 24px;
+  font-size: 16px;
+  color: #4b5563;
+}
+
+.viewer-info-small-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.viewer-info-description > p {
+  font-weight: 400;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.viewer-info-tags {
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.viewer-info-tag {
+  list-style-type: none;
+  padding: 6px 16px;
+  background-color: #f3f4f6;
+  border-radius: 26px;
+}
+
+.viewer-info-tag-section {
+  margin-bottom: 62px;
+}
+
+.viewer-profile-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.viewer-profile-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #e5e7eb;
+  border-radius: 35px;
+  background-color: #fff;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+  .viewer {
+    gap: 16px;
+  }
+
+  .viewer-image {
+    width: 340px;
+    height: 340px;
+  }
+
+  .viewer-info,
+  .viewer-info-content {
+    width: 340px;
+  }
+
+  .viewer-info-description > p {
+    color: #1f2937;
+  }
+}
+
+@media (max-width: 768px) {
+  .viewer-info-image {
+    width: 340px;
+    height: 340px;
+  }
+  .viewer {
+    flex-direction: column;
+    padding-bottom: 24px;
+  }
+
+  .viewer-image {
+    width: 340px;
+    height: 340px;
+  }
+
+  .viewer-info,
+  .viewer-info-content {
+    width: 340px;
+  }
+
+  .viewer-info-description > p {
+    color: #1f2937;
+  }
+
+  .question {
+    margin: 24px 0 40px;
+  }
+}
