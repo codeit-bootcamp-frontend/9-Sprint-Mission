@@ -1,0 +1,53 @@
+.inquiry-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.inquiry-label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #111827;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.inquiry-input {
+  margin-top: 9px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  padding: 16px 24px;
+  height: 104px;
+  border: 0;
+}
+
+input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #9ca3af;
+}
+
+.inquiry-wrap-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.inquiry-button {
+  margin-top: 16px;
+  background-color: #9ca3af;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 23px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #f3f4f6;
+  position: relative;
+}
+
+.inquiry-button.active {
+  background-color: #3692ff;
+  cursor: pointer;
+}
