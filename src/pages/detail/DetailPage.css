@@ -1,0 +1,341 @@
+.container {
+  width: 1200px;
+  height: auto;
+}
+
+.header {
+  display: flex;
+  text-align: left;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.productsImg {
+  width: 486px;
+  height: 486px;
+  border-radius: 16px;
+  margin-right: 24px;
+}
+
+.productsImg img {
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+.productsContentBox {
+  width: 60%;
+  height: auto;
+  gap: 62px;
+}
+.productsContentTitle {
+  gap: 16px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f3f4f6;
+  font-size: 24px;
+}
+.productsContentTitle__h {
+  font-size: 24px;
+  font-weight: 600;
+}
+.productsContentTitle__p {
+  font-size: 40px;
+  font-weight: 600;
+}
+.productsTitle {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #4b5563;
+}
+.productsDescription {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #4b5563;
+}
+.productsTagBox {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+.productsTags {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 36px;
+  border: none;
+  border-radius: 26px;
+  padding: 10px;
+  background-color: #f3f4f6;
+}
+
+.userBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.userBoxIcon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+}
+.userBoxId {
+  display: flex;
+  flex-direction: column;
+}
+.userBoxId__id {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #4b5563;
+}
+.userBoxId__date {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #9ca3af;
+}
+.userBoxLike {
+  width: 20%;
+  display: flex;
+  justify-content: right;
+  border-left: 2px solid #f3f4f6;
+  padding: 5px;
+}
+.userBoxLike__count {
+  width: 80%;
+  height: 40px;
+  border: 1px solid #e5e7eb;
+  border-radius: 35px;
+  padding: 4px 12px 4px 12px;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+}
+.userBoxLike__img {
+  width: 30%;
+  height: 70%;
+}
+.userBoxLike__favoriteCount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-left: 10px;
+}
+.askBoxTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.askBoxLabel {
+  display: flex;
+  justify-content: left;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.askBoxTextarea {
+  width: 100%;
+  height: 104px;
+  padding: 16px;
+  border-radius: 12px;
+  border: none;
+  background-color: #f3f4f6;
+}
+
+.askBoxButton {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.askBoxButton__btn {
+  width: 8%;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px, 23px, 12px, 23px;
+  color: #f3f4f6;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #9ca3af;
+}
+
+.changeColor {
+  width: 8%;
+  height: 42px;
+  border: none;
+  border-radius: 8px;
+  padding: 12px, 23px, 12px, 23px;
+  color: #f3f4f6;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #3692ff;
+}
+.main__CommentBox {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+  margin-top: 30px;
+}
+.commentBox__container {
+  width: 95%;
+  padding: 10px;
+}
+.commentBox__top {
+  display: flex;
+  width: 106%;
+}
+.commentBox__comment {
+  display: flex;
+  justify-content: left;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1f2937;
+  width: 100%;
+  margin-left: 5px;
+}
+.commentBox__img {
+  height: 17px;
+}
+.commentBox__editMode {
+  width: 106%;
+  height: 80px;
+  border: none;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  padding: 10px;
+}
+.commentBox__editModeBtn {
+  width: 106%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+.commentBox__editModeBtn--cancel {
+  background-color: white;
+  border: none;
+}
+.commentBox__editModeBtn--complete {
+  width: 106px;
+  height: 42px;
+  background-color: #3692ff;
+  color: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.commentBox__icon {
+  width: 32px;
+  height: 32px;
+}
+.inCommentBox {
+  margin-top: 15px;
+}
+.commentBox__edit {
+  width: 5%;
+  height: 50%;
+  padding: 10px;
+}
+
+.commentBox__editBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.editBox {
+  width: 139px;
+  height: 92px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+  position: absolute;
+  bottom: -120px;
+  z-index: 1;
+  background-color: white;
+}
+
+.link {
+  width: 240px;
+  height: 48px;
+  border: none;
+  border-radius: 40px;
+  background-color: #3692ff;
+  color: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+/* 태블릿 사이즈 */
+@media screen and (max-width: 1199px) {
+  .container {
+    width: 696px;
+    height: auto;
+  }
+  .productsImg {
+    width: 340px;
+    height: 340px;
+  }
+  .productsContentBox {
+    width: 50%;
+  }
+  .userBoxLike {
+    width: 40%;
+  }
+  .header {
+    align-items: flex-start;
+  }
+  .askBoxButton__btn,
+  .changeColor {
+    width: 10%;
+  }
+}
+
+/* 모바일 사이즈 */
+@media screen and (max-width: 767px) {
+  .container {
+    width: 344px;
+  }
+  .header {
+    flex-direction: column;
+  }
+  .productsContentBox {
+    width: 100%;
+  }
+  .productsContentTitle {
+    margin-top: 10px;
+  }
+  .askBoxButton__btn,
+  .changeColor {
+    width: 22%;
+  }
+  .askBoxTextarea {
+    font-size: 12px;
+  }
+  .link {
+    margin-top: 80px;
+  }
+}

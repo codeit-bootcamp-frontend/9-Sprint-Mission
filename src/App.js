@@ -1,12 +1,13 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
 import NavbarPanda from "./components/navbar";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 import Additem from "./pages/additem/Additem";
 import Items from "./pages/items/Items";
-function App() {
+import DetailPage from "./pages/detail/DetailPage";
 
-    // 베스트 반응형 데이터
+function App() {
+  // 베스트 반응형 데이터
   const [favoriteData, setfavoriteData] = useState({ list: [], totalCount: 0 });
   useEffect(() => {
     const updatePageSize = () => {
@@ -40,17 +41,17 @@ function App() {
   // 전체상품 반응형 데이터
   const [data, setData] = useState({ list: [], totalCount: 0 });
   const [status, setStatus] = useState("recent");
-  
+
   useEffect(() => {
     const updatePageSize = () => {
       const width = window.innerWidth;
       let pageSize;
       if (width <= 767) {
-        pageSize = 4; 
+        pageSize = 4;
       } else if (width <= 1199) {
-        pageSize = 6; 
+        pageSize = 6;
       } else {
-        pageSize = 10; 
+        pageSize = 10;
       }
 
       fetch(
@@ -69,14 +70,25 @@ function App() {
     return () => {
       window.removeEventListener("resize", updatePageSize);
     };
-  }, [status]); 
+  }, [status]);
 
   return (
     <div className="App">
-      <NavbarPanda/>
+      <NavbarPanda />
       <Routes>
-        <Route path="/items" element={ <Items favoriteData={favoriteData} data={data} status={status} setStatus={setStatus}/> }/>
-        <Route path="/additem" element={<Additem/>}/>
+        <Route
+          path="/items"
+          element={
+            <Items
+              favoriteData={favoriteData}
+              data={data}
+              status={status}
+              setStatus={setStatus}
+            />
+          }
+        />
+        <Route path="/items/:id" element={<DetailPage data={data} />}></Route>
+        <Route path="/additem" element={<Additem />} />
       </Routes>
     </div>
   );
