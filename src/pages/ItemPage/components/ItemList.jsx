@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 import { Link } from "react-router-dom";
 import searchIcon from "../../../assets/icon/search.svg";
-import { getProduct } from "../../../utils/api/api";
+import { getProducts } from "../../../utils/api/api";
 import { getPageSize } from "../../../utils/functions/getPageSize";
 
 const ItemList = () => {
     const [product, setProduct] = useState([]);
-    const [page, setPage] = useState(1);
+    // const [page, setPage] = useState(1); // 페이지 네이션 구현 전까지 미사용
     const [order, setOrder] = useState("recent");
     const [pageSize, setPageSize] = useState(getPageSize() * 2 + 2);
 
@@ -16,14 +16,14 @@ const ItemList = () => {
     };
 
     const productLoad = async (options) => {
-        let result = await getProduct(options);
+        let result = await getProducts(options);
         if (!result) return;
         setProduct(result.list);
     };
 
     useEffect(() => {
-        productLoad({ page, pageSize, orderBy: order });
-    }, [page, pageSize, order]);
+        productLoad({ page: 1, pageSize, orderBy: order });
+    }, [pageSize, order]);
 
     useEffect(() => {
         const handleResize = () => {

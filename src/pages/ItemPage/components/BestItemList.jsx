@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
-import { getProduct } from "../../../utils/api/api";
+import { getProducts } from "../../../utils/api/api";
 import { getPageSize } from "../../../utils/functions/getPageSize";
 
 const BestItemList = () => {
@@ -8,7 +8,7 @@ const BestItemList = () => {
     const [pageSize, setPageSize] = useState(getPageSize());
 
     const productLoad = async (options) => {
-        let result = await getProduct(options);
+        let result = await getProducts(options);
         if (!result) return;
         setProduct(result.list);
     };

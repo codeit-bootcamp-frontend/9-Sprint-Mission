@@ -2,14 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import XIcon from "../../../assets/icon/X_Icon.svg";
 
-const StyledUl = styled.ul`
+export const StyledUl = styled.ul`
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     list-style-type: none;
+    color: var(--gray800);
 `;
 
-const StyledLi = styled.li`
+export const StyledLi = styled.li`
     display: flex;
     align-items: center;
     justify-content: center;
