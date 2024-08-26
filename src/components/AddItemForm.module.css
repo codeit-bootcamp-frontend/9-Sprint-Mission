@@ -1,5 +1,5 @@
 .formContainer {
-  width: 1200px;
+  max-width: 1200px;
   margin: 0 auto;
   position: relative;
 }
@@ -29,32 +29,35 @@
 
 .submitBtn {
   background-color: #3692FF;
+  cursor: pointer;
 }
-
 
 .addForm {
   display: flex;
   flex-direction: column;
 }
 
-.addForm > label {
+.addForm label {
   margin-bottom: 16px;
   font-size: 18px;
   font-weight: 700;
   line-height: 26px;
   color:#1F2937 ;
+  display: inline-block;
 }
 
-.addForm > input {
+.addForm input {
+  width: 100%;
   height: 56px ;
   margin-bottom: 32px;
   border: none;
   border-radius: 12px;
   background-color: #F3F4F6;
   padding: 16px 24px;
+  display: block;
 }
 
-.addForm > input::placeholder {
+.addForm input::placeholder {
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
@@ -62,19 +65,19 @@
   font-family: "Pretendard Variable", Pretendard;
 }
 
-
-
-#productDescription {
+.addForm textarea {
+  width: 100%;
   height: 282px;
   margin-bottom: 32px;
   border: none;
   border-radius: 12px;
   background-color: #F3F4F6;
   padding: 16px 24px;
- 
+  display: block;
+  resize: none;
 }
 
-#productDescription::placeholder {
+.addForm textarea::placeholder {
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
@@ -82,17 +85,48 @@
   font-family: "Pretendard Variable", Pretendard;
 }
 
+.tagArr {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
 
+.tag{
+  display: flex;
+  gap: 8px;
+  padding: 5px 12px 5px 16px ;
+  background-color: #F3F4F6;
+  height: 36px;
+  border-radius: 26px;
+  align-items: center;
+}
 
+.tagText {
+  display: inline-block;
+  color: #1F2937;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.tagRemoveBtn {
+  border: none;
+  background-image: url(../assets/ic_X.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 22px;
+  height: 24px;
+  cursor: pointer;
+}
 
 @media (max-width:1200px) {
   .formContainer {
-    width: 744px;
+    margin: 0 24px;
   }
 }
 
 @media (max-width:768px) {
   .formContainer {
-    width: 376px;
+    margin: 0 15px;
   }
 }

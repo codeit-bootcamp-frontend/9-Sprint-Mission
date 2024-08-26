@@ -13,7 +13,9 @@ function AddItemForm() {
     tag: "",
     imgFile: null,
   });
-  const [isDisabled, setDisabled] = useState(true);
+  const [tags, setTags] = useState([]);
+  // const [input, setInput] = useState("");
+  // const [isDisabled, setDisabled] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,16 +24,39 @@ function AddItemForm() {
 
   const handleChange = (name, value) => {
     setValues((prevValues) => ({ ...prevValues, [name]: value }));
-    setDisabled(
-      !values.title || !values.content || !values.price || !values.tag
-        ? true
-        : false
-    );
+    // setDisabled(
+    //   !values.title || !values.content || !values.price || !values.tag
+    //     ? true
+    //     : false
+    // );
   };
+
+  const isDisabled =
+    !values.title || !values.content || !values.price || !tags.length;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
+  };
+
+  const addTag = (tag) => {
+    if (!tags.includes(tag)) {
+      setTags([...tags, tag]);
+    }
+  };
+
+  const removeTag = (tagToRemove) => {
+    setTags(tags.filter((tag) => tag !== tagToRemove));
+  };
+
+  const onPressEnter = (event) => {
+    if (event.nativeEvent.isComposing) return;
+    const inputString = values.tag.trim();
+    if (event.key === "Enter" && inputString) {
+      event.preventDefault(); // 엔터 키가 눌렸을 때 submit 되지 않도록
+      addTag(inputString);
+      setValues({ ...values, tag: "" });
+    }
   };
 
   return (
@@ -43,40 +68,64 @@ function AddItemForm() {
         onChange={handleChange}
       />
       <form className={cx("addForm")} onSubmit={handleSubmit}>
-        <label htmlFor={cx("productName")}>상품명</label>
-        <input
-          name="title"
-          value={values.title}
-          id={cx("productName")}
-          type="text"
-          placeholder="상품명을 입력해주세요"
-          onChange={handleInputChange}
-        />
-        <label htmlFor={cx("productDescription")}>상품 소개</label>
-        <textarea
-          name="content"
-          value={values.content}
-          id={cx("productDescription")}
-          placeholder="상품 소개를 입력해주세요"
-          onChange={handleInputChange}
-        />
-        <label htmlFor={cx("productPrice")}>판매가격</label>
-        <input
-          name="price"
-          value={values.price}
-          id={cx("productPrice")}
-          type="text"
-          placeholder="판매 가격을 입력해주세요"
-          onChange={handleInputChange}
-        />
-        <label htmlFor={cx("productTag")}>태그</label>
-        <input
-          name="tag"
-          id={cx("productTag")}
-          type="text"
-          placeholder="태그를 입력해주세요"
-          onChange={handleInputChange}
-        />
+        <div>
+          <label htmlFor="productName">상품명</label>
+          <input
+            name="title"
+            value={values.title}
+            id="productName"
+            type="text"
+            placeholder="상품명을 입력해주세요"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="productDescription">상품 소개</label>
+          <textarea
+            name="content"
+            value={values.content}
+            id="productDescription"
+            placeholder="상품 소개를 입력해주세요"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="productPrice">판매가격</label>
+          <input
+            name="price"
+            value={values.price}
+            id="productPrice"
+            type="text"
+            placeholder="판매 가격을 입력해주세요"
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="productTag">태그</label>
+          <input
+            name="tag"
+            value={values.tag}
+            id="productTag"
+            type="text"
+            placeholder="태그를 입력해주세요"
+            onChange={handleInputChange}
+            onKeyDown={onPressEnter}
+          />
+        </div>
+        {tags.length > 0 && (
+          <div className={cx("tagArr")}>
+            {tags.map((tag) => (
+              <div key={`tag-${tag}`} className={cx("tag")}>
+                <span className={cx("tagText")}>{`#${tag}`}</span>
+                <button
+                  onClick={() => removeTag(tag)}
+                  label={`${tag} 태그`}
+                  className={cx("tagRemoveBtn")}
+                ></button>
+              </div>
+            ))}
+          </div>
+        )}
         <button
           type="submit"
           className={cx("resigterBtn", `${isDisabled ? "" : "submitBtn"}`)}

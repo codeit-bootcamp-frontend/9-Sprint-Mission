@@ -1,7 +1,8 @@
 import "./BestProductList.css";
 import heartImg from "../assets/ic_heart.png";
 import { useEffect, useState } from "react";
-import { getProducts } from "../Api";
+import { getProducts } from "../api/Api";
+import { Link } from "react-router-dom";
 
 function BestProductListItem({ product }) {
   const { images, name, description, price, favoriteCount } = product;
@@ -33,15 +34,15 @@ export function BestProductList({ title }) {
     handleLoad({
       order: "favorite",
       pageSize: 4,
-      page: 1
+      page: 1,
     });
   }, []);
 
   return (
-    <ul className='product-list best'>
+    <ul className="product-list best">
       {products.map((product) => (
         <li key={product.id}>
-          <BestProductListItem product={product} />
+          <Link to={`/items/${product.id}`}><BestProductListItem product={product} /></Link>
         </li>
       ))}
     </ul>

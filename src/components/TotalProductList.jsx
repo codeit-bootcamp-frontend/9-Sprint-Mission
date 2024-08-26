@@ -1,7 +1,7 @@
 import "./TotalProductList.css";
 import heartImg from "../assets/ic_heart.png";
 import { useEffect, useState } from "react";
-import { getProducts } from "../Api";
+import { getProducts } from "../api/Api";
 import { Link } from "react-router-dom";
 import { PageNation } from "./PageNation";
 
@@ -104,7 +104,7 @@ export function TotalProductList() {
       <ul className="product-list total">
         {products.map((product) => (
           <li key={product.id}>
-            <TotalProductListItem product={product} />
+            <Link to={`/items/${product.id}`}><TotalProductListItem product={product} /></Link>
           </li>
         ))}
       </ul>

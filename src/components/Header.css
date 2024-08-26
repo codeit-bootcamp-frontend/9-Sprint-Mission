@@ -60,16 +60,24 @@
   .gnb {
     padding: 0 16px;
   }
-  
+
   .gnb-board {
     gap: 8px;
   }
 
   .gnb-menus {
-    gap: 8px ;
+    gap: 8px;
   }
 
   .gnb-menu {
     margin-right: 4px;
+  }
+
+  .gnb-img {
+    content: url(../assets/logo.png);
+    width: 81px;
+    height: 40px;
+    margin-right: 0;
+    display: block;
   }
 }
