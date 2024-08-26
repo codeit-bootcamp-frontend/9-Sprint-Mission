@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import usePageSize, { SORT_TYPE } from "../lib/usePageSize";
 import useProducts from "../lib/useProducts";
@@ -21,14 +21,10 @@ function AllItemsSection() {
     searchQuery
   );
   const [isDropdown, setIsDropdown] = useState(false);
-  // 입력 필드에 포커스를 설정하기 위한 useRef
-  const inputRef = useRef(null);
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus(); // 컴포넌트 마운트 시 입력 필드에 포커스 설정
-    }
-  }, []); // 빈 의존성 배열을 사용하여 컴포넌트가 처음 마운트될 때만 실행
+  const sortOptions = [
+    { label: "최신순", value: "recent" },
+    { label: "인기순", value: "favorite" },
+  ];
 
   const handleSortDropdown = (sortType) => {
     setOrderBy(sortType);
@@ -62,7 +58,7 @@ function AllItemsSection() {
         <div className="searchBarWrapper">
           <SearchIcon />
           <input
-            ref={inputRef} // 입력 필드에 ref 연결
+            autoFocus
             className="searchBarInput"
             placeholder="검색할 상품을 입력하고 엔터키를 눌러주세요"
             value={keyword}
@@ -71,12 +67,17 @@ function AllItemsSection() {
           />
         </div>
         <div className="addItemWrapper">
-          <Link to="/additem" className="loginLink button">
+          <Link to="/additem" className="menu-link button">
             상품 등록하기
           </Link>
         </div>
         <div className="sortButtonWrapper">
-          {isDropdown && <DropdownList onSortSelection={handleSortDropdown} />}
+          {isDropdown && (
+            <DropdownList
+              sortOptions={sortOptions}
+              onSortSelection={handleSortDropdown}
+            />
+          )}
           <button
             className="sortDropdownTriggerButton"
             onClick={handleDropdown}

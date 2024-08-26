@@ -97,6 +97,8 @@
 }
 
 .searchBarInput {
+  height: 20px;
+  width: 100%;
   border: none;
   flex: 1;
   background-color: inherit;
@@ -142,7 +144,7 @@
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 1200px) {
   .bestItemsCardSection {
     grid-template-columns: repeat(4, 1fr);
   }

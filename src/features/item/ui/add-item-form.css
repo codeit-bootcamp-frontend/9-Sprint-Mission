@@ -24,33 +24,6 @@
   flex-wrap: wrap;
 }
 
-.form-group label {
-  margin-bottom: 10px;
-  color: var(--gray-800);
-  font-weight: 700;
-}
-
-input[type="text"],
-input[type="number"],
-textarea {
-  width: 346px;
-  padding: 10px;
-  border: none;
-  border-radius: 12px;
-  font-size: 16px;
-  background-color: var(--gray-100);
-}
-
-input[type="text"]::placeholder,
-input[type="number"]::placeholder,
-textarea::placeholder {
-  color: var(--gray-400);
-}
-
-textarea {
-  height: 282px;
-}
-
 .image-error-message {
   color: var(--red);
   margin-top: 8px;
@@ -111,20 +84,10 @@ textarea {
     flex-direction: row;
     align-items: center;
   }
-
-  .form-group label {
-    width: 30%;
-    margin-right: 20px;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 768px;
-  }
 }
 
 /* desktop */
-@media (min-width: 1280px) {
+@media (min-width: 1200px) {
   .add-item-container {
     width: 1200px;
     padding: 15px;
@@ -133,11 +96,6 @@ textarea {
   .form-group {
     margin-bottom: 15px;
     flex-direction: row;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 1200px;
   }
 
   .button-group {

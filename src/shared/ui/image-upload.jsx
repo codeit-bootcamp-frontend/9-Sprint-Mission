@@ -30,26 +30,26 @@ const ImageUpload = ({ image, setImage, onRemoveImage }) => {
     }
   };
 
-  const triggerFileUpload = () => {
-    fileInputRef.current.click();
-  };
-
   const clearFileInputRef = () => {
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   return (
     <div className="image-upload-wrapper">
-      <div className="image-upload-placeholder" onClick={triggerFileUpload}>
+      <label
+        className="image-upload-placeholder upload-text"
+        htmlFor="image-upload"
+      >
         <PlusImage alt="Upload" />
-        <p className="upload-text">이미지 등록</p>
-        <input
-          type="file"
-          ref={fileInputRef}
-          onChange={handleImageChange}
-          className="image-upload-input"
-        />
-      </div>
+        이미지 등록
+      </label>
+      <input
+        id="image-upload"
+        type="file"
+        ref={fileInputRef}
+        onChange={handleImageChange}
+        className="image-upload-input"
+      />
 
       {image && (
         <div className="image-preview">

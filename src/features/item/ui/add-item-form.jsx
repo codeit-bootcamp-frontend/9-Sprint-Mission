@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./add-item-form.css";
 import addProducts from "../../../shared/api/items/add-item";
 import ImageUpload from "../../../shared/ui/image-upload";
+import InputWithLabel from "../../../shared/ui/input-with-lable";
+import TextareaWithLabel from "../../../shared/ui/textarea-with-label";
 import DeleteImage from "../../../shared/assets/images/icons/ic_delete.svg";
 
 const AddItemForm = () => {
@@ -50,10 +52,11 @@ const AddItemForm = () => {
     }
   };
 
+  const isFormFilled = name && description && price > 0 && tags.length > 0;
+
   useEffect(() => {
-    const isFormFilled = name && description && price > 0 && tags.length > 0;
     setIsFormValid(isFormFilled);
-  }, [name, description, price, tags]);
+  }, [isFormFilled]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,8 +74,10 @@ const AddItemForm = () => {
       formData.append("images", [image]);
     }
 
-    const responseInfo = await addProducts(formData);
-    console.log(responseInfo.data);
+    formData.forEach((value, key) => {
+      console.log("key: " + key + ", value: " + value);
+    });
+    //const responseInfo = await addProducts(formData);
   };
 
   return (
@@ -88,44 +93,39 @@ const AddItemForm = () => {
         <br />
         <ImageUpload
           id="imageUpload"
+          name="imageUpload"
           image={image}
           setImage={handleImageUpload}
           onRemoveImage={handleImageRemove}
         />
         {imageError && <div className="image-error-message">{imageError}</div>}
       </div>
-      <div className="form-group">
-        <label htmlFor="name">상품명</label>
-        <br />
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={handleNameChange}
-          placeholder="상품명을 입력해주세요"
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="description">상품 소개</label>
-        <br />
-        <textarea
-          id="description"
-          value={description}
-          onChange={handleDescriptionChange}
-          placeholder="상품 소개를 입력해주세요"
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="price">판매가격</label>
-        <br />
-        <input
-          type="number"
-          id="price"
-          value={price}
-          onChange={handlePriceChange}
-          placeholder="판매 가격을 입력해주세요"
-        />
-      </div>
+
+      <InputWithLabel
+        id="name"
+        label="상품명"
+        value={name}
+        onChange={handleNameChange}
+        placeholder="상품명을 입력해주세요"
+      />
+
+      <TextareaWithLabel
+        id="description"
+        label="상품 소개"
+        value={description}
+        onChange={handleDescriptionChange}
+        placeholder="상품 소개를 입력해주세요"
+      />
+
+      <InputWithLabel
+        id="price"
+        label="판매가격"
+        type="number"
+        value={price}
+        onChange={handlePriceChange}
+        placeholder="판매 가격을 입력해주세요"
+      />
+
       <div className="form-group">
         <label htmlFor="tags">태그</label>
         <br />
