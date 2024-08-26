@@ -1,46 +1,37 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "../api.js";
-import like from "../svg/like.svg";
-import search from "../svg/search.svg";
-import "../css/Products.css";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { getProducts } from '../api.js';
+import like from '../svg/like.svg';
+import search from '../svg/search.svg';
+import '../css/Products.css';
+import { Link, useNavigate } from 'react-router-dom';
 
-function AllProducts({ currentPage, pageSize }) {
+function AllProducts({ pageSize, page, orderBy, onOrderByChange }) {
   const [products, setProducts] = useState([]);
-  const [sortType, setSortType] = useState("최신순");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
-        const data = await getProducts(pageSize, currentPage);
-        let sortedProducts = data.list;
-        if (sortType === "최신순") {
-          // 최신순 정렬
-          sortedProducts = sortedProducts.sort((a, b) => b.id - a.id);
-        } else if (sortType === "좋아요순") {
-          // 좋아요순 정렬
-          sortedProducts = sortedProducts.sort(
-            (a, b) => b.favoriteCount - a.favoriteCount
-          );
-        }
-        setProducts(sortedProducts);
-        // console.log(products);
+        const data = await getProducts(pageSize, page, orderBy);
+        setProducts(data.list);
       } catch (error) {
-        console.error("Failed to fetch products");
+        console.error('Failed to fetch products');
       }
     };
 
     fetchAllProducts();
-  }, [currentPage, pageSize, sortType]);
+  }, [page, pageSize, orderBy]);
 
   const handleSortChange = (event) => {
-    setSortType(event.target.value);
+    const selectedSortType =
+      event.target.value === '최신순' ? 'recent' : 'favorite';
+    onOrderByChange(selectedSortType); // 상위 컴포넌트에 정렬 기준 변경 사항 전달
   };
 
-  //금액 단위마다 콤마 찍기 위해 정규식 사용
-  function formatPrice(price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
+  const handleProductClick = (productId) => {
+    // 제품 클릭 시, 상세 페이지로 이동하는 로직 추가
+    navigate(`/items/${productId}?page=${page}&orderBy=${orderBy}`);
+  };
 
   return (
     <div className="all-products-wrap">
@@ -57,7 +48,7 @@ function AllProducts({ currentPage, pageSize }) {
         </Link>
         <select
           className="select-type"
-          value={sortType}
+          value={orderBy === 'recent' ? '최신순' : '좋아요순'}
           onChange={handleSortChange}
         >
           <option>최신순</option>
@@ -66,17 +57,19 @@ function AllProducts({ currentPage, pageSize }) {
       </div>
       <ul className="products-wrap">
         {products.map((product) => (
-          <li key={product.id} className="product">
-            <span>
-              <img
-                className="product-img"
-                src={product.images}
-                alt={`${product.name}의 이미지 입니다.`}
-              />
-            </span>
+          <li
+            key={product.id}
+            className="product"
+            onClick={() => handleProductClick(product.id)}
+          >
+            <img
+              className="product-img"
+              src={product.images}
+              alt={`${product.name}의 이미지 입니다.`}
+            />
             <span className="product-name">{product.name}</span>
             <span className="product-price">
-              {formatPrice(product.price)}원
+              {product.price.toLocaleString()}원
             </span>
             <span className="product-favorite">
               <img src={like} alt="좋아요 버튼" />

@@ -40,6 +40,7 @@
   background-color: var(--color-gray100);
   border: none;
   border-radius: 12px;
+  resize: none;
 }
 
 .product-submit-button {
@@ -74,7 +75,7 @@
 
 .custom-file-upload.disabled-label {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.4;
   pointer-events: none;
 }
 

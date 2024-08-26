@@ -18,9 +18,17 @@
   flex-direction: column;
   gap: 16px;
 }
+.product:hover {
+  cursor: pointer;
+}
 
 .product .product-img {
   width: 100%;
+  border-radius: 16px;
+}
+.all-products-wrap .product .product-img {
+  min-width: 220px;
+  height: 220px;
 }
 
 .all-products-wrap,

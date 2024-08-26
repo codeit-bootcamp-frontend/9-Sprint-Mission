@@ -5,6 +5,7 @@ import userIcon from "./svg/userIcon.svg";
 import UsedMarket from "./compornents/UsedMarket";
 import CommunityBoard from "./compornents/CommunityBoard";
 import Additem from "./compornents/Additem";
+import ProductDetail from "./compornents/ProductDetail.container";
 import {
   Link,
   Route,
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/items" index element={<UsedMarket />} />
             <Route path="/additem" element={<Additem />} />
+            <Route path="/items/:id" element={<ProductDetail />} />
             <Route path="/communityBoard" element={<CommunityBoard />} />
           </Routes>
         </main>

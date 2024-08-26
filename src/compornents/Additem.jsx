@@ -1,41 +1,44 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../css/Additem.css";
 import cancelButton from "../svg/cancelbutton.svg";
+import Input from "./Input";
 
 const initalFormValues = {
   name: "",
   tags: [],
-  price: "",
+  price: Number(""),
   images: null,
   description: "",
 };
 
 function Additem() {
   const [values, setValues] = useState(initalFormValues);
-  const [isFormValid, setIsFormValid] = useState(false);
   const [tagInput, setTagInput] = useState("");
 
   //이미지를 제외한 모든 입력이 채워져있어야 등록버튼이 활성화되는 로직
-  useEffect(() => {
-    const { name, tags, price, description } = values;
-    const isValid =
-      name.trim() !== "" &&
-      //tags는 배열이기 때문에 trim이 아닌 배열의 length로 조건을 수정
-      tags.length > 0 &&
-      price.trim() !== "" &&
-      description.trim() !== "";
-    setIsFormValid(isValid);
-  }, [values]);
+  const { name, tags, price, description } = values;
+  const isFormValid =
+    name.trim() !== "" &&
+    //tags는 배열이기 때문에 trim이 아닌 배열의 length로 조건을 수정
+    tags.length > 0 &&
+    price.trim() !== "" &&
+    description.trim() !== "";
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (!file) return;
-    const imageUrl = URL.createObjectURL(file);
-    setValues((prev) => ({ ...prev, images: imageUrl }));
+    if (!file || !file.type.startsWith("image/")) {
+      alert("이미지 파일만 업로드할 수 있습니다.");
+      return;
+    }
 
-    return () => {
-      URL.revokeObjectURL(imageUrl);
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const imageUrl = event.target.result;
+      setValues((prev) => ({ ...prev, images: imageUrl }));
     };
+
+    reader.readAsDataURL(file);
   };
 
   //반복되는 구문 변수화
@@ -87,7 +90,7 @@ function Additem() {
 
     if (!values.images) {
       const userNotImgUprode = window.confirm(
-        "등록상품에 이미지가 존재하지 않습니다. 그래도 등록하시겠습니까?"
+        "등록상품에 이미지가 존재하지 않습니다. 그래도 등록하시겠습니까?",
       );
       if (!userNotImgUprode) {
         return; // 사용자가 취소를 눌렀을 경우 제출 중지
@@ -118,14 +121,11 @@ function Additem() {
           <div className="product-wrap">
             <label htmlFor="product-img">상품 이미지</label>
             <div className="product-wrap imgs">
-              <label
-                htmlFor="product-img"
+              <Input
                 className={`custom-file-upload ${
                   values.images ? "disabled-label" : ""
                 }`}
-              ></label>
-              <input
-                id="product-img"
+                forId="product-img"
                 type="file"
                 onChange={handleImageChange}
                 disabled={values.images}
@@ -153,45 +153,46 @@ function Additem() {
             )}
           </div>
           <div className="product-wrap">
-            <label htmlFor="product-name">상품명</label>
-            <input
+            <Input
               name="name"
               value={values.name}
-              id="product-name"
+              forId="product-name"
               placeholder="상품명을 입력해주세요"
               onChange={handleChange}
+              title="상품명"
             />
           </div>
           <div className="product-wrap">
-            <label htmlFor="product-content">상품 소개</label>
-            <textarea
+            <Input
               name="description"
               value={values.description}
-              id="product-content"
+              forId="product-content"
               placeholder="상품 소개를 입력해주세요"
               onChange={handleChange}
+              title="상품소개"
+              type="textarea"
             />
           </div>
           <div className="product-wrap">
-            <label htmlFor="product-price">판매가격</label>
-            <input
+            <Input
               name="price"
               value={values.price}
-              id="product-price"
+              forId="product-price"
               placeholder="판매 가격을 입력해주세요"
               onChange={handleChange}
               type="number"
+              title="판매 가격"
             />
           </div>
           <div className="product-wrap">
-            <label htmlFor="product-tag">태그</label>
-            <input
+            <Input
               name="tags"
               value={tagInput}
-              id="product-tag"
+              forId="product-tag"
               placeholder="태그를 입력해주세요"
               onChange={handleTagInput}
               onKeyDown={handleKeyDown}
+              title="태그"
             />
             <div className="tag-list">
               {values.tags.map((tag, index) => (
