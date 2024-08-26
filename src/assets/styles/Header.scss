@@ -27,21 +27,6 @@
       ul {
         display: flex;
         gap: 20px;
-
-        li {
-          a {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: $gray600;
-            @include mobile {
-              font-size: 1.6rem;
-            }
-
-            &.active {
-              color: $clr-blue;
-            }
-          }
-        }
       }
     }
 

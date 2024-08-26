@@ -1,45 +1,53 @@
-import { useEffect, useState, useCallback } from 'react';
-import FileInput from './FileInput';
-import Tag from './Tag';
-import { postPandaMarket } from '../../../api';
+import { useState } from "react";
+import styled from "styled-components";
+import FileInput from "./FileInput";
+import Tag from "./Tag";
 
 const INITIAL_VALUES = {
   images: null,
-  name: '',
+  name: "",
   price: 0,
-  description: '',
+  description: "",
   tags: [],
 };
 
+export const Button = styled.button`
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #f3f4f6;
+  background-color: ${({ disabled }) => (disabled ? `#9CA3AF` : `#3692FF`)};
+  border-radius: 8px;
+  padding: 12px 32px;
+`;
+
 const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
   const [value, setValue] = useState(initialValues);
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [tags, setTags] = useState([]);
   const [tagValue, setTagValue] = useState();
 
-  const logFormData = formData => {
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-  };
+  const { name, price, description, tags } = value;
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const form = e.target;
     // 새 폼 데이터 인스턴스 생성
     const formData = new FormData(form);
     // 각 필드의 값을 지정(key, value)
-    formData.append('images', value.images);
-    formData.append('name', value.name);
-    formData.append('price', value.price);
-    formData.append('description', value.description);
-    formData.append('tags', JSON.stringify(value.tags));
+    formData.append("images", value.images);
+    formData.append("name", value.name);
+    formData.append("price", value.price);
+    formData.append("description", value.description);
+    formData.append("tags", JSON.stringify(value.tags));
 
     // 로그 출력으로 FormData 내용 확인
+    const logFormData = (formData) => {
+      for (let pair of formData.entries()) {
+        console.log(`${pair[0]}: ${pair[1]}`);
+      }
+    };
     logFormData(formData);
 
-    await postPandaMarket(formData);
+    // await postPandaMarket(formData);
     // 성공적으로 추가된 후 초기화
     setValue(INITIAL_VALUES);
   };
@@ -47,78 +55,60 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
   // 폼 필드 변경 처리 => name: 필드의 이름, value: 새로운 값
   const handleChange = (name, value) => {
     // 기존의 상태를 복사하고, 지정된 name에 해당하는 값을 새로 전달된 value로 업데이트
-    setValue(prevValues => ({
+    setValue((prevValues) => ({
       ...prevValues,
       [name]: value,
     }));
   };
 
   // 입력 필드 값 변경 처리 함수
-  const handleInputChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
   };
 
-  // 등록 활성화 버튼
-  useEffect(() => {
-    const { name, price, description, tags } = value;
-    const allFieldsFilled = name && price > 0 && description && tags[0];
-    if (allFieldsFilled) {
-      setIsDisabled(true);
-    } else {
-      setIsDisabled(false);
-    }
-  }, [value]);
-
-  ////////////////////// 태그 //////////////////////
-  const addTag = tag => {
-    // tag가 존재하고 tags 배열에 포함되지 않은 경우 실행
-    if (tag && !tags.includes(tag)) {
-      setTags(prevTags => [...prevTags, tag]);
-      setValue(prevValue => ({
+  // 태그 추가 함수
+  const addTag = (tag) => {
+    // 빈칸 X, 중복 X
+    if (tag && tag.trim() !== "" && !value.tags.includes(tag)) {
+      setValue((prevValue) => ({
         ...prevValue,
-        tags: [...tags, tag],
+        tags: [...prevValue.tags, tag],
       }));
-      setTagValue('');
+      setTagValue("");
     }
   };
 
-  const handleTagChange = e => {
+  const handleTagChange = (e) => {
     setTagValue(e.target.value);
   };
 
-  const handleKeyDown = e => {
-    if (e.key === 'Enter') {
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
       e.preventDefault();
-      addTag('#' + tagValue);
+      addTag(tagValue);
     }
   };
 
-  const handleTagDelete = useCallback(
-    tagToDelete => {
-      setTags(prevTags => {
-        const updatedTags = prevTags.filter(tag => tag !== tagToDelete);
-        setValue(prevValue => ({
-          ...prevValue,
-          tags: updatedTags,
-        }));
+  const handleTagDelete = (tagDelete) => {
+    setValue((prevValue) => ({
+      ...prevValue,
+      tags: prevValue.tags.filter((tag) => tag !== tagDelete),
+    }));
+  };
 
-        return updatedTags;
-      });
-    },
-    [setValue],
-  );
-
-  console.log('value 값: ', value);
-  console.log('tag 값: ', tagValue);
+  console.log("value 값", value);
 
   return (
     <form className="AdditemForm" onSubmit={handleSubmit}>
       <div className="AdditemForm-submit-wrap">
         <h2 className="AdditemForm-main-tit">상품 등록하기</h2>
-        <button type="submit" className={'submit-button' + (isDisabled ? ' active' : '')} disabled={!isDisabled}>
+        <Button
+          type="submit"
+          disabled={!name || !(price > 0) || !description || !tags[0]}
+        >
           등록
-        </button>
+        </Button>
       </div>
       <FileInput name="images" value={value.images} onChange={handleChange} />
       <div className="AdditemForm-input-wrap">
@@ -169,12 +159,12 @@ const AdditemForm = ({ initialValues = INITIAL_VALUES }) => {
           type="text"
           id="tags"
           name="tags"
-          value={tagValue || ''}
+          value={tagValue || ""}
           placeholder="태그를 입력해주세요"
           onChange={handleTagChange}
           onKeyDown={handleKeyDown}
         />
-        <Tag tags={tags} handleTagDelete={handleTagDelete} />
+        <Tag tags={value.tags} handleTagDelete={handleTagDelete} />
       </div>
     </form>
   );

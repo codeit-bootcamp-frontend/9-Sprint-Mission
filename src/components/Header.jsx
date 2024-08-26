@@ -1,12 +1,19 @@
 import { Link, NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 import logoImg from '../assets/images/logo.svg';
 import userIcon from '../assets/images/icon/login.svg';
 
-const Header = () => {
-  const getLinkStyle = ({ isActive }) => {
-    return { color: isActive ? 'active' : '' };
-  };
+const NavStyle = styled(NavLink)`
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #4b5563;
 
+  &.active {
+    color: #3692ff;
+  }
+`;
+
+const Header = () => {
   return (
     <header className="Header">
       <div className="header-wrap">
@@ -18,14 +25,10 @@ const Header = () => {
         <nav className="menu-wrap">
           <ul>
             <li>
-              <NavLink to="/community" style={getLinkStyle}>
-                자유게시판
-              </NavLink>
+              <NavStyle to="/community">자유게시판</NavStyle>
             </li>
             <li>
-              <NavLink to="/items" style={getLinkStyle}>
-                중고마켓
-              </NavLink>
+              <NavStyle to="/items">중고마켓</NavStyle>
             </li>
           </ul>
         </nav>

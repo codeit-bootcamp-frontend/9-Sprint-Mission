@@ -1,0 +1,79 @@
+.Detailitem {
+  padding: 3rem 0 5rem;
+  @include tablet {
+    padding: 24px 24px 5rem 24px;
+    @include mobile {
+      padding: 15px 15px 5rem 15px;
+    }
+  }
+
+  .ItemSection {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    @include mobile {
+      flex-direction: column;
+    }
+
+    .item-info-wrap {
+      flex: 1;
+      @include mobile {
+        width: 100%;
+      }
+
+      .item-tit-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        border-bottom: 1px solid $gray200;
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+        @include mobile {
+          gap: 0;
+        }
+      }
+
+      .item-txt-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .item-Avatar-Favorite {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 5rem;
+        }
+      }
+    }
+  }
+
+  .CommentsSection {
+    .CommentsForm {
+      display: flex;
+      flex-direction: column;
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid $gray200;
+
+      button {
+        width: fit-content;
+        margin-left: auto;
+        margin-top: 2rem;
+      }
+    }
+
+    .Comment {
+      position: relative;
+      border-bottom: 1px solid $gray200;
+      padding-bottom: 2rem;
+      margin-bottom: 3rem;
+      margin-top: 2rem;
+
+      .Button-wrap {
+        text-align: right;
+        margin: 2rem 0;
+      }
+    }
+  }
+}
