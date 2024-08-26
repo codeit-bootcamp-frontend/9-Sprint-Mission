@@ -1,0 +1,30 @@
+.buttonBox {
+  text-align: center;
+}
+
+.backBtn {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  background-color: #3692ff;
+  color: #f3f4f6;
+  border: none;
+  border-radius: 40px;
+  width: 240px;
+  height: 48px;
+  margin: 0 auto;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 2.6rem;
+}
+
+.backIcon {
+  display: flex;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  background-image: url("../../img/ic_back.png");
+  background-position: center;
+  background-size: cover;
+}

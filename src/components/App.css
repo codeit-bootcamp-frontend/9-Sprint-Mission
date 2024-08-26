@@ -7,6 +7,15 @@ html {
   box-sizing: border-box;
   font-family: "Pretendard";
 }
+h1,
+h2,
+p,
+ul,
+li,
+span {
+  margin: 0;
+  padding: 0;
+}
 
 li {
   list-style-type: none;
@@ -25,6 +34,17 @@ a:visited {
 a:active {
   color: #3692ff;
 }
+
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+}
+
 .navbar .category .active {
   color: #3692ff;
 }
@@ -56,20 +76,26 @@ nav {
   font-weight: 600;
   color: #4b5563;
 }
-
+.my-profile-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+.my-profile {
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/profile_guest.png);
+  background-position: center;
+  background-size: cover;
+}
 main {
   display: flex;
   flex-direction: column;
-  margin: 70px auto;
+  margin: 94px auto;
+  margin-bottom: 222px;
   width: 1200px;
-}
-h1,
-h2,
-p,
-ul,
-li {
-  margin: 0;
-  padding: 0;
 }
 
 .section-title-wrapper {
@@ -226,9 +252,9 @@ li {
 }
 @media screen and (max-width: 992px) {
   main {
-    width: 800px;
+    margin: 94px 24px 243px;
+    width: auto;
   }
-
   .best-items ul {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -238,31 +264,35 @@ li {
   }
   .all-items .img-box {
     width: 100%;
+    aspect-ratio: 1 /1;
+    overflow: hidden;
   }
 
   .img-box img {
+    border-radius: 16px;
     width: 100%;
     height: 100%;
   }
 }
 @media screen and (max-width: 781px) {
   main {
-    width: 600px;
+    margin-right: 14px;
+    margin-left: 15px;
+    margin-bottom: 65px;
   }
   .category {
     font-size: 1.6rem;
     line-height: 2.6rem;
   }
   .best-items ul {
-    grid-template-columns: 390px;
+    grid-template-columns: 1fr;
   }
   .all-items ul {
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
   }
   section {
-    width: 390px;
-    margin: 0 auto;
+    margin: 0 15px;
   }
 
   #section-all .section-title-wrapper {
@@ -286,5 +316,17 @@ li {
     background-size: 24px;
     width: 42px;
     font-size: 0;
+  }
+  .item-option {
+    width: 100%;
+  }
+  .search-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #f3f4f6;
+    padding: 9px 16px;
+    border-radius: 8px;
+    width: 80%;
+    height: 42px;
   }
 }

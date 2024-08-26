@@ -15,14 +15,20 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 32px;
+  margin-bottom: 16px;
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 2.6rem;
+  width: fit-content;
+}
+.labelName:first-child {
+  margin: 0;
 }
 .addForm input,
 .addForm textarea {
   background-color: #f3f4f6;
   height: 56px;
+  width: 100%;
   padding: 16px 24px 14px;
   border: none;
   border-radius: 12px;
@@ -30,9 +36,9 @@
   line-height: 2.6rem;
   color: #000;
 }
-.addForm input,
+.addForm input:focus,
 .addForm textarea:focus {
-  outline: none;
+  outline: 1px solid #3692ff;
 }
 
 .addForm input::placeholder,
@@ -84,11 +90,9 @@
 .hiddenInput {
   display: none;
 }
-
 .filePreview {
   width: 282px;
   height: 282px;
-  margin-left: 10px;
   border-radius: 12px;
   overflow: hidden;
 }
@@ -98,13 +102,16 @@
   object-fit: fill;
 }
 .fileInputWrapper {
+  position: relative;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  gap: 24px;
 }
 .deleteBtn {
-  position: relative;
+  position: absolute;
   top: 12px;
-  right: 36px;
+  left: calc(282px * 2 - 8px);
   background-color: #9ca3af;
   border-radius: 999px;
   width: 24px;
@@ -114,16 +121,27 @@
   background-size: cover;
   border: none;
 }
+
 .errorMsg {
   color: red;
   font-size: 1.6rem;
   line-height: 2.6rem;
   font-weight: 400;
 }
-.TagDeleteBtn {
+.tagBox {
   position: relative;
-  left: -36px;
-  bottom: -3px;
+}
+
+.tagWrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.TagDeleteBtn {
+  position: absolute;
+  top: 8px;
+  right: 24px;
   background-color: #9ca3af;
   border-radius: 999px;
   width: 20px;
@@ -132,8 +150,8 @@
   background-position: center;
   background-size: cover;
   border: none;
+  z-index: 1;
 }
-
 @media screen and (max-width: 992px) {
   .fileAddImg {
     width: 168px;
@@ -145,5 +163,9 @@
   .filePreview {
     width: 168px;
     height: 168px;
+  }
+
+  .deleteBtn {
+    left: calc(168px * 2 - 8px);
   }
 }

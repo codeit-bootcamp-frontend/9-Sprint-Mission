@@ -12,7 +12,6 @@ function App() {
   //리사이즈가 발생할때마다 width 상태를 업데이트하는 핸들러 = throttle의 콜백함수
   const handleResize = () => {
     setWidth(window.innerWidth);
-    console.log(window.innerWidth);
   };
 
   useEffect(() => {
@@ -31,7 +30,6 @@ function App() {
         <BestItems width={width} />
         <AllItems width={width} />
       </main>
-      {/* <Pagination /> */}
     </>
   );
 }

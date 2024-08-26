@@ -1,0 +1,78 @@
+.repliesWrapper {
+  margin-bottom: 64px;
+}
+
+.replyItem {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #e5e7eb;
+  gap: 24px;
+  padding-bottom: 12px;
+}
+.sellerProfile {
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border-radius: 999px;
+  background-image: url("../../img/profile_guest.png");
+  background-position: center;
+  background-size: cover;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+.replyWriter {
+  display: flex;
+}
+.replayWriterInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  font-weight: 400;
+  color: #4b5563;
+}
+.replyContent {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  font-weight: 400;
+  color: #1f2937;
+  margin-top: 24px;
+}
+.replyCreatedAt {
+  color: #9ca3af;
+}
+.noReplyBg {
+  background-image: url("../../img/noreply.png");
+  background-position: center;
+  background-size: cover;
+  width: 196px;
+  height: 230px;
+  margin: 0 auto;
+  margin-top: 24px;
+  margin-bottom: 48px;
+}
+
+@media screen and (max-width: 992px) {
+  .repliesWrapper {
+    margin-bottom: 56px;
+  }
+  .noReplyBg {
+    height: 174px;
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 48px;
+  }
+}
+
+@media screen and (max-width: 781px) {
+  .replyContent {
+    margin-top: 40px;
+  }
+  .repliesWrapper {
+    margin-bottom: 40px;
+  }
+}

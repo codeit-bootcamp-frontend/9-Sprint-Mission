@@ -1,4 +1,5 @@
 // import { useState } from 'react';
+import { NavLink } from "react-router-dom";
 import heartIcon from "../img/ic_heart.png";
 
 function PandaItem({ item }) {
@@ -30,9 +31,11 @@ function PandaItemList({ items }) {
     <ul>
       {items.map((item) => {
         return (
-          <li key={item.id}>
-            <PandaItem item={item} />
-          </li>
+          <NavLink to={`/items/${item.id}`} key={item.id}>
+            <li key={item.id}>
+              <PandaItem item={item} />
+            </li>
+          </NavLink>
         );
       })}
     </ul>

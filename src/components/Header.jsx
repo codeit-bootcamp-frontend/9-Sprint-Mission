@@ -1,5 +1,4 @@
 import logoImg from "../img/Property 1=lg.png";
-import guestImg from "../img/profile_guest.png";
 import { NavLink } from "react-router-dom";
 import "./App.css";
 
@@ -33,13 +32,10 @@ export function Header() {
           </NavLink>
         </div>
         <NavLink to="/">
-          <img
-            className="my-page"
-            src={guestImg}
-            alt="마이페이지"
-            width="40"
-            height="40"
-          ></img>
+          <button className="my-profile-btn">
+            <div className="blind">마이 프로필</div>
+            <div className="my-profile"></div>
+          </button>
         </NavLink>
       </div>
     </nav>
