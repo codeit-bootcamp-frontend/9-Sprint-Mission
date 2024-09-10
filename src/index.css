@@ -34,6 +34,10 @@ html {
   --color-bg-skyblue: #cfe5ff;
 }
 
+body {
+  font-family: "Pretendard-Regular";
+}
+
 a {
   cursor: pointer;
   text-decoration: none;
