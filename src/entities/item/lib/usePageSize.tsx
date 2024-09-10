@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const SORT_TYPE = { recent: "recent", favorite: "favorite" };
 
-const getPageSize = (sortName) => {
+const getPageSize = (sortName: string) => {
   const width = window.innerWidth;
   if (width < 768) {
     return sortName === SORT_TYPE.recent ? 4 : 1;

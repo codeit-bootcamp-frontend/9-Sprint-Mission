@@ -1,6 +1,7 @@
 import ApiInstance from "../../../shared/api/base";
+import { ProductFormData } from "../types/product-form-data";
 
-const addProducts = async (formData) => {
+const addProducts = async (formData: ProductFormData) => {
   try {
     const response = await ApiInstance.post("/products", formData);
     alert("상품이 등록되었습니다!");

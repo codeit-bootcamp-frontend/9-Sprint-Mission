@@ -1,4 +1,4 @@
-import ApiInstance from "../../../shared/api/base";
+import ApiInstance from "../base";
 
 const getProducts = async (params = {}) => {
   const query = new URLSearchParams(params).toString();
@@ -12,7 +12,7 @@ const getProducts = async (params = {}) => {
   }
 };
 
-const getProductDetail = async (productId) => {
+const getProductDetail = async (productId: number) => {
   if (!productId) {
     throw new Error("Invalid product ID");
   }

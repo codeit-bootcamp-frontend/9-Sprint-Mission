@@ -3,17 +3,32 @@ import PlusImage from "../assets/images/icons/ic_plus.svg";
 import DeleteImage from "../assets/images/icons/ic_delete.svg";
 import "./image-upload.css";
 
-const ImageUpload = ({ image, setImage, onRemoveImage }) => {
-  const fileInputRef = useRef(null);
+// Props 타입 정의
+interface ImageUploadProps {
+  id: string;
+  name: string;
+  image: string | null;
+  setImage: (image: string) => void;
+  onRemoveImage: (clearFileInputRef: () => void) => void;
+}
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
+const ImageUpload: React.FC<ImageUploadProps> = ({
+  id,
+  name,
+  image,
+  setImage,
+  onRemoveImage,
+}) => {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (reader.result) {
           try {
-            setImage(reader.result);
+            setImage(reader.result as string); // FileReader result는 string으로 캐스팅 필요
           } catch (error) {
             console.error("setImage error: ", error);
           }
@@ -40,7 +55,7 @@ const ImageUpload = ({ image, setImage, onRemoveImage }) => {
         className="image-upload-placeholder upload-text"
         htmlFor="image-upload"
       >
-        <PlusImage alt="Upload" />
+        <img src={PlusImage} alt="Upload" />
         이미지 등록
       </label>
       <input
@@ -58,7 +73,7 @@ const ImageUpload = ({ image, setImage, onRemoveImage }) => {
             onClick={() => onRemoveImage(clearFileInputRef)}
             className="image-remove-button"
           >
-            <DeleteImage alt="Delete" />
+            <img src={DeleteImage} alt="Delete" />
           </button>
         </div>
       )}

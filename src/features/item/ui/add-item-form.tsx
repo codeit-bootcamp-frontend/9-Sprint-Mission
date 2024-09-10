@@ -1,27 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./add-item-form.css";
-import addProducts from "../../../shared/api/items/add-item";
+import addProducts from "../api/add-products";
 import ImageUpload from "../../../shared/ui/image-upload";
-import InputWithLabel from "../../../shared/ui/input-with-lable";
+import InputWithLabel from "../../../shared/ui/input-with-label";
 import TextareaWithLabel from "../../../shared/ui/textarea-with-label";
 import DeleteImage from "../../../shared/assets/images/icons/ic_delete.svg";
+import { ProductFormData } from "../types/product-form-data";
 
 const AddItemForm = () => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [tags, setTags] = useState([]);
-  const [tagInput, setTagInput] = useState("");
-  const [image, setImage] = useState(null);
-  const [imageError, setImageError] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [price, setPrice] = useState<number>(0);
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState<string>("");
+  const [image, setImage] = useState<string | null>(null);
+  const [imageError, setImageError] = useState<string>("");
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
-  const handleNameChange = (e) => setName(e.target.value);
-  const handleDescriptionChange = (e) => setDescription(e.target.value);
-  const handlePriceChange = (e) => setPrice(e.target.value);
-  const handleTagInputChange = (e) => setTagInput(e.target.value);
+  const clearFileInputRef = useRef<() => void>(() => {});
 
-  const handleTagKeyDown = (e) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setName(e.target.value);
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setDescription(e.target.value);
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPrice(Number(e.target.value));
+  const handleTagInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTagInput(e.target.value);
+
+  const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tagInput.trim()) {
       e.preventDefault();
       setTags((prevTags) => [...prevTags, tagInput.trim()]);
@@ -29,11 +36,11 @@ const AddItemForm = () => {
     }
   };
 
-  const handleTagRemove = (index) => {
+  const handleTagRemove = (index: number) => {
     setTags((prevTags) => prevTags.filter((_, i) => i !== index));
   };
 
-  const handleImageUpload = (uploadedImage) => {
+  const handleImageUpload = (uploadedImage: string) => {
     if (image) {
       setImageError("*이미지 등록은 최대 1개까지 가능합니다.");
     } else {
@@ -42,42 +49,50 @@ const AddItemForm = () => {
     }
   };
 
-  const handleImageRemove = (clearFileInputRef) => {
+  const handleImageRemove = () => {
     try {
       setImage(null); // 이미지 상태를 null로 설정하여 삭제
       setImageError(""); // 에러 메시지 초기화
-      clearFileInputRef();
+      if (clearFileInputRef.current) {
+        clearFileInputRef.current(); // 파일 입력 초기화
+      }
     } catch (error) {
       console.error("Failed to remove image: ", error);
     }
   };
 
-  const isFormFilled = name && description && price > 0 && tags.length > 0;
+  const isFormFilled: boolean =
+    Boolean(name) && // 문자열이 비어 있지 않으면 true
+    Boolean(description) && // description이 비어 있지 않으면 true
+    price > 0 &&
+    tags.length > 0;
 
   useEffect(() => {
     setIsFormValid(isFormFilled);
   }, [isFormFilled]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isFormValid) return;
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("tags", JSON.stringify(tags));
-    // https://panda-market-api.vercel.app/images/upload
-    // 위 API 로 먼저 image를 올린 후에 url 을 받아서 image 항목에 입력함
-    if (image) {
-      formData.append("images", [image]);
-    }
+    const formData: ProductFormData = {
+      name: name,
+      description: description,
+      price: price,
+      tags: tags,
+      images: image ? [image] : [], // 이미지가 있을 경우 배열로 추가
+    };
 
-    formData.forEach((value, key) => {
-      console.log("key: " + key + ", value: " + value);
-    });
-    //const responseInfo = await addProducts(formData);
+    console.log(formData);
+
+    // 실제 API 요청
+    const responseInfo = await addProducts(formData);
+    if (responseInfo) {
+      console.log("상품 등록 성공", responseInfo);
+    } else {
+      console.error("상품 등록 실패");
+    }
   };
 
   return (
@@ -88,6 +103,7 @@ const AddItemForm = () => {
           등록
         </button>
       </div>
+
       <div className="form-group">
         <label htmlFor="imageUpload">상품 이미지</label>
         <br />
@@ -138,6 +154,7 @@ const AddItemForm = () => {
           placeholder="태그를 입력 후 Enter를 눌러주세요"
         />
       </div>
+
       <div className="tags">
         {tags.map((tag, index) => (
           <span key={index} className="tag-item">
@@ -147,7 +164,7 @@ const AddItemForm = () => {
               className="remove-tag-button"
               onClick={() => handleTagRemove(index)}
             >
-              <DeleteImage alt="Delete" />
+              <img src={DeleteImage} alt="Delete" />
             </button>
           </span>
         ))}

@@ -1,36 +1,39 @@
 import { useEffect, useState } from "react";
 import DropdownMenu from "../../../shared/ui/dropdown-menu";
-import { getProductComments } from "../../../shared/api/comments/comments";
+import { getProductComments } from "../api/comments";
+import { Comment } from "../types/comment.types";
+import { CommentsSectionProps } from "../types/comments-section-props.types";
+import { ProductCommentsParams } from "../types/product-comments-params.types";
 import KebabIcon from "../../../shared/assets/images/icons/ic_kebab.svg";
 import ProfileIcon from "../../../shared/assets/images/icons/ic_profile.svg";
 import CommentEmptyImage from "../../../shared/assets/images/comment/comment_empty.png";
 
 const COMMENT_LIMIT = 10;
 
-function CommentsSection({ productId }) {
-  const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState([]);
-  const [nextCursor, setNextCursor] = useState(null);
-  const [dropdownVisible, setDropdownVisible] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+function CommentsSection({ productId }: CommentsSectionProps) {
+  const [newComment, setNewComment] = useState<string>("");
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [nextCursor, setNextCursor] = useState<number>(0);
+  const [dropdownVisible, setDropdownVisible] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!productId) return;
+    if (!Number(productId)) return;
 
     const fetchComments = async () => {
       setIsLoading(true);
-      const params = {
+      const params: ProductCommentsParams = {
         limit: COMMENT_LIMIT,
-        nextCursor: nextCursor,
+        cursor: nextCursor,
       };
 
       try {
-        const data = await getProductComments({ productId, params });
+        const data = await getProductComments(productId, params);
         setComments((prevComments) => {
           return nextCursor ? [...prevComments, ...data.list] : data.list;
         });
-        setNextCursor(data.nextCursor);
+        setNextCursor(data.nextCursor || null);
         setError(null);
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -43,21 +46,24 @@ function CommentsSection({ productId }) {
     fetchComments();
   }, [productId, nextCursor]);
 
-  const handleCommentChange = (e) => {
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewComment(e.target.value);
   };
 
-  const handleCommentSubmit = (e) => {
-    //e.preventDefault();
+  const handleCommentSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     console.log("댓글 등록: ", newComment);
     setNewComment("");
   };
 
-  const toggleDropdown = (id) => {
+  const toggleDropdown = (id: number) => {
     setDropdownVisible((prevVisible) => (prevVisible === id ? null : id));
   };
 
-  const handleDropdownItemClick = (item) => {
+  const handleDropdownItemClick = (item: {
+    label: string;
+    action: () => void;
+  }) => {
     console.log(item.label);
     setDropdownVisible(null); // Close dropdown after action
   };
@@ -67,13 +73,12 @@ function CommentsSection({ productId }) {
     { label: "삭제하기", action: () => console.log("Delete clicked") },
   ];
 
-  const detailDate = (updatedAt) => {
+  const detailDate = (updatedAt: string) => {
     let now = new Date();
     let utc = new Date(updatedAt);
     let offset = utc.getTimezoneOffset();
     let local = new Date(utc.getTime() + offset * 60000);
     const milliSeconds = now.getTime() - local.getTime();
-    //console.log(milliSeconds);
     const seconds = milliSeconds / 1000;
     if (seconds < 60) return `방금 전`;
     const minutes = seconds / 60;
@@ -155,7 +160,7 @@ function CommentsSection({ productId }) {
         ))
       ) : (
         <div>
-          <img src={CommentEmptyImage} />
+          <img src={CommentEmptyImage} alt="no comments" />
           <div className="comment-empty">아직 문의가 없어요</div>
         </div>
       )}

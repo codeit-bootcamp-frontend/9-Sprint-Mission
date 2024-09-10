@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
+import { InputWithLabelProps } from "../types/input-with-label.types";
 import "./input-with-label.css";
 
-const InputWithLabel = ({
+const InputWithLabel: React.FC<InputWithLabelProps> = ({
   id,
   label,
   type = "text",
@@ -22,15 +22,6 @@ const InputWithLabel = ({
       />
     </div>
   );
-};
-
-InputWithLabel.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  type: PropTypes.string,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
 };
 
 export default InputWithLabel;
