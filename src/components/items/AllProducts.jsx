@@ -84,7 +84,7 @@ const AllProducts = ({ width }) => {
           </Link>
           <div className="searchFormWrapper">
             <div className="searchBox">
-              <img src="/search.png" alt="검색아이콘" />
+              <img src="/icons/search.png" alt="검색아이콘" />
               <form className="searchForm" onSubmit={onSearch}>
                 <input
                   value={inputKeyword}
@@ -123,7 +123,7 @@ const AllProducts = ({ width }) => {
                 <h2 className="productTitle">{item.name}</h2>
                 <h2 className="productPrice">{item.price.toLocaleString("ko-KR")}원</h2>
                 <span className="like">
-                  <img src="/like.png" alt="좋아요" />
+                  <img src="/icons/like.png" alt="좋아요" />
                   {item.favoriteCount}
                 </span>
               </Link>

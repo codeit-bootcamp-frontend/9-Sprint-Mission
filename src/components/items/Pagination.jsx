@@ -36,7 +36,7 @@ const Pagination = ({ totalPage, page, isMobile, setPage }) => {
     <div className="paginationContainer">
       <div className="pageNumberBox">
         <button className="numberBoxBtn" onClick={onPageToPrev}>
-          <img src="/arrowLeft.png" alt="왼쪽" />
+          <img src="/icons/arrowLeft.png" alt="왼쪽" />
         </button>
         {!isMobile ? (
           Array.from({ length: totalPage }, (_, i) => (
@@ -52,7 +52,7 @@ const Pagination = ({ totalPage, page, isMobile, setPage }) => {
           <p className="pageNumber">{page}</p>
         )}
         <button className="numberBoxBtn" onClick={onPageToNext}>
-          <img src="/arrowRight.png" alt="오른쪽" />
+          <img src="/icons/arrowRight.png" alt="오른쪽" />
         </button>
       </div>
       {isMobile && <span className="mobileMsg">화살표를 눌러 이동해주세요!</span>}
