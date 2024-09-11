@@ -1,6 +1,7 @@
 // import { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import heartIcon from "../img/ic_heart.png";
+import { Pagenation } from './Pagenation';
 
 function PandaItem({ item }) {
   return (
@@ -28,6 +29,7 @@ function PandaItem({ item }) {
 
 function PandaItemList({ items }) {
   return (
+    <>
     <ul>
       {items.map((item) => {
         return (
@@ -39,6 +41,8 @@ function PandaItemList({ items }) {
         );
       })}
     </ul>
+    <Pagenation/>
+    </>
   );
 }
 
