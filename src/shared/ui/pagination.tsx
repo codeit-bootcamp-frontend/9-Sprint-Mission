@@ -23,7 +23,7 @@ const Pagination = ({
           onClick={() => onPageChange(start - 1)}
           className={`paginationButton ${isFirst && "invisible"}`}
         >
-          <LeftArrow />
+          <img src={LeftArrow} alt="left arrow" />
         </button>
       </div>
       {[...Array(VISIBLE_PAGES)].map((_, i) => (
@@ -45,7 +45,7 @@ const Pagination = ({
           onClick={() => onPageChange(start + VISIBLE_PAGES)}
           className={`paginationButton ${isLast && "invisible"}`}
         >
-          <RightArrow />
+          <img src={RightArrow} alt="right arrow" />
         </button>
       </div>
     </div>
