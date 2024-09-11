@@ -52,7 +52,7 @@ const Signin = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("로그인 POST 요청에서 API 오류 발생", error);
-        setApiError(error.response?.data);
+        setApiError(error.response?.data.message);
       } else {
         console.error("로그인 POST 요청에서 알 수 없는 오류 발생", error);
         setServerError(true);

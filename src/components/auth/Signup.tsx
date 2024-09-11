@@ -60,7 +60,7 @@ const Signup = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("회원가입 post 요청에서 API 요청 오류 발생", error);
-        setApiError(error.response?.data);
+        setApiError(error.response?.data.message);
       } else {
         console.error("회원가입 post 요청에서 알 수 없는 오류 발생", error);
         setServerError(true);

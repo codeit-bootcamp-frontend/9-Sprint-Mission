@@ -9,6 +9,7 @@ import SigninPage from "./routes/SigninPage";
 import SignupPage from "./routes/SignupPage";
 import PrivacyPage from "./routes/PrivacyPage";
 import FaqPage from "./routes/FaqPage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const router = createBrowserRouter([
@@ -48,6 +49,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <Toaster toastOptions={{ success: {style: { fontSize: "24px" }}, error: {style: { fontSize: "24px" }} }} />
     </>
   );
 }

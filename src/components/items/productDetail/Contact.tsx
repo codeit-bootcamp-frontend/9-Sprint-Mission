@@ -5,12 +5,34 @@ import { formatCommentsTime } from "../../../utils/utils";
 import CommentEdit from "./CommentEdit";
 import EditForm from "./EditForm";
 
-const Contact = ({ productId }) => {
-  const [comments, setComments] = useState([]);
+interface IProps {
+  productId: string | undefined;
+}
+
+interface IWriter {
+  image: string;
+  nickname: string;
+  id: number;
+}
+
+interface IList {
+  id: number;
+  content: string;
+  writer: IWriter;
+  updatedAt: string;
+}
+
+interface IComment {
+  nextCursor: number;
+  list: IList[];
+}
+
+const Contact: React.FC<IProps> = ({ productId }) => {
+  const [comments, setComments] = useState<IComment>();
   const [isLoading, setLoading] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [openCommentId, setOpenCommentId] = useState(null); // 모달 열고 닫을 때 활용하는 댓글 id
-  const [editCommentId, setEditCommentId] = useState(null); // 수정할 댓글의 form만 열리고 수정하는 데 활용하는 댓글 id
+  const [openCommentId, setOpenCommentId] = useState<number | null>(null); // 모달 열고 닫을 때 활용하는 댓글 id
+  const [editCommentId, setEditCommentId] = useState<number | null>(null); // 수정할 댓글의 form만 열리고 수정하는 데 활용하는 댓글 id
 
   // 댓글 목록 불러오기
   useEffect(() => {
@@ -37,7 +59,7 @@ const Contact = ({ productId }) => {
   }, [productId]);
 
   // 댓글 업로드
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -59,12 +81,12 @@ const Contact = ({ productId }) => {
   };
 
   // 댓글입력 변경함수
-  const onChangeComment = (e) => {
+  const onChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewComment(e.target.value);
   };
 
   // 메뉴 모달 토글 함수 (동전뒤집기처럼 boolean으로 했다가 다른 댓글의 모달도 떠서 댓글id로 관리해주는 것으로 수정)
-  const onEditMenuToggle = (commentId) => {
+  const onEditMenuToggle = (commentId: number) => {
     setOpenCommentId((prevId) => (prevId === commentId ? null : commentId));
   };
 
@@ -90,8 +112,8 @@ const Contact = ({ productId }) => {
         </button>
       </form>
       {!isLoading ? (
-        comments.list?.length > 0 ? (
-          comments.list.map((comment) => (
+        comments?.list?.length! > 0 ? (
+          comments?.list.map((comment) => (
             <div key={comment.id} className="commentsListBox">
               <div className="listContents">
                 {editCommentId !== comment.id ? (
@@ -107,7 +129,7 @@ const Contact = ({ productId }) => {
                 {editCommentId !== comment.id && (
                   <div className="modalBox">
                     <button onClick={() => onEditMenuToggle(comment.id)} className="editMenuBtn">
-                      <img src="/itemMenu.png" alt="아이템 메뉴" />
+                      <img src="/icons/itemMenu.png" alt="아이템 메뉴" />
                     </button>
                     {openCommentId === comment.id && (
                       <CommentEdit
@@ -122,7 +144,7 @@ const Contact = ({ productId }) => {
               <div className="commentsAuthorBox">
                 <div className="author">
                   {!comment.writer.image ? (
-                    <img src="/sessionBtn.png" alt="유저프로필" />
+                    <img src="/icons/sessionBtn.png" alt="유저프로필" />
                   ) : (
                     <img src={comment.writer.image} alt="유저프로필" />
                   )}
@@ -136,7 +158,7 @@ const Contact = ({ productId }) => {
           ))
         ) : (
           <div className="commentsEmptyBox">
-            <img src="/commentEmpty.png" alt="댓글 없음" />
+            <img src="/images/commentEmpty.png" alt="댓글 없음" />
             <span>아직 문의가 없어요</span>
           </div>
         )

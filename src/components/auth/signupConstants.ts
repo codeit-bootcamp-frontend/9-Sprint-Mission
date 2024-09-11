@@ -12,13 +12,14 @@ export const SignupSchema = z
     userNickname: z
       .string()
       .min(1, { message: "닉네임을 입력해주세요." })
+      .max(20, { message: "닉네임은 20자를 넘을 수 없습니다."})
       .regex(/([A-Za-zㄱ-ㅎ가-힣0-9])/, { message: "닉네임에 특수문자는 사용할 수 없습니다." })
       .trim(),
     userPassword: z
       .string()
       .min(1, { message: "비밀번호를 입력해주세요." })
       .regex(
-        /^(?=.{8,}).*$/,
+        /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/,
         { message: "비밀번호를 8자 이상 입력해주세요." }
       )
       .trim(),
