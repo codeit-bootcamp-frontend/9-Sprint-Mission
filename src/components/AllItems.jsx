@@ -11,26 +11,34 @@ export function AllItems({ width }) {
   const [error, setError] = useState(null);
   const [allItems, setAllItems] = useState([]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10); // 윈도우 너비 width를 받아왔음 -> pageSize setter 호출하기
+  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
+
+  const totalPage = Math.floor(totalCount / pageSize) + 1;
+  // console.log(totalPage);
 
   const loadAllItems = useCallback(async () => {
     setLoading(true);
 
     try {
       const response = await getPandaItems({
-        page: 1,
-        pageSize: 10,
+        currentPage,
+        pageSize,
         orderBy,
         search,
       });
       setAllItems(response.list || []);
+      setTotalCount(response.totalCount);
+      // console.log(totalPage);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [search, orderBy]);
+  }, [currentPage, pageSize, search, orderBy]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -54,13 +62,14 @@ export function AllItems({ width }) {
   }
 
   const getVisibleItemsCount = () => {
-    if (width <= 780) return 4;
-    if (width <= 991) return 6;
+    if (width <= 780) return 4; //setPageSize(4);
+    if (width <= 991) return 6; //setPageSize(6); -> Too many render
     return 10;
   };
 
   const visibleItemsCount = getVisibleItemsCount();
   const visibleItems = allItems.slice(0, visibleItemsCount);
+  //pageSize로 대체 하려면 allItems 도 수정해야하고 이 코드는 그냥 못쓸듯
 
   return (
     <section id="section-all">
@@ -90,7 +99,13 @@ export function AllItems({ width }) {
       <div className="all-items">
         <PandaItemList items={visibleItems} />
       </div>
-      <PagenationBtn />
+      <PagenationBtn
+        totalPage={totalPage}
+        page={currentPage}
+        pageSize={pageSize}
+        orderBy={orderBy}
+        search={search}
+      />
     </section>
   );
 }
