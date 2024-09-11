@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import HeartItem from "../../../shared/assets/images/icons/ic_heart.svg"; // 기본 이미지 파일로 사용
+import { ReactComponent as HeartItem } from "../../../shared/assets/images/icons/ic_heart.svg";
 import { ItemCardProps } from "../types/item-card-props.types";
 
 function ItemCard({ item }: ItemCardProps) {
@@ -10,7 +10,7 @@ function ItemCard({ item }: ItemCardProps) {
         <h2 className="itemName">{item.name}</h2>
         <p className="itemPrice">{item.price.toLocaleString()}원</p>
         <div className="favoriteCount">
-          <img src={HeartItem} className="heartIcon" alt="Favorite Icon" />
+          <HeartItem />
           {item.favoriteCount}
         </div>
       </div>

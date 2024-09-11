@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import PlusImage from "../assets/images/icons/ic_plus.svg";
-import DeleteImage from "../assets/images/icons/ic_delete.svg";
+import { ReactComponent as PlusImage } from "../assets/images/icons/ic_plus.svg";
+import { ReactComponent as DeleteImage } from "../assets/images/icons/ic_delete.svg";
 import "./image-upload.css";
 
 // Props 타입 정의
@@ -55,7 +55,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
         className="image-upload-placeholder upload-text"
         htmlFor="image-upload"
       >
-        <img src={PlusImage} alt="Upload" />
+        <PlusImage />
         이미지 등록
       </label>
       <input
@@ -73,7 +73,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
             onClick={() => onRemoveImage(clearFileInputRef)}
             className="image-remove-button"
           >
-            <img src={DeleteImage} alt="Delete" />
+            <DeleteImage />
           </button>
         </div>
       )}

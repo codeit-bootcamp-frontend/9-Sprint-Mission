@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import ItemDetailSection from "../../entities/item/ui/item-detail";
 import CommentsSection from "../../entities/comment/ui/comments";
 import useProductDetail from "../../entities/item/lib/useProductDetail";
-import BackButtonIcon from "../../shared/assets/images/icons/ic_back.svg";
+import { ReactComponent as BackButtonIcon } from "../../shared/assets/images/icons/ic_back.svg";
 import "./ItemDetailPage.css";
 
 function ItemDetailPage() {
@@ -24,7 +24,7 @@ function ItemDetailPage() {
           <div className="back-button-area">
             <Link to="/items" className="back-button-text">
               <span>목록으로 돌아가기</span>
-              <img src={BackButtonIcon} alt="back to list" />
+              <BackButtonIcon title="Back to list page" />
             </Link>
           </div>
         </>

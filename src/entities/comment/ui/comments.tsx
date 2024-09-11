@@ -4,8 +4,8 @@ import { getProductComments } from "../api/comments";
 import { Comment } from "../types/comment.types";
 import { CommentsSectionProps } from "../types/comments-section-props.types";
 import { ProductCommentsParams } from "../types/product-comments-params.types";
-import KebabIcon from "../../../shared/assets/images/icons/ic_kebab.svg";
-import ProfileIcon from "../../../shared/assets/images/icons/ic_profile.svg";
+import { ReactComponent as KebabIcon } from "../../../shared/assets/images/icons/ic_kebab.svg";
+import { ReactComponent as ProfileIcon } from "../../../shared/assets/images/icons/ic_profile.svg";
 import CommentEmptyImage from "../../../shared/assets/images/comment/comment_empty.png";
 
 const COMMENT_LIMIT = 10;
@@ -136,11 +136,7 @@ function CommentsSection({ productId }: CommentsSectionProps) {
         comments.map((comment) => (
           <div key={comment.id} className="comment">
             {!comment.writer.image && (
-              <img
-                src={ProfileIcon}
-                className="comment-profile-icon"
-                alt="profile"
-              />
+              <ProfileIcon className="comment-profile-icon" />
             )}
             {comment.writer.image && (
               <img
@@ -156,10 +152,8 @@ function CommentsSection({ productId }: CommentsSectionProps) {
                   {detailDate(comment.updatedAt)}
                 </div>
                 <div className="comment-kebab-container">
-                  <img
-                    src={KebabIcon}
+                  <KebabIcon
                     className="comment-kebab-icon"
-                    alt="options"
                     onClick={() => toggleDropdown(comment.id)}
                   />
                   {dropdownVisible === comment.id && (

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import DropdownMenu from "../../../shared/ui/dropdown-menu";
-import KebabIcon from "../../../shared/assets/images/icons/ic_kebab.svg";
-import ProfileIcon from "../../../shared/assets/images/icons/ic_profile.svg";
-import HeartIcon from "../../../shared/assets/images/icons/ic_heart.svg";
-import HeartOnIcon from "../../../shared/assets//images/icons/ic_heart_on.svg";
+import { ReactComponent as KebabIcon } from "../../../shared/assets/images/icons/ic_kebab.svg";
+import { ReactComponent as ProfileIcon } from "../../../shared/assets/images/icons/ic_profile.svg";
+import { ReactComponent as HeartIcon } from "../../../shared/assets/images/icons/ic_heart.svg";
+import { ReactComponent as HeartOnIcon } from "../../../shared/assets//images/icons/ic_heart_on.svg";
 import { ItemDetailProps } from "../types/item-detail-props.types";
 
 function ItemDetailSection({ itemDetail }: ItemDetailProps) {
@@ -42,7 +42,7 @@ function ItemDetailSection({ itemDetail }: ItemDetailProps) {
         <div className="product-header">
           <div className="product-name">{itemDetail.name}</div>
           <div className="kebab-icon-container" onClick={toggleDropdown}>
-            <img src={KebabIcon} className="kebab-icon" alt="Kebab" />
+            <KebabIcon />
             {dropdownVisible && (
               <DropdownMenu
                 items={dropdownItems}
@@ -69,18 +69,14 @@ function ItemDetailSection({ itemDetail }: ItemDetailProps) {
           </div>
         </div>
         <div className="writer-info">
-          <img src={ProfileIcon} className="profile-icon" alt="Profile" />
+          <ProfileIcon />
           <div className="writer-details">
             <div className="writer-name">총명한판다</div>
             <div className="date">2024.08.22</div>
           </div>
           <div className="likes">
             <button className="like-button" onClick={toggleLike}>
-              {liked ? (
-                <img src={HeartOnIcon} className="heart-icon" alt="Heart On" />
-              ) : (
-                <img src={HeartIcon} className="heart-icon" alt="Heart Off" />
-              )}
+              {liked ? <HeartOnIcon /> : <HeartIcon />}
             </button>
             <span>
               {liked ? itemDetail.favoriteCount + 1 : itemDetail.favoriteCount}

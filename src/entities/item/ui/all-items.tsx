@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import usePageSize, { SORT_TYPE } from "../lib/usePageSize";
 import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
-import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
-import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.svg";
+import { ReactComponent as SearchIcon } from "../../../shared/assets/images/icons/ic_search.svg";
+import { ReactComponent as DropDownIcon } from "../../../shared/assets/images/icons/arrow_drop_down.svg";
 import DropdownList from "../../../shared/ui/dropdown-list";
 import Pagination from "../../../shared/ui/pagination";
 import { ProductResponse, Product } from "../types/product.types"; // 정의된 타입 임포트
@@ -68,7 +68,7 @@ function AllItemsSection() {
       <div className="allItemsSectionHeader">
         <div className="sectionTitle">전체 상품</div>
         <div className="searchBarWrapper">
-          <img src={SearchIcon} className="searchIcon" alt="Search" />
+          <SearchIcon />
           <input
             autoFocus
             className="searchBarInput"
@@ -97,7 +97,7 @@ function AllItemsSection() {
             <div className="sortName">
               {orderBy === SORT_TYPE.recent ? "최신순" : "인기순"}
             </div>
-            <img src={DropDownIcon} className="dropdownIcon" alt="Dropdown" />
+            <DropDownIcon height="26px" />
           </button>
         </div>
       </div>

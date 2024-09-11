@@ -1,6 +1,6 @@
 import "./pagination.css";
-import LeftArrow from "../assets/images/icons/arrow_left.svg";
-import RightArrow from "../assets/images/icons/arrow_right.svg";
+import { ReactComponent as LeftArrow } from "../assets/images/icons/arrow_left.svg";
+import { ReactComponent as RightArrow } from "../assets/images/icons/arrow_right.svg";
 
 const VISIBLE_PAGES = 5;
 
@@ -23,7 +23,7 @@ const Pagination = ({
           onClick={() => onPageChange(start - 1)}
           className={`paginationButton ${isFirst && "invisible"}`}
         >
-          <img src={LeftArrow} alt="left arrow" />
+          <LeftArrow />
         </button>
       </div>
       {[...Array(VISIBLE_PAGES)].map((_, i) => (
@@ -45,7 +45,7 @@ const Pagination = ({
           onClick={() => onPageChange(start + VISIBLE_PAGES)}
           className={`paginationButton ${isLast && "invisible"}`}
         >
-          <img src={RightArrow} alt="right arrow" />
+          <RightArrow />
         </button>
       </div>
     </div>

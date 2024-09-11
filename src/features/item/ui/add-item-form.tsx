@@ -4,7 +4,7 @@ import addProducts from "../api/add-products";
 import ImageUpload from "../../../shared/ui/image-upload";
 import InputWithLabel from "../../../shared/ui/input-with-label";
 import TextareaWithLabel from "../../../shared/ui/textarea-with-label";
-import DeleteImage from "../../../shared/assets/images/icons/ic_delete.svg";
+import { ReactComponent as DeleteImage } from "../../../shared/assets/images/icons/ic_delete.svg";
 import { ProductFormData } from "../types/product-form-data";
 
 const AddItemForm = () => {
@@ -164,7 +164,7 @@ const AddItemForm = () => {
               className="remove-tag-button"
               onClick={() => handleTagRemove(index)}
             >
-              <img src={DeleteImage} alt="Delete" />
+              <DeleteImage />
             </button>
           </span>
         ))}

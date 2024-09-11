@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import Logo from "../../shared/assets/images/logo/logo.svg"; // SVG는 ReactComponent로 임포트
+import { ReactComponent as Logo } from "../../shared/assets/images/logo/logo.svg"; // SVG는 ReactComponent로 임포트
 import Avatar from "../../shared/assets/images/login/default_avatar.png"; // PNG는 경로로 임포트
 import "./header.css";
 
@@ -26,7 +26,7 @@ function Header() {
       <div className="header-left">
         <Link to="/" className="header-logo" aria-label="홈으로 이동">
           <div className="logo-image">
-            {!isMobileSize && <img src={Logo} aria-hidden="true" alt="Logo" />}
+            {!isMobileSize && <Logo aria-hidden="true" />}
             <span className="logo-title">판다마켓</span>
           </div>
         </Link>
