@@ -10,11 +10,10 @@ async function getProductComments(
   }
 
   try {
-    const query = new URLSearchParams({
-      limit: params.limit.toString(),
-      cursor: params.cursor.toString(),
-    }).toString();
-
+    if (!params.cursor) {
+      params.cursor = 0;
+    }
+    const query = `limit=${params.limit}&cursor=${params.cursor}`;
     const response = await ApiInstance.get(
       `/products/${productId}/comments?${query}`
     );

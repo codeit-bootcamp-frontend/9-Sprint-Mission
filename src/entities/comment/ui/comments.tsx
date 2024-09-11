@@ -15,6 +15,7 @@ function CommentsSection({ productId }: CommentsSectionProps) {
   const [comments, setComments] = useState<Comment[]>([]);
   const [nextCursor, setNextCursor] = useState<number>(0);
   const [dropdownVisible, setDropdownVisible] = useState<number | null>(null);
+  const [message, setMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -30,13 +31,17 @@ function CommentsSection({ productId }: CommentsSectionProps) {
 
       try {
         const data = await getProductComments(productId, params);
+        if (data.message) {
+          setMessage(data.message);
+          return;
+        }
         setComments((prevComments) => {
           return nextCursor ? [...prevComments, ...data.list] : data.list;
         });
         setNextCursor(data.nextCursor || null);
         setError(null);
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        console.log("Error fetching comments:", error);
         setError("상품의 댓글을 불러오지 못했어요.");
       } finally {
         setIsLoading(false);
@@ -103,6 +108,12 @@ function CommentsSection({ productId }: CommentsSectionProps) {
     return <div>오류: {error}</div>;
   }
 
+  if (message) {
+    console.log("🚀 ~ CommentsSection ~ message:", message);
+    return <div>{message}</div>;
+    console.log("🚀 ~ CommentsSection ~ message:", message);
+  }
+
   return (
     <div className="comments-section">
       <div className="comment-title">문의하기</div>
@@ -125,7 +136,11 @@ function CommentsSection({ productId }: CommentsSectionProps) {
         comments.map((comment) => (
           <div key={comment.id} className="comment">
             {!comment.writer.image && (
-              <ProfileIcon className="comment-profile-icon" alt="profile" />
+              <img
+                src={ProfileIcon}
+                className="comment-profile-icon"
+                alt="profile"
+              />
             )}
             {comment.writer.image && (
               <img
@@ -141,7 +156,8 @@ function CommentsSection({ productId }: CommentsSectionProps) {
                   {detailDate(comment.updatedAt)}
                 </div>
                 <div className="comment-kebab-container">
-                  <KebabIcon
+                  <img
+                    src={KebabIcon}
                     className="comment-kebab-icon"
                     alt="options"
                     onClick={() => toggleDropdown(comment.id)}

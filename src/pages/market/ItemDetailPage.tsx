@@ -24,7 +24,7 @@ function ItemDetailPage() {
           <div className="back-button-area">
             <Link to="/items" className="back-button-text">
               <span>목록으로 돌아가기</span>
-              <BackButtonIcon />
+              <img src={BackButtonIcon} alt="back to list" />
             </Link>
           </div>
         </>
