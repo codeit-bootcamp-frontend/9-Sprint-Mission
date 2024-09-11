@@ -2,7 +2,7 @@ import "./App.css";
 
 import { Header } from "./Header";
 import { BestItems } from "./BestItems";
-import { AllItems } from "./AllItems";
+import { AllItems } from "./AllItems.jsx";
 import { useEffect, useState } from "react";
 import throttle from "../throttle";
 

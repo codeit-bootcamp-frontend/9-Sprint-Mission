@@ -52,7 +52,7 @@ export function BestItems({ width }) {
         <h2>베스트 상품</h2>
       </div>
       <div className="best-items">
-        <PandaItemList items={visibleItems} />;
+        <PandaItemList items={visibleItems} />
       </div>
     </section>
   );

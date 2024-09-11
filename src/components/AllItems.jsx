@@ -4,6 +4,7 @@ import { PandaItemList } from "./PandaItemList";
 import { NavLink } from "react-router-dom";
 import searchIcon from "../img/ic_search.png";
 import Container from "./Container";
+import { PagenationBtn } from "./Pagenation";
 
 export function AllItems({ width }) {
   const [loading, setLoading] = useState(false);
@@ -29,7 +30,7 @@ export function AllItems({ width }) {
     } finally {
       setLoading(false);
     }
-  },[search, orderBy]);
+  }, [search, orderBy]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -87,8 +88,9 @@ export function AllItems({ width }) {
       </div>
       {/* 아이템 보여주기 */}
       <div className="all-items">
-        <PandaItemList items={visibleItems} />;
+        <PandaItemList items={visibleItems} />
       </div>
+      <PagenationBtn />
     </section>
   );
 }
