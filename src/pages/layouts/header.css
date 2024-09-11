@@ -75,7 +75,7 @@ a.header-menu:hover {
 
 @media (min-width: 1200px) {
   .global-header {
-    left: 60px;
+    gap: 60px;
   }
 
   .header-left {

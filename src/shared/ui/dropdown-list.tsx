@@ -1,9 +1,9 @@
 import "./dropdown-list.css";
 
-function DropdownList({ sortOptions, onSortSelection }) {
+function DropdownList({ sortOptions, onSortSelection }: any) {
   return (
     <div className="dropdownList">
-      {sortOptions.map((option) => (
+      {sortOptions.map((option: any) => (
         <div
           key={option.value}
           className="dropdownItem"

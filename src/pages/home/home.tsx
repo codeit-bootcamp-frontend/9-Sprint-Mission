@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import HotItem from "@images/landing/Img_home_01.png";
-import SearchItem from "@images/landing/Img_home_02.png";
-import RegisterItem from "@images/landing/Img_home_03.png";
+import HotItem from "../../shared/assets/images/landing/Img_home_01.png";
+import SearchItem from "../../shared/assets/images/landing/Img_home_02.png";
+import RegisterItem from "../../shared/assets/images/landing/Img_home_03.png";
 import "./home.css";
 
 function HomePage() {

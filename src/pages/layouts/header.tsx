@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import Logo from "@images/logo/logo.svg"; // SVG는 ReactComponent로 임포트
-import Avatar from "@images/login/default_avatar.png"; // PNG는 경로로 임포트
+import Logo from "../../shared/assets/images/logo/logo.svg"; // SVG는 ReactComponent로 임포트
+import Avatar from "../../shared/assets/images/login/default_avatar.png"; // PNG는 경로로 임포트
 import "./header.css";
 
 const getMobileSize = () => window.innerWidth < 768;

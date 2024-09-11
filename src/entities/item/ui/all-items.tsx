@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import usePageSize, { SORT_TYPE } from "../lib/usePageSize";
 import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
-import SearchIcon from "@images/icons/ic_search.svg";
-import DropDownIcon from "@images/icons/arrow_drop_down.svg";
+import SearchIcon from "../../../shared/assets/images/icons/ic_search.svg";
+import DropDownIcon from "../../../shared/assets/images/icons/arrow_drop_down.svg";
 import DropdownList from "../../../shared/ui/dropdown-list";
 import Pagination from "../../../shared/ui/pagination";
 import { ProductResponse, Product } from "../types/product.types"; // 정의된 타입 임포트

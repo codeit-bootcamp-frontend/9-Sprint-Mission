@@ -1,9 +1,9 @@
 import { useState } from "react";
-import DropdownMenu from "@shared/ui/dropdown-menu";
-import KebabIcon from "@images/icons/ic_kebab.svg";
-import ProfileIcon from "@images/icons/ic_profile.svg";
-import HeartIcon from "@images/icons/ic_heart.svg";
-import HeartOnIcon from "@images/icons/ic_heart_on.svg";
+import DropdownMenu from "../../../shared/ui/dropdown-menu";
+import KebabIcon from "../../../shared/assets/images/icons/ic_kebab.svg";
+import ProfileIcon from "../../../shared/assets/images/icons/ic_profile.svg";
+import HeartIcon from "../../../shared/assets/images/icons/ic_heart.svg";
+import HeartOnIcon from "../../../shared/assets//images/icons/ic_heart_on.svg";
 import { ItemDetailProps } from "../types/item-detail-props.types";
 
 function ItemDetailSection({ itemDetail }: ItemDetailProps) {

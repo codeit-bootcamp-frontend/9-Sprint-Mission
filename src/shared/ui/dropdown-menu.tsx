@@ -1,9 +1,9 @@
 import "./dropdown-menu.css";
 
-const DropdownMenu = ({ items, onItemClick }) => {
+const DropdownMenu = ({ items, onItemClick }: any) => {
   return (
     <div className="dropdown-menu">
-      {items.map((item, index) => (
+      {items.map((item: any, index: any) => (
         <a
           key={index}
           href="#"

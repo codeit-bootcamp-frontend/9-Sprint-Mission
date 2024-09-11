@@ -4,7 +4,12 @@ import RightArrow from "../assets/images/icons/arrow_right.svg";
 
 const VISIBLE_PAGES = 5;
 
-const Pagination = ({ totalCount, pageSize, currentPage, onPageChange }) => {
+const Pagination = ({
+  totalCount,
+  pageSize,
+  currentPage,
+  onPageChange,
+}: any) => {
   const totalPages = Math.ceil(totalCount / pageSize);
   const start =
     Math.floor((currentPage - 1) / VISIBLE_PAGES) * VISIBLE_PAGES + 1;

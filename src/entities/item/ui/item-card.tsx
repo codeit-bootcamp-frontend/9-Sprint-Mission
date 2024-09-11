@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import HeartItem from "@images/icons/ic_heart.svg"; // 기본 이미지 파일로 사용
+import HeartItem from "../../../shared/assets/images/icons/ic_heart.svg"; // 기본 이미지 파일로 사용
 import { ItemCardProps } from "../types/item-card-props.types";
 
 function ItemCard({ item }: ItemCardProps) {

@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
 import "./textarea-with-label.css";
 
-const TextareaWithLabel = ({ id, label, value, onChange, placeholder }) => {
+const TextareaWithLabel = ({
+  id,
+  label,
+  value,
+  onChange,
+  placeholder,
+}: any) => {
   return (
     <div className="textarea-with-label">
       <label htmlFor={id}>{label}</label>
