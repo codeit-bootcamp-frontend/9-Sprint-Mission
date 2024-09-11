@@ -1,5 +1,11 @@
+/* tsconfig.json */
 {
   "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@images/*": ["shared/assets/images/*"]
+    },
     /* Language and Environment */
     "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
     "jsx": "react-jsx" /* Enable JSX support. Use "react" if using React version < 17. */,

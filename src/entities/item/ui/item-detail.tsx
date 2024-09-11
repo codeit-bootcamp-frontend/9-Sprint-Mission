@@ -1,11 +1,12 @@
 import { useState } from "react";
-import DropdownMenu from "../../../shared/ui/dropdown-menu";
-import KebabIcon from "../../../shared/assets/images/icons/ic_kebab.svg";
-import ProfileIcon from "../../../shared/assets/images/icons/ic_profile.svg";
-import HeartIcon from "../../../shared/assets/images/icons/ic_heart.svg";
-import HeartOnIcon from "../../../shared/assets/images/icons/ic_heart_on.svg";
+import DropdownMenu from "@shared/ui/dropdown-menu";
+import KebabIcon from "@images/icons/ic_kebab.svg";
+import ProfileIcon from "@images/icons/ic_profile.svg";
+import HeartIcon from "@images/icons/ic_heart.svg";
+import HeartOnIcon from "@images/icons/ic_heart_on.svg";
+import { ItemDetailProps } from "../types/item-detail-props.types";
 
-function ItemDetailSection({ itemDetail }) {
+function ItemDetailSection({ itemDetail }: ItemDetailProps) {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [liked, setLiked] = useState(false);
 
@@ -17,7 +18,10 @@ function ItemDetailSection({ itemDetail }) {
     setLiked(!liked);
   };
 
-  const handleDropdownItemClick = (item) => {
+  const handleDropdownItemClick = (item: {
+    label: string;
+    action: () => void;
+  }) => {
     if (item.action) {
       item.action();
     }
@@ -38,7 +42,7 @@ function ItemDetailSection({ itemDetail }) {
         <div className="product-header">
           <div className="product-name">{itemDetail.name}</div>
           <div className="kebab-icon-container" onClick={toggleDropdown}>
-            <KebabIcon alt="item detail options" className="kebab-icon" />
+            <img src={KebabIcon} className="kebab-icon" alt="Kebab" />
             {dropdownVisible && (
               <DropdownMenu
                 items={dropdownItems}
@@ -65,7 +69,7 @@ function ItemDetailSection({ itemDetail }) {
           </div>
         </div>
         <div className="writer-info">
-          <ProfileIcon className="profile-icon" alt="profile" />
+          <img src={ProfileIcon} className="profile-icon" alt="Profile" />
           <div className="writer-details">
             <div className="writer-name">총명한판다</div>
             <div className="date">2024.08.22</div>
@@ -73,9 +77,9 @@ function ItemDetailSection({ itemDetail }) {
           <div className="likes">
             <button className="like-button" onClick={toggleLike}>
               {liked ? (
-                <HeartOnIcon className="heart-icon" alt="liked" />
+                <img src={HeartOnIcon} className="heart-icon" alt="Heart On" />
               ) : (
-                <HeartIcon className="heart-icon" alt="unliked" />
+                <img src={HeartIcon} className="heart-icon" alt="Heart Off" />
               )}
             </button>
             <span>

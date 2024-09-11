@@ -1,4 +1,3 @@
-import React from "react";
 import BestItemsSection from "../../entities/item/ui/best-items";
 import AllItemsSection from "../../entities/item/ui/all-items";
 import "./ItemsPage.css";

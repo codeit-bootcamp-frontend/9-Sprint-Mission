@@ -28,7 +28,7 @@ header {
 }
 
 #topBanner {
-  background-image: url("../../shared/assets/images/landing/Img_home_top.png");
+  background-image: url("@images/landing/Img_home_top.png");
 }
 
 .banner h1 {

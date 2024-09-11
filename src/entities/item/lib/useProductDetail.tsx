@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
-import { getProductDetail } from "../../../shared/api/items/items";
+import { getProductDetail } from "../api/items";
+import { ProductDetail } from "../types/product.types"; // ProductDetail 타입 임포트
 
-function useProducts(productId) {
-  const [itemDetail, setItemDetail] = useState(null);
+function useProductDetail(productId: number) {
+  const [itemDetail, setItemDetail] = useState<ProductDetail | null>(null); // 타입을 ProductDetail로 지정
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
+    if (productId === 0) return; // productId가 0일 경우 처리
+
     const fetchProductDetail = async () => {
       setLoading(true);
       setError(null);
       try {
-        const responseInfo = await getProductDetail(productId);
+        const responseInfo: ProductDetail = await getProductDetail(productId); // API 호출 결과를 ProductDetail 타입으로 지정
         setItemDetail(responseInfo);
       } catch (error) {
-        setError(error);
+        if (error instanceof Error) {
+          setError(error);
+        } else {
+          setError(new Error("알 수 없는 오류가 발생했습니다"));
+        }
       } finally {
         setLoading(false);
       }
@@ -26,4 +33,4 @@ function useProducts(productId) {
   return { itemDetail, loading, error };
 }
 
-export default useProducts;
+export default useProductDetail;
