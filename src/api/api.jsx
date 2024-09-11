@@ -12,6 +12,7 @@ export const getProducts = async ({ params }) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("getProducts API에서 오류 발생", error);
+      throw error;
     }
   }
 }

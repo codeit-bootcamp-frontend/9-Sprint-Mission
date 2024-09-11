@@ -4,16 +4,29 @@ import AddItemInput from "./AddItemInput";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+interface ITag {
+  id?: string;
+  name: string;
+}
+
+export interface IValues {
+  images: File | null;
+  name: string;
+  description: string;
+  price: number;
+  tags: ITag[];
+}
+
 const AddItem = () => {
   const navigate = useNavigate();
 
-  const [src, setSrc] = useState(null);
+  const [src, setSrc] = useState<string | ArrayBuffer | null>(null);
   const [error, setError] = useState("");
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<IValues>({
     images: null,
     name: "",
     description: "",
-    price: "",
+    price: 0,
     tags: [],
   });
 
@@ -21,7 +34,7 @@ const AddItem = () => {
   const isReady = values.name && values.description && values.price && values.tags.length !== 0;
   
   // 이미지 파일 변경함수
-  const onChangeFile = (e) => {
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
 
     if (files && files.length === 1) {
@@ -60,7 +73,7 @@ const AddItem = () => {
     }));
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await axios.post("https://panda-market-api.vercel.app/products/", {
@@ -81,7 +94,7 @@ const AddItem = () => {
         images: null,
         name: "",
         description: "",
-        price: "",
+        price: 0,
         tags: [],
       });
     }
@@ -100,16 +113,16 @@ const AddItem = () => {
           <h2 className="imgTitle">상품 이미지</h2>
           <div className="imgBox">
             <label htmlFor="itemImg" className="itemImg">
-              <img src="/plus.png" alt="파일 올리기" />
+              <img src="/icons/plus.png" alt="파일 올리기" />
               <span>이미지 등록</span>
             </label>
             <input type="file" id="itemImg" onChange={onChangeFile} accept="image/*" />
             {values.images && (
               <div className="previewBox">
                 <button className="deleteBtn" onClick={onDeleteImg}>
-                  <img src="/delete.png" alt="삭제" />
+                  <img src="/icons/delete.png" alt="삭제" />
                 </button>
-                <img src={src} alt="사진 미리보기" className="previewImg" />
+                <img src={src !== null ? src as string : ""} alt="사진 미리보기" className="previewImg" />
               </div>
             )}
           </div>

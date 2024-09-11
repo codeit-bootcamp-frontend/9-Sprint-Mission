@@ -3,19 +3,32 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../../api/api";
 import Pagination from "./Pagination";
 import "./AllProducts.css";
+import axios from "axios";
 
-const AllProducts = ({ width }) => {
-  const [products, setProducts] = useState([]);
+interface IProps {
+  width: number;
+}
+
+interface IProduct {
+  id: string;
+  images: string;
+  name: string;
+  price: number;
+  favoriteCount: number;
+}
+
+const AllProducts: React.FC<IProps> = ({ width }) => {
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [page, setPage] = useState(1);
   const [order, setOrder] = useState("recent");
   const [keyword, setKeyword] = useState("");
   const [inputKeyword, setInputKeyword] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
 
   // 사용환경에 따른 pageSize 조절 (심화사항에 적절하게 설정하라고 하여 화면을 넘지 않도록 태블릿부터 10개로 했습니다.)
-  const calculatePageSize = (width) => {
+  const calculatePageSize = (width: number) => {
     if (width > 375 && width < 767) {
       return 4;
     }  else {
@@ -29,7 +42,7 @@ const AllProducts = ({ width }) => {
   const isMobile = width > 375 && width < 767;  
 
   // select 태그를 이용한 정렬함수
-  const onChangeSelect = (e) => {
+  const onChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const userSelect = e.target.value;
 
     if (userSelect === "최신순") {
@@ -40,13 +53,13 @@ const AllProducts = ({ width }) => {
   };
 
   // 검색 인풋 change 함수
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const userInput = e.target.value;
     setInputKeyword(userInput);
   };
 
   // 검색 form의 submit 함수
-  const onSearch = (e) => {
+  const onSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setKeyword(inputKeyword);
   };
@@ -58,14 +71,19 @@ const AllProducts = ({ width }) => {
         setLoading(true);
         setError(null);
 
-        const allProducts = await getProducts({ params: { page, pageSize, order, keyword } });
+        const response = await getProducts({ params: { page, pageSize, order, keyword } });
 
-        setProducts(allProducts.list);
-        setTotalPage(Math.ceil(allProducts.totalCount / pageSize));
-        
+        if (response) {
+          setProducts(response.list);
+          setTotalPage(Math.ceil(response.totalCount / pageSize));
+        }
       } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.error("전체상품 getProducts에서 API 오류 발생", error);
+        } else {
+          console.error("전체상품 getProducts에서 알 수 없는 오류 발생", error);
+        }
         setError("전체 상품정보를 가져오지 못했습니다.");
-        console.error("전체상품 getProducts에서 오류 발생", error);
       } finally {
         setLoading(false);
       }
@@ -136,7 +154,6 @@ const AllProducts = ({ width }) => {
         <p className="loading">제품목록을 가져오고 있습니다.</p>
       )}
       <Pagination
-        isLoading={setLoading}
         setPage={setPage}
         page={page}
         totalPage={totalPage}

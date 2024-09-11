@@ -1,12 +1,18 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { IValues } from "./AddItem";
 import "./AddItem.css";
 
-const AddItemInput = ({ values, setValues }) => {
+interface IProps {
+  values: IValues;
+  setValues: React.Dispatch<React.SetStateAction<IValues>>;
+}
+
+const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
 
   const [tagInput, setTagInput] = useState("");
 
   // 상품명, 설명, 가격 변경 및 검증함수
-  const onChangeContents = (name) => (e) => {
+  const onChangeContents = (name: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {
       target: { value },
     } = e;
@@ -18,13 +24,13 @@ const AddItemInput = ({ values, setValues }) => {
   };
 
   // 입력한 태그명 변경함수
-  const onChangeTag = (e) => {
+  const onChangeTag = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTag = e.target.value;
     setTagInput(newTag);
   };
 
   // 태그 입력하여 엔터눌렀을 때 실행함수
-  const onTagKeyDown = (e) => {
+  const onTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tagInput.trim() !== "") {
       e.preventDefault();
 
@@ -48,7 +54,7 @@ const AddItemInput = ({ values, setValues }) => {
   };
 
   // 추가한 태그 삭제함수
-  const onDeleteTag = (clickTag) => {
+  const onDeleteTag = (clickTag: string) => {
     setValues((prevValues) => ({
       ...prevValues,
       tags: prevValues.tags.filter((tag) => tag.name !== clickTag),
@@ -120,7 +126,7 @@ const AddItemInput = ({ values, setValues }) => {
           {values.tags.map((tag) => (
             <li key={tag.name} className="tagListItem">
               {tag.name}
-              <button className="tagDeleteBtn" onClick={() => onDeleteTag(tag.id)}>
+              <button className="tagDeleteBtn" onClick={() => onDeleteTag(tag.id!)}>
                 <img src="/delete.png" alt="삭제" />
               </button>
             </li>

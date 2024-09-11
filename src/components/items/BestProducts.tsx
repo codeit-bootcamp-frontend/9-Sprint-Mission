@@ -3,15 +3,27 @@ import "./BestProducts.css";
 import { getProducts } from "../../api/api";
 import { useParams } from "react-router-dom";
 
-const BestProducts = ({ width }) => {
+interface IProps {
+  width: number;
+}
+
+interface IProduct {
+  id: string;
+  images: string;
+  name: string;
+  price: number;
+  favoriteCount: number;
+}
+
+const BestProducts: React.FC<IProps> = ({ width }) => {
   const { order = "favorite" } = useParams();
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   // 사용환경에 따른 pageSize 조절
-  const calculatePageSize = (width) => {
+  const calculatePageSize = (width: number) => {
     if (width > 375 && width < 767) {
       return 1;
     } else if (width >= 768 && width < 1199) {

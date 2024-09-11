@@ -5,6 +5,10 @@ import Items from "./components/items/Items";
 import AddItemPage from "./routes/addItemPage";
 import FreeBoardPage from "./routes/freeBoardPage";
 import ProductDetail from "./components/items/productDetail/ProductDetail";
+import SigninPage from "./routes/SigninPage";
+import SignupPage from "./routes/SignupPage";
+import PrivacyPage from "./routes/PrivacyPage";
+import FaqPage from "./routes/FaqPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -19,6 +23,8 @@ function App() {
         { index: true, element: <MainPage /> },
         { path: "/items", element: <Items /> },
         { path: "/items/:productId", element: <ProductDetail /> },
+        { path: "/privacy", element: <PrivacyPage /> },
+        { path: "/faq", element: <FaqPage /> },
       ],
     },
     {
@@ -28,6 +34,14 @@ function App() {
     {
       path: "/freeBoard",
       element: <FreeBoardPage />
+    },
+    {
+      path: "/signin",
+      element: <SigninPage />
+    },
+    {
+      path: "/signup",
+      element: <SignupPage />
     },
   ]);
 

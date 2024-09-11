@@ -1,7 +1,14 @@
 import { memo } from "react";
 import "./Pagination.css";
 
-const Pagination = ({ totalPage, page, isMobile, setPage }) => {
+interface IProps {
+  totalPage: number;
+  page: number;
+  isMobile: boolean;
+  setPage: React.Dispatch<React.SetStateAction<number>>
+}
+
+const Pagination: React.FC<IProps> = ({ totalPage, page, isMobile, setPage }) => {
   // 다음페이지 데이터 가져오는 함수
   const onPageToNext = () => {
     let nextPage = page + 1;
@@ -28,7 +35,7 @@ const Pagination = ({ totalPage, page, isMobile, setPage }) => {
   };
 
   // 각 페이지로 이동할 수 있도록 page를 바꾸는 함수
-  const onClickPage = (i) => {
+  const onClickPage = (i: number) => {
     setPage(i);
   };
 
