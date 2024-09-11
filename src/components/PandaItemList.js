@@ -1,6 +1,7 @@
 // import { useState } from 'react';
 import { NavLink } from "react-router-dom";
 import heartIcon from "../img/ic_heart.png";
+
 function PandaItem({ item }) {
   return (
     <a href="/" className="panda-item">

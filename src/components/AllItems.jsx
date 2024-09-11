@@ -11,17 +11,23 @@ export function AllItems({ width }) {
   const [error, setError] = useState(null);
   const [allItems, setAllItems] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1); // 페이지네이션 버튼을 누르면 setCurrentPage()
   const [pageSize, setPageSize] = useState(10); // 윈도우 너비 width를 받아왔음 -> pageSize setter 호출하기
-  const [totalCount, setTotalCount] = useState(0);
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
-
-  const totalPage = Math.floor(totalCount / pageSize) + 1;
-  // console.log(totalPage);
+  const [totalPage, setTotalPage] = useState(0);
 
   const loadAllItems = useCallback(async () => {
     setLoading(true);
+
+    // width가 변경될 때마다 pageSize 업데이트
+    if (width <= 780) {
+      setPageSize(4);
+    } else if (width <= 991 && width > 781) {
+      setPageSize(6);
+    } else {
+      setPageSize(10); // 기본값
+    }
 
     try {
       const response = await getPandaItems({
@@ -31,14 +37,13 @@ export function AllItems({ width }) {
         search,
       });
       setAllItems(response.list || []);
-      setTotalCount(response.totalCount);
-      // console.log(totalPage);
+      setTotalPage(Math.floor(response.totalCount / pageSize) + 1);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [currentPage, pageSize, search, orderBy]);
+  }, [currentPage, pageSize, search, orderBy, width]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -61,15 +66,9 @@ export function AllItems({ width }) {
     return <div>Error: {error}</div>;
   }
 
-  const getVisibleItemsCount = () => {
-    if (width <= 780) return 4; //setPageSize(4);
-    if (width <= 991) return 6; //setPageSize(6); -> Too many render
-    return 10;
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
-
-  const visibleItemsCount = getVisibleItemsCount();
-  const visibleItems = allItems.slice(0, visibleItemsCount);
-  //pageSize로 대체 하려면 allItems 도 수정해야하고 이 코드는 그냥 못쓸듯
 
   return (
     <section id="section-all">
@@ -97,14 +96,12 @@ export function AllItems({ width }) {
       </div>
       {/* 아이템 보여주기 */}
       <div className="all-items">
-        <PandaItemList items={visibleItems} />
+        <PandaItemList items={allItems} />
       </div>
       <PagenationBtn
         totalPage={totalPage}
-        page={currentPage}
-        pageSize={pageSize}
-        orderBy={orderBy}
-        search={search}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
       />
     </section>
   );
