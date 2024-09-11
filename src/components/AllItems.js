@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getPandaItems } from "../api";
 import { PandaItemList } from "./PandaItemList";
 import { NavLink } from "react-router-dom";
@@ -13,7 +13,7 @@ export function AllItems({ width }) {
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
 
-  const loadAllItems = async () => {
+  const loadAllItems = useCallback(async () => {
     setLoading(true);
 
     try {
@@ -29,7 +29,7 @@ export function AllItems({ width }) {
     } finally {
       setLoading(false);
     }
-  };
+  },[search, orderBy]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ export function AllItems({ width }) {
 
   useEffect(() => {
     loadAllItems();
-  }, [search, orderBy]);
+  }, [loadAllItems]);
 
   if (loading) {
     return <div>Loading...</div>;
