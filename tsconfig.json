@@ -1,14 +1,14 @@
 /* tsconfig.json */
 {
   "compilerOptions": {
-    "module": "CommonJS",
-    "moduleResolution": "node",
-    "target": "es2016",
-    "jsx": "react-jsx", // 이 옵션이 맞게 설정되었는지 확인 (React 17 이상일 경우)
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
+    "module": "ESNext", // 최신 ES Modules 사용
+    "moduleResolution": "node", // Node.js 모듈 해석 방식 사용
+    "target": "es2016", // 최신 JS 문법 지원
+    "jsx": "react-jsx", // React JSX 설정 (React 17 이상일 경우)
+    "esModuleInterop": true, // CommonJS 모듈과 ES 모듈 간 상호운용성 지원
+    "forceConsistentCasingInFileNames": true, // 파일 대소문자 일관성 유지
+    "strict": true, // 엄격한 타입 검사
+    "skipLibCheck": true // 라이브러리 파일 검사 생략 (속도 향상)
   },
-  "include": ["src/**/*", "declarations.d.ts"]
+  "include": ["src/**/*", "declarations.d.ts"] // 필요한 소스 경로 포함
 }
