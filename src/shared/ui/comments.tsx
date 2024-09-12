@@ -1,14 +1,77 @@
+// CommentsSection.tsx
+import styled from "styled-components";
 import { useEffect, useState } from "react";
-import DropdownMenu from "./dropdown-menu";
-import { getProductComments, getArticleComments } from "../api/comments"; // 두 가지 API 가져오기
+import CommentItem from "./comment-item"; // 새로운 컴포넌트 임포트
+import { getProductComments, getArticleComments } from "../api/comments";
 import { Comment } from "../types/comment";
-import { CommentsSectionProps } from "../types/comments-section-props";
-import { ReactComponent as KebabIcon } from "../assets/images/icons/ic_kebab.svg";
-import { ReactComponent as ProfileIcon } from "../assets/images/icons/ic_profile.svg";
-import CommentEmptyImage from "../assets/images/comment/comment_empty.png";
-import { DropdownMenuItem } from "../types/dropdown-menu";
 import { CommentsResponse, ErrorResponse } from "../types/comment";
 import { COMMENT_TYPE } from "../types/comment-type";
+import { CommentsSectionProps } from "../types/comments-section-props";
+import CommentEmptyImage from "../assets/images/comment/comment_empty.png";
+
+// Styled Components
+const CommentsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const CommentTitle = styled.div`
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  float: left;
+  margin: 0 24px;
+  padding: 0 16px;
+`;
+
+const CommentInputSection = styled.div`
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  margin: 16px;
+  padding: 12px;
+`;
+
+const CommentInput = styled.textarea`
+  width: 100%;
+  height: 80px;
+  border: none;
+  border-radius: 8px;
+  resize: none;
+  font-size: 14px;
+  color: var(--gray-800);
+  margin-bottom: 8px;
+  padding: 8px;
+
+  ::placeholder {
+    color: var(--gray-400);
+  }
+`;
+
+const SubmitButton = styled.button`
+  align-self: flex-end;
+  background-color: var(--blue-100);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--blue-200);
+  }
+
+  &:disabled {
+    background-color: var(--gray-100);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+`;
 
 const COMMENT_LIMIT = 10;
 
@@ -22,7 +85,7 @@ function CommentsSection({ id, type }: CommentsSectionProps) {
   const [newComment, setNewComment] = useState<string>("");
   const [comments, setComments] = useState<Comment[]>([]);
   const [nextCursor, setNextCursor] = useState<number | null>(0);
-  const [dropdownVisible, setDropdownVisible] = useState<number | null>(null);
+  const [dropdownVisible, setDropdownVisible] = useState<number | null>(null); // id 기반으로 상태 관리
   const [message, setMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,8 +101,7 @@ function CommentsSection({ id, type }: CommentsSectionProps) {
       };
 
       try {
-        let responseData: CommentsResponse | null = null; // 초기값 설정
-        // 타입에 따라 적절한 API 호출
+        let responseData: CommentsResponse | null = null;
         if (type === COMMENT_TYPE.product) {
           responseData = await getProductComments(id, params);
         } else if (type === COMMENT_TYPE.article) {
@@ -47,19 +109,17 @@ function CommentsSection({ id, type }: CommentsSectionProps) {
         }
 
         if (responseData && isErrorResponse(responseData)) {
-          // message가 존재하면 상태 설정
           setMessage(responseData.message);
         } else if (responseData) {
-          setComments((prevComments: Comment[]) => {
+          setComments((prevComments) => {
             if (nextCursor) {
-              // 결합된 배열을 명확히 Comment[]로 보장
-              return [...prevComments, ...responseData.list] as Comment[];
+              return [...prevComments, ...responseData.list];
             } else {
-              return [...responseData.list] as Comment[];
+              return [...responseData.list];
             }
           });
 
-          setNextCursor(responseData.nextCursor as number);
+          setNextCursor(responseData.nextCursor);
           setError(null);
         }
       } catch (error) {
@@ -83,43 +143,20 @@ function CommentsSection({ id, type }: CommentsSectionProps) {
     setNewComment("");
   };
 
-  const toggleDropdown = (id: number) => {
-    setDropdownVisible((prevVisible) => (prevVisible === id ? null : id));
+  const toggleDropdown = (commentId: number) => {
+    setDropdownVisible((prevVisible) =>
+      prevVisible === commentId ? null : commentId
+    );
   };
 
-  const handleDropdownItemClick = (item: {
-    label: string;
-    action: () => void;
-  }) => {
-    console.log(item.label);
-    setDropdownVisible(null); // Close dropdown after action
+  const handleEditClick = (commentId: number) => {
+    console.log(`commentId: ${commentId}, Edit clicked`);
+    setDropdownVisible(null);
   };
 
-  const dropdownItems: DropdownMenuItem[] = [
-    { label: "수정하기", action: () => console.log("Edit clicked") },
-    { label: "삭제하기", action: () => console.log("Delete clicked") },
-  ];
-
-  const detailDate = (updatedAt: string) => {
-    let now = new Date();
-    let utc = new Date(updatedAt);
-    let offset = utc.getTimezoneOffset();
-    let local = new Date(utc.getTime() + offset * 60000);
-    const milliSeconds = now.getTime() - local.getTime();
-    const seconds = milliSeconds / 1000;
-    if (seconds < 60) return `방금 전`;
-    const minutes = seconds / 60;
-    if (minutes < 60) return `${Math.floor(minutes)}분 전`;
-    const hours = minutes / 60;
-    if (hours < 24) return `${Math.floor(hours)}시간 전`;
-    const days = hours / 24;
-    if (days < 7) return `${Math.floor(days)}일 전`;
-    const weeks = days / 7;
-    if (weeks < 5) return `${Math.floor(weeks)}주 전`;
-    const months = days / 30;
-    if (months < 12) return `${Math.floor(months)}개월 전`;
-    const years = days / 365;
-    return `${Math.floor(years)}년 전`;
+  const handleDeleteClick = (commentId: number) => {
+    console.log(`commentId: ${commentId}, Delete clicked`);
+    setDropdownVisible(null);
   };
 
   if (isLoading) {
@@ -131,63 +168,35 @@ function CommentsSection({ id, type }: CommentsSectionProps) {
   }
 
   if (message) {
-    console.log("🚀 ~ CommentsSection ~ message:", message);
     return <div>{message}</div>;
   }
 
   return (
-    <div className="comments-section">
-      <div className="comment-title">댓글 달기</div>
-      <div className="comment-input-section">
-        <textarea
-          className="comment-input"
+    <CommentsWrapper>
+      <CommentTitle>댓글 달기</CommentTitle>
+      <CommentInputSection>
+        <CommentInput
           placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
           value={newComment}
           onChange={handleCommentChange}
         />
-        <button
-          className="comment-submit-button"
+        <SubmitButton
           onClick={handleCommentSubmit}
           disabled={!newComment.trim()}
         >
           등록
-        </button>
-      </div>
+        </SubmitButton>
+      </CommentInputSection>
       {comments.length > 0 ? (
         comments.map((comment) => (
-          <div key={comment.id} className="comment">
-            {!comment.writer.image && (
-              <ProfileIcon className="comment-profile-icon" />
-            )}
-            {comment.writer.image && (
-              <img
-                src={comment.writer.image}
-                className="comment-profile-icon"
-                alt="profile"
-              />
-            )}
-            <div className="comment-content-container">
-              <div className="comment-header">
-                <div className="comment-user">{comment.writer.nickname}</div>
-                <div className="comment-time">
-                  {detailDate(comment.updatedAt)}
-                </div>
-                <div className="comment-kebab-container">
-                  <KebabIcon
-                    className="comment-kebab-icon"
-                    onClick={() => toggleDropdown(comment.id)}
-                  />
-                  {dropdownVisible === comment.id && (
-                    <DropdownMenu
-                      items={dropdownItems}
-                      onItemClick={handleDropdownItemClick}
-                    />
-                  )}
-                </div>
-              </div>
-              <div className="comment-content">{comment.content}</div>
-            </div>
-          </div>
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+            dropdownVisible={dropdownVisible}
+            toggleDropdown={toggleDropdown}
+            handleEditClick={() => handleEditClick(comment.id)}
+            handleDeleteClick={() => handleDeleteClick(comment.id)}
+          />
         ))
       ) : (
         <div>
@@ -195,7 +204,7 @@ function CommentsSection({ id, type }: CommentsSectionProps) {
           <div className="comment-empty">아직 댓글이 없어요</div>
         </div>
       )}
-    </div>
+    </CommentsWrapper>
   );
 }
 

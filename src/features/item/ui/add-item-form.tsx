@@ -1,12 +1,112 @@
-import { useEffect, useState, useRef } from "react";
-import "./add-item-form.css";
+import { useState, useRef } from "react";
+import styled from "styled-components";
 import addProducts from "../api/add-products";
 import ImageUpload from "../../../shared/ui/image-upload";
 import InputWithLabel from "../../../shared/ui/input-with-label";
 import TextareaWithLabel from "../../../shared/ui/textarea-with-label";
 import { ReactComponent as DeleteImage } from "../../../shared/assets/images/icons/ic_delete.svg";
-import { AddItemForm } from "../types/add-item-form";
+import { AddItemForm as AddItemFormType } from "../types/add-item-form";
 
+// Styled Components
+const AddItemContainer = styled.form`
+  width: 346px;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    width: 696px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 1200px;
+    padding: 15px;
+  }
+`;
+
+const ItemHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+const ItemTitle = styled.div`
+  font-size: 20px;
+  line-height: 32px;
+  color: var(--gray-800);
+  font-weight: 700;
+  margin-top: 5px;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @media (min-width: 1200px) {
+    margin-bottom: 15px;
+  }
+`;
+
+const ImageErrorMessage = styled.div`
+  color: var(--red);
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+`;
+
+const TagItem = styled.span`
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--gray-100);
+  border-radius: 26px;
+  padding: 6px 12px;
+  gap: 10px;
+`;
+
+const RemoveTagButton = styled.button`
+  background-color: var(--gray-400);
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 14px;
+  padding: 0;
+`;
+
+const SubmitButton = styled.button<{ disabled: boolean }>`
+  width: auto;
+  padding: 12px 23px;
+  background-color: ${(props) =>
+    props.disabled ? "var(--gray-400)" : "var(--blue-100)"};
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  font-size: 16px;
+  margin-top: 20px;
+`;
+
+// 추가된 Styled Component for Tags Container
+const TagsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+`;
+
+// Component
 const AddItemForm = () => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -15,7 +115,6 @@ const AddItemForm = () => {
   const [tagInput, setTagInput] = useState<string>("");
   const [image, setImage] = useState<string | null>(null);
   const [imageError, setImageError] = useState<string>("");
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
 
   const clearFileInputRef = useRef<() => void>(() => {});
 
@@ -50,43 +149,31 @@ const AddItemForm = () => {
   };
 
   const handleImageRemove = () => {
-    try {
-      setImage(null); // 이미지 상태를 null로 설정하여 삭제
-      setImageError(""); // 에러 메시지 초기화
-      if (clearFileInputRef.current) {
-        clearFileInputRef.current(); // 파일 입력 초기화
-      }
-    } catch (error) {
-      console.error("Failed to remove image: ", error);
+    setImage(null);
+    setImageError("");
+    if (clearFileInputRef.current) {
+      clearFileInputRef.current();
     }
   };
 
-  const isFormFilled: boolean =
-    Boolean(name) && // 문자열이 비어 있지 않으면 true
-    Boolean(description) && // description이 비어 있지 않으면 true
-    price > 0 &&
-    tags.length > 0;
-
-  useEffect(() => {
-    setIsFormValid(isFormFilled);
-  }, [isFormFilled]);
+  const isFormValid: boolean =
+    Boolean(name) && Boolean(description) && price > 0 && tags.length > 0;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isFormValid) return;
 
-    const formData: AddItemForm = {
+    const formData: AddItemFormType = {
       name: name,
       description: description,
       price: price,
       tags: tags,
-      images: image ? [image] : [], // 이미지가 있을 경우 배열로 추가
+      images: image ? [image] : [],
     };
 
     console.log(formData);
 
-    // 실제 API 요청
     const responseInfo = await addProducts(formData);
     if (responseInfo) {
       console.log("상품 등록 성공", responseInfo);
@@ -96,15 +183,15 @@ const AddItemForm = () => {
   };
 
   return (
-    <form className="add-item-container" onSubmit={handleSubmit}>
-      <div className="item-header">
-        <div className="item-title">상품 등록하기</div>
-        <button className="submit-button" type="submit" disabled={!isFormValid}>
+    <AddItemContainer onSubmit={handleSubmit}>
+      <ItemHeader>
+        <ItemTitle>상품 등록하기</ItemTitle>
+        <SubmitButton type="submit" disabled={!isFormValid}>
           등록
-        </button>
-      </div>
+        </SubmitButton>
+      </ItemHeader>
 
-      <div className="form-group">
+      <FormGroup>
         <label htmlFor="imageUpload">상품 이미지</label>
         <br />
         <ImageUpload
@@ -114,8 +201,8 @@ const AddItemForm = () => {
           setImage={handleImageUpload}
           onRemoveImage={handleImageRemove}
         />
-        {imageError && <div className="image-error-message">{imageError}</div>}
-      </div>
+        {imageError && <ImageErrorMessage>{imageError}</ImageErrorMessage>}
+      </FormGroup>
 
       <InputWithLabel
         id="name"
@@ -142,7 +229,7 @@ const AddItemForm = () => {
         placeholder="판매 가격을 입력해주세요"
       />
 
-      <div className="form-group">
+      <FormGroup>
         <label htmlFor="tags">태그</label>
         <br />
         <input
@@ -153,23 +240,20 @@ const AddItemForm = () => {
           onKeyDown={handleTagKeyDown}
           placeholder="태그를 입력 후 Enter를 눌러주세요"
         />
-      </div>
+      </FormGroup>
 
-      <div className="tags">
+      {/* 추가된 TagsContainer 컴포넌트 */}
+      <TagsContainer>
         {tags.map((tag, index) => (
-          <span key={index} className="tag-item">
+          <TagItem key={index}>
             #{tag}
-            <button
-              type="button"
-              className="remove-tag-button"
-              onClick={() => handleTagRemove(index)}
-            >
+            <RemoveTagButton onClick={() => handleTagRemove(index)}>
               <DeleteImage />
-            </button>
-          </span>
+            </RemoveTagButton>
+          </TagItem>
         ))}
-      </div>
-    </form>
+      </TagsContainer>
+    </AddItemContainer>
   );
 };
 

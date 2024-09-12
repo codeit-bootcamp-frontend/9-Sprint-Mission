@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, KeyboardEvent } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import usePageSize, { SORT_TYPE } from "../lib/usePageSize";
 import useProducts from "../lib/useProducts";
 import ItemCard from "./item-card";
@@ -7,12 +8,100 @@ import { ReactComponent as SearchIcon } from "../../../shared/assets/images/icon
 import { ReactComponent as DropDownIcon } from "../../../shared/assets/images/icons/arrow_drop_down.svg";
 import DropdownList from "../../../shared/ui/dropdown-list";
 import Pagination from "../../../shared/ui/pagination";
-import { ProductResponse, Product } from "../types/product"; // 정의된 타입 임포트
+import { ProductResponse, Product } from "../types/product";
+
+// Styled Components
+const AllItemsContainer = styled.div`
+  padding: 16px 24px;
+`;
+
+const AllItemsSectionHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const SectionTitle = styled.div`
+  color: #111827;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: normal;
+  position: relative;
+  padding: 10px;
+`;
+
+const SearchBarWrapper = styled.div`
+  display: flex;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  padding: 9px 16px;
+  flex: 1;
+  align-items: center;
+`;
+
+const SearchBarInput = styled.input`
+  height: 20px;
+  width: 100%;
+  border: none;
+  flex: 1;
+  background-color: inherit;
+
+  ::placeholder {
+    color: #9ca3af;
+    font-size: 16px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+const AddItemWrapper = styled.div`
+  margin-left: 8px;
+`;
+
+const SortButtonWrapper = styled.div`
+  position: relative;
+`;
+
+const SortDropdownTriggerButton = styled.button`
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 9px;
+  margin-left: 8px;
+`;
+
+const SortName = styled.div`
+  width: 80px;
+  position: relative;
+  float: left;
+  top: 8px;
+`;
+
+const AllItemsCardSection = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 8px;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 16px;
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px 24px;
+  }
+`;
+
+const PaginationBarWrapper = styled.div`
+  padding-top: 40px;
+  padding-bottom: 80px;
+`;
 
 function AllItemsSection() {
   const pageSize = usePageSize(SORT_TYPE.recent);
-
-  // SORT_TYPE의 타입을 typeof로 지정합니다.
   const [orderBy, setOrderBy] = useState<
     (typeof SORT_TYPE)[keyof typeof SORT_TYPE]
   >(SORT_TYPE.recent);
@@ -20,7 +109,6 @@ function AllItemsSection() {
   const [keyword, setKeyword] = useState<string>("");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // useProducts의 응답을 ProductResponse 타입으로 정의
   const { list, totalCount }: ProductResponse = useProducts(
     page,
     pageSize,
@@ -29,10 +117,7 @@ function AllItemsSection() {
   );
   const [isDropdown, setIsDropdown] = useState<boolean>(false);
 
-  const sortOptions: {
-    label: string;
-    value: (typeof SORT_TYPE)[keyof typeof SORT_TYPE];
-  }[] = [
+  const sortOptions = [
     { label: "최신순", value: SORT_TYPE.recent },
     { label: "인기순", value: SORT_TYPE.favorite },
   ];
@@ -64,59 +149,55 @@ function AllItemsSection() {
   };
 
   return (
-    <div>
-      <div className="allItemsSectionHeader">
-        <div className="sectionTitle">전체 상품</div>
-        <div className="searchBarWrapper">
+    <AllItemsContainer>
+      <AllItemsSectionHeader>
+        <SectionTitle>전체 상품</SectionTitle>
+        <SearchBarWrapper>
           <SearchIcon />
-          <input
+          <SearchBarInput
             autoFocus
-            className="searchBarInput"
             placeholder="검색할 상품을 입력하고 엔터키를 눌러주세요"
             value={keyword}
             onChange={handleSearchChange}
             onKeyDown={handleSearchKeyDown}
           />
-        </div>
-        <div className="addItemWrapper">
+        </SearchBarWrapper>
+        <AddItemWrapper>
           <Link to="/additem" className="menu-link button">
             상품 등록하기
           </Link>
-        </div>
-        <div className="sortButtonWrapper">
+        </AddItemWrapper>
+        <SortButtonWrapper>
           {isDropdown && (
             <DropdownList
               sortOptions={sortOptions}
               onSortSelection={handleSortDropdown}
             />
           )}
-          <button
-            className="sortDropdownTriggerButton"
-            onClick={handleDropdown}
-          >
-            <div className="sortName">
+          <SortDropdownTriggerButton onClick={handleDropdown}>
+            <SortName>
               {orderBy === SORT_TYPE.recent ? "최신순" : "인기순"}
-            </div>
+            </SortName>
             <DropDownIcon height="26px" />
-          </button>
-        </div>
-      </div>
+          </SortDropdownTriggerButton>
+        </SortButtonWrapper>
+      </AllItemsSectionHeader>
 
-      <div className="allItemsCardSection">
+      <AllItemsCardSection>
         {list?.map((item: Product) => (
           <ItemCard key={`market-item-${item.id}`} item={item} />
         ))}
-      </div>
+      </AllItemsCardSection>
 
-      <div className="paginationBarWrapper">
+      <PaginationBarWrapper>
         <Pagination
           totalCount={totalCount}
           pageSize={pageSize}
           currentPage={page}
           onPageChange={onPageChange}
         />
-      </div>
-    </div>
+      </PaginationBarWrapper>
+    </AllItemsContainer>
   );
 }
 

@@ -1,24 +1,41 @@
-import "./textarea-with-label.css";
+import Label from "./label";
+import Textarea from "./textarea";
+import styled from "styled-components";
 import { TextareaWithLabelProps } from "../types/textarea-with-label";
 
-const TextareaWithLabel = ({
+const Container = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @media (min-width: 1200px) {
+    margin-bottom: 15px;
+    flex-direction: row;
+  }
+`;
+
+const TextareaWithLabel: React.FC<TextareaWithLabelProps> = ({
   id,
   label,
   value,
   onChange,
   placeholder,
-}: TextareaWithLabelProps) => {
+}) => {
   return (
-    <div className="textarea-with-label">
-      <label htmlFor={id}>{label}</label>
-      <br />
-      <textarea
+    <Container>
+      <Label htmlFor={id} text={label} />
+      <Textarea
         id={id}
         value={value}
         onChange={onChange}
         placeholder={placeholder}
       />
-    </div>
+    </Container>
   );
 };
 

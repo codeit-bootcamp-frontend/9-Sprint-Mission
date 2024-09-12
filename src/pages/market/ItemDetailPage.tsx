@@ -1,40 +1,80 @@
+// ItemDetailPage.tsx
 import { Link, useParams } from "react-router-dom";
+import styled from "styled-components";
 import ItemDetailSection from "../../entities/item/ui/item-detail";
 import CommentsSection from "../../shared/ui/comments";
 import useProductDetail from "../../entities/item/lib/useProductDetail";
 import { ReactComponent as BackButtonIcon } from "../../shared/assets/images/icons/ic_back.svg";
 import { COMMENT_TYPE } from "../../shared/types/comment-type";
-import "./ItemDetailPage.css";
+
+// Styled Components
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const AreaLine = styled.div`
+  min-width: 375px;
+  width: 98%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--gray-200);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 6px;
+`;
+
+const BackButtonArea = styled.div`
+  min-width: 375px;
+  min-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+`;
+
+const BackButtonText = styled(Link)`
+  width: 240px;
+  height: 48px;
+  color: var(--gray-100);
+  background-color: var(--blue-100);
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+`;
 
 function ItemDetailPage() {
-  const { productId } = useParams<{ productId: string }>(); // productId가 문자열임을 명시적으로 선언
+  const { productId } = useParams<{ productId: string }>();
 
-  // productId가 undefined가 아닌 경우 숫자로 변환, 아니면 0 처리
   const productIdNumber: number = productId ? parseInt(productId, 10) : 0;
 
-  // productIdNumber가 숫자일 경우에만 useProductDetail 호출
   const { itemDetail } = useProductDetail(productIdNumber);
 
   const commentType = COMMENT_TYPE.product;
 
   return (
-    <div className="item-detail-comment-wrapper">
+    <Wrapper>
       {itemDetail ? (
         <>
           <ItemDetailSection itemDetail={itemDetail} />
-          <div className="area-line"></div>
+          <AreaLine />
           <CommentsSection id={productIdNumber} type={commentType} />
-          <div className="back-button-area">
-            <Link to="/items" className="back-button-text">
+          <BackButtonArea>
+            <BackButtonText to="/items">
               <span>목록으로 돌아가기</span>
               <BackButtonIcon title="Back to list page" />
-            </Link>
-          </div>
+            </BackButtonText>
+          </BackButtonArea>
         </>
       ) : (
         <div>Loading...</div>
       )}
-    </div>
+    </Wrapper>
   );
 }
 
