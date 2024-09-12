@@ -43,7 +43,7 @@ export const PagenationBtn = ({ totalPage, page, onPageChange }) => {
 
   return (
     <div className={styles.pagenation}>
-      <button type="button" onClick={onClickPrev}>
+      <button type="button" onClick={onClickPrev} disabled={pageCount <= 5}>
         &lt;
       </button>
       {pageList.map((pageNum) => (
@@ -56,7 +56,11 @@ export const PagenationBtn = ({ totalPage, page, onPageChange }) => {
           {pageNum}
         </button>
       ))}
-      <button type="button" onClick={onClickNext}>
+      <button
+        type="button"
+        onClick={onClickNext}
+        disabled={pageCount >= totalPage}
+      >
         &gt;
       </button>
     </div>

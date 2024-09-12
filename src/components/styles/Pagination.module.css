@@ -23,3 +23,8 @@
   border-color:  #2F80ED;
   color:#fff;
 }
+
+.pagenation button:disabled{
+  cursor: not-allowed;
+  color: #ececec ;
+}
