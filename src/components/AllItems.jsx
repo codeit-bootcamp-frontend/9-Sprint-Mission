@@ -55,7 +55,7 @@ export function AllItems({ width }) {
   };
 
   const handlePageChange = (pageNum) => {
-    setPage(pageNum);
+    setPage(pageNum); //페이지 버튼 누르면 그 값을 page로 GET 요청
   };
 
   useEffect(() => {
