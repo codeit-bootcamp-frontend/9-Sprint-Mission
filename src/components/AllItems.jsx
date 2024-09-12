@@ -11,10 +11,10 @@ export function AllItems({ width }) {
   const [error, setError] = useState(null);
   const [allItems, setAllItems] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1); // 페이지네이션 버튼을 누르면 setCurrentPage()
+  const [page, setPage] = useState(1); // 페이지네이션 버튼을 누르면 setCurrentPage()
   const [pageSize, setPageSize] = useState(10); // 윈도우 너비 width를 받아왔음 -> pageSize setter 호출하기
-  const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
+  const [search, setSearch] = useState("");
   const [totalPage, setTotalPage] = useState(0);
 
   const loadAllItems = useCallback(async () => {
@@ -23,7 +23,7 @@ export function AllItems({ width }) {
     // width가 변경될 때마다 pageSize 업데이트
     if (width <= 780) {
       setPageSize(4);
-    } else if (width <= 991 && width > 781) {
+    } else if ((width <= 991) & (width > 781)) {
       setPageSize(6);
     } else {
       setPageSize(10); // 기본값
@@ -31,7 +31,7 @@ export function AllItems({ width }) {
 
     try {
       const response = await getPandaItems({
-        currentPage,
+        page,
         pageSize,
         orderBy,
         search,
@@ -43,7 +43,7 @@ export function AllItems({ width }) {
     } finally {
       setLoading(false);
     }
-  }, [currentPage, pageSize, search, orderBy, width]);
+  }, [page, pageSize, search, orderBy, width]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -54,10 +54,15 @@ export function AllItems({ width }) {
     setOrderBy(newOrderBy);
   };
 
+  const handlePageChange = (pageNum) => {
+    setPage(pageNum);
+  };
+
   useEffect(() => {
     loadAllItems();
-  }, [loadAllItems]);
+  }, [loadAllItems, page, pageSize]);
 
+  //로딩 처리 & 에러 처리
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -65,10 +70,6 @@ export function AllItems({ width }) {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
 
   return (
     <section id="section-all">
@@ -100,7 +101,7 @@ export function AllItems({ width }) {
       </div>
       <PagenationBtn
         totalPage={totalPage}
-        currentPage={currentPage}
+        page={page}
         onPageChange={handlePageChange}
       />
     </section>

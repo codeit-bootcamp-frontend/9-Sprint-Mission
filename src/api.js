@@ -1,8 +1,8 @@
 //API로부터 전체 아이템 데이터 가져오기
 const BASE_URL = "https://panda-market-api.vercel.app";
 export async function getPandaItems({
-  page = 1,
-  pageSize = 10,
+  page,
+  pageSize,
   orderBy = "recent",
   search = "",
 }) {
