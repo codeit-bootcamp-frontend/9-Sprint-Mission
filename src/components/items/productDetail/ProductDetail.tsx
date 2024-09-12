@@ -3,6 +3,7 @@ import "./ProductDetail.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Contact from "./Contact";
+import toast from "react-hot-toast";
 
 interface IProduct {
   createdAt: string;
@@ -17,7 +18,15 @@ interface IProduct {
 const ProductDetail = () => {
   const { productId } = useParams();
 
-  const [products, setProducts] = useState<IProduct>();
+  const [products, setProducts] = useState<IProduct>({
+    createdAt: "",
+    favoriteCount: 0,
+    images: "",
+    tags: [],
+    price: 0,
+    description: "",
+    name: ""
+  });
   const [isLoading, setLoading] = useState(false);
 
   const createdAt = products?.createdAt.split("T")[0];
@@ -36,7 +45,11 @@ const ProductDetail = () => {
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.error("상세페이지 getProduct GET 요청에서 오류 발생", error);
+          console.error("상세페이지 getProduct GET 요청에서 API 오류 발생", error);
+          toast.error(error.response?.data.message, {duration: 8000});
+        } else {
+          console.error("상세페이지 getProduct GET 요청에서 알 수 없는 오류 발생", error);
+          toast.error("오류가 발생하여 정보를 불러오지 못했습니다.", {duration: 8000});
         }
       } finally {
         setLoading(false);
@@ -73,7 +86,7 @@ const ProductDetail = () => {
               <div className="infoTags">
                 <h2>상품 태그</h2>
                 <ul className="tagList">
-                  {products?.tags?.length! > 0 ? (
+                  {products?.tags.length > 0 ? (
                     products?.tags.map((tag, i) => (
                       <li key={i} className="tagItem">
                         {tag}

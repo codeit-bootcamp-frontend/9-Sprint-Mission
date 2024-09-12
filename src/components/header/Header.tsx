@@ -1,9 +1,11 @@
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 import { useEffect, useState } from "react";
+import LogoutMenu from "./LogoutMenu";
 
 const Header = () => {
   const [session, setSession] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
 
   useEffect(() => {
     const checkToken = localStorage.getItem("accessToken");
@@ -12,6 +14,10 @@ const Header = () => {
       setSession(true);
     }
   }, []);
+
+  const handleOpenMenu = () => {
+    setLogoutOpen((prev) => !prev);
+  };
 
   return (
     <header>
@@ -40,9 +46,12 @@ const Header = () => {
             로그인
           </Link>
         ) : (
-          <button type="button" className="navBtn">
-            <img src="/icons/sessionBtn.png" alt="개인메뉴버튼" />
-          </button>
+          <>
+            <button type="button" className="navBtn" onClick={handleOpenMenu}>
+              <img src="/icons/sessionBtn.png" alt="개인메뉴버튼" />
+            </button>
+            {logoutOpen && <LogoutMenu setSession={setSession} />}
+          </>
         )}
       </nav>
     </header>

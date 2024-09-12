@@ -38,6 +38,7 @@ const EditForm: React.FC<IProps> = ({ content, commentId, setOpenCommentId, setE
       );
 
       if (response.status === 200) {
+        form.reset();
         toast.success("댓글이 수정되었습니다.");
       }
     } catch (error) {

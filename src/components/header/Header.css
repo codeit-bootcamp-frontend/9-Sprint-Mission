@@ -67,6 +67,7 @@ a.active {
   background: none;
   border: none;
   cursor: pointer;
+  position: relative;
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {

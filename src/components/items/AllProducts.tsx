@@ -10,7 +10,7 @@ interface IProps {
 }
 
 interface IProduct {
-  id: string;
+  id: number;
   images: string;
   name: string;
   price: number;
@@ -71,7 +71,7 @@ const AllProducts: React.FC<IProps> = ({ width }) => {
         setLoading(true);
         setError(null);
 
-        const response = await getProducts({ params: { page, pageSize, order, keyword } });
+        const response = await getProducts({ page, pageSize, orderBy: order, keyword });
 
         if (response) {
           setProducts(response.list);

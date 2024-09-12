@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import "./BestProducts.css";
 import { getProducts } from "../../api/api";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 interface IProps {
   width: number;
 }
 
 interface IProduct {
-  id: string;
+  id: number;
   images: string;
   name: string;
   price: number;
@@ -17,7 +18,7 @@ interface IProduct {
 
 const BestProducts: React.FC<IProps> = ({ width }) => {
   const { order = "favorite" } = useParams();
-
+  
   const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -41,10 +42,17 @@ const BestProducts: React.FC<IProps> = ({ width }) => {
       try {
         setLoading(true);
         setError(null);
-        const bestProducts = await getProducts({ params: { order, pageSize } });
-        setProducts(bestProducts.list);
+        const response = await getProducts({ orderBy: order, pageSize });
+
+        if (response) {
+          setProducts(response.list);
+        }
       } catch (error) {
-        console.error("베스트상품 getBestProducts에서 오류 발생", error);
+        if (axios.isAxiosError(error)) {
+          console.error("베스트상품 getBestProducts에서 API 오류 발생", error);
+        } else {
+          console.error("베스트상품 getBestProducts에서 알 수 없는 오류 발생", error);
+        }
         setError("베스트상품 목록을 가져오지 못했습니다.");
       } finally {
         setLoading(false);
