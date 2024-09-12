@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ReactComponent as HeartItem } from "../../../shared/assets/images/icons/ic_heart.svg";
-import { ItemCardProps } from "../types/item-card-props.types";
+import { ItemCardProps } from "../types/item-card-props";
 
 function ItemCard({ item }: ItemCardProps) {
   return (

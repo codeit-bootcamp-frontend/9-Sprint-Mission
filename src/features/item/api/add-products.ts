@@ -1,5 +1,5 @@
 import ApiInstance from "../../../shared/api/base";
-import { ProductFormData } from "../types/product-form-data";
+import { ProductFormData } from "../types/add-item-form";
 
 const addProducts = async (formData: ProductFormData) => {
   try {

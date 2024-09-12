@@ -5,7 +5,7 @@ import ImageUpload from "../../../shared/ui/image-upload";
 import InputWithLabel from "../../../shared/ui/input-with-label";
 import TextareaWithLabel from "../../../shared/ui/textarea-with-label";
 import { ReactComponent as DeleteImage } from "../../../shared/assets/images/icons/ic_delete.svg";
-import { ProductFormData } from "../types/product-form-data";
+import { AddItemForm } from "../types/add-item-form";
 
 const AddItemForm = () => {
   const [name, setName] = useState<string>("");
@@ -76,7 +76,7 @@ const AddItemForm = () => {
 
     if (!isFormValid) return;
 
-    const formData: ProductFormData = {
+    const formData: AddItemForm = {
       name: name,
       description: description,
       price: price,

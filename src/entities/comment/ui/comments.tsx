@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import DropdownMenu from "../../../shared/ui/dropdown-menu";
 import { getProductComments } from "../api/comments";
-import { Comment } from "../types/comment.types";
-import { CommentsSectionProps } from "../types/comments-section-props.types";
-import { ProductCommentsParams } from "../types/product-comments-params.types";
+import { Comment } from "../types/comment";
+import { CommentsSectionProps } from "../types/comments-section-props";
+import { ProductCommentsParams } from "../types/product-comments-params";
 import { ReactComponent as KebabIcon } from "../../../shared/assets/images/icons/ic_kebab.svg";
 import { ReactComponent as ProfileIcon } from "../../../shared/assets/images/icons/ic_profile.svg";
 import CommentEmptyImage from "../../../shared/assets/images/comment/comment_empty.png";
+import { DropdownMenuItem } from "../../../shared/types/dropdown-menu";
 
 const COMMENT_LIMIT = 10;
 
@@ -73,7 +74,7 @@ function CommentsSection({ productId }: CommentsSectionProps) {
     setDropdownVisible(null); // Close dropdown after action
   };
 
-  const dropdownItems = [
+  const dropdownItems: DropdownMenuItem[] = [
     { label: "수정하기", action: () => console.log("Edit clicked") },
     { label: "삭제하기", action: () => console.log("Delete clicked") },
   ];

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/items";
 import { Product, ProductResponse } from "../types/product.types";
-import { FetchProductsParams } from "../types/fetch-products-params.types";
+import { FetchProductsParams } from "../types/fetch-products-params";
 
 function useProducts(
   page: number,

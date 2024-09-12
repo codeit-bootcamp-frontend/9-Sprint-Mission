@@ -7,7 +7,7 @@ import { ReactComponent as SearchIcon } from "../../../shared/assets/images/icon
 import { ReactComponent as DropDownIcon } from "../../../shared/assets/images/icons/arrow_drop_down.svg";
 import DropdownList from "../../../shared/ui/dropdown-list";
 import Pagination from "../../../shared/ui/pagination";
-import { ProductResponse, Product } from "../types/product.types"; // 정의된 타입 임포트
+import { ProductResponse, Product } from "../types/product"; // 정의된 타입 임포트
 
 function AllItemsSection() {
   const pageSize = usePageSize(SORT_TYPE.recent);

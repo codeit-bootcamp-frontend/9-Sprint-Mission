@@ -4,7 +4,7 @@ import { ReactComponent as KebabIcon } from "../../../shared/assets/images/icons
 import { ReactComponent as ProfileIcon } from "../../../shared/assets/images/icons/ic_profile.svg";
 import { ReactComponent as HeartIcon } from "../../../shared/assets/images/icons/ic_heart.svg";
 import { ReactComponent as HeartOnIcon } from "../../../shared/assets//images/icons/ic_heart_on.svg";
-import { ItemDetailProps } from "../types/item-detail-props.types";
+import { ItemDetailProps } from "../types/item-detail-props";
 
 function ItemDetailSection({ itemDetail }: ItemDetailProps) {
   const [dropdownVisible, setDropdownVisible] = useState(false);

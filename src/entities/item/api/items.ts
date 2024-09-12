@@ -1,5 +1,5 @@
 import ApiInstance from "../../../shared/api/base";
-import { FetchProductsParams } from "../types/fetch-products-params.types";
+import { FetchProductsParams } from "../types/fetch-products-params";
 import { ProductDetail, ProductResponse } from "../types/product.types"; // ProductResponse 타입 임포트
 
 const getProducts = async ({

@@ -1,5 +1,5 @@
 import ApiInstance from "../../../shared/api/base";
-import { ProductCommentsParams } from "../types/product-comments-params.types";
+import { ProductCommentsParams } from "../types/product-comments-params";
 
 async function getProductComments(
   productId: number,
