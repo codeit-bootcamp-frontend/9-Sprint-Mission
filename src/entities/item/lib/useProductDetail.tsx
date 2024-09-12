@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProductDetail } from "../api/items";
-import { ProductDetail } from "../types/product.types"; // ProductDetail 타입 임포트
+import { ProductDetail } from "../types/product"; // ProductDetail 타입 임포트
 
 function useProductDetail(productId: number) {
   const [itemDetail, setItemDetail] = useState<ProductDetail | null>(null); // 타입을 ProductDetail로 지정

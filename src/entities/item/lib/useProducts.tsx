@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/items";
-import { Product, ProductResponse } from "../types/product.types";
+import { Product, ProductResponse } from "../types/product";
 import { FetchProductsParams } from "../types/fetch-products-params";
 
 function useProducts(
