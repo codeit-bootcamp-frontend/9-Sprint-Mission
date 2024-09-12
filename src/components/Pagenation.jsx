@@ -1,8 +1,8 @@
 // import { getPandaItems } from "../api";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import styles from "./styles/Pagination.module.css";
 
-export const PagenationBtn = ({ totalPage, page, onPageChange }) => {
+export const PagenationBtn = memo(({ totalPage, page, onPageChange }) => {
   // total page = 13, page = 1
   // page = pageNum이 같을때 버튼 활성화 스타일
   const [pageList, setPageList] = useState([]); // 페이지 버튼 범위를 값으로 갖는다
@@ -25,7 +25,6 @@ export const PagenationBtn = ({ totalPage, page, onPageChange }) => {
     if (pageCount > 1) {
       setPageCount(Math.max(pageCount - 5, 1));
     }
-    console.log(pageCount);
   };
 
   const onClickNext = (e) => {
@@ -33,7 +32,6 @@ export const PagenationBtn = ({ totalPage, page, onPageChange }) => {
     if (pageCount < totalPage) {
       setPageCount(Math.min(pageCount + 5, totalPage));
     }
-    console.log(pageCount);
   };
 
   const onClickBtn = (pageNum, e) => {
@@ -65,10 +63,8 @@ export const PagenationBtn = ({ totalPage, page, onPageChange }) => {
       </button>
     </div>
   );
-};
+});
 
-//페이지 눌렀을때 페이지네이션 재렌더링
-
-// page = pageNum 이랑 같으면 버튼 활성화 클래스 추가하기
+//페이지 눌렀을때 & 너비 조절 시 페이지네이션 재렌더링
 
 // 페이지 사이즈 바로바로 반영안됨 이슈 (아마 비동기적으로 되고있는거같다)

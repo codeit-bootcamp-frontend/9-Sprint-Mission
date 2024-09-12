@@ -19,7 +19,6 @@ export function AllItems({ width }) {
 
   const loadAllItems = useCallback(async () => {
     setLoading(true);
-
     // width가 변경될 때마다 pageSize 업데이트
     if (width <= 780) {
       setPageSize(4);
@@ -28,7 +27,6 @@ export function AllItems({ width }) {
     } else {
       setPageSize(10); // 기본값
     }
-
     try {
       const response = await getPandaItems({
         page,
@@ -54,13 +52,14 @@ export function AllItems({ width }) {
     setOrderBy(newOrderBy);
   };
 
-  const handlePageChange = (pageNum) => {
-    setPage(pageNum); //페이지 버튼 누르면 그 값을 page로 GET 요청
-  };
+  //페이지 버튼 누르면 그 값을 page로 GET 요청
+  const handlePageChange = useCallback((pageNum) => {
+    setPage(pageNum);
+  }, []);
 
   useEffect(() => {
     loadAllItems();
-  }, [loadAllItems, page, pageSize]);
+  }, [loadAllItems]);
 
   //로딩 처리 & 에러 처리
   if (loading) {
@@ -99,11 +98,13 @@ export function AllItems({ width }) {
       <div className="all-items">
         <PandaItemList items={allItems} />
       </div>
-      <PagenationBtn
+      {/* <PagenationBtn
         totalPage={totalPage}
         page={page}
         onPageChange={handlePageChange}
-      />
+      /> */}
     </section>
   );
 }
+
+// 검색 후 키워드 리셋됨

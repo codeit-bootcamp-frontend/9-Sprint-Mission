@@ -5,6 +5,7 @@ import { BestItems } from "./BestItems";
 import { AllItems } from "./AllItems.jsx";
 import { useEffect, useState } from "react";
 import throttle from "../throttle";
+import { PagenationBtn } from './Pagenation.jsx';
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
@@ -29,6 +30,7 @@ function App() {
       <main>
         <BestItems width={width} />
         <AllItems width={width} />
+        <PagenationBtn/>
       </main>
     </>
   );
