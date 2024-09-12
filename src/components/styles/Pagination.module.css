@@ -17,3 +17,9 @@
   height: 40px;
   font-weight: 600;
 }
+
+.pagenation >button.active{
+  background-color: #2F80ED;
+  border-color:  #2F80ED;
+  color:#fff;
+}

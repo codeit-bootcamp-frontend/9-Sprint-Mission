@@ -39,7 +39,6 @@ export const PagenationBtn = ({ totalPage, page, onPageChange }) => {
   const onClickBtn = (pageNum, e) => {
     e.preventDefault();
     onPageChange(pageNum); // 부모컴포넌트에서 page 상태 변경 -> GET 요청
-    console.log(pageNum);
   };
 
   return (
@@ -52,6 +51,7 @@ export const PagenationBtn = ({ totalPage, page, onPageChange }) => {
           key={pageNum}
           type="button"
           onClick={(e) => onClickBtn(pageNum, e)}
+          className={pageNum === page ? styles.active : ""}
         >
           {pageNum}
         </button>
