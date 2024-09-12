@@ -1,6 +1,7 @@
 import "./pagination.css";
 import { ReactComponent as LeftArrow } from "../assets/images/icons/arrow_left.svg";
 import { ReactComponent as RightArrow } from "../assets/images/icons/arrow_right.svg";
+import { PaginationProps } from "../types/pagination";
 
 const VISIBLE_PAGES = 5;
 
@@ -9,7 +10,7 @@ const Pagination = ({
   pageSize,
   currentPage,
   onPageChange,
-}: any) => {
+}: PaginationProps) => {
   const totalPages = Math.ceil(totalCount / pageSize);
   const start =
     Math.floor((currentPage - 1) / VISIBLE_PAGES) * VISIBLE_PAGES + 1;
@@ -51,4 +52,5 @@ const Pagination = ({
     </div>
   );
 };
+
 export default Pagination;

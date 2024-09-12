@@ -1,16 +1,8 @@
 import { useRef } from "react";
 import { ReactComponent as PlusImage } from "../assets/images/icons/ic_plus.svg";
 import { ReactComponent as DeleteImage } from "../assets/images/icons/ic_delete.svg";
+import { ImageUploadProps } from "../types/image-upload";
 import "./image-upload.css";
-
-// Props 타입 정의
-interface ImageUploadProps {
-  id: string;
-  name: string;
-  image: string | null;
-  setImage: (image: string) => void;
-  onRemoveImage: (clearFileInputRef: () => void) => void;
-}
 
 const ImageUpload: React.FC<ImageUploadProps> = ({
   id,
@@ -28,7 +20,8 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
       reader.onloadend = () => {
         if (reader.result) {
           try {
-            setImage(reader.result as string); // FileReader result는 string으로 캐스팅 필요
+            // FileReader result는 string으로 캐스팅 필요
+            setImage(reader.result as string);
           } catch (error) {
             console.error("setImage error: ", error);
           }

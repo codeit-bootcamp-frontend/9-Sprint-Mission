@@ -1,4 +1,4 @@
-import { InputWithLabelProps } from "../types/input-with-label.types";
+import { InputWithLabelProps } from "../types/input-with-label";
 import "./input-with-label.css";
 
 const InputWithLabel: React.FC<InputWithLabelProps> = ({

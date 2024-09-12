@@ -1,9 +1,10 @@
 import "./dropdown-list.css";
+import { DropdownListProps } from "../types/dropdown-list";
 
-function DropdownList({ sortOptions, onSortSelection }: any) {
+function DropdownList({ sortOptions, onSortSelection }: DropdownListProps) {
   return (
     <div className="dropdownList">
-      {sortOptions.map((option: any) => (
+      {sortOptions.map((option) => (
         <div
           key={option.value}
           className="dropdownItem"
@@ -15,4 +16,5 @@ function DropdownList({ sortOptions, onSortSelection }: any) {
     </div>
   );
 }
+
 export default DropdownList;

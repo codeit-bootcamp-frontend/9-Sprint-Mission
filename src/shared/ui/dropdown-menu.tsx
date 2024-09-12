@@ -1,9 +1,10 @@
 import "./dropdown-menu.css";
+import { DropdownMenuProps } from "../types/dropdown-menu";
 
-const DropdownMenu = ({ items, onItemClick }: any) => {
+const DropdownMenu: React.FC<DropdownMenuProps> = ({ items, onItemClick }) => {
   return (
     <div className="dropdown-menu">
-      {items.map((item: any, index: any) => (
+      {items.map((item, index) => (
         <a
           key={index}
           href="#"

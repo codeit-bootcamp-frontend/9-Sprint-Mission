@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import "./textarea-with-label.css";
+import { TextareaWithLabelProps } from "../types/textarea-with-label";
 
 const TextareaWithLabel = ({
   id,
@@ -7,7 +7,7 @@ const TextareaWithLabel = ({
   value,
   onChange,
   placeholder,
-}: any) => {
+}: TextareaWithLabelProps) => {
   return (
     <div className="textarea-with-label">
       <label htmlFor={id}>{label}</label>
@@ -20,14 +20,6 @@ const TextareaWithLabel = ({
       />
     </div>
   );
-};
-
-TextareaWithLabel.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
 };
 
 export default TextareaWithLabel;
