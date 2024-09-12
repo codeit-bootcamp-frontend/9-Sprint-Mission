@@ -1,4 +1,4 @@
-# 스프린트 미션 7 
+# 스프린트 미션 8 
 
 ## 요구사항
 
@@ -6,43 +6,33 @@
 - React 18.3.1
 - react-router-dom 6.26.0
 - axios 1.7.3
+- react-hook-form 7.53.0
+- zod 3.23.8
+- react-hot-toast 2.4.1
+- typescript 5.6.2
 
 ### 배포 웹사이트: https://codeit-react-mck.netlify.app
 
 ### 기본
 
-- [x] 스프린트 미션 6까지의 기본 및 심화사항 반영
-- [x] 상품 상세 페이지 주소는 “/items/{productId}” 입니다.
-- [x] response 로 받은 아래의 데이터로 화면을 구현합니다.
-  - favoriteCount : 하트 개수
-  - images : 상품 이미지
-  - tags : 상품태그
-  - name : 상품 이름
-  - description : 상품 설명
-- [x] 목록으로 돌아가기 버튼을 클릭하면 중고마켓 페이지 주소인 “/items” 으로 이동합니다.
-- [x] 문의하기에 내용을 입력하면 등록 버튼의 색상은 “3692FF”로 변합니다.
-- [x] response 로 받은 아래의 데이터로 화면을 구현합니다.
-  - image : 작성자 이미지
-  - nickname : 작성자 닉네임
-  - content : 작성자가 남긴 문구
-  - description : 상품 설명
-  - updatedAt : 문의글 마지막 업데이트 시간
+- [x] 스프린트 미션 7까지의 기본 및 심화사항 반영
+- [x] 스프린트 미션 1 ~ 7에 대해 typescript를 적용해주세요.
 
 ### 변경사항
 
-- 미션6에서의 코드리뷰 개선사항을 반영하였습니다. 
-- 수정, 삭제버튼은 별도 모달로 처리하여 관련 로직을 만들었습니다.
-- 임시로 만든 form 검증함수는 삭제하고, 문의사항들이 업데이트된 시간을 '1시간 전' 형식으로 바꾸는 함수를 만들었습니다.
+- 스프린트 미션 11과 겹치는 부분이 많아서 일부 기능을 미리 적용했습니다.
+  - react-hook-form과 zod로 검색을 제외한 form에 적용했습니다.
+  - 로그인, 로그아웃기능을 구현했습니다.
 
 ## 스크린샷
 
-|                                    상품 상세페이지                              |                                상품 상세페이지 (태블릿)                      |
+|                                    메인페이지                                   |                                상품 상세페이지                              |
 | :----------------------------------------------------------------------------: | :------------------------------------------------------------------------: |
-|   <img src="/public/productDetailPage(Desktop).png" width="400" height="400">  | <img src="/public/productDetailPage(tablet).png" width="400" height="400"> |
-|                                 상품 상세페이지 (모바일)                         |
-|    <img src="/public/productDetailPage(Mobile).png" width="400" height="400">  |
+|   <img src="/public/images/mainPage.png" width="400" height="400">             | <img src="/public/images/productDetailPage.png" width="400" height="400">  |
+|                                 로그인페이지                                    |                               로그아웃페이지                                |
+|    <img src="/public/images/signinPage.png" width="400" height="400">          | <img src="/public/images/signupPage.png" width="400" height="400">         |
 
 ## 멘토에게
 
-- 로그인을 구현하지 않아서 get 제외한 api 요청에서 401 에러가 발생합니다. 8에서 추가하는 것이라면 8에 구현해 보겠습니다.
+- 감사합니다.
 
