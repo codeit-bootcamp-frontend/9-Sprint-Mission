@@ -3,7 +3,9 @@ import { getProductDetail } from "../api/items";
 import { ProductDetail } from "../types/product"; // ProductDetail 타입 임포트
 
 function useProductDetail(productId: number) {
-  const [itemDetail, setItemDetail] = useState<ProductDetail | null>(null); // 타입을 ProductDetail로 지정
+  const [productDetail, setProductDetail] = useState<ProductDetail | null>(
+    null
+  ); // 타입을 ProductDetail로 지정
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -15,7 +17,7 @@ function useProductDetail(productId: number) {
       setError(null);
       try {
         const responseInfo: ProductDetail = await getProductDetail(productId); // API 호출 결과를 ProductDetail 타입으로 지정
-        setItemDetail(responseInfo);
+        setProductDetail(responseInfo);
       } catch (error) {
         if (error instanceof Error) {
           setError(error);
@@ -30,7 +32,7 @@ function useProductDetail(productId: number) {
     fetchProductDetail();
   }, [productId]);
 
-  return { itemDetail, loading, error };
+  return { productDetail, loading, error };
 }
 
 export default useProductDetail;

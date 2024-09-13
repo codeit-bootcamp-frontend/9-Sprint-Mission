@@ -1,9 +1,33 @@
-// shared/lib/formatRelativeTime.ts
+// dateFormatter.ts
+export const formatDate = (isoDateString: string) => {
+  const date = new Date(isoDateString);
+
+  // 한국 시간으로 변환
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    timeZone: "Asia/Seoul",
+  };
+
+  // 'YYYY.MM.DD' 형식으로 포맷
+  const formattedDate = date
+    .toLocaleDateString("ko-KR", options)
+    .replace(/\./g, "")
+    .split(" ")
+    .join(".");
+
+  return formattedDate;
+};
+
 export const formatRelativeTime = (updatedAt: string) => {
   const now = new Date();
   const utc = new Date(updatedAt);
-  const offset = utc.getTimezoneOffset();
-  const local = new Date(utc.getTime() + offset * 60000);
+
+  // 한국 시간 (UTC+9)으로 변환
+  const KST_OFFSET = 9 * 60; // 9시간을 분 단위로 변환
+  const local = new Date(utc.getTime() + KST_OFFSET * 60000);
+
   const milliSeconds = now.getTime() - local.getTime();
   const seconds = milliSeconds / 1000;
 

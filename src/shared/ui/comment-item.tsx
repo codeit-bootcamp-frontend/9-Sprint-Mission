@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { formatRelativeTime } from "../lib/formatRelativeTime";
+import { formatRelativeTime } from "../lib/dateFormatter";
 import { CommentItemProps } from "../types/comment-item-props";
 import DropdownMenu from "./dropdown-menu";
 import { ReactComponent as KebabIcon } from "../assets/images/icons/ic_kebab.svg";

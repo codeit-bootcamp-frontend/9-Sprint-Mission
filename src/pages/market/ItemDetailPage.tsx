@@ -53,15 +53,15 @@ function ItemDetailPage() {
 
   const productIdNumber: number = productId ? parseInt(productId, 10) : 0;
 
-  const { itemDetail } = useProductDetail(productIdNumber);
+  const { productDetail } = useProductDetail(productIdNumber);
 
   const commentType = COMMENT_TYPE.product;
 
   return (
     <Wrapper>
-      {itemDetail ? (
+      {productDetail ? (
         <>
-          <ItemDetailSection itemDetail={itemDetail} />
+          <ItemDetailSection productDetail={productDetail} />
           <AreaLine />
           <CommentsSection id={productIdNumber} type={commentType} />
           <BackButtonArea>

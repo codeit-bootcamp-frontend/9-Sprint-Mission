@@ -11,12 +11,12 @@ export interface Product {
   tags: string[]; // 태그 배열
 }
 
-// 특정 상품 타입 정의(id)
+// 특정 상품 타입 정의(id, detail)
 export interface ProductDetail extends Product {
   isFavorite: boolean; // 좋아요 여부 (list에 없는 항목)
 }
 
-// API에서 반환되는 응답 타입 정의
+// API에서 반환되는 응답 타입 정의(list)
 export interface ProductResponse {
   totalCount: number;
   list: Product[];
