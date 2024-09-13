@@ -5,23 +5,31 @@ import { NavLink } from "react-router-dom";
 import searchIcon from "../img/ic_search.png";
 import Container from "./Container";
 
-export function AllItems({ page, pageSize, getTotalPage }) {
+export function AllItems({ width, page, getTotalPage }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [allItems, setAllItems] = useState([]);
 
   const [orderBy, setOrderBy] = useState("recent");
   const [search, setSearch] = useState("");
+  const [pageSize, setPageSize] = useState(10);
 
-  // 부모 컴포넌트로 totalPage를 전달
-  const forwardTotalPage = useCallback(
-    (totalPage) => {
-      getTotalPage(totalPage);
-    },
-    [getTotalPage]
-  );
+  const updatePageSize = (width) => {
+    if (width <= 780) {
+      setPageSize(4);
+    } else if ((width <= 991) & (width > 781)) {
+      setPageSize(6);
+    } else {
+      setPageSize(10); // 기본값
+    }
+  };
+
+  useEffect(() => {
+    updatePageSize(width);
+  }, [width]);
 
   const loadAllItems = useCallback(async () => {
+    if (loading) return;
     setLoading(true);
     try {
       const response = await getPandaItems({
@@ -32,13 +40,13 @@ export function AllItems({ page, pageSize, getTotalPage }) {
       });
       setAllItems(response.list || []);
       const totalPage = Math.floor(response.totalCount / pageSize) + 1;
-      forwardTotalPage(totalPage);
+      getTotalPage(totalPage);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [page, pageSize, search, orderBy, forwardTotalPage]);
+  }, [page, pageSize, search, orderBy]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +59,7 @@ export function AllItems({ page, pageSize, getTotalPage }) {
 
   useEffect(() => {
     loadAllItems();
-  }, [loadAllItems]);
+  }, [page, pageSize, orderBy, search]);
 
   //로딩 처리 & 에러 처리
   if (loading) {

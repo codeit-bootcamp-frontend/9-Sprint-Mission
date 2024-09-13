@@ -16,16 +16,7 @@ function App() {
     setWidth(window.innerWidth);
   };
   
-  //width에 따라 pageSize 변경 
-  useEffect(()=>{
-    if (width <= 780) {
-      setPageSize(4);
-    } else if ((width <= 991) & (width > 781)) {
-      setPageSize(6);
-    } else {
-      setPageSize(10); // 기본값
-    }
-  },[width])
+
 
   const [page, setPage] = useState(1); // 페이지네이션 버튼을 누르면 setPage()
 
@@ -53,8 +44,8 @@ function App() {
     <>
       <Header />
       <main>
-        <BestItems width={width} />
-        <AllItems page={page} pageSize={pageSize} getTotalPage={getTotalPage}  />
+        <BestItems width={width} page={page} pageSize={pageSize} />
+        <AllItems width={width} page={page} pageSize={pageSize} getTotalPage={getTotalPage}  />
         <PagenationBtn page={page} totalPage={totalPage} onPageChange={handlePageChange}/>
       </main>
     </>

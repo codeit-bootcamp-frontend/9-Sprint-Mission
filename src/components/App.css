@@ -305,6 +305,10 @@ main {
   #section-all h2 {
     margin: 10px 0;
   }
+
+  #section-best  .section-title-wrapper {
+    margin-top: 94px;
+  } 
   .add-btn {
     position: absolute;
     top: 0px;

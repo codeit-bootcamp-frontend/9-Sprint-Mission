@@ -6,6 +6,21 @@ export function BestItems({ width }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [bestItems, setBestItems] = useState([]);
+  const [pageSize, setPageSize] = useState(4);
+
+  const updatePageSize = (width) => {
+    if (width <= 780) {
+      setPageSize(1);
+    } else if ((width <= 991) & (width > 781)) {
+      setPageSize(2);
+    } else {
+      setPageSize(4); // 기본값
+    }
+  };
+
+  useEffect(() => {
+    updatePageSize(width);
+  }, [width]);
 
   const loadBestItems = async () => {
     setLoading(true);
@@ -13,7 +28,7 @@ export function BestItems({ width }) {
     try {
       const response = await getPandaItems({
         page: 1,
-        pageSize: 4,
+        pageSize,
         orderBy: "favorite",
         search: "",
       });
@@ -27,7 +42,7 @@ export function BestItems({ width }) {
 
   useEffect(() => {
     loadBestItems();
-  }, []);
+  }, [pageSize]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -37,14 +52,14 @@ export function BestItems({ width }) {
     return <div>Error: {error}</div>;
   }
 
-  const getVisibleItemsCount = () => {
-    if (width <= 780) return 1;
-    if (width <= 991) return 2;
-    return 4;
-  };
+  // const getVisibleItemsCount = () => {
+  //   if (width <= 780) return 1;
+  //   if (width <= 991) return 2;
+  //   return 4;
+  // };
 
-  const visibleItemsCount = getVisibleItemsCount();
-  const visibleItems = bestItems.slice(0, visibleItemsCount);
+  // const visibleItemsCount = getVisibleItemsCount();
+  // const visibleItems = bestItems.slice(0, visibleItemsCount);
 
   return (
     <section id="section-best">
@@ -52,7 +67,7 @@ export function BestItems({ width }) {
         <h2>베스트 상품</h2>
       </div>
       <div className="best-items">
-        <PandaItemList items={visibleItems} />
+        <PandaItemList items={bestItems} />
       </div>
     </section>
   );
