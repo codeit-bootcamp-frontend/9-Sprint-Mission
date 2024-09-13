@@ -2,9 +2,8 @@
 import { memo, useEffect, useState } from "react";
 import styles from "./styles/Pagination.module.css";
 
-export const PagenationBtn = memo(({ totalPage, page, onPageChange }) => {
+export const PagenationBtn = memo(({ page, totalPage, onPageChange }) => {
   // total page = 13, page = 1
-  // page = pageNum이 같을때 버튼 활성화 스타일
   const [pageList, setPageList] = useState([]); // 페이지 버튼 범위를 값으로 갖는다
   const [pageCount, setPageCount] = useState(5); // 페이지 버튼 범위를 설정하기 위한 상태 관리
 

@@ -4,29 +4,25 @@ import { PandaItemList } from "./PandaItemList";
 import { NavLink } from "react-router-dom";
 import searchIcon from "../img/ic_search.png";
 import Container from "./Container";
-import { PagenationBtn } from "./Pagenation";
 
-export function AllItems({ width }) {
+export function AllItems({ page, pageSize, getTotalPage }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [allItems, setAllItems] = useState([]);
 
-  const [page, setPage] = useState(1); // 페이지네이션 버튼을 누르면 setCurrentPage()
-  const [pageSize, setPageSize] = useState(10); // 윈도우 너비 width를 받아왔음 -> pageSize setter 호출하기
   const [orderBy, setOrderBy] = useState("recent");
   const [search, setSearch] = useState("");
-  const [totalPage, setTotalPage] = useState(0);
+
+  // 부모 컴포넌트로 totalPage를 전달
+  const forwardTotalPage = useCallback(
+    (totalPage) => {
+      getTotalPage(totalPage);
+    },
+    [getTotalPage]
+  );
 
   const loadAllItems = useCallback(async () => {
     setLoading(true);
-    // width가 변경될 때마다 pageSize 업데이트
-    if (width <= 780) {
-      setPageSize(4);
-    } else if ((width <= 991) & (width > 781)) {
-      setPageSize(6);
-    } else {
-      setPageSize(10); // 기본값
-    }
     try {
       const response = await getPandaItems({
         page,
@@ -35,13 +31,14 @@ export function AllItems({ width }) {
         search,
       });
       setAllItems(response.list || []);
-      setTotalPage(Math.floor(response.totalCount / pageSize) + 1);
+      const totalPage = Math.floor(response.totalCount / pageSize) + 1;
+      forwardTotalPage(totalPage);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [page, pageSize, search, orderBy, width]);
+  }, [page, pageSize, search, orderBy, forwardTotalPage]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -51,11 +48,6 @@ export function AllItems({ width }) {
   const handleOrderChange = (newOrderBy) => {
     setOrderBy(newOrderBy);
   };
-
-  //페이지 버튼 누르면 그 값을 page로 GET 요청
-  const handlePageChange = useCallback((pageNum) => {
-    setPage(pageNum);
-  }, []);
 
   useEffect(() => {
     loadAllItems();
@@ -98,11 +90,6 @@ export function AllItems({ width }) {
       <div className="all-items">
         <PandaItemList items={allItems} />
       </div>
-      {/* <PagenationBtn
-        totalPage={totalPage}
-        page={page}
-        onPageChange={handlePageChange}
-      /> */}
     </section>
   );
 }
