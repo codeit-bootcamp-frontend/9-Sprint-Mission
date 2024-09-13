@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./Detail.module.css";
 import DetailComments from "./DetailComments";
-import { StateDetail } from "../../types/Detail";
+import { StateDetail } from "../../types/DetailTypes";
 
 function Detail() {
-  const { productId } = useParams<{ productId: string }>();
+  const { productId } = useParams<{ productId: string | undefined }>();
 
   const [stateDetail, setStateDetail] = useState<StateDetail>({});
 
