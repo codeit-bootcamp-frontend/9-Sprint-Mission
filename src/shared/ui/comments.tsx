@@ -16,6 +16,7 @@ const CommentsWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   width: 100%;
+  max-width: 1200px;
 `;
 
 const CommentTitle = styled.div`
@@ -23,8 +24,8 @@ const CommentTitle = styled.div`
   font-size: 16px;
   font-weight: bold;
   float: left;
-  margin: 0 24px;
-  padding: 0 16px;
+  padding: 0 30px;
+  color: var(--gray-900);
 `;
 
 const CommentInputSection = styled.div`
@@ -46,6 +47,7 @@ const CommentInput = styled.textarea`
   color: var(--gray-800);
   margin-bottom: 8px;
   padding: 8px;
+  background-color: var(--gray-100);
 
   ::placeholder {
     color: var(--gray-400);
@@ -56,7 +58,7 @@ const SubmitButton = styled.button`
   align-self: flex-end;
   background-color: var(--blue-100);
   color: white;
-  padding: 8px 16px;
+  padding: 12px 23px;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -67,9 +69,8 @@ const SubmitButton = styled.button`
   }
 
   &:disabled {
-    background-color: var(--gray-100);
+    background-color: var(--gray-400);
     cursor: not-allowed;
-    opacity: 0.6;
   }
 `;
 
@@ -173,7 +174,7 @@ function CommentsSection({ id, type }: CommentsSectionProps) {
 
   return (
     <CommentsWrapper>
-      <CommentTitle>댓글 달기</CommentTitle>
+      <CommentTitle>문의하기</CommentTitle>
       <CommentInputSection>
         <CommentInput
           placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
