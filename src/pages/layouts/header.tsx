@@ -1,7 +1,9 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { isLoggedInAtom, userImageAtom } from "../../shared/store/authAtoms";
 import styled from "styled-components";
 import { ReactComponent as Logo } from "../../shared/assets/images/logo/logo.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 // Styled Components
 const GlobalHeader = styled.header`
@@ -152,15 +154,29 @@ const DropdownMenu = styled.div`
 
 const getMobileSize = () => window.innerWidth < 768;
 
-interface HeaderProps {
-  isLoggedIn: boolean;
-  userImage: string | null;
-}
-
-const Header: React.FC<HeaderProps> = ({ isLoggedIn, userImage }) => {
+const Header: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom);
+  const [userImage, setUserImage] = useAtom(userImageAtom);
   const [isMobileSize, setIsMobileSize] = useState(getMobileSize);
   const [dropdownVisible, setDropdownVisible] = useState(false); // 드롭다운 메뉴 상태
   const navigate = useNavigate(); // useNavigate 훅 사용
+
+  // sessionStorage에서 userImage를 한 번만 읽도록 useMemo 사용
+  const cachedUserImage = useMemo(() => {
+    if (isLoggedIn) {
+      return sessionStorage.getItem("userImage");
+    }
+    return null;
+  }, [isLoggedIn]); // isLoggedIn이 true일 때만 sessionStorage에서 읽음
+
+  // 캐싱된 userImage를 Jotai 상태에 설정
+  useEffect(() => {
+    if (cachedUserImage) {
+      setUserImage(cachedUserImage); // 세션 스토리지에서 가져온 후 Jotai 상태 업데이트
+    }
+
+    setDropdownVisible(false); // 로그인이 완료되면 드롭다운 닫기
+  }, [cachedUserImage, setUserImage]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -177,8 +193,13 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, userImage }) => {
   const handleLogout = () => {
     // 세션 스토리지 초기화
     sessionStorage.clear();
-    // 세션 스토리지와 header 컴포넌트 랜더링 시간 차이 때문이 어쩔 수 없이 사용
-    window.location.reload();
+
+    // Jotai 상태 초기화
+    setIsLoggedIn(false);
+    setUserImage("");
+
+    // 홈으로 이동
+    navigate("/");
   };
 
   return (

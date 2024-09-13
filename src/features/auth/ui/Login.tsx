@@ -130,11 +130,11 @@ export const Login: React.FC = () => {
     }
   }, [debouncedPassword]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    }
-  }, [isLoggedIn]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate("/");
+  //   }
+  // }, [isLoggedIn]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -181,8 +181,9 @@ export const Login: React.FC = () => {
         // Jotai 상태 업데이트
         setIsLoggedIn(true);
 
+        navigate("/");
         // 세션 스토리지와 header 컴포넌트 랜더링 시간 차이 때문이 어쩔 수 없이 사용
-        window.location.reload();
+        //window.location.reload();
       }
     }
   };

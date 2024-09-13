@@ -1,5 +1,5 @@
 // Signup.tsx
-import { useState, ChangeEvent, FocusEvent, useEffect } from "react";
+import { useState, ChangeEvent, FocusEvent, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAtom } from "jotai";
 import { isLoggedInAtom, userImageAtom } from "../../../shared/store/authAtoms";
@@ -151,12 +151,6 @@ export const Signup: React.FC = () => {
     }
   }, [debouncedPassword, debouncedPasswordConfirmation, formState.password]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/");
-    }
-  }, [isLoggedIn]);
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -177,6 +171,16 @@ export const Signup: React.FC = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
   };
 
+  // 캐싱된 세션 스토리지 데이터
+  const cachedUserId = useMemo(() => {
+    return sessionStorage.getItem("userId");
+  }, []);
+
+  const cachedUserImage = useMemo(() => {
+    return sessionStorage.getItem("userImage");
+  }, []);
+
+  // 회원가입 후 전역 상태 업데이트 및 세션 스토리지 설정
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -208,14 +212,16 @@ export const Signup: React.FC = () => {
         // 회원가입 성공 시 전역 상태 업데이트
         sessionStorage.setItem("userId", result.user.id);
 
-        setIsLoggedIn(true); // Jotai 상태 업데이트
         if (result.user.image) {
           sessionStorage.setItem("userImage", result.user.image);
+          setUserImage(result.user.image);
         }
-        // 홈으로 이동
+
+        // Jotai 전역 상태 업데이트
+        setIsLoggedIn(true);
+
+        // 상태 업데이트 후 리다이렉트
         navigate("/");
-        // 세션 스토리지와 header 컴포넌트 랜더링 시간 차이 때문이 어쩔 수 없이 사용
-        window.location.reload();
       }
     }
   };

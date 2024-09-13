@@ -1,6 +1,4 @@
 /* App.tsx */
-import { useAtom } from "jotai";
-import { isLoggedInAtom, userImageAtom } from "../shared/store/authAtoms";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ItemsPage from "../pages/market/ItemsPage";
 import ItemDetailPage from "../pages/market/ItemDetailPage";
@@ -20,12 +18,10 @@ interface LayoutProps {
 function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  const [isLoggedIn] = useAtom(isLoggedInAtom);
-  const [userImage] = useAtom(userImageAtom);
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} userImage={userImage} />
+      <Header />
       <div className="header-area">{children}</div>
       {isHomePage && <Footer />}
     </>
