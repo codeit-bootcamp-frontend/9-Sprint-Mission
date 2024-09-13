@@ -1,12 +1,13 @@
 import { useState, ChangeEvent, FocusEvent, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { ReactComponent as LogoPanda } from "../../../shared/assets/images/logo/logo_panda.svg";
 import InputItem from "../../../shared/ui/InputItem";
 import SocialLogin from "./SocialLogin";
 import PasswordInput from "./PasswordInput";
 import useDebounce from "../../../shared/hooks/useDebounce";
 import { getErrorMessage, AuthInputId } from "../utils/authUtils";
+import { authSignIn } from "../api/auth"; // authSignIn 함수 임포트
 
 // Styled components
 const AuthContainer = styled.main`
@@ -129,6 +130,7 @@ export const Login: React.FC = () => {
     password: "",
   });
   const [errors, setErrors] = useState<ErrorState>({});
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   const debouncedPassword = useDebounce(formState.password, 500);
 
@@ -158,9 +160,10 @@ export const Login: React.FC = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // 유효성 검사
     const newErrors = {
       email: getErrorMessage("email", formState.email),
       password: getErrorMessage("password", formState.password),
@@ -171,7 +174,16 @@ export const Login: React.FC = () => {
     const isValid = Object.values(newErrors).every((error) => !error);
 
     if (isValid) {
-      // TODO: 로그인 API 처리
+      // 로그인 API 연동
+      const result = await authSignIn({
+        email: formState.email,
+        password: formState.password,
+      });
+
+      if (result) {
+        // 로그인 성공 시 홈으로 리다이렉트
+        navigate("/");
+      }
     }
   };
 

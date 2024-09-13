@@ -1,12 +1,13 @@
 import { useState, ChangeEvent, FocusEvent, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as LogoPanda } from "../../../shared/assets/images/logo/logo_panda.svg";
 import InputItem from "../../../shared/ui/InputItem";
 import SocialLogin from "./SocialLogin";
 import PasswordInput from "./PasswordInput";
 import useDebounce from "../../../shared/hooks/useDebounce";
 import { getErrorMessage, AuthInputId } from "../utils/authUtils";
+import { authSignUp } from "../api/auth"; // authSignUp 함수 임포트
 
 // Styled components
 const AuthContainer = styled.main`
@@ -122,6 +123,7 @@ export const Signup: React.FC = () => {
     passwordConfirmation: "",
   });
   const [errors, setErrors] = useState<ErrorState>({});
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   const debouncedPassword = useDebounce(formState.password, 500);
   const debouncedPasswordConfirmation = useDebounce(
@@ -170,7 +172,7 @@ export const Signup: React.FC = () => {
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const newErrors = {
@@ -189,7 +191,18 @@ export const Signup: React.FC = () => {
     const isValid = Object.values(newErrors).every((error) => !error);
 
     if (isValid) {
-      // TODO: 회원가입 API 처리
+      // 회원가입 API 연동
+      const result = await authSignUp({
+        email: formState.email,
+        nickname: formState.nickname,
+        password: formState.password,
+        passwordConfirmation: formState.passwordConfirmation,
+      });
+
+      if (result) {
+        // 회원가입 성공 시 홈으로 리다이렉트
+        navigate("/");
+      }
     }
   };
 
