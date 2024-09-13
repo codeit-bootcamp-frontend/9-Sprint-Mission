@@ -6,22 +6,24 @@ export function BestItems({ width }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [bestItems, setBestItems] = useState([]);
-  const [pageSize, setPageSize] = useState(4);
 
-  const updatePageSize = (width) => {
+  // width에 따라 pagesize 초기값을 다르게 받아오기
+  const initialPageSize = (width) => {
     if (width <= 780) {
-      setPageSize(1);
+      return 1;
     } else if ((width <= 991) & (width > 781)) {
-      setPageSize(2);
+      return 2;
     } else {
-      setPageSize(4); // 기본값
+      return 4;
     }
   };
 
-  useEffect(() => {
-    updatePageSize(width);
-  }, [width]);
+  //pagesize 상태 관리
+  const [pageSize, setPageSize] = useState(() => initialPageSize(width));
 
+  useEffect(() => {
+    setPageSize(initialPageSize(width));
+  }, [width]);
   const loadBestItems = async () => {
     setLoading(true);
 
@@ -51,15 +53,6 @@ export function BestItems({ width }) {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  // const getVisibleItemsCount = () => {
-  //   if (width <= 780) return 1;
-  //   if (width <= 991) return 2;
-  //   return 4;
-  // };
-
-  // const visibleItemsCount = getVisibleItemsCount();
-  // const visibleItems = bestItems.slice(0, visibleItemsCount);
 
   return (
     <section id="section-best">

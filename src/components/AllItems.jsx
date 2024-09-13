@@ -12,20 +12,23 @@ export function AllItems({ width, page, getTotalPage }) {
 
   const [orderBy, setOrderBy] = useState("recent");
   const [search, setSearch] = useState("");
-  const [pageSize, setPageSize] = useState(10);
 
-  const updatePageSize = (width) => {
+  // width에 따라 pagesize 초기값을 다르게 받아오기
+  const initialPageSize = (width) => {
     if (width <= 780) {
-      setPageSize(4);
+      return 4;
     } else if ((width <= 991) & (width > 781)) {
-      setPageSize(6);
+      return 6;
     } else {
-      setPageSize(10); // 기본값
+      return 10;
     }
   };
 
+  //pagesize 상태 관리
+  const [pageSize, setPageSize] = useState(() => initialPageSize(width));
+
   useEffect(() => {
-    updatePageSize(width);
+    setPageSize(initialPageSize(width));
   }, [width]);
 
   const loadAllItems = useCallback(async () => {
@@ -39,7 +42,7 @@ export function AllItems({ width, page, getTotalPage }) {
         search,
       });
       setAllItems(response.list || []);
-      const totalPage = Math.floor(response.totalCount / pageSize) + 1;
+      const totalPage = Math.ceil(response.totalCount / pageSize);
       getTotalPage(totalPage);
     } catch (err) {
       setError(err.message);

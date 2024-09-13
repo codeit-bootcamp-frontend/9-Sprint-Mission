@@ -8,9 +8,10 @@ import throttle from "../throttle";
 import { PagenationBtn } from './Pagenation.jsx';
 
 function App() {
-  const [width, setWidth] = useState(undefined);
+  const [width, setWidth] = useState(window.innerWidth); 
   const [page, setPage] = useState(1); // 페이지네이션 버튼을 누르면 setPage()
   const [totalPage, setTotalPage] = useState(0);
+
 
   //리사이즈가 발생할때마다 width 상태를 업데이트하는 핸들러 = throttle의 콜백함수
   const handleResize = () => {
