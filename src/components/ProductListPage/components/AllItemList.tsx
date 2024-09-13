@@ -5,8 +5,9 @@ import { getProducts } from "../../../Api";
 import ItemBox from "./ItemBox";
 import Search from "../../../images/icon/ic_search.svg";
 import Paginations from "./Pagination";
+import { Item } from "../../../types/Product";
 
-const getPageSize = () => {
+const getPageSize = (): number => {
   const width = window.innerWidth;
   if (width < 768) {
     return 4;
@@ -16,10 +17,6 @@ const getPageSize = () => {
     return 10;
   }
 };
-
-interface Item {
-  id: number;
-}
 
 function AllItemList() {
   const [itemList, setItemList] = useState<Item[]>([]);
