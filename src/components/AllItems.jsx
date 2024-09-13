@@ -4,6 +4,7 @@ import { PandaItemList } from "./PandaItemList";
 import { NavLink } from "react-router-dom";
 import searchIcon from "../img/ic_search.png";
 import Container from "./Container";
+import { usePageSizeByWidth } from "../hooks/usePageSizeByWidth";
 
 export function AllItems({ width, page, getTotalPage }) {
   const [loading, setLoading] = useState(false);
@@ -13,23 +14,13 @@ export function AllItems({ width, page, getTotalPage }) {
   const [orderBy, setOrderBy] = useState("recent");
   const [search, setSearch] = useState("");
 
-  // width에 따라 pagesize 초기값을 다르게 받아오기
-  const initialPageSize = (width) => {
-    if (width <= 780) {
-      return 4;
-    } else if ((width <= 991) & (width > 781)) {
-      return 6;
-    } else {
-      return 10;
-    }
+  const pageSizeObj = {
+    mobile: 4,
+    pad: 6,
+    pc: 10,
   };
 
-  //pagesize 상태 관리
-  const [pageSize, setPageSize] = useState(() => initialPageSize(width));
-
-  useEffect(() => {
-    setPageSize(initialPageSize(width));
-  }, [width]);
+  const pageSize = usePageSizeByWidth(width, pageSizeObj);
 
   const loadAllItems = useCallback(async () => {
     if (loading) return;

@@ -1,29 +1,21 @@
 import { useEffect, useState } from "react";
 import { getPandaItems } from "../api";
 import { PandaItemList } from "./PandaItemList";
+import { usePageSizeByWidth } from "../hooks/usePageSizeByWidth";
 
 export function BestItems({ width }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [bestItems, setBestItems] = useState([]);
 
-  // width에 따라 pagesize 초기값을 다르게 받아오기
-  const initialPageSize = (width) => {
-    if (width <= 780) {
-      return 1;
-    } else if ((width <= 991) & (width > 781)) {
-      return 2;
-    } else {
-      return 4;
-    }
+  const pageSizeObj = {
+    mobile: 1,
+    pad: 2,
+    pc: 4,
   };
 
-  //pagesize 상태 관리
-  const [pageSize, setPageSize] = useState(() => initialPageSize(width));
+  const pageSize = usePageSizeByWidth(width, pageSizeObj);
 
-  useEffect(() => {
-    setPageSize(initialPageSize(width));
-  }, [width]);
   const loadBestItems = async () => {
     setLoading(true);
 
