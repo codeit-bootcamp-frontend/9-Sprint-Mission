@@ -1,43 +1,41 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { ReactComponent as Logo } from "../../shared/assets/images/logo/logo.svg"; // SVG는 ReactComponent로 임포트
-import Avatar from "../../shared/assets/images/login/default_avatar.png"; // PNG는 경로로 임포트
+import { ReactComponent as Logo } from "../../shared/assets/images/logo/logo.svg";
+import Avatar from "../../shared/assets/images/login/default_avatar.png";
 
 // Styled Components
 const GlobalHeader = styled.header`
-  position: fixed; /* 화면에 고정 */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; /* 화면 전체 너비로 설정 */
-  height: var(--header-height); /* height를 CSS 변수로 설정 */
+  width: 100%;
+  height: var(--header-height);
   display: flex;
-  justify-content: space-between; /* 전체 헤더를 수평 가운데 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  padding: 10px 0; /* 전체 헤더에 상하 패딩 추가 */
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
   background-color: #ffffff;
   border-bottom: 1px solid #dfdfdf;
-  z-index: 1000; /* 다른 요소보다 위에 표시되도록 설정 */
+  z-index: 1000;
+
+  @media (min-width: 768px) {
+    padding: 16px;
+  }
 `;
 
 const HeaderLeft = styled.div`
   display: flex;
-  justify-content: center; /* 수평 가운데 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
+  align-items: center;
 `;
 
 const HeaderLogo = styled(Link)`
   display: flex;
   align-items: center;
   margin-right: 16px;
-  position: relative;
-  top: 0;
-  left: 0;
 
   @media (min-width: 768px) {
     margin-right: 30px;
-    top: 16px; /* 로고를 약간 하단으로 이동 */
-    left: 20px; /* 로고를 더 오른쪽으로 이동 */
   }
 
   @media (min-width: 1200px) {
@@ -52,44 +50,41 @@ const LogoTitle = styled.span`
   font-size: 20px;
   line-height: 26px;
   margin-left: 10px;
-  float: right;
 
   @media (min-width: 768px) {
     font-size: 25px;
     line-height: 50px;
-    margin-bottom: 30px;
   }
 `;
 
-const Nav = styled.nav`
-  ul {
-    display: flex;
-    list-style: none;
-    gap: 8px;
-    font-weight: bold;
-    font-size: 16px;
-    color: #4b5563;
-
-    @media (min-width: 768px) {
-      gap: 36px;
-      font-size: 18px;
-    }
-  }
-`;
-
-const HeaderMenu = styled(NavLink)`
-  color: var(--gray-600);
+const NavList = styled.ul`
+  display: flex;
+  list-style: none;
+  gap: 8px;
+  font-weight: bold;
   font-size: 16px;
-  font-weight: 700;
-  line-height: 26px;
-  text-decoration: none;
+  color: var(--gray-600);
 
-  &.active {
-    color: var(--blue-100);
+  @media (min-width: 768px) {
+    gap: 36px;
+    font-size: 18px;
   }
+`;
 
-  &:hover {
-    color: var(--blue-200);
+const NavItem = styled.li`
+  a {
+    color: var(--gray-600);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      color: var(--blue-200);
+    }
+
+    &.active {
+      color: var(--blue-100);
+    }
   }
 
   @media (min-width: 768px) {
@@ -98,10 +93,34 @@ const HeaderMenu = styled(NavLink)`
 `;
 
 const HeaderRight = styled.div`
+  display: flex;
+  align-items: center;
+
   img {
     width: 40px;
     height: 40px;
-    margin-right: 20px; /* 아바타 이미지를 더 왼쪽으로 이동 */
+    margin-right: 20px;
+  }
+`;
+
+const StyledButtonLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 26px;
+  color: white; /* 텍스트 색상을 흰색으로 설정 */
+  background-color: var(--blue-100); /* 배경색을 var(--blue-100)로 설정 */
+  padding: 12px 23px; /* 버튼처럼 보이도록 패딩 추가 */
+  border-radius: 8px;
+  text-decoration: none;
+  width: 128px;
+  height: 48px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--blue-200); /* hover 시 배경색 변경 */
   }
 `;
 
@@ -126,24 +145,36 @@ function Header() {
     <GlobalHeader>
       <HeaderLeft>
         <HeaderLogo to="/" aria-label="홈으로 이동">
-          <div>
-            {!isMobileSize && <Logo aria-hidden="true" />}
-            <LogoTitle>판다마켓</LogoTitle>
-          </div>
+          {!isMobileSize && <Logo aria-hidden="true" />}
+          <LogoTitle>판다마켓</LogoTitle>
         </HeaderLogo>
-        <Nav>
-          <ul>
-            <li>
-              <HeaderMenu to="/board">자유게시판</HeaderMenu>
-            </li>
-            <li>
-              <HeaderMenu to="/items">중고마켓</HeaderMenu>
-            </li>
-          </ul>
-        </Nav>
+
+        <nav>
+          <NavList>
+            <NavItem>
+              <NavLink
+                to="/community"
+                className={({ isActive }) => (isActive ? "active" : "")}
+              >
+                자유게시판
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                to="/items"
+                className={({ isActive }) =>
+                  isActive || location.pathname === "/additem" ? "active" : ""
+                }
+              >
+                중고마켓
+              </NavLink>
+            </NavItem>
+          </NavList>
+        </nav>
       </HeaderLeft>
+
       <HeaderRight>
-        <img src={Avatar} alt="기본 아바타" />
+        <StyledButtonLink to="/login">로그인</StyledButtonLink>
       </HeaderRight>
     </GlobalHeader>
   );

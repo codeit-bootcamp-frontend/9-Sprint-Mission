@@ -2,7 +2,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import DropdownMenu from "../../../shared/ui/dropdown-menu";
-import { formatDate } from "../../../shared/lib/dateFormatter";
+import { formatDate } from "../../../shared/utils/dateFormatter";
 import { ReactComponent as KebabIcon } from "../../../shared/assets/images/icons/ic_kebab.svg";
 import { ReactComponent as ProfileIcon } from "../../../shared/assets/images/icons/ic_profile.svg";
 import { ReactComponent as HeartIcon } from "../../../shared/assets/images/icons/ic_heart.svg";
