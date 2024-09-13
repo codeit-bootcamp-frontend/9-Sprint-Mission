@@ -78,12 +78,7 @@ function Reply({ reply }) {
 
         <div className={styles.replyWriter}>
           <div className={styles.sellerProfile}>
-            <img
-              src={reply.writer.image}
-              alt="댓글 작성자 프로필 이미지"
-              width="32"
-              height="32"
-            />
+            <img src={reply.writer.image} alt="" width="32" height="32" />
           </div>
           <div className={styles.replayWriterInfo}>
             <div className={styles.replyNickname}>{reply.writer.nickname}</div>
