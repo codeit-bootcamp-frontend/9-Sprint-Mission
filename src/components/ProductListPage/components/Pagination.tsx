@@ -1,6 +1,16 @@
 import "./Pagination.css";
 
-const Paginations = ({ currentPage, totalPages, onPageChange }) => {
+interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void; // 페이지 변경 핸들러의 타입 정의
+}
+
+const Paginations: React.FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}) => {
   const btnRange = 5; // 표시할 페이지 버튼 개수
   const currentSet = Math.ceil(currentPage / btnRange);
   const startPage = (currentSet - 1) * btnRange + 1;
