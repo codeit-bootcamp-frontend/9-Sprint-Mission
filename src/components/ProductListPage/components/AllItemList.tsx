@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, ChangeEvent } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../../../Api";
@@ -16,23 +16,24 @@ const getPageSize = () => {
     return 10;
   }
 };
-function AllItemList() {
-  const [itemList, setItemList] = useState([]);
-  const [page, setPage] = useState(1); // 현재 페이지
-  const [pageSize, setPageSize] = useState(getPageSize());
-  const [totalPages, setTotalPages] = useState(0);
-  const [order, setOrder] = useState("recent");
 
-  const handleSort = (e) => {
-    const userSelect = e.target.value;
-    if (userSelect === "recent") {
-      setOrder("recent");
-    } else {
-      setOrder("favorite");
-    }
+interface Item {
+  id: number;
+}
+
+function AllItemList() {
+  const [itemList, setItemList] = useState<Item[]>([]);
+  const [page, setPage] = useState<number>(1); // 현재 페이지
+  const [pageSize, setPageSize] = useState<number>(getPageSize());
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [order, setOrder] = useState<"recent" | "favorite">("recent");
+
+  const handleSort = (e: ChangeEvent<HTMLSelectElement>) => {
+    const userSelect = e.target.value as "recent" | "favorite";
+    setOrder(userSelect);
   };
 
-  const onPageChange = (pageNumber) => {
+  const onPageChange = (pageNumber: number) => {
     setPage(pageNumber);
   };
 
@@ -43,6 +44,7 @@ function AllItemList() {
       setTotalPages(Math.ceil(totalCount / pageSize));
     }
     fetchProducts();
+
     const handleResize = () => {
       setPageSize(getPageSize());
     };
@@ -75,7 +77,7 @@ function AllItemList() {
               </div>
             </form>
           </div>
-          <button className="btn-prd" type="submit">
+          <button className="btn-prd" type="button">
             <Link to="/additem">상품 등록하기</Link>
           </button>
           <div className="item-select">
