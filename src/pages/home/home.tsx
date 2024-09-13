@@ -11,14 +11,14 @@ const Main = styled.main`
   margin-top: var(--header-height);
 `;
 
-const Banner = styled.section<{ backgroundImage: string }>`
+const Banner = styled.section<{ $backgroundImage: string }>`
   text-align: center;
   height: 540px;
   background-color: #cfe5ff;
   background-repeat: no-repeat;
   background-position: 80% bottom;
   background-size: 448px 204px;
-  background-image: ${(props) => `url(${props.backgroundImage})`};
+  background-image: ${(props) => `url(${props.$backgroundImage})`};
 
   h1 {
     font-weight: 700;
@@ -76,7 +76,7 @@ const FeaturesWrapper = styled.section`
 
 // Feature 컴포넌트에서 data-align prop을 정의합니다.
 interface FeatureProps {
-  dataAlign: "left" | "right"; // dataAlign prop의 타입을 정의
+  $dataAlign: "left" | "right"; // dataAlign prop의 타입을 정의
 }
 
 const Feature = styled.div<FeatureProps>`
@@ -98,7 +98,7 @@ const Feature = styled.div<FeatureProps>`
     gap: 5%;
     margin-bottom: 138px;
     flex-direction: ${(props) =>
-      props.dataAlign === "right"
+      props.$dataAlign === "right"
         ? "row-reverse"
         : "row"}; // flex-direction도 props.dataAlign을 사용합니다.
   }
@@ -196,7 +196,7 @@ const BottomBanner = styled(Banner)`
 function HomePage() {
   return (
     <Main>
-      <Banner id="topBanner" backgroundImage={TopBannerImage}>
+      <Banner id="topBanner" $backgroundImage={TopBannerImage}>
         <div className="wrapper">
           <h1 id="bannerTitle">
             일상의 모든 물건을
@@ -209,7 +209,7 @@ function HomePage() {
         </div>
       </Banner>
       <FeaturesWrapper id="features" className="wrapper">
-        <Feature dataAlign="left">
+        <Feature $dataAlign="left">
           <img src={HotItem} alt="인기상품" />
           <FeatureContent>
             <div className="feature-tag">Hot item</div>
@@ -219,7 +219,7 @@ function HomePage() {
             </p>
           </FeatureContent>
         </Feature>
-        <Feature dataAlign="right">
+        <Feature $dataAlign="right">
           <img src={SearchItem} alt="검색 기능" />
           <FeatureContent>
             <div className="feature-tag">Search</div>
@@ -229,7 +229,7 @@ function HomePage() {
             </p>
           </FeatureContent>
         </Feature>
-        <Feature dataAlign="left">
+        <Feature $dataAlign="left">
           <img src={RegisterItem} alt="판매 상품 등록" />
           <FeatureContent>
             <div className="feature-tag">Register</div>
@@ -240,7 +240,7 @@ function HomePage() {
           </FeatureContent>
         </Feature>
       </FeaturesWrapper>
-      <BottomBanner backgroundImage={BottomBannerImage}>
+      <BottomBanner $backgroundImage={BottomBannerImage}>
         <div className="wrapper">
           <div className="bottom-title">
             믿을 수 있는

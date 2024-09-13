@@ -1,6 +1,9 @@
+// Signup.tsx
 import { useState, ChangeEvent, FocusEvent, useEffect } from "react";
-import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { useAtom } from "jotai";
+import { isLoggedInAtom, userImageAtom } from "../../../shared/store/authAtoms";
+import styled from "styled-components";
 import { ReactComponent as LogoPanda } from "../../../shared/assets/images/logo/logo_panda.svg";
 import InputItem from "../../../shared/ui/InputItem";
 import SocialLogin from "./SocialLogin";
@@ -86,12 +89,6 @@ const SubmitButton = styled.button`
   }
 `;
 
-const ErrorText = styled.div`
-  color: var(--red);
-  font-size: 12px;
-  margin-top: -16px;
-`;
-
 const SocialLoginContainer = styled.div`
   margin-top: 24px;
   text-align: center;
@@ -123,6 +120,8 @@ export const Signup: React.FC = () => {
     passwordConfirmation: "",
   });
   const [errors, setErrors] = useState<ErrorState>({});
+  const [isLoggedIn, setIsLoggedIn] = useAtom(isLoggedInAtom); // Jotai atom
+  const [userImage, setUserImage] = useAtom(userImageAtom); // Jotai atom
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   const debouncedPassword = useDebounce(formState.password, 500);
@@ -151,6 +150,12 @@ export const Signup: React.FC = () => {
       }));
     }
   }, [debouncedPassword, debouncedPasswordConfirmation, formState.password]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -200,8 +205,17 @@ export const Signup: React.FC = () => {
       });
 
       if (result) {
-        // 회원가입 성공 시 홈으로 리다이렉트
+        // 회원가입 성공 시 전역 상태 업데이트
+        sessionStorage.setItem("userId", result.user.id);
+
+        setIsLoggedIn(true); // Jotai 상태 업데이트
+        if (result.user.image) {
+          sessionStorage.setItem("userImage", result.user.image);
+        }
+        // 홈으로 이동
         navigate("/");
+        // 세션 스토리지와 header 컴포넌트 랜더링 시간 차이 때문이 어쩔 수 없이 사용
+        window.location.reload();
       }
     }
   };

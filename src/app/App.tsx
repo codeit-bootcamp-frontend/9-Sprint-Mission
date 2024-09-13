@@ -1,3 +1,6 @@
+/* App.tsx */
+import { useAtom } from "jotai";
+import { isLoggedInAtom, userImageAtom } from "../shared/store/authAtoms";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import ItemsPage from "../pages/market/ItemsPage";
 import ItemDetailPage from "../pages/market/ItemDetailPage";
@@ -9,17 +12,22 @@ import HomePage from "../pages/home/home";
 import Header from "../pages/layouts/header";
 import Footer from "../pages/layouts/footer";
 
-function Layout({ children }: { children: React.ReactNode }) {
-  const location = useLocation(); // 현재 경로를 가져옴
+// Props 타입 정의
+interface LayoutProps {
+  children: React.ReactNode;
+}
 
-  // HomePage 일 때만 Footer를 렌더링
+function Layout({ children }: LayoutProps) {
+  const location = useLocation();
   const isHomePage = location.pathname === "/";
+  const [isLoggedIn] = useAtom(isLoggedInAtom);
+  const [userImage] = useAtom(userImageAtom);
 
   return (
     <>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} userImage={userImage} />
       <div className="header-area">{children}</div>
-      {isHomePage && <Footer />} {/* HomePage일 때만 Footer 렌더링 */}
+      {isHomePage && <Footer />}
     </>
   );
 }

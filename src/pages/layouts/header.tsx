@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as Logo } from "../../shared/assets/images/logo/logo.svg";
-import Avatar from "../../shared/assets/images/login/default_avatar.png";
+import { useEffect, useState } from "react";
 
 // Styled Components
 const GlobalHeader = styled.header`
@@ -99,7 +98,9 @@ const HeaderRight = styled.div`
   img {
     width: 40px;
     height: 40px;
+    border-radius: 50%;
     margin-right: 20px;
+    cursor: pointer;
   }
 `;
 
@@ -110,9 +111,9 @@ const StyledButtonLink = styled(Link)`
   font-size: 16px;
   font-weight: bold;
   line-height: 26px;
-  color: white; /* 텍스트 색상을 흰색으로 설정 */
-  background-color: var(--blue-100); /* 배경색을 var(--blue-100)로 설정 */
-  padding: 12px 23px; /* 버튼처럼 보이도록 패딩 추가 */
+  color: white;
+  background-color: var(--blue-100);
+  padding: 12px 23px;
   border-radius: 8px;
   text-decoration: none;
   width: 128px;
@@ -120,14 +121,46 @@ const StyledButtonLink = styled(Link)`
   cursor: pointer;
 
   &:hover {
-    background-color: var(--blue-200); /* hover 시 배경색 변경 */
+    background-color: var(--blue-200);
+  }
+`;
+
+const DropdownMenu = styled.div`
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background-color: white;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  cursor: pointer;
+
+  a {
+    display: block;
+    color: var(--gray-600);
+    font-weight: bold;
+    padding: 10px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: var(--gray-100);
+    }
   }
 `;
 
 const getMobileSize = () => window.innerWidth < 768;
 
-function Header() {
+interface HeaderProps {
+  isLoggedIn: boolean;
+  userImage: string | null;
+}
+
+const Header: React.FC<HeaderProps> = ({ isLoggedIn, userImage }) => {
   const [isMobileSize, setIsMobileSize] = useState(getMobileSize);
+  const [dropdownVisible, setDropdownVisible] = useState(false); // 드롭다운 메뉴 상태
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     const handleResize = () => {
@@ -141,6 +174,13 @@ function Header() {
     };
   }, []);
 
+  const handleLogout = () => {
+    // 세션 스토리지 초기화
+    sessionStorage.clear();
+    // 세션 스토리지와 header 컴포넌트 랜더링 시간 차이 때문이 어쩔 수 없이 사용
+    window.location.reload();
+  };
+
   return (
     <GlobalHeader>
       <HeaderLeft>
@@ -149,35 +189,52 @@ function Header() {
           <LogoTitle>판다마켓</LogoTitle>
         </HeaderLogo>
 
-        <nav>
-          <NavList>
-            <NavItem>
-              <NavLink
-                to="/community"
-                className={({ isActive }) => (isActive ? "active" : "")}
-              >
-                자유게시판
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                to="/items"
-                className={({ isActive }) =>
-                  isActive || location.pathname === "/additem" ? "active" : ""
-                }
-              >
-                중고마켓
-              </NavLink>
-            </NavItem>
-          </NavList>
-        </nav>
+        {isLoggedIn && (
+          <nav>
+            <NavList>
+              <NavItem>
+                <NavLink
+                  to="/community"
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                >
+                  자유게시판
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                  to="/items"
+                  className={({ isActive }) =>
+                    isActive || location.pathname === "/additem" ? "active" : ""
+                  }
+                >
+                  중고마켓
+                </NavLink>
+              </NavItem>
+            </NavList>
+          </nav>
+        )}
       </HeaderLeft>
 
       <HeaderRight>
-        <StyledButtonLink to="/login">로그인</StyledButtonLink>
+        {isLoggedIn && userImage ? (
+          <>
+            <img
+              src={userImage}
+              alt="사용자 아바타"
+              onClick={() => setDropdownVisible(!dropdownVisible)} // 아바타 클릭 시 드롭다운 토글
+            />
+            {dropdownVisible && (
+              <DropdownMenu>
+                <a onClick={handleLogout}>로그아웃</a>
+              </DropdownMenu>
+            )}
+          </>
+        ) : (
+          <StyledButtonLink to="/login">로그인</StyledButtonLink>
+        )}
       </HeaderRight>
     </GlobalHeader>
   );
-}
+};
 
 export default Header;

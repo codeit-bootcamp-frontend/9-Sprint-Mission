@@ -12,7 +12,7 @@ const ApiInstance = Axios.create({
 
 // accessToken을 Authorization 헤더에 자동으로 포함하는 인터셉터
 ApiInstance.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = sessionStorage.getItem("accessToken");
   if (accessToken) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
@@ -28,7 +28,7 @@ ApiInstance.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const refreshToken = localStorage.getItem("refreshToken");
+      const refreshToken = sessionStorage.getItem("refreshToken");
       if (refreshToken) {
         try {
           // refreshToken을 사용해 새로운 accessToken 요청
@@ -37,7 +37,7 @@ ApiInstance.interceptors.response.use(
           });
 
           const newAccessToken = response.data.accessToken;
-          localStorage.setItem("accessToken", newAccessToken);
+          sessionStorage.setItem("accessToken", newAccessToken);
 
           // 새로운 accessToken으로 요청 다시 시도
           ApiInstance.defaults.headers.common[
