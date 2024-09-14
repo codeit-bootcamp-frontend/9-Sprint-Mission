@@ -11,6 +11,11 @@ export const authSignIn = async (
   try {
     const response = await ApiInstance.post("/auth/signIn", formData);
 
+    // 400 잘못된 요청의 경우
+    if (response.status === 400) {
+      throw new Error("Invalid request");
+    }
+
     // accessToken과 refreshToken을 sessionStorage에 저장
     sessionStorage.setItem("accessToken", response.data.accessToken);
     sessionStorage.setItem("refreshToken", response.data.refreshToken);
@@ -30,8 +35,13 @@ export const authSignIn = async (
 
     return response.data;
   } catch (error: any) {
-    console.error("Error logging in:", error.message);
-    alert(error.message);
+    if (error.response && error.response.status === 400) {
+      console.error("400 Bad Request:", error.response.data);
+      alert("이메일 또는 비밀번호가 일치하지 않습니다.");
+    } else {
+      console.error("Error:", error.message);
+      alert(error.message);
+    }
     return null;
   }
 };
@@ -42,6 +52,11 @@ export const authSignUp = async (
   try {
     const response = await ApiInstance.post("/auth/signUp", formData);
 
+    // 400 잘못된 요청의 경우
+    if (response.status === 400) {
+      throw new Error("Invalid request");
+    }
+
     // accessToken과 refreshToken을 sessionStorage에 저장
     sessionStorage.setItem("accessToken", response.data.accessToken);
     sessionStorage.setItem("refreshToken", response.data.refreshToken);
@@ -61,8 +76,13 @@ export const authSignUp = async (
 
     return response.data;
   } catch (error: any) {
-    console.error("Error signing up:", error.message);
-    alert(error.message);
+    if (error.response && error.response.status === 400) {
+      console.error("400 Bad Request:", error.response.data);
+      alert("이메일 또는 닉네임이 이미 사용 중입니다.");
+    } else {
+      console.error("Error:", error.message);
+      alert(error.message);
+    }
     return null;
   }
 };
