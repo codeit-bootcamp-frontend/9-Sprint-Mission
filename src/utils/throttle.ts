@@ -1,7 +1,7 @@
-const throttle = (callback, delay) => {
-  let timer;
+const throttle = (callback: (...args: any[]) => void, delay: number) => {
+  let timer : NodeJS.Timeout |number|null;
 
-  return (...args) => {
+  return (...args: []) => {
     if (timer) return;
     timer = setTimeout(() => {
       callback(...args);

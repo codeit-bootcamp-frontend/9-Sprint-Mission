@@ -2,10 +2,10 @@ import "./App.css";
 
 import { Header } from "./Header";
 import { BestItems } from "./BestItems";
-import { AllItems } from "./AllItems.jsx";
+import { AllItems } from "./AllItems.js";
 import { useCallback, useEffect, useState } from "react";
-import throttle from "../throttle";
-import { PagenationBtn } from './Pagenation.jsx';
+import throttle from "../utils/throttle";
+import { PagenationBtn } from './Pagenation.js';
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth); 
