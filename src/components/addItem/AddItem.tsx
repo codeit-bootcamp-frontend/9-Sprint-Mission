@@ -1,37 +1,40 @@
-import { useState } from "react";
-import "./AddItem.css";
-import AddItemInput from "./AddItemInput";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
+import AddItemForm from "./AddItemForm";
+import { useNavigate } from "react-router-dom";
+import "./AddItem.css";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { AdditemConstants } from "./AdditemConstants";
+import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
 
-interface ITag {
-  id?: string;
-  name: string;
-}
-
-export interface IValues {
-  images: File | null;
-  name: string;
-  description: string;
-  price: number;
-  tags: ITag[];
-}
+type FormValues = z.infer<typeof AdditemConstants>;
 
 const AddItem = () => {
   const navigate = useNavigate();
 
   const [src, setSrc] = useState<string | ArrayBuffer | null>(null);
-  const [error, setError] = useState("");
-  const [values, setValues] = useState<IValues>({
-    images: null,
-    name: "",
-    description: "",
-    price: 0,
-    tags: [],
+  const [imgError, setImgError] = useState("");
+
+  const { setValue, watch } = useForm<FormValues>();
+
+  const formValues = watch();
+
+  const form = useForm<z.infer<typeof AdditemConstants>>({
+    resolver: zodResolver(AdditemConstants),
+    mode: "all",
+    defaultValues: {
+      images: undefined,
+      name: "",
+      description: "",
+      price: 0,
+      tags: []
+    }
   });
 
-  // 등록버튼 활성화 여부
-  const isReady = values.name && values.description && values.price && values.tags.length !== 0;
+  const isLoading = form.formState.isSubmitting;
+  const error = form.formState.errors;
   
   // 이미지 파일 변경함수
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,16 +43,15 @@ const AddItem = () => {
     if (files && files.length === 1) {
       const file = files[0];
 
-      if (values.images) {
-        setError("*이미지 등록은 최대 1개까지 가능합니다.");
+      const validateImage = AdditemConstants.shape.images.safeParse(file);
+
+      if (!validateImage.success) {
+        setImgError("*이미지 등록은 최대 1개까지 가능합니다.");
         return;
       }
 
-      setError("");
-      setValues((prevValues) => ({
-        ...prevValues,
-        images: file,
-      }));
+      setImgError("");
+      setValue("images", file);
 
       // value를 초기화해야 취소 후 다시 같은 이미지를 업로드해도 미리보기가 잘 뜬다. 
       e.target.value = "";
@@ -67,46 +69,42 @@ const AddItem = () => {
   // 업로드 이미지 삭제 함수
   const onDeleteImg = () => {
     setSrc(null);
-    setValues((prevValues) => ({
-      ...prevValues,
-      images: null,
-    }));
+    setValue("images", undefined);
   };
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = async (values: z.infer<typeof AdditemConstants>) => {
     try {
       const response = await axios.post("https://panda-market-api.vercel.app/products/", {
-        values
+        images: values.images,
+        name: values.name,
+        description: values.description,
+        price: values.price,
+        tags: values.tags
       });
 
       if (response.status === 200) {
         const data = response.data;
+        form.reset();
         navigate(`/items/${data.id}`);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.error("addItem onSubmit에서 오류 발생.", error);
+        console.error("addItem onSubmit에서 API 오류 발생.", error);
+        toast.error(error.response?.data.massege);
+      } else {
+        console.error("addItem onSubmit에서 알 수 없는 오류 발생.", error);
+        toast.error("오류가 발생하여 등록되지 않았습니다. 잠시 후 다시 시도해주세요.");
       }
-    } finally {
-      setError("");
-      setValues({
-        images: null,
-        name: "",
-        description: "",
-        price: 0,
-        tags: [],
-      });
-    }
+    } 
   };
 
   return (
     <div className="container">
-      <form className="addItemForm" onSubmit={onSubmit}>
+      <form className="addItemForm" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="addItemHeader">
           <h1 className="headerTitle">상품 등록하기</h1>
-          <button type="submit" className="headerBtn" disabled={!isReady}>
-            등록
+          <button type="submit" className="headerBtn" disabled={!form.formState.isValid}>
+            {isLoading ? "등록중" : "등록"}
           </button>
         </div>
         <div className="addItemImgBox">
@@ -116,8 +114,8 @@ const AddItem = () => {
               <img src="/icons/plus.png" alt="파일 올리기" />
               <span>이미지 등록</span>
             </label>
-            <input type="file" id="itemImg" onChange={onChangeFile} accept="image/*" />
-            {values.images && (
+            <input {...form.register("images")} type="file" id="itemImg" onChange={onChangeFile} accept="image/*" />
+            {formValues.images && (
               <div className="previewBox">
                 <button className="deleteBtn" onClick={onDeleteImg}>
                   <img src="/icons/delete.png" alt="삭제" />
@@ -126,9 +124,9 @@ const AddItem = () => {
               </div>
             )}
           </div>
-          {error !== "" && <p className="errorMsg">{error}</p>}
+          {imgError !== "" && <p className="errorMsg">{imgError}</p>}
         </div>
-        <AddItemInput values={values} setValues={setValues} />
+        <AddItemForm formValues={formValues} setValue={setValue} register={form.register} error={error} />
       </form>
     </div>
   );

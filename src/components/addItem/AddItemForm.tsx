@@ -1,28 +1,26 @@
 import React, { useState } from "react";
-import { IValues } from "./AddItem";
+
 import "./AddItem.css";
+import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { z } from "zod";
+import { AdditemConstants } from "./AdditemConstants";
+
+type FormValues = z.infer<typeof AdditemConstants>;
 
 interface IProps {
-  values: IValues;
-  setValues: React.Dispatch<React.SetStateAction<IValues>>;
+  formValues: FormValues;
+  setValue: UseFormSetValue<FormValues>,
+  register: UseFormRegister<FormValues>;
+  error: FieldErrors<FormValues>;
 }
 
-const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
+interface INewTag {
+  tag: string | number
+}
 
+const AddItemForm: React.FC<IProps> = ({ formValues, setValue, register, error }) => {
   const [tagInput, setTagInput] = useState("");
-
-  // 상품명, 설명, 가격 변경 및 검증함수
-  const onChangeContents = (name: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const {
-      target: { value },
-    } = e;
-
-    setValues((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
+  
   // 입력한 태그명 변경함수
   const onChangeTag = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTag = e.target.value;
@@ -34,31 +32,25 @@ const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
     if (e.key === "Enter" && tagInput.trim() !== "") {
       e.preventDefault();
 
-      const newTag = {
-        name: tagInput.trim(),
+      const newTag: INewTag = {
+        tag: tagInput.trim(),
       };
 
-      if (values.tags.some((tag) => tag.name === newTag.name)) {
+      if (formValues.tags?.some((tag) => tag.tag === newTag.tag)) {
         setTagInput("");
         return;
       }
 
-      const newValues = {
-        ...values,
-        tags: [...values.tags, newTag],
-      };
+      const newValues = [...(formValues.tags || []), newTag];
 
-      setValues(newValues);
+      setValue("tags", newValues);
       setTagInput("");
     }
   };
 
   // 추가한 태그 삭제함수
-  const onDeleteTag = (clickTag: string) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      tags: prevValues.tags.filter((tag) => tag.name !== clickTag),
-    }));
+  const onDeleteTag = (clickTag: string | number) => {
+    setValue("tags", formValues.tags?.filter((tag) => tag.tag !== clickTag));
   };
 
   return (
@@ -68,14 +60,12 @@ const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
           상품명
         </label>
         <input
+          {...register("name")}
           type="text"
-          onChange={onChangeContents("name")}
-          value={values.name}
           id="itemName"
           name="name"
           className="contents"
           placeholder="상품명을 입력해주세요."
-          required
         />
       </div>
       <div className="addItemContentsBox">
@@ -83,14 +73,12 @@ const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
           상품 소개
         </label>
         <textarea
+          {...register("description")}
           id="itemDescription"
-          onChange={onChangeContents("description")}
-          value={values.description}
           name="description"
           rows={10}
           className="itemDescription"
           placeholder="상품 소개를 입력해주세요."
-          required
         />
       </div>
       <div className="addItemContentsBox">
@@ -98,14 +86,12 @@ const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
           판매 가격
         </label>
         <input
+          {...register("price")}
           type="number"
           id="itemPrice"
-          onChange={onChangeContents("price")}
-          value={values.price.toLocaleString("ko-KR")}
           name="price"
           className="contents"
           placeholder="판매 가격을 입력해주세요."
-          required
         />
       </div>
       <div className="addItemContentsBox">
@@ -113,6 +99,7 @@ const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
           태그
         </label>
         <input
+          {...register("tags")}
           type="text"
           id="itemTag"
           onChange={onChangeTag}
@@ -123,11 +110,11 @@ const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
           placeholder="태그를 입력해주세요."
         />
         <ul className="tagList">
-          {values.tags.map((tag) => (
-            <li key={tag.name} className="tagListItem">
-              {tag.name}
-              <button className="tagDeleteBtn" onClick={() => onDeleteTag(tag.id!)}>
-                <img src="/delete.png" alt="삭제" />
+          {formValues.tags?.map((tag) => (
+            <li key={tag.tag} className="tagListItem">
+              {tag.tag}
+              <button className="tagDeleteBtn" onClick={() => onDeleteTag(tag.tag)}>
+                <img src="/icons/delete.png" alt="삭제" />
               </button>
             </li>
           ))}
@@ -137,4 +124,4 @@ const AddItemInput: React.FC<IProps> = ({ values, setValues }) => {
   );
 };
 
-export default AddItemInput;
+export default AddItemForm;
