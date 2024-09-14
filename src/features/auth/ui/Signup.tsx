@@ -210,7 +210,7 @@ export const Signup: React.FC = () => {
 
       if (result) {
         // 회원가입 성공 시 전역 상태 업데이트
-        sessionStorage.setItem("userId", result.user.id);
+        sessionStorage.setItem("userId", result.user.id.toString());
 
         if (result.user.image) {
           sessionStorage.setItem("userImage", result.user.image);

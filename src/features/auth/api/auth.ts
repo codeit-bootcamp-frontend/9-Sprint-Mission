@@ -29,9 +29,9 @@ export const authSignIn = async (
     }
 
     return response.data;
-  } catch (error) {
-    console.error("Error logging in:", error);
-    alert("로그인에 실패했습니다.");
+  } catch (error: any) {
+    console.error("Error logging in:", error.message);
+    alert(error.message);
     return null;
   }
 };
@@ -60,9 +60,9 @@ export const authSignUp = async (
     }
 
     return response.data;
-  } catch (error) {
-    console.error("Error signing up:", error);
-    alert("회원가입에 실패했습니다.");
+  } catch (error: any) {
+    console.error("Error signing up:", error.message);
+    alert(error.message);
     return null;
   }
 };
