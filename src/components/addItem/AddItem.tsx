@@ -2,19 +2,19 @@ import axios from "axios";
 import { useState } from "react";
 import AddItemForm from "./AddItemForm";
 import { useNavigate } from "react-router-dom";
-import "./AddItem.css";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { AdditemConstants } from "./AdditemConstants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import "./AddItem.css";
 
 type FormValues = z.infer<typeof AdditemConstants>;
 
 const AddItem = () => {
   const navigate = useNavigate();
 
-  const [src, setSrc] = useState<string | ArrayBuffer | null>(null);
+  const [src, setSrc] = useState<string | undefined>();
   const [imgError, setImgError] = useState("");
 
   const { setValue, watch } = useForm<FormValues>();
@@ -28,7 +28,7 @@ const AddItem = () => {
       images: undefined,
       name: "",
       description: "",
-      price: 0,
+      price: "",
       tags: []
     }
   });
@@ -59,16 +59,20 @@ const AddItem = () => {
       // 미리보기 생성
       const imageRead = new FileReader();
 
+      // 타입 지정을 위해 조건문 추가
       imageRead.onloadend = () => {
-        setSrc(imageRead.result);
+        if (imageRead.result && typeof imageRead.result === "string") {
+          setSrc(imageRead.result);
+        }
       };
+
       imageRead.readAsDataURL(file);
     } 
   };
 
   // 업로드 이미지 삭제 함수
   const onDeleteImg = () => {
-    setSrc(null);
+    setSrc("");
     setValue("images", undefined);
   };
 
@@ -120,11 +124,12 @@ const AddItem = () => {
                 <button className="deleteBtn" onClick={onDeleteImg}>
                   <img src="/icons/delete.png" alt="삭제" />
                 </button>
-                <img src={src !== null ? src as string : ""} alt="사진 미리보기" className="previewImg" />
+                <img src={src} alt="사진 미리보기" className="previewImg" />
               </div>
             )}
           </div>
           {imgError !== "" && <p className="errorMsg">{imgError}</p>}
+          {error && <span className="errorMsg">{error.images?.message}</span>}
         </div>
         <AddItemForm formValues={formValues} setValue={setValue} register={form.register} error={error} />
       </form>

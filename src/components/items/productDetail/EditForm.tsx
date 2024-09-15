@@ -1,10 +1,10 @@
-import "./EditForm.css";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useForm } from "react-hook-form";
 import { EditSchema } from "./EditConstants";
 import { zodResolver } from "@hookform/resolvers/zod";
+import "./EditForm.css";
 
 interface IProps {
   content: string;

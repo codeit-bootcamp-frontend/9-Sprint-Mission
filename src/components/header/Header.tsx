@@ -1,7 +1,7 @@
+import LogoutMenu from "./LogoutMenu";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
-import { useEffect, useState } from "react";
-import LogoutMenu from "./LogoutMenu";
 
 const Header = () => {
   const [session, setSession] = useState(false);

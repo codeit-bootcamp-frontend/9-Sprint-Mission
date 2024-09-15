@@ -67,6 +67,7 @@ const AddItemForm: React.FC<IProps> = ({ formValues, setValue, register, error }
           className="contents"
           placeholder="상품명을 입력해주세요."
         />
+        {error && <span className="errorMsg">{error.name?.message}</span>}
       </div>
       <div className="addItemContentsBox">
         <label htmlFor="itemDescription" className="contentsTitle">
@@ -80,6 +81,7 @@ const AddItemForm: React.FC<IProps> = ({ formValues, setValue, register, error }
           className="itemDescription"
           placeholder="상품 소개를 입력해주세요."
         />
+        {error && <span className="errorMsg">{error.description?.message}</span>}
       </div>
       <div className="addItemContentsBox">
         <label htmlFor="itemPrice" className="contentsTitle">
@@ -93,6 +95,7 @@ const AddItemForm: React.FC<IProps> = ({ formValues, setValue, register, error }
           className="contents"
           placeholder="판매 가격을 입력해주세요."
         />
+        {error && <span className="errorMsg">{error.price?.message}</span>}
       </div>
       <div className="addItemContentsBox">
         <label htmlFor="itemTag" className="contentsTitle">

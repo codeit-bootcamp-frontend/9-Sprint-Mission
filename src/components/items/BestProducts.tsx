@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import "./BestProducts.css";
 import { getProducts } from "../../api/api";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import "./BestProducts.css";
 
 interface IProps {
   width: number;

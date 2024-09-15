@@ -1,6 +1,6 @@
 import axios from "axios";
-import "./CommentEdit.css";
 import toast from "react-hot-toast";
+import "./CommentEdit.css";
 
 interface IProps {
   setOpenCommentId: React.Dispatch<React.SetStateAction<number | null>>;

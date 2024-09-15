@@ -1,11 +1,11 @@
 import axios from "axios";
 import AuthHeader from "./AuthHeader";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignupSchema } from "./signupConstants";
-import { useEffect, useState } from "react";
 
 const Signup = () => {
   const navigate = useNavigate();

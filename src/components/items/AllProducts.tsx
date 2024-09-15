@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getProducts } from "../../api/api";
-import Pagination from "./Pagination";
-import "./AllProducts.css";
 import axios from "axios";
+import Pagination from "./Pagination";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getProducts } from "../../api/api";
+import "./AllProducts.css";
 
 interface IProps {
   width: number;

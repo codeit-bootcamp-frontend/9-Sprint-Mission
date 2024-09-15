@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import "./ProductDetail.css";
-import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Contact from "./Contact";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import "./ProductDetail.css";
 
 interface IProduct {
   createdAt: string;
