@@ -9,7 +9,7 @@
 - react-hook-form 7.53.0
 - zod 3.23.8
 - react-hot-toast 2.4.1
-- typescript 5.6.2
+- typescript 4.9.5
 
 ### 배포 웹사이트: https://codeit-react-mck.netlify.app
 
@@ -24,6 +24,7 @@
   - react-hook-form과 zod로 검색을 제외한 form에 적용했습니다.
   - 로그인, 로그아웃기능을 구현했습니다. (localstorage에 accessToken을 저장하는 정도로만 했습니다. refreshToken도 적용해보겠습니다.)
   - addItem에도 react-hook-form과 zod를 적용하고 태그 옆의 X 버튼 경로를 수정했습니다. (09.14)
+  - error boundary를 적용하였습니다. (09-15)
 
 ## 스크린샷
 
