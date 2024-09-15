@@ -1,4 +1,5 @@
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import Root from "./routes/Root";
 import MainPage from "./routes/mainPage";
 import Items from "./components/items/Items";
@@ -9,17 +10,14 @@ import SigninPage from "./routes/SigninPage";
 import SignupPage from "./routes/SignupPage";
 import PrivacyPage from "./routes/PrivacyPage";
 import FaqPage from "./routes/FaqPage";
-import { Toaster } from "react-hot-toast";
+import Error from "./components/Error";
 
 function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Navigate to="/" replace />,
-    },
-    {
-      path: "/",
       element: <Root />,
+      errorElement: <Error />,
       children: [
         { index: true, element: <MainPage /> },
         { path: "/items", element: <Items /> },
