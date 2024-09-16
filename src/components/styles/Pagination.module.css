@@ -1,0 +1,30 @@
+.pagenation {
+  display: flex;
+  gap:4px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 44px;
+}
+
+.pagenation > button{
+  border-radius: 50% ;
+  border: 1px solid #E5E7EB;
+  background-color: #fff;
+  color: #6B7280;
+  size: 1.6rem;
+  line-height: 2.6rem;
+  width: 40px;
+  height: 40px;
+  font-weight: 600;
+}
+
+.pagenation >button.active{
+  background-color: #2F80ED;
+  border-color:  #2F80ED;
+  color:#fff;
+}
+
+.pagenation button:disabled{
+  cursor: not-allowed;
+  color: #ececec ;
+}

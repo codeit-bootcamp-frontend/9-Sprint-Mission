@@ -4,7 +4,7 @@ import heartIcon from "../img/ic_heart.png";
 
 function PandaItem({ item }) {
   return (
-    <a href="/" className="panda-item">
+    <div className="panda-item">
       <div className="img-box">
         <img
           className="product-img"
@@ -22,12 +22,13 @@ function PandaItem({ item }) {
           <p className="favorite-count">{item.favoriteCount}</p>
         </div>
       </div>
-    </a>
+    </div>
   );
 }
 
 function PandaItemList({ items }) {
   return (
+    <>
     <ul>
       {items.map((item) => {
         return (
@@ -39,6 +40,7 @@ function PandaItemList({ items }) {
         );
       })}
     </ul>
+    </>
   );
 }
 

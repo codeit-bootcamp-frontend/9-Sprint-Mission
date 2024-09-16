@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+//드롭다운 관리하는 훅
 const useDetectClose = (elem, initialState) => {
   const [isOpen, setIsOpen] = useState(initialState);
 
@@ -18,6 +19,7 @@ const useDetectClose = (elem, initialState) => {
       };
     };
   }, [isOpen, elem]);
+  
   return [isOpen, setIsOpen];
 };
 

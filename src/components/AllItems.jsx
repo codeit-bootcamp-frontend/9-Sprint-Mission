@@ -1,35 +1,46 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getPandaItems } from "../api";
 import { PandaItemList } from "./PandaItemList";
 import { NavLink } from "react-router-dom";
 import searchIcon from "../img/ic_search.png";
 import Container from "./Container";
+import { usePageSizeByWidth } from "../hooks/usePageSizeByWidth";
 
-export function AllItems({ width }) {
+export function AllItems({ width, page, getTotalPage }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [allItems, setAllItems] = useState([]);
 
-  const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("recent");
+  const [search, setSearch] = useState("");
 
-  const loadAllItems = async () => {
+  const pageSizeObj = {
+    mobile: 4,
+    pad: 6,
+    pc: 10,
+  };
+
+  const pageSize = usePageSizeByWidth(width, pageSizeObj);
+
+  const loadAllItems = useCallback(async () => {
+    if (loading) return;
     setLoading(true);
-
     try {
       const response = await getPandaItems({
-        page: 1,
-        pageSize: 10,
+        page,
+        pageSize,
         orderBy,
         search,
       });
       setAllItems(response.list || []);
+      const totalPage = Math.ceil(response.totalCount / pageSize);
+      getTotalPage(totalPage);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
+  }, [page, pageSize, search, orderBy]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -42,8 +53,9 @@ export function AllItems({ width }) {
 
   useEffect(() => {
     loadAllItems();
-  }, [search, orderBy]);
+  }, [page, pageSize, orderBy, search]);
 
+  //로딩 처리 & 에러 처리
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -51,15 +63,6 @@ export function AllItems({ width }) {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  const getVisibleItemsCount = () => {
-    if (width <= 780) return 4;
-    if (width <= 991) return 6;
-    return 10;
-  };
-
-  const visibleItemsCount = getVisibleItemsCount();
-  const visibleItems = allItems.slice(0, visibleItemsCount);
 
   return (
     <section id="section-all">
@@ -87,8 +90,10 @@ export function AllItems({ width }) {
       </div>
       {/* 아이템 보여주기 */}
       <div className="all-items">
-        <PandaItemList items={visibleItems} />;
+        <PandaItemList items={allItems} />
       </div>
     </section>
   );
 }
+
+// 검색 후 키워드 리셋됨
