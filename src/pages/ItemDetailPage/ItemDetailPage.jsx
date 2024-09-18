@@ -5,17 +5,25 @@ import { getProductDetail, getProductMessages } from "../../api/itemApi";
 import { InfoSection } from "./components/InfoSection";
 import { Divider } from "./components/Divider";
 import { CommentsSection } from "./components/CommentsSection";
-import { BackToProductListButton } from "../../components/UI/BackToProductListButton";
+import { BackToProductListButton } from "./components/BackToProductListButton";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 24px;
   max-width: 1200px;
   width: 100%;
-  height: 496px;
   margin: 0 auto;
+  padding: 0 20px;
   gap: 24px;
+
+  @media (max-width: 745px) {
+    width: 696px;
+    padding: 0;
+  }
+
+  @media (max-width: 377px) {
+    width: 344px;
+  }
 `;
 
 function ItemDetailPage() {
@@ -32,6 +40,7 @@ function ItemDetailPage() {
         console.error("Failed to fetch productInfo:", e);
       }
     };
+
     const fetchProductMessage = async () => {
       try {
         const response = await getProductMessages(productId);
@@ -41,6 +50,7 @@ function ItemDetailPage() {
         console.error("Failed to fetch productMessages:", e);
       }
     };
+
     fetchProduct();
     // fetchProductMessage();
   }, [productId]);
