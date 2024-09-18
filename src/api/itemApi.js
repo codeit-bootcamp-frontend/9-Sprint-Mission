@@ -26,7 +26,21 @@ export async function getProductDetail(productId) {
     const body = await response.json();
     return body;
   } catch (error) {
-    console.error("Failed to fetch products:", error);
+    console.error("Failed to fetch product detail info:", error);
+    throw error;
+  }
+}
+
+export async function getProductMessages(productId) {
+  try {
+    const response = await fetch(`${BASE_URL}/${productId}/comments`);
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    const body = await response.json();
+    return body;
+  } catch (error) {
+    console.error("Failed to fetch messages:", error);
     throw error;
   }
 }
