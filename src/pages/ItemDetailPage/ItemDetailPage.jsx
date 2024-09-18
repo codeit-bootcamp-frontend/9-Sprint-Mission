@@ -1,9 +1,22 @@
+import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductDetail, getProductMessages } from "../../api/itemApi";
 import { InfoSection } from "./components/InfoSection";
 import { Divider } from "./components/Divider";
 import { CommentsSection } from "./components/CommentsSection";
+import { BackToProductListButton } from "../../components/UI/BackToProductListButton";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+  max-width: 1200px;
+  width: 100%;
+  height: 496px;
+  margin: 0 auto;
+  gap: 24px;
+`;
 
 function ItemDetailPage() {
   const { productId } = useParams();
@@ -29,7 +42,7 @@ function ItemDetailPage() {
       }
     };
     fetchProduct();
-    fetchProductMessage();
+    // fetchProductMessage();
   }, [productId]);
 
   if (!product) {
@@ -37,11 +50,12 @@ function ItemDetailPage() {
   }
 
   return (
-    <div>
+    <Container>
       <InfoSection info={product} />
       <Divider />
       <CommentsSection info={productMessages} />
-    </div>
+      <BackToProductListButton />
+    </Container>
   );
 }
 

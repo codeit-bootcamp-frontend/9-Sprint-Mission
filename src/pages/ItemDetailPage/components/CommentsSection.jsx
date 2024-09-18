@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-const Container = styled.div`
-  max-width: 1200px;
-  width: 100%;
-  margin: 40px auto;
-`;
-
 const ReplyInput = styled.form`
   display: flex;
   flex-direction: column;
@@ -83,13 +77,13 @@ export function CommentsSection({ info }) {
   };
 
   return (
-    <Container>
+    <>
       <ReplyInput onSubmit={handleSubmit}>
         <label style={{ color: "#111827" }}>문의하기</label>
         <ReplyInputTextArea placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></ReplyInputTextArea>
         <SubmitReplyButton type="submit">등록</SubmitReplyButton>
       </ReplyInput>
-      <ReplyList>
+      {/* <ReplyList>
         {info.list.map((reply) => (
           <ReplyBox>
             <ReplyContent>
@@ -118,7 +112,7 @@ export function CommentsSection({ info }) {
             </Author>
           </ReplyBox>
         ))}
-      </ReplyList>
-    </Container>
+      </ReplyList> */}
+    </>
   );
 }
