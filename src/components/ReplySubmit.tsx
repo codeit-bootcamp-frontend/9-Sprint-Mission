@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styles from "./styles/ItemEachReply.module.css";
 
-export function ReplySubmit() {
+//useParam으로 가져온 id
+export function ReplySubmit({ id }: { id: string | undefined }) {
   const [content, setContent] = useState("");
-
-  const handleSubmitReply = () => {
+  /*
+  const handleSubmitReply = (id) => {
     // 댓글 등록 api
     //if 댓글 등록 성공 시 인풋 초기화
     setContent("");
   };
-
-  const handleChangeReplyContent = (e) => {
+*/
+  const handleChangeReplyContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     e.preventDefault();
     setContent(e.target.value);
   };
@@ -21,7 +22,7 @@ export function ReplySubmit() {
         <form
           action="#"
           className={styles.replyForm}
-          onSubmit={handleSubmitReply}
+          // onSubmit={handleSubmitReply}
         >
           <label htmlFor="reply" className={styles.replyLabel}>
             문의하기

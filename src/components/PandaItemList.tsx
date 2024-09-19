@@ -2,7 +2,15 @@
 import { NavLink } from "react-router-dom";
 import heartIcon from "../img/ic_heart.png";
 
-function PandaItem({ item }) {
+interface Item {
+  id: number;
+  name: string;
+  images: string;
+  price: number;
+  favoriteCount: number;
+}
+
+function PandaItem({ item }: { item: Item }) {
   return (
     <div className="panda-item">
       <div className="img-box">
@@ -26,20 +34,20 @@ function PandaItem({ item }) {
   );
 }
 
-function PandaItemList({ items }) {
+function PandaItemList({ items }: { items: Item[] }) {
   return (
     <>
-    <ul>
-      {items.map((item) => {
-        return (
-          <NavLink to={`/items/${item.id}`} key={item.id}>
-            <li key={item.id}>
-              <PandaItem item={item} />
-            </li>
-          </NavLink>
-        );
-      })}
-    </ul>
+      <ul>
+        {items.map((item) => {
+          return (
+            <NavLink to={`/items/${item.id}`} key={item.id}>
+              <li key={item.id}>
+                <PandaItem item={item} />
+              </li>
+            </NavLink>
+          );
+        })}
+      </ul>
     </>
   );
 }

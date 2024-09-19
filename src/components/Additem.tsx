@@ -1,14 +1,21 @@
-import { ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  MouseEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Header } from "./Header";
 import styles from "./styles/Additem.module.css";
 import { Tag } from "./Tag";
 
 export function Additem() {
   const [preview, setPreview] = useState<string | null>(null);
-  const [file, setFile] = useState< File| null>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  const fileInputRef = useRef<HTMLInputElement | null>(null); // ref의 초기값이 null 
+  const fileInputRef = useRef<HTMLInputElement | null>(null); // ref의 초기값이 null
 
   const [formValues, setFormValues] = useState<{
     productImg: string;
@@ -24,7 +31,9 @@ export function Additem() {
     productTag: "",
   });
 
-  const handleChange = (e : ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormValues((prevValues) => ({
       ...prevValues,
@@ -32,7 +41,7 @@ export function Additem() {
     }));
   };
 
-  const onChangeNum = (e : ChangeEvent<HTMLInputElement>) => {
+  const onChangeNum = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     let str = value.replaceAll(",", "");
     setFormValues((prevValues) => ({
@@ -41,7 +50,7 @@ export function Additem() {
     }));
   };
 
-  const addComma = (num : string | number):string => {
+  const addComma = (num: string | number): string => {
     let returnString = num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return returnString;
   };
@@ -52,8 +61,8 @@ export function Additem() {
 
   //file 인풋 관련
   //1. file 이미지 미리보기
-  const handleFileChange = (e : ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; // files = FileList객체를 반환. 선택한 파일이 없다면 null 또는 undefined이므로 [0]에 접근 불가 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; // files = FileList객체를 반환. 선택한 파일이 없다면 null 또는 undefined이므로 [0]에 접근 불가
     if (file) {
       setFile(file);
       setFormValues((prevValues) => ({
@@ -80,14 +89,13 @@ export function Additem() {
       productImg: "",
     }));
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // 입력 필드의 value값은 null이 될 수 없다 
+      fileInputRef.current.value = ""; // 입력 필드의 value값은 null이 될 수 없다
     }
   };
 
   // 태그 관련 함수
-
   // 1. 엔터로 태그 추가하기
-  const handleTagEnter = (e : KeyboardEvent<HTMLInputElement>) => {
+  const handleTagEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
       const tagValue = formValues.productTag.trim();
@@ -102,16 +110,14 @@ export function Additem() {
   };
 
   // 2. 태그 삭제
-  const handleTagDeleteBtn = (tagToDelete : string) => {
+  const handleTagDeleteBtn = (tagToDelete: string) => {
     setTags((prevTags) => prevTags.filter((index) => index !== tagToDelete));
   };
 
   useEffect(() => {
     if (!file) return;
-
     const nextPreview = URL.createObjectURL(file);
     setPreview(nextPreview);
-
     return () => URL.revokeObjectURL(nextPreview);
   }, [file]);
 
@@ -121,9 +127,7 @@ export function Additem() {
       <main>
         <form className={styles.addForm} action="#">
           <h1 className={styles.pageName}>상품 등록하기</h1>
-
           <div className={styles.labelName}>상품 이미지</div>
-
           <div className={styles.fileInputWrapper}>
             <label className={styles.labelName} htmlFor="addImg">
               {/* 파일 인풋 대체 div */}
@@ -132,7 +136,6 @@ export function Additem() {
                 onClick={handleFileClick}
               ></div>
             </label>
-
             {/* 이미지 파일 미리보기 */}
             <div className={styles.filePreview}>
               {preview && (
@@ -213,7 +216,7 @@ export function Additem() {
               onKeyDown={handleTagEnter}
             ></input>
             <div className={styles.tagWrapper}>
-              {tags.map((tag:string, index:number) => (
+              {tags.map((tag: string, index: number) => (
                 <div className={styles.tagBox}>
                   <Tag value={tag} key={index} />
                   <button

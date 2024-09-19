@@ -6,19 +6,33 @@ import { Dropdown } from "./Dropdown";
 import { formatDate } from "../utils/formDate";
 import { getHoursDiff } from "../utils/diffDate";
 
-export function ReplyList({ id, limit, cursor }) {
-  const [replies, setReplies] = useState([]);
+interface Props {
+  id: string;
+  limit: number;
+  cursor: number;
+}
+interface Writer {
+  nickname: string;
+  image: string;
+}
+interface ReplyType {
+  content: string;
+  writer: Writer;
+  createdAt: string;
+}
+export function ReplyList({ id, limit, cursor }: Props) {
+  const [replies, setReplies] = useState<ReplyType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const loadReplyList = async () => {
     setLoading(true);
     try {
-      const replyObj = await getReplyById({ id, limit });
+      const replyObj = await getReplyById({ id, limit, cursor });
       const replyList = replyObj.list;
       setReplies(replyList);
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) setError(err);
     } finally {
       setLoading(false);
       console.log(replies);
@@ -34,7 +48,7 @@ export function ReplyList({ id, limit, cursor }) {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error.message}</div>;
   }
   if (replies.length === 0) {
     return <div className={styles.noReplyBg}></div>;
@@ -49,8 +63,8 @@ export function ReplyList({ id, limit, cursor }) {
 }
 
 // 개별 reply 컴포넌트
-function Reply({ reply }) {
-  const [isOpen, setIsOpen] = useState(false);
+function Reply({ reply }: { reply: ReplyType }) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleKebabClick = () => {
     setIsOpen(!isOpen);
     console.log(isOpen);

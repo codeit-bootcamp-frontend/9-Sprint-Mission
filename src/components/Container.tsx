@@ -1,15 +1,35 @@
-import { useRef } from "react";
-import useDetectClose from "../hooks/useDetectClose";
+import { useEffect, useRef, useState } from "react";
 
-const Container = ({ currentOrder, onOrderChange }) => {
-  const dropDownRef = useRef(null);
-  const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false);
+interface Props {
+  currentOrder: string;
+  onOrderChange: (newOrderBy: string) => void;
+}
+
+const Container = ({ currentOrder, onOrderChange }: Props) => {
+  const dropDownRef = useRef<HTMLUListElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const className = `option-order ${isOpen ? "active" : undefined}`;
-  const handleOrderClick = (order) => {
+
+  const handleOrderClick = (order: string) => {
     onOrderChange(order);
     setIsOpen(false);
   };
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (dropDownRef.current && !dropDownRef.current.contains(e.target as Node))
+      setIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      window.addEventListener("click", handleClickOutside);
+    }
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="select-order">
       <button

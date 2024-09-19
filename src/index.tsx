@@ -11,7 +11,7 @@ function MainRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/items" replace />} />
-        <Route path="/items" element={<App />}></Route>
+        <Route path="/items" element={<App />} />
         <Route path="/items/:id" element={<ItemPage />} />
         <Route path="/additem" element={<Additem />} />
       </Routes>
@@ -19,7 +19,10 @@ function MainRouter() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+
 root.render(
   <React.StrictMode>
     <MainRouter />

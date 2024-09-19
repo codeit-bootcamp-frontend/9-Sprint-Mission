@@ -3,10 +3,10 @@ import { getPandaItems } from "../api";
 import { PandaItemList } from "./PandaItemList";
 import { usePageSizeByWidth } from "../hooks/usePageSizeByWidth";
 
-export function BestItems({ width }) {
+export function BestItems({ width, page }: { width: number; page: number }) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [bestItems, setBestItems] = useState([]);
+  const [error, setError] = useState<Error | null>(null);
+  const [bestItems, setBestItems] = useState<[]>([]);
 
   const pageSizeObj = {
     mobile: 1,
@@ -21,14 +21,14 @@ export function BestItems({ width }) {
 
     try {
       const response = await getPandaItems({
-        page: 1,
+        page,
         pageSize,
         orderBy: "favorite",
         search: "",
       });
       setBestItems(response.list || []);
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) setError(err);
     } finally {
       setLoading(false);
     }
@@ -43,7 +43,7 @@ export function BestItems({ width }) {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error.message}</div>;
   }
 
   return (

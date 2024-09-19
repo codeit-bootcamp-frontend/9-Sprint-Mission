@@ -1,7 +1,7 @@
+import { jsxs as _jsxs } from "react/jsx-runtime";
 import styled from "styled-components";
-
-export function TagOnly({ value, key }: { value: string; key: number }) {
-  const Hashtag = styled.span`
+export function TagOnly({ value, key }) {
+    const Hashtag = styled.span `
     display: inline-flex;
     align-items: center;
     height: 36px;
@@ -19,6 +19,5 @@ export function TagOnly({ value, key }: { value: string; key: number }) {
     margin-right: 12px;
     margin-bottom: 12px;
   `;
-
-  return <Hashtag key={key}>#{value}</Hashtag>;
+    return _jsxs(Hashtag, { children: ["#", value] }, key);
 }
