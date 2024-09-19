@@ -9,7 +9,7 @@ import DropDownImg from "../../../components/DropDownImg";
 import { Product } from "../../../types/types";
 
 function ProductDetails({ datas }: { datas: Product }) {
-  const idRef = useRef(0);
+  const idRef = useRef<number>(0);
   const { images, name, price, description, tags = [] } = datas;
   return (
     <ProductContainer>

@@ -11,7 +11,7 @@ import { Product } from "../../../types/types";
 function ProductListItem({ product }: { product: Product }) {
   return (
     <>
-      <ProductImg src={product.images[0] || defaultImg} alt={product.name} />
+      <ProductImg src={product.images || defaultImg} alt={product.name} />
       <ProductDescription>{product.description}</ProductDescription>
       <ProductPrice>{formatPrice(product.price)}원</ProductPrice>
       <ProductLike>♡ {product.favoriteCount}</ProductLike>

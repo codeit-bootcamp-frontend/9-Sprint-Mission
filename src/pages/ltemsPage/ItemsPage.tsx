@@ -16,7 +16,6 @@ const PAGELIMIT = 5;
 
 function ItemsPage() {
   const param = useParams<{ id?: string }>();
-
   const [products, setProducts] = useState<Product[]>([]);
   const [order, setOrder] = useState("recent");
   const [page, setPage] = useState<number>(1);
@@ -34,44 +33,37 @@ function ItemsPage() {
   };
 
   useEffect(() => {
-    const handleLoad = async (options: any) => {
+    const loadData = async () => {
       try {
-        const data = await getProducts(options);
-        setProducts(data.list);
-        setTotalPages(Math.ceil(data.totalCount / LIMIT));
+        const options = {
+          order,
+          page,
+          limit: LIMIT,
+        };
+
+        if (param.id) {
+          const data = await getProduct({ id: param.id });
+          setDatas(data);
+        } else {
+          const data = await getProducts(options);
+          setProducts(data.list);
+          setTotalPages(Math.ceil(data.totalCount / LIMIT));
+        }
       } catch (error) {
         console.error(error);
       }
     };
 
-    const options = {
-      order,
-      page,
-      limit: LIMIT,
-    };
-    handleLoad(options);
-  }, [order, page]);
-
-  useEffect(() => {
-    const handleLoad = async () => {
-      if (param.id === undefined) return;
-
-      try {
-        const data = await getProduct({ id: param.id });
-        setDatas(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    handleLoad();
-  }, [param.id]);
+    loadData();
+  }, [order, page, param.id]);
 
   return (
     <>
       <Navbar />
       {param.id !== undefined ? (
-        <ItemDetailPage datas={datas} id={param.id} />
+        <StyledItemsPage>
+          <ItemDetailPage datas={datas} id={param.id} />
+        </StyledItemsPage>
       ) : (
         <StyledItemsPage>
           <BestProductList />

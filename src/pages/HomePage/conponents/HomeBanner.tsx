@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { ReactNode } from "react";
 import HomeContainer from "../conponents/HomeContainer";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 
 interface HomeBannerProps {
   src: string;
-  text: React.ReactNode;
+  text: ReactNode;
   position: string;
 }
 

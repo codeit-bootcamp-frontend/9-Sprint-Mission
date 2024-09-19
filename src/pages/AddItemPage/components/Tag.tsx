@@ -1,18 +1,7 @@
 import { useRef, useState, KeyboardEvent, ChangeEvent } from "react";
 import TagItem from "./TagItem";
 import styled from "styled-components";
-
-export interface TagType {
-  id: number;
-  value: string;
-}
-
-interface TagProps {
-  name?: string;
-  className?: string;
-  values?: TagType[];
-  onChange: (updatedTags: TagType[]) => void;
-}
+import { TagProps } from "../../../types/types";
 
 function Tag({ className, values = [], onChange }: TagProps) {
   const isRef = useRef<number>(values.length + 1);

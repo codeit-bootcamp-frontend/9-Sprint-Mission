@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import XImg from "../../../assets/X.svg";
-import { TagType } from "./Tag";
+import { TagType } from "../../../types/types";
 
 interface TagItemProps {
   item: TagType;
   onDelete: (id: number) => void;
   isDelete: boolean;
 }
-
 function TagItem({ item, onDelete, isDelete }: TagItemProps) {
   const handleDeleteClick = () => onDelete(item.id);
 

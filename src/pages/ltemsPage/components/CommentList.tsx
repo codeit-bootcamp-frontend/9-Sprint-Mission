@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import CommentItem from "./CommentItem";
 import nocommentImg from "../../../assets/nocomment.svg";
 import { getComments } from "../../../api";
 import profileImg from "../../../assets/profile.svg";
 import Button from "../../../components/Button";
-import { CommentData } from "../../../types/types";
+import { CommentProps } from "../../../types/types";
 
-function Comment({ id }: { id: number }) {
+function CommentList({ id }: { id: number }) {
   const idRef = useRef<number>(0);
-  const [comments, setComments] = useState<CommentData[]>([]);
+  const [comments, setComments] = useState<CommentProps[]>([]);
   const [comment, setComment] = useState<string>("");
   const [editingCommentId, setEditingCommentId] = useState<number | null>(null);
 
@@ -26,7 +26,7 @@ function Comment({ id }: { id: number }) {
     fetchComments();
   }, [id]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
@@ -41,7 +41,7 @@ function Comment({ id }: { id: number }) {
       );
       setEditingCommentId(null);
     } else {
-      const newComment: CommentData = {
+      const newComment: CommentProps = {
         id: idRef.current++,
         content: comment,
         createdAt: new Date().toISOString(),
@@ -59,16 +59,11 @@ function Comment({ id }: { id: number }) {
     setComment("");
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleCommentSubmit();
     }
-  };
-
-  const handleEdit = (id: number, content: string) => {
-    setEditingCommentId(id);
-    setComment(content);
   };
 
   const handleDelete = (id: number) => {
@@ -104,17 +99,13 @@ function Comment({ id }: { id: number }) {
         </form>
       </QuestionWrapper>
       {comments.length > 0 ? (
-        <CommentList>
+        <CommentListWrapper>
           {comments.map((item) => (
             <CommentItemWrapper key={item.id}>
-              <CommentItem
-                item={item}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-              />
+              <CommentItem item={item} onDelete={handleDelete} />
             </CommentItemWrapper>
           ))}
-        </CommentList>
+        </CommentListWrapper>
       ) : (
         <NoCommentSection>
           <img src={nocommentImg} alt="댓글 없음" width="196" height="230" />
@@ -124,7 +115,7 @@ function Comment({ id }: { id: number }) {
   );
 }
 
-export default Comment;
+export default CommentList;
 
 const QuestionWrapper = styled.div`
   margin: 40px 0 58px;
@@ -180,8 +171,9 @@ const ButtonSection = styled.div`
   }
 `;
 
-const CommentList = styled.ul`
+const CommentListWrapper = styled.ul`
   padding: 0;
+  margin-bottom: 64px;
 `;
 
 const CommentItemWrapper = styled.li`

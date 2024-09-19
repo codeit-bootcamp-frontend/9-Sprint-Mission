@@ -4,18 +4,12 @@ import DropDownImg from "../../../components/DropDownImg";
 import { timeAgoFormat } from "../../../utils/timeAgoFormat";
 import Button from "../../../components/Button";
 import { useState } from "react";
-import { CommentData } from "../../../types/types";
+import { CommentItemProps } from "../../../types/types";
 
-interface CommentItemProps {
-  item: CommentData;
-  onEdit: (id: number, content: string) => void;
-  onDelete: (id: number) => void;
-}
-
-function CommentItem({ item, onEdit, onDelete }: CommentItemProps) {
+function CommentItem({ item, onDelete }: CommentItemProps) {
   const [edit, setEdit] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [editedContent, setEditedContent] = useState<string>(item.content);
+  const [content, setContent] = useState<string>(item.content);
   const timeAgo = timeAgoFormat(item.createdAt);
 
   const handleUpdateClick = () => {
@@ -24,18 +18,17 @@ function CommentItem({ item, onEdit, onDelete }: CommentItemProps) {
   };
 
   const handleSaveClick = () => {
-    onEdit(item.id, editedContent);
     setIsEditing(false);
   };
 
   const handleCancelClick = () => {
     setIsEditing(false);
-    setEditedContent(item.content); // 취소 시 원래 내용 복원
+    setContent(item.content); // 수정 취소 시 원래 내용으로 복구
   };
 
   const handleDeleteClick = () => {
     onDelete(item.id);
-    setEdit(false); // 삭제 후 드롭다운 닫기
+    setEdit(false);
   };
 
   return (
@@ -43,8 +36,8 @@ function CommentItem({ item, onEdit, onDelete }: CommentItemProps) {
       {isEditing ? (
         <>
           <EditBox
-            value={editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
           />
           <EditButtons>
             <Button color="#000" background="#fff" onClick={handleCancelClick}>
@@ -56,7 +49,7 @@ function CommentItem({ item, onEdit, onDelete }: CommentItemProps) {
       ) : (
         <>
           <CommentItemTop>
-            <CommentContent>{item.content}</CommentContent>
+            <CommentContent>{content}</CommentContent>
             {item.writer.id === 999 && (
               <DropdownWrapper onClick={() => setEdit(!edit)}>
                 <DropDownImg />

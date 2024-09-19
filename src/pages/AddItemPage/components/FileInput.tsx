@@ -2,12 +2,7 @@ import plusImg from "../../../assets/plus.svg";
 import XImg from "../../../assets/X.svg";
 import { useEffect, useState, useRef, ChangeEvent } from "react";
 import styled from "styled-components";
-
-export interface FileInputProps {
-  name: string;
-  value: File | null;
-  onChange: (name: string, file: File | null) => void;
-}
+import { FileInputProps } from "../../../types/types";
 
 function FileInput({ name, value, onChange }: FileInputProps) {
   const [preview, setPreview] = useState<string | undefined>(undefined);

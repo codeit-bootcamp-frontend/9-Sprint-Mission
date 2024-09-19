@@ -3,11 +3,7 @@ import ProductListItem from "./ProductListItem";
 import { useNavigate } from "react-router-dom";
 import { Product } from "../../../types/types";
 
-interface ProductListProps {
-  products: Product[];
-}
-
-function ProductList({ products }: ProductListProps) {
+function ProductList({ products }: { products: Product[] }) {
   const navigate = useNavigate();
 
   return (

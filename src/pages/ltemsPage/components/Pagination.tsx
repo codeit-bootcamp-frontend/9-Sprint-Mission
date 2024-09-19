@@ -1,5 +1,11 @@
 import styled from "styled-components";
-import { PaginationProps } from "../../../types/types";
+
+interface PaginationProps {
+  page: number;
+  totalPages: number;
+  pageLimit?: number;
+  onPageChange: (page: number) => void;
+}
 
 function Pagination({
   page,

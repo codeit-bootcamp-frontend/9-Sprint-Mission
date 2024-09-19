@@ -1,4 +1,3 @@
-import React from "react";
 import profileImg from "../../../assets/profile.svg";
 import styled from "styled-components";
 

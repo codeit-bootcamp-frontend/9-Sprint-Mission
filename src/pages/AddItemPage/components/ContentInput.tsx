@@ -1,5 +1,5 @@
 import FileInput from "./FileInput";
-import { FileInputProps } from "./FileInput";
+import { FileInputProps } from "../../../types/types";
 
 export interface ContentProps extends FileInputProps {
   title: string;

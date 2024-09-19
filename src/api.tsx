@@ -1,4 +1,4 @@
-import { CommentData } from "./types/types";
+import { CommentProps, Product } from "./types/types";
 const BASE_URL = "https://panda-market-api.vercel.app";
 
 interface GetProductsParams {
@@ -15,22 +15,13 @@ interface GetCommentsParams {
   id: number;
 }
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  favoriteCount: number;
-  images: string[];
-}
-
 interface ProductsResponse {
   list: Product[];
   totalCount: number;
 }
 
 interface CommentsResponse {
-  list: CommentData[];
+  list: CommentProps[];
   totalCount: number;
 }
 

@@ -1,19 +1,7 @@
 import styled from "styled-components";
 import Tag from "./Tag";
 import ContentInput from "./ContentInput";
-import { ChangeEvent, FormEvent } from "react";
-import { ItemFormValues } from "../../../types/types";
-
-interface ItemFormProps {
-  values: ItemFormValues;
-  handleFileChange: (name: string, file: File | null) => void;
-  handleInputChange: (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-
-  handleTagChange: (updatedItems: { id: number; value: string }[]) => void;
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-}
+import { ItemFormProps } from "../../../types/types";
 
 function ItemForm({
   values,
