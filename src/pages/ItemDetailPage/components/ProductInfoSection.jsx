@@ -5,11 +5,8 @@ import heart from "../../../assets/images/icons/ic_heart.svg";
 const Container = styled.div`
   display: flex;
   gap: 24px;
-  padding-top: 24px;
-  max-width: 1200px;
   width: 100%;
   height: 496px;
-  margin: 0 auto;
 
   @media (max-width: 745px) {
     width: 696px;
@@ -180,7 +177,7 @@ const FavoriteCountButton = styled.button`
   border: 1px solid var(--gray-200);
 `;
 
-export function InfoSection({ info }) {
+export function ProductInfoSection({ info }) {
   const { name, price, description, images, createdAt, favoriteCount, tags } =
     info;
 

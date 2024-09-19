@@ -1,10 +1,10 @@
-import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 import { getProductDetail, getProductMessages } from "../../api/itemApi";
-import { InfoSection } from "./components/InfoSection";
+import { ProductInfoSection } from "./components/ProductInfoSection";
 import { Divider } from "./components/Divider";
-import { CommentsSection } from "./components/CommentsSection";
+import { ProductCommentsSection } from "./components/ProductCommentsSection";
 import { BackToProductListButton } from "./components/BackToProductListButton";
 
 const Container = styled.div`
@@ -13,7 +13,7 @@ const Container = styled.div`
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 24px;
   gap: 24px;
 
   @media (max-width: 745px) {
@@ -26,33 +26,26 @@ const Container = styled.div`
   }
 `;
 
-function ItemDetailPage() {
+export default function ProductDetailPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [productMessages, setProductMessages] = useState(null);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchData = async (fetchFunction, setState, errorMessage) => {
       try {
-        const response = await getProductDetail(productId);
-        setProduct(response);
+        const response = await fetchFunction(productId);
+        setState(response);
       } catch (e) {
-        console.error("Failed to fetch productInfo:", e);
+        console.error(errorMessage, e);
       }
     };
-
-    const fetchProductMessage = async () => {
-      try {
-        const response = await getProductMessages(productId);
-        console.log(response);
-        setProductMessages(response);
-      } catch (e) {
-        console.error("Failed to fetch productMessages:", e);
-      }
-    };
-
-    fetchProduct();
-    // fetchProductMessage();
+    fetchData(getProductDetail, setProduct, "Failed to fetch Products");
+    fetchData(
+      getProductMessages,
+      setProductMessages,
+      "Failed to fetch Product Messages"
+    );
   }, [productId]);
 
   if (!product) {
@@ -61,12 +54,10 @@ function ItemDetailPage() {
 
   return (
     <Container>
-      <InfoSection info={product} />
+      <ProductInfoSection info={product} />
       <Divider />
-      <CommentsSection info={productMessages} />
+      <ProductCommentsSection info={productMessages} />
       <BackToProductListButton />
     </Container>
   );
 }
-
-export default ItemDetailPage;

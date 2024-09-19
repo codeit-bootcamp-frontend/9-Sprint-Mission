@@ -33,7 +33,7 @@ export async function getProductDetail(productId) {
 
 export async function getProductMessages(productId) {
   try {
-    const response = await fetch(`${BASE_URL}/${productId}/comments`);
+    const response = await fetch(`${BASE_URL}/${productId}/comments?limit=3`);
     if (!response.ok) {
       throw new Error(`HTTP error: ${response.status}`);
     }
