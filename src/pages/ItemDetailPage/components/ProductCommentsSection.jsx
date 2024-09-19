@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { CommentsNoExist } from "./CommentsNoExist";
 import profileImage from "../../../assets/images/logo/profile.png";
 import kebab from "../../../assets/images/icons/ic_kebab.png";
+import { DropDown } from "./DropDown";
+import { CommentEditBox } from "./CommentEditBox";
 
 const Container = styled.div`
   width: 100%;
@@ -45,7 +47,7 @@ const CommentList = styled.div`
   margin-top: 24px;
 `;
 
-const CommentWrap = styled.div`
+const CommentBox = styled.div`
   width: 100%;
   height: 100px;
   display: flex;
@@ -54,6 +56,7 @@ const CommentWrap = styled.div`
 `;
 
 const CommentContent = styled.div`
+  position: relative;
   display: flex;
 `;
 
@@ -85,6 +88,8 @@ const ProfileDetails = styled.div`
 export function ProductCommentsSection({ info }) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [isEdit, setIsEdit] = useState(null);
+  const [activeDropDown, setActiveDropDown] = useState(null);
   const isCommentEmpty = info && (info.list === null || info.list.length === 0);
 
   const handleTextChange = (e) => {
@@ -93,6 +98,16 @@ export function ProductCommentsSection({ info }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const handleCommentEdit = (id) => {
+    if (isEdit === id) setIsEdit(null);
+    else setIsEdit(id);
+  };
+
+  const toggleDropDown = (id) => {
+    if (id === activeDropDown) setActiveDropDown(null);
+    else setActiveDropDown(id);
   };
 
   useEffect(() => {
@@ -122,41 +137,54 @@ export function ProductCommentsSection({ info }) {
         <CommentsNoExist />
       ) : (
         <CommentList>
-          {info.list.map((comment) => (
-            <CommentWrap>
-              <CommentContent>
-                <div
-                  style={{
-                    width: "1172px",
-                    height: "24px",
-                    fontSize: "14px",
-                    color: "#1F2937",
-                  }}
-                >
-                  {comment.content}
-                </div>
-                <button style={{ width: "24px", height: "24px" }}>
-                  <img src={kebab} alt="/" />
-                </button>
-              </CommentContent>
-              <AuthorProfile>
-                <ProfileImage>
-                  <img
-                    src={comment.writer.image ?? profileImage}
-                    alt="Author Profile"
-                  />
-                </ProfileImage>
-                <ProfileDetails>
-                  <div style={{ fontSize: "14px" }}>
-                    {comment.writer.nickname}
+          {info.list.map((comment) =>
+            comment.id === isEdit ? (
+              <CommentEditBox key={comment.id} info={comment} />
+            ) : (
+              <CommentBox key={comment.id}>
+                <CommentContent>
+                  <div
+                    style={{
+                      width: "1172px",
+                      height: "24px",
+                      fontSize: "14px",
+                      color: "#1F2937",
+                    }}
+                  >
+                    {comment.content}
                   </div>
-                  <div style={{ color: "#9CA3AF" }}>
-                    {comment.updatedAt.slice(0, 10)}
-                  </div>
-                </ProfileDetails>
-              </AuthorProfile>
-            </CommentWrap>
-          ))}
+                  <button
+                    style={{ width: "24px", height: "24px" }}
+                    onClick={() => toggleDropDown(comment.id)}
+                  >
+                    <img src={kebab} alt="/" />
+                  </button>
+                  {comment.id === activeDropDown && (
+                    <DropDown
+                      onClick={() => handleCommentEdit(comment.id)}
+                      id={comment.id}
+                    />
+                  )}
+                </CommentContent>
+                <AuthorProfile>
+                  <ProfileImage>
+                    <img
+                      src={comment.writer.image ?? profileImage}
+                      alt="Author Profile"
+                    />
+                  </ProfileImage>
+                  <ProfileDetails>
+                    <div style={{ fontSize: "14px" }}>
+                      {comment.writer.nickname}
+                    </div>
+                    <div style={{ color: "#9CA3AF" }}>
+                      {comment.updatedAt.slice(0, 10)}
+                    </div>
+                  </ProfileDetails>
+                </AuthorProfile>
+              </CommentBox>
+            )
+          )}
         </CommentList>
       )}
     </Container>
