@@ -37,7 +37,7 @@
   }
 }
 
-.submitBtn {
+.commentSubmitBtn {
   padding: 12px 23px;
   border: none;
   border-radius: 8px;
@@ -50,11 +50,11 @@
   transition: all .1s ease-in-out;
 }
 
-.submitBtn:hover {
+.commentSubmitBtn:hover {
   background-color: var(--color-theme-hover);
 }
 
-.submitBtn:disabled {
+.commentSubmitBtn:disabled {
   background-color: var(--color-gray400);
   cursor: default;
 }
@@ -123,6 +123,18 @@
     font-size: 16px;
     color: var(--color-gray400);
   }
+}
+
+.commentError {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: red;
+}
+
+.commentBtnBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* 반응형 공통 */

@@ -1,0 +1,133 @@
+.signinFormWrapper,
+.signupFormWrapper {
+  width: 100%;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  margin: auto;
+}
+
+.formItemBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+
+  label {
+    font-size: 1.8rem;
+  }
+
+  input {
+    padding: 16px 24px;
+    font-size: 1.6rem;
+    font-weight: 400;
+    border: none;
+    background-color: var(--color-gray100);
+    border-radius: 12px;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+  }
+
+  input:focus {
+    outline: 1px solid var(--color-theme);
+  }
+
+  span {
+    color: red;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+.formItemBox.formError {
+  input {
+    outline: 1px solid red;
+  }
+}
+
+.passwordBox {
+  border-radius: 12px;
+  background-color: var(--color-gray100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease-in-out;
+
+  img {
+    margin-right: 20px;
+  }
+
+  input:focus {
+    outline: none;
+  }
+}
+
+.passwordBox:focus-within {
+  outline: 1px solid var(--color-theme);
+}
+
+.passwordBox.formError {
+  outline: 1px solid red;
+  input {
+    outline: none;
+  }
+}
+
+.visiblePassword {
+  cursor: pointer;
+}
+
+.serverErrorMsg {
+  color: red;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.submitBtn {
+  width: 100%;
+  border: none;
+  border-radius: 40px;
+  padding: 16px 124px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: var(--color-theme);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: var(--color-theme-hover);
+}
+
+.submitBtn:disabled {
+  background-color: var(--color-gray400);
+  cursor: default;
+}
+
+.submitBtn:disabled:hover {
+  background-color: var(--color-gray400);
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .signinFormWrapper,
+  .signupFormWrapper {
+    width: 100%;
+  }
+
+  .authForm {
+    max-width: 400px;
+    margin: 0;
+  }
+
+  .formItemBox label {
+    font-size: 1.4rem;
+  }
+}
