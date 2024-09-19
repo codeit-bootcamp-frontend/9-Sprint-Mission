@@ -1,4 +1,4 @@
-### 배포된 웹사이트: https://pandamarket7mungyun.netlify.app
+### 배포된 웹사이트: https://pandamarket8mungyun.netlify.app
 
 ### 기본 요구사항
 
@@ -15,6 +15,7 @@
 - HomePage와 LoginPage는 바닐라 JS로 만들었던 페이지를 마이그래식 중인 컴포넌트들 입니다. 해당 컴포넌트들은 아직 미완성입니다🥹
 - 재사용되는 Interface를 types.tsx에 모와두고 사용했습니다.
 - CRA에서 VITE로 빌드도구를 변경했습니다.
+- TS 버전 충돌로 인해 배포가 안돼서, 버전은 다운그레이드 했습니다.
 
 ## 스크린샷
 
