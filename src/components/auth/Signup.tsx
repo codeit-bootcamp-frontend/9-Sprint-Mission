@@ -1,5 +1,5 @@
 import axios from "axios";
-import AuthHeader from "./AuthHeader";
+import AuthWrapper from "./AuthWrapper";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,7 @@ const Signup = () => {
   };
 
   return (
-    <AuthHeader>
+    <AuthWrapper>
       <div className="signupFormWrapper">
         <form onSubmit={form.handleSubmit(handleSubmit)} className="authForm">
           <div className={`${error.userEmail ? "formItemBox formError" : "formItemBox"} email`}>
@@ -151,7 +151,7 @@ const Signup = () => {
           </button>
         </form>
       </div>
-    </AuthHeader>
+    </AuthWrapper>
   );
 };
 

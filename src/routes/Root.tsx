@@ -11,7 +11,7 @@ const Root = () => {
       <Header />
       <Outlet />
     </ErrorBoundary>
-  )
-}
+  );
+};
 
 export default Root;

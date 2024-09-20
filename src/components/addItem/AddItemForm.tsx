@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import "./AddItem.css";
-import { FieldErrors, UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { FieldErrors, useFormContext, UseFormSetValue } from "react-hook-form";
 import { z } from "zod";
 import { AdditemConstants } from "./AdditemConstants";
 
@@ -10,7 +10,6 @@ type FormValues = z.infer<typeof AdditemConstants>;
 interface IProps {
   formValues: FormValues;
   setValue: UseFormSetValue<FormValues>,
-  register: UseFormRegister<FormValues>;
   error: FieldErrors<FormValues>;
 }
 
@@ -18,8 +17,9 @@ interface INewTag {
   tag: string | number
 }
 
-const AddItemForm: React.FC<IProps> = ({ formValues, setValue, register, error }) => {
+const AddItemForm = ({ formValues, setValue, error }: IProps) => {
   const [tagInput, setTagInput] = useState("");
+  const { register } = useFormContext();
   
   // 입력한 태그명 변경함수
   const onChangeTag = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +42,7 @@ const AddItemForm: React.FC<IProps> = ({ formValues, setValue, register, error }
       }
 
       const newValues = [...(formValues.tags || []), newTag];
-
+      
       setValue("tags", newValues);
       setTagInput("");
     }

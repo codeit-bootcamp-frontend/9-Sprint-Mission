@@ -1,19 +1,13 @@
 import LogoutMenu from "./LogoutMenu";
-import { useEffect, useState } from "react";
+import useToken from "../../hooks/useToken";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
 
 const Header = () => {
-  const [session, setSession] = useState(false);
+  const context = useToken();
+  
   const [logoutOpen, setLogoutOpen] = useState(false);
-
-  useEffect(() => {
-    const checkToken = localStorage.getItem("accessToken");
-
-    if (checkToken !== null) {
-      setSession(true);
-    }
-  }, []);
 
   const handleOpenMenu = () => {
     setLogoutOpen((prev) => !prev);
@@ -41,7 +35,7 @@ const Header = () => {
             </NavLink>
           </div>
         </div>
-        {!session ? (
+        {!context?.session ? (
           <Link to="/signin" className="signin">
             로그인
           </Link>
@@ -50,7 +44,7 @@ const Header = () => {
             <button type="button" className="navBtn" onClick={handleOpenMenu}>
               <img src="/icons/sessionBtn.png" alt="개인메뉴버튼" />
             </button>
-            {logoutOpen && <LogoutMenu setSession={setSession} />}
+            {logoutOpen && <LogoutMenu />}
           </>
         )}
       </nav>

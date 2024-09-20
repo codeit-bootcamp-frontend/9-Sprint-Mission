@@ -1,7 +1,8 @@
+import { PropsWithChildren } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./AuthHeader.css";
+import "./AuthWrapper.css";
 
-const AuthHeader = ({ children }: { children: React.ReactNode }) => {
+const AuthWrapper = ({ children }: PropsWithChildren<{}>) => {
   const location = useLocation();
   
   const footerArr = [
@@ -36,4 +37,4 @@ const AuthHeader = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export default AuthHeader;
+export default AuthWrapper;

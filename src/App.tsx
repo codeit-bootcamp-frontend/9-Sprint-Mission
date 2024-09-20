@@ -11,6 +11,7 @@ import SignupPage from "./routes/SignupPage";
 import PrivacyPage from "./routes/PrivacyPage";
 import FaqPage from "./routes/FaqPage";
 import Error from "./components/Error";
+import { TokenProvider } from "./context/token";
 
 function App() {
   const router = createBrowserRouter([
@@ -45,10 +46,10 @@ function App() {
   ]);
 
   return (
-    <>
+    <TokenProvider>
       <RouterProvider router={router} />
       <Toaster toastOptions={{ success: {style: { fontSize: "24px" }}, error: {style: { fontSize: "24px" }} }} />
-    </>
+    </TokenProvider>
   );
 }
 

@@ -31,7 +31,7 @@ export const getProducts = async ( params: IParams ): Promise<IApiResponse> => {
     const response = await axios.get(`https://panda-market-api.vercel.app/products/?page=${page}&orderBy=${orderBy}&pageSize=${pageSize}&keyword=${keyword}`);
 
     if (response.status === 200) {
-      return response.data as IApiResponse;
+      return response.data;
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {

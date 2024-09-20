@@ -1,16 +1,15 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { TokenContext } from "../../context/token";
 import "./LogoutMenu.css";
 
-interface IProps {
-  setSession: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const LogoutMenu: React.FC<IProps> = ({ setSession }) => {
+const LogoutMenu = () => {
+  const context = useContext(TokenContext); 
+  
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    setSession(false);
+    context?.Signout();
     navigate("/");
   }  
 

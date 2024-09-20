@@ -1,5 +1,6 @@
 import axios from "axios";
-import AuthHeader from "./AuthHeader";
+import AuthWrapper from "./AuthWrapper";
+import useToken from "../../hooks/useToken";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -9,18 +10,17 @@ import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 
 const Signin = () => {
+  const context = useToken();
   const navigate = useNavigate();
   const [apiError, setApiError] = useState("");
   const [serverError, setServerError] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
 
   useEffect(() => {
-    const checkToken = localStorage.getItem("accessToken");
-
-    if (checkToken !== null) {
+    if (context?.session) {
       navigate("/");
     }
-  }, [navigate]);
+  }, [context?.session, navigate]);
 
   const handleVisiblePassword = () => {
     setVisiblePassword((prev) => !prev);
@@ -31,8 +31,8 @@ const Signin = () => {
     mode: "all",
     defaultValues: {
       userEmail: "",
-      userPassword: ""
-    }
+      userPassword: "",
+    },
   });
 
   const isLoading = form.formState.isSubmitting;
@@ -42,11 +42,12 @@ const Signin = () => {
     try {
       const response = await axios.post("https://panda-market-api.vercel.app/auth/signIn", {
         email: values.userEmail,
-        password: values.userPassword
+        password: values.userPassword,
       });
 
       if (response.status === 200) {
         localStorage.setItem("accessToken", response.data.accessToken);
+        context?.Signin();
         navigate("/");
       }
     } catch (error) {
@@ -58,22 +59,41 @@ const Signin = () => {
         setServerError(true);
       }
     }
-  }
-
+  };
+  
   return (
-    <AuthHeader>
+    <AuthWrapper>
       <div className="signinFormWrapper">
         <form onSubmit={form.handleSubmit(handleSubmit)} className="authForm">
           <div className={`${error.userEmail ? "formItemBox formError" : "formItemBox"} email`}>
             <label htmlFor="userEmail">이메일</label>
-            <input {...form.register("userEmail")} type="email" id="userEmail" name="userEmail" placeholder="이메일을 입력해주세요." />
+            <input
+              {...form.register("userEmail")}
+              type="email"
+              id="userEmail"
+              name="userEmail"
+              placeholder="이메일을 입력해주세요."
+            />
             {error && <span>{error.userEmail?.message}</span>}
           </div>
           <div className="formItemBox">
             <label htmlFor="userPassword">비밀번호</label>
             <div className={`${error.userPassword ? "passwordBox formError" : "passwordBox"}`}>
-              <input {...form.register("userPassword")} type={visiblePassword ? "text" : "password"} id="userPassword" name="userPassword" placeholder="비밀번호를 입력해주세요." /> 
-              <img src={visiblePassword ? "/icons/btn_visibility_off.svg" : "/icons/btn_visibility_on.svg"} alt="보이기 버튼" className="visiblePassword" onClick={handleVisiblePassword} />
+              <input
+                {...form.register("userPassword")}
+                type={visiblePassword ? "text" : "password"}
+                id="userPassword"
+                name="userPassword"
+                placeholder="비밀번호를 입력해주세요."
+              />
+              <img
+                src={
+                  visiblePassword ? "/icons/btn_visibility_off.svg" : "/icons/btn_visibility_on.svg"
+                }
+                alt="보이기 버튼"
+                className="visiblePassword"
+                onClick={handleVisiblePassword}
+              />
             </div>
             {error && <span>{error.userPassword?.message}</span>}
           </div>
@@ -88,8 +108,8 @@ const Signin = () => {
           </button>
         </form>
       </div>
-    </AuthHeader>
-  )
-}
+    </AuthWrapper>
+  );
+};
 
 export default Signin;
