@@ -1,0 +1,75 @@
+.container {
+    width: 1200px;
+    height: 426px;
+    margin: 24px auto;
+}
+
+.title {
+    font-size: 20px;
+}
+
+.itemsWrap {
+    display: flex;
+    margin-top: 16px;
+    gap: 24px;
+}
+
+.itemImg {
+    width: 282px;
+    height: 282px;
+    border-radius: 16px;
+}
+
+.itemDescription {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 16px;
+    color: var(--gray700);
+}
+
+.itemPrice {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 8px;
+    color: var(--gray800);
+}
+
+.itemGoodWrap {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.itemGoodButton {
+    width: 16px;
+    height: 16px;
+    background-image: url(../icon/ic_heart.png);
+    background-color: white;
+    color: var(--gray600);
+    border: none;
+}
+
+.itemFavoriteCount {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray600);
+}
+
+@media (max-width:1199px) {
+    .container {
+        width: 90vw;
+        height: 482px;
+    }
+
+    .itemImg {
+        width: 343px;
+        height: 343px;
+    }
+}
+
+@media (max-width: 376px) {
+    .container {
+        height: 434px;
+    }
+}

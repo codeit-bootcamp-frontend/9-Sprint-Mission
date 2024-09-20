@@ -1,0 +1,38 @@
+.dropdown {
+    position: absolute;
+    z-index: 99;
+    top: 50px;
+    width: 130px;
+    height: 84px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    background-color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 42px;
+    border: 0;
+    background-color: transparent;
+}
+
+.element:nth-child(1) {
+    border-bottom: 1px solid var(--gray100);
+}
+
+.element:nth-child(1):hover {
+    cursor: pointer;
+    background-color: #E5E7EB;
+    border-radius: 12px 12px 0 0;
+}
+
+.element:nth-child(2):hover {
+    cursor: pointer;
+    background-color: #E5E7EB;
+    border-radius: 0 0 12px 12px;
+}
