@@ -36,11 +36,11 @@ const Container = styled.div`
   }
 `;
 
-export function DropDown({ onClick, id }) {
+export function DropDown({ onClick, onSubmit, id }) {
   return (
     <Container>
       <div onClick={() => onClick(id)}>수정하기</div>
-      <div>삭제하기</div>
+      <div onClick={onSubmit}>삭제하기</div>
     </Container>
   );
 }

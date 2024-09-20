@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
 import { CommentsNoExist } from "./CommentsNoExist";
-import profileImage from "../../../assets/images/logo/profile.png";
-import kebab from "../../../assets/images/icons/ic_kebab.png";
 import { DropDown } from "./DropDown";
 import { CommentEditBox } from "./CommentEditBox";
+import kebab from "../../../assets/images/icons/ic_kebab.png";
+import profileImage from "../../../assets/images/logo/profile.png";
 
 const Container = styled.div`
   width: 100%;
@@ -90,19 +90,35 @@ export function ProductCommentsSection({ info }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isEdit, setIsEdit] = useState(null);
   const [activeDropDown, setActiveDropDown] = useState(null);
-  const isCommentEmpty = info && (info.list === null || info.list.length === 0);
-
-  const handleTextChange = (e) => {
-    setContent(e.target.value);
-  };
+  const [comments, setComments] = useState(info?.list || []);
+  const isCommentEmpty =
+    info &&
+    (info.list === null || info.list.length === 0 || comments.length === 0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
 
-  const handleCommentEdit = (id) => {
+  const onCommentEdit = (id) => {
     if (isEdit === id) setIsEdit(null);
     else setIsEdit(id);
+  };
+
+  const deleteComment = (id) => {
+    const newComments = comments.filter((comment) => comment.id !== id);
+    setComments(newComments);
+
+    // 실제 서버에서 삭제하는 로직
+    // deleteProductComment(id);
+  };
+
+  const handleUpdateComment = (id, newContent) => {
+    const updatedComments = comments.map((comment) =>
+      comment.id === id ? { ...comment, content: newContent } : comment
+    );
+    setComments(updatedComments);
+    setIsEdit(null);
+    setActiveDropDown(null);
   };
 
   const toggleDropDown = (id) => {
@@ -110,8 +126,14 @@ export function ProductCommentsSection({ info }) {
     else setActiveDropDown(id);
   };
 
+  const cancleEditMode = () => {
+    setIsEdit(null);
+    setActiveDropDown(null);
+  };
+
   useEffect(() => {
     if (info && info.list !== null) {
+      setComments(info.list); // info.list를 comments 상태로 설정
       setIsLoading(false); // 데이터가 로드되면 로딩 상태를 해제
     }
   }, [info]);
@@ -125,21 +147,29 @@ export function ProductCommentsSection({ info }) {
       <CommentInput onSubmit={handleSubmit}>
         <label style={{ color: "#111827" }}>문의하기</label>
         <CommentTextArea
+          onChange={(e) => setContent(e.target.value)}
           value={content}
-          onChange={handleTextChange}
           placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
         ></CommentTextArea>
         <SubmitButton type="submit" isActive={content.length >= 5}>
           등록
         </SubmitButton>
       </CommentInput>
+
       {isCommentEmpty || isLoading ? (
         <CommentsNoExist />
       ) : (
         <CommentList>
-          {info.list.map((comment) =>
+          {comments.map((comment) =>
             comment.id === isEdit ? (
-              <CommentEditBox key={comment.id} info={comment} />
+              <CommentEditBox
+                key={comment.id}
+                info={comment}
+                onClick={cancleEditMode}
+                onSubmit={(newContent) =>
+                  handleUpdateComment(comment.id, newContent)
+                }
+              />
             ) : (
               <CommentBox key={comment.id}>
                 <CommentContent>
@@ -161,7 +191,8 @@ export function ProductCommentsSection({ info }) {
                   </button>
                   {comment.id === activeDropDown && (
                     <DropDown
-                      onClick={() => handleCommentEdit(comment.id)}
+                      onClick={() => onCommentEdit(comment.id)}
+                      onSubmit={() => deleteComment(comment.id)}
                       id={comment.id}
                     />
                   )}

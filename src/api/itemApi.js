@@ -44,3 +44,17 @@ export async function getProductMessages(productId) {
     throw error;
   }
 }
+
+export async function deleteProductComment(commentId) {
+  try {
+    const response = await fetch(`${BASE_URL}/comments/${commentId}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+    const body = await response.json();
+    return body;
+  } catch (error) {
+    console.error("Failed to delete message:", error);
+    throw error;
+  }
+}

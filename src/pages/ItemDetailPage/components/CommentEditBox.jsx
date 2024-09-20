@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import profileImage from "../../../assets/images/logo/profile.png";
+import { useState } from "react";
 
 const TextArea = styled.textarea`
   width: 100%;
@@ -38,7 +39,18 @@ const ProfileDetails = styled.div`
   flex-grow: 1;
 `;
 
-const ConfirmButton = styled.div`
+const CancleButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 68px;
+  height: 47px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  color: var(--gray-300);
+`;
+
+const ConfirmButton = styled.button`
   width: 106px;
   height: 42px;
   margin-left: 20px;
@@ -49,10 +61,25 @@ const ConfirmButton = styled.div`
   font-size: 14px;
   text-align: center;
 `;
-export function CommentEditBox({ info }) {
+export function CommentEditBox({ info, onClick, onSubmit }) {
+  const [editContent, setEditContent] = useState(info.content);
+
+  const handleEditChange = (e) => {
+    setEditContent(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(editContent); // 새로운 내용을 부모 컴포넌트로 전달
+  };
+
   return (
-    <>
-      <TextArea />
+    <form onSubmit={handleSubmit}>
+      <TextArea
+        value={editContent}
+        onChange={handleEditChange}
+        placeholder="내용을 입력하세요"
+      />
       <div style={{ display: "flex" }}>
         <AuthorProfile>
           <ProfileImage>
@@ -71,10 +98,10 @@ export function CommentEditBox({ info }) {
             alignItems: "center",
           }}
         >
-          <span style={{ fontSize: "14px", color: "#737373" }}>취소</span>
-          <ConfirmButton>수정 완료</ConfirmButton>
+          <CancleButton onClick={onClick}>취소</CancleButton>
+          <ConfirmButton type="submit">수정 완료</ConfirmButton>
         </div>
       </div>
-    </>
+    </form>
   );
 }

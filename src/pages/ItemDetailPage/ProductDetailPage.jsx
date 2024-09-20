@@ -28,7 +28,7 @@ const Container = styled.div`
 
 export default function ProductDetailPage() {
   const { productId } = useParams();
-  const [product, setProduct] = useState(null);
+  const [productInfo, setProductInfo] = useState(null);
   const [productMessages, setProductMessages] = useState(null);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function ProductDetailPage() {
         console.error(errorMessage, e);
       }
     };
-    fetchData(getProductDetail, setProduct, "Failed to fetch Products");
+    fetchData(getProductDetail, setProductInfo, "Failed to fetch Product Info");
     fetchData(
       getProductMessages,
       setProductMessages,
@@ -48,13 +48,13 @@ export default function ProductDetailPage() {
     );
   }, [productId]);
 
-  if (!product) {
+  if (!productInfo) {
     return <div>Loading...</div>;
   }
 
   return (
     <Container>
-      <ProductInfoSection info={product} />
+      <ProductInfoSection info={productInfo} />
       <Divider />
       <ProductCommentsSection info={productMessages} />
       <BackToProductListButton />
