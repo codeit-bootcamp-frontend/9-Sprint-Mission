@@ -5,7 +5,7 @@ import { getProducts } from "../../../Api";
 import ItemBox from "./ItemBox";
 import Search from "../../../images/icon/ic_search.svg";
 import Paginations from "./Pagination";
-import { Item } from "../../../types/Product";
+import type { Item } from "../../../types/Product";
 
 const getPageSize = (): number => {
   const width = window.innerWidth;
