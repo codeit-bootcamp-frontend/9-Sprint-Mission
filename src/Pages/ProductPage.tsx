@@ -187,40 +187,55 @@ const InquirySection = styled.div`
   }
 `;
 
+interface Product {
+  id: number;
+  description: string;
+  favoriteCount: number;
+  name: string;
+  price: number;
+  tags: string[];
+  createdAt: Date;
+  updatedAt: Date;
+  images: string[0];
+}
 function ProductPage() {
-  const { productId } = useParams();
-  const [product, setProduct] = useState({});
+  const { productId } = useParams<{ productId: string }>();
+  const [product, setProduct] = useState<Product | null>(null);
 
-  const getProduct = async (id) => {
+  const getProduct = async (id: number) => {
     const data = await getProductById(id); // id로 받아온 data
     setProduct(data);
   };
 
   useEffect(() => {
-    getProduct(productId);
+    getProduct(Number(productId));
   }, [productId]);
 
   return (
     <>
       <ProductInfoWrap>
-        <img className="product-img" src={product.images} alt={product.name} />
+        <img
+          className="product-img"
+          src={product?.images}
+          alt={product?.name}
+        />
         <ProductInfo>
           <Kebab />
           <div>
             <TitleSection>
               <h2>
-                {product.name}
+                {product?.name}
                 <span>
-                  {product.price && (+product.price).toLocaleString()}원
+                  {product?.price && (+product.price).toLocaleString()}원
                 </span>
               </h2>
             </TitleSection>
             <DescriptionSection>
               <h3>상품소개</h3>
-              <p>{product.description}</p>
+              <p>{product?.description}</p>
               <h3>상품태그</h3>
               <ul>
-                {product.tags?.map((tag) => (
+                {product?.tags.map((tag) => (
                   <li key={tag}>#{tag}</li>
                 ))}
               </ul>
@@ -234,7 +249,7 @@ function ProductPage() {
                 <span>2024.01.02</span>
               </div>
             </div>
-            <button type="button">{product.favoriteCount}</button>
+            <button type="button">{product && product.favoriteCount}</button>
           </UserInfo>
         </ProductInfo>
       </ProductInfoWrap>

@@ -4,7 +4,28 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../api/Api";
 import { Link } from "react-router-dom";
 
-function BestProductListItem({ product }) {
+export interface List {
+  id: number;
+  createdAt: Date;
+  favoriteCount: number;
+  description: string;
+  images: string[0];
+  name: string;
+  ownerId: number;
+  price: number;
+  updatedAt: Date;
+}
+
+export interface Query {
+  order: string;
+  pageSize: number;
+  page: number;
+}
+
+//Props로 받을 객체 데이터의 타입 지정
+
+function BestProductListItem({ product }: { product: List }) {
+  //Props는 객체
   const { images, name, description, price, favoriteCount } = product;
   return (
     <>
@@ -23,14 +44,16 @@ function BestProductListItem({ product }) {
   );
 }
 
-export function BestProductList({ title }) {
-  const [products, setProducts] = useState([]);
+export function BestProductList() {
+  const [products, setProducts] = useState<List[]>([]);
 
-  async function handleLoad(query) {
-    const { list } = await getProducts(query);
-    setProducts(list);
-  }
+  
+
   useEffect(() => {
+    async function handleLoad(query: Query) {
+      const { list } = await getProducts(query);
+      setProducts(list);
+    }
     handleLoad({
       order: "favorite",
       pageSize: 4,
@@ -42,7 +65,9 @@ export function BestProductList({ title }) {
     <ul className="product-list best">
       {products.map((product) => (
         <li key={product.id}>
-          <Link to={`/items/${product.id}`}><BestProductListItem product={product} /></Link>
+          <Link to={`/items/${product.id}`}>
+            <BestProductListItem product={product} />
+          </Link>
         </li>
       ))}
     </ul>

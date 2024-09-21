@@ -5,24 +5,32 @@ import FileInput from "./FileInput";
 
 const cx = classNames.bind(styles);
 
+interface Values {
+  title: string;
+  content: string;
+  price: string;
+  tag: string;
+  imgFile: File | null;
+}
+
 function AddItemForm() {
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<Values>({
     title: "",
     content: "",
     price: "",
     tag: "",
     imgFile: null,
   });
-  const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState<string[]>([]);
   // const [input, setInput] = useState("");
   // const [isDisabled, setDisabled] = useState(true);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     //추후 미션에서 API를 통해 등록한다
   };
 
-  const handleChange = (name, value) => {
+  const handleChange = (name: string, value: File | string | null): void => {
     setValues((prevValues) => ({ ...prevValues, [name]: value }));
     // setDisabled(
     //   !values.title || !values.content || !values.price || !values.tag
@@ -34,26 +42,30 @@ function AddItemForm() {
   const isDisabled =
     !values.title || !values.content || !values.price || !tags.length;
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     handleChange(name, value);
   };
 
-  const addTag = (tag) => {
+  const addTag = (tag: string) => {
     if (!tags.includes(tag)) {
       setTags([...tags, tag]);
     }
   };
 
-  const removeTag = (tagToRemove) => {
+  const removeTag = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
-  const onPressEnter = (event) => {
-    if (event.nativeEvent.isComposing) return;
+  const onPressEnter = (e: React.KeyboardEvent) => {
+    if (e.nativeEvent.isComposing) return;
     const inputString = values.tag.trim();
-    if (event.key === "Enter" && inputString) {
-      event.preventDefault(); // 엔터 키가 눌렸을 때 submit 되지 않도록
+    if (e.key === "Enter" && inputString) {
+      e.preventDefault(); // 엔터 키가 눌렸을 때 submit 되지 않도록
       addTag(inputString);
       setValues({ ...values, tag: "" });
     }
@@ -118,8 +130,9 @@ function AddItemForm() {
               <div key={`tag-${tag}`} className={cx("tag")}>
                 <span className={cx("tagText")}>{`#${tag}`}</span>
                 <button
+                  type="button"
                   onClick={() => removeTag(tag)}
-                  label={`${tag} 태그`}
+                  // label={`${tag} 태그`}
                   className={cx("tagRemoveBtn")}
                 ></button>
               </div>

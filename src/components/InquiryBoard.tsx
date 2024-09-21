@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getProductByIdComments } from "../api/Api";
 import { useParams } from "react-router-dom";
 import kebab from "../assets/ic_kebab.png";
-import UserInfo from "../components/UserInfo";
+import UserInfo from "./UserInfo";
 import EditBox from "./EditBox";
 import noInquiryImg from "../assets/Frame 2610489.png";
 
@@ -48,28 +48,41 @@ const NoInquiry = styled.div`
   justify-content: center;
 
   img {
-  width: 196px;
-  height: auto;
+    width: 196px;
+    height: auto;
   }
-  
 `;
 
-function InquiryBoard() {
-  const { productId } = useParams();
-  const [comments, setComments] = useState({});
+interface List {
+  id: number;
+  content: string;
+  createdAt: Date;
+  writer: {
+    id: number;
+    image: string;
+    nickname: string;
+  }
+}
+interface Comments {
+  list: List[];
+}
 
-  const getComment = async (id) => {
+function InquiryBoard() {
+  const { productId } = useParams<{productId: string}>();
+  const [comments, setComments] = useState<Comments | null>(null);
+
+  const getComment = async (id: number) => {
     const data = await getProductByIdComments(id);
     setComments(data);
   };
 
   useEffect(() => {
-    getComment(productId);
+    getComment(Number(productId));
   }, [productId]);
 
   return (
     <>
-      {comments.list?.length > 0 ? (
+      {comments && comments.list.length > 0 ? (
         <Board>
           {comments.list.map((comment) => (
             <li key={comment.id}>
@@ -84,7 +97,11 @@ function InquiryBoard() {
             </li>
           ))}
         </Board>
-      ) : <NoInquiry><img src={noInquiryImg} alt="아직 문의가 없어요" /></NoInquiry>}
+      ) : (
+        <NoInquiry>
+          <img src={noInquiryImg} alt="아직 문의가 없어요" />
+        </NoInquiry>
+      )}
     </>
   );
 }

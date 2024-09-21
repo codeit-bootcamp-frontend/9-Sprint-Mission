@@ -3,7 +3,8 @@ import loginImg from "../assets/Frame 2609463.png";
 import "./Header.css";
 import { Link, NavLink } from "react-router-dom";
 
-function getLinkStyle({ isActive }) {
+
+function getLinkStyle({ isActive } : {isActive: boolean}) {
 
   return {
     color: isActive ? "#3692ff" : "#4B5563",
@@ -21,7 +22,7 @@ function Header() {
         </h1>
         <ul className="gnb-menus">
           <li className="gnb-menu">
-            <Link>자유게시판</Link>
+            <Link to='/'>자유게시판</Link>
           </li>
           <li className="gnb-menu">
             <NavLink to="/items" style={getLinkStyle}>

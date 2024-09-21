@@ -4,14 +4,25 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-function FileInput({ name, value, onChange }) {
-  const [preview, setPreview] = useState();
+interface Props {
+  name: string;
+  value: File | null;
+  onChange: (name:string, value: File | null) => void; 
+}
 
-  const inputRef = useRef();
+function FileInput({ name, value, onChange } : Props) {
+  const [preview, setPreview] = useState("");
 
-  const handleChange = (e) => {
-    const nextValue = e.target.files[0];
-    onChange(name, nextValue);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+
+    const files : FileList | null = e.target.files
+    if(files && files.length >0) {
+      const nextValue = files[0];
+      onChange(name, nextValue);
+    }
+    
   };
 
   const handleClearClick = () => {
@@ -26,7 +37,7 @@ function FileInput({ name, value, onChange }) {
     const nextPreview = URL.createObjectURL(value);
     setPreview(nextPreview);
     return () => {
-      setPreview();
+      setPreview("");
       URL.revokeObjectURL(nextPreview);
     };
   }, [value]);

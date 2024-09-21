@@ -4,8 +4,20 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../api/Api";
 import { Link } from "react-router-dom";
 import { PageNation } from "./PageNation";
+import { List, Query } from "./BestProductList";
 
-function TotalProductListItem({ product }) {
+const getPageSize = () => {
+  const width = window.innerWidth;
+  if (width < 768) {
+    return 4;
+  } else if (width < 1200) {
+    return 6;
+  } else {
+    return 10;
+  }
+};
+
+function TotalProductListItem({ product }: { product: List }) {
   const { images, name, description, price, favoriteCount } = product;
   return (
     <>
@@ -25,26 +37,11 @@ function TotalProductListItem({ product }) {
 }
 
 export function TotalProductList() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<List[]>([]);
   const [order, setOrder] = useState("recent");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [totalPage, setTotalPage] = useState();
-
-  // const handleLoad = useCallback(
-  //   async (query) => {
-  //     const { list, totalCount } = await getProducts(query);
-  //     setProducts(list);
-  //     setTotalPage(Math.ceil(totalCount / pageSize));
-  //   },
-  //   [pageSize]
-  // );
-
-  const handleLoad = async (query) => {
-    const { list, totalCount } = await getProducts(query);
-    setProducts(list);
-    setTotalPage(Math.ceil(totalCount / query.pageSize));
-  };
+  const [pageSize, setPageSize] = useState(getPageSize());
+  const [totalPage, setTotalPage] = useState<number>(0);
 
   const handleRecentClick = () => {
     setOrder("recent");
@@ -54,14 +51,28 @@ export function TotalProductList() {
   };
 
   useEffect(() => {
+    const handleLoad = async (query: Query) => {
+      const { list, totalCount } = await getProducts(query);
+      setProducts(list);
+      setTotalPage(Math.ceil(totalCount / query.pageSize));
+    };
+
     handleLoad({
       order,
       pageSize,
       page,
     });
+    const handleResize = () => {
+      setPageSize(getPageSize());
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [order, page, pageSize]);
 
-  const onChangePage = (pageNum) => setPage(pageNum);
+  const onChangePage = (pageNum: number) => setPage(pageNum);
 
   return (
     <>
@@ -104,7 +115,9 @@ export function TotalProductList() {
       <ul className="product-list total">
         {products.map((product) => (
           <li key={product.id}>
-            <Link to={`/items/${product.id}`}><TotalProductListItem product={product} /></Link>
+            <Link to={`/items/${product.id}`}>
+              <TotalProductListItem product={product} />
+            </Link>
           </li>
         ))}
       </ul>
