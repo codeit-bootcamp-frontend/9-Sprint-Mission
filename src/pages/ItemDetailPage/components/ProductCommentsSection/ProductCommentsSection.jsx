@@ -1,89 +1,10 @@
-import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { CommentsNoExist } from "./CommentsNoExist";
-import { DropDown } from "./DropDown";
-import { CommentEditBox } from "./CommentEditBox";
-import kebab from "../../../assets/images/icons/ic_kebab.png";
-import profileImage from "../../../assets/images/logo/profile.png";
-
-const Container = styled.div`
-  width: 100%;
-`;
-const CommentInput = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const CommentTextArea = styled.textarea`
-  width: 100%;
-  height: 104px;
-  margin-top: 9px;
-  padding: 16px 24px;
-  background-color: #f3f4f6;
-  border: none;
-  border-radius: 12px;
-  color: var(--gray-300);
-  resize: none;
-  overflow-y: auto;
-`;
-
-const SubmitButton = styled.button`
-  width: 74px;
-  height: 42px;
-  margin-top: 16px;
-  margin-left: auto;
-  border-radius: 8px;
-  padding: 12px 23px;
-  color: white;
-  background-color: ${(props) =>
-    props.isActive ? "var(--blue)" : "var(--gray-400)"};
-  cursor: ${(props) => (props.isActive ? "pointer" : "not-allowed")};
-`;
-
-const CommentList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-top: 24px;
-`;
-
-const CommentBox = styled.div`
-  width: 100%;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid var(--gray-100);
-`;
-
-const CommentContent = styled.div`
-  position: relative;
-  display: flex;
-`;
-
-const AuthorProfile = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  margin-top: 24px;
-`;
-
-const ProfileImage = styled.div`
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--gray-200);
-  border-radius: 50%;
-`;
-
-const ProfileDetails = styled.div`
-  margin-left: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  flex-grow: 1;
-`;
+import { DropDown } from "../DropDown/DropDown";
+import { CommentsNoExist } from "../CommentsNoExist/CommentsNoExist";
+import { CommentEditBox } from "../CommentEditBox/CommentEditBox";
+import kebab from "../../../../assets/images/icons/ic_kebab.png";
+import profileImage from "../../../../assets/images/logo/profile.png";
+import S from "./ProductCommentsSection.styes";
 
 export function ProductCommentsSection({ info }) {
   const [content, setContent] = useState("");
@@ -143,23 +64,23 @@ export function ProductCommentsSection({ info }) {
   }
 
   return (
-    <Container>
-      <CommentInput onSubmit={handleSubmit}>
+    <S.Container>
+      <S.CommentInput onSubmit={handleSubmit}>
         <label style={{ color: "#111827" }}>문의하기</label>
-        <CommentTextArea
+        <S.CommentTextArea
           onChange={(e) => setContent(e.target.value)}
           value={content}
           placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
-        ></CommentTextArea>
-        <SubmitButton type="submit" isActive={content.length >= 5}>
+        ></S.CommentTextArea>
+        <S.SubmitButton type="submit" isActive={content.length >= 5}>
           등록
-        </SubmitButton>
-      </CommentInput>
+        </S.SubmitButton>
+      </S.CommentInput>
 
       {isCommentEmpty || isLoading ? (
         <CommentsNoExist />
       ) : (
-        <CommentList>
+        <S.CommentList>
           {comments.map((comment) =>
             comment.id === isEdit ? (
               <CommentEditBox
@@ -171,8 +92,8 @@ export function ProductCommentsSection({ info }) {
                 }
               />
             ) : (
-              <CommentBox key={comment.id}>
-                <CommentContent>
+              <S.CommentBox key={comment.id}>
+                <S.CommentContent>
                   <div
                     style={{
                       width: "1172px",
@@ -196,28 +117,28 @@ export function ProductCommentsSection({ info }) {
                       id={comment.id}
                     />
                   )}
-                </CommentContent>
-                <AuthorProfile>
-                  <ProfileImage>
+                </S.CommentContent>
+                <S.AuthorProfile>
+                  <S.ProfileImage>
                     <img
                       src={comment.writer.image ?? profileImage}
                       alt="Author Profile"
                     />
-                  </ProfileImage>
-                  <ProfileDetails>
+                  </S.ProfileImage>
+                  <S.ProfileDetails>
                     <div style={{ fontSize: "14px" }}>
                       {comment.writer.nickname}
                     </div>
                     <div style={{ color: "#9CA3AF" }}>
                       {comment.updatedAt.slice(0, 10)}
                     </div>
-                  </ProfileDetails>
-                </AuthorProfile>
-              </CommentBox>
+                  </S.ProfileDetails>
+                </S.AuthorProfile>
+              </S.CommentBox>
             )
           )}
-        </CommentList>
+        </S.CommentList>
       )}
-    </Container>
+    </S.Container>
   );
 }

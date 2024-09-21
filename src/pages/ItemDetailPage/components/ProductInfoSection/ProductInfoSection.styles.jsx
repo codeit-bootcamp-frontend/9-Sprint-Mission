@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import profile from "../../../assets/images/logo/profile.png";
-import heart from "../../../assets/images/icons/ic_heart.svg";
 
-const Container = styled.div`
+const S = {};
+
+S.Container = styled.div`
   display: flex;
   gap: 24px;
   width: 100%;
@@ -21,7 +21,7 @@ const Container = styled.div`
   }
 `;
 
-const Preview = styled.div`
+S.Preview = styled.div`
   width: 486px;
   height: 486px;
   border-radius: 16px;
@@ -35,7 +35,7 @@ const Preview = styled.div`
   }
 `;
 
-const InfoWrap = styled.div`
+S.InfoWrap = styled.div`
   width: 690px;
   display: flex;
   flex-direction: column;
@@ -46,7 +46,7 @@ const InfoWrap = styled.div`
   }
 `;
 
-const Title = styled.div`
+S.Title = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -78,7 +78,7 @@ const Title = styled.div`
   }
 `;
 
-const Description = styled.div`
+S.Description = styled.div`
   margin-top: 24px;
   width: 100%;
   height: 146px;
@@ -94,7 +94,7 @@ const Description = styled.div`
   }
 `;
 
-const Tags = styled.div`
+S.Tags = styled.div`
   margin-top: 24px;
   width: 100%;
   height: 78px;
@@ -110,13 +110,13 @@ const Tags = styled.div`
   }
 `;
 
-const TagList = styled.div`
+S.TagList = styled.div`
   display: flex;
   flex-direction: row;
   gap: 8px;
 `;
 
-const Tag = styled.div`
+S.Tag = styled.div`
   padding: 6px 16px;
   border-radius: 26px;
   background-color: var(--gray-100);
@@ -127,7 +127,7 @@ const Tag = styled.div`
   color: #1f2937;
 `;
 
-const Author = styled.div`
+S.Author = styled.div`
   margin-top: 62px;
   width: 100%;
   height: 50px;
@@ -141,7 +141,7 @@ const Author = styled.div`
   }
 `;
 
-const Profile = styled.div`
+S.Profile = styled.div`
   width: 40px;
   height: 40px;
   display: flex;
@@ -151,7 +151,7 @@ const Profile = styled.div`
   border-radius: 50%;
 `;
 
-const AuthorInfo = styled.div`
+S.AuthorInfo = styled.div`
   margin-left: 16px;
   display: flex;
   flex-direction: column;
@@ -159,12 +159,12 @@ const AuthorInfo = styled.div`
   flex-grow: 1;
 `;
 
-const Divider = styled.div`
+S.Divider = styled.div`
   height: 34px;
   border: 1px solid var(--gray-100);
 `;
 
-const FavoriteCountButton = styled.button`
+S.FavoriteCountButton = styled.button`
   margin-left: 24px;
   display: flex;
   justify-content: center;
@@ -177,46 +177,4 @@ const FavoriteCountButton = styled.button`
   border: 1px solid var(--gray-200);
 `;
 
-export function ProductInfoSection({ info }) {
-  const { name, price, description, images, createdAt, favoriteCount, tags } =
-    info;
-
-  const formattedDate = createdAt.split("T")[0].replace(/-/g, ".");
-  return (
-    <Container>
-      <Preview imageURL={images[0]} />
-      <InfoWrap>
-        <Title>
-          <div>{name} 팔아요.</div>
-          <h1>{price}원</h1>
-        </Title>
-        <Description>
-          <div>상품 소개 </div>
-          <div>{description}</div>
-        </Description>
-        <Tags>
-          <div>상품 태그</div>
-          <TagList>
-            {tags.map((tag) => (
-              <Tag>{tag}</Tag>
-            ))}
-          </TagList>
-        </Tags>
-        <Author>
-          <Profile>
-            <img src={profile} alt="user Profile" />
-          </Profile>
-          <AuthorInfo>
-            <div>총명한 판다</div>
-            <div>{formattedDate}</div>
-          </AuthorInfo>
-          <Divider />
-          <FavoriteCountButton>
-            <img src={heart} alt="" width="26px" height="26px" />
-            {favoriteCount}
-          </FavoriteCountButton>
-        </Author>
-      </InfoWrap>
-    </Container>
-  );
-}
+export default S;

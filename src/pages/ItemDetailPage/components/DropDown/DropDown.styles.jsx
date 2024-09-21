@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const Container = styled.div`
+const S = {};
+
+S.Container = styled.div`
   z-index: 1;
   position: absolute;
   top: 34px;
@@ -36,11 +38,4 @@ const Container = styled.div`
   }
 `;
 
-export function DropDown({ onClick, onSubmit, id }) {
-  return (
-    <Container>
-      <div onClick={() => onClick(id)}>수정하기</div>
-      <div onClick={onSubmit}>삭제하기</div>
-    </Container>
-  );
-}
+export default S;

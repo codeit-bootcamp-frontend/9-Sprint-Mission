@@ -1,11 +1,15 @@
-.paginationBar {
+import styled from "styled-components";
+
+const S = {};
+
+S.PaginationBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-}
+`;
 
-.paginationButton {
+S.PaginationButton = styled.button`
   border: 1px solid #e5e7eb;
   border-radius: 50%;
   width: 40px;
@@ -16,14 +20,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.paginationButton:disabled {
-  cursor: default;
-  opacity: 0.5;
-}
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
 
-.paginationButton.active {
-  background-color: var(--blue);
-  color: #fff;
-}
+  &:active {
+    background-color: var(--blue);
+    color: #fff;
+  }
+`;
+
+export default S;

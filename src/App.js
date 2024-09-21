@@ -11,7 +11,6 @@ function App() {
   return (
     <Router>
       <Header />
-
       <div className="withHeader">
         <Routes>
           <Route index element={<HomePage />} />

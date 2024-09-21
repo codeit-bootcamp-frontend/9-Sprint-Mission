@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { getProducts } from "../../../api/itemApi";
-import ItemCard from "./ItemCard";
-import { ReactComponent as SortIcon } from "../../../assets/images/icons/ic_sort.svg";
-import { ReactComponent as SearchIcon } from "../../../assets/images/icons/ic_search.svg";
+import ItemCard from "../ItemCard/ItemCard";
+import DropdownMenu from "../../../../components/UI/DropdownMenu";
+import PaginationBar from "../../../../components/UI/PaginationBar";
+import { getProducts } from "../../../../api/itemApi";
+import { ReactComponent as SearchIcon } from "../../../../assets/images/icons/ic_search.svg";
 import { Link, useNavigate } from "react-router-dom";
-import DropdownMenu from "../../../components/UI/DropdownMenu";
-import PaginationBar from "../../../components/UI/PaginationBar";
+import S from "./AllItemsSection.styles";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -64,22 +64,22 @@ function AllItemsSection() {
 
   return (
     <div>
-      <div className="allItemsSectionHeader">
-        <h1 className="sectionTitle">판매 중인 상품</h1>
-        <div className="searchBarWrapper">
+      <S.AllItemsSectionHeader>
+        <S.Title>판매 중인 상품</S.Title>
+        <S.SearchBarWrapper>
           <SearchIcon />
-          <input
+          <S.SearchBarInput
             className="searchBarInput"
             placeholder="검색할 상품을 입력해 주세요"
           />
-        </div>
+        </S.SearchBarWrapper>
         <Link to="/additem" className="loginLink button">
           상품 등록하기
         </Link>
         <DropdownMenu onSortSelection={handleSortSelection} />
-      </div>
+      </S.AllItemsSectionHeader>
 
-      <div className="allItemsCardSection">
+      <S.AllItemsCardSection>
         {itemList?.map((item) => (
           <ItemCard
             item={item}
@@ -87,15 +87,15 @@ function AllItemsSection() {
             onClick={() => handleCardClick(item.id)}
           />
         ))}
-      </div>
+      </S.AllItemsCardSection>
 
-      <div className="paginationBarWrapper">
+      <S.PaginationBarWrapper>
         <PaginationBar
           totalPageNum={totalPageNum}
           activePageNum={page}
           onPageChange={onPageChange}
         />
-      </div>
+      </S.PaginationBarWrapper>
     </div>
   );
 }

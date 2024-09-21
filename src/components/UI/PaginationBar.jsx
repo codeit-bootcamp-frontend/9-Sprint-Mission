@@ -1,7 +1,7 @@
 import React from "react";
-import "./PaginationBar.css";
 import { ReactComponent as LeftArrow } from "../../assets/images/icons/arrow_left.svg";
 import { ReactComponent as RightArrow } from "../../assets/images/icons/arrow_right.svg";
+import S from "./PaginationBar.styles";
 
 const PaginationBar = ({ totalPageNum, activePageNum, onPageChange }) => {
   const maxVisiblePages = 5;
@@ -20,33 +20,29 @@ const PaginationBar = ({ totalPageNum, activePageNum, onPageChange }) => {
   );
 
   return (
-    <div className="paginationBar">
-      <button
-        className="paginationButton"
+    <S.PaginationBar>
+      <S.PaginationButton
         disabled={activePageNum === 1}
         onClick={() => onPageChange(activePageNum - 1)}
       >
         <LeftArrow />
-      </button>
+      </S.PaginationButton>
       {pages.map((page) => (
-        <button
+        <S.PaginationButton
           key={page}
-          className={`paginationButton ${
-            activePageNum === page ? "active" : ""
-          }`}
+          className={`${activePageNum === page ? "active" : ""}`}
           onClick={() => onPageChange(page)}
         >
           {page}
-        </button>
+        </S.PaginationButton>
       ))}
-      <button
-        className="paginationButton"
+      <S.PaginationButton
         disabled={activePageNum === totalPageNum}
         onClick={() => onPageChange(activePageNum + 1)}
       >
         <RightArrow />
-      </button>
-    </div>
+      </S.PaginationButton>
+    </S.PaginationBar>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ItemCard from "./ItemCard";
-import { getProducts } from "../../../api/itemApi";
 import { useNavigate } from "react-router-dom";
+import { getProducts } from "../../../../api/itemApi";
+import ItemCard from "../ItemCard/ItemCard";
+import S from "./BestItemsSection.styles";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -47,10 +48,9 @@ function BestItemsSection() {
   }, [pageSize]);
 
   return (
-    <div className="bestItemsContainer">
-      <h1 className="sectionTitle">베스트 상품</h1>
-
-      <div className="bestItemsCardSection">
+    <S.Container>
+      <S.Title>베스트 상품</S.Title>
+      <S.CardList>
         {itemList?.map((item) => (
           <ItemCard
             item={item}
@@ -58,8 +58,8 @@ function BestItemsSection() {
             onClick={() => handleCardClick(item.id, item)}
           />
         ))}
-      </div>
-    </div>
+      </S.CardList>
+    </S.Container>
   );
 }
 
