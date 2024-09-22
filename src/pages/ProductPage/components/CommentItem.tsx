@@ -1,9 +1,14 @@
-import React from "react";
 import styled from "styled-components";
 import menuIcon from "../../../assets/icon/menuIcon.svg";
 import timeAgo from "../../../utils/functions/timeAgo";
+import { Comment } from "../../../utils/types/types";
+import profileIcon from "../../../assets/icon/profile.svg";
 
-const Comment = ({ comment }) => {
+interface Props {
+    comment: Comment;
+}
+
+const CommentItem = ({ comment }: Props) => {
     return (
         <StyledBox>
             <p className="content">{comment.content}</p>
@@ -11,7 +16,10 @@ const Comment = ({ comment }) => {
                 <img src={menuIcon} alt="메뉴 아이콘"></img>
             </button>
             <div className="profile">
-                <img src={comment.writer.image} alt="프로필 이미지" />
+                <img
+                    src={comment.writer.image || profileIcon}
+                    alt="프로필 이미지"
+                />
                 <div>
                     <p className="nickname">{comment.writer.nickname}</p>
                     <p className="date">{timeAgo(comment.updatedAt)}</p>
@@ -64,4 +72,4 @@ const StyledBox = styled.div`
     }
 `;
 
-export default Comment;
+export default CommentItem;

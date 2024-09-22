@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getProduct } from "../../../utils/api/api";
 import { useParams } from "react-router-dom";
-import Tags from "./Tags";
 import profileIcon from "../../../assets/icon/profile.svg";
 import heartIcon from "../../../assets/icon/heart.svg";
 import menuIcon from "../../../assets/icon/menuIcon.svg";
+import { Product } from "../../../utils/types/types";
+import Tags from "../../../components/Tags";
 
 const ProductDetail = () => {
     const { productId } = useParams();
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState<Product | null>(null);
 
     // 상품 상세 조회
     useEffect(() => {
@@ -26,23 +27,23 @@ const ProductDetail = () => {
             <div className="imgBox">
                 <img
                     className="productImg"
-                    src={product.images}
+                    src={product?.images}
                     alt="상품 이미지"
                 />
             </div>
             <div className="textBox">
                 <div>
-                    <p className="name">{product.name}</p>
+                    <p className="name">{product?.name}</p>
                     <button className="itemMenu">
                         <img src={menuIcon} alt="메뉴 아이콘"></img>
                     </button>
                     <p className="price">
-                        {product.price?.toLocaleString("ko-KR")}원
+                        {product?.price?.toLocaleString("ko-KR")}원
                     </p>
                     <p className="label">상품 소개</p>
-                    <p className="description">{product.description}</p>
+                    <p className="description">{product?.description}</p>
                     <p className="label">상품 태그</p>
-                    <Tags items={product.tags} />
+                    <Tags items={product?.tags || []} />
                 </div>
                 <div className="bottom">
                     <div className="profile">
@@ -55,7 +56,7 @@ const ProductDetail = () => {
                     <div className="favoriteBox">
                         <button className="favoritButton">
                             <img src={heartIcon} alt="하트 아이콘" />
-                            {product.favoriteCount}
+                            {product?.favoriteCount}
                         </button>
                     </div>
                 </div>

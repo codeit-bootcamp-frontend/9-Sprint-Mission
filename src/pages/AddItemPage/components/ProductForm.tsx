@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { KeyboardEvent, MouseEvent, useState } from "react";
 import styled from "styled-components";
 import FileInput from "./FileInput";
-import Input from "./Input";
-import Label from "./Label";
-import TextArea from "./TextArea";
 import Tags from "./Tags";
+import TextArea from "../../../components/TextArea";
+import Input from "../../../components/Input";
 
 const INITIAL_VALUE = {
     name: "",
@@ -14,11 +13,18 @@ const INITIAL_VALUE = {
     images: null,
 };
 
-const ProductForm = () => {
-    const [value, setValue] = useState(INITIAL_VALUE);
-    const [tagId, setTagId] = useState(0);
+interface Product {
+    name: string;
+    description: string;
+    price: number;
+    tags: string[];
+    images: any;
+}
 
-    const handleChange = (name, value) => {
+const ProductForm = () => {
+    const [value, setValue] = useState<Product>(INITIAL_VALUE);
+
+    const handleChange = (name: string, value: any): void => {
         setValue((prev) => ({
             ...prev,
             [name]: value,
@@ -26,28 +32,28 @@ const ProductForm = () => {
     };
 
     // 테스트용
-    const onSubmit = (e) => {
+    const onSubmit = (e: MouseEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         console.log(value);
     };
 
     // 태그 추가
-    const onAddTag = (e) => {
-        if (e.key === "Enter" && e.target.value.trim()) {
+    const onAddTag = (e: KeyboardEvent<HTMLInputElement>): void => {
+        if (e.key === "Enter" && e.currentTarget.value.trim()) {
             e.preventDefault();
-            const newTag = {
-                name: e.target.value.trim(),
-                id: tagId,
-            };
-            setTagId(tagId + 1);
-            setValue((prev) => ({ ...prev, tags: [...value.tags, newTag] }));
-            e.target.value = "";
+            const newTag = e.currentTarget.value.trim();
+
+            setValue((prev) => ({
+                ...prev,
+                tags: [...new Set([...value.tags, newTag])],
+            }));
+            e.currentTarget.value = "";
         }
     };
 
     //태그 삭제
-    const onDeleteTag = (id) => {
-        const nextTags = value.tags.filter((item) => item.id !== id);
+    const onDeleteTag = (name: string): void => {
+        const nextTags = value.tags.filter((item) => item !== name);
         setValue((prev) => ({ ...prev, tags: nextTags }));
     };
 
@@ -75,52 +81,47 @@ const ProductForm = () => {
                 </button>
             </div>
             <FileInput
+                label="상품 이미지"
                 value={value.images}
                 onChange={handleChange}
                 onDelete={onDeleteImg}
-            >
-                상품 이미지
-            </FileInput>
-            <Label>
-                상품명
-                <Input
-                    placeholder="상품명을 입력해주세요"
-                    name="name"
-                    onChange={(e) => {
-                        handleChange(e.target.name, e.target.value);
-                    }}
-                />
-            </Label>
-            <Label>
-                상품 소개
-                <TextArea
-                    placeholder="상품 소개를 입력해주세요"
-                    name="description"
-                    onChange={(e) => {
-                        handleChange(e.target.name, e.target.value);
-                    }}
-                />
-            </Label>
-            <Label>
-                판매가격
-                <Input
-                    type="number"
-                    placeholder="판매 가격을 입력해주세요"
-                    name="price"
-                    onChange={(e) => {
-                        handleChange(e.target.name, e.target.value);
-                    }}
-                />
-            </Label>
-            <Label>
-                태그
-                <Input
-                    placeholder="태그를 입력해주세요"
-                    name="tags"
-                    onKeyDown={onAddTag}
-                />
-                <Tags items={value.tags} onDelete={onDeleteTag} />
-            </Label>
+            />
+            <Input
+                label="상품명"
+                placeholder="상품명을 입력해주세요"
+                name="name"
+                onChange={(e) => {
+                    handleChange(e.target.name, e.target.value);
+                }}
+                inputSize="large"
+            />
+            <TextArea
+                size="large"
+                placeholder="상품 소개를 입력해주세요"
+                name="description"
+                onChange={(e) => {
+                    handleChange(e.target.name, e.target.value);
+                }}
+                label="상품 소개"
+            />
+            <Input
+                label="판매가격"
+                type="number"
+                placeholder="판매 가격을 입력해주세요"
+                name="price"
+                onChange={(e) => {
+                    handleChange(e.target.name, e.target.value);
+                }}
+                inputSize="large"
+            />
+            <Input
+                label="태그"
+                placeholder="태그를 입력해주세요"
+                name="tags"
+                onKeyDown={onAddTag}
+                inputSize="large"
+            />
+            <Tags items={value.tags} onDelete={onDeleteTag} />
         </StyledForm>
     );
 };
