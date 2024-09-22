@@ -1,6 +1,6 @@
 import "./Main.css";
-import { BestProductList } from "./BestProductList.jsx";
-import { TotalProductList } from "./TotalProductList.jsx";
+import { BestProductList } from "./BestProductList";
+import { TotalProductList } from "./TotalProductList";
 
 function Main() {
 

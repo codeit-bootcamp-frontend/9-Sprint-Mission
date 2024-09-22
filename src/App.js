@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Header from "./components/Header.jsx";
-import Main from "./components/Main.jsx";
-import HomePage from "./components/HomePage.jsx";
-import AddItemForm from "./components/AddItemForm.jsx";
-import ProductPage from "./Pages/ProductPage.jsx";
+import Header from "./components/Header.tsx";
+import Main from "./components/Main.tsx";
+import HomePage from "./components/HomePage.tsx";
+import AddItemForm from "./components/AddItemForm.tsx";
+import ProductPage from "./Pages/ProductPage.tsx";
 
 function App() {
   return (

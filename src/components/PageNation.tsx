@@ -1,7 +1,12 @@
 import "./Pagenation.css";
 // import { useState } from "react";
 
-export function PageNation({ totalPage, currentPage, onChange }) {
+interface Props {
+  totalPage: number;
+  currentPage: number;
+  onChange:(pageNum:number) => void;
+}
+export function PageNation({ totalPage, currentPage, onChange } : Props) {
   // const [start, setStart] = useState(1);
   const maxPage = 5;
   let startPage;
