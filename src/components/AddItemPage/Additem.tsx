@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { createAddItem } from "../../Api";
 import FileInput from "./FileInput";
 import styles from "./Additem.module.css";
 
-const INITIAL_VALUES = {
+interface ItemValues {
+  imgFile: File | null;
+  title: string;
+  content: string;
+  price: string;
+  hashtag: string;
+}
+//type HashtagList = string[];
+type SubmittingError = Error | null;
+
+const INITIAL_VALUES: ItemValues = {
   imgFile: null,
   title: "",
   content: "",
@@ -12,13 +22,15 @@ const INITIAL_VALUES = {
 };
 
 function Additem() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submittingError, setSubmittingError] = useState(null);
-  const [values, setValues] = useState(INITIAL_VALUES);
-  const [hashtags, setHashtags] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submittingError, setSubmittingError] = useState<SubmittingError>(null);
+  const [values, setValues] = useState<ItemValues>(INITIAL_VALUES);
+  const [hashtags, setHashtags] = useState<string[]>([]);
 
   // 상품명, 상품소개, 판매가격, 태그
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ): void => {
     const { name, value } = e.target;
 
     // 숫자만 허용하는 경우
@@ -37,7 +49,7 @@ function Additem() {
   };
 
   // 상품 이미지
-  const handleChange = (name, value) => {
+  const handleChange = (name: string, value: File | null): void => {
     setValues((prevValues) => ({
       ...prevValues,
       [name]: value,
@@ -45,7 +57,7 @@ function Additem() {
   };
 
   // 입력값이 변경된 후 해시태그를 생성하여 상태에 저장
-  const handleGenerateHashtag = () => {
+  const handleGenerateHashtag = (): void => {
     const tags = values.hashtag;
     if (tags.trim() === "") return; // trim > 문자열의 공백 제거 메소드
     const newHashtag = `#${tags.trim()}`;
@@ -58,7 +70,7 @@ function Additem() {
   };
 
   // 해시태그 엔터 키를 눌렀을 때 호출되는 핸들러
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleGenerateHashtag();
@@ -66,17 +78,17 @@ function Additem() {
   };
 
   // 해시태그 삭제 버튼
-  const handleClearClick = (index) => {
+  const handleClearClick = (index: number) => {
     setHashtags((prevHashtags) =>
       prevHashtags.filter((prevHashtags, i) => i !== index)
     );
   };
 
   // Additem submit (데이터 전송이 되지않아 추후 수정 필요)
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("imgFile", values.imgFile);
+    formData.append("imgFile", values.imgFile as Blob);
     formData.append("title", values.title);
     formData.append("content", values.content);
     formData.append("price", values.price);
@@ -86,7 +98,7 @@ function Additem() {
       setIsSubmitting(true);
       await createAddItem(formData);
     } catch (error) {
-      setSubmittingError(error);
+      setSubmittingError(error as Error);
       return;
     } finally {
       setIsSubmitting(false);
@@ -96,13 +108,13 @@ function Additem() {
   };
 
   // 입력값으로 버튼 활성화
-  const isFormValid = () => {
+  const isFormValid = (): boolean => {
     const { title, content, price } = values;
     // trim은 공백만 입력했을 경우 빈 문자열로 간주되기 때문
     return (
       title.trim() !== "" &&
       content.trim() !== "" &&
-      price > 0 &&
+      Number(price) > 0 &&
       hashtags.length > 0
     );
   };

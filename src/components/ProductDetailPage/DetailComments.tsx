@@ -1,11 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { createComments } from "../../Api";
 import styles from "./DetailComments.module.css";
 import emptyImg from "../../images/Img_inquiry_empty.png";
 
-function DetailComments({ productId }) {
-  const [commentText, setCommentText] = useState("");
-  const [comments, setComments] = useState([]);
+interface DetailCommentsProps {
+  productId: string | undefined;
+}
+
+interface CommentWriter {
+  image: string;
+  nickname: string;
+}
+
+interface Comment {
+  id: string;
+  content: string;
+  createdAt: string;
+  writer: CommentWriter;
+}
+
+const DetailComments: React.FC<DetailCommentsProps> = ({ productId }) => {
+  const [commentText, setCommentText] = useState<string>("");
+  const [comments, setComments] = useState<Comment[]>([]);
 
   // 댓글 목록 가져오기
   useEffect(() => {
@@ -23,7 +39,7 @@ function DetailComments({ productId }) {
     fetchComments();
   }, [productId]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await createComments(productId, commentText);
@@ -96,5 +112,5 @@ function DetailComments({ productId }) {
       </div>
     </div>
   );
-}
+};
 export default DetailComments;

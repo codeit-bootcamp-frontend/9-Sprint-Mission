@@ -3,8 +3,9 @@ import { getProducts } from "../../../Api";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ItemBox from "./ItemBox";
+import { Item } from "../../../types/Product";
 
-const getPageSize = () => {
+const getPageSize = (): number => {
   const width = window.innerWidth;
   if (width < 768) {
     return 1;
@@ -15,18 +16,32 @@ const getPageSize = () => {
   }
 };
 
+// getProducts 함수가 반환할 타입 정의
+interface ProductsResponse {
+  list: Item[];
+}
+
 function BestItemList() {
-  const [itemList, setItemList] = useState([]);
-  const [pageSize, setPageSize] = useState(getPageSize());
-  const order = "favorite";
-  const page = 1;
+  const [itemList, setItemList] = useState<Item[]>([]);
+  const [pageSize, setPageSize] = useState<number>(getPageSize());
+  const [order] = useState<string>("favorite"); // 상태로 order 추가
+  const [page] = useState<number>(1); // 상태로 page 추가
 
   useEffect(() => {
     async function fetchProducts() {
-      const { list } = await getProducts(page, pageSize, order);
-      setItemList(list);
+      try {
+        const { list }: ProductsResponse = await getProducts(
+          page,
+          pageSize,
+          order
+        );
+        setItemList(list);
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      }
     }
     fetchProducts();
+
     const handleResize = () => {
       setPageSize(getPageSize());
     };

@@ -1,5 +1,12 @@
 import "../Productlist.css";
-function ItemBox({ item }) {
+import { Item } from "../../../types/Product";
+
+// ItemBoxProps 타입 정의
+interface ItemBoxProps {
+  item: Item;
+}
+
+const ItemBox: React.FC<ItemBoxProps> = ({ item }) => {
   return (
     <div className="item-box">
       <div className="prd-img">
@@ -12,6 +19,6 @@ function ItemBox({ item }) {
       </div>
     </div>
   );
-}
+};
 
 export default ItemBox;

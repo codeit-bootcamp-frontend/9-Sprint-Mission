@@ -1,14 +1,19 @@
 //import styles from "./Additem.module.css";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import styles from "./FileInput.module.css";
 
-function FileInput({ name, value, onChange }) {
-  const [preview, setPreview] = useState();
+interface FileInputProps {
+  name: string;
+  value: File | null;
+  onChange: (name: string, value: File | null) => void;
+}
+const FileInput: React.FC<FileInputProps> = ({ name, value, onChange }) => {
+  const [preview, setPreview] = useState<string | undefined>(undefined);
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (e) => {
-    const nextValue = e.target.files[0];
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const nextValue = e.target.files ? e.target.files[0] : null;
     onChange(name, nextValue);
   };
 
@@ -29,7 +34,7 @@ function FileInput({ name, value, onChange }) {
 
     // 사이드 이펙트 정리
     return () => {
-      setPreview();
+      setPreview(undefined);
       URL.revokeObjectURL(nextPreview);
     };
   }, [value]);
@@ -78,6 +83,6 @@ function FileInput({ name, value, onChange }) {
       </div>
     </>
   );
-}
+};
 
 export default FileInput;
