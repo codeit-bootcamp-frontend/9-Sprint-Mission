@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useState } from "react";
 import { getPandaItems } from "../api";
 import { PandaItemList } from "./PandaItemList";
 import { NavLink } from "react-router-dom";
@@ -6,10 +6,23 @@ import searchIcon from "../img/ic_search.png";
 import Container from "./Container";
 import { usePageSizeByWidth } from "../hooks/usePageSizeByWidth";
 
-export function AllItems({ width, page, getTotalPage }) {
+interface Props {
+  width: number;
+  page: number;
+  getTotalPage: (total: number) => void;
+}
+
+interface Item {
+  id: number;
+  name: string;
+  images: string;
+  price: number;
+  favoriteCount: number;
+}
+export function AllItems({ width, page, getTotalPage }: Props) {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [allItems, setAllItems] = useState([]);
+  const [error, setError] = useState<Error | null>(null);
+  const [allItems, setAllItems] = useState<Item[]>([]);
 
   const [orderBy, setOrderBy] = useState("recent");
   const [search, setSearch] = useState("");
@@ -36,18 +49,20 @@ export function AllItems({ width, page, getTotalPage }) {
       const totalPage = Math.ceil(response.totalCount / pageSize);
       getTotalPage(totalPage);
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) setError(err);
     } finally {
       setLoading(false);
     }
   }, [page, pageSize, search, orderBy]);
 
-  const handleSearchSubmit = (e) => {
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSearch(e.target["search"].value.trim());
+    const target = e.target as HTMLFormElement;
+    const searchInput = target["search"] as HTMLInputElement;
+    setSearch(searchInput.value.trim());
   };
 
-  const handleOrderChange = (newOrderBy) => {
+  const handleOrderChange = (newOrderBy: string) => {
     setOrderBy(newOrderBy);
   };
 
@@ -61,7 +76,7 @@ export function AllItems({ width, page, getTotalPage }) {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error.message}</div>;
   }
 
   return (
@@ -76,6 +91,8 @@ export function AllItems({ width, page, getTotalPage }) {
               className="search-input"
               name="search"
               placeholder="검색할 상품을 입력해주세요"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             ></input>
           </div>
           {/* 상품 등록 버튼 */}
@@ -95,5 +112,4 @@ export function AllItems({ width, page, getTotalPage }) {
     </section>
   );
 }
-
 // 검색 후 키워드 리셋됨

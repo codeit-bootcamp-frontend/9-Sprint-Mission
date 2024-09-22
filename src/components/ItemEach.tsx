@@ -6,10 +6,19 @@ import heartIcon from "../img/ic_heart.png";
 import { TagOnly } from "./TagOnly";
 import { Kebab } from "./Kebab";
 
-export function ItemEach({ id }) {
-  const [item, setItem] = useState(null);
+interface Item {
+  name: string;
+  price: number;
+  description: string;
+  tags: string[];
+  images: string;
+  favoriteCount: number;
+}
+
+export function ItemEach({ id }: { id: string }) {
+  const [item, setItem] = useState<Item | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const loadEachItem = async () => {
     setLoading(true);
@@ -17,14 +26,14 @@ export function ItemEach({ id }) {
       const itemInfo = await getItemById({ id });
       setItem(itemInfo);
     } catch (err) {
-      setError(err.message);
+      if (err instanceof Error) setError(err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    loadEachItem(id);
+    loadEachItem();
   }, []);
 
   if (loading) {
@@ -32,7 +41,7 @@ export function ItemEach({ id }) {
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>Error: {error.message}</div>;
   }
   return (
     <>
