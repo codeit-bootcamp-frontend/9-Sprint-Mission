@@ -5,6 +5,14 @@ import Tags from "./Tags";
 import TextArea from "../../../components/TextArea";
 import Input from "../../../components/Input";
 
+interface Product {
+    name: string;
+    description: string;
+    price: number;
+    tags: string[];
+    images: File | null;
+}
+
 const INITIAL_VALUE = {
     name: "",
     description: "",
@@ -12,14 +20,6 @@ const INITIAL_VALUE = {
     tags: [],
     images: null,
 };
-
-interface Product {
-    name: string;
-    description: string;
-    price: number;
-    tags: string[];
-    images: any;
-}
 
 const ProductForm = () => {
     const [value, setValue] = useState<Product>(INITIAL_VALUE);

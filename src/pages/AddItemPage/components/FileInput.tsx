@@ -30,6 +30,7 @@ const FileInput = ({ value, onChange, onDelete }: Props) => {
 
     useEffect(() => {
         if (!value) return;
+        // createObjectURL의 아규먼트 타입을 잘 모르겠습니다.
         const objectURL = URL.createObjectURL(value);
         setPrevImg(objectURL);
 
