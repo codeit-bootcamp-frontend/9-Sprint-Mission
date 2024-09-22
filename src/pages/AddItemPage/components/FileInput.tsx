@@ -6,7 +6,7 @@ import XIcon from "../../../assets/icon/X_Icon.svg";
 interface Props {
     label?: string;
     value: any;
-    onChange: (name: string, value: any) => void;
+    onChange: (name: string, value: string | number | File | null) => void;
     onDelete: () => void;
 }
 

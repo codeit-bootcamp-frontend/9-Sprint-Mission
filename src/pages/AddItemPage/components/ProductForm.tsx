@@ -24,7 +24,10 @@ const INITIAL_VALUE = {
 const ProductForm = () => {
     const [value, setValue] = useState<Product>(INITIAL_VALUE);
 
-    const handleChange = (name: string, value: any): void => {
+    const handleChange = (
+        name: string,
+        value: string | number | File | null
+    ): void => {
         setValue((prev) => ({
             ...prev,
             [name]: value,
