@@ -1,9 +1,27 @@
-import React from "react";
 import styled from "styled-components";
 import CommentList from "./components/CommentList";
 import ProductDetail from "./components/ProductDetail";
 import { useNavigate } from "react-router-dom";
 import backIcon from "../../assets/icon/backIcon.svg";
+
+const ProductPage = () => {
+    const navigate = useNavigate();
+
+    const onBackClick = () => {
+        navigate(-1);
+    };
+
+    return (
+        <Cantainer>
+            <ProductDetail />
+            <CommentList />
+            <button className="backButton" onClick={onBackClick}>
+                목록으로 돌아가기
+                <img src={backIcon} alt="back 아이콘" />
+            </button>
+        </Cantainer>
+    );
+};
 
 const Cantainer = styled.div`
     display: flex;
@@ -28,24 +46,5 @@ const Cantainer = styled.div`
         padding: 16px 15px;
     }
 `;
-
-const ProductPage = () => {
-    const navigate = useNavigate();
-
-    const onBackClick = () => {
-        navigate(-1);
-    };
-
-    return (
-        <Cantainer>
-            <ProductDetail />
-            <CommentList />
-            <button className="backButton" onClick={onBackClick}>
-                목록으로 돌아가기
-                <img src={backIcon} alt="back 아이콘" />
-            </button>
-        </Cantainer>
-    );
-};
 
 export default ProductPage;

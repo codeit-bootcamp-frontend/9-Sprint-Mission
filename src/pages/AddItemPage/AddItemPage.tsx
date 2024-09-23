@@ -1,6 +1,13 @@
-import React from "react";
 import ProductForm from "./components/ProductForm";
 import styled from "styled-components";
+
+const AddItemPage = () => {
+    return (
+        <Container>
+            <ProductForm />
+        </Container>
+    );
+};
 
 const Container = styled.div`
     display: flex;
@@ -11,13 +18,5 @@ const Container = styled.div`
         padding: 24px 15px;
     }
 `;
-
-const AddItemPage = () => {
-    return (
-        <Container>
-            <ProductForm />
-        </Container>
-    );
-};
 
 export default AddItemPage;

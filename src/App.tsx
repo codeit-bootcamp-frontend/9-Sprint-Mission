@@ -1,6 +1,5 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/Header/Header";
+import Header from "./components/Header";
 import ItemPage from "./pages/ItemPage/ItemPage";
 import AddItemPage from "./pages/AddItemPage/AddItemPage";
 import GlobalStyle from "./styles/GlobalStyle";
