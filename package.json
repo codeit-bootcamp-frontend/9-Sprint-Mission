@@ -1,24 +1,40 @@
 {
-  "name": "fe-weekly-mission",
+  "name": "fe9-weekly-mission",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "clean": "powershell -Command \"if (Test-Path .next) { Remove-Item -Recurse -Force .next }; if (Test-Path out) { Remove-Item -Recurse -Force out }\""
   },
   "dependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "axios": "^1.7.7",
+    "date-fns": "^4.1.0",
+    "jotai": "^2.10.0",
+    "js-cookie": "^3.0.5",
+    "next": "14.2.12",
     "react": "^18",
     "react-dom": "^18",
-    "next": "13.5.6"
+    "react-hook-form": "^7.53.0",
+    "react-router-dom": "^6.26.2",
+    "react-spinners": "^0.14.1",
+    "sharp": "^0.33.5",
+    "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
-    "@types/react": "^18",
+    "@types/react": "^18.3.7",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8",
-    "eslint-config-next": "13.5.6"
+    "eslint-config-next": "14.2.12",
+    "postcss": "^8.4.47",
+    "postcss-custom-media": "^11.0.1",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5"
   }
 }
