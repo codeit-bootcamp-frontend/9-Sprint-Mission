@@ -1,0 +1,17 @@
+@import "@/styles/common.scss";
+
+.search-box {
+  position: relative;
+  width: 100%;
+
+  button {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    margin-top: -12px;
+    padding: 0;
+  }
+  input {
+    color: $color-gray-2;
+  }
+}

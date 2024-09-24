@@ -1,0 +1,30 @@
+@import "@/styles/common.scss";
+
+.article {
+  margin-top: 40px;
+
+  h2 {
+    width: 100%;
+    position: relative;
+    line-height: 42px;
+
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      &:hover {
+        background: $color-hover-1967d6;
+        transition: all ease 0.3s;
+      }
+    }
+  }
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
