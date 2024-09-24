@@ -1,4 +1,4 @@
-# FE Weekly Mission
+# FE9 Weekly Mission
 
 이 프로젝트는 [Next.js](https://nextjs.org)를 기반으로 만들어진 주간 미션 프로젝트입니다.
 
