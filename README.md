@@ -23,21 +23,37 @@ pnpm dev
 - [Next.js](https://nextjs.org/) - React 기반의 웹 애플리케이션 프레임워크
 - [React](https://reactjs.org/) - 사용자 인터페이스 구축을 위한 JavaScript 라이브러리
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript의 정적 타입 검사 확장
+- [Tailwind CSS](https://tailwindcss.com/) - 유틸리티-퍼스트 CSS 프레임워크
+- [Jotai](https://jotai.org/) - React 상태 관리 라이브러리
 
 ## 주요 의존성
 
 - react: ^18
 - react-dom: ^18
-- next: 13.5.6
+- next: 14.2.12
+- axios: ^1.7.7
+- date-fns: ^4.1.0
+- jotai: ^2.10.0
+- js-cookie: ^3.0.5
+- react-hook-form: ^7.53.0
+- react-router-dom: ^6.26.2
+- react-spinners: ^0.14.1
+- sharp: ^0.33.5
+- tailwind-merge: ^2.5.2
 
 ## 개발 의존성
 
 - typescript: ^5
 - @types/node: ^20
-- @types/react: ^18
+- @types/react: ^18.3.7
 - @types/react-dom: ^18
 - eslint: ^8
-- eslint-config-next: 13.5.6
+- eslint-config-next: 14.2.12
+- autoprefixer: ^10.4.20
+- postcss: ^8.4.47
+- postcss-custom-media: ^11.0.1
+- tailwindcss: ^3.4.13
+- @svgr/webpack: ^8.1.0
 
 ## 스크립트
 
@@ -45,6 +61,7 @@ pnpm dev
 - `npm run build`: 프로덕션용 빌드
 - `npm run start`: 프로덕션 모드로 서버 실행
 - `npm run lint`: 린트 실행
+- `npm run clean`: 빌드 폴더(.next, out) 삭제
 
 ## 더 알아보기
 
