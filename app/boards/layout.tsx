@@ -1,6 +1,6 @@
 import NavBar from "@/components/navBar/NavBar";
 
-const FreeBoardLayout = ({ children }: { children: React.ReactNode }) => {
+const BoardsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <NavBar>
       {children}
@@ -8,4 +8,4 @@ const FreeBoardLayout = ({ children }: { children: React.ReactNode }) => {
   );
 }
 
-export default FreeBoardLayout;
+export default BoardsLayout;

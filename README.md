@@ -9,6 +9,7 @@
 - axios 1.7.7
 - react-hook-form 7.53.0
 - zod 3.23.8
+- react-hot-toast 2.4.1
 - typescript 5
 
 ### 배포 웹사이트: 재배포 예정

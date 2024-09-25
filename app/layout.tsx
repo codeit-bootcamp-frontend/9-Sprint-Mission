@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { TokenProvider } from "@/context/token";
+import { Toaster } from "react-hot-toast";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "판다마켓",
@@ -27,6 +28,7 @@ export default function RootLayout({
           className="min-h-screen font-pretendard text-[--color-gray800]"
         >
           {children}
+          <Toaster toastOptions={{ success: {style: { fontSize: "24px" }}, error: {style: { fontSize: "24px" }} }} />
         </body>
       </TokenProvider>
     </html>
