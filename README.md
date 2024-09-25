@@ -2,6 +2,10 @@
 
 이 프로젝트는 [Next.js](https://nextjs.org)를 기반으로 만들어진 주간 미션 프로젝트입니다.
 
+## 배포 사이트
+
+프로젝트는 다음 URL에서 확인할 수 있습니다: [https://next-panda-market.vercel.app](https://next-panda-market.vercel.app)
+
 ## 시작하기
 
 먼저, 개발 서버를 실행하세요:
