@@ -1,0 +1,36 @@
+.bestPostItem {
+  background-color: #f9fafb;
+  padding: 0 24px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.bestPostMain {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.mainTitle {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.bestPostSub {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.bestPostLeft {
+  display: flex;
+  gap: 8px;
+
+  color: #4b5563;
+}
+
+.bestPostDate {
+  color: #9ca3af;
+}
