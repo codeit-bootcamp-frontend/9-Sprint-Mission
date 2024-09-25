@@ -6,6 +6,7 @@
   width: 100%;
   height: 70px;
   border-bottom: 1px solid #dfdfdf;
+  background-color: #fff;
 }
 .nav {
   display: flex;
