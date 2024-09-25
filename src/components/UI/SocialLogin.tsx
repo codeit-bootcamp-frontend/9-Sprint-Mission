@@ -27,7 +27,7 @@ const SocialLoginLink = ({ name, url, logoSrc }: SocialLoginLinkProps) => {
 const SocialLogin = () => {
   return (
     <div className="bg-blue-100 rounded-lg flex items-center justify-between p-4 my-6">
-      <h3 className="font-medium text-base">간편 로그인하기</h3>
+      <div className="font-medium text-base">간편 로그인하기</div>
 
       <div className="flex gap-4">
         <SocialLoginLink

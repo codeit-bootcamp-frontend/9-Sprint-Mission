@@ -20,7 +20,7 @@ const ItemCommentSection = ({ productId }: ItemCommentSectionProps) => {
   return (
     <>
       <section className="flex flex-col gap-4">
-        <h1 className="text-base font-semibold">문의하기</h1>
+        <div className="text-base font-semibold">문의하기</div>
 
         <textarea
           className="bg-gray-100 border-none rounded-xl p-4 h-26 resize-none placeholder-gray-400 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"

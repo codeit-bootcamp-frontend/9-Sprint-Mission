@@ -60,27 +60,27 @@ const ItemProfileSection = ({ product }: ItemProfileSectionProps) => {
           </button>
 
           <div>
-            <h1 className="text-base font-semibold mb-2 md:text-xl md:mb-3 lg:text-2xl lg:mb-4">
+            <div className="text-base font-semibold mb-2 md:text-xl md:mb-3 lg:text-2xl lg:mb-4">
               {product.name}
-            </h1>
-            <h2 className="text-2xl font-semibold md:text-3xl lg:text-4xl">
+            </div>
+            <div className="text-2xl font-semibold md:text-3xl lg:text-4xl">
               {product.price.toLocaleString()}원
-            </h2>
+            </div>
           </div>
 
           <hr className="my-4 border-gray-200" />
 
           <div>
-            <h3 className="text-gray-600 text-sm font-medium mb-2">
+            <div className="text-gray-600 text-sm font-medium mb-2">
               상품 소개
-            </h3>
+            </div>
             <p className="text-base leading-[140%]">{product.description}</p>
           </div>
 
           <div className="my-6">
-            <h3 className="text-gray-600 text-sm font-medium mb-2">
+            <div className="text-gray-600 text-sm font-medium mb-2">
               상품 태그
-            </h3>
+            </div>
             <TagDisplay tags={product.tags} />
           </div>
         </div>

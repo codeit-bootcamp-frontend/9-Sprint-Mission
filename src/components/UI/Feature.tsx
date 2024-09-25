@@ -34,12 +34,12 @@ const Feature = ({
         />
       </div>
       <div className="flex-1">
-        <h2 className="text-blue-500 text-base leading-[1.4] font-bold mb-2 md:text-lg md:leading-[1.4] md:mb-3">
+        <div className="text-blue-500 text-base leading-[1.4] font-bold mb-2 md:text-lg md:leading-[1.4] md:mb-3">
           {featureName}
-        </h2>
-        <h1 className="font-bold text-2xl leading-[1.4] md:text-4xl md:leading-[1.4] lg:text-[40px] lg:leading-[1.4]">
+        </div>
+        <div className="font-bold text-2xl leading-[1.4] md:text-4xl md:leading-[1.4] lg:text-[40px] lg:leading-[1.4]">
           {title}
-        </h1>
+        </div>
         <p className="font-medium text-base leading-[1.2] tracking-[0.08em] mt-5 md:text-lg md:leading-[1.2] lg:text-2xl lg:leading-[1.2] lg:mt-6">
           {description}
         </p>

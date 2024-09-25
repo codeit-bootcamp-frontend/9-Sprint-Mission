@@ -30,7 +30,7 @@ export default function AddItemPage() {
     <div className="container mx-auto px-4">
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-4">
-          <h1 className="text-2xl font-bold">상품 등록하기</h1>
+          <div className="text-2xl font-bold">상품 등록하기</div>
           <button
             type="submit"
             disabled={isSubmitDisabled}

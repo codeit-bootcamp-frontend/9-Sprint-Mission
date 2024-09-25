@@ -88,7 +88,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
 
       <div>
         <div className="flex justify-between items-center pb-2">
-          <h1 className="text-gray-900 font-bold text-xl">판매 중인 상품</h1>
+          <div className="text-gray-900 font-bold text-xl">판매 중인 상품</div>
           <Link href="/additem" className="text-blue-500 hover:text-blue-600">
             상품 등록하기
           </Link>

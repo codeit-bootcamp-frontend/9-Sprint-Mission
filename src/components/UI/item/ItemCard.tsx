@@ -58,9 +58,9 @@ const ItemCard = ({ item, width, height }: ItemCardProps) => {
         />
       </div>
       <div className="flex flex-col gap-2.5">
-        <h2 className="text-base font-normal whitespace-nowrap overflow-hidden text-ellipsis">
+        <div className="text-base font-normal whitespace-nowrap overflow-hidden text-ellipsis">
           {item.name}
-        </h2>
+        </div>
         <p className="text-base font-bold">{item.price.toLocaleString()}원</p>
         <div className="flex items-center gap-1 text-gray-600 text-xs">
           <HeartIcon />

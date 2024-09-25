@@ -64,11 +64,11 @@ export default function Home() {
         style={{ backgroundImage: `url(${BottomBannerImage.src})` }}
       >
         <div className="max-w-[1200px] w-full mx-auto px-4">
-          <h1 className="font-bold text-3xl leading-[44.8px] pt-12 md:text-4xl md:leading-[56px] md:pt-[84px] md:pb-6 lg:pt-0 lg:pb-8">
+          <div className="font-bold text-3xl leading-[44.8px] pt-12 md:text-4xl md:leading-[56px] md:pt-[84px] md:pb-6 lg:pt-0 lg:pb-8">
             믿을 수 있는
             <br />
             판다마켓 중고거래
-          </h1>
+          </div>
         </div>
       </section>
     </>

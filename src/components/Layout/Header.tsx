@@ -55,7 +55,11 @@ export default function Header() {
             <li>
               <Link
                 href="/community"
-                className="text-gray-600 font-semibold hover:text-blue-500"
+                className={`font-semibold hover:text-blue-600 ${
+                  router.pathname.startsWith("/community")
+                    ? "text-blue-500"
+                    : "text-gray-600"
+                }`}
               >
                 자유게시판
               </Link>
@@ -63,7 +67,11 @@ export default function Header() {
             <li>
               <Link
                 href="/items"
-                className="text-gray-600 font-semibold hover:text-blue-500"
+                className={`font-semibold hover:text-blue-600 ${
+                  router.pathname.startsWith("/items")
+                    ? "text-blue-500"
+                    : "text-gray-600"
+                }`}
               >
                 중고마켓
               </Link>
