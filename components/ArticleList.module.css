@@ -1,0 +1,73 @@
+.article-box {
+  border-bottom: 1px solid var(--gray200);
+  background-color: #fcfcfc;
+  margin-top: 24px;
+}
+.article-title-image {
+  display: flex;
+  justify-content: space-between;
+}
+.article-title {
+  font-size: 2rem;
+  line-height: 3.2rem;
+  color: var(--gray800);
+  font-weight: 600;
+  padding-bottom: 40px;
+}
+.imageBox {
+  background-color: #fff;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--gray100);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.article-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.writer-img {
+  background-color: #000;
+  width: 24px;
+  height: 24px;
+}
+
+.writer-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.writer-nickname,
+.article-date,
+.article-like {
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+}
+.writer-nickname {
+  color: var(--gray600);
+}
+
+.article-date {
+  color: var(--gray400);
+}
+
+.article-like {
+  color: var(--gray500);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.article-like::before {
+  content: "";
+  display: inline-block;
+  background-image: url("/icons/icon_heart.svg");
+  width: 20px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
