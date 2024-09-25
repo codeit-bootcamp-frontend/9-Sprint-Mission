@@ -19,7 +19,11 @@ export default async function handler(
     // 외부 이미지를 가져오기
     const response = await axios.get(encodedUrl, {
       responseType: "arraybuffer",
+      timeout: 5000, // 타임아웃 설정
     });
+
+    // 이미지 캐싱
+    res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
 
     // CORS 헤더 추가 (Vercel에서 외부 요청 시 필요할 수 있음)
     res.setHeader("Access-Control-Allow-Origin", "*");
