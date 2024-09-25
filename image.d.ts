@@ -1,5 +1,5 @@
 // 이 파일은 정적 이미지 가져오기 처리가 활성화된 경우
-// next-env.d.ts에 조건부로 추가/제거됩니다.
+// image.d.ts에 조건부로 추가/제거됩니다.
 
 declare module "*.png" {
   const value: string;

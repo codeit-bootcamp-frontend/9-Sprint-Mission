@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
-import { logIn } from "@/api/authApi";
+import { logIn } from "@/api/auth";
 import { LoginFormValues, AuthResponse } from "@/types/auth";
 import Logo from "@/images/logo/logo-auth.svg";
 import Cookies from "js-cookie";

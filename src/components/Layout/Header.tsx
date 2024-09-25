@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
 import Cookies from "js-cookie";
-import { logout } from "@/api/authApi";
+import { logout } from "@/api/auth";
 import { useAtom } from "jotai";
 import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/auth";
 import Logo from "@/images/logo/logo.svg";

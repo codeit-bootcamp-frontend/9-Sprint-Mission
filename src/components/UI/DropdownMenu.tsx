@@ -2,13 +2,18 @@
 import React from "react";
 import { useState } from "react";
 import { ProductSortOption } from "@/types/product";
+import { ArticleSortOption } from "@/types/article";
 import SortIcon from "@/images/icons/ic_sort.svg";
 
-interface DropdownMenuProps {
-  onSortSelection: (sortOption: ProductSortOption) => void;
+interface DropdownMenuProps<T extends ProductSortOption | ArticleSortOption> {
+  onSortSelection: (sortOption: T) => void;
+  type: "product" | "article";
 }
 
-const DropdownMenu = ({ onSortSelection }: DropdownMenuProps) => {
+const DropdownMenu = <T extends ProductSortOption | ArticleSortOption>({
+  onSortSelection,
+  type,
+}: DropdownMenuProps<T>) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
   const toggleDropdown = () => {
@@ -29,7 +34,7 @@ const DropdownMenu = ({ onSortSelection }: DropdownMenuProps) => {
           <div
             className="py-3 px-11 border-b border-gray-200 text-base text-gray-800 cursor-pointer last:border-b-0"
             onClick={() => {
-              onSortSelection("recent");
+              onSortSelection("recent" as T);
               setIsDropdownVisible(false);
             }}
           >
@@ -38,7 +43,7 @@ const DropdownMenu = ({ onSortSelection }: DropdownMenuProps) => {
           <div
             className="py-3 px-11 border-b border-gray-200 text-base text-gray-800 cursor-pointer last:border-b-0"
             onClick={() => {
-              onSortSelection("favorite");
+              onSortSelection((type === "product" ? "favorite" : "like") as T);
               setIsDropdownVisible(false);
             }}
           >

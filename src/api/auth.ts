@@ -1,4 +1,4 @@
-// src/api/authApi.ts
+// src/api/auth.ts
 import { isAxiosError } from "axios";
 import axiosInstance from "./axiosConfig";
 import Cookies from "js-cookie";

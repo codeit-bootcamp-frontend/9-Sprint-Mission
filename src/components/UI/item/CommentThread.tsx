@@ -1,6 +1,6 @@
 // src/components/UI/InputItem.tsx
 import { useEffect, useState } from "react";
-import { getProductComments } from "@/api/itemApi";
+import { getProductComments } from "@/api/item";
 import EmptyStateImage from "@/images/ui/empty-comments.svg";
 import SeeMoreIcon from "@/images/icons/ic_kebab.svg";
 import DefaultProfileImage from "@/images/ui/ic_profile.svg";

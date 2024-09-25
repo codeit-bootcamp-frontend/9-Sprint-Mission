@@ -1,12 +1,13 @@
+// src/components/UI/community/LikeCommunitySection.tsx
 import React, { useEffect, useState } from "react";
-import ItemCard from "./ItemCard";
-import { getProducts } from "@/api/item";
+import CommunityCard from "./CommunityCard";
+import { getArticles } from "@/api/article";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import {
-  Product,
-  ProductListResponse,
-  ProductSortOption,
-} from "@/types/product";
+  Article,
+  ArticleListResponse,
+  ArticleSortOption,
+} from "@/types/article";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -19,13 +20,13 @@ const getPageSize = () => {
   }
 };
 
-interface BestItemsSectionProps {
+interface BestArticlesSectionProps {
   width: number;
   height: number;
 }
 
-const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
-  const [itemList, setItemList] = useState<Product[]>([]);
+const BestArticlesSection = ({ width, height }: BestArticlesSectionProps) => {
+  const [articleList, setArticleList] = useState<Article[]>([]);
   const [pageSize, setPageSize] = useState(getPageSize());
   const [isLoading, setIsLoading] = useState(true);
 
@@ -33,16 +34,16 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
     orderBy,
     pageSize,
   }: {
-    orderBy: ProductSortOption;
+    orderBy: ArticleSortOption;
     pageSize: number;
   }) => {
     setIsLoading(true);
     try {
-      const response: ProductListResponse = await getProducts({
+      const response: ArticleListResponse = await getArticles({
         orderBy,
         pageSize,
       });
-      setItemList(response.list);
+      setArticleList(response.list);
     } catch (error) {
       console.error("오류: ", (error as Error).message);
     } finally {
@@ -56,7 +57,7 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
     };
 
     window.addEventListener("resize", handleResize);
-    fetchSortedData({ orderBy: "favorite", pageSize });
+    fetchSortedData({ orderBy: "like", pageSize });
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -71,10 +72,10 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
         <h1 className="text-gray-900 font-bold text-xl mb-4">베스트 상품</h1>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {itemList?.map((item) => (
-            <ItemCard
-              item={item}
-              key={`best-item-${item.id}`}
+          {articleList?.map((article) => (
+            <CommunityCard
+              article={article}
+              key={`best-article-${article.id}`}
               width={width}
               height={height}
             />
@@ -85,4 +86,4 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
   );
 };
 
-export default BestItemsSection;
+export default BestArticlesSection;

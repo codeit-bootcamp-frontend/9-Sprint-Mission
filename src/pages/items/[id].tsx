@@ -1,7 +1,7 @@
 // src/pages/items/[id].tsx
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { getProductDetail } from "@/api/itemApi";
+import { getProductDetail } from "@/api/item";
 import ItemProfileSection from "@/components/UI/item/ItemProfileSection";
 import ItemCommentSection from "@/components/UI/item/ItemCommentSection";
 import BackIcon from "@/images/icons/ic_back.svg";

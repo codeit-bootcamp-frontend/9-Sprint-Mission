@@ -1,15 +1,16 @@
+// src/components/UI/community/AllCommunitySection.tsx
 import React, { useEffect, useState } from "react";
-import { getProducts } from "@/api/item";
-import ItemCard from "./ItemCard";
+import { getArticles } from "@/api/article";
+import CommunityCard from "./CommunityCard";
 import SearchIcon from "@/images/icons/ic_search.svg";
 import DropdownMenu from "@/components/UI/DropdownMenu";
 import PaginationBar from "@/components/UI/PaginationBar";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import {
-  Product,
-  ProductListResponse,
-  ProductSortOption,
-} from "@/types/product";
+  Article,
+  ArticleListResponse,
+  ArticleSortOption,
+} from "@/types/article";
 import Link from "next/link";
 
 const getPageSize = () => {
@@ -23,16 +24,16 @@ const getPageSize = () => {
   }
 };
 
-interface AllItemsSectionProps {
+interface AllArticlesSectionProps {
   width: number;
   height: number;
 }
 
-const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
-  const [orderBy, setOrderBy] = useState<ProductSortOption>("recent");
+const AllArticlesSection = ({ width, height }: AllArticlesSectionProps) => {
+  const [articleList, setArticleList] = useState<Article[]>([]);
+  const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(getPageSize());
-  const [itemList, setItemList] = useState<Product[]>([]);
   const [totalPageNum, setTotalPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -41,18 +42,18 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     page,
     pageSize,
   }: {
-    orderBy: ProductSortOption;
+    orderBy: ArticleSortOption;
     page: number;
     pageSize: number;
   }) => {
     setIsLoading(true);
     try {
-      const response: ProductListResponse = await getProducts({
+      const response: ArticleListResponse = await getArticles({
         orderBy,
         page,
         pageSize,
       });
-      setItemList(response.list);
+      setArticleList(response.list);
       setTotalPageNum(Math.ceil(response.totalCount / pageSize));
     } catch (error) {
       console.error("오류: ", (error as Error).message);
@@ -61,7 +62,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     }
   };
 
-  const handleSortSelection = (sortOption: ProductSortOption) => {
+  const handleSortSelection = (sortOption: ArticleSortOption) => {
     setOrderBy(sortOption);
   };
 
@@ -102,17 +103,17 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
               placeholder="검색할 상품을 입력해 주세요"
             />
           </div>
-          <DropdownMenu<ProductSortOption>
+          <DropdownMenu<ArticleSortOption>
             onSortSelection={(sortOption) => handleSortSelection(sortOption)}
-            type="product"
+            type="article"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-8 sm:gap-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">
-          {itemList?.map((item) => (
-            <ItemCard
-              item={item}
-              key={`market-item-${item.id}`}
+          {articleList?.map((article) => (
+            <CommunityCard
+              article={article}
+              key={`market-article-${article.id}`}
               width={width}
               height={height}
             />
@@ -131,4 +132,4 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   );
 };
 
-export default AllItemsSection;
+export default AllArticlesSection;

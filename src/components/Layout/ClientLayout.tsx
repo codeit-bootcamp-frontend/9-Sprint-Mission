@@ -7,7 +7,7 @@ import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { Provider, useAtomValue, useSetAtom } from "jotai";
 import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/auth";
 import { loadingAtom } from "@/store/loadingAtom";
-import { refreshAccessToken } from "@/api/authApi";
+import { refreshAccessToken } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";
 
 const pretendard = localFont({

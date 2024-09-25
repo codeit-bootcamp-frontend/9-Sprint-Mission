@@ -1,4 +1,4 @@
-// src/api/itemApi.ts
+// src/api/item.ts
 import axiosInstance from "./axiosConfig";
 
 export async function getProducts(params = {}) {
