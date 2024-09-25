@@ -1,31 +1,25 @@
-# 스프린트 미션 8 
+# 스프린트 미션 9 
 
 ## 요구사항
 
 - Javascript
 - React 18.3.1
-- react-router-dom 6.26.0
-- axios 1.7.3
+- Next.js 14.2.13
+- Tailwind CSS 3.4.1
+- axios 1.7.7
 - react-hook-form 7.53.0
 - zod 3.23.8
-- react-hot-toast 2.4.1
-- typescript 4.9.5
+- typescript 5
 
-### 배포 웹사이트: https://codeit-react-mck.netlify.app
+### 배포 웹사이트: 재배포 예정
 
 ### 기본
 
-- [x] 스프린트 미션 7까지의 기본 및 심화사항 반영
-- [x] 스프린트 미션 1 ~ 7에 대해 typescript를 적용해주세요.
+- [x] 스프린트 미션 8까지의 기본 및 심화사항 반영
 
 ### 변경사항
 
-- 스프린트 미션 11과 겹치는 부분이 많아서 일부 기능을 미리 적용했습니다.
-  - react-hook-form과 zod로 검색을 제외한 form에 적용했습니다.
-  - 로그인, 로그아웃기능을 구현했습니다. 
-  - addItem에도 react-hook-form과 zod를 적용하고 태그 옆의 X 버튼 경로를 수정했습니다. (09.14)
-  - error boundary를 적용하였습니다. (09-15)
-  - 스프린트 미션 8의 개선사항을 반영하였습니다. (09-20)
+- Next.js로 전환하고 tailwind css를 적용했습니다.
 
 ## 스크린샷
 
