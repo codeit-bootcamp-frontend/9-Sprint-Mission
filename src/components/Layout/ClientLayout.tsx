@@ -3,8 +3,7 @@ import React, { useEffect } from "react";
 import localFont from "next/font/local";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
-import LoadingSpinner from "@/components/UI/LoadingSpinner";
-import { Provider, useAtomValue, useSetAtom } from "jotai";
+import { Provider, useSetAtom } from "jotai";
 import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/auth";
 import { loadingAtom } from "@/store/loadingAtom";
 import { refreshAccessToken } from "@/api/auth";
@@ -19,7 +18,6 @@ const pretendard = localFont({
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const isLoading = useAtomValue(loadingAtom);
   const setIsLoading = useSetAtom(loadingAtom);
   const setUserId = useSetAtom(userIdAtom);
   const setNickname = useSetAtom(nicknameAtom);
@@ -62,7 +60,6 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={pretendard.className + " bg-gray-50 text-gray-900"}>
-      {isLoading && <LoadingSpinner isLoading={isLoading} />}
       {children}
     </div>
   );

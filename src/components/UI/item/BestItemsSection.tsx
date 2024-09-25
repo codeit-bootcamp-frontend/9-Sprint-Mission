@@ -1,3 +1,4 @@
+// src/components/UI/item/BestItemsSection.tsx
 import React, { useEffect, useState } from "react";
 import ItemCard from "./ItemCard";
 import { getProducts } from "@/api/item";
@@ -28,6 +29,7 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
   const [itemList, setItemList] = useState<Product[]>([]);
   const [pageSize, setPageSize] = useState(getPageSize());
   const [isLoading, setIsLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(0); // 이미지 로드 상태 추적
 
   const fetchSortedData = async ({
     orderBy,
@@ -36,7 +38,7 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
     orderBy: ProductSortOption;
     pageSize: number;
   }) => {
-    setIsLoading(true);
+    setIsLoading(true); // 로딩 상태 시작
     try {
       const response: ProductListResponse = await getProducts({
         orderBy,
@@ -45,8 +47,6 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
       setItemList(response.list);
     } catch (error) {
       console.error("오류: ", (error as Error).message);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -63,8 +63,20 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
     };
   }, [pageSize]);
 
+  // 이미지가 모두 로드되었는지 확인
+  useEffect(() => {
+    if (imagesLoaded === itemList.length && itemList.length > 0) {
+      setIsLoading(false); // 모든 이미지가 로드된 후 로딩 해제
+    }
+  }, [imagesLoaded, itemList.length]);
+
+  const handleImageLoad = () => {
+    setImagesLoaded((prev) => prev + 1); // 각 이미지가 로드될 때마다 호출
+  };
+
   return (
     <>
+      {/* 로딩 스피너는 이미지 로드가 완료될 때까지 표시 */}
       <LoadingSpinner isLoading={isLoading} />
 
       <div className="py-4 mt-6 md:py-6 md:mt-12 lg:py-8 lg:mt-12">
@@ -77,6 +89,7 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
               key={`best-item-${item.id}`}
               width={width}
               height={height}
+              onLoad={handleImageLoad} // 이미지 로드 이벤트 핸들러 추가
             />
           ))}
         </div>

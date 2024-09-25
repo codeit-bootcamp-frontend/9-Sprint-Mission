@@ -1,3 +1,4 @@
+// src/pages/items/index.tsx
 import React, { useEffect, useState } from "react";
 import "../../styles/common.module.css";
 import BestItemsSection from "@/components/UI/item/BestItemsSection";

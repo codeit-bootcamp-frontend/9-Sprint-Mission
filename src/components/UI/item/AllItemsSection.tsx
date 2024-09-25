@@ -1,3 +1,4 @@
+// src/components/UI/item/AllItemsSection.tsx
 import React, { useEffect, useState } from "react";
 import { getProducts } from "@/api/item";
 import ItemCard from "./ItemCard";
@@ -35,6 +36,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const [itemList, setItemList] = useState<Product[]>([]);
   const [totalPageNum, setTotalPageNum] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(0); // 이미지 로딩 추적
 
   const fetchSortedData = async ({
     orderBy,
@@ -56,8 +58,6 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
       setTotalPageNum(Math.ceil(response.totalCount / pageSize));
     } catch (error) {
       console.error("오류: ", (error as Error).message);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -78,12 +78,25 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     };
   }, [orderBy, page, pageSize]);
 
+  // 이미지 로드 완료 시 호출되는 함수
+  const handleImageLoad = () => {
+    setImagesLoaded((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    // 모든 이미지가 로드되면 로딩 상태를 false로 전환
+    if (imagesLoaded === itemList.length && itemList.length > 0) {
+      setIsLoading(false);
+    }
+  }, [imagesLoaded, itemList.length]);
+
   const onPageChange = (pageNumber: number) => {
     setPage(pageNumber);
   };
 
   return (
     <>
+      {/* 로딩 스피너는 이미지 로드가 완료될 때까지 표시 */}
       <LoadingSpinner isLoading={isLoading} />
 
       <div>
@@ -115,6 +128,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
               key={`market-item-${item.id}`}
               width={width}
               height={height}
+              onLoad={handleImageLoad} // 이미지 로드 시 호출
             />
           ))}
         </div>

@@ -10,10 +10,11 @@ interface ItemCardProps {
   item: Product;
   width?: number;
   height?: number;
+  onLoad?: () => void;
 }
 
-const ItemCard = ({ item, width, height }: ItemCardProps) => {
-  const [imageUrl, setImageUrl] = useState<string>("");
+const ItemCard = ({ item, width, height, onLoad }: ItemCardProps) => {
+  const [imageUrl, setImageUrl] = useState<string>(NoImage.src); // 초기값을 NoImage로 설정
 
   useEffect(() => {
     const validateAndSetImageUrl = async (url: string) => {
@@ -28,21 +29,23 @@ const ItemCard = ({ item, width, height }: ItemCardProps) => {
             setImageUrl(`/api/imageProxy?url=${encodeURIComponent(url)}`);
           } else {
             console.log("이미지를 불러올 수 없습니다: ", response.status);
-            setImageUrl(NoImage.src);
+            setImageUrl(NoImage.src); // 에러 발생 시 기본 이미지로 설정
           }
         } catch (error) {
           console.error("이미지를 불러올 수 없습니다: ", error);
-          setImageUrl(NoImage.src);
+          setImageUrl(NoImage.src); // 에러 발생 시 기본 이미지로 설정
         }
       }
     };
 
-    if (item.images[0]) {
+    // 이미지가 존재하는 경우
+    if (item.images && item.images.length > 0) {
       validateAndSetImageUrl(item.images[0]);
     } else {
-      setImageUrl(NoImage.src);
+      setImageUrl(NoImage.src); // 이미지가 없을 경우 기본 이미지로 설정
     }
   }, [item.images]);
+
   return (
     <Link
       href={`/items/${item.id}`}
@@ -50,11 +53,12 @@ const ItemCard = ({ item, width, height }: ItemCardProps) => {
     >
       <div className="w-full pb-[100%] relative mb-4">
         <Image
-          src={imageUrl}
+          src={imageUrl || NoImage.src} // src가 없으면 기본 이미지를 사용
           alt="상품 썸네일"
           className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
-          width={width}
-          height={height}
+          width={width || 200} // 기본 너비 설정
+          height={height || 200} // 기본 높이 설정
+          onLoad={onLoad} // 이미지 로드 이벤트
         />
       </div>
       <div className="flex flex-col gap-2.5">
