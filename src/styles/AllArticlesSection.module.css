@@ -1,0 +1,50 @@
+/* AllArticlesSection.module.css */
+
+/* 전체 컨테이너 스타일 */
+.container {
+  margin-top: 3rem; /* 상단 여백 */
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 1280px; /* 최대 넓이 */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 헤더 영역 스타일 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+/* 검색 바 및 정렬 드롭다운 메뉴를 감싸는 컨트롤바 */
+.controlBar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* 요소들 사이 간격 */
+  margin-bottom: 1.5rem;
+
+  /* 태블릿 이상의 화면에서는 가로 정렬 */
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Masonry 레이아웃을 위한 스타일 */
+.masonry {
+  display: flex;
+  gap: 1rem; /* Masonry 칼럼들 사이의 간격 */
+  margin-bottom: 2rem;
+}
+
+.masonry-column {
+  padding-left: 1rem;
+  background-clip: padding-box;
+}
+
+.masonry-column > div {
+  margin-bottom: 1.5rem;
+}
