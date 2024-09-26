@@ -6,39 +6,53 @@ import { format } from "date-fns";
 import { Article } from "@/types/article";
 import MedalIcon from "@/images/icons/ic_medal.svg";
 import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
-import NoImage from "@/images/ui/no-image.png"; // 대체 이미지
+import NoImage from "@/images/ui/no-image.png";
 
 interface BestArticleCardProps {
   article: Article;
+  width?: number;
+  height?: number;
 }
 
-const BestArticleCard = ({ article }: BestArticleCardProps) => {
+const BestArticleCard = ({
+  article,
+  width = 384,
+  height = 169,
+}: BestArticleCardProps) => {
   const dateString = format(article.createdAt, "yyyy. MM. dd");
-  const [imageUrl, setImageUrl] = useState<string>(NoImage.src);
-  const [imageError, setImageError] = useState(false);
+  const [imageStatus, setImageStatus] = useState<
+    "loading" | "loaded" | "error"
+  >("loading");
+  const imageUrl =
+    article.image &&
+    article.image.trim() !== "" &&
+    !article.image.includes("example.com")
+      ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
+      : NoImage.src;
 
-  // 이미지 유효성 검증 추가
   useEffect(() => {
-    const validateAndSetImageUrl = async () => {
-      if (article.image) {
+    setImageStatus("loading");
+    if (article.image && article.image.trim() !== "") {
+      const checkImageUrl = async () => {
         try {
-          const response = await fetch(article.image, { method: "HEAD" });
-          if (
-            response.ok &&
-            response.headers.get("Content-Type")?.startsWith("image/")
-          ) {
-            setImageUrl(article.image);
+          const response = await fetch(
+            `/api/imageProxy?url=${encodeURIComponent(article.image)}`,
+            { method: "GET" }
+          );
+          if (response.ok) {
+            setImageStatus("loaded");
           } else {
-            setImageError(true);
+            setImageStatus("error");
           }
         } catch (error) {
-          console.error("이미지 로드 실패:", error);
-          setImageError(true);
+          console.error("이미지 URL 검증 실패:", error);
+          setImageStatus("error");
         }
-      }
-    };
-
-    validateAndSetImageUrl();
+      };
+      checkImageUrl();
+    } else {
+      setImageStatus("error");
+    }
   }, [article.image]);
 
   return (
@@ -54,19 +68,27 @@ const BestArticleCard = ({ article }: BestArticleCardProps) => {
       <div className="p-4 sm:p-6">
         <div className="flex gap-2 min-h-[72px]">
           <div className="text-lg font-semibold flex-1">{article.title}</div>
-          {article.image && !imageError && (
-            <div className="bg-white border border-gray-200 w-[72px] h-[72px] rounded-lg p-3">
-              <div className="relative w-full h-full">
-                <Image
-                  fill
-                  src={imageUrl}
-                  alt={`${article.id}번 게시글 이미지`}
-                  style={{ objectFit: "contain" }}
-                  onError={() => setImageError(true)} // 이미지 로드 실패 시 에러 처리
-                />
-              </div>
+          <div className="bg-white border border-gray-200 w-[72px] h-[72px] rounded-lg p-3">
+            <div className="relative w-full h-full">
+              {imageStatus === "loading" && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent border-solid rounded-full animate-spin"></div>
+                </div>
+              )}
+              <Image
+                src={imageStatus === "error" ? NoImage.src : imageUrl}
+                alt={`${article.id}번 게시글 이미지`}
+                style={{ objectFit: "contain" }}
+                width={width}
+                height={height}
+                onLoad={() => setImageStatus("loaded")}
+                onError={() => {
+                  setImageStatus("error");
+                  console.error(`이미지 로드 실패: ${imageUrl}`);
+                }}
+              />
             </div>
-          )}
+          </div>
         </div>
 
         <div className="flex justify-between items-center mt-4">
