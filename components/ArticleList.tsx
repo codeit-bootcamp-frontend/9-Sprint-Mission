@@ -2,7 +2,12 @@ import { useEffect, useState, ChangeEvent } from "react";
 import axios from "@/lib/axios";
 import styles from "./ArticleList.module.css";
 import Image from "next/image";
-
+import { Dropdown } from "./Dropdown";
+interface Query {
+  page: number;
+  pageSize: number;
+  orderBy: string;
+}
 interface Article {
   id: number;
   title: string;
@@ -16,18 +21,17 @@ interface Article {
     nickname: string;
   };
 }
-
 interface ArticleResponse {
   list: Article[];
 }
 
-interface Query {
-  page: number;
-  pageSize: number;
-  orderBy: string;
-}
-
-export default function ArticleList({ query }: { query: Query }) {
+export default function ArticleList({
+  query,
+  handleClickOrder,
+}: {
+  query: Query;
+  handleClickOrder: (value: string) => void;
+}) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<Error | null>(null);
   const [search, setSearch] = useState<string>("");
@@ -77,22 +81,28 @@ export default function ArticleList({ query }: { query: Query }) {
       article.title.toLowerCase().includes(search.toLowerCase())
     );
   };
-
   //검색어 필터 함수 호출
   const filteredArticles = getFilteredData(search);
 
   return (
     <>
       {error && <p>{error.message}</p>}
-      <form className={styles["search-form"]}>
-        <input
-          className={styles["search-input"]}
-          type="text"
-          placeholder="검색할 상품을 입력해주세요"
-          value={search}
-          onChange={handleChangeValue}
-        ></input>
-      </form>
+      {/* 검색 input + 정렬 드롭다운 */}
+      <div>
+        <form className={styles["search-form"]}>
+          <input
+            className={styles["search-input"]}
+            type="text"
+            placeholder="검색할 상품을 입력해주세요"
+            value={search}
+            onChange={handleChangeValue}
+          ></input>
+        </form>
+        <Dropdown
+          args={["최신순", "인기순"]}
+          handleClickOrder={handleClickOrder}
+        />
+      </div>
 
       {filteredArticles.map((article: Article) => (
         <li key={article.id} className={styles["article-box"]}>
