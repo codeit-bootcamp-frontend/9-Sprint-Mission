@@ -71,7 +71,7 @@ const BestArticleCard = ({
       <div className="p-4 sm:p-6">
         <div className="flex gap-2 min-h-[72px]">
           <div className="text-lg font-semibold flex-1">{article.title}</div>
-          <div className="bg-white border border-gray-200 w-[72px] h-[72px] rounded-lg p-3">
+          <div className="bg-white border border-gray-200 w-[72px] h-[72px] rounded-lg p-1">
             <div className="relative w-full h-full">
               {imageStatus === "loading" && (
                 <div className="absolute inset-0 flex items-center justify-center">
