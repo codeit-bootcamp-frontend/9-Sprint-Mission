@@ -1,7 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { useEffect, useState, ChangeEvent } from "react";
 import axios from "@/lib/axios";
-import Link from "next/link";
 import styles from "./ArticleList.module.css";
 import Image from "next/image";
 
@@ -32,6 +30,7 @@ interface Query {
 export default function ArticleList({ query }: { query: Query }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<Error | null>(null);
+  const [search, setSearch] = useState<string>("");
 
   //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent
 
@@ -49,6 +48,7 @@ export default function ArticleList({ query }: { query: Query }) {
       console.log("에러가 발생했습니다.");
     }
   }
+
   useEffect(() => {
     getArticles(query);
   }, [query]);
@@ -63,17 +63,41 @@ export default function ArticleList({ query }: { query: Query }) {
     hour12: false, // 12시간 형식 사용 여부
   };
 
+  // search 값으로 필터링해서 article 바꿔주기
+  const getFilteredData = (search: string): Article[] => {
+    if ((search = "")) {
+      return articles;
+    }
+    return articles.filter((article) =>
+      article.title.toLowerCase().includes(search.toLowerCase())
+    );
+  };
+
+  const filteredArticles = getFilteredData(search);
+
+  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(e.target.value);
+  };
   return (
     <>
       {error && <p>{error.message}</p>}
-      {articles.map((article) => (
+      <form>
+        <input
+          type="text"
+          placeholder="검색할 상품을 입력해주세요"
+          value={search}
+          onChange={handleChangeValue}
+        ></input>
+      </form>
+
+      {filteredArticles.map((article: Article) => (
         <li key={article.id} className={styles["article-box"]}>
           {/* 게시글 제목  + 이미지 = 꽉차게 한블럭 */}
           <div className={styles["article-title-image"]}>
             <div className={styles["article-title"]}>{article.title}</div>
-            <img
+            <Image
               className={styles.imageBox}
-              src={article.image}
+              src={article.image ? article.image : "/dummy.png"}
               width={300}
               height={300}
               alt=""

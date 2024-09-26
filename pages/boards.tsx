@@ -1,5 +1,6 @@
 import ArticleList from "@/components/ArticleList";
 import BestArticleList from "@/components/BestArticleList";
+import styles from "./board.module.css";
 
 export default function Boards() {
   const BestQuery = {
@@ -15,12 +16,15 @@ export default function Boards() {
 
   return (
     <div className="container">
-      <section>
-        <h1>베스트 게시글</h1>
+      <section className={styles["section"]}>
+        <h1 className={styles["section-title"]}>베스트 게시글</h1>
         <BestArticleList query={BestQuery} />
       </section>
-      <section>
-        <h1>게시글</h1>
+      <section className={styles["section"]}>
+        <div className={styles["title-wrap"]}>
+          <h1 className={styles["section-title"]}> 게시글</h1>
+          <button className={styles["create-btn"]}>글쓰기</button>
+        </div>
         <ArticleList query={mainQuery} />
       </section>
     </div>
