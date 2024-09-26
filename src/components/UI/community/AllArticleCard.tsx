@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { Article } from "@/types/article";
 import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
 import NoImage from "@/images/ui/no-image.png";
+import allowedDomains from "allowedDomains";
 import disallowedDomains from "disallowedDomains";
 
 interface ArticleItemProps {
@@ -18,10 +19,11 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
     "loading" | "loaded" | "error"
   >("loading");
   const imageUrl =
-    article.image && article.image.trim() !== ""
-      ? disallowedDomains.some((domain) => article.image.includes(domain))
-        ? NoImage.src
-        : `/api/imageProxy?url=${encodeURIComponent(article.image)}`
+    article.image &&
+    article.image.trim() !== "" &&
+    allowedDomains.some((domain) => article.image.includes(domain)) &&
+    !disallowedDomains.some((domain) => article.image.includes(domain))
+      ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
       : NoImage.src;
 
   useEffect(() => {
@@ -30,7 +32,7 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
 
   return (
     <>
-      <Link href={`/boards/${article.id}`} className="block">
+      <Link href={`/community/${article.id}`} className="block">
         <div className="flex gap-2 min-h-[72px]">
           <div className="text-lg font-semibold flex-1 md:text-xl">
             {article.title}
@@ -44,6 +46,7 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
               )}
               <Image
                 fill
+                sizes="(max-width: 768px) 72px, 72px"
                 src={imageUrl}
                 alt={`${article.id}번 게시글 이미지`}
                 style={{ objectFit: "contain" }}
