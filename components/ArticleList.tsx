@@ -63,9 +63,14 @@ export default function ArticleList({ query }: { query: Query }) {
     hour12: false, // 12시간 형식 사용 여부
   };
 
-  // search 값으로 필터링해서 article 바꿔주기
+  // input의 value -> search 상태로 관리
+  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>): void => {
+    setSearch(e.target.value);
+  };
+
+  // search 값으로 articles 배열을 필터링하는 함수
   const getFilteredData = (search: string): Article[] => {
-    if ((search = "")) {
+    if (search === "") {
       return articles;
     }
     return articles.filter((article) =>
@@ -73,16 +78,15 @@ export default function ArticleList({ query }: { query: Query }) {
     );
   };
 
+  //검색어 필터 함수 호출
   const filteredArticles = getFilteredData(search);
 
-  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>): void => {
-    setSearch(e.target.value);
-  };
   return (
     <>
       {error && <p>{error.message}</p>}
-      <form>
+      <form className={styles["search-form"]}>
         <input
+          className={styles["search-input"]}
           type="text"
           placeholder="검색할 상품을 입력해주세요"
           value={search}
