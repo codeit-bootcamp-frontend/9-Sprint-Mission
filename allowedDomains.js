@@ -1,7 +1,6 @@
 // allowedDomains.js
 const allowedDomains = [
   "localhost",
-  "example.com",
   "images.samsung.com",
   "store.ardanlabs.com",
   "store.storeimages.cdn-apple.com",
