@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Product } from "@/types/product";
 import HeartIcon from "@/images/icons/ic_heart.svg";
 import NoImage from "@/images/ui/no-image.png";
-import { detectLCP } from "@/utils/detectLPC";
 import allowedDomains from "allowedDomains";
 
 interface ItemCardProps {
@@ -16,22 +15,33 @@ interface ItemCardProps {
   priority?: boolean; // LCP 이미지 우선 로드 여부
 }
 
+// 캐시를 위한 객체 추가
+const validImageCache: { [url: string]: boolean } = {};
+
 // 이미지를 사전에 검증하는 함수
 const isValidImageUrl = async (url: string): Promise<boolean> => {
+  if (url in validImageCache) {
+    return validImageCache[url];
+  }
+
   try {
     const urlObj = new URL(url);
     if (allowedDomains.includes(urlObj.hostname)) {
-      return true; // 허용된 도메인이면 통과
+      validImageCache[url] = true;
+      return true;
     }
 
+    // CORS 문제를 피하기 위해 no-cors 모드는 제거
     const response = await fetch(url, { method: "HEAD" });
-    return (
+    const isValid =
       (response.ok &&
         response.headers.get("Content-Type")?.startsWith("image/")) ||
-      false
-    );
+      false;
+    validImageCache[url] = isValid;
+    return isValid;
   } catch (error) {
     console.error("이미지 검증 중 오류 발생:", url, error);
+    validImageCache[url] = false;
     return false;
   }
 };
@@ -45,32 +55,34 @@ const ItemCard = ({
   const [imageUrl, setImageUrl] = useState<string>(NoImage.src); // 대체 이미지 기본값
   const [imageLoaded, setImageLoaded] = useState(false); // 로딩 상태
   const [imageError, setImageError] = useState(false); // 이미지 로딩 실패 여부
-  const [lcpUrl, setLCPUrl] = useState<string | null>(null);
   const isFirstRender = useRef(true); // 첫 렌더링을 추적하는 ref
-
-  // LCP 감지 함수
-  useEffect(() => {
-    detectLCP(setLCPUrl);
-  }, []);
 
   // 이미지 변경 시 로딩 상태 초기화
   useEffect(() => {
     if (!isFirstRender.current) {
       setImageLoaded(false);
+      setImageError(false); // 이미지 변경 시 에러 상태 초기화
     }
   }, [item.images]);
 
   // 이미지 검증 후 설정
   useEffect(() => {
+    const controller = new AbortController(); // AbortController 추가
+
     const validateAndSetImageUrl = async () => {
       if (item.images && item.images[0]) {
-        const isValid = await isValidImageUrl(item.images[0]);
-        if (isValid) {
-          setImageUrl(item.images[0]);
-        } else {
-          console.warn("유효하지 않은 이미지 URL:", item.images[0]);
-          setImageUrl(NoImage.src); // 대체 이미지 설정
-          setImageError(true); // 에러 상태로 설정
+        try {
+          const isValid = await isValidImageUrl(item.images[0]);
+          if (isValid) {
+            setImageUrl(item.images[0]);
+          } else {
+            console.warn("유효하지 않은 이미지 URL:", item.images[0]);
+            setImageUrl(NoImage.src); // 대체 이미지 설정
+            setImageError(true); // 에러 상태로 설정
+          }
+        } catch (error) {
+          console.error("이미지 검증 오류:", error);
+          setImageError(true);
         }
       } else {
         setImageUrl(NoImage.src); // 이미지가 없는 경우 기본 이미지 설정
@@ -80,6 +92,11 @@ const ItemCard = ({
     };
 
     validateAndSetImageUrl();
+
+    // 컴포넌트 언마운트 시 요청 취소
+    return () => {
+      controller.abort();
+    };
   }, [item.images]);
 
   return (
@@ -102,7 +119,6 @@ const ItemCard = ({
           className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
           width={width}
           height={height}
-          priority={lcpUrl === imageUrl} // LCP 이미지에만 우선순위 적용
           unoptimized={imageUrl.endsWith(".gif")} // 애니메이션 GIF는 최적화하지 않음
           onLoad={() => {
             setImageLoaded(true); // 이미지 로드 완료 시 로딩 상태 해제

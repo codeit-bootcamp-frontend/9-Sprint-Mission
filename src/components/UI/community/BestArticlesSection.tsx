@@ -1,54 +1,9 @@
+// src/components/UI/articles/BestArticlesSection.tsx
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { format } from "date-fns";
 import { Article } from "@/types/article";
-import MedalIcon from "@/images/icons/ic_medal.svg";
 import useViewport from "@/hooks/useViewport";
-import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
+import BestArticleCard from "./BestArticleCard"; // 불러오기
 import { getArticles } from "@/api/article";
-
-const BestArticleCard = ({ article }: { article: Article }) => {
-  const dateString = format(article.createdAt, "yyyy. MM. dd");
-
-  return (
-    <Link
-      href={`/community/${article.id}`}
-      className="bg-gray-50 rounded-lg block"
-    >
-      <div className="inline-flex items-center bg-blue-500 text-white text-base font-semibold rounded-b-3xl px-6 py-2 ml-6 gap-1">
-        <MedalIcon alt="베스트 게시글" />
-        Best
-      </div>
-
-      <div className="p-4 sm:p-6">
-        <div className="flex gap-2 min-h-[72px]">
-          <div className="text-lg font-semibold flex-1">{article.title}</div>
-          {article.image && (
-            <div className="bg-white border border-gray-200 w-[72px] h-[72px] rounded-lg p-3">
-              <div className="relative w-full h-full">
-                <Image
-                  fill
-                  src={article.image}
-                  alt={`${article.id}번 게시글 이미지`}
-                  style={{ objectFit: "contain" }}
-                />
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="flex justify-between items-center mt-4">
-          <div className="flex items-center gap-2 text-gray-600 text-sm">
-            {article.writer.nickname}
-            <LikeCountDisplay count={article.likeCount} fontSize={14} />
-          </div>
-          <span className="text-sm text-gray-400">{dateString}</span>
-        </div>
-      </div>
-    </Link>
-  );
-};
 
 const getPageSize = (width: number): number => {
   if (width < 768) {
