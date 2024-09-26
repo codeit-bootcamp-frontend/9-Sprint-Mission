@@ -29,10 +29,12 @@ export default function ArticleList({
   query,
   handleClickOrder,
   dropdownOpen,
+  handleClickOrderOpen,
 }: {
   query: Query;
   handleClickOrder: (value: string) => void;
   dropdownOpen: boolean;
+  handleClickOrderOpen: () => void;
 }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<Error | null>(null);
@@ -55,10 +57,6 @@ export default function ArticleList({
     }
   }
 
-  useEffect(() => {
-    getArticles(query);
-  }, [query]);
-
   const options = {
     year: "numeric",
     month: "numeric",
@@ -68,6 +66,10 @@ export default function ArticleList({
     second: undefined,
     hour12: false, // 12시간 형식 사용 여부
   };
+
+  useEffect(() => {
+    getArticles(query);
+  }, [query]);
 
   // input의 value -> search 상태로 관리
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -104,6 +106,7 @@ export default function ArticleList({
           args={["최신순", "인기순"]}
           handleClickOrder={handleClickOrder}
           dropdownOpen={dropdownOpen}
+          handleClickOrderOpen={handleClickOrderOpen}
         />
       </div>
 
@@ -125,6 +128,7 @@ export default function ArticleList({
           <div className={styles["article-info"]}>
             {/* [작성자 + 날짜] */}
             <div className={styles["writer-info"]}>
+              {/* 작성자 정보 api에서 받아와서 이미지 가져오기 */}
               <div className={styles["writer-img"]}></div>
               <div className={styles["writer-nickname"]}>
                 {article.writer.nickname}
