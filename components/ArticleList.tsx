@@ -28,9 +28,11 @@ interface ArticleResponse {
 export default function ArticleList({
   query,
   handleClickOrder,
+  dropdownOpen,
 }: {
   query: Query;
   handleClickOrder: (value: string) => void;
+  dropdownOpen: boolean;
 }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<Error | null>(null);
@@ -88,7 +90,7 @@ export default function ArticleList({
     <>
       {error && <p>{error.message}</p>}
       {/* 검색 input + 정렬 드롭다운 */}
-      <div>
+      <div className={styles["search-order-wrap"]}>
         <form className={styles["search-form"]}>
           <input
             className={styles["search-input"]}
@@ -101,6 +103,7 @@ export default function ArticleList({
         <Dropdown
           args={["최신순", "인기순"]}
           handleClickOrder={handleClickOrder}
+          dropdownOpen={dropdownOpen}
         />
       </div>
 
