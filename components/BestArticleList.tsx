@@ -62,6 +62,7 @@ export default function BestArticleList({ query }: { query: Query }) {
 
   return (
     <>
+      <h1 className={styles["section-title"]}>베스트 게시글</h1>
       {error && <p>{error.message}</p>}
       {articles.map((article) => (
         <li key={article.id} className={styles["article-box"]}>

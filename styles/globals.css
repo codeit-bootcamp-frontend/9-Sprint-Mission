@@ -38,14 +38,16 @@ li {
   margin: 0 auto;
 }
 
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 992px) {
   .container {
-    max-width: 696px;
+    max-width: auto;
+    margin: 0 24px;
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
   .container {
-    max-width: 343px;
+    max-width: auto;
+    margin: 0 16px;
   }
 }

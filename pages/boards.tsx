@@ -36,15 +36,10 @@ export default function Boards() {
   return (
     <div className="container">
       <section className={styles["section"]}>
-        <h1 className={styles["section-title"]}>베스트 게시글</h1>
         <BestArticleList query={bestQuery} />
       </section>
+
       <section className={styles["section"]}>
-        <div className={styles["title-wrap"]}>
-          <h1 className={styles["section-title"]}> 게시글</h1>
-          <button className={styles["create-btn"]}>글쓰기</button>
-          {/* Link 사용하기 */}
-        </div>
         <ArticleList
           query={mainQuery}
           handleClickOrder={handleClickOrder}

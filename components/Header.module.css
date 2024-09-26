@@ -40,3 +40,19 @@
 .nav img {
   cursor: pointer;
 }
+
+@media screen and (max-width: 992px) {
+  .nav {
+    margin: 0 24px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .nav {
+    margin: 0 16px;
+  }
+
+  .category-item {
+    font-size: 1.6rem;
+  }
+}

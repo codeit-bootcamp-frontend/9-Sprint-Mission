@@ -7,6 +7,7 @@ export default function Header() {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <div className={styles.menu}>
+          {/* 홈으로 이동하는 링크 */}
           <Image
             src="/logo-big.png"
             width={153}
