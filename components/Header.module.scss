@@ -1,0 +1,85 @@
+@import "@/styles/common.scss";
+
+.header {
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid $color-dfdfdf;
+  background-color: #fff;
+  z-index: 50;
+}
+
+.header-wrap {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: 1568px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+
+  .logo {
+    a {
+      display: block;
+      width: 153px;
+      height: 51px;
+      background: url("/assets/logo/logo-panda.png") no-repeat center/100% auto;
+      font-size: 0;
+    }
+  }
+
+  ul {
+    flex: 1;
+    display: flex;
+    align-items: center;
+
+    li {
+      a {
+        display: block;
+        height: 68px;
+        padding: 0 15px;
+        color: $color-4b5563;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 68px;
+      }
+      &:hover {
+        a {
+          color: $color-hover-1967d6;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .header-wrap {
+    padding: 0 3.22%;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-wrap {
+    gap: 8px;
+
+    .logo {
+      a {
+        width: 81px;
+        height: 40px;
+        background-image: url("/assets/logo/mo-logo-panda.png");
+        transition: all ease-in-out 0.3s;
+      }
+    }
+
+    ul {
+      gap: 8px;
+      li {
+        a {
+          height: 70px;
+          padding: 0;
+          font-size: 16px;
+          line-height: 70px;
+        }
+      }
+    }
+  }
+}

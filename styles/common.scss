@@ -1,11 +1,15 @@
 $color-white: #ffffff;
 $color-e5e7eb: #e5e7eb;
 $color-f3f4f6: #f3f4f6;
+$color-f9fafb: #f9fafb;
+$color-dfdfdf: #dfdfdf;
+$color-e8ebed: #e8ebed;
 $color-gray-1: #374151;
 $color-gray-2: #9ca3af;
-$color-gray-3: #6b7280;
+$color-6b7280: #6b7280;
 $color-1f2937: #1f2937;
-$color-black-2: #4b5563;
+$color-d1d5db: #d1d5db;
+$color-4b5563: #4b5563;
 $color-3692ff: #3692ff;
 $color-hover-1967d6: #1967d6;
 $color-bg-skyblue: #54677e;
@@ -23,14 +27,15 @@ input.form-input {
   line-height: 42px;
 
   &:focus {
-    border: 1px solid $color-3692ff;
+    outline: 1px solid $color-3692ff;
   }
 }
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1248px;
   margin: 0 auto;
+  padding: 24px;
 }
 
 h2.page-title {
@@ -47,6 +52,17 @@ h2.page-title {
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
+
+  &:hover {
+    background: $color-hover-1967d6;
+    transition: all ease 0.3s;
+  }
+}
+
+@mixin background-styles($repeat: no-repeat, $center: center, $size: cover) {
+  background-repeat: $repeat;
+  background-position: $center;
+  background-size: $size;
 }
 
 @media (max-width: 1200px) {

@@ -1,4 +1,3 @@
-import Boards from "./boards";
 import Head from "next/head";
 
 export default function Home() {
@@ -7,9 +6,6 @@ export default function Home() {
       <Head>
         <title>판다마켓</title>
       </Head>
-      <div className="container">
-        <Boards />
-      </div>
     </>
   );
 }
