@@ -2,26 +2,14 @@
   margin: 24px 0 40px 0;
 }
 
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 3.2rem;
-  text-align: left;
-  margin: 0;
+@media screen and (max-width: 992px) {
+  .section {
+    margin: 24px 0 24px 0;
+  }
 }
-.create-btn {
-  background-color: var(--main);
-  border: none;
-  color: #fff;
-  height: 42px;
-  padding: 12px 23px 12px 23px;
-  border-radius: 8px;
-  font-size: 1.6rem;
-  font-weight: 600;
-  line-height: 1.9rem;
-}
-.title-wrap {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+@media screen and (max-width: 768px) {
+  .section {
+    margin: 16px 0 24px 0;
+  }
 }

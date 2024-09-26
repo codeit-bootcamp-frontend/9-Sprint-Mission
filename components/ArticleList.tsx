@@ -3,6 +3,8 @@ import axios from "@/lib/axios";
 import styles from "./ArticleList.module.css";
 import Image from "next/image";
 import { Dropdown } from "./Dropdown";
+import { ArticleItem } from "./ArticleItem";
+import { SearchForm } from "./SearchForm";
 interface Query {
   page: number;
   pageSize: number;
@@ -57,32 +59,23 @@ export default function ArticleList({
     }
   }
 
-  const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: undefined, // 시간 정보 제거
-    minute: undefined,
-    second: undefined,
-    hour12: false, // 12시간 형식 사용 여부
+  const handleChangeValue = (value: string): void => {
+    setSearch(value);
   };
 
   useEffect(() => {
     getArticles(query);
   }, [query]);
 
-  // input의 value -> search 상태로 관리
-  const handleChangeValue = (e: ChangeEvent<HTMLInputElement>): void => {
-    setSearch(e.target.value);
-  };
-
   // search 값으로 articles 배열을 필터링하는 함수
   const getFilteredData = (search: string): Article[] => {
-    if (search === "") {
+    const searchTerm = typeof search === "string" ? search : "";
+
+    if (searchTerm === "") {
       return articles;
     }
     return articles.filter((article) =>
-      article.title.toLowerCase().includes(search.toLowerCase())
+      article.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
   };
   //검색어 필터 함수 호출
@@ -91,17 +84,8 @@ export default function ArticleList({
   return (
     <>
       {error && <p>{error.message}</p>}
-      {/* 검색 input + 정렬 드롭다운 */}
       <div className={styles["search-order-wrap"]}>
-        <form className={styles["search-form"]}>
-          <input
-            className={styles["search-input"]}
-            type="text"
-            placeholder="검색할 상품을 입력해주세요"
-            value={search}
-            onChange={handleChangeValue}
-          ></input>
-        </form>
+        <SearchForm search={search} handleChangeValue={handleChangeValue} />
         <Dropdown
           args={["최신순", "인기순"]}
           handleClickOrder={handleClickOrder}
@@ -109,38 +93,7 @@ export default function ArticleList({
           handleClickOrderOpen={handleClickOrderOpen}
         />
       </div>
-
-      {filteredArticles.map((article: Article) => (
-        <li key={article.id} className={styles["article-box"]}>
-          {/* 게시글 제목  + 이미지 = 꽉차게 한블럭 */}
-          <div className={styles["article-title-image"]}>
-            <div className={styles["article-title"]}>{article.title}</div>
-            <Image
-              className={styles.imageBox}
-              src={article.image ? article.image : "/dummy.png"}
-              width={300}
-              height={300}
-              alt=""
-            />
-          </div>
-
-          {/* [작성자 프로필 + 날짜] + [하트(before 처리) + 좋아요] */}
-          <div className={styles["article-info"]}>
-            {/* [작성자 + 날짜] */}
-            <div className={styles["writer-info"]}>
-              {/* 작성자 정보 api에서 받아와서 이미지 가져오기 */}
-              <div className={styles["writer-img"]}></div>
-              <div className={styles["writer-nickname"]}>
-                {article.writer.nickname}
-              </div>
-              <div className={styles["article-date"]}>
-                {new Date(article.updatedAt).toLocaleString("ko-KR", options)}
-              </div>
-            </div>
-            <div className={styles["article-like"]}>{article.likeCount}</div>
-          </div>
-        </li>
-      ))}
+      {filteredArticles && <ArticleItem articles={filteredArticles} />}
     </>
   );
 }

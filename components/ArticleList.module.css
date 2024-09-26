@@ -1,3 +1,27 @@
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  text-align: left;
+  margin: 0;
+}
+.create-btn {
+  background-color: var(--main);
+  border: none;
+  color: #fff;
+  height: 42px;
+  padding: 12px 23px 12px 23px;
+  border-radius: 8px;
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.9rem;
+}
+.title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .article-box {
   border-bottom: 1px solid var(--gray200);
   background-color: #fcfcfc;
@@ -109,4 +133,16 @@
   font-size: 1.6rem;
   line-height: 2.6rem;
   font-weight: 400;
+}
+
+@media screen and (max-width: 992px) {
+  .search-order-wrap {
+    gap: 6px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-order-wrap {
+    gap: 13px;
+  }
 }
