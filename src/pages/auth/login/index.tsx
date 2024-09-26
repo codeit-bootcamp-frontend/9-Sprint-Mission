@@ -11,7 +11,7 @@ import { LoginFormValues, AuthResponse } from "@/types/auth";
 import Logo from "@/images/logo/logo-auth.svg";
 import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
-import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/auth";
+import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/authAtoms";
 
 export default function LoginPage() {
   const router = useRouter();

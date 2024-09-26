@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Provider, useSetAtom } from "jotai";
-import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/auth";
+import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/authAtoms";
 import { loadingAtom } from "@/store/loadingAtom";
 import { refreshAccessToken } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";

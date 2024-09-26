@@ -5,7 +5,7 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 import { logout } from "@/api/auth";
 import { useAtom } from "jotai";
-import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/auth";
+import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/authAtoms";
 import Logo from "@/images/logo/logo.svg";
 import DefaultAvatar from "@/images/ui/ic_profile-32.png";
 
