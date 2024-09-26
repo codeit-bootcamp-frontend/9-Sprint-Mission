@@ -10,6 +10,7 @@ import PostList from "./PostList";
 import { ISearchList } from "@/app/boards/boardsTypeShare";
 import SelectMenu from "./SelectMenu";
 
+// 검색 form 컴포넌트
 const SearchForm = () => {
   const [searchList, setSearchList] = useState<ISearchList[]>([]);
   const [orderBy, setOrderBy] = useState("recent");

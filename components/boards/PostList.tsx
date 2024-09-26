@@ -13,6 +13,7 @@ interface IProps {
   orderBy: string;
 }
 
+// 전체 게시글 가져오는 컴포넌트
 const PostList = ({ searchList, orderBy }: IProps) => {
   const width: number = calculateWidth("all");
 
