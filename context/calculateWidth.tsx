@@ -19,11 +19,9 @@ export const calculateWidth = (value: string) => {
   if (value === "all") {
     if (width > 375 && width < 767) {
       result = 4;
-    } else if (width >= 768 && width < 1199) {
-      result = 8;
-    } else {
+    } else if (width >= 768) {
       result = 10;
-    }
+    } 
   } else {
     if (width > 375 && width < 767) {
       result = 1;

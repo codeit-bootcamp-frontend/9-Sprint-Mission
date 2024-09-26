@@ -12,7 +12,7 @@ interface IProps {
 const Pagenation = ({ totalPage, page, setPage, isMobile }: IProps) => {
    // 다음페이지 데이터 가져오는 함수
    const onPageToNext = () => {
-    let nextPage = page + 1;
+    const nextPage = page + 1;
 
     if (nextPage > totalPage) {
       setPage(totalPage);
@@ -24,7 +24,7 @@ const Pagenation = ({ totalPage, page, setPage, isMobile }: IProps) => {
 
   // 이전페이지 데이터 가져오는 함수
   const onPageToPrev = () => {
-    let prevPage = page - 1;
+    const prevPage = page - 1;
     setPage(prevPage);
 
     if (prevPage < 1) {

@@ -25,7 +25,7 @@ const PostList = ({ searchList, orderBy }: IProps) => {
 
   const getPosts = useCallback(async () => {
     try {
-      const response = await instance.get(`/articles?page=${page}&pageSize=10&orderBy=${orderBy}`);
+      const response = await instance.get(`/articles?page=${page}&pageSize=${width}&orderBy=${orderBy}`);
 
       if (response.status === 200) {
         setPosts(response.data.list);

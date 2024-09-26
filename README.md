@@ -33,11 +33,11 @@
 
 ## 스크린샷
 
-|                                    메인페이지                                   |                                상품 상세페이지                              |
+|                            자유게시판 페이지 (데스크탑)                          |                       자유게시판 페이지 (태블릿)                             |
 | :----------------------------------------------------------------------------: | :------------------------------------------------------------------------: |
-|   <img src="/public/images/mainPage.png" width="400" height="400">             | <img src="/public/images/productDetailPage.png" width="400" height="400">  |
-|                                 로그인페이지                                    |                               로그아웃페이지                                |
-|    <img src="/public/images/signinPage.png" width="400" height="400">          | <img src="/public/images/signupPage.png" width="400" height="400">         |
+|   <img src="/public/images/boardsDesktop.png" width="400" height="400">        | <img src="/public/images/boardsTablet.png" width="400" height="400">       |
+|                            자유게시판 페이지 (모바일)                            |                                 
+|    <img src="/public/images/boardsMobile.png" width="400" height="400">        |          
 
 ## 멘토에게
 
