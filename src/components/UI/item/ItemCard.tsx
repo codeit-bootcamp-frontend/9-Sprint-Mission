@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Product } from "@/types/product";
 import HeartIcon from "@/images/icons/ic_heart.svg";
 import NoImage from "@/images/ui/no-image.png";
+import disallowedDomains from "disallowedDomains";
 
 interface ItemCardProps {
   item: Product;
@@ -25,7 +26,9 @@ const ItemCard = ({
     "loading" | "loaded" | "error"
   >("loading");
   const imageUrl =
-    item.images && item.images[0] && !item.images[0].includes("example.com")
+    item.images &&
+    item.images[0] &&
+    !disallowedDomains.some((domain) => item.images[0].includes(domain))
       ? `/api/imageProxy?url=${encodeURIComponent(item.images[0])}`
       : NoImage.src;
 

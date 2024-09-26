@@ -7,6 +7,7 @@ import { Article } from "@/types/article";
 import MedalIcon from "@/images/icons/ic_medal.svg";
 import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
 import NoImage from "@/images/ui/no-image.png";
+import disallowedDomains from "disallowedDomains";
 
 interface BestArticleCardProps {
   article: Article;
@@ -24,10 +25,10 @@ const BestArticleCard = ({
     "loading" | "loaded" | "error"
   >("loading");
   const imageUrl =
-    article.image &&
-    article.image.trim() !== "" &&
-    !article.image.includes("example.com")
-      ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
+    article.image && article.image.trim() !== ""
+      ? disallowedDomains.some((domain) => article.image.includes(domain))
+        ? NoImage.src
+        : `/api/imageProxy?url=${encodeURIComponent(article.image)}`
       : NoImage.src;
 
   useEffect(() => {

@@ -30,7 +30,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "allowedDomains.js"
+    "allowedDomains.js",
+    "disallowedDomains.js"
   ],
   "exclude": ["node_modules"]
 }
