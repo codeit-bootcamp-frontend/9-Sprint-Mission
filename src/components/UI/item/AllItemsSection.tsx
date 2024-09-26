@@ -12,6 +12,8 @@ import {
   ProductListResponse,
   ProductSortOption,
 } from "@/types/product";
+import { useAtom } from "jotai";
+import { loadingAtom } from "@/store/loadingAtom";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -35,8 +37,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const [pageSize, setPageSize] = useState(getPageSize());
   const [itemList, setItemList] = useState<Product[]>([]);
   const [totalPageNum, setTotalPageNum] = useState(1);
-  const [isLoadingData, setIsLoadingData] = useState(true); // 데이터 로딩 상태 관리
-  const [isLoadingImages, setIsLoadingImages] = useState(true); // 이미지 로딩 상태 관리
+  const [isLoading, setIsLoading] = useAtom(loadingAtom);
   const [imagesLoaded, setImagesLoaded] = useState(0);
 
   const fetchSortedData = useCallback(
@@ -49,7 +50,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
       page: number;
       pageSize: number;
     }) => {
-      setIsLoadingData(true);
+      setIsLoading(true);
       try {
         const response: ProductListResponse = await getProducts({
           orderBy,
@@ -58,15 +59,14 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
         });
         setItemList(response.list);
         setTotalPageNum(Math.ceil(response.totalCount / pageSize));
-        setIsLoadingImages(true); // 이미지 로딩 상태 활성화
-        setImagesLoaded(0); // 이미지 로드 카운터 초기화
+        setImagesLoaded(0);
       } catch (error) {
         console.error("오류: ", (error as Error).message);
       } finally {
-        setIsLoadingData(false); // 데이터 로딩 완료
+        setIsLoading(false);
       }
     },
-    []
+    [setIsLoading]
   );
 
   useEffect(() => {
@@ -82,17 +82,15 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     };
   }, [orderBy, page, pageSize, fetchSortedData]);
 
-  // 이미지 로드 완료 시 호출되는 함수
   const handleImageLoad = () => {
     setImagesLoaded((prev) => prev + 1);
   };
 
   useEffect(() => {
-    // 모든 이미지가 로드되면 로딩 상태를 false로 전환
     if (imagesLoaded === itemList.length && itemList.length > 0) {
-      setIsLoadingImages(false);
+      setIsLoading(false);
     }
-  }, [imagesLoaded, itemList.length]);
+  }, [imagesLoaded, itemList.length, setIsLoading]);
 
   const onPageChange = (pageNumber: number) => {
     setPage(pageNumber);
@@ -100,10 +98,9 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
 
   return (
     <>
-      {/* 데이터 또는 이미지가 로드되지 않으면 스피너 표시 */}
-      {(isLoadingData || isLoadingImages) && (
+      {isLoading && (
         <div className="flex justify-center items-center h-full">
-          <LoadingSpinner isLoading />
+          <LoadingSpinner isLoading={isLoading} />
         </div>
       )}
       <div>

@@ -4,9 +4,12 @@ import Link from "next/link";
 import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
 import EmptyState from "@/components/UI/EmptyState";
+import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { Article, ArticleSortOption } from "@/types/article";
 import { getArticles } from "@/api/article";
 import AllArticleCard from "./AllArticleCard";
+import { useAtom } from "jotai";
+import { loadingAtom } from "@/store/loadingAtom";
 
 interface AllArticlesSectionProps {
   initialArticles: Article[];
@@ -17,6 +20,7 @@ const AllArticlesSection = ({ initialArticles }: AllArticlesSectionProps) => {
   const [articles, setArticles] = useState(initialArticles);
   const router = useRouter();
   const keyword = (router.query.q as string) || "";
+  const [isLoading, setIsLoading] = useAtom(loadingAtom);
 
   const handleSortSelection = (sortOption: ArticleSortOption) => {
     setOrderBy(sortOption);
@@ -37,6 +41,7 @@ const AllArticlesSection = ({ initialArticles }: AllArticlesSectionProps) => {
 
   useEffect(() => {
     const fetchArticles = async () => {
+      setIsLoading(true);
       try {
         const params: { orderBy: ArticleSortOption; keyword?: string } = {
           orderBy,
@@ -48,11 +53,13 @@ const AllArticlesSection = ({ initialArticles }: AllArticlesSectionProps) => {
         setArticles(data.list);
       } catch (error) {
         console.error("Failed to fetch articles:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchArticles();
-  }, [orderBy, keyword]);
+  }, [orderBy, keyword, setIsLoading]);
 
   return (
     <div className="mt-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
@@ -74,15 +81,24 @@ const AllArticlesSection = ({ initialArticles }: AllArticlesSectionProps) => {
         />
       </div>
 
-      <div className="space-y-6">
-        {articles.length
-          ? articles.map((article) => (
-              <AllArticleCard key={`article-${article.id}`} article={article} />
-            ))
-          : keyword && (
-              <EmptyState text={`'${keyword}'로 검색된 결과가 없어요.`} />
-            )}
-      </div>
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
+          <LoadingSpinner isLoading={isLoading} />
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {articles.length
+            ? articles.map((article) => (
+                <AllArticleCard
+                  key={`article-${article.id}`}
+                  article={article}
+                />
+              ))
+            : keyword && (
+                <EmptyState text={`'${keyword}'로 검색된 결과가 없어요.`} />
+              )}
+        </div>
+      )}
     </div>
   );
 };

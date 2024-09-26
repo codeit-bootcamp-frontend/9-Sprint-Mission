@@ -16,7 +16,7 @@ export default async function handler(
     const encodedUrl = encodeURI(url);
     const response = await axios.get(encodedUrl, {
       responseType: "arraybuffer",
-      timeout: 10000,
+      timeout: 5000,
       validateStatus: function (status) {
         return status >= 200 && status < 300;
       },

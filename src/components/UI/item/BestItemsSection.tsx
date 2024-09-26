@@ -1,5 +1,5 @@
 // src/components/UI/item/BestItemsSection.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ItemCard from "./ItemCard";
 import { getProducts } from "@/api/item";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
@@ -8,6 +8,8 @@ import {
   ProductListResponse,
   ProductSortOption,
 } from "@/types/product";
+import { useAtom } from "jotai";
+import { loadingAtom } from "@/store/loadingAtom";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -28,27 +30,32 @@ interface BestItemsSectionProps {
 const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
   const [itemList, setItemList] = useState<Product[]>([]);
   const [pageSize, setPageSize] = useState(getPageSize());
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useAtom(loadingAtom);
   const [imagesLoaded, setImagesLoaded] = useState(0);
 
-  const fetchSortedData = async ({
-    orderBy,
-    pageSize,
-  }: {
-    orderBy: ProductSortOption;
-    pageSize: number;
-  }) => {
-    setIsLoading(true); // 로딩 상태 시작
-    try {
-      const response: ProductListResponse = await getProducts({
-        orderBy,
-        pageSize,
-      });
-      setItemList(response.list);
-    } catch (error) {
-      console.error("오류: ", (error as Error).message);
-    }
-  };
+  const fetchSortedData = useCallback(
+    async ({
+      orderBy,
+      pageSize,
+    }: {
+      orderBy: ProductSortOption;
+      pageSize: number;
+    }) => {
+      setIsLoading(true);
+      try {
+        const response: ProductListResponse = await getProducts({
+          orderBy,
+          pageSize,
+        });
+        setItemList(response.list);
+      } catch (error) {
+        console.error("오류: ", (error as Error).message);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [setIsLoading]
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -56,22 +63,22 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
     };
 
     window.addEventListener("resize", handleResize);
+
     fetchSortedData({ orderBy: "favorite", pageSize });
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [pageSize]);
+  }, [pageSize, fetchSortedData]);
 
-  // 이미지가 모두 로드되었는지 확인
   useEffect(() => {
     if (imagesLoaded === itemList.length && itemList.length > 0) {
-      setIsLoading(false); // 모든 이미지가 로드된 후 로딩 해제
+      setIsLoading(false);
     }
-  }, [imagesLoaded, itemList.length]);
+  }, [imagesLoaded, itemList.length, setIsLoading]);
 
   const handleImageLoad = () => {
-    setImagesLoaded((prev) => prev + 1); // 각 이미지가 로드될 때마다 호출
+    setImagesLoaded((prev) => prev + 1);
   };
 
   return (
