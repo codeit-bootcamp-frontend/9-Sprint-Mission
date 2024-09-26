@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Feature from "@/components/UI/Feature";
-import Head from "next/head";
 import HeroImage from "@/images/home/hero-image.png";
 import BottomBannerImage from "@/images/home/bottom-banner-image.png";
 import Feature1Image from "@/images/home/feature1-image.png";
@@ -11,9 +10,6 @@ import Feature3Image from "@/images/home/feature3-image.png";
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>판다마켓 홈페이지</title>
-      </Head>
       <section
         className="bg-blue-100 w-full h-[60vh] min-h-[500px] text-center bg-no-repeat bg-bottom bg-[length:130%] md:h-[90vh] md:bg-[length:120%] lg:text-left lg:h-[540px] lg:flex lg:flex-col lg:justify-center lg:bg-[80%_bottom] lg:bg-[length:55%]"
         style={{ backgroundImage: `url(${HeroImage.src})` }}
