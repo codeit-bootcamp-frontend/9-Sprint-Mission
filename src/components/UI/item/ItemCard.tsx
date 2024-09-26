@@ -111,6 +111,7 @@ const ItemCard = ({
           onError={() => {
             setImageError(true); // 이미지 로딩 실패 시 에러 상태 설정
             setImageUrl(NoImage.src); // 로딩 실패 시 대체 이미지로 변경
+            setImageLoaded(true); // 이미지 로딩 실패 시 로딩 상태 해제
           }}
         />
       </div>
