@@ -56,21 +56,34 @@ const InputItem = <T extends FieldValues>({
     }
   };
 
-  const combinedRegister = register
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (onChange) {
+      onChange(e);
+    }
+    if (setValue) {
+      setValue(id, e.target.value as PathValue<T, Path<T>>);
+    }
+  };
+
+  const inputProps = register
     ? {
         ...register,
         onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
           register.onChange(e);
-          if (onChange) {
-            onChange(e);
-          }
+          handleChange(e);
         },
         onBlur: (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
           register.onBlur(e);
           handleBlur(e);
         },
       }
-    : {};
+    : {
+        value: value || "",
+        onChange: handleChange,
+        onBlur: handleBlur,
+      };
 
   const inputClasses = `
     w-full px-6 py-4 bg-gray-100 text-gray-800 border-none rounded-xl text-base leading-6
@@ -91,20 +104,18 @@ const InputItem = <T extends FieldValues>({
       {isTextArea ? (
         <textarea
           id={String(id)}
-          value={value}
           placeholder={placeholder}
           className={`${inputClasses} h-50 resize-none`}
-          {...combinedRegister}
+          {...inputProps}
         />
       ) : (
         <input
           id={String(id)}
-          value={value}
           onKeyDown={onKeyDown}
           placeholder={placeholder}
           type={type}
           className={inputClasses}
-          {...combinedRegister}
+          {...inputProps}
         />
       )}
 

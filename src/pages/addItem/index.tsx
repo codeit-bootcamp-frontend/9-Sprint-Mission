@@ -27,7 +27,7 @@ export default function AddItemPage() {
   };
 
   return (
-    <div className="container mx-auto px-4">
+    <div className="container mx-auto mt-20 px-4">
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-4">
           <div className="text-2xl font-bold">상품 등록하기</div>

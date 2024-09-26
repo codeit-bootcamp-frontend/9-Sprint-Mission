@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
@@ -8,6 +9,7 @@ import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { Article, ArticleSortOption } from "@/types/article";
 import { getArticles } from "@/api/article";
 import AllArticleCard from "./AllArticleCard";
+import WriteButtonImage from "@/images/ui/write_small_40.png";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
 
@@ -65,11 +67,8 @@ const AllArticlesSection = ({ initialArticles }: AllArticlesSectionProps) => {
     <div className="mt-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
       <div className="flex justify-between items-center mb-6">
         <div className="text-2xl font-bold text-gray-800">게시글</div>
-        <Link
-          href="/addArticle"
-          className="bg-blue-500 text-white py-2 px-4 rounded-lg text-sm font-semibold hover:bg-blue-600"
-        >
-          글쓰기
+        <Link href="/addArticle">
+          <Image src={WriteButtonImage} alt="글쓰기" width={88} height={42} />
         </Link>
       </div>
 

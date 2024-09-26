@@ -1,7 +1,6 @@
 // src/components/UI/InputItem.tsx
 import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
-import Label from "./InputItem";
 import PlusIcon from "@/images/icons/ic_plus.svg";
 import DeleteButton from "./DeleteButton";
 
@@ -21,22 +20,29 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
     if (file) {
       setImageStatus("loading");
       const imageUrl = URL.createObjectURL(file);
-      try {
-        const response = await fetch(
-          `/api/imageProxy?url=${encodeURIComponent(imageUrl)}`,
-          { method: "HEAD" }
-        );
-        if (response.ok) {
-          setImagePreviewUrl(imageUrl);
-          setImageStatus("loaded");
-        } else {
+
+      // 개발 환경에서는 이미지 검증을 건너뜁니다.
+      if (process.env.NODE_ENV === "development") {
+        setImagePreviewUrl(imageUrl);
+        setImageStatus("loaded");
+      } else {
+        try {
+          const response = await fetch(
+            `/api/imageProxy?url=${encodeURIComponent(imageUrl)}`,
+            { method: "HEAD" }
+          );
+          if (response.ok) {
+            setImagePreviewUrl(imageUrl);
+            setImageStatus("loaded");
+          } else {
+            setImageStatus("error");
+            alert("유효하지 않은 이미지입니다.");
+          }
+        } catch (error) {
+          console.error("이미지 검증 중 오류 발생:", error);
           setImageStatus("error");
-          alert("유효하지 않은 이미지입니다.");
+          alert("이미지 검증 중 오류가 발생했습니다.");
         }
-      } catch (error) {
-        console.error("이미지 검증 중 오류 발생:", error);
-        setImageStatus("error");
-        alert("이미지 검증 중 오류가 발생했습니다.");
       }
     }
   };
@@ -48,8 +54,7 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
 
   return (
     <div>
-      {title && <Label id="image-upload-label" label={title} placeholder="" />}
-
+      <label className="block text-sm font-bold mb-3 sm:text-lg">{title}</label>
       <div className="flex gap-2 sm:gap-4 lg:gap-6">
         <label
           htmlFor="image-upload"
@@ -65,6 +70,7 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
           onChange={handleImageChange}
           accept="image/*"
           className="hidden"
+          alt={title}
         />
 
         {imageStatus === "loading" && (
@@ -78,8 +84,8 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
             <Image
               src={imagePreviewUrl}
               alt="업로드된 이미지"
-              layout="fill"
-              objectFit="cover"
+              fill
+              style={{ objectFit: "cover" }}
             />
             <div className="absolute top-3 right-3">
               <DeleteButton onClick={handleDelete} label="이미지 파일" />

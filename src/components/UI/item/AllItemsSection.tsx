@@ -1,12 +1,14 @@
 // src/components/UI/item/AllItemsSection.tsx
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { getProducts } from "@/api/item";
 import ItemCard from "./ItemCard";
-import SearchIcon from "@/images/icons/ic_search.svg";
+import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
 import PaginationBar from "@/components/UI/PaginationBar";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
+import EmptyState from "@/components/UI/EmptyState";
 import {
   Product,
   ProductListResponse,
@@ -14,16 +16,13 @@ import {
 } from "@/types/product";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
+import RegisterButtonImage from "@/images/ui/register_small_40.png";
 
 const getPageSize = () => {
   const width = window.innerWidth;
-  if (width < 768) {
-    return 4;
-  } else if (width < 1280) {
-    return 6;
-  } else {
-    return 10;
-  }
+  if (width < 768) return 4;
+  if (width < 1280) return 6;
+  return 10;
 };
 
 interface AllItemsSectionProps {
@@ -38,17 +37,19 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const [itemList, setItemList] = useState<Product[]>([]);
   const [totalPageNum, setTotalPageNum] = useState(1);
   const [isLoading, setIsLoading] = useAtom(loadingAtom);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
+  const [keyword, setKeyword] = useState("");
 
   const fetchSortedData = useCallback(
     async ({
       orderBy,
       page,
       pageSize,
+      keyword,
     }: {
       orderBy: ProductSortOption;
       page: number;
       pageSize: number;
+      keyword: string;
     }) => {
       setIsLoading(true);
       try {
@@ -56,10 +57,10 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
           orderBy,
           page,
           pageSize,
+          keyword,
         });
         setItemList(response.list);
         setTotalPageNum(Math.ceil(response.totalCount / pageSize));
-        setImagesLoaded(0);
       } catch (error) {
         console.error("오류: ", (error as Error).message);
       } finally {
@@ -75,77 +76,79 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     };
 
     window.addEventListener("resize", handleResize);
-    fetchSortedData({ orderBy, page, pageSize });
+    fetchSortedData({ orderBy, page, pageSize, keyword });
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [orderBy, page, pageSize, fetchSortedData]);
+  }, [orderBy, page, pageSize, keyword, fetchSortedData]);
 
-  const handleImageLoad = () => {
-    setImagesLoaded((prev) => prev + 1);
+  const handleSortSelection = (sortOption: ProductSortOption) => {
+    setOrderBy(sortOption);
   };
 
-  useEffect(() => {
-    if (imagesLoaded === itemList.length && itemList.length > 0) {
-      setIsLoading(false);
-    }
-  }, [imagesLoaded, itemList.length, setIsLoading]);
-
-  const onPageChange = (pageNumber: number) => {
-    setPage(pageNumber);
+  const handleSearch = (searchKeyword: string) => {
+    setKeyword(searchKeyword);
+    setPage(1);
   };
 
   return (
-    <>
-      {isLoading && (
-        <div className="flex justify-center items-center h-full">
+    <div className="mt-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="flex justify-between items-center mb-6">
+        <div className="text-2xl font-bold text-gray-800">판매 중인 상품</div>
+        <Link href="/addItem">
+          <Image
+            src={RegisterButtonImage}
+            alt="상품 등록하기"
+            width={133}
+            height={42}
+          />
+        </Link>
+      </div>
+
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+        <SearchBar onSearch={handleSearch} className="w-full md:w-96" />
+        <DropdownMenu<ProductSortOption>
+          onSortSelection={(sortOption) => handleSortSelection(sortOption)}
+          type="product"
+        />
+      </div>
+
+      {isLoading ? (
+        <div className="flex justify-center items-center h-64">
           <LoadingSpinner isLoading={isLoading} />
         </div>
+      ) : (
+        <div className="space-y-6">
+          {itemList.length ? (
+            <div className="grid grid-cols-2 gap-8 sm:gap-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">
+              {itemList.map((item) => (
+                <ItemCard
+                  item={item}
+                  key={`market-item-${item.id}`}
+                  width={width}
+                  height={height}
+                />
+              ))}
+            </div>
+          ) : (
+            keyword && (
+              <EmptyState text={`'${keyword}'로 검색된 결과가 없어요.`} />
+            )
+          )}
+        </div>
       )}
-      <div>
-        <div className="flex justify-between items-center pb-2">
-          <div className="text-gray-900 font-bold text-xl">판매 중인 상품</div>
-          <Link href="/additem" className="text-blue-500 hover:text-blue-600">
-            상품 등록하기
-          </Link>
-        </div>
 
-        <div className="flex justify-between items-center pb-4">
-          <div className="flex bg-gray-100 rounded-xl p-2 flex-1 items-center">
-            <SearchIcon />
-            <input
-              className="border-none flex-1 ml-1 bg-transparent placeholder-gray-400 focus:outline-none text-gray-900"
-              placeholder="검색할 상품을 입력해 주세요"
-            />
-          </div>
-          <DropdownMenu<ProductSortOption>
-            onSortSelection={(sortOption) => setOrderBy(sortOption)}
-            type="product"
-          />
-        </div>
-
-        <div className="grid grid-cols-2 gap-8 sm:gap-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">
-          {itemList?.map((item) => (
-            <ItemCard
-              item={item}
-              key={`market-item-${item.id}`}
-              width={width}
-              height={height}
-              onLoad={handleImageLoad} // 이미지 로드 시 호출
-            />
-          ))}
-        </div>
-
+      {totalPageNum > 1 && (
         <div className="pt-10 pb-20">
           <PaginationBar
             totalPageNum={totalPageNum}
             activePageNum={page}
-            onPageChange={onPageChange}
+            onPageChange={setPage}
           />
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 

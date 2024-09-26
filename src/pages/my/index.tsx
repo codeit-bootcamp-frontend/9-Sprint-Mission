@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function MyPage() {
-  return <div className="container">My Page</div>;
+  return <div className="mt-70px">My Page</div>;
 }
