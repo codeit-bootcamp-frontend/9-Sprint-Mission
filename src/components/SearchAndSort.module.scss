@@ -1,0 +1,13 @@
+.filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+@media (max-width: 768px) {
+  .filter-section {
+    gap: 13px;
+  }
+}

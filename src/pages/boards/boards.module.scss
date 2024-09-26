@@ -1,0 +1,17 @@
+@import "@/src/styles/common.scss";
+
+.article {
+  margin-top: 40px;
+
+  h2 {
+    width: 100%;
+    position: relative;
+    line-height: 42px;
+
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
