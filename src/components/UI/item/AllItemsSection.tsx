@@ -1,5 +1,6 @@
 // src/components/UI/item/AllItemsSection.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import { getProducts } from "@/api/item";
 import ItemCard from "./ItemCard";
 import SearchIcon from "@/images/icons/ic_search.svg";
@@ -11,7 +12,6 @@ import {
   ProductListResponse,
   ProductSortOption,
 } from "@/types/product";
-import Link from "next/link";
 
 const getPageSize = () => {
   const width = window.innerWidth;
@@ -35,35 +35,39 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const [pageSize, setPageSize] = useState(getPageSize());
   const [itemList, setItemList] = useState<Product[]>([]);
   const [totalPageNum, setTotalPageNum] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [imagesLoaded, setImagesLoaded] = useState(0); // 이미지 로딩 추적
+  const [isLoadingData, setIsLoadingData] = useState(true); // 데이터 로딩 상태 관리
+  const [isLoadingImages, setIsLoadingImages] = useState(true); // 이미지 로딩 상태 관리
+  const [imagesLoaded, setImagesLoaded] = useState(0);
 
-  const fetchSortedData = async ({
-    orderBy,
-    page,
-    pageSize,
-  }: {
-    orderBy: ProductSortOption;
-    page: number;
-    pageSize: number;
-  }) => {
-    setIsLoading(true);
-    try {
-      const response: ProductListResponse = await getProducts({
-        orderBy,
-        page,
-        pageSize,
-      });
-      setItemList(response.list);
-      setTotalPageNum(Math.ceil(response.totalCount / pageSize));
-    } catch (error) {
-      console.error("오류: ", (error as Error).message);
-    }
-  };
-
-  const handleSortSelection = (sortOption: ProductSortOption) => {
-    setOrderBy(sortOption);
-  };
+  const fetchSortedData = useCallback(
+    async ({
+      orderBy,
+      page,
+      pageSize,
+    }: {
+      orderBy: ProductSortOption;
+      page: number;
+      pageSize: number;
+    }) => {
+      setIsLoadingData(true);
+      try {
+        const response: ProductListResponse = await getProducts({
+          orderBy,
+          page,
+          pageSize,
+        });
+        setItemList(response.list);
+        setTotalPageNum(Math.ceil(response.totalCount / pageSize));
+        setIsLoadingImages(true); // 이미지 로딩 상태 활성화
+        setImagesLoaded(0); // 이미지 로드 카운터 초기화
+      } catch (error) {
+        console.error("오류: ", (error as Error).message);
+      } finally {
+        setIsLoadingData(false); // 데이터 로딩 완료
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -76,7 +80,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [orderBy, page, pageSize]);
+  }, [orderBy, page, pageSize, fetchSortedData]);
 
   // 이미지 로드 완료 시 호출되는 함수
   const handleImageLoad = () => {
@@ -86,7 +90,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   useEffect(() => {
     // 모든 이미지가 로드되면 로딩 상태를 false로 전환
     if (imagesLoaded === itemList.length && itemList.length > 0) {
-      setIsLoading(false);
+      setIsLoadingImages(false);
     }
   }, [imagesLoaded, itemList.length]);
 
@@ -96,9 +100,12 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
 
   return (
     <>
-      {/* 로딩 스피너는 이미지 로드가 완료될 때까지 표시 */}
-      <LoadingSpinner isLoading={isLoading} />
-
+      {/* 데이터 또는 이미지가 로드되지 않으면 스피너 표시 */}
+      {(isLoadingData || isLoadingImages) && (
+        <div className="flex justify-center items-center h-full">
+          <LoadingSpinner isLoading />
+        </div>
+      )}
       <div>
         <div className="flex justify-between items-center pb-2">
           <div className="text-gray-900 font-bold text-xl">판매 중인 상품</div>
@@ -116,7 +123,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
             />
           </div>
           <DropdownMenu<ProductSortOption>
-            onSortSelection={(sortOption) => handleSortSelection(sortOption)}
+            onSortSelection={(sortOption) => setOrderBy(sortOption)}
             type="product"
           />
         </div>

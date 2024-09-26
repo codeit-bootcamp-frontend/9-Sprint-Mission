@@ -29,7 +29,7 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
   const [itemList, setItemList] = useState<Product[]>([]);
   const [pageSize, setPageSize] = useState(getPageSize());
   const [isLoading, setIsLoading] = useState(true);
-  const [imagesLoaded, setImagesLoaded] = useState(0); // 이미지 로드 상태 추적
+  const [imagesLoaded, setImagesLoaded] = useState(0);
 
   const fetchSortedData = async ({
     orderBy,
@@ -76,9 +76,11 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
 
   return (
     <>
-      {/* 로딩 스피너는 이미지 로드가 완료될 때까지 표시 */}
-      <LoadingSpinner isLoading={isLoading} />
-
+      {isLoading && (
+        <div className="flex justify-center items-center h-full">
+          <LoadingSpinner isLoading={isLoading} />
+        </div>
+      )}
       <div className="py-4 mt-6 md:py-6 md:mt-12 lg:py-8 lg:mt-12">
         <div className="text-gray-900 font-bold text-xl mb-4">베스트 상품</div>
 
