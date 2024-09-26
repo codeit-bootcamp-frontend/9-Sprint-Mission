@@ -5,10 +5,12 @@ export const Dropdown = ({
   args,
   handleClickOrder,
   dropdownOpen,
+  handleClickOrderOpen,
 }: {
   args: string[];
   handleClickOrder: (value: string) => void;
   dropdownOpen: boolean;
+  handleClickOrderOpen: () => void;
 }) => {
   // [최신순, 인기순]
   const argsList = [...args];
@@ -26,10 +28,15 @@ export const Dropdown = ({
 
   return (
     <div className={styles.dropbox}>
-      <button className={styles["dropdown-container"]}>
+      <button
+        className={styles["dropdown-container"]}
+        onClick={handleClickOrderOpen}
+      >
         <span className={styles["dropdown-current"]}>{currentOrder}</span>
       </button>
-      <div className={styles["dropdown-menu"]}>
+      <div
+        className={`${styles["dropdown-menu"]} ${dropdownOpen ? "" : styles.hidden}`}
+      >
         {/* hidden 스타일 제어하기 */}
         {argsList.map((arg, index) => (
           <button

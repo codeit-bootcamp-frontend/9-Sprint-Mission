@@ -47,3 +47,7 @@
 .dropdown-button:first-child {
   border-bottom: 1px solid var(--gray200);
 }
+
+.hidden {
+  display: none;
+}

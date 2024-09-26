@@ -26,6 +26,10 @@ export default function Boards() {
       pageSize: 10,
       orderBy: order,
     });
+    setDropdownOpen(false);
+  };
+
+  const handleClickOrderOpen = (): void => {
     setDropdownOpen(!dropdownOpen);
   };
 
@@ -39,11 +43,13 @@ export default function Boards() {
         <div className={styles["title-wrap"]}>
           <h1 className={styles["section-title"]}> 게시글</h1>
           <button className={styles["create-btn"]}>글쓰기</button>
+          {/* Link 사용하기 */}
         </div>
         <ArticleList
           query={mainQuery}
           handleClickOrder={handleClickOrder}
           dropdownOpen={dropdownOpen}
+          handleClickOrderOpen={handleClickOrderOpen}
         />
       </section>
     </div>
