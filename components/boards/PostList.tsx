@@ -1,33 +1,80 @@
+import { useCallback, useEffect, useState } from "react";
+import { ISearchList } from "@/app/boards/boardsTypeShare";
+import { instance } from "@/lib/axios";
+import axios from "axios";
 import Image from "next/image";
+import toast from "react-hot-toast";
+import Pagenation from "./Pagenation";
+import { calculateWidth } from "@/context/calculateWidth";
 
-const PostList = () => {
+interface IProps {
+  searchList: ISearchList[];
+  searchLoading: boolean;
+  orderBy: string;
+}
+
+const PostList = ({ searchList, orderBy }: IProps) => {
+  const width: number = calculateWidth();
+
+  const [posts, setPosts] = useState<ISearchList[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(0);
+  
+  const renderList = searchList.length > 0 ? searchList : posts;
+  const isMobile = width === 4;
+
+  const getPosts = useCallback(async () => {
+    try {
+      const response = await instance.get(`/articles?page=${page}&pageSize=10&orderBy=${orderBy}`);
+
+      if (response.status === 200) {
+        setPosts(response.data.list);
+        setTotalPage(Math.ceil(response.data.totalCount / width));
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("boards getPosts 함수에서 api 오류 발생", error);
+        toast.error(error.response?.data);
+      } else {
+        console.error("boards getPosts 함수에서 알 수 없는 오류 발생", error);
+        toast.error("오류가 발생하여 게시글을 불러오지 못했습니다. 잠시 후 새로고침해주세요.");
+      }
+    } 
+  }, [page, orderBy]);
+
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
+  
   return (
     <div className="flex flex-col space-y-6">
-      {[1, 2, 3].map((item, i) => (
-        <div key={i} className="flex flex-col space-y-4 bg-[#FCFCFC] pb-6 border-b-[1px] border-[--color-gray200]">
+      {renderList.map((item) => (
+        <div
+          key={item.id}
+          className="flex flex-col space-y-4 bg-[#FCFCFC] pb-6 border-b-[1px] border-[--color-gray200]"
+        >
           <div className="flex items-center justify-between">
-            <p className="text-lg font-semibold w-[263px] md:w-[616px]">
-              맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?
-            </p>
+            <p className="text-lg font-semibold w-[263px] md:w-[616px]">{item.content}</p>
             <div className="bg-white w-[72px] h-[72px] flex items-center justify-center rounded-lg border-[0.75px] border-[--color-gray200]">
-              <Image src="/images/laptop.png" alt="랩톱" width={48} height={48} />
+              <Image src={item.image || "/icons/question.png"} alt="제품 사진" width={48} height={48} />
             </div>
           </div>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Image src="/icons/sessionBtn.png" alt="회원프로필" width={24} height={24} />
               <div className="flex items-center space-x-2">
-                <h3 className="text-sm text-[#4B5563]">총명한 판다</h3>
-                <span className="text-sm text-[--color-gray400]">2024. 04. 16</span>
+                <h3 className="text-sm text-[#4B5563]">{item.writer.nickname}</h3>
+                <span className="text-sm text-[--color-gray400]">{item.createdAt.split("T")[0]}</span>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <Image src="/icons/ic_heart.svg" alt="좋아요" width={24} height={24} />
-              <span className="text-[--color-gray500]">9999+</span>
+              <span className="text-[--color-gray500]">{item.likeCount}</span>
             </div>
           </div>
         </div>
       ))}
+      {searchList.length === 0 && <Pagenation totalPage={totalPage} page={page} setPage={setPage} isMobile={isMobile} />}
     </div>
   );
 };

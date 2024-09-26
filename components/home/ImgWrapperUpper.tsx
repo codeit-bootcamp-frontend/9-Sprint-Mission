@@ -18,11 +18,11 @@ const ImgWrapperUpper = () => {
         </div>
         <div className="mt-24">
           <Image
-            src="/images/Img_home_top.svg"
+            src="/images/Img_home_top.png"
             alt="상단 이미지"
             width={746}
             height={340}
-            className="w-full"
+            priority
           />
         </div>
       </div>

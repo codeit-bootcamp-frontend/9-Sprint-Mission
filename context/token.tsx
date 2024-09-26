@@ -14,13 +14,16 @@ export const TokenContext = createContext<IToken | undefined>(undefined);
 
 export const TokenProvider = ({ children }: PropsWithChildren) => {
   const [session, setSession] = useState(false);
-  const accessToken = localStorage.getItem("accessToken");
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
-    if (accessToken !== null) {
+    const token = localStorage.getItem("accessToken");
+    setAccessToken(token);
+
+    if (token !== null) {
       setSession(true);
     } 
-  }, [accessToken]);
+  }, []);
 
   const Signin = () => {
     setSession(true);
@@ -28,6 +31,7 @@ export const TokenProvider = ({ children }: PropsWithChildren) => {
 
   const Signout = () => {
     localStorage.removeItem("accessToken");
+    setAccessToken(null);
     setSession(false);
   }
 

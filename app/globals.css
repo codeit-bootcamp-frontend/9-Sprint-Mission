@@ -65,4 +65,12 @@ body {
     @apply text-red-500 text-center font-bold text-lg;
   }
 
+  .custom-select {
+    @apply hidden md:block md:border-[1px] md:border-[--color-gray200] md:px-5 md:py-3 md:rounded-xl md:appearance-none md:bg-[url('/icons/arrow_down.png')] md:bg-no-repeat md:bg-[right_10px_center] md:w-[130px]
+  }
+
+  .pagination-number-round {
+    @apply flex items-center justify-center border-[1px] rounded-full w-10 h-10 font-semibold p-0 active:bg-[--color-theme]
+  }
+
 }

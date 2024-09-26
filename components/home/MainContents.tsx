@@ -5,7 +5,7 @@ const MainContents = () => {
     <main>
       <div className="p-6 my-6 flex flex-col space-y-12 lg:space-y-[138px] lg:my-[138px]">
         <div className="flex flex-col space-y-6 py-6 lg:flex-row lg:space-x-16 lg:items-center lg:m-auto lg:justify-center bg-[#FCFCFC] rounded-xl lg:px-6 lg:py-0">
-          <Image src="/images/Img_home_01.svg" alt="메인이미지" width={344} height={259} className="w-full lg:w-fit" />
+          <Image src="/images/Img_home_01.png" alt="메인이미지" width={344} height={259} className="w-full lg:w-[579px]" />
           <div className="flex flex-col space-y-5">
             <h2 className="text-[--color-theme] font-bold md:text-lg">Hot Items</h2>
             <p className="text-[--color-gray700] font-bold text-2xl md:text-4xl">인기 상품을 확인해 보세요</p>
@@ -24,10 +24,10 @@ const MainContents = () => {
               쉽게 찾아보세요
             </p>
           </div>
-          <Image src="/images/Img_home_02.svg" alt="메인이미지" width={344} height={259} className="w-full lg:w-[579px]" />
+          <Image src="/images/Img_home_02.png" alt="메인이미지" width={344} height={259} className="w-full lg:w-[579px]" />
         </div>
         <div className="flex flex-col space-y-6 py-6 lg:flex-row lg:space-x-16 lg:items-center lg:m-auto lg:justify-between bg-[#FCFCFC] rounded-xl lg:px-6 lg:py-0">
-          <Image src="/images/Img_home_03.svg" alt="메인이미지" width={344} height={259} className="w-full lg:w-[579px]" />
+          <Image src="/images/Img_home_03.png" alt="메인이미지" width={344} height={259} className="w-full lg:w-[579px]" />
           <div className="flex flex-col space-y-5">
             <h2 className="text-[--color-theme] font-bold md:text-lg">Register</h2>
             <p className="text-[--color-gray700] font-bold text-2xl md:text-4xl">판매를 원하는 상품을 등록하세요</p>

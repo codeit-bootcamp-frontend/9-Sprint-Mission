@@ -28,7 +28,7 @@ export default function RootLayout({
           className="min-h-screen font-pretendard text-[--color-gray800]"
         >
           {children}
-          <Toaster toastOptions={{ success: {style: { fontSize: "24px" }}, error: {style: { fontSize: "24px" }} }} />
+          <Toaster toastOptions={{ success: {style: { fontSize: "16px" }}, error: {style: { fontSize: "16px" }} }} />
         </body>
       </TokenProvider>
     </html>

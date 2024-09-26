@@ -12,11 +12,11 @@ const ImgWrapperBottom = () => {
         </div>
         <div className="mt-24">
           <Image
-            src="/images/Img_home_bottom.svg"
+            src="/images/Img_home_bottom.png"
             alt="하단 이미지"
             width={746}
             height={340}
-            className="w-full"
+            priority
           />
         </div>
       </div>
