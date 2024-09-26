@@ -28,7 +28,9 @@
 }
 
 .writer-img {
-  background-color: #000;
+  background-image: url("/user.png");
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
   width: 24px;
   height: 24px;
 }
@@ -72,15 +74,32 @@
   background-position: center;
 }
 
+.search-order-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-form {
+  display: flex;
+  width: 100%;
+}
+.search-form::placeholder {
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 400;
+  color: var(--gray400);
+}
+
 .search-input {
   height: 42px;
+  width: 100%;
+
   background-color: var(--gray100);
   display: flex;
-  flex-grow: 1;
   border: none;
   border-radius: 12px;
   outline: none;
-  width: 100%;
   margin: 24px 0;
   background-image: url("/icons/ic_search.svg");
   background-size: 24px 24px;
@@ -90,11 +109,4 @@
   font-size: 1.6rem;
   line-height: 2.6rem;
   font-weight: 400;
-}
-
-.search-form::placeholder {
-  font-size: 1.6rem;
-  line-height: 2.6rem;
-  font-weight: 400;
-  color: var(--gray400);
 }

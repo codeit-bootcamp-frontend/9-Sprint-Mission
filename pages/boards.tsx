@@ -8,6 +8,7 @@ interface Query {
   orderBy: string;
 }
 export default function Boards() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mainQuery, setMainQuery] = useState<Query>({
     page: 1,
     pageSize: 10,
@@ -25,6 +26,7 @@ export default function Boards() {
       pageSize: 10,
       orderBy: order,
     });
+    setDropdownOpen(!dropdownOpen);
   };
 
   return (
@@ -38,7 +40,11 @@ export default function Boards() {
           <h1 className={styles["section-title"]}> 게시글</h1>
           <button className={styles["create-btn"]}>글쓰기</button>
         </div>
-        <ArticleList query={mainQuery} handleClickOrder={handleClickOrder} />
+        <ArticleList
+          query={mainQuery}
+          handleClickOrder={handleClickOrder}
+          dropdownOpen={dropdownOpen}
+        />
       </section>
     </div>
   );
