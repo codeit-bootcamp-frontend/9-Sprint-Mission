@@ -8,11 +8,13 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import PostList from "./PostList";
 import { ISearchList } from "@/app/boards/boardsTypeShare";
+import SelectMenu from "./SelectMenu";
 
 const SearchForm = () => {
   const [searchList, setSearchList] = useState<ISearchList[]>([]);
   const [orderBy, setOrderBy] = useState("recent");
-  
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const form = useForm<z.infer<typeof searchSchema>>({
     resolver: zodResolver(searchSchema),
     defaultValues: {
@@ -47,16 +49,20 @@ const SearchForm = () => {
     }
   }
 
+  const handleOpenMenu = () => {
+    setMenuOpen((prev) => !prev);
+  }
+
   useEffect(() => {
     if (typeof error.userSearch?.message === "string") {
       toast.error(error.userSearch.message);
     }
   }, [error]);
- 
+  
   return (
     <>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between relative">
           <div className="flex items-center space-x-3 bg-[--color-gray100] px-5 py-3 rounded-xl w-[288px] md:w-[560px] lg:w-[1054px]">
             <Image src="/icons/search.png" alt="검색" width={15} height={15} />
             <input
@@ -68,13 +74,15 @@ const SearchForm = () => {
               placeholder="검색할 상품을 입력해주세요"
             />
           </div>
-          <button type="submit" className="hidden">제출</button>
+          <button type="submit" className="hidden" disabled={!form.formState.isValid}>제출</button>
           <button
             type="button"
             className="w-[42px] h-[42px] rounded-xl border-[1px] border-[--color-gray200] flex items-center justify-center p-2 md:hidden"
+            onClick={handleOpenMenu}
           >
             <Image src="/icons/orderBtn.png" alt="검색" width={24} height={24} />
           </button>
+          {menuOpen && <SelectMenu setOrderBy={setOrderBy} />}
           <select className="custom-select" onChange={handleChangeSelect}>
             <option value="recent">최신순</option>
             <option value="like">좋아요순</option>

@@ -14,7 +14,7 @@ interface IProps {
 }
 
 const PostList = ({ searchList, orderBy }: IProps) => {
-  const width: number = calculateWidth();
+  const width: number = calculateWidth("all");
 
   const [posts, setPosts] = useState<ISearchList[]>([]);
   const [page, setPage] = useState(1);

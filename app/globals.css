@@ -73,4 +73,8 @@ body {
     @apply flex items-center justify-center border-[1px] rounded-full w-10 h-10 font-semibold p-0 active:bg-[--color-theme]
   }
 
+  .mobile-select-menu {
+    @apply w-[100px] py-2 border-[1px] border-[--color-gray300] rounded-lg text-[--color-gray500] bg-white hover:bg-[--color-gray100] z-40 transition-all font-bold
+  }
+
 }
