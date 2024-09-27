@@ -15,7 +15,7 @@ const MainContents = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col-reverse space-y-6 py-6 break-keep w-[988px] lg:flex-row lg:space-x-16 lg:space-y-0 lg:items-center lg:m-auto lg:justify-between bg-[#FCFCFC] rounded-xl lg:px-6">
+        <div className="flex flex-col-reverse space-y-6 py-6 break-keep md:w-[720px] lg:flex-row lg:space-x-16 lg:space-y-0 lg:items-center lg:m-auto lg:justify-between bg-[#FCFCFC] rounded-xl lg:px-6 lg:w-[988px]">
           <div className="flex flex-col space-y-5 text-end mt-6 md:mt-0">
             <h2 className="text-[--color-theme] font-bold md:text-lg">Search</h2>
             <p className="text-[--color-gray700] font-bold text-2xl md:text-4xl">구매를 원하는 상품을 검색하세요</p>

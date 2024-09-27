@@ -54,7 +54,7 @@ body {
 
 @layer components {
   .mainPage-contentsBox {
-    @apply flex flex-col space-y-6 py-6 w-[988px] break-keep lg:flex-row lg:space-x-16 lg:space-y-0 lg:items-center lg:m-auto lg:justify-between bg-[#FCFCFC] rounded-xl lg:px-6;
+    @apply flex flex-col space-y-6 py-6 break-keep md:w-[720px] lg:flex-row lg:space-x-16 lg:space-y-0 lg:items-center lg:m-auto lg:justify-between bg-[#FCFCFC] rounded-xl lg:px-6 lg:w-[988px];
   }
 
   .form-ring {
