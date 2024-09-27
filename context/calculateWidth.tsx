@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 // width 값 반환하는 context 
-export const calculateWidth = (value: string) => {
-  const [width, setWidth] = useState<number>(window.innerWidth);
+export const CalculateWidth = (value: string) => {
+  const [width, setWidth] = useState<number>(1200);
   let result: number = 0;
   
   useEffect(() => {

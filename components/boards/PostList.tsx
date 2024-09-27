@@ -5,7 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import Pagenation from "./Pagenation";
-import { calculateWidth } from "@/context/calculateWidth";
+import { CalculateWidth } from "@/context/calculateWidth";
 
 interface IProps {
   searchList: ISearchList[];
@@ -15,7 +15,7 @@ interface IProps {
 
 // 전체 게시글 가져오는 컴포넌트
 const PostList = ({ searchList, orderBy }: IProps) => {
-  const width: number = calculateWidth("all");
+  const width: number = CalculateWidth("all");
 
   const [posts, setPosts] = useState<ISearchList[]>([]);
   const [page, setPage] = useState(1);
@@ -41,7 +41,7 @@ const PostList = ({ searchList, orderBy }: IProps) => {
         toast.error("오류가 발생하여 게시글을 불러오지 못했습니다. 잠시 후 새로고침해주세요.");
       }
     } 
-  }, [page, orderBy]);
+  }, [page, orderBy, width]);
 
   useEffect(() => {
     getPosts();
