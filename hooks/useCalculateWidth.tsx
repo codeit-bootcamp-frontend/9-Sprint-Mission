@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 
-// width 값 반환하는 context 
-export const CalculateWidth = (value: string) => {
+// width 값 반환하는 커스텀 훅
+export const useCalculateWidth = (value: string) => {
   const [width, setWidth] = useState<number>(1200);
   let result: number = 0;
   

@@ -5,7 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import Pagenation from "./Pagenation";
-import { CalculateWidth } from "@/context/calculateWidth";
+import { useCalculateWidth } from "@/hooks/useCalculateWidth";
 
 interface IProps {
   searchList: ISearchList[];
@@ -15,7 +15,7 @@ interface IProps {
 
 // 전체 게시글 가져오는 컴포넌트
 const PostList = ({ searchList, orderBy }: IProps) => {
-  const width: number = CalculateWidth("all");
+  const width: number = useCalculateWidth("all");
 
   const [posts, setPosts] = useState<ISearchList[]>([]);
   const [page, setPage] = useState(1);

@@ -4,7 +4,7 @@ const MainContents = () => {
   return (
     <main>
       <div className="p-6 my-6 flex flex-col space-y-12 lg:space-y-[138px] lg:my-[138px]">
-        <div className="flex flex-col space-y-6 py-6 lg:flex-row lg:space-x-16 lg:items-center lg:m-auto lg:justify-center bg-[#FCFCFC] rounded-xl lg:px-6 lg:py-0">
+        <div className="mainPage-contentsBox">
           <Image src="/images/Img_home_01.png" alt="메인이미지" width={344} height={259} className="w-full lg:w-[579px]" />
           <div className="flex flex-col space-y-5">
             <h2 className="text-[--color-theme] font-bold md:text-lg">Hot Items</h2>
@@ -16,7 +16,7 @@ const MainContents = () => {
           </div>
         </div>
         <div className="flex flex-col-reverse space-y-6 py-6 lg:flex-row lg:space-x-16 lg:items-center lg:m-auto lg:justify-between bg-[#FCFCFC] rounded-xl lg:px-6 lg:py-0">
-          <div className="flex flex-col space-y-5 text-end mt-6">
+          <div className="flex flex-col space-y-5 text-end mt-6 md:mt-0">
             <h2 className="text-[--color-theme] font-bold md:text-lg">Search</h2>
             <p className="text-[--color-gray700] font-bold text-2xl md:text-4xl">구매를 원하는 상품을 검색하세요</p>
             <p className="text-[--color-gray700] font-medium md:text-2xl">
@@ -26,7 +26,7 @@ const MainContents = () => {
           </div>
           <Image src="/images/Img_home_02.png" alt="메인이미지" width={344} height={259} className="w-full lg:w-[579px]" />
         </div>
-        <div className="flex flex-col space-y-6 py-6 lg:flex-row lg:space-x-16 lg:items-center lg:m-auto lg:justify-between bg-[#FCFCFC] rounded-xl lg:px-6 lg:py-0">
+        <div className="mainPage-contentsBox">
           <Image src="/images/Img_home_03.png" alt="메인이미지" width={344} height={259} className="w-full lg:w-[579px]" />
           <div className="flex flex-col space-y-5">
             <h2 className="text-[--color-theme] font-bold md:text-lg">Register</h2>

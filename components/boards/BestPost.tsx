@@ -5,11 +5,11 @@ import { useCallback, useEffect, useState } from "react";
 import { instance } from "@/lib/axios";
 import { ISearchList } from "@/app/boards/boardsTypeShare";
 import axios from "axios";
-import { CalculateWidth } from "@/context/calculateWidth";
+import { useCalculateWidth } from "@/hooks/useCalculateWidth";
 import toast from "react-hot-toast";
 
 const BestPost = () => {
-  const pageSize: number = CalculateWidth("best");
+  const pageSize: number = useCalculateWidth("best");
 
   const [bestPost, setBestPost] = useState<ISearchList[]>([]);
   const [isLoading, setLoading] = useState(false);

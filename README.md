@@ -12,7 +12,7 @@
 - react-hot-toast 2.4.1
 - typescript 5
 
-### 배포 웹사이트: 재배포 예정
+### 배포 웹사이트: https://codeit-nextjs-mission.netlify.app/
 
 ### 기본
 
@@ -30,6 +30,7 @@
 ### 변경사항
 
 - Next.js로 전환하고 tailwind css를 적용했습니다.
+- 이미지를 가져오는 경로가 image api를 통해 업로드하지 않은 이미지가 너무 많아서 전체 경로에서 들어올 수 있도록 수정했습니다.
 
 ## 스크린샷
 

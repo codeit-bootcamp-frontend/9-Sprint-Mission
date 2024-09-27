@@ -7,12 +7,12 @@ export const metadata: Metadata = {
   title: "판다마켓",
   description: "일상의 모든 물건을 거래해보세요",
   icons: { icon: "/icon.png", shortcut: "/icon.png" },
-  metadataBase: new URL("http://localhost:3000/"),
+  metadataBase: new URL("https://codeit-nextjs-mission.netlify.app/"),
   openGraph: {
     title: "판다마켓",
     description: "일상의 모든 물건을 거래해보세요",
     images: "/icon.png",
-    url: "http://localhost:3000/"
+    url: "https://codeit-nextjs-mission.netlify.app/"
   }
 };
 
