@@ -1,0 +1,25 @@
+.best-label {
+  background-color: var(--main);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 2.6rem;
+  text-align: left;
+  color: #fff;
+  width: 102px;
+  border-radius: 0 0 16px 16px;
+  padding: 2px 24px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.best-label::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background-image: url("/icons/ic_medal.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: inline-block; /* 또는 block으로 크기 지정 */
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
-import Link from "next/link";
 import styles from "./ArticleList.module.css";
+import { ArticleItem } from "./ArticleItem";
 
 interface Article {
   id: number;
@@ -64,19 +64,9 @@ export default function BestArticleList({ query }: { query: Query }) {
     <>
       <h1 className={styles["section-title"]}>베스트 게시글</h1>
       {error && <p>{error.message}</p>}
-      {articles.map((article) => (
-        <li key={article.id} className={styles["article-box"]}>
-          <div>
-            {/* <img src={article.image} width={300} height={300} alt={article.name}/>  */}
-            <div>{article.content}</div>
-            <div>{article.writer.nickname}</div>
-            <div>
-              {new Date(article.updatedAt).toLocaleString("ko-KR", options)}
-            </div>
-            <div>{article.likeCount}</div>
-          </div>
-        </li>
-      ))}
+      {articles && (
+        <ArticleItem articles={articles} option="best"></ArticleItem>
+      )}
     </>
   );
 }

@@ -3,8 +3,10 @@
   font-weight: 700;
   line-height: 3.2rem;
   text-align: left;
+  padding: 24px 0;
   margin: 0;
 }
+
 .create-btn {
   background-color: var(--main);
   border: none;
@@ -22,23 +24,23 @@
   align-items: center;
 }
 
-.article-box {
+.main-article-box {
   border-bottom: 1px solid var(--gray200);
   background-color: #fcfcfc;
   margin-top: 24px;
 }
-.article-title-image {
+.main-article-title-image {
   display: flex;
   justify-content: space-between;
 }
-.article-title {
+.main-article-title {
   font-size: 2rem;
   line-height: 3.2rem;
   color: var(--gray800);
   font-weight: 600;
   padding-bottom: 40px;
 }
-.imageBox {
+.main-imageBox {
   background-color: #fff;
   width: 72px;
   height: 72px;
@@ -46,48 +48,50 @@
   border-radius: 8px;
   overflow: hidden;
 }
-.article-info {
+
+.main-article-info {
   display: flex;
   justify-content: space-between;
+  position: relative;
 }
 
-.writer-img {
+.main-writer-img {
   background-image: url("/user.png");
   background-repeat: no-repeat;
   background-size: 24px 24px;
   width: 24px;
   height: 24px;
 }
-
-.writer-info {
+.main-writer-inner {
   display: flex;
-  align-items: center;
   gap: 8px;
   margin-bottom: 24px;
 }
-
-.writer-nickname,
-.article-date,
-.article-like {
+.main-writer-nickname,
+.main-article-date,
+.main-article-like {
   font-size: 1.4rem;
   font-weight: 400;
   line-height: 2.4rem;
 }
-.writer-nickname {
+.main-writer-nickname {
   color: var(--gray600);
 }
 
-.article-date {
+.main-article-date {
   color: var(--gray400);
 }
 
-.article-like {
+.main-article-like {
+  position: absolute;
+  top: 0;
+  right: 0;
   color: var(--gray500);
   display: flex;
   gap: 8px;
   align-items: center;
 }
-.article-like::before {
+.main-article-like::before {
   content: "";
   display: inline-block;
   background-image: url("/icons/ic_heart.svg");
@@ -98,6 +102,7 @@
   background-position: center;
 }
 
+/* 검색 form 스타일  */
 .search-order-wrap {
   display: flex;
   align-items: center;
@@ -118,13 +123,11 @@
 .search-input {
   height: 42px;
   width: 100%;
-
   background-color: var(--gray100);
   display: flex;
   border: none;
   border-radius: 12px;
   outline: none;
-  margin: 24px 0;
   background-image: url("/icons/ic_search.svg");
   background-size: 24px 24px;
   background-repeat: no-repeat;
@@ -139,10 +142,126 @@
   .search-order-wrap {
     gap: 6px;
   }
+  .section-title {
+    padding: 24px 0;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .search-order-wrap {
     gap: 13px;
   }
+  .section-title {
+    padding-top: 16px;
+  }
+}
+
+/* best component */
+
+.best-article-item {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.best-article-box {
+  position: relative;
+  background-color: var(--gray50);
+  border-radius: 8px;
+  padding: 0 24px 16px;
+}
+.best-article-title-image {
+  display: flex;
+  justify-content: space-between;
+  margin: 46px 0 35px 0;
+}
+.best-article-title {
+  font-size: 2rem;
+  line-height: 3.2rem;
+  color: var(--gray800);
+  font-weight: 600;
+  margin: 0 8px 8px 0;
+}
+.best-imageBox {
+  background-color: #fff;
+  width: 72px;
+  height: 72px;
+  border: 1px solid var(--gray200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.best-writer-nickname,
+.best-article-date,
+.best-article-like {
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 2.4rem;
+}
+.best-writer-img {
+  display: none;
+}
+.best-writer-nickname {
+  color: var(--gray600);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.best-writer-inner {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.best-article-date {
+  color: var(--gray400);
+}
+.best-article-like {
+  color: var(--gray500);
+  display: flex;
+  top: 0;
+  left: 50px;
+  gap: 8px;
+  align-items: center;
+}
+.best-article-like::before {
+  content: "";
+  display: inline-block;
+  background-image: url("/icons/ic_heart.svg");
+  width: 20px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.best-label {
+  position: absolute;
+  background-color: var(--main);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 2.6rem;
+  text-align: left;
+  color: #fff;
+  width: 102px;
+  border-radius: 0 0 16px 16px;
+  padding: 2px 24px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.best-label::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  background-image: url("/icons/ic_medal.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  display: inline-block; /* 또는 block으로 크기 지정 */
+}
+
+.main-label {
+  display: none;
 }
