@@ -1,3 +1,4 @@
+// src/components/UI/item/ItemProfileSection.tsx
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import TagDisplay from "./TagDisplay";
@@ -12,27 +13,39 @@ interface ItemProfileSectionProps {
 
 const ItemProfileSection = ({ product }: ItemProfileSectionProps) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageStatus, setImageStatus] = useState<
+    "loading" | "loaded" | "error"
+  >("loading");
 
   const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
 
   useEffect(() => {
     const validateImageUrl = async (url: string) => {
       try {
-        const proxyUrl = `/api/imageProxy?url=${encodeURIComponent(url)}`;
-        const response = await fetch(proxyUrl);
-        if (response.ok) {
-          setImageUrl(proxyUrl);
+        if (isSvgFile(url)) {
+          setImageUrl(url);
+          setImageStatus("loaded");
         } else {
-          console.log("No image available: ", response.status);
-          setImageUrl(null);
+          const proxyUrl = `/api/imageProxy?url=${encodeURIComponent(url)}`;
+          const response = await fetch(proxyUrl);
+          if (response.ok) {
+            setImageUrl(proxyUrl);
+            setImageStatus("loaded");
+          } else {
+            console.log("이미지를 사용할 수 없음: ", response.status);
+            setImageStatus("error");
+          }
         }
       } catch (error) {
-        console.error("No image available: ", error);
+        console.error("이미지를 사용할 수 없음: ", error);
+        setImageStatus("error");
       }
     };
 
     if (product.images[0]) {
       validateImageUrl(product.images[0]);
+    } else {
+      setImageStatus("error");
     }
   }, [product.images]);
 
@@ -44,12 +57,18 @@ const ItemProfileSection = ({ product }: ItemProfileSectionProps) => {
   return (
     <section className="flex flex-col gap-4 md:flex-row lg:gap-6">
       <div className="w-full md:w-2/5 md:max-w-[486px]">
-        {imageUrl ? (
+        {imageStatus === "loading" ? (
+          <div className="w-full h-[486px] flex items-center justify-center bg-gray-200 rounded-xl">
+            <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent border-solid rounded-full animate-spin"></div>
+          </div>
+        ) : imageStatus === "loaded" && imageUrl ? (
           isSvgFile(imageUrl) ? (
             <img
               src={imageUrl}
               alt={`${product.name} 상품 대표 사진`}
               className="rounded-xl w-full h-auto"
+              width={486}
+              height={486}
             />
           ) : (
             <Image
@@ -58,6 +77,7 @@ const ItemProfileSection = ({ product }: ItemProfileSectionProps) => {
               width={486}
               height={486}
               className="rounded-xl w-full h-auto"
+              unoptimized={true}
             />
           )
         ) : (
