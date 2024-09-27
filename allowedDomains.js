@@ -8,6 +8,7 @@ const allowedDomains = [
   "cdnb.artstation.com",
   "cafe24.poxo.com",
   "i.namu.wiki",
+  "pbs.twimg.com",
   "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
 ];
 

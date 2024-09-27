@@ -26,6 +26,7 @@ export default async function handler(
     if (
       !contentType ||
       (!contentType.startsWith("image/") &&
+        contentType !== "image/svg+xml" &&
         contentType !== "application/octet-stream")
     ) {
       return res

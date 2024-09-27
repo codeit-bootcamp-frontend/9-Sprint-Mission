@@ -11,28 +11,28 @@ interface ItemProfileSectionProps {
 }
 
 const ItemProfileSection = ({ product }: ItemProfileSectionProps) => {
-  const [isValidImage, setIsValidImage] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+
+  const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
 
   useEffect(() => {
     const validateImageUrl = async (url: string) => {
       try {
-        const response = await fetch(url);
+        const proxyUrl = `/api/imageProxy?url=${encodeURIComponent(url)}`;
+        const response = await fetch(proxyUrl);
         if (response.ok) {
-          setIsValidImage(true);
+          setImageUrl(proxyUrl);
         } else {
           console.log("No image available: ", response.status);
-          setIsValidImage(false);
+          setImageUrl(null);
         }
       } catch (error) {
         console.error("No image available: ", error);
-        setIsValidImage(false);
       }
     };
 
     if (product.images[0]) {
       validateImageUrl(product.images[0]);
-    } else {
-      setIsValidImage(false);
     }
   }, [product.images]);
 
@@ -44,13 +44,31 @@ const ItemProfileSection = ({ product }: ItemProfileSectionProps) => {
   return (
     <section className="flex flex-col gap-4 md:flex-row lg:gap-6">
       <div className="w-full md:w-2/5 md:max-w-[486px]">
-        <Image
-          src={isValidImage ? product.images[0] : NoImage}
-          alt={`${product.name} 상품 대표 사진`}
-          width={486}
-          height={486}
-          className="rounded-xl w-full h-auto"
-        />
+        {imageUrl ? (
+          isSvgFile(imageUrl) ? (
+            <img
+              src={imageUrl}
+              alt={`${product.name} 상품 대표 사진`}
+              className="rounded-xl w-full h-auto"
+            />
+          ) : (
+            <Image
+              src={imageUrl}
+              alt={`${product.name} 상품 대표 사진`}
+              width={486}
+              height={486}
+              className="rounded-xl w-full h-auto"
+            />
+          )
+        ) : (
+          <Image
+            src={NoImage}
+            alt="이미지 없음"
+            width={486}
+            height={486}
+            className="rounded-xl w-full h-auto"
+          />
+        )}
       </div>
 
       <div className="flex flex-col justify-between flex-1 items-start">
