@@ -5,7 +5,7 @@ export async function GET(req: Request) {
   try {
     const body = req.url.split("keyword=");
     const keyword = body[1];
-    console.log(keyword)
+  
     if (!keyword) {
       return new NextResponse("검색할 키워드를 찾을 수 없습니다.", { status: 400 });
     }

@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ISigninForm } from "@/app/(auth)/authTypeShare";
 import { z } from "zod";
-import { instance } from "@/lib/axios";
 import axios from "axios";
 import { SigninSchema } from "@/app/(auth)/signin/signinConstants";
 import useToken from "@/hooks/useToken";
@@ -22,20 +21,20 @@ const AuthForm = ({ form, isLoading, error }: ISigninForm) => {
 
   const handleSubmit = async (values: z.infer<typeof SigninSchema>) => {
       try {
-        const response = await instance.post("/auth/signIn", {
+        const response = await axios.post("/api/auth/signin", {
           email: values.userEmail,
           password: values.userPassword,
         });
   
         if (response.status === 200) {
-          localStorage.setItem("accessToken", response.data.accessToken);
+          localStorage.setItem("accessToken", response.data);
           context?.Signin();
           router.push("/");
         }
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.error("로그인 POST 요청에서 API 오류 발생", error);
-          setApiError(error.response?.data.message);
+          setApiError(error.response?.data);
         } else {
           console.error("로그인 POST 요청에서 알 수 없는 오류 발생", error);
           setServerError(true);

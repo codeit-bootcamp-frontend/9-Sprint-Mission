@@ -54,7 +54,7 @@ body {
 
 @layer components {
   .mainPage-contentsBox {
-    @apply flex flex-col space-y-6 py-6 lg:flex-row lg:space-x-16 lg:items-center lg:m-auto lg:justify-center bg-[#FCFCFC] rounded-xl lg:px-6 lg:py-0
+    @apply flex flex-col space-y-6 py-6 w-[988px] break-keep lg:flex-row lg:space-x-16 lg:space-y-0 lg:items-center lg:m-auto lg:justify-between bg-[#FCFCFC] rounded-xl lg:px-6;
   }
 
   .form-ring {
@@ -70,15 +70,15 @@ body {
   }
 
   .custom-select {
-    @apply hidden md:block md:border-[1px] md:border-[--color-gray200] md:px-5 md:py-3 md:rounded-xl md:appearance-none md:bg-[url('/icons/arrow_down.png')] md:bg-no-repeat md:bg-[right_10px_center] md:w-[130px]
+    @apply hidden md:block md:border-[1px] md:border-[--color-gray200] md:px-5 md:py-3 md:rounded-xl md:appearance-none md:bg-[url('/icons/arrow_down.png')] md:bg-no-repeat md:bg-[right_10px_center] md:w-[130px];
   }
 
   .pagination-number-round {
-    @apply flex items-center justify-center border-[1px] rounded-full w-10 h-10 font-semibold p-0 active:bg-[--color-theme]
+    @apply flex items-center justify-center border-[1px] rounded-full w-10 h-10 font-semibold p-0 active:bg-[--color-theme];
   }
 
   .mobile-select-menu {
-    @apply w-[100px] py-2 border-[1px] border-[--color-gray300] rounded-lg text-[--color-gray500] bg-white hover:bg-[--color-gray100] z-40 transition-all font-bold
+    @apply w-[100px] py-2 border-[1px] border-[--color-gray300] rounded-lg text-[--color-gray500] bg-white hover:bg-[--color-gray100] z-40 transition-all font-bold;
   }
 
 }

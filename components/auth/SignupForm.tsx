@@ -1,6 +1,5 @@
 import { ISignupForm } from "@/app/(auth)/authTypeShare";
 import { SignupSchema } from "@/app/(auth)/signup/signupContants";
-import { instance } from "@/lib/axios";
 import { cls } from "@/lib/utils";
 import axios from "axios";
 import Image from "next/image";
@@ -35,7 +34,7 @@ const SignupForm = ({ form, isLoading, error }: ISignupForm) => {
 
   const handleSubmit = async (values: z.infer<typeof SignupSchema>) => {
     try {
-      const response = await instance.post("/auth/signUp", {
+      const response = await axios.post("/api/auth/signup", {
         email: values.userEmail,
         nickname: values.userNickname,
         password: values.userPassword,
@@ -49,7 +48,7 @@ const SignupForm = ({ form, isLoading, error }: ISignupForm) => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("회원가입 post 요청에서 API 요청 오류 발생", error);
-        setApiError(error.response?.data.message);
+        setApiError(error.response?.data);
       } else {
         console.error("회원가입 post 요청에서 알 수 없는 오류 발생", error);
         setServerError(true);

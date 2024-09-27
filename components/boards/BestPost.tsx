@@ -40,7 +40,7 @@ const BestPost = () => {
   }, [getBestPosts]);
 
   return (
-    <div className="p-6 my-24 flex flex-col space-y-6 justify-center lg:w-[1200px] lg:m-auto lg:my-24 lg:p-0">
+    <>
       <h2 className="text-lg font-bold">베스트 게시글</h2>
       <div className="md:grid md:grid-cols-2 md:gap-x-4 lg:grid-cols-3 lg:gap-x-6">
         {isLoading ? (
@@ -92,7 +92,7 @@ const BestPost = () => {
         </div>
         <SearchForm />
       </div>
-    </div>
+    </>
   );
 };
 
