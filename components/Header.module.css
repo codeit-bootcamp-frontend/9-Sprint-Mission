@@ -38,7 +38,12 @@
   font-weight: 700;
   color: var(--gray600);
 }
-
+.active {
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  font-weight: 800;
+  color: var(--main);
+}
 .nav img {
   cursor: pointer;
 }

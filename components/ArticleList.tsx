@@ -4,6 +4,7 @@ import styles from "./ArticleList.module.css";
 import { Dropdown } from "./Dropdown";
 import { ArticleItem } from "./ArticleItem";
 import { SearchForm } from "./SearchForm";
+import Link from "next/link";
 interface Query {
   page: number;
   pageSize: number;
@@ -85,8 +86,9 @@ export default function ArticleList({
       {error && <p>{error.message}</p>}
       <div className={styles["title-wrap"]}>
         <h1 className={styles["section-title"]}>게시글</h1>
-        <button className={styles["create-btn"]}>글쓰기</button>
-        {/* Link 사용하기 */}
+        <Link href="/addItems" className={styles["create-btn"]}>
+          글쓰기
+        </Link>
       </div>
       <div className={styles["search-order-wrap"]}>
         <SearchForm search={search} handleChangeValue={handleChangeValue} />
