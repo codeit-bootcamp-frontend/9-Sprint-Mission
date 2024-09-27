@@ -1,7 +1,6 @@
-import { useEffect, useState, ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import styles from "./ArticleList.module.css";
-import Image from "next/image";
 import { Dropdown } from "./Dropdown";
 import { ArticleItem } from "./ArticleItem";
 import { SearchForm } from "./SearchForm";
@@ -84,6 +83,11 @@ export default function ArticleList({
   return (
     <>
       {error && <p>{error.message}</p>}
+      <div className={styles["title-wrap"]}>
+        <h1 className={styles["section-title"]}>게시글</h1>
+        <button className={styles["create-btn"]}>글쓰기</button>
+        {/* Link 사용하기 */}
+      </div>
       <div className={styles["search-order-wrap"]}>
         <SearchForm search={search} handleChangeValue={handleChangeValue} />
         <Dropdown
@@ -93,7 +97,10 @@ export default function ArticleList({
           handleClickOrderOpen={handleClickOrderOpen}
         />
       </div>
-      {filteredArticles && <ArticleItem articles={filteredArticles} />}
+
+      {filteredArticles && (
+        <ArticleItem articles={filteredArticles} option="main" />
+      )}
     </>
   );
 }

@@ -1,6 +1,5 @@
 import ArticleList from "@/components/ArticleList";
 import BestArticleList from "@/components/BestArticleList";
-import styles from "./board.module.css";
 import { useState } from "react";
 interface Query {
   page: number;
@@ -35,11 +34,11 @@ export default function Boards() {
 
   return (
     <div className="container">
-      <section className={styles["section"]}>
+      <section className="section">
         <BestArticleList query={bestQuery} />
       </section>
 
-      <section className={styles["section"]}>
+      <section className="section">
         <ArticleList
           query={mainQuery}
           handleClickOrder={handleClickOrder}
