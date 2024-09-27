@@ -16,13 +16,13 @@ interface ItemCardProps {
   priority?: boolean;
 }
 
-const ItemCard: React.FC<ItemCardProps> = ({
+const ItemCard = ({
   item,
   width = 200,
   height = 200,
   onLoad,
   priority = false,
-}) => {
+}: ItemCardProps) => {
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading");
