@@ -78,6 +78,7 @@ const AuthForm = ({ form, isLoading, error }: ISigninForm) => {
             width={24}
             height={24}
             onClick={handleVisiblePassword}
+            className="cursor-pointer"
           />
         </div>
         {error && <span className="error-text-start">{error.userPassword?.message}</span>}

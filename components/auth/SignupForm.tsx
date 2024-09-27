@@ -125,6 +125,7 @@ const SignupForm = ({ form, isLoading, error }: ISignupForm) => {
             width={24}
             height={24}
             onClick={item.clickFunction}
+            className="cursor-pointer"
           />
         </div>
         {error && <span className="error-text-start">{item.error}</span>}
