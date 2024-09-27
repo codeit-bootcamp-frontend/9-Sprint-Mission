@@ -1,5 +1,5 @@
 // src/components/UI/item/itemCard.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/types/product";
@@ -16,27 +16,48 @@ interface ItemCardProps {
   priority?: boolean;
 }
 
-const ItemCard = ({
+const ItemCard: React.FC<ItemCardProps> = ({
   item,
   width = 200,
   height = 200,
   onLoad,
   priority = false,
-}: ItemCardProps) => {
+}) => {
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading");
-  const imageUrl =
-    item.images &&
-    item.images[0] &&
-    allowedDomains.some((domain) => item.images[0].includes(domain)) &&
-    !disallowedDomains.some((domain) => item.images[0].includes(domain))
-      ? `/api/imageProxy?url=${encodeURIComponent(item.images[0])}`
-      : NoImage.src;
+
+  const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
+
+  const imageUrl = useMemo(() => {
+    if (
+      item.images &&
+      item.images[0] &&
+      allowedDomains.some((domain) => item.images[0].includes(domain)) &&
+      !disallowedDomains.some((domain) => item.images[0].includes(domain))
+    ) {
+      if (isSvgFile(item.images[0])) {
+        // SVG 파일의 경우 직접 URL을 사용
+        return item.images[0];
+      }
+      return `/api/imageProxy?url=${encodeURIComponent(item.images[0])}`;
+    }
+    return NoImage.src;
+  }, [item.images]);
 
   useEffect(() => {
     setImageStatus("loading");
   }, [item.images]);
+
+  const handleImageLoad = () => {
+    setImageStatus("loaded");
+    if (onLoad) onLoad();
+  };
+
+  const handleImageError = () => {
+    setImageStatus("error");
+    console.error(`이미지 로드 실패: ${imageUrl}`);
+  };
 
   return (
     <Link
@@ -50,23 +71,29 @@ const ItemCard = ({
           </div>
         )}
 
-        <Image
-          src={imageStatus === "error" ? NoImage.src : imageUrl}
-          alt="상품 썸네일"
-          className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
-          width={width}
-          height={height}
-          unoptimized={imageUrl.endsWith(".gif")}
-          onLoad={() => {
-            setImageStatus("loaded");
-            if (onLoad) onLoad();
-          }}
-          onError={() => {
-            setImageStatus("error");
-            console.error(`이미지 로드 실패: ${imageUrl}`);
-          }}
-          priority={priority}
-        />
+        {isSvgFile(imageUrl) ? (
+          <img
+            src={imageUrl}
+            alt="상품 썸네일"
+            className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
+            width={width}
+            height={height}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+          />
+        ) : (
+          <Image
+            src={imageStatus === "error" ? NoImage.src : imageUrl}
+            alt="상품 썸네일"
+            className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
+            width={width}
+            height={height}
+            unoptimized={true}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            priority={priority}
+          />
+        )}
       </div>
       <div className="flex flex-col gap-2.5">
         <div className="text-base font-normal whitespace-nowrap overflow-hidden text-ellipsis">

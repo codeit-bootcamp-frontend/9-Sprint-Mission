@@ -6,7 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { url } = req.query;
+  const { url, width, height } = req.query;
 
   if (typeof url !== "string") {
     return res.status(400).json({ error: "이미지 URL이 필요합니다." });
@@ -34,11 +34,23 @@ export default async function handler(
         .json({ error: "유효하지 않은 이미지 형식입니다." });
     }
 
+    let responseData = response.data;
+
+    // SVG 파일인 경우 크기 조절
+    if (contentType === "image/svg+xml" && width && height) {
+      const svgString = responseData.toString("utf-8");
+      const updatedSvgString = svgString.replace(
+        /<svg([\s\S]*?)>/,
+        `<svg$1 width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet">`
+      );
+      responseData = Buffer.from(updatedSvgString, "utf-8");
+    }
+
     res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
     res.setHeader("Content-Type", contentType);
-    res.send(response.data);
+    res.send(responseData);
   } catch (error) {
     console.error("이미지 로드 에러:", error);
     if (axios.isAxiosError(error)) {
