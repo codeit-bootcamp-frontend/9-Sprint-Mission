@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import allowedDomains from "./allowedDomains";
 
+const allowedImageExtensions = ["jpg", "jpeg", "png", "gif", "webp", "svg"];
+
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
 
@@ -20,6 +22,14 @@ export function middleware(request: NextRequest) {
         return NextResponse.json(
           { error: "허용되지 않은 도메인입니다." },
           { status: 403 }
+        );
+      }
+
+      const extension = imageUrl.split(".").pop()?.toLowerCase();
+      if (!extension || !allowedImageExtensions.includes(extension)) {
+        return NextResponse.json(
+          { error: "허용되지 않은 파일 형식입니다." },
+          { status: 400 }
         );
       }
     } catch (error) {
