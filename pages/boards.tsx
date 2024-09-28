@@ -1,7 +1,23 @@
+import ArticleList from '@/src/board/ArticleList';
+import BestArticleList from '@/src/board/BestArticleList';
 import React from 'react';
+import styled from 'styled-components';
 
-const boards = () => {
-    return <div>자유게시판</div>;
+const Boards = () => {
+    return (
+        <Contaniner>
+            <BestArticleList />
+            <ArticleList />
+        </Contaniner>
+    );
 };
 
-export default boards;
+const Contaniner = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px;
+    gap: 40px;
+`;
+
+export default Boards;

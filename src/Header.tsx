@@ -16,7 +16,7 @@ const Header = () => {
                 <StyledLink href={'/boards'} isActive={router.pathname === '/boards'}>
                     자유게시판
                 </StyledLink>
-                <StyledLink href={'/items'} isActive={router.pathname === '/items' || location.pathname === '/additem'}>
+                <StyledLink href={'/items'} isActive={router.pathname === '/items' || router.pathname === '/additem'}>
                     중고마켓
                 </StyledLink>
             </LeftMenu>
@@ -55,6 +55,7 @@ const LeftMenu = styled.div`
     gap: 32px;
     h2 {
         font-size: 26px;
+        font-weight: 700;
         color: var(--blue);
     }
 
