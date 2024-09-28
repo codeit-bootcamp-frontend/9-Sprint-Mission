@@ -1,63 +1,85 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import useArticles from '@/hooks/useArticles';
+import React from 'react';
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
+import { Article, ArticleListResponse } from '@/types/article';
+import ArticleCard from '@/components/UI/community/ArticleCard';
+import Pagination from '@/components/UI/Pagination';
 
-export default function CommunityPage() {
-  const [page, setPage] = useState(1);
-  const { articles, totalCount, loading, error } = useArticles(page);
+type CommunityPageProps = {
+  articles: Article[];
+  totalCount: number;
+  page: number;
+};
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
+// CommunityPage 컴포넌트 정의
+const CommunityPage: React.FC<CommunityPageProps> = ({
+  articles = [], // articles의 기본값을 빈 배열로 설정하여 undefined 방지
+  totalCount,
+  page,
+}) => {
+  const handlePrevious = () => {
+    window.location.href = `/community?page=${Math.max(page - 1, 1)}`;
+  };
+
+  const handleNext = () => {
+    window.location.href = `/community?page=${page + 1}`;
   };
 
   return (
     <div className='container mx-auto px-4 py-8'>
       <h1 className='text-3xl font-bold mb-6'>커뮤니티</h1>
-      {loading ? (
-        <p>로딩 중...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : articles.length > 0 ? (
+      {articles.length > 0 ? ( // articles가 존재하는지 확인
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
           {articles.map((article) => (
-            <Link href={`/community/${article.id}`} key={article.id}>
-              <div className='bg-white shadow-md rounded-lg p-4 cursor-pointer hover:shadow-lg transition-shadow'>
-                <img
-                  src={article.image || 'https://via.placeholder.com/300'}
-                  alt={article.title}
-                  className='w-full h-48 object-cover rounded-md mb-4'
-                />
-                <h2 className='text-xl font-semibold mb-2'>{article.title}</h2>
-                <p className='text-gray-600 mb-2'>
-                  {article.content.substring(0, 100)}...
-                </p>
-                <div className='flex justify-between items-center text-sm text-gray-500'>
-                  <span>{article.writer.nickname}</span>
-                  <span>좋아요: {article.likeCount}</span>
-                </div>
-              </div>
-            </Link>
+            <ArticleCard key={article.id} article={article} />
           ))}
         </div>
       ) : (
         <p>게시글이 없습니다.</p>
       )}
-      <div className='mt-8 flex justify-center'>
-        <button
-          onClick={() => handlePageChange(Math.max(page - 1, 1))}
-          disabled={page === 1}
-          className='bg-blue-500 text-white px-4 py-2 rounded-md mr-2 disabled:bg-gray-300'
-        >
-          이전
-        </button>
-        <button
-          onClick={() => handlePageChange(page + 1)}
-          disabled={page * 10 >= totalCount}
-          className='bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-gray-300'
-        >
-          다음
-        </button>
-      </div>
+      <Pagination
+        currentPage={page}
+        totalCount={totalCount}
+        onPrevious={handlePrevious}
+        onNext={handleNext}
+      />
     </div>
   );
-}
+};
+
+// getServerSideProps를 사용하여 서버에서 데이터를 받아오는 함수
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const page = parseInt(context.query.page as string) || 1;
+
+  try {
+    const response = await axios.get<ArticleListResponse>(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/articles`,
+      {
+        params: {
+          page: page,
+          pageSize: 10,
+          orderBy: 'recent',
+        },
+      }
+    );
+
+    return {
+      props: {
+        articles: response.data.list,
+        totalCount: response.data.totalCount,
+        page,
+      },
+    };
+  } catch (error) {
+    console.error('게시글을 불러오는 중 오류가 발생했습니다:', error);
+    return {
+      props: {
+        articles: [], // 빈 배열로 초기화하여 에러 방지
+        totalCount: 0,
+        page,
+      },
+    };
+  }
+};
+
+export default CommunityPage;
