@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import Header from "./Header";
 
 interface props {
@@ -7,9 +7,11 @@ interface props {
 
 export default function Layout({ children }: props) {
   return (
-    <div>
+    <>
       <Header />
-      {children}
-    </div>
+      <div className='flex flex-col items-center'>
+        <div>{children}</div>
+      </div>
+    </>
   );
 }
