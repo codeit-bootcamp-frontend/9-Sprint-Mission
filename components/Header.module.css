@@ -52,6 +52,9 @@
   .nav {
     margin: 0 24px;
   }
+  .menu {
+    gap: 20px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -61,5 +64,8 @@
 
   .category-item {
     font-size: 1.6rem;
+  }
+  .menu {
+    gap: 8px;
   }
 }

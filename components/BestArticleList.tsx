@@ -64,9 +64,7 @@ export default function BestArticleList({ query }: { query: Query }) {
     <>
       <h1 className={styles["section-title"]}>베스트 게시글</h1>
       {error && <p>{error.message}</p>}
-      {articles && (
-        <ArticleItem articles={articles} option="best"></ArticleItem>
-      )}
+      {articles && <ArticleItem articles={articles} option="best" />}
     </>
   );
 }
