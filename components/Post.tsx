@@ -1,45 +1,53 @@
 import React from "react";
 import Image from "next/image";
 import { CiHeart } from "react-icons/ci";
-import testImage from "@/public/panda_logo.png";
+import defaultImage from "@/public/panda_logo.png";
 import profileImage from "@/public/profileImg.png";
 
-interface Props {
-  title?: string;
-  author?: string;
-  likes?: number;
-  date?: string; // 부모 컴포넌트에서 date 포맷 변경해서 내려주기
-  mainImage?: string;
-  profleImage?: string;
+interface PostProps {
+  author: string;
+  title: string;
+  date: string;
+  likeCount: number;
+  image: string | null;
 }
 
 export default function Post({
-  title,
   author,
-  likes,
+  title,
   date,
-  mainImage,
-  profleImage,
-}: Props) {
+  likeCount,
+  image,
+}: PostProps) {
   return (
     <div className='bg-gray-100 w-full border-b'>
       <div className='flex justify-between'>
-        <p className='text-xl font-semibold'>
-          맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?
-        </p>
+        <p className='text-xl font-semibold'>{title}</p>
         <div className='w-16 h-16 p-2 border border-gray-200 rounded-lg'>
-          <Image src={testImage} alt='게시글_이미지' className='object-cover' />
+          <Image
+            src={image || defaultImage}
+            alt='게시글_이미지'
+            className='object-cover'
+            width={64}
+            height={64}
+          />
         </div>
       </div>
       <div className='flex justify-between text-gray-600 text-sm my-5  border-gray-200'>
         <div className='flex items-center gap-2'>
-          <Image src={profileImage} alt='프로필_이미지' className='w-6 h-6' />
-          <span>총명한 판다</span>
-          <span>2024.04.06</span>
+          <Image
+            src={profileImage}
+            alt='프로필_이미지'
+            width={24}
+            height={24}
+            className='w-6 h-6'
+          />
+          <span>{author}</span>
+          <span>{date}</span>
         </div>
         <div className='flex items-center gap-1'>
           <CiHeart className='w-6 h-6' />
-          <span>9999+</span>
+          <span>{likeCount > 9999 ? "9999+" : likeCount}</span>
         </div>
       </div>
     </div>

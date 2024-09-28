@@ -24,7 +24,7 @@ export default function Header() {
         <nav className='flex gap-4'>
           {menuData.map((item) => {
             return (
-              <li>
+              <li key={item.id}>
                 <Link
                   href={item.path}
                   className={

@@ -2,25 +2,55 @@ import BestProductCard from "@/components/BestProductCard";
 import Dropdown from "@/components/Dropdown";
 import Layout from "@/components/Layout";
 import Post from "@/components/Post";
+import axios from "@/lib/axios";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 
 const dropData = [
-  { id: "latest", name: "최신순" },
-  { id: "likes", name: "좋아요순" },
+  { id: "recent", name: "최신순" },
+  { id: "like", name: "좋아요순" },
 ];
 
+interface Writer {
+  id: number;
+  nickname: string;
+}
+
+interface Article {
+  id: number;
+  title: string;
+  content: string;
+  image: string | null;
+  likeCount: number;
+  createdAt: string;
+  updatedAt: string;
+  writer: Writer;
+}
+
 export default function Boards() {
-  const [isLatest, setIsLatest] = useState(true);
+  const [order, setOrder] = useState("recent");
+  const [articles, setArticles] = useState<Article[]>([]);
 
   const handleSelect = (id: string) => {
-    if (id === "latest") {
-      setIsLatest(true); // 최신순 선택하면 true
-    } else if (id === "likes") {
-      setIsLatest(false); // 좋아요 순 선택하면 false
+    if (id === "recent") {
+      setOrder("recent"); // 최신순 선택하면 true
+    } else if (id === "like") {
+      setOrder("like"); // 좋아요 순 선택하면 false
     }
   };
+
+  const getArticles = async (order: string) => {
+    const res = await axios.get(`/articles?page=1&pageSize=5&orderBy=${order}`);
+    const articles = res.data.list ?? [];
+    setArticles(articles);
+  };
+
+  useEffect(() => {
+    getArticles(order);
+  }, []);
+
+  console.log(articles);
 
   return (
     <>
@@ -52,15 +82,23 @@ export default function Boards() {
               />
             </div>
             <Dropdown
-              isLatest={isLatest}
+              order={order}
+              title={order === "recent" ? "최신순" : "좋아요순"}
               dropData={dropData}
               onClick={handleSelect}
             />
           </div>
           <div className='flex flex-col justify-center gap-5 mt-6'>
-            <Post />
-            <Post />
-            <Post />
+            {articles.map((article) => (
+              <Post
+                key={article.id}
+                author={article.writer.nickname}
+                title={article.title}
+                date={article.createdAt}
+                likeCount={article.likeCount}
+                image={article.image}
+              />
+            ))}
           </div>
         </section>
       </Layout>

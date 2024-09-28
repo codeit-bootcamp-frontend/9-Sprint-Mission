@@ -9,11 +9,12 @@ interface DropDownItem {
 
 interface Props {
   dropData: DropDownItem[];
-  isLatest: boolean;
+  order: string;
+  title: string;
   onClick: (id: string) => void;
 }
 
-export default function Dropdown({ dropData, isLatest, onClick }: Props) {
+export default function Dropdown({ dropData, order, title, onClick }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleClick() {
@@ -31,7 +32,7 @@ export default function Dropdown({ dropData, isLatest, onClick }: Props) {
         onClick={handleClick}
         className='flex justify-between items-center w-32 border rounded-xl px-5 py-3 cursor-pointer'
       >
-        <span>{isLatest ? "최신순" : "좋아요순"} </span>
+        <span>{title} </span>
         <Image src={arrowDown} alt='화살표_이미지' />
       </div>
       {isOpen && (
