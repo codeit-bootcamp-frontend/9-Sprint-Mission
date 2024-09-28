@@ -1,4 +1,4 @@
-import BestProductCard from "@/components/BestProductCard";
+import BestArticleCard from "@/components/BestArticleCard";
 import Dropdown from "@/components/Dropdown";
 import Layout from "@/components/Layout";
 import Post from "@/components/Post";
@@ -30,6 +30,7 @@ interface Article {
 
 export default function Boards() {
   const [order, setOrder] = useState("recent");
+  const [bestArticles, setBestArticles] = useState<Article[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
 
   const handleSelect = (id: string) => {
@@ -46,11 +47,19 @@ export default function Boards() {
     setArticles(articles);
   };
 
+  const getBestArticles = async () => {
+    const res = await axios.get(`/articles?page=1&pageSize=3&orderBy=like`);
+    const articles = res.data.list ?? [];
+    setBestArticles(articles);
+  };
+
   useEffect(() => {
     getArticles(order);
-  }, []);
+  }, [order]);
 
-  console.log(articles);
+  useEffect(() => {
+    getBestArticles();
+  }, []);
 
   return (
     <>
@@ -61,9 +70,16 @@ export default function Boards() {
       <Layout>
         <h2 className='mt-6 font-bold text-xl'>베스트 게시글</h2>
         <div className='flex justify-between mt-6'>
-          <BestProductCard />
-          <BestProductCard />
-          <BestProductCard />
+          {bestArticles.map((article) => (
+            <BestArticleCard
+              key={article.id}
+              title={article.title}
+              author={article.writer.nickname}
+              date={article.createdAt}
+              image={article.image}
+              likes={article.likeCount}
+            />
+          ))}
         </div>
         <div className='flex mt-6 justify-between items-center'>
           <h2 className='font-bold text-xl'>게시글</h2>
