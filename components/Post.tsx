@@ -3,6 +3,7 @@ import Image from "next/image";
 import { CiHeart } from "react-icons/ci";
 import defaultImage from "@/public/panda_logo.png";
 import profileImage from "@/public/profileImg.png";
+import dateFormat from "@/lib/dateformat";
 
 interface PostProps {
   author: string;
@@ -43,7 +44,7 @@ export default function Post({
             className='w-6 h-6'
           />
           <span>{author}</span>
-          <span>{date}</span>
+          <span className='text-gray-400'>{dateFormat(date)}</span>
         </div>
         <div className='flex items-center gap-1'>
           <CiHeart className='w-6 h-6' />
