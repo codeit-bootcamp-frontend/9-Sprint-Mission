@@ -2,8 +2,16 @@ import Link from "next/link";
 import Image from "next/image";
 import logoImage from "@/public/panda_logo.png";
 import profileImage from "@/public/profileImg.png";
+import { useRouter } from "next/router";
+
+const menuData = [
+  { id: "board", name: "자유게시판", path: "/boards" },
+  { id: "market", name: "중고마켓", path: "/market" },
+];
 
 export default function Header() {
+  const router = useRouter();
+
   return (
     <header className='flex justify-between items-center py-2 px-10 border-#dfdfdf border-b'>
       <div className='flex shrink-0 gap-10 items-center'>
@@ -14,12 +22,22 @@ export default function Header() {
           </Link>
         </div>
         <nav className='flex gap-4'>
-          <li>
-            <Link href='/boards'>자유게시판</Link>
-          </li>
-          <li>
-            <Link href='/'>중고마켓</Link>
-          </li>
+          {menuData.map((item) => {
+            return (
+              <li>
+                <Link
+                  href={item.path}
+                  className={
+                    item.path === router.pathname
+                      ? "text-primary-100 font-semibold"
+                      : ""
+                  }
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
         </nav>
       </div>
       <div>
