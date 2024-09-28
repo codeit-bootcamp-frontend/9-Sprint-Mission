@@ -1,4 +1,5 @@
 // src/components/UI/community/AllArticlesSection.tsx
+// src/components/UI/community/AllArticlesSection.tsx
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -7,119 +8,143 @@ import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
 import EmptyState from "@/components/UI/EmptyState";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
+import PaginationBar from "@/components/UI/PaginationBar";
 import { Article, ArticleSortOption } from "@/types/article";
 import { getArticles } from "@/api/article";
 import AllArticleCard from "./AllArticleCard";
 import WriteButtonImage from "@/images/ui/write_small_40.png";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
-import styles from "@/styles/AllArticlesSection.module.css"; // 스타일 파일 임포트
 
-interface AllArticlesSectionProps {
-  initialArticles: Article[];
-}
+const PAGE_SIZE = 5;
 
-const LIMIT = 10;
-
-const AllArticlesSection = ({ initialArticles }: AllArticlesSectionProps) => {
+const AllArticlesSection = () => {
   const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
-  const [articles, setArticles] = useState(initialArticles);
+  const [articles, setArticles] = useState<Article[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
   const keyword = (router.query.q as string) || "";
   const [isLoading, setIsLoading] = useAtom(loadingAtom);
   const observer = useRef<IntersectionObserver | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isPagination, setIsPagination] = useState(true);
 
-  // 마지막 게시글 요소의 ref를 감지하여 무한 스크롤 동작을 실행
+  // 윈도우 크기 변경 감지
+  useEffect(() => {
+    const handleResize = () => {
+      const isPaginationMode = window.innerWidth >= 768;
+      setIsPagination(isPaginationMode);
+    };
+
+    handleResize(); // 초기 렌더링 시에도 실행
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // 페이지 이동 후 조건부 스크롤 처리
+  const handleRouteChange = useCallback(() => {
+    if (page > 1) {
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  }, [page]);
+
+  useEffect(() => {
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events, handleRouteChange]);
+
+  // 무한 스크롤 처리
   const lastArticleElementRef = useCallback(
     (node: HTMLDivElement | null) => {
-      if (isLoading) return;
+      if (isLoading || isPagination) return;
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage) => prevPage + 1); // 페이지 증가
+          setPage((prevPage) => prevPage + 1);
         }
       });
       if (node) observer.current.observe(node);
     },
-    [isLoading, hasMore]
+    [isLoading, hasMore, isPagination]
   );
 
+  // 정렬 옵션 변경
   const handleSortSelection = (sortOption: ArticleSortOption) => {
-    setOrderBy(sortOption); // 정렬 기준 업데이트
-    setPage(1); // 페이지 번호 초기화
-    setArticles([]); // 기존 게시글 목록 초기화
+    setOrderBy(sortOption);
+    setPage(1);
+    setArticles([]); // 정렬 변경 시 기존 데이터 초기화
   };
 
+  // 검색 처리
   const handleSearch = (searchKeyword: string) => {
     const query = { ...router.query };
     if (searchKeyword.trim()) {
-      query.q = searchKeyword; // 검색어 추가
+      query.q = searchKeyword;
     } else {
-      delete query.q; // 검색어 제거
+      delete query.q;
     }
     router.replace({
       pathname: router.pathname,
       query,
     });
-    setPage(1); // 페이지 번호 초기화
-    setArticles([]); // 기존 게시글 목록 초기화
+    setPage(1);
+    setArticles([]); // 검색어 변경 시 기존 데이터 초기화
   };
 
-  useEffect(() => {
-    const fetchArticles = async () => {
-      setIsLoading(true); // 로딩 시작
-      try {
-        // API 요청 파라미터 설정
-        const params: {
-          orderBy: ArticleSortOption;
-          keyword?: string;
-          page: number;
-          limit: number;
-        } = {
-          orderBy,
-          page,
-          limit: LIMIT,
-        };
-        if (keyword.trim()) {
-          params.keyword = keyword;
-        }
-        const data = await getArticles(params);
-        setArticles((prevArticles) =>
-          page === 1 ? data.list : [...prevArticles, ...data.list]
-        ); // 페이지에 따른 데이터 병합
-        setHasMore(data.list.length === LIMIT); // 더 가져올 데이터가 있는지 확인
-      } catch (error) {
-        console.error("Failed to fetch articles:", error);
-      } finally {
-        setIsLoading(false); // 로딩 종료
+  // API에서 데이터 가져오기
+  const fetchArticles = useCallback(async () => {
+    if (keyword === undefined) return; // 검색어가 없으면 요청하지 않음
+    setIsLoading(true);
+    try {
+      const params: {
+        orderBy: ArticleSortOption;
+        keyword?: string;
+        page: number;
+        pageSize: number;
+      } = {
+        orderBy,
+        page,
+        pageSize: PAGE_SIZE,
+      };
+      if (keyword.trim()) {
+        params.keyword = keyword;
       }
-    };
+      const data = await getArticles(params);
+      setArticles((prevArticles) =>
+        isPagination || page === 1 ? data.list : [...prevArticles, ...data.list]
+      );
+      setHasMore(data.list.length === PAGE_SIZE);
+      const calculatedTotalPages = Math.ceil(data.totalCount / PAGE_SIZE);
+      setTotalPages(calculatedTotalPages);
+    } catch (error) {
+      console.error("Failed to fetch articles:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [orderBy, keyword, page, isPagination, setIsLoading]);
 
-    fetchArticles();
-  }, [orderBy, keyword, page, setIsLoading]); // 정렬, 검색어, 페이지 변경 시 재요청
+  // 페이지네이션 및 무한 스크롤 데이터 로드
+  useEffect(() => {
+    fetchArticles(); // 컴포넌트 렌더링 시 데이터 로드
+  }, [orderBy, keyword, page, fetchArticles]);
 
   return (
     <div
-      className={`mt-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto ${styles.container}`}
+      className="mt-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto"
       ref={containerRef}
     >
-      {/* 헤더 영역 */}
-      <div
-        className={`flex justify-between items-center mb-6 ${styles.header}`}
-      >
+      <div className="flex justify-between items-center mb-6">
         <div className="text-2xl font-bold text-gray-800">게시글</div>
         <Link href="/addArticle">
           <Image src={WriteButtonImage} alt="글쓰기" width={88} height={42} />
         </Link>
       </div>
 
-      {/* 검색바 및 정렬 메뉴 */}
-      <div
-        className={`flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4 ${styles.controlBar}`}
-      >
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <SearchBar onSearch={handleSearch} className="w-full md:w-96" />
         <DropdownMenu<ArticleSortOption>
           onSortSelection={handleSortSelection}
@@ -127,14 +152,15 @@ const AllArticlesSection = ({ initialArticles }: AllArticlesSectionProps) => {
         />
       </div>
 
-      {/* 게시글 리스트 */}
       <div className="space-y-6">
         {articles.length
           ? articles.map((article, index) => (
               <div
                 key={`article-${article.id}`}
                 ref={
-                  index === articles.length - 1 ? lastArticleElementRef : null
+                  !isPagination && index === articles.length - 1
+                    ? lastArticleElementRef
+                    : null
                 }
               >
                 <AllArticleCard article={article} />
@@ -145,10 +171,21 @@ const AllArticlesSection = ({ initialArticles }: AllArticlesSectionProps) => {
             )}
       </div>
 
-      {/* 로딩 스피너 */}
       {isLoading && (
         <div className="flex justify-center items-center h-20">
           <LoadingSpinner isLoading={isLoading} />
+        </div>
+      )}
+
+      {isPagination && totalPages > 1 && (
+        <div className="mt-8">
+          <PaginationBar
+            totalPageNum={totalPages}
+            activePageNum={page}
+            onPageChange={(newPage) => {
+              setPage(newPage);
+            }}
+          />
         </div>
       )}
     </div>
