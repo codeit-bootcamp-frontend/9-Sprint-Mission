@@ -9,7 +9,7 @@ import Badge from "@/public/assets/icon/ic_badge_best.png";
 export default function BestBoard() {
   const [boards, setBoards] = useState([]);
   const [pageSize, setPageSize] = useState(3);
-  const sortBy = "likesCount";
+  const orderBy = "like";
 
   const updatePageSize = () => {
     const width = window.innerWidth;
@@ -25,7 +25,7 @@ export default function BestBoard() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const data = await fetchPosts(pageSize, sortBy);
+        const data = await fetchPosts(pageSize, orderBy);
         setBoards(data.list);
       } catch (error) {
         console.error("Error fetching posts in Best:", error);
@@ -39,7 +39,7 @@ export default function BestBoard() {
     return () => {
       window.removeEventListener("resize", updatePageSize);
     };
-  }, [pageSize, sortBy]);
+  }, [pageSize, orderBy]);
 
   return (
     <>
