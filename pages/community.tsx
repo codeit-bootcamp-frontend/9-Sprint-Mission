@@ -28,7 +28,7 @@ interface Article {
   writer: Writer;
 }
 
-export default function Boards() {
+export default function Community() {
   const [order, setOrder] = useState("recent");
   const [bestArticles, setBestArticles] = useState<Article[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
