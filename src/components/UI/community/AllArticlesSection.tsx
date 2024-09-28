@@ -178,7 +178,7 @@ const AllArticlesSection = () => {
       )}
 
       {isPagination && totalPages > 1 && (
-        <div className="mt-8">
+        <div className="pt-10 pb-20">
           <PaginationBar
             totalPageNum={totalPages}
             activePageNum={page}
