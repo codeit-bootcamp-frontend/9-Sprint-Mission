@@ -1,4 +1,4 @@
-// /components/Pagination.tsx
+// /components/UI/Pagination.tsx
 import React from 'react';
 
 type PaginationProps = {
