@@ -10,6 +10,7 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+    domains: ["via.placeholder.com", "flexible.img.hani.co.kr"],
   },
 };
 

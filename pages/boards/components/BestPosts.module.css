@@ -1,5 +1,6 @@
 .bestPosts {
   margin-top: 24px;
+  margin-bottom: 40px;
 }
 
 .postTitle {
@@ -18,4 +19,10 @@
 .postItem {
   list-style-type: none;
   flex: 1;
+}
+
+@media (max-width: 768px) {
+  .postTitle {
+    font-size: 18px;
+  }
 }

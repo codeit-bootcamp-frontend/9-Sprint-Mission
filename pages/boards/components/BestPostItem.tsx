@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "@/styles/BestPostItem.module.css";
+import styles from "./BestPostItem.module.css";
 import BestBadge from "./BestBadge";
 
 function BestPostItem({ post }) {

@@ -1,9 +1,12 @@
 .bestPostItem {
+  width: 384px;
+  height: 169px;
   background-color: #f9fafb;
   padding: 0 24px 16px 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  border-radius: 8px;
 }
 
 .bestPostMain {
@@ -33,4 +36,25 @@
 
 .bestPostDate {
   color: #9ca3af;
+}
+
+@media (max-width: 1200px) {
+  .bestPostItem {
+    width: 340px;
+    height: 198px;
+  }
+
+  .mainTitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .bestPostItem {
+    width: 343px;
+  }
+
+  .mainTitle {
+    font-size: 18px;
+  }
 }

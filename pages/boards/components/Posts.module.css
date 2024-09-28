@@ -1,0 +1,80 @@
+.postsHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.headerTitle {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.postsForm {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.postsInput {
+  padding: 9px 0 9px 20px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  flex: 1;
+  background-color: #f3f4f6;
+
+  background-image: url("/images/search.svg");
+  background-repeat: no-repeat;
+  background-position: left 16px top 9px;
+  padding-left: 40px;
+}
+
+.postsInput::placeholder {
+  color: #9ca3af;
+}
+
+.postsSelect {
+  text-align: center;
+  width: 130px;
+  height: 42px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  outline: none;
+}
+
+.postList {
+  margin-top: 24px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .headerTitle {
+    font-size: 18px;
+  }
+
+  .postsSelect {
+    width: 42px;
+
+    appearance: none;
+    -webkit-appearance: none; /* 사파리, 크롬 하위버전용 */
+    -moz-appearance: none; /* 사파리, 크롬 하위버전용 */
+
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    background-image: url("/images/ic_sort.svg");
+    background-repeat: no-repeat;
+
+    background-position: center;
+  }
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+}

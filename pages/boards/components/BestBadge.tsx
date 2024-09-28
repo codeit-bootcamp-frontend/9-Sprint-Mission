@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "@/styles/BestBadge.module.css";
+import styles from "./BestBadge.module.css";
 
 function BestBadge() {
   return (
