@@ -10,7 +10,7 @@ export default function Layout({ children }: props) {
     <>
       <Header />
       <div className='flex flex-col items-center'>
-        <div>{children}</div>
+        <div className='px-4 w-full'>{children}</div>
       </div>
     </>
   );
