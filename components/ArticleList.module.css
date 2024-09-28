@@ -138,24 +138,6 @@
   font-weight: 400;
 }
 
-@media screen and (max-width: 992px) {
-  .search-order-wrap {
-    gap: 6px;
-  }
-  .section-title {
-    padding: 24px 0;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .search-order-wrap {
-    gap: 13px;
-  }
-  .section-title {
-    padding-top: 16px;
-  }
-}
-
 /* best component */
 
 .best-article-item {
@@ -264,4 +246,30 @@
 
 .main-label {
   display: none;
+}
+
+@media screen and (max-width: 992px) {
+  .search-order-wrap {
+    gap: 6px;
+  }
+  .section-title {
+    padding: 24px 0;
+  }
+
+  .best-article-item {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-order-wrap {
+    gap: 13px;
+  }
+  .section-title {
+    padding-top: 16px;
+  }
+
+  .best-article-item {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
