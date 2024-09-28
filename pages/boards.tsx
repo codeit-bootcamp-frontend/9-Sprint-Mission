@@ -1,5 +1,6 @@
 import BestProductCard from "@/components/BestProductCard";
 import Layout from "@/components/Layout";
+import Post from "@/components/Post";
 import Head from "next/head";
 import { IoIosSearch } from "react-icons/io";
 
@@ -34,6 +35,11 @@ export default function Boards() {
               />
             </div>
             <button>드랍다운 메뉴</button>
+          </div>
+          <div className='flex flex-col justify-center gap-5 mt-6'>
+            <Post />
+            <Post />
+            <Post />
           </div>
         </section>
       </Layout>

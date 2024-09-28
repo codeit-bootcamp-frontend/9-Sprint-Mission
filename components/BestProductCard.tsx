@@ -29,8 +29,12 @@ export default function BestProductCard({
           <h1 className='text-xl font-semibold w-80'>
             맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?
           </h1>
-          <div className='w-16 h-16 p-2'>
-            <Image src={testImage} alt='게시글_이미지' className='' />
+          <div className='w-16 p-2 border border-gray-200 rounded-lg'>
+            <Image
+              src={testImage}
+              alt='게시글_이미지'
+              className='object-cover'
+            />
           </div>
         </div>
       </div>

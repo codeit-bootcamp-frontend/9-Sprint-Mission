@@ -18,6 +18,8 @@ module.exports = {
         "primary-200": "#1967D6",
         "primary-300": "#1251AA",
         "gray-50": "#F9FAFB",
+        "gray-100": "#FCFCFC",
+        "gary-200": "#E5E7EB",
         "gray-600": "#4B5563",
       },
     },
