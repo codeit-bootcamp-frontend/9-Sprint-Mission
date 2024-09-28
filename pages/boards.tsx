@@ -48,7 +48,6 @@ export default function Boards() {
       ...prev,
       pageSize: newPageSize,
     }));
-    console.log(newPageSize);
   };
 
   // 브라우저에서 리사이즈 이벤트가 발생하면 handleResize 함수를 호출 -> width 상태 관리
@@ -59,7 +58,7 @@ export default function Boards() {
       setWidth(newWidth);
       getBestArticlePageSize(newWidth);
     };
-    const throttledResize = throttle(handleResize, 100);
+    const throttledResize = throttle(handleResize, 500);
     window.addEventListener("resize", throttledResize);
     return () => {
       window.removeEventListener("resize", throttledResize);

@@ -3,16 +3,6 @@ import styles from "./ArticleList.module.css";
 import { Label } from "./Label";
 import Link from "next/link";
 
-const options = {
-  year: "numeric",
-  month: "numeric",
-  day: "numeric",
-  hour: undefined, // 시간 정보 제거
-  minute: undefined,
-  second: undefined,
-  hour12: false, // 12시간 형식 사용 여부
-};
-
 interface Article {
   id: number;
   title: string;
@@ -34,6 +24,11 @@ export const ArticleItem = ({
   articles: Article[];
   option: string;
 }) => {
+  const getDate = (isoDate: string): string => {
+    const date = new Date(isoDate);
+    const formattedDate = `${date.getFullYear()}. ${String(date.getMonth() + 1).padStart(2, "0")}. ${String(date.getDate()).padStart(2, "0")}`;
+    return formattedDate;
+  };
   return (
     <div className={`${styles[`${option}-article-item`]}`}>
       {articles.map((article: Article) => (
@@ -66,7 +61,7 @@ export const ArticleItem = ({
                   </div>
                 </div>
                 <div className={`${styles[`${option}-article-date`]}`}>
-                  {new Date(article.updatedAt).toLocaleString("ko-KR", options)}
+                  {getDate(article.updatedAt)}
                 </div>
               </div>
             </div>
