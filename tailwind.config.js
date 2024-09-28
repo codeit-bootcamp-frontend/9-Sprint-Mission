@@ -17,6 +17,8 @@ module.exports = {
         "primary-100": "#3692FF",
         "primary-200": "#1967D6",
         "primary-300": "#1251AA",
+        "gray-50": "#F9FAFB",
+        "gray-600": "#4B5563",
       },
     },
   },

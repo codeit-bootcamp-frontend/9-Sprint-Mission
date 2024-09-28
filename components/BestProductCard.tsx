@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { CiHeart } from "react-icons/ci";
+import testImage from "@/public/panda_logo.png";
+import medalImage from "@/public/ic_medal.png";
 
 interface Props {
   title?: string;
@@ -17,22 +19,28 @@ export default function BestProductCard({
   imageSrc,
 }: Props) {
   return (
-    <div>
-      <div>
-        <h1>맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?</h1>
-        <div>
-          <Image src='' alt='게시글_이미지' />
-        </div>
-        <div>
-          <div>
-            <span>총명한 판다</span>
-            <div>
-              <CiHeart />
-              <span>9999+</span>
-            </div>
+    <div className='w-96 px-4 flex flex-col gap-3 bg-gray-50 pb-3 rounded-lg'>
+      <div className='flex items-center gap-1 w-fit bg-primary-100 rounded-b-2xl px-6 py-0.5'>
+        <Image src={medalImage} alt='메달 이미지' className='w-4 h-4' />
+        <span className='text-white font-semibold text-base'>Best</span>
+      </div>
+      <div className='w-auto'>
+        <div className='flex items-center gap-10'>
+          <h1 className='text-xl font-semibold w-80'>
+            맥북 16인치 16기가 1테라 정도 사양이면 얼마에 팔아야하나요?
+          </h1>
+          <div className='w-16 h-16 p-2'>
+            <Image src={testImage} alt='게시글_이미지' className='' />
           </div>
-          <span>2024.04.06</span>
         </div>
+      </div>
+      <div className='flex justify-between text-gray-600'>
+        <div className='flex items-center gap-1'>
+          <span>총명한 판다</span>
+          <CiHeart />
+          <span>9999+</span>
+        </div>
+        <span>2024.04.06</span>
       </div>
     </div>
   );
