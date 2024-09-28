@@ -1,0 +1,15 @@
+.post-container {
+  margin: 24px;
+  margin-left: 360px;
+  margin-right: 360px;
+  display: flex;
+  flex-direction: column;
+  gap:40px;
+}
+
+.post-container h2 {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 23.87px;
+  color: var(--cool-gray-900);
+}

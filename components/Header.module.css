@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  padding: 0 200px 0 200px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-gray-1);
+}
+
+.gnb {
+  display: flex;
+  gap:32px;
+  align-items: center;
+}
+
+.gnb-menu-container {
+  display: flex;
+}
+
+.gnb-menu {
+  padding: 21px 15px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: var(--text-gray-3);
+}
