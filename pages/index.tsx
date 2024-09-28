@@ -9,6 +9,7 @@ export default function Home() {
     <>
       <Head>
         <title>판다마켓</title>
+        <link rel='icon' href='/panda_logo.png' />
       </Head>
       <Layout>Home Page</Layout>
     </>
