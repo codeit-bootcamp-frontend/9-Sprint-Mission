@@ -7,17 +7,22 @@ import Button from '../Button';
 import SearchInput from '../SearchInput';
 import Dropdown from '../dropdown/Dropdown';
 
+const SORT = {
+    recent: '최신순',
+    like: '좋아요순',
+};
+
 const ArticleList = () => {
     const [bestArticle, setBestArticle] = useState<Article[]>([]);
-    const [sort, setSort] = useState<string>('like');
+    const [sort, setSort] = useState<keyof typeof SORT>('recent');
 
     useEffect(() => {
         const getData = async () => {
-            const response = await instance.get(`/articles?pageSize=3&orderBy=like`);
+            const response = await instance.get(`/articles?pageSize=10&orderBy=${sort}`);
             setBestArticle(response.data.list);
         };
         getData();
-    }, []);
+    }, [sort]);
     return (
         <StyledArticles>
             <Title>
@@ -27,10 +32,11 @@ const ArticleList = () => {
             <FlexBox>
                 <SearchInput placeholder="검색할 상품을 입력해주세요" />
                 <Dropdown>
-                    <Dropdown.Button>최신순</Dropdown.Button>
+                    <Dropdown.Button>{SORT[sort]}</Dropdown.Button>
                     <Dropdown.List>
-                        <Dropdown.Item>최신순</Dropdown.Item>
-                        <Dropdown.Item>좋아요순</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setSort('recent')}>최신순</Dropdown.Item>
+                        <Dropdown.Line />
+                        <Dropdown.Item onClick={() => setSort('like')}>좋아요순</Dropdown.Item>
                     </Dropdown.List>
                 </Dropdown>
             </FlexBox>

@@ -8,8 +8,14 @@ const nextConfig = {
                 hostname: '**',
                 pathname: '**',
             },
+            {
+                protocol: 'http',
+                hostname: '**',
+                pathname: '**',
+            },
         ],
     },
+
     compiler: {
         styledComponents: true,
     },

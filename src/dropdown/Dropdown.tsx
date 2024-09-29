@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 import DropdownProvider from './DropdownProvider';
-import DropdownButton from './DropdownButton';
+import DropdownLabel from './DropdownLabel';
 import DropdownItem from './DropdownItem';
 import DropdownLine from './DropdownLine';
 import DropdownList from './DropdownList';
@@ -27,7 +27,7 @@ const StyledDropdown = styled.div`
 `;
 
 export default Object.assign(Dropdown, {
-    Button: DropdownButton,
+    Button: DropdownLabel,
     Item: DropdownItem,
     Line: DropdownLine,
     List: DropdownList,

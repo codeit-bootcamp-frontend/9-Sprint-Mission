@@ -7,17 +7,17 @@ interface Props {
     children: ReactNode;
 }
 
-const DropdownButton = ({ children }: Props) => {
+const DropdownLabel = ({ children }: Props) => {
     const { setIsOpen } = useDropdownContext();
     return (
-        <StyledButton onClick={() => setIsOpen((prev) => !prev)}>
+        <StyledLabel onClick={() => setIsOpen((prev) => !prev)}>
             {children}
             <Image src="icon/arrow_down.svg" alt="화살표" width={24} height={24} />
-        </StyledButton>
+        </StyledLabel>
     );
 };
 
-const StyledButton = styled.button`
+const StyledLabel = styled.label`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -32,4 +32,4 @@ const StyledButton = styled.button`
     color: var(--gray800);
 `;
 
-export default DropdownButton;
+export default DropdownLabel;

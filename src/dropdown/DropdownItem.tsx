@@ -4,11 +4,16 @@ import { useDropdownContext } from './DropdownProvider';
 
 interface Props {
     children: ReactNode;
+    onClick: () => void;
 }
 
-const DropdownItem = ({ children }: Props) => {
+const DropdownItem = ({ children, onClick }: Props) => {
     const { setIsOpen } = useDropdownContext();
-    return <StyledLi onClick={() => setIsOpen((prev) => !prev)}>{children}</StyledLi>;
+    const handleClick = () => {
+        onClick();
+        setIsOpen((prev) => !prev);
+    };
+    return <StyledLi onClick={handleClick}>{children}</StyledLi>;
 };
 
 const StyledLi = styled.li`

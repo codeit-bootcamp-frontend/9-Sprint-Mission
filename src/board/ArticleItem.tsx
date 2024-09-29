@@ -32,9 +32,12 @@ const ArticleItem = ({ item }: Props) => {
 };
 
 const StyledArticle = styled.div`
+    display: flex;
+    flex-direction: column;
     background-color: var(--gray150);
     border-bottom: 1px solid var(--gray200);
     padding-bottom: 24px;
+    gap: 16px;
 `;
 
 const ContentContainer = styled.div`
