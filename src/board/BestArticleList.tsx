@@ -19,7 +19,6 @@ const BestArticleList = () => {
         const getData = async () => {
             const response = await instance.get(`/articles?pageSize=${pageSize}&orderBy=like`);
             setBestArticle(response.data.list);
-            console.log(response.data.list);
         };
         getData();
     }, [pageSize]);

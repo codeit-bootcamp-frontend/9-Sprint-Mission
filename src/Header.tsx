@@ -10,18 +10,18 @@ const Header = () => {
         <StyledHeader>
             <LeftMenu>
                 <Logo href="/">
-                    <Image src="/icon/logoIcon.svg" alt="로고" width={40} height={40} />
+                    <Image src="/icon/logo_icon.svg" alt="로고" width={40} height={40} />
                     <h2>판다마켓</h2>
                 </Logo>
-                <StyledLink href={'/boards'} isActive={router.pathname === '/boards'}>
+                <StyledLink href={'/boards'} $isActive={router.pathname === '/boards'}>
                     자유게시판
                 </StyledLink>
-                <StyledLink href={'/items'} isActive={router.pathname === '/items' || router.pathname === '/additem'}>
+                <StyledLink href={'/items'} $isActive={router.pathname === '/items' || router.pathname === '/additem'}>
                     중고마켓
                 </StyledLink>
             </LeftMenu>
             <Link href="/">
-                <Image src="/icon/profile.svg" alt="로고" width={40} height={40} />
+                <Image src="/icon/profile.svg" alt="프로필" width={40} height={40} />
             </Link>
         </StyledHeader>
     );
@@ -76,12 +76,12 @@ const Logo = styled(Link)`
     }
 `;
 
-const StyledLink = styled(Link)<{ isActive: boolean }>`
+const StyledLink = styled(Link)<{ $isActive: boolean }>`
     padding: 21px 0%;
     font-size: 18px;
     font-weight: 700;
     white-space: nowrap;
-    color: ${({ isActive }) => (isActive ? 'var(--blue)' : 'var(--gray600)')};
+    color: ${({ $isActive }) => ($isActive ? 'var(--blue)' : 'var(--gray600)')};
 
     @media (max-width: 767px) {
         font-size: 16px;

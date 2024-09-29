@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 type PageSize = 'mobile' | 'tablet' | 'pc';
 
 const GetPageSize = (): PageSize => {
-    const [pageWidth, setPageWidth] = useState<PageSize>('pc');
+    const [pageWidth, setPageWidth] = useState<PageSize>('mobile');
 
     useEffect(() => {
         const handleResize = () => {

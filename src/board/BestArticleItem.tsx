@@ -3,6 +3,7 @@ import { formatDate } from '@/util/function/formatData';
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
+import { ImageBox } from './ArticleItem';
 
 interface Props {
     item: Article;
@@ -17,7 +18,9 @@ const BestArticleItem = ({ item }: Props) => {
             </TopBanner>
             <Contents>
                 <p className="title">{item.title}</p>
-                <Image src={item.image || 'img/defaultItem.svg'} alt="게시글 이미지" width={48} height={48} />
+                <ImageBox>
+                    <Image src={item.image || 'img/default_item.svg'} alt="게시글 이미지" width={48} height={48} />
+                </ImageBox>
             </Contents>
             <BottomBanner>
                 <div className="left">

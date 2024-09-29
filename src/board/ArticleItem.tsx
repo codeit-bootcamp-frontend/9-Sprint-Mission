@@ -13,7 +13,7 @@ const ArticleItem = ({ item }: Props) => {
             <ContentContainer>
                 <p className="title">{item.title}</p>
                 <ImageBox>
-                    <Image src={item.image || 'img/defaultItem.svg'} alt="게시글 이미지" width={48} height={48} />
+                    <Image src={item.image || 'img/default_item.svg'} alt="게시글 이미지" width={48} height={48} />
                 </ImageBox>
             </ContentContainer>
             <ContentContainer>
@@ -45,7 +45,13 @@ const ContentContainer = styled.div`
         font-weight: 600;
         color: var(--gray800);
     }
-    @media (max-width: 797px) {
+
+    @media (max-width: 1200px) {
+        .title {
+            font-size: 18px;
+        }
+    }
+    @media (max-width: 767px) {
         .title {
             font-size: 18px;
         }
@@ -69,14 +75,15 @@ const Contents = styled.div`
     }
 `;
 
-const ImageBox = styled.div`
+export const ImageBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     width: 72px;
     height: 72px;
-    border: 1px solid var(--gary100);
+    border: 1px solid var(--gray100);
     background-color: var(--white);
+    border-radius: 8px;
 `;
 
 export default ArticleItem;

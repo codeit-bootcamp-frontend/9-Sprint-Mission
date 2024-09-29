@@ -16,8 +16,11 @@ const Contaniner = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 14px;
+    padding: 24px;
     gap: 40px;
+    @media (max-width: 767px) {
+        padding: 16px;
+    }
 `;
 
 export default Boards;
