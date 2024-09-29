@@ -6,6 +6,7 @@ interface Query {
   page: number;
   pageSize: number;
   orderBy: string;
+  keyword?: string;
 }
 export default function Boards() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
@@ -14,6 +15,7 @@ export default function Boards() {
     page: 1,
     pageSize: 10,
     orderBy: "recent",
+    keyword: "",
   });
 
   // 윈도우 너비 받아와서 상태 관리
@@ -78,6 +80,16 @@ export default function Boards() {
     setDropdownOpen(!dropdownOpen);
   };
 
+  // 검색어가 입력됐을때 Main query를 수정하는 함수
+  const handleChangeSearchQuery = (search: string): void => {
+    setMainQuery((prev) => ({ ...prev, keyword: search }));
+  };
+
+  useEffect(() => {
+    if (mainQuery.keyword !== undefined)
+      handleChangeSearchQuery(mainQuery.keyword);
+  }, [mainQuery]);
+
   return (
     <div className="container">
       <section className="section">
@@ -90,6 +102,7 @@ export default function Boards() {
           handleClickOrder={handleClickOrder}
           dropdownOpen={dropdownOpen}
           handleClickOrderOpen={handleClickOrderOpen}
+          handleChangeSearchQuery={handleChangeSearchQuery}
         />
       </section>
     </div>

@@ -9,6 +9,7 @@ interface Query {
   page: number;
   pageSize: number;
   orderBy: string;
+  keyword?: string;
 }
 interface Article {
   id: number;
@@ -32,24 +33,25 @@ export default function ArticleList({
   handleClickOrder,
   dropdownOpen,
   handleClickOrderOpen,
+  handleChangeSearchQuery,
 }: {
   query: Query;
   handleClickOrder: (value: string) => void;
   dropdownOpen: boolean;
   handleClickOrderOpen: () => void;
+  handleChangeSearchQuery: (search: string) => void;
 }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<Error | null>(null);
-  const [search, setSearch] = useState<string>("");
 
   //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent
 
   async function getArticles(query: Query) {
-    const { page, pageSize, orderBy } = query;
+    const { page, pageSize, orderBy, keyword } = query;
 
     try {
       const res = await axios.get<ArticleResponse>(
-        `/articles?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}`
+        `/articles?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`
       );
       const list = res.data.list;
       setArticles(list);
@@ -58,28 +60,9 @@ export default function ArticleList({
       console.log("에러가 발생했습니다.");
     }
   }
-
-  const handleChangeValue = (value: string): void => {
-    setSearch(value);
-  };
-
   useEffect(() => {
     getArticles(query);
   }, [query]);
-
-  // search 값으로 articles 배열을 필터링하는 함수
-  const getFilteredData = (search: string): Article[] => {
-    const searchTerm = typeof search === "string" ? search : "";
-
-    if (searchTerm === "") {
-      return articles;
-    }
-    return articles.filter((article) =>
-      article.title.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  };
-  //검색어 필터 함수 호출
-  const filteredArticles = getFilteredData(search);
 
   return (
     <>
@@ -91,7 +74,10 @@ export default function ArticleList({
         </Link>
       </div>
       <div className={styles["search-order-wrap"]}>
-        <SearchForm search={search} handleChangeValue={handleChangeValue} />
+        <SearchForm
+          search={query.keyword ?? ""}
+          handleChangeSearchQuery={handleChangeSearchQuery}
+        />
         <Dropdown
           args={["최신순", "인기순"]}
           handleClickOrder={handleClickOrder}
@@ -100,9 +86,7 @@ export default function ArticleList({
         />
       </div>
 
-      {filteredArticles && (
-        <ArticleItem articles={filteredArticles} option="main" />
-      )}
+      {articles && <ArticleItem articles={articles} option="main" />}
     </>
   );
 }
