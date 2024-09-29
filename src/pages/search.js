@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
-import { fetchPosts } from "@/lib/axios";
+import { fetchPosts } from "@/src/lib/axios";
 import { useEffect, useState } from "react";
-import MainBoard from "@/components/MainBoards";
-import BestBoard from "@/components/BestBoards";
-import styles from "@/pages/boards/boards.module.scss";
-import SearchAndSort from "@/components/SearchAndSort";
+import MainBoard from "@/src/components/MainBoards";
+import BestBoard from "@/src/components/BestBoards";
+import styles from "@/src/pages/boards/boards.module.scss";
+import SearchAndSort from "@/src/components/SearchAndSort";
 
 export default function SearchPage() {
   const router = useRouter();
