@@ -30,7 +30,6 @@ interface Query {
 export default function BestArticleList({ query }: { query: Query }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<Error | null>(null);
-
   //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent
   async function getArticles(query: Query) {
     const { page, pageSize, orderBy } = query;
@@ -41,6 +40,7 @@ export default function BestArticleList({ query }: { query: Query }) {
       );
       const list = res.data.list;
       setArticles(list);
+      setError(null);
     } catch (err) {
       if (err instanceof Error) setError(err);
       console.log("에러가 발생했습니다.");
@@ -49,16 +49,6 @@ export default function BestArticleList({ query }: { query: Query }) {
   useEffect(() => {
     getArticles(query);
   }, [query]);
-
-  const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: undefined, // 시간 정보 제거
-    minute: undefined,
-    second: undefined,
-    hour12: false, // 12시간 형식 사용 여부
-  };
 
   return (
     <>
