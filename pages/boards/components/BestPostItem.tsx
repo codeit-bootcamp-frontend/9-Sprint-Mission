@@ -1,8 +1,13 @@
 import Image from "next/image";
 import styles from "./BestPostItem.module.css";
 import BestBadge from "./BestBadge";
+import { Post } from "@/types/types";
 
-function BestPostItem({ post }) {
+interface BestPostItemProps {
+  post: Post;
+}
+
+function BestPostItem({ post }: BestPostItemProps) {
   return (
     <div className={styles.bestPostItem}>
       <BestBadge />
@@ -12,7 +17,7 @@ function BestPostItem({ post }) {
       </div>
       <div className={styles.bestPostSub}>
         <div className={styles.bestPostLeft}>
-          <span>{post.writer["nickname"]}</span>
+          <span>{post.writer.nickname}</span>
           <span>♡ {post.likeCount}</span>
         </div>
         <span className={styles.bestPostDate}>

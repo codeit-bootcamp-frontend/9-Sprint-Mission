@@ -1,8 +1,13 @@
 import Image from "next/image";
 import styles from "./PostItem.module.css";
 import { forwardRef } from "react";
+import { Post } from "@/types/types";
 
-const PostItem = forwardRef(({ post }, ref) => {
+interface PostItemProps {
+  post: Post;
+}
+
+const PostItem = forwardRef<HTMLDivElement, PostItemProps>(({ post }, ref) => {
   return (
     <div className={styles.postItem} ref={ref}>
       <div className={styles.itemTop}>
@@ -46,7 +51,6 @@ const PostItem = forwardRef(({ post }, ref) => {
   );
 });
 
-// forwardRef를 사용할 때는 displayName을 추가하는 것이 좋습니다.
 PostItem.displayName = "PostItem";
 
 export default PostItem;

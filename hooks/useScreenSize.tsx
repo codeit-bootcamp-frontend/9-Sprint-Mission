@@ -5,12 +5,18 @@ const SIZES = {
   tablet: 1200,
 };
 
-function useScreenSize() {
-  const [screenSize, setScreenSize] = useState(null); // 초기값을 null로 설정
+interface ScreenSize {
+  isMobile: boolean;
+  isTablet: boolean;
+  isDesktop: boolean;
+}
+
+function useScreenSize(): ScreenSize {
+  const [screenSize, setScreenSize] = useState<number | null>(null); // screenSize는 number 또는 null 타입
 
   useEffect(() => {
     const updateScreenSize = () => {
-      setScreenSize(window.innerWidth); // window가 정의된 클라이언트에서만 실행
+      setScreenSize(window.innerWidth); // 클라이언트에서만 실행
     };
 
     updateScreenSize(); // 처음 마운트 시 화면 크기 설정

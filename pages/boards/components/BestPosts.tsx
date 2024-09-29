@@ -1,8 +1,13 @@
 import styles from "./BestPosts.module.css";
 import BestPostItem from "./BestPostItem";
 import useDataNum from "@/hooks/useDataNum";
+import { Post } from "@/types/types";
 
-function BestPosts({ bestPosts }) {
+interface BestPostsProps {
+  bestPosts: Post[];
+}
+
+function BestPosts({ bestPosts }: BestPostsProps) {
   const dataNum = useDataNum();
   const filtedBestPosts = bestPosts.slice(0, dataNum);
 

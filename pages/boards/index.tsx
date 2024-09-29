@@ -2,10 +2,20 @@ import Container from "@/components/Container";
 import BestPosts from "./components/BestPosts";
 import Posts from "./components/Posts";
 import axios from "@/lib/axios";
+import { GetStaticProps } from "next";
+import { Post } from "@/types/types";
 
-export async function getStaticProps() {
-  let bestPosts = [];
-  let posts = [];
+interface BoardsListPageProps {
+  bestPosts: Post[];
+  posts: Post[];
+  total: number;
+}
+
+export const getStaticProps: GetStaticProps<BoardsListPageProps> = async () => {
+  let bestPosts: Post[] = [];
+  let posts: Post[] = [];
+  let total = 0;
+
   try {
     const res = await axios.get(`/articles?page=1&pageSize=3&orderBy=like`);
     bestPosts = res.data.list ?? [];
@@ -16,6 +26,7 @@ export async function getStaticProps() {
   try {
     const res = await axios.get(`/articles?page=1&pageSize=10&orderBy=recent`);
     posts = res.data.list ?? [];
+    total = res.data.totalCount ?? 0;
   } catch (error) {
     console.error(error);
   }
@@ -24,17 +35,24 @@ export async function getStaticProps() {
     props: {
       bestPosts,
       posts,
+      total,
     },
   };
-}
+};
 
-export default function BoardsListPage({ bestPosts, posts }) {
+const BoardsListPage: React.FC<BoardsListPageProps> = ({
+  bestPosts,
+  posts,
+  total,
+}) => {
   return (
     <>
       <Container>
         <BestPosts bestPosts={bestPosts} />
-        <Posts initialPosts={posts} />
+        <Posts initialPosts={posts} total={total} />
       </Container>
     </>
   );
-}
+};
+
+export default BoardsListPage;

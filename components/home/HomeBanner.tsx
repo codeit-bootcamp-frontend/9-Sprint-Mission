@@ -4,7 +4,13 @@ import styles from "./HomeBanner.module.css";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-function HomeBanner({ content, image, position = "top" }) {
+interface HomeBannerProps {
+  content: string;
+  image: string;
+  position?: string;
+}
+
+function HomeBanner({ content, image, position = "top" }: HomeBannerProps) {
   const router = useRouter();
   const { isMobile } = useScreenSize();
 
