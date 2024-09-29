@@ -30,12 +30,13 @@ interface Query {
 export default function BestArticleList({ query }: { query: Query }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<Error | null>(null);
-
+  const [loading, setLoading] = useState<boolean>(false);
   //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent
   async function getArticles(query: Query) {
     const { page, pageSize, orderBy } = query;
 
     try {
+      setLoading(true);
       const res = await axios.get<ArticleResponse>(
         `/articles?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}`
       );
@@ -44,27 +45,25 @@ export default function BestArticleList({ query }: { query: Query }) {
     } catch (err) {
       if (err instanceof Error) setError(err);
       console.log("에러가 발생했습니다.");
+    } finally {
+      setLoading(false);
     }
   }
   useEffect(() => {
-    getArticles(query);
+    if (!loading) {
+      getArticles(query);
+    }
   }, [query]);
-
-  const options = {
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: undefined, // 시간 정보 제거
-    minute: undefined,
-    second: undefined,
-    hour12: false, // 12시간 형식 사용 여부
-  };
 
   return (
     <>
       <h1 className={styles["section-title"]}>베스트 게시글</h1>
       {error && <p>{error.message}</p>}
-      {articles && <ArticleItem articles={articles} option="best" />}
+      {loading ? (
+        <div> 로딩중 ... </div>
+      ) : (
+        articles && <ArticleItem articles={articles} option="best" />
+      )}
     </>
   );
 }
