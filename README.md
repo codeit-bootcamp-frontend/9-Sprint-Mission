@@ -1,40 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 요구사항
 
-## Getting Started
+-   [x] 기존의 React, Typescript로 구현한 프로젝트와 별도로 진행합니다.
+-   [x] Next.js를 사용합니다
 
-First, run the development server:
+### 기본
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-   [x] 자유 게시판 페이지 주소는 “/boards” 입니다.
+-   [x] 전체 게시글에서 드롭 다운으로 “최신 순” 또는 “좋아요 순”을 선택해서 정렬을 할 수 있습니다.
+-   [x] 게시글 목록 조회 api를 사용하여 베스트 게시글, 게시글을 구현합니다.
+-   [x] 게시글 title에 검색어가 일부 포함되면 검색이 됩니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 심화
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+-   [x] 반응형으로 보여지는 베스트 게시판 개수를 다르게 설정할때 서버에 보내는 pageSize값을 적절하게 설정합니다.
+-   [ ] next의 prefetch 기능을 사용해봅니다.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## 스크린샷
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### pc
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![image](https://github.com/user-attachments/assets/9ddd0fbe-675f-4049-8c81-0daffd5a6b6a)
 
-## Learn More
+### tablet
 
-To learn more about Next.js, take a look at the following resources:
+![image](https://github.com/user-attachments/assets/65927488-9fcd-49ee-83c1-574c5410639e)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### mobile
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![image](https://github.com/user-attachments/assets/93862e7e-26d8-46c3-b051-071fadced75a)
