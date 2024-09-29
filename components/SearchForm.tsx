@@ -3,13 +3,13 @@ import styles from "./ArticleList.module.css";
 
 export const SearchForm = ({
   search,
-  handleChangeValue,
+  handleChangeSearchQuery,
 }: {
   search: string;
-  handleChangeValue: (value: string) => void;
+  handleChangeSearchQuery: (value: string) => void;
 }) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    handleChangeValue(e.target.value);
+    handleChangeSearchQuery(e.target.value);
   };
   return (
     <>
