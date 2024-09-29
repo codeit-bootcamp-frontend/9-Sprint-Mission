@@ -1,8 +1,9 @@
-import styles from "./Feature.module.scss";
+import { StaticImageData } from "next/image";
 import Image from "next/image";
+import styles from "./Feature.module.scss";
 
 interface FeatureProps {
-  image: string | any;
+  image: StaticImageData;
   alt: string;
   featureName: string;
   title: string;
