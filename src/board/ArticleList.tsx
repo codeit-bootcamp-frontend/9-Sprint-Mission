@@ -1,6 +1,6 @@
 import { Article } from '@/types/types';
 import { instance } from '@/util/api/axios';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArticleItem from './ArticleItem';
 import Button from '../Button';
@@ -15,14 +15,27 @@ const SORT = {
 const ArticleList = () => {
     const [bestArticle, setBestArticle] = useState<Article[]>([]);
     const [sort, setSort] = useState<keyof typeof SORT>('recent');
+    const [keyword, setKeyword] = useState<string>('');
+    let timeOut: NodeJS.Timeout | null = null;
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (timeOut) {
+            clearTimeout(timeOut);
+        }
+
+        timeOut = setTimeout(() => {
+            setKeyword(e.target.value);
+        }, 500);
+    };
 
     useEffect(() => {
         const getData = async () => {
-            const response = await instance.get(`/articles?pageSize=10&orderBy=${sort}`);
+            const response = await instance.get(`/articles?pageSize=10&orderBy=${sort}&keyword=${keyword}`);
             setBestArticle(response.data.list);
         };
         getData();
-    }, [sort]);
+    }, [sort, keyword]);
+
     return (
         <StyledArticles>
             <Title>
@@ -30,7 +43,7 @@ const ArticleList = () => {
                 <Button size="small_42">글쓰기</Button>
             </Title>
             <FlexBox>
-                <SearchInput placeholder="검색할 상품을 입력해주세요" />
+                <SearchInput type="text" placeholder="검색할 상품을 입력해주세요" onChange={handleChange} />
                 <Dropdown>
                     <Dropdown.Button>{SORT[sort]}</Dropdown.Button>
                     <Dropdown.List>
