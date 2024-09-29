@@ -8,6 +8,7 @@ interface Query {
   orderBy: string;
   keyword?: string;
 }
+
 export default function Boards() {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
@@ -84,11 +85,6 @@ export default function Boards() {
   const handleChangeSearchQuery = (search: string): void => {
     setMainQuery((prev) => ({ ...prev, keyword: search }));
   };
-
-  useEffect(() => {
-    if (mainQuery.keyword !== undefined)
-      handleChangeSearchQuery(mainQuery.keyword);
-  }, [mainQuery]);
 
   return (
     <div className="container">

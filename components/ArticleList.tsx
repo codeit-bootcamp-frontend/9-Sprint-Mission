@@ -43,6 +43,7 @@ export default function ArticleList({
 }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [error, setError] = useState<Error | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent
 
@@ -50,6 +51,7 @@ export default function ArticleList({
     const { page, pageSize, orderBy, keyword } = query;
 
     try {
+      setLoading(true);
       const res = await axios.get<ArticleResponse>(
         `/articles?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`
       );
@@ -58,10 +60,14 @@ export default function ArticleList({
     } catch (err) {
       if (err instanceof Error) setError(err);
       console.log("에러가 발생했습니다.");
+    } finally {
+      setLoading(false);
     }
   }
   useEffect(() => {
-    getArticles(query);
+    if (!loading) {
+      getArticles(query);
+    }
   }, [query]);
 
   return (
@@ -85,8 +91,11 @@ export default function ArticleList({
           handleClickOrderOpen={handleClickOrderOpen}
         />
       </div>
-
-      {articles && <ArticleItem articles={articles} option="main" />}
+      {loading ? (
+        <div> 로딩중 ... </div>
+      ) : (
+        articles && <ArticleItem articles={articles} option="main" />
+      )}
     </>
   );
 }
