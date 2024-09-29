@@ -17,38 +17,38 @@ const Footer = () => (
       </div>
 
       <div className={styles.socialMedia}>
-        <a
+        <Link
           href="https://www.facebook.com/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="판다마켓 페이스북"
         >
           <Image src={FacebookLogo} alt="페이스북" width={20} height={20} />
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://twitter.com/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="판다마켓 트위터"
         >
           <Image src={TwitterLogo} alt="트위터" width={20} height={20} />
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://www.youtube.com/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="판다마켓 유튜브"
         >
           <Image src={YoutubeLogo} alt="유튜브" width={20} height={20} />
-        </a>
-        <a
+        </Link>
+        <Link
           href="https://www.instagram.com/"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="판다마켓 인스타그램"
         >
           <Image src={InstagramLogo} alt="인스타그램" width={20} height={20} />
-        </a>
+        </Link>
       </div>
     </div>
   </section>
