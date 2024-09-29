@@ -34,12 +34,22 @@ const ArticleItem = ({ item }: Props) => {
 const StyledArticle = styled.div`
     background-color: var(--gray150);
     border-bottom: 1px solid var(--gray200);
+    padding-bottom: 24px;
 `;
 
 const ContentContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    .title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--gray800);
+    }
+    @media (max-width: 797px) {
+        .title {
+            font-size: 18px;
+        }
+    }
 `;
 
 const Contents = styled.div`
@@ -60,9 +70,13 @@ const Contents = styled.div`
 `;
 
 const ImageBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 72px;
     height: 72px;
     border: 1px solid var(--gary100);
+    background-color: var(--white);
 `;
 
 export default ArticleItem;

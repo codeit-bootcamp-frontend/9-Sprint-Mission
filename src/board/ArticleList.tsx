@@ -3,6 +3,7 @@ import { instance } from '@/util/api/axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ArticleItem from './ArticleItem';
+import Button from '../Button';
 
 const ArticleList = () => {
     const [bestArticle, setBestArticle] = useState<Article[]>([]);
@@ -19,6 +20,7 @@ const ArticleList = () => {
         <StyledArticles>
             <Title>
                 <h2>게시글</h2>
+                <Button size="small_42">글쓰기</Button>
             </Title>
             <Articles>
                 {bestArticle.map((item) => (
