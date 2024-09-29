@@ -15,7 +15,7 @@ interface PostsProps {
   total: number;
 }
 
-function Posts({ initialPosts, total }: PostsProps) {
+function Posts({ initialPosts = [], total }: PostsProps) {
   const [order, setOrder] = useState<string>("recent");
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState<number>(1);
@@ -42,7 +42,7 @@ function Posts({ initialPosts, total }: PostsProps) {
       res = await axios.get(
         `/articles?page=${pageQuery}&pageSize=${PAGE_SIZE}&orderBy=${orderQuery}`
       );
-      setPosts(res.data.list || []);
+      setPosts(Array.isArray(res.data.list) ? res.data.list : []);
     } catch (err) {
       console.error(err);
       setError("게시글을 불러오는 중 오류가 발생했습니다.");
@@ -66,9 +66,11 @@ function Posts({ initialPosts, total }: PostsProps) {
   };
 
   const filteredPosts = search
-    ? posts.filter((post) =>
-        post.content?.toLowerCase().includes(search.toLowerCase())
-      )
+    ? Array.isArray(posts)
+      ? posts.filter((post) =>
+          post.content?.toLowerCase().includes(search.toLowerCase())
+        )
+      : []
     : posts;
 
   return (
