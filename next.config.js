@@ -4,8 +4,6 @@ const path = require("path");
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    loader: "akamai",
-    path: "/",
     remotePatterns: [
       {
         protocol: "http",
