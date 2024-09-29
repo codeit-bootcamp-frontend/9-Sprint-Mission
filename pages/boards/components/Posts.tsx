@@ -41,7 +41,7 @@ function Posts({ initialPosts, total }: PostsProps) {
       const res = await axios.get(
         `/articles?page=${pageQuery}&pageSize=${PAGE_SIZE}&orderBy=${orderQuery}`
       );
-      setPosts(res.data.list ?? []);
+      setPosts(res.data.list || []);
     } catch (err) {
       setError("게시글을 불러오는 중 오류가 발생했습니다.");
     } finally {
@@ -65,7 +65,7 @@ function Posts({ initialPosts, total }: PostsProps) {
 
   const filteredPosts = search
     ? posts.filter((post) =>
-        post.content.toLowerCase().includes(search.toLowerCase())
+        post.content?.toLowerCase().includes(search.toLowerCase())
       )
     : posts;
 

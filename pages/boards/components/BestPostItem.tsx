@@ -13,7 +13,16 @@ function BestPostItem({ post }: BestPostItemProps) {
       <BestBadge />
       <div className={styles.bestPostMain}>
         <h2 className={styles.mainTitle}>{post.title}</h2>
-        <Image src={post.image} alt="상품사진" width={72} height={72} />
+        {post.image ? ( // 이미지가 있을 경우만 표시
+          <Image src={post.image} alt="상품사진" width={72} height={72} />
+        ) : (
+          <Image
+            src="/images/img_default.svg" // 기본 이미지
+            alt="기본 상품사진"
+            width={72}
+            height={72}
+          />
+        )}
       </div>
       <div className={styles.bestPostSub}>
         <div className={styles.bestPostLeft}>
