@@ -9,11 +9,11 @@ interface IProps {
   isMobile: boolean;
 }
 
-const Pagenation = ({ totalPage, page, setPage, isMobile }: IProps) => {
+const Pagination = ({ totalPage, page, setPage, isMobile }: IProps) => {
    // 다음페이지 데이터 가져오는 함수
    const onPageToNext = () => {
     const nextPage = page + 1;
-
+    
     if (nextPage > totalPage) {
       setPage(totalPage);
       toast.error("마지막 페이지입니다.")
@@ -47,18 +47,22 @@ const Pagenation = ({ totalPage, page, setPage, isMobile }: IProps) => {
           <Image src="/icons/arrowLeft.png" alt="왼쪽" width={16} height={16} />
         </button>
         {!isMobile ? (
-          Array.from({ length: totalPage }, (_, i) => (
-            <button
-              key={i}
-              className={cls(
-                "pagination-number-round",
-                page === i + 1 ? "bg-[--color-theme] text-white" : ""
-              )}
-              onClick={() => onClickPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))
+          Array.from({ length: totalPage > 13 ? 13 : totalPage }, (_, i) => {
+            const pageNumber = page > 13 ? i + 14 : i + 1;
+
+            return (
+              <button
+                key={i}
+                className={cls(
+                  "pagination-number-round",
+                  page === pageNumber ? "bg-[--color-theme] text-white" : ""
+                )}
+                onClick={() => onClickPage(pageNumber)}
+              >
+                {pageNumber}
+              </button>
+            );
+          })
         ) : (
           <p className="pagination-number-round">{page}</p>
         )}
@@ -71,4 +75,4 @@ const Pagenation = ({ totalPage, page, setPage, isMobile }: IProps) => {
   );
 };
 
-export default Pagenation;
+export default Pagination;

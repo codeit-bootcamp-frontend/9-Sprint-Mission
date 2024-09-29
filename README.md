@@ -3,7 +3,7 @@
 ## 요구사항
 
 - Javascript
-- React 18.3.1
+- React 18
 - Next.js 14.2.13
 - Tailwind CSS 3.4.1
 - axios 1.7.7

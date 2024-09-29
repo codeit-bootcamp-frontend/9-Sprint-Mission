@@ -3,7 +3,7 @@ import Link from "next/link";
 import SearchForm from "./SearchForm";
 import { useCallback, useEffect, useState } from "react";
 import { instance } from "@/lib/axios";
-import { ISearchList } from "@/app/boards/boardsTypeShare";
+import { ISearchList } from "@/types/boardsTypeShare";
 import axios from "axios";
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
 import toast from "react-hot-toast";
@@ -13,7 +13,7 @@ const BestPost = () => {
 
   const [bestPost, setBestPost] = useState<ISearchList[]>([]);
   const [isLoading, setLoading] = useState(false);
-
+  
   const getBestPosts = useCallback(async () => {
     try {
       setLoading(true);
@@ -38,7 +38,7 @@ const BestPost = () => {
   useEffect(() => {
     getBestPosts();
   }, [getBestPosts]);
-
+  
   return (
     <>
       <h2 className="text-lg font-bold">베스트 게시글</h2>

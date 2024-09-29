@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import PostList from "./PostList";
-import { ISearchList } from "@/app/boards/boardsTypeShare";
+import { ISearchList } from "@/types/boardsTypeShare";
 import SelectMenu from "./SelectMenu";
 
 // 검색 form 컴포넌트
@@ -29,7 +29,7 @@ const SearchForm = () => {
   const handleChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { value } = e.target;
     setOrderBy(value);
-  }
+  };
 
   const handleSubmit = async (values: z.infer<typeof searchSchema>) => {
     try {
@@ -48,18 +48,18 @@ const SearchForm = () => {
         toast.error("오류가 발생하여 검색결과가 없습니다. 잠시 후 다시 시도해주세요.");
       }
     }
-  }
+  };
 
   const handleOpenMenu = () => {
     setMenuOpen((prev) => !prev);
-  }
+  };
 
   useEffect(() => {
     if (typeof error.userSearch?.message === "string") {
       toast.error(error.userSearch.message);
     }
   }, [error]);
-  
+
   return (
     <>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -75,7 +75,9 @@ const SearchForm = () => {
               placeholder="검색할 상품을 입력해주세요"
             />
           </div>
-          <button type="submit" className="hidden" disabled={!form.formState.isValid}>제출</button>
+          <button type="submit" className="hidden" disabled={!form.formState.isValid}>
+            제출
+          </button>
           <button
             type="button"
             className="w-[42px] h-[42px] rounded-xl border-[1px] border-[--color-gray200] flex items-center justify-center p-2 md:hidden"
