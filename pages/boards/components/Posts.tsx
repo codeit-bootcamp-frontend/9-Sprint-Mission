@@ -19,15 +19,19 @@ function Posts({ initialPosts, total }: PostsProps) {
   const [order, setOrder] = useState<string>("recent");
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState<number>(1);
+  const totalPages = Math.ceil(total / PAGE_SIZE);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  const totalPages = Math.ceil(total / PAGE_SIZE);
+  const [search, setSearch] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOrder(e.target.value);
     setPage(1);
     setError(null);
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
   };
 
   const fetchPosts = async (orderQuery: string, pageQuery: number) => {
@@ -59,6 +63,12 @@ function Posts({ initialPosts, total }: PostsProps) {
     }
   };
 
+  const filteredPosts = search
+    ? posts.filter((post) =>
+        post.content.toLowerCase().includes(search.toLowerCase())
+      )
+    : posts;
+
   return (
     <div>
       <div className={styles.postsHeader}>
@@ -68,8 +78,10 @@ function Posts({ initialPosts, total }: PostsProps) {
       <form className={styles.postsForm}>
         <input
           type="text"
+          value={search}
           className={styles.postsInput}
           placeholder="검색할 상품을 입력해주세요"
+          onChange={handleSearchChange}
         />
         <select onChange={handleChange} className={styles.postsSelect}>
           <option value="recent">최신 순</option>
@@ -85,7 +97,7 @@ function Posts({ initialPosts, total }: PostsProps) {
       )}
       {!error && (
         <ul className={styles.postList}>
-          {posts.map((post) => (
+          {filteredPosts.map((post) => (
             <li key={post.id}>
               <PostItem post={post} />
             </li>
