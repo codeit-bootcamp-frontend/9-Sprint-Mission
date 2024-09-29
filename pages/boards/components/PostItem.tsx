@@ -9,17 +9,22 @@ interface PostItemProps {
 
 const PostItem = forwardRef<HTMLDivElement, PostItemProps>(({ post }, ref) => {
   if (!post) return null;
+
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.src = "/images/img_default.svg"; // 대체 이미지로 변경
+  };
+
   return (
     <div className={styles.postItem} ref={ref}>
       <div className={styles.itemTop}>
         <p className={styles.itemTopContent}>{post.content}</p>
-
         <Image
           className={styles.itemImage}
           src={post.image || "/images/img_default.svg"}
           alt={`${post.writer.nickname}의 상품 사진`}
           width={72}
           height={72}
+          onError={handleImageError}
         />
       </div>
       <div className={styles.itemBottom}>

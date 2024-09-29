@@ -37,12 +37,14 @@ function Posts({ initialPosts, total }: PostsProps) {
   const fetchPosts = async (orderQuery: string, pageQuery: number) => {
     setLoading(true);
     setError(null);
+    let res;
     try {
-      const res = await axios.get(
+      res = await axios.get(
         `/articles?page=${pageQuery}&pageSize=${PAGE_SIZE}&orderBy=${orderQuery}`
       );
       setPosts(res.data.list || []);
     } catch (err) {
+      console.error(err);
       setError("게시글을 불러오는 중 오류가 발생했습니다.");
     } finally {
       setLoading(false);

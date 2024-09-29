@@ -4,14 +4,15 @@ import useDataNum from "@/hooks/useDataNum";
 import { Post } from "@/types/types";
 
 interface BestPostsProps {
-  bestPosts: Post[];
+  bestPosts: Post[] | null | undefined;
 }
 
 function BestPosts({ bestPosts }: BestPostsProps) {
   const dataNum = useDataNum();
 
   // dataNum이 0 이하일 경우 빈 배열을 반환
-  const filteredBestPosts = dataNum > 0 ? bestPosts.slice(0, dataNum) : [];
+  const filteredBestPosts =
+    dataNum > 0 && bestPosts ? bestPosts.slice(0, dataNum) : [];
 
   return (
     <div className={styles.bestPosts}>
@@ -25,7 +26,7 @@ function BestPosts({ bestPosts }: BestPostsProps) {
           ))}
         </ul>
       ) : (
-        <p className={styles.noPosts}>게시글이 없습니다.</p> // 게시글이 없을 때 표시할 메시지
+        <p className={styles.noPosts}>게시글이 없습니다.</p>
       )}
     </div>
   );
