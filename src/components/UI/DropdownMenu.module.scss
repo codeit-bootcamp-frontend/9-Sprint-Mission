@@ -1,0 +1,33 @@
+.dropdownMenu {
+  position: relative;
+
+  .sortDropdownTriggerButton {
+    border: 1px solid $gray200;
+    border-radius: 12px;
+    padding: 9px;
+    margin-left: 8px;
+  }
+
+  .dropdownMenuContainer {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid $gray200;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+
+    .dropdownItem {
+      padding: 12px 44px;
+      border-bottom: 1px solid $gray200;
+      font-size: 16px;
+      color: $gray800;
+      cursor: pointer;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}

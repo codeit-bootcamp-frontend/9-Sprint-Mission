@@ -1,0 +1,40 @@
+.featureContainer {
+  display: flex;
+
+  .imageWrap {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin-right: 50px;
+  }
+
+  .featureContent {
+    flex: 1;
+
+    h2 {
+      color: $clr-blue;
+      font-size: 16px;
+      line-height: 22.4px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 33.6px;
+
+      .break-on-desktop {
+        display: none;
+      }
+    }
+
+    p {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 19.2px;
+      letter-spacing: 0.08em;
+      margin-top: 20px;
+    }
+  }
+}

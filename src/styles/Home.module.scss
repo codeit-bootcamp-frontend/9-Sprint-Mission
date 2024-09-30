@@ -1,0 +1,75 @@
+.banner {
+  position: relative;
+  background-color: #cfe5ff;
+  height: 60vh;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 130%;
+
+  &.heroBanner {
+    h1 br {
+      @include tablet {
+        display: none;
+      }
+
+      @include pc {
+        display: inline;
+      }
+    }
+  }
+
+  @include tablet {
+    height: 90vh;
+    background-size: 120%;
+  }
+
+  @include pc {
+    text-align: left;
+    height: 540px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-position: 80% bottom;
+    background-size: 55%;
+  }
+
+  div {
+    @include pc {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 44.8px;
+    padding-top: 48px;
+
+    @include tablet {
+      font-size: 40px;
+      line-height: 56px;
+      padding-top: 84px;
+      padding-bottom: 24px;
+    }
+
+    @include pc {
+      padding-top: 0;
+      padding-bottom: 32px;
+    }
+  }
+}
+
+.featuresSection {
+  padding: 51px 16px;
+  max-width: 1200px;
+  margin: auto;
+
+  @include tablet {
+    padding: 138px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

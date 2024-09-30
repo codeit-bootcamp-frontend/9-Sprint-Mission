@@ -1,0 +1,22 @@
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingContainer {
+  position: relative;
+  height: 100vh;
+
+  .loading {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin: auto -50px;
+    animation: 1s linear rotate infinite;
+  }
+}

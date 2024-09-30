@@ -1,0 +1,76 @@
+.articleCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  background-color: #fcfcfc;
+  border-bottom: 1px solid $gray200;
+  position: relative;
+
+  .articleLink {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 24px;
+  }
+
+  .titleWrap {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+
+    .articleCardTitle {
+      font-size: 2rem;
+      font-weight: 600;
+      color: $gray800;
+      width: 70%;
+      height: 48px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      line-clamp: 2;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+  }
+
+  .articleCardImageWrap {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 6px;
+    border: 1px solid $gray200;
+    overflow: hidden;
+
+    img {
+      padding: 5px;
+    }
+  }
+
+  .articleCardBottom {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .nickname,
+    .likeCount,
+    .date {
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
+    .nickname {
+      color: $gray600;
+    }
+
+    .likeCount {
+      color: $gray500;
+      margin-left: -5px;
+    }
+
+    .date {
+      margin-right: auto;
+      color: $gray400;
+    }
+  }
+}

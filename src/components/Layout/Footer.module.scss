@@ -1,0 +1,32 @@
+.footerContainer {
+  background-color: $gray900;
+
+  .footerWrap {
+    max-width: 1200px;
+    margin: auto;
+    color: $gray400;
+    font-size: 16px;
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 60px;
+
+    .copyright {
+      order: 3;
+      flex-basis: 100%;
+    }
+
+    .footerMenu {
+      display: flex;
+      gap: 30px;
+      color: $gray200;
+    }
+
+    .socialMedia {
+      display: flex;
+      gap: 12px;
+    }
+  }
+}
