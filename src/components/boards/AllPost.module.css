@@ -1,0 +1,36 @@
+.sectionContainer {
+  margin-top: 40px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #1f2937;
+}
+
+.writeButton {
+  padding: 12px 23px;
+  background-color: #3692ff;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.09px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.searchContainer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}

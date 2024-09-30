@@ -1,0 +1,18 @@
+.dropdownForm {
+  border: 1px solid #e5e7e8;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #1f2937;
+}
+
+@media (max-width: 768px) {
+  .dropdownForm {
+    width: 42px;
+    height: 42px;
+    appearance: none;
+    background: url("../../assets/btn_sort.png") no-repeat center / 42px 42px;
+  }
+}
