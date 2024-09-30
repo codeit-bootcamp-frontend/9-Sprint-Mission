@@ -44,6 +44,7 @@ export default function BestArticleList({ query }: { query: Query }) {
     } catch (err) {
       if (err instanceof Error) setError(err);
       console.log("에러가 발생했습니다.");
+    } finally {
     }
   }
   useEffect(() => {
