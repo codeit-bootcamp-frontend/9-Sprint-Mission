@@ -1,0 +1,65 @@
+.contentContainer {
+  padding: 0 24px 16px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  flex-basis: 100%;
+}
+
+.bestBedge {
+  position: relative;
+  width: 102px;
+  height: 30px;
+  margin: 0 0 16px 24px;
+}
+
+.itemImage {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  border: 0.75px solid #e5e7eb;
+}
+
+.titleImageWrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.nameLikeDateWrap {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  margin-bottom: 0;
+}
+
+.nameLikeWrap {
+  display: flex;
+  gap: 8px;
+}
+
+.itemTitle {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+@media screen and (min-width: 768px) {
+  .contentContainer {
+    width: 304px;
+    padding: 0 24px 16px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .contentContainer {
+    width: 336px;
+    padding: 0 24px 16px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+  }
+}
