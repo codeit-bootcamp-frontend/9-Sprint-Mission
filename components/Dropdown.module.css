@@ -1,0 +1,59 @@
+.order-container {
+  width: 158px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cool-gray-200);
+  border-radius: 12px ;
+  padding: 12px 20px;
+  background-color: transparent;
+  position: relative;
+}
+
+.order-box {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.arrow-down {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('/ic_arrow_down.png');
+  background-repeat: no-repeat;
+  background-position: cover;
+  background-size: 24px 24px;
+}
+
+.order-btn {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 8px);
+  border: 1px solid var(--cool-gray-200);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.order-btn button {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  background-color:transparent;
+  padding: 12px 20px;
+}
+
+.order-btn button:nth-of-type(1) {
+  border-bottom: 1px solid var(--cool-gray-200) ;
+}

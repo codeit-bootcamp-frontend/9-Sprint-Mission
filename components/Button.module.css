@@ -1,0 +1,11 @@
+.button {
+  background-color:var(--brand-blue);
+  height: 42px;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.09px;
+  color: #fff;
+  border-radius: 8px;
+  padding: 11.5px 23px;
+}
