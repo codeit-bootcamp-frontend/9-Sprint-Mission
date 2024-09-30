@@ -1,4 +1,7 @@
+"use client";
+
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
+import { instance } from "@/lib/axios";
 import { cls } from "@/lib/utils";
 import { IItemList } from "@/types/itemsTypeShare";
 import axios from "axios";
@@ -13,23 +16,22 @@ const BestItems = () => {
   const [error, setError] = useState("");
   
   const getBestItems = useCallback(async () => {
+    if (pageSize === 0 || pageSize === Infinity) return null;
+    
     try {
       setLoading(true);
-      const response = await axios.get(
-        `/api/items/bestItems?pageSize=${pageSize}&orderBy=favorite`
+      const response = await instance.get(
+        `/products?pageSize=${pageSize}&orderBy=favorite`
       );
 
       if (response.status === 200) {
-        setBestItems(response.data);
+        setBestItems(response.data.list);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("중고마켓 베스트상품 getBestItems에서 api 오류 발생", error);
-        setError(error.response?.data);
-      } else {
-        console.error("중고마켓 베스트상품 getBestItems에서 알 수 없는 오류 발생", error);
-        setError("오류가 발생하여 베스트상품을 불러오지 못했습니다.");
-      }
+        setError(error.response?.data.message);
+      } 
     } finally {
       setLoading(false);
     }
@@ -37,7 +39,7 @@ const BestItems = () => {
 
   useEffect(() => {
     getBestItems();
-  }, [getBestItems]);
+  }, [getBestItems, pageSize]);
 
   return (
     <>

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import ItemSearchForm from "./ItemSearchForm";
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
@@ -7,6 +9,7 @@ import { IItemList } from "@/types/itemsTypeShare";
 import axios from "axios";
 import { cls } from "@/lib/utils";
 import Pagination from "../Pagination";
+import { instance } from "@/lib/axios";
 
 const AllItems = () => {
   const pageSize = useCalculateWidth("all");
@@ -25,10 +28,12 @@ const AllItems = () => {
   };
 
   const getAllItems = useCallback(async () => {
+    if (pageSize === 0 || pageSize === Infinity) return null;
+    
     try {
       setLoading(true);
-      const response = await axios.get(
-        `/api/items/allItems?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}`
+      const response = await instance.get(
+        `/products?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}`
       );
 
       if (response.status === 200) {
@@ -38,11 +43,8 @@ const AllItems = () => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("중고마켓 전체상품 getAllItems에서 api 오류 발생", error);
-        setError(error.response?.data);
-      } else {
-        console.error("중고마켓 전체상품 getAllItems에서 알 수 없는 오류 발생", error);
-        setError("오류가 발생하여 전체상품을 불러오지 못했습니다.");
-      }
+        setError(error.response?.data.message);
+      } 
     } finally {
       setLoading(false);
     }

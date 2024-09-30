@@ -9,6 +9,7 @@ import { z } from "zod";
 import PostList from "./PostList";
 import { ISearchList } from "@/types/boardsTypeShare";
 import SelectMenu from "./SelectMenu";
+import { instance } from "@/lib/axios";
 
 // 검색 form 컴포넌트
 const SearchForm = () => {
@@ -33,20 +34,17 @@ const SearchForm = () => {
 
   const handleSubmit = async (values: z.infer<typeof searchSchema>) => {
     try {
-      const response = await axios.get(`/api/search?keyword=${values.userSearch}`);
+      const response = await instance.get(`/articles?keyword=${values.userSearch}`);
 
       if (response.status === 200) {
         form.reset();
-        setSearchList(response.data);
+        setSearchList(response.data.list);
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
         console.error("검색 handleSubmit에서 오류 발생", error);
-        toast.error(error.response?.data);
-      } else {
-        console.error("검색 handleSubmit에서 알 수 없는 오류 발생", error);
-        toast.error("오류가 발생하여 검색결과가 없습니다. 잠시 후 다시 시도해주세요.");
-      }
+        toast.error(error.response?.data.message);
+      } 
     }
   };
 
