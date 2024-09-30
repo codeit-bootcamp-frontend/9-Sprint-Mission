@@ -10,6 +10,7 @@ import axios from "axios";
 import { cls } from "@/lib/utils";
 import Pagination from "../Pagination";
 import { instance } from "@/lib/axios";
+import ItemsMap from "./ItemsMap";
 
 const AllItems = () => {
   const pageSize = useCalculateWidth("all");
@@ -29,7 +30,7 @@ const AllItems = () => {
 
   const getAllItems = useCallback(async () => {
     if (pageSize === 0 || pageSize === Infinity) return null;
-    
+
     try {
       setLoading(true);
       const response = await instance.get(
@@ -82,25 +83,7 @@ const AllItems = () => {
       </div>
       {!isLoading ? (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {allItems.map((item) => (
-            <div key={item.id} className="flex flex-col space-y-4">
-              <Image
-                src={item.images[0] || "/icons/question.png"}
-                alt="아이템"
-                width={168}
-                height={168}
-                className="h-[168px] rounded-xl object-cover md:w-[221px] md:rounded-2xl"
-              />
-              <div className="flex flex-col space-y-2">
-                <h2 className="text-sm font-medium">{item.name}</h2>
-                <span className="font-bold">{item.price.toLocaleString("ko-KR")}원</span>
-                <div className="flex items-center space-x-1">
-                  <Image src="/icons/ic_heart.svg" alt="좋아요" width={13} height={13} />
-                  <span className="text-xs font-medium text-[#4B5563]">{item.favoriteCount}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+          <ItemsMap itemList={allItems} imgSize={168} kind={"all"} />
         </div>
       ) : (
         <p className={cls("text-center font-bold text-xl", error !== "" ? "text-red-500" : "")}>

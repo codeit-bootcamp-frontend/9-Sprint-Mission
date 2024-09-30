@@ -5,8 +5,8 @@ import { instance } from "@/lib/axios";
 import { cls } from "@/lib/utils";
 import { IItemList } from "@/types/itemsTypeShare";
 import axios from "axios";
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import ItemsMap from "./ItemsMap";
 
 const BestItems = () => {
   const pageSize: number = useCalculateWidth("best");
@@ -17,7 +17,7 @@ const BestItems = () => {
   
   const getBestItems = useCallback(async () => {
     if (pageSize === 0 || pageSize === Infinity) return null;
-    
+
     try {
       setLoading(true);
       const response = await instance.get(
@@ -46,25 +46,7 @@ const BestItems = () => {
       <h2 className="font-bold text-xl">베스트 상품</h2>
       {!isLoading ? (
         <div className="grid grid-cols-1 space-y-4 md:grid-cols-2 md:space-x-4 md:space-y-0 lg:grid-cols-3">
-          {bestItems.map((item) => (
-            <div key={item.id} className="flex flex-col space-y-4">
-              <Image
-                src={item.images[0] || "/icons/question.png"}
-                alt="베스트제품"
-                width={343}
-                height={343}
-                className="rounded-2xl w-full h-[343px] object-cover"
-              />
-              <div className="flex flex-col space-y-2">
-                <h2 className="text-sm font-medium">{item.name}</h2>
-                <span className="font-bold">{item.price.toLocaleString("ko-KR")}원</span>
-                <div className="flex items-center space-x-1">
-                  <Image src="/icons/ic_heart.svg" alt="좋아요" width={13} height={13} />
-                  <span className="text-xs font-medium text-[#4B5563]">{item.favoriteCount}</span>
-                </div>
-              </div>
-            </div>
-          ))}
+          <ItemsMap itemList={bestItems} imgSize={343} kind={"best"} />
         </div>
       ) : (
         <p className={cls("text-center font-bold text-xl", error !== "" ? "text-red-500" : "")}>
