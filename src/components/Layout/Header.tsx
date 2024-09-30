@@ -43,7 +43,7 @@ export default function Header() {
         <Link
           href='/login'
           className='
-            w-[128px] h-[48px] bg-[#3692FF] text-white font-semibold text-center hover:bg-[#1E6ED9] rounded-[8px] px-[23px] py-[12px] gap-[10px]transition-colors duration-300 md:w-[140px] md:h-[50px] md:px-[25px] md:py-[14px] lg:w-[160px] lg:h-[56px] lg:px-[30px] lg:py-[16px]'
+            bg-[#3692FF] text-white font-semibold text-center hover:bg-[#1E6ED9] rounded-[8px] px-[23px] py-[12px] gap-[10px]transition-colors duration-300 md:w-[140px] md:h-[50px] md:px-[25px] md:py-[14px] lg:h-[56px] lg:px-[30px] lg:py-[16px]'
         >
           로그인
         </Link>

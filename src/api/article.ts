@@ -19,8 +19,9 @@ export default async function handler(
       if (req.query.articleId) {
         return getArticleDetail(req, res);
       } else {
-        const page = parseInt(req.query.page as string) || 1; // 페이지 번호 가져오기
-        return getArticles(page, res); // 수정된 부분
+        const page = parseInt(req.query.page as string) || 1;
+        const search = (req.query.search as string) || '';
+        return getArticles(page, search, res);
       }
     case 'POST':
       return likeArticle(req, res);
@@ -32,31 +33,43 @@ export default async function handler(
   }
 }
 
-export const getArticles =
-  // 게시글 목록을 가져오는 함수
-  // 외부 API에서 게시글 목록을 가져오고, 클라이언트에 JSON 형태로 응답
-  async (
-    page: number,
-    res: NextApiResponse // res를 인수로 추가
-  ): Promise<void> => {
-    try {
-      const response = await axiosInstance.get<ArticleListResponse>(
-        '/articles',
-        {
-          params: {
-            page,
-            pageSize: 10,
-            orderBy: 'recent',
-          },
-        }
-      );
-      // 응답을 클라이언트에 반환
-      res.status(200).json(response.data); // list와 totalCount를 포함한 객체 반환
-    } catch (error) {
-      console.error('Failed to fetch articles:', error);
-      res.status(500).json({ message: 'Failed to fetch articles' }); // 에러 응답 처리
-    }
-  };
+export const getArticles = async (
+  page: number,
+  search: string,
+  res: NextApiResponse
+): Promise<void> => {
+  try {
+    const response = await axiosInstance.get<ArticleListResponse>('/articles', {
+      params: {
+        page,
+        pageSize: 4,
+        orderBy: 'recent',
+        search,
+      },
+    });
+    res.status(200).json(response.data);
+  } catch (error) {
+    console.error('Failed to fetch articles:', error);
+    res.status(500).json({ message: 'Failed to fetch articles' });
+  }
+};
+
+export const fetchArticles = async (
+  page: number,
+  pageSize: number,
+  orderBy: string,
+  search: string = ''
+): Promise<ArticleListResponse> => {
+  const response = await axiosInstance.get<ArticleListResponse>('/articles', {
+    params: {
+      page,
+      pageSize,
+      orderBy,
+      search,
+    },
+  });
+  return response.data;
+};
 
 export const getArticleDetail = async (
   req: NextApiRequest,

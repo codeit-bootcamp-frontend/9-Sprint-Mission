@@ -20,9 +20,7 @@ const pretendard = localFont({
 
 function DefaultLayoutContent({ children }: { children: React.ReactNode }) {
   return (
-    <div className={pretendard.className + ' bg-gray-50 text-gray-900'}>
-      {children}
-    </div>
+    <div className={pretendard.className + '  text-gray-900'}>{children}</div>
   );
 }
 

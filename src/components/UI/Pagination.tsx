@@ -6,6 +6,7 @@ type PaginationProps = {
   totalCount: number;
   onPrevious: () => void;
   onNext: () => void;
+  pageSize: number;
 };
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -13,6 +14,7 @@ const Pagination: React.FC<PaginationProps> = ({
   totalCount,
   onPrevious,
   onNext,
+  pageSize,
 }) => {
   return (
     <div className='mt-8 flex justify-center'>
@@ -25,7 +27,7 @@ const Pagination: React.FC<PaginationProps> = ({
       </button>
       <button
         onClick={onNext}
-        disabled={currentPage * 10 >= totalCount}
+        disabled={currentPage * pageSize >= totalCount}
         className='bg-blue-500 text-white px-4 py-2 rounded-md disabled:bg-gray-300'
       >
         다음

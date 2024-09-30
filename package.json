@@ -10,7 +10,6 @@
     "build:css": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch"
   },
   "dependencies": {
-    "@svgr/webpack": "^8.1.0",
     "@types/ol": "^7.0.0",
     "axios": "^1.7.7",
     "jotai": "^2.10.0",
@@ -21,6 +20,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
