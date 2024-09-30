@@ -1,0 +1,35 @@
+@tailwind components;
+
+@layer components {
+  .container {
+    @apply flex flex-col p-4 md:p-6 lg:max-w-7xl lg:mx-auto lg:py-6;
+  }
+
+  .section-title {
+    @apply text-xl font-bold text-gray-800 md:text-2xl;
+  }
+
+  .flex-container {
+    @apply flex justify-between items-center;
+  }
+
+  .button {
+    @apply bg-blue-500 text-white py-3 px-6 rounded-lg text-base font-bold cursor-pointer hover:bg-blue-600 focus:bg-blue-700 disabled:bg-gray-400 disabled:cursor-default disabled:pointer-events-none;
+  }
+
+  .styled-link {
+    @apply bg-blue-500 text-white py-3 px-6 text-base font-bold cursor-pointer hover:bg-blue-600 focus:bg-blue-700 disabled:bg-gray-400 disabled:cursor-default disabled:pointer-events-none;
+  }
+
+  .styled-link-pill {
+    @apply rounded-full;
+  }
+
+  .styled-link-rounded {
+    @apply rounded-lg;
+  }
+
+  .line-divider {
+    @apply w-full border-none h-px bg-gray-200 my-4;
+  }
+}

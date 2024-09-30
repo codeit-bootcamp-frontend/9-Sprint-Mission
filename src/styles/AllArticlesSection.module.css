@@ -1,0 +1,73 @@
+/* AllArticlesSection.module.css */
+
+/* 전체 컨테이너 스타일 */
+.container {
+  margin-top: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 헤더 영역 스타일 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 70px; /* 스크롤 시 전역 헤더 밑으로 고정 */
+  background-color: white; /* 배경색 설정으로 다른 요소들과 시각적으로 분리 */
+  z-index: 1000; /* 다른 요소 위에 위치 */
+  padding: 1rem 0; /* 고정 시 헤더가 보기 좋게 보이도록 padding 추가 */
+}
+
+/* 검색 바 및 정렬 드롭다운 메뉴를 감싸는 컨트롤바 */
+.controlBar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* 개별 article 카드 스타일 */
+.articleCard {
+  padding: 0.75rem 1rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.articleCard:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* 제목 스타일 */
+.articleCardTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* 내용 스타일 */
+.articleCardContent {
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: #666;
+}
+
+/* 이미지 스타일 */
+.articleCard img {
+  width: 100%;
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+}
