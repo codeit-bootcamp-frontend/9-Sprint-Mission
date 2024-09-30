@@ -47,7 +47,7 @@ export default function BestBoard() {
   };
 
   useEffect(() => {
-    handleResize(); // 초기 화면 크기 체크
+    handleResize();
     getBestBoard();
     window.addEventListener("resize", handleResize); // 리사이즈 이벤트 리스너 등록
 
