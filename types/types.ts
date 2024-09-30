@@ -16,7 +16,14 @@ export interface Articles {
   writer: Writer;
 }
 
-export interface Props{
+export interface Props {
   children: ReactNode;
   className: string;
 }
+
+export interface Option {
+  id: number;
+  option: string;
+  order: string;
+}
+

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./BestPostList.module.css";
 import Image from "next/image";
 import axios from "@/lib/axios";
@@ -10,15 +10,37 @@ import { Articles } from "@/types/types";
 
 export default function BestPostList() {
   const [articles, setArticles] = useState<Articles[]>();
+  const [pageSize, setPageSize] = useState(3);
+  const isFristRef = useRef(true);
 
-  async function getArticles() {
-    const res = await axios.get("/articles?orderBy=like");
+  async function getArticles(pageSize: number) {
+    const res = await axios.get(`/articles?orderBy=like&pageSize=${pageSize}`);
     const articles = res.data.list ?? [];
     setArticles(articles);
   }
+  
   useEffect(() => {
-    getArticles();
-  }, []);
+    const getPageSize = () => {
+      const width = window.innerWidth;
+      if (width < 768) return 1;
+      else if (width < 1280) return 2;
+      else return 3;
+    };
+
+    if (isFristRef.current) {
+      setPageSize(getPageSize());
+      isFristRef.current = false;
+      return;
+    }
+    
+    getArticles(pageSize);
+
+    const handleResize = () => {
+      setPageSize(getPageSize());
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [pageSize]);
 
   return (
     <>
@@ -54,7 +76,7 @@ export default function BestPostList() {
                   </div>
                   <CreatedDate className={styles["created-at"]}>
                     {timeDiff(article.createdAt)}
-                    </CreatedDate>
+                  </CreatedDate>
                 </div>
               </li>
             ))}
