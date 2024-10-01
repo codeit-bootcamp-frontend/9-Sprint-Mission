@@ -1,0 +1,32 @@
+.styledFooter {
+  font-size: 16px;
+  font-weight: 400;
+  background: #111827;
+}
+
+.homeFooterContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 0 108px;
+}
+
+.footerLeft {
+  color: #9ca3af;
+}
+
+.footerMid {
+  color: #e5e7eb;
+  display: flex;
+  gap: 30px;
+}
+
+.footerSns {
+  display: flex;
+  gap: 12px;
+}
+
+.footerSnsImg {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}

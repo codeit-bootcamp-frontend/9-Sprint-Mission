@@ -1,0 +1,50 @@
+.postItem {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.itemTop,
+.itemBottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.itemImage {
+  border-radius: 8px;
+  border: 1px solid #f3f4f6;
+}
+
+.itemTop {
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.itemTopContent {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.itemBottom {
+  color: #4b5563;
+  font-weight: 400;
+}
+
+.itemBottomLeft {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.itemDate {
+  color: #9ca3af;
+}
+.itemBottomRight {
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .itemTopContent {
+    font-size: 18px;
+  }
+}

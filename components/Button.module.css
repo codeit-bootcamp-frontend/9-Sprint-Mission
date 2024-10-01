@@ -1,0 +1,12 @@
+.button {
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  width: 106px; /* 기본 너비 */
+  height: 42px; /* 기본 높이 */
+  border: 1px solid none; /* 기본 테두리 */
+  border-radius: 8px; /* 기본 모서리 반경 */
+  background: #3692ff; /* 기본 배경색 */
+}

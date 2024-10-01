@@ -1,40 +1,42 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### 배포된 웹사이트: https://pandamarket9gyun.netlify.app
 
-## Getting Started
+### 기본 요구사항
 
-First, run the development server:
+- [x] Github에 PR(Pull Request)을 만들어서 미션을 제출합니다.
+- [x] 피그마 디자인에 맞게 페이지를 만들어 주세요.
+- [x] 기존의 React, Typescript로 구현한 프로젝트와 별도로 진행합니다.
+- [x] Next.js를 사용합니다
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 체크리스트 [기본]
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [x] 자유 게시판 페이지 주소는 “/boards” 입니다.
+- [x] 전체 게시글에서 드롭 다운으로 “최신 순” 또는 “좋아요 순”을 선택해서 정렬을 할 수 있습니다.
+- [x] 게시글 목록 조회 api를 사용하여 베스트 게시글, 게시글을 구현합니다.
+- [x] 게시글 title에 검색어가 일부 포함되면 검색이 됩니다.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### 체크리스트 [심화]
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- [x] 반응형으로 보여지는 베스트 게시판 개수를 다르게 설정할때 서버에 보내는 pageSize값을 적절하게 설정합니다.
+- [] next의 data prefetch 기능을 사용해봅니다.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### 멘토님께
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- HomePage와 itemsPage는 아직 구현중입니다. 이번 미션에서 요구된 boards의 UI와 기능을 주로 구현했습니다.
 
-## Learn More
+## 스크린샷
 
-To learn more about Next.js, take a look at the following resources:
+|                                           모바일                                           |
+| :----------------------------------------------------------------------------------------: |
+| ![모바일](https://github.com/user-attachments/assets/7ea4e742-dad7-4377-9336-062ad072908c) |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<hr>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+|                                           테블릿                                           |
+| :----------------------------------------------------------------------------------------: |
+| ![테블릿](https://github.com/user-attachments/assets/6cfaee8c-f12f-4f01-be02-bd3e7961c24f) |
 
-## Deploy on Vercel
+<hr>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+|                                           풀스크린                                           |
+| :------------------------------------------------------------------------------------------: |
+| ![풀스크린](https://github.com/user-attachments/assets/872557fc-e9c6-43f3-bdd7-9b5a64e873ed) |

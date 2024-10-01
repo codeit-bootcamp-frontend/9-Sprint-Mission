@@ -1,0 +1,40 @@
+.homeBanner {
+  width: 100%;
+  height: 540px;
+  background-color: #cfe5ff;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.homeBannerMain {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.homeBannerLeft {
+  width: 357px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.homeBannerLeftTitle {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  color: #374151;
+}
+
+@media (max-width: 1200px) {
+  .homeBannerMain {
+    flex-direction: column;
+  }
+
+  .homeBannerLeft {
+    width: 560px;
+    margin-bottom: 24px;
+  }
+}
