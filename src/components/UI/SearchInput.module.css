@@ -1,0 +1,20 @@
+.searchForm {
+  flex: 1;
+}
+
+.searchInput {
+  width: 100%;
+  background: #f3f4f6 url("../../assets/ic_search.png") no-repeat left 16px top
+    9px / 24px 24px;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  padding: 9px 20px 9px 50px;
+  border-radius: 12px;
+  border: none;
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}

@@ -1,0 +1,52 @@
+.itemContainer {
+  background-color: #fcfcfc;
+  padding: 0 0 24px;
+  border-bottom: 1px solid #e5e7e8;
+}
+
+.itemContent {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.itemTitle {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+  color: #1f2937;
+}
+
+.itemDescription {
+  margin-top: 18px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.writerNickname {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #4b5563;
+}
+
+.createdAt {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #9ca3af;
+  flex-grow: 1;
+}
+
+.likeContainer {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #6b7280;
+}
