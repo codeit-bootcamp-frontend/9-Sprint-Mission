@@ -1,0 +1,59 @@
+.container {
+  padding: 15px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.logoContainer {
+  width: 81px;
+  height: 27px;
+  background-image: url("/assets/panda-market.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.navigatorContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.profileContainer {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+.navigatorLink {
+  color: #4b5563;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+@media screen and (min-width: 768px) {
+  .logoContainer {
+    width: 153px;
+    height: 51px;
+    background-image: url("/assets/panda-market-logo.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .navigatorContainer {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .navigatorLink {
+    color: #4b5563;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
