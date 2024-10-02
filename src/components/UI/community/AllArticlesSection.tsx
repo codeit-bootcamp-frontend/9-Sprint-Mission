@@ -1,5 +1,4 @@
 // src/components/UI/community/AllArticlesSection.tsx
-// src/components/UI/community/AllArticlesSection.tsx
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";

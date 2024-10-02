@@ -1,3 +1,4 @@
+// src/components/Layout/Header.tsx
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import Logo from "@/images/logo/logo.svg";
 import DefaultAvatar from "@/images/ui/ic_profile-32.png";
+import { isValidImageUrl } from "@/utils/imageUtils"; // 이미지 확장자 검증 함수 가져오기
 
 export default function Header() {
   const router = useRouter();
@@ -21,10 +23,8 @@ export default function Header() {
     setUser({
       Id: storedUserId || null,
       Image:
-        storedUserImage &&
-        storedUserImage.startsWith("https") &&
-        /\.(png|svg|jpg)$/.test(storedUserImage)
-          ? storedUserImage
+        storedUserImage && isValidImageUrl(storedUserImage)
+          ? `/api/imageProxy?url=${encodeURIComponent(storedUserImage)}` // imageProxy 적용
           : DefaultAvatar.src,
       nickname: storedNickname || null,
     });

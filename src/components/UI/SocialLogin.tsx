@@ -1,4 +1,4 @@
-// src/components/UI/InputItem.tsx
+// src/components/UI/SocialLogin.tsx
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import googleLogo from "@/images/social/google-logo.png";

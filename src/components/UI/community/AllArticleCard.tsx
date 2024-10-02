@@ -6,8 +6,7 @@ import { format } from "date-fns";
 import { Article } from "@/types/article";
 import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
 import NoImage from "@/images/ui/no-image.png";
-import allowedDomains from "allowedDomains";
-import disallowedDomains from "disallowedDomains";
+import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 
 interface ArticleItemProps {
   article: Article;
@@ -18,13 +17,14 @@ const ArticleItem = ({ article }: ArticleItemProps) => {
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading");
-  const imageUrl =
-    article.image &&
-    article.image.trim() !== "" &&
-    allowedDomains.some((domain) => article.image.includes(domain)) &&
-    !disallowedDomains.some((domain) => article.image.includes(domain))
-      ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
-      : NoImage.src;
+
+  // 이미지 확장자가 허용된 파일인지 확인
+  const isImageAllowed = article.image && isValidImageUrl(article.image);
+
+  // imageProxy 적용: 유효한 이미지일 경우 프록시 서버를 통해 이미지를 로드
+  const imageUrl = isImageAllowed
+    ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
+    : NoImage.src;
 
   useEffect(() => {
     setImageStatus("loading");

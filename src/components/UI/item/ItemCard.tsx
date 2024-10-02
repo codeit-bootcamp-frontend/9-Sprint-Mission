@@ -5,8 +5,7 @@ import Image from "next/image";
 import { Product } from "@/types/product";
 import HeartIcon from "@/images/icons/ic_heart.svg";
 import NoImage from "@/images/ui/no-image.png";
-import allowedDomains from "allowedDomains";
-import disallowedDomains from "disallowedDomains";
+import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 
 interface ItemCardProps {
   item: Product;
@@ -27,22 +26,12 @@ const ItemCard = ({
     "loading" | "loaded" | "error"
   >("loading");
 
-  const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
-
+  // 이미지 확장자가 허용된 파일인지 확인
   const imageUrl = useMemo(() => {
-    if (
-      item.images &&
-      item.images[0] &&
-      allowedDomains.some((domain) => item.images[0].includes(domain)) &&
-      !disallowedDomains.some((domain) => item.images[0].includes(domain))
-    ) {
-      if (isSvgFile(item.images[0])) {
-        // SVG 파일의 경우 직접 URL을 사용
-        return item.images[0];
-      }
-      return `/api/imageProxy?url=${encodeURIComponent(item.images[0])}`;
+    if (item.images && item.images[0] && isValidImageUrl(item.images[0])) {
+      return item.images[0]; // 이미지가 유효한 확장자일 경우 URL 사용
     }
-    return NoImage.src;
+    return NoImage.src; // 기본 이미지
   }, [item.images]);
 
   useEffect(() => {
@@ -71,7 +60,7 @@ const ItemCard = ({
           </div>
         )}
 
-        {isSvgFile(imageUrl) ? (
+        {imageUrl.endsWith(".svg") ? (
           <img
             src={imageUrl}
             alt="상품 썸네일"
