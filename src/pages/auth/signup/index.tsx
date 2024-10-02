@@ -1,7 +1,7 @@
 // pages/auth/signup/index.tsx
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
@@ -16,11 +16,9 @@ export default function SignupPage() {
 
   // useEffect로 페이지가 로드될 때 이미 로그인된 사용자가 있으면 홈으로 리다이렉트
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const accessToken = Cookies.get("accessToken");
-      if (accessToken) {
-        router.push("/"); // 액세스 토큰이 있는 경우 홈으로 이동
-      }
+    const accessToken = Cookies.get("accessToken");
+    if (accessToken) {
+      router.push("/"); // 액세스 토큰이 있는 경우 홈으로 이동
     }
   }, [router]);
 
@@ -29,21 +27,11 @@ export default function SignupPage() {
     register, // 폼 필드를 등록하는 함수
     handleSubmit, // 폼 제출을 처리하는 함수
     watch, // 특정 필드의 값 변화를 감지하는 함수
-    setValue, // 폼 필드의 값을 수동으로 설정하는 함수
-    trigger, // 유효성 검사를 수동으로 트리거하는 함수
     formState: { errors, isValid }, // 폼 상태(유효성 검사 결과 등)를 추적
   } = useForm<SignupFormValues>({ mode: "onBlur" });
 
   // 비밀번호와 비밀번호 확인 필드를 실시간으로 감지
   const password = watch("password");
-  const passwordConfirmation = watch("passwordConfirmation");
-
-  // 비밀번호와 비밀번호 확인 필드가 변경될 때마다 유효성 검사를 트리거
-  useEffect(() => {
-    if (password && passwordConfirmation) {
-      trigger("passwordConfirmation");
-    }
-  }, [password, passwordConfirmation, trigger]);
 
   // 폼 제출 시 호출되는 함수, 서버에 회원가입 요청을 보냄
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
@@ -82,8 +70,8 @@ export default function SignupPage() {
         onSubmit={handleSubmit(onSubmit)} // 폼 제출 시 handleSubmit으로 onSubmit 호출
       >
         {/* 이메일 입력 필드 */}
-        <InputItem<SignupFormValues>
-          id="email" // SignupFormValues의 email 필드와 연동
+        <InputItem
+          id="email" // 필드 이름
           label="이메일" // 레이블 텍스트
           placeholder="이메일을 입력해 주세요" // 입력 필드에 표시될 placeholder
           register={register("email", {
@@ -93,27 +81,23 @@ export default function SignupPage() {
               message: "잘못된 이메일 형식입니다", // 이메일 유효성 검사
             },
           })}
-          setValue={setValue} // setValue를 통해 값 변경 시 수동으로 폼 상태 업데이트
-          trigger={trigger} // trigger로 유효성 검사를 트리거
           errorMessage={errors.email?.message} // 유효성 검사 오류 메시지 출력
         />
 
         {/* 닉네임 입력 필드 */}
-        <InputItem<SignupFormValues>
-          id="nickname" // SignupFormValues의 nickname 필드와 연동
+        <InputItem
+          id="nickname" // 필드 이름
           label="닉네임" // 레이블 텍스트
           placeholder="닉네임을 입력해 주세요" // 입력 필드에 표시될 placeholder
           register={register("nickname", {
             required: "닉네임을 입력해 주세요", // 필수 입력 필드
           })}
-          setValue={setValue} // setValue를 통해 값 변경 시 수동으로 폼 상태 업데이트
-          trigger={trigger} // trigger로 유효성 검사를 트리거
           errorMessage={errors.nickname?.message} // 유효성 검사 오류 메시지 출력
         />
 
         {/* 비밀번호 입력 필드 */}
         <PasswordInput
-          id="password" // SignupFormValues의 password 필드와 연동
+          id="password" // 필드 이름
           label="비밀번호" // 레이블 텍스트
           placeholder="비밀번호를 입력해 주세요" // 입력 필드에 표시될 placeholder
           register={register("password", {
@@ -132,7 +116,7 @@ export default function SignupPage() {
 
         {/* 비밀번호 확인 입력 필드 */}
         <PasswordInput
-          id="passwordConfirmation" // SignupFormValues의 passwordConfirmation 필드와 연동
+          id="passwordConfirmation" // 필드 이름
           label="비밀번호 확인" // 레이블 텍스트
           placeholder="비밀번호를 다시 한 번 입력해 주세요" // 입력 필드에 표시될 placeholder
           register={register("passwordConfirmation", {

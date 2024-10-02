@@ -1,7 +1,7 @@
 // pages/auth/login/index.tsx
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
@@ -31,8 +31,6 @@ export default function LoginPage() {
   const {
     register, // 폼 필드를 등록하는 함수
     handleSubmit, // 폼 제출을 처리하는 함수
-    setValue, // 폼 필드의 값을 수동으로 설정하는 함수
-    trigger, // 유효성 검사를 수동으로 트리거하는 함수
     formState: { errors, isValid }, // 폼 상태(유효성 검사 결과 등)를 추적
   } = useForm<LoginFormValues>({ mode: "onChange" });
 
@@ -86,7 +84,7 @@ export default function LoginPage() {
         onSubmit={handleSubmit(onSubmit)} // 폼 제출 시 handleSubmit으로 onSubmit 호출
       >
         {/* 이메일 입력 필드 */}
-        <InputItem<LoginFormValues>
+        <InputItem
           id="email" // LoginFormValues의 email 필드와 연동
           label="이메일" // 레이블 텍스트
           placeholder="이메일을 입력해 주세요" // 입력 필드에 표시될 placeholder
@@ -97,8 +95,6 @@ export default function LoginPage() {
               message: "잘못된 이메일 형식입니다", // 이메일 유효성 검사
             },
           })}
-          setValue={setValue} // setValue를 통해 값 변경 시 수동으로 폼 상태 업데이트
-          trigger={trigger} // trigger를 사용하여 유효성 검사를 트리거
           errorMessage={errors.email?.message} // 유효성 검사 오류 메시지 출력
         />
 
