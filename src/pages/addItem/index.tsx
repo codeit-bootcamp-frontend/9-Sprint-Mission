@@ -22,7 +22,8 @@ export default function AddItemPage() {
 
   useEffect(() => {
     if (!isLoggedIn) {
-      setConfirmModalOpen(true); // 로그인하지 않은 경우 접근 모달을 열음
+      // 로그인하지 않은 경우 Login 페이지 이동 유도 모달을 띄움(닫으면 폼 입력 가능하나 제출시 경고 모달을 띄움)
+      setConfirmModalOpen(true);
     }
   }, [isLoggedIn]);
 
