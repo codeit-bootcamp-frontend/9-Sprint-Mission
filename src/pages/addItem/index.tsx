@@ -6,8 +6,8 @@ import { loginAtom } from "@/store/authAtoms";
 import InputItem from "@/components/UI/InputItem";
 import TagInput from "@/components/UI/TagInput";
 import ImageUpload from "@/components/UI/ImageUpload";
-import ConfirmModal from "@/components/UI/ConfirmModal";
-import AlertModal from "@/components/UI/AlertModal";
+import ConfirmModal from "@/components/UI/modal/ConfirmModal";
+import AlertModal from "@/components/UI/modal/AlertModal";
 
 export default function AddItemPage() {
   const [name, setName] = useState("");
