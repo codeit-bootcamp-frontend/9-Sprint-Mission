@@ -26,12 +26,12 @@ const ItemCard = ({
     "loading" | "loaded" | "error"
   >("loading");
 
-  // 이미지 확장자가 허용된 파일인지 확인
+  // 이미지 확장자가 허용된 파일인지 확인하고 프록시 URL 사용
   const imageUrl = useMemo(() => {
     if (item.images && item.images[0] && isValidImageUrl(item.images[0])) {
-      return item.images[0]; // 이미지가 유효한 확장자일 경우 URL 사용
+      return `/api/imageProxy?url=${encodeURIComponent(item.images[0])}`;
     }
-    return NoImage.src; // 기본 이미지
+    return NoImage.src; // 기본 이미지 설정
   }, [item.images]);
 
   useEffect(() => {
@@ -48,6 +48,9 @@ const ItemCard = ({
     console.error(`이미지 로드 실패: ${imageUrl}`);
   };
 
+  // 이미지가 GIF일 경우만 unoptimized 설정
+  const isGif = imageUrl.endsWith(".gif");
+
   return (
     <Link
       href={`/items/${item.id}`}
@@ -61,6 +64,7 @@ const ItemCard = ({
         )}
 
         {imageUrl.endsWith(".svg") ? (
+          // SVG 파일은 img 태그로 처리
           <img
             src={imageUrl}
             alt="상품 썸네일"
@@ -71,13 +75,14 @@ const ItemCard = ({
             onError={handleImageError}
           />
         ) : (
+          // GIF 파일만 unoptimized 처리
           <Image
             src={imageStatus === "error" ? NoImage.src : imageUrl}
             alt="상품 썸네일"
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
             height={height}
-            unoptimized={true}
+            unoptimized={isGif} // GIF 파일에만 적용
             onLoad={handleImageLoad}
             onError={handleImageError}
             priority={priority}
