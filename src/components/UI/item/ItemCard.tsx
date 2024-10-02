@@ -71,8 +71,6 @@ const ItemCard = ({
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
             height={height}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
           />
         ) : (
           // GIF 파일만 unoptimized 처리

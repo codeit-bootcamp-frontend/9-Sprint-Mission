@@ -15,52 +15,48 @@ import WriteButtonImage from "@/images/ui/write_small_40.png";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 5; // 한 번에 불러올 게시글 수
 
+// 화면 크기에 따라 페이지네이션 여부를 결정하는 함수
 const isPageNation = () => {
   if (typeof window !== "undefined") {
-    // 클라이언트 측에서만 실행
     const width = window.innerWidth;
-    if (width < 768) {
-      return false; // Mobile viewport
-    } else {
-      return true; // Tablet, Desktop viewport
-    }
+    return width >= 768; // 태블릿 또는 데스크탑에서는 페이지네이션 활성화
   }
-  return true; // 기본값
+  return true; // 기본적으로 페이지네이션 활성화
 };
 
 const AllArticlesSection = () => {
-  const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [totalPages, setTotalPages] = useState(1);
-  const router = useRouter();
-  const keyword = (router.query.q as string) || "";
-  const [isLoading, setIsLoading] = useAtom(loadingAtom);
-  const observer = useRef<IntersectionObserver | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isPagination, setIsPagination] = useState(isPageNation());
+  const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent"); // 정렬 기준
+  const [articles, setArticles] = useState<Article[]>([]); // 게시글 리스트 상태
+  const [page, setPage] = useState(1); // 현재 페이지
+  const [hasMore, setHasMore] = useState(true); // 더 불러올 게시글이 있는지 여부
+  const [totalPages, setTotalPages] = useState(1); // 전체 페이지 수
+  const router = useRouter(); // Next.js 라우터
+  const keyword = (router.query.q as string) || ""; // 검색 키워드
+  const [isLoading, setIsLoading] = useAtom(loadingAtom); // 로딩 상태
+  const observer = useRef<IntersectionObserver | null>(null); // 무한 스크롤용 옵저버
+  const containerRef = useRef<HTMLDivElement>(null); // 게시글 리스트 컨테이너 참조
+  const [isPagination, setIsPagination] = useState(isPageNation()); // 페이지네이션 여부
 
-  // 윈도우 크기 변경 감지
+  // 화면 크기 변경 시 페이지네이션 여부를 재설정
   useEffect(() => {
     const handleResize = () => {
       setIsPagination(isPageNation());
     };
-
-    handleResize(); // 초기 렌더링 시에도 실행
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 페이지 이동 후 조건부 스크롤 처리
+  // 라우트 변경 시 스크롤 처리 (무한 스크롤 시 페이지 이동 후 자동 스크롤)
   const handleRouteChange = useCallback(() => {
     if (page > 1) {
       window.scrollTo(0, document.body.scrollHeight);
     }
   }, [page]);
 
+  // 라우트 변경 이벤트 리스너 등록
   useEffect(() => {
     router.events.on("routeChangeComplete", handleRouteChange);
     return () => {
@@ -68,48 +64,48 @@ const AllArticlesSection = () => {
     };
   }, [router.events, handleRouteChange]);
 
-  // 무한 스크롤 처리
+  // 무한 스크롤 구현 - 마지막 게시글이 화면에 보이면 다음 페이지 불러옴
   const lastArticleElementRef = useCallback(
     (node: HTMLDivElement | null) => {
-      if (isLoading || isPagination) return;
-      if (observer.current) observer.current.disconnect();
+      if (isLoading || isPagination) return; // 로딩 중이거나 페이지네이션 중이면 실행 안 함
+      if (observer.current) observer.current.disconnect(); // 이전 옵저버 해제
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage) => prevPage + 1);
+          setPage((prevPage) => prevPage + 1); // 페이지 번호 증가
         }
       });
-      if (node) observer.current.observe(node);
+      if (node) observer.current.observe(node); // 새 요소에 옵저버 적용
     },
     [isLoading, hasMore, isPagination]
   );
 
-  // 정렬 옵션 변경
+  // 정렬 옵션 변경 시 호출되는 함수
   const handleSortSelection = (sortOption: ArticleSortOption) => {
-    setOrderBy(sortOption);
-    setPage(1);
-    setArticles([]); // 정렬 변경 시 기존 데이터 초기화
+    setOrderBy(sortOption); // 선택된 정렬 기준으로 설정
+    setPage(1); // 페이지를 1로 초기화
+    setArticles([]); // 게시글 목록 초기화
   };
 
-  // 검색 처리
+  // 검색어 입력 시 호출되는 함수
   const handleSearch = (searchKeyword: string) => {
-    const query = { ...router.query };
+    const query = { ...router.query }; // 기존 쿼리 유지
     if (searchKeyword.trim()) {
-      query.q = searchKeyword;
+      query.q = searchKeyword; // 검색어가 있으면 쿼리에 추가
     } else {
-      delete query.q;
+      delete query.q; // 검색어가 없으면 쿼리에서 제거
     }
     router.replace({
       pathname: router.pathname,
       query,
     });
-    setPage(1);
-    setArticles([]); // 검색어 변경 시 기존 데이터 초기화
+    setPage(1); // 페이지를 1로 초기화
+    setArticles([]); // 게시글 목록 초기화
   };
 
-  // API에서 데이터 가져오기
+  // 게시글 목록을 API에서 가져오는 함수
   const fetchArticles = useCallback(async () => {
-    if (keyword === undefined) return; // 검색어가 없으면 요청하지 않음
-    setIsLoading(true);
+    if (keyword === undefined) return; // 검색어가 없으면 실행 안 함
+    setIsLoading(true); // 로딩 상태 활성화
     try {
       const params: {
         orderBy: ArticleSortOption;
@@ -122,39 +118,48 @@ const AllArticlesSection = () => {
         pageSize: PAGE_SIZE,
       };
       if (keyword.trim()) {
-        params.keyword = keyword;
+        params.keyword = keyword; // 검색어가 있으면 params에 추가
       }
-      const data = await getArticles(params);
+      const data = await getArticles(params); // API 호출
       setArticles((prevArticles) =>
         isPagination || page === 1 ? data.list : [...prevArticles, ...data.list]
-      );
-      setHasMore(data.list.length === PAGE_SIZE);
-      const calculatedTotalPages = Math.ceil(data.totalCount / PAGE_SIZE);
-      setTotalPages(calculatedTotalPages);
+      ); // 페이지 1일 때는 새로운 목록으로 대체, 그 외에는 기존 목록에 추가
+      setHasMore(data.list.length === PAGE_SIZE); // 남은 게시글이 있는지 여부 확인
+      const calculatedTotalPages = Math.ceil(data.totalCount / PAGE_SIZE); // 전체 페이지 수 계산
+      setTotalPages(calculatedTotalPages); // 전체 페이지 수 업데이트
     } catch (error) {
-      console.error("Failed to fetch articles:", error);
+      console.error("게시글을 불러오는 데 실패했습니다:", error);
     } finally {
-      setIsLoading(false);
+      setIsLoading(false); // 로딩 상태 비활성화
     }
   }, [orderBy, keyword, page, isPagination, setIsLoading]);
 
-  // 페이지네이션 및 무한 스크롤 데이터 로드
+  // 게시글 데이터를 가져오는 useEffect
   useEffect(() => {
-    fetchArticles(); // 컴포넌트 렌더링 시 데이터 로드
+    fetchArticles(); // 의존성 배열의 값이 변경될 때마다 API 호출
   }, [orderBy, keyword, page, fetchArticles]);
 
   return (
     <div
-      className="mt-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto"
+      className="bg-white py-12 px-4 md:px-6 lg:px-8 max-w-[1200px] mx-auto"
       ref={containerRef}
     >
+      {/* 게시글 타이틀 및 글쓰기 버튼 */}
       <div className="flex justify-between items-center mb-6">
         <div className="text-2xl font-bold text-gray-800">게시글</div>
+        {/* 글쓰기 버튼 클릭 시 /addArticle 경로로 이동 */}
         <Link href="/addArticle">
-          <Image src={WriteButtonImage} alt="글쓰기" width={88} height={42} />
+          <Image
+            src={WriteButtonImage}
+            alt="글쓰기"
+            width={88} // 이미지의 너비
+            height={42} // 이미지의 높이
+            className="cursor-pointer"
+          />
         </Link>
       </div>
 
+      {/* 검색 및 정렬 옵션 */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <SearchBar onSearch={handleSearch} className="w-full md:w-96" />
         <DropdownMenu<ArticleSortOption>
@@ -163,7 +168,9 @@ const AllArticlesSection = () => {
         />
       </div>
 
-      <div className="space-y-6">
+      {/* 게시글 목록 - 한 줄에 하나씩 나오도록 설정 */}
+      <div className="grid grid-cols-1 gap-6">
+        {" "}
         {articles.length
           ? articles.map((article, index) => (
               <div
@@ -174,7 +181,8 @@ const AllArticlesSection = () => {
                     : null
                 }
               >
-                <AllArticleCard article={article} />
+                {/* currentPage 전달 */}
+                <AllArticleCard article={article} currentPage={page} />{" "}
               </div>
             ))
           : keyword && (
@@ -182,19 +190,21 @@ const AllArticlesSection = () => {
             )}
       </div>
 
+      {/* 로딩 스피너 */}
       {isLoading && (
         <div className="flex justify-center items-center h-20">
           <LoadingSpinner isLoading={isLoading} />
         </div>
       )}
 
+      {/* 페이지네이션 */}
       {isPagination && totalPages > 1 && (
         <div className="pt-10 pb-20">
           <PaginationBar
-            totalPageNum={totalPages}
-            activePageNum={page}
+            totalPageNum={totalPages} // 전체 페이지 수
+            activePageNum={page} // 현재 페이지 번호
             onPageChange={(newPage) => {
-              setPage(newPage);
+              setPage(newPage); // 페이지 변경
             }}
           />
         </div>

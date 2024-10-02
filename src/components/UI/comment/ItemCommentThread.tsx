@@ -3,7 +3,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { getProductComments } from "@/api/item";
 import EmptyStateImage from "@/images/ui/empty-comments.svg";
 import KebabIcon from "@/images/icons/ic_kebab.svg";
-import DefaultProfileImage from "@/images/ui/ic_profile.svg";
+import DefaultProfileImage from "@/images/ui/ic_profile-40.png";
 import { formatUpdatedAt } from "@/utils/dateUtils";
 import { Comment, CommentListResponse } from "@/types/comment";
 import Image from "next/image";

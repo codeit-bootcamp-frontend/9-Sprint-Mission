@@ -22,13 +22,12 @@ const BestArticleCard = ({
   width = 384,
   height = 169,
   onLoad,
-  priority = false, // 기본값: false
+  priority = true, // 기본값: true
 }: BestArticleCardProps) => {
   const dateString = format(article.createdAt, "yyyy. MM. dd");
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading");
-
   // 이미지 확장자가 허용된 파일인지 확인하고 프록시를 통한 로딩
   const imageUrl = isValidImageUrl(article.image)
     ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
@@ -76,7 +75,7 @@ const BestArticleCard = ({
                 height={height}
                 onLoad={handleImageLoad} // 이미지 로드 시 콜백 함수 호출
                 onError={handleImageError}
-                priority={priority} // 중요 이미지에 우선 로딩 적용
+                priority={priority} // 기본적으로 priority 적용
               />
             </div>
           </div>
