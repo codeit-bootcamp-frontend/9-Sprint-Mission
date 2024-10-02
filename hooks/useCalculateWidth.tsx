@@ -1,26 +1,28 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 
 // width 값 반환하는 커스텀 훅
 export const useCalculateWidth = (value: string) => {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState<number>(0);
   let result = 0;
-  
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const handleResize = () => {
         setWidth(window.innerWidth);
       };
 
-      handleResize();
-  
       window.addEventListener("resize", handleResize);
-  
-      return () => window.removeEventListener("resize", handleResize);
-    }
+      handleResize();
+      
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    } 
   }, []);
 
+  if (width > 0) {
     if (value === "all") {
       if (width > 375 && width < 767) {
         result = 4;
@@ -38,6 +40,7 @@ export const useCalculateWidth = (value: string) => {
         result = 3;
       }
     }
-
+  } 
+  
   return result;
 };

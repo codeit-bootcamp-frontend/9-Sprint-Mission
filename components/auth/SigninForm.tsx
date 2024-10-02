@@ -12,7 +12,6 @@ const AuthForm = ({ form, isLoading, error }: ISigninForm) => {
   const context = useToken();
 
   const [apiError, setApiError] = useState("");
-  const [serverError, setServerError] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
 
   const handleVisiblePassword = () => {
@@ -35,10 +34,7 @@ const AuthForm = ({ form, isLoading, error }: ISigninForm) => {
         if (axios.isAxiosError(error)) {
           console.error("로그인 POST 요청에서 API 오류 발생", error);
           setApiError(error.response?.data);
-        } else {
-          console.error("로그인 POST 요청에서 알 수 없는 오류 발생", error);
-          setServerError(true);
-        }
+        } 
       }
     
   };
@@ -83,11 +79,6 @@ const AuthForm = ({ form, isLoading, error }: ISigninForm) => {
         </div>
         {error && <span className="error-text-start">{error.userPassword?.message}</span>}
       </div>
-      {serverError && (
-        <span className="error-text-center">
-          회원가입 중 오류가 발생하여 가입되지 않았습니다. <br /> 잠시 후 다시 시도해주세요.
-        </span>
-      )}
       {apiError !== "" && <span className="error-text-center">{apiError}</span>}
       <button
         type="submit"

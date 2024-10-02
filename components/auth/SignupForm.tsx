@@ -20,7 +20,6 @@ const SignupForm = ({ form, isLoading, error }: ISignupForm) => {
   const router = useRouter();
 
   const [apiError, setApiError] = useState("");
-  const [serverError, setServerError] = useState(false);
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [visiblePassword2, setVisiblePassword2] = useState(false);
 
@@ -49,10 +48,7 @@ const SignupForm = ({ form, isLoading, error }: ISignupForm) => {
       if (axios.isAxiosError(error)) {
         console.error("회원가입 post 요청에서 API 요청 오류 발생", error);
         setApiError(error.response?.data);
-      } else {
-        console.error("회원가입 post 요청에서 알 수 없는 오류 발생", error);
-        setServerError(true);
-      }
+      } 
     }
   };
 
@@ -131,11 +127,6 @@ const SignupForm = ({ form, isLoading, error }: ISignupForm) => {
         {error && <span className="error-text-start">{item.error}</span>}
       </div>
       ))}
-      {serverError && (
-        <span className="error-text-center">
-          회원가입 중 오류가 발생하여 가입되지 않았습니다. <br /> 잠시 후 다시 시도해주세요.
-        </span>
-      )}
       {apiError !== "" && <span className="error-text-center">{apiError}</span>}
       <button
         type="submit"
