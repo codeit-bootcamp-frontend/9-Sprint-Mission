@@ -5,42 +5,43 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 import { logout } from "@/api/auth";
 import { useAtom } from "jotai";
-import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/authAtoms";
+import { userAtom } from "@/store/authAtoms";
 import Logo from "@/images/logo/logo.svg";
 import DefaultAvatar from "@/images/ui/ic_profile-32.png";
 
 export default function Header() {
   const router = useRouter();
-  const [userId, setUserId] = useAtom(userIdAtom);
-  const [nickname, setNickname] = useAtom(nicknameAtom);
-  const [userImage, setUserImage] = useAtom(userImageAtom);
+  const [user, setUser] = useAtom(userAtom);
 
   useEffect(() => {
     const storedUserId = Cookies.get("userId");
     const storedUserImage = Cookies.get("userImage");
     const storedNickname = Cookies.get("nickname");
 
-    setUserId(storedUserId || null);
-    if (
-      storedUserImage &&
-      storedUserImage.startsWith("https") &&
-      /\.(png|svg|jpg)$/.test(storedUserImage)
-    ) {
-      setUserImage(storedUserImage);
-    } else {
-      setUserImage(DefaultAvatar.src);
-    }
-    setNickname(storedNickname || null);
-  }, [setUserId, setUserImage, setNickname]);
+    setUser({
+      Id: storedUserId || null,
+      Image:
+        storedUserImage &&
+        storedUserImage.startsWith("https") &&
+        /\.(png|svg|jpg)$/.test(storedUserImage)
+          ? storedUserImage
+          : DefaultAvatar.src,
+      nickname: storedNickname || null,
+    });
+  }, [setUser]);
 
   const handleLogout = async () => {
     Cookies.remove("accessToken");
     Cookies.remove("userId");
     Cookies.remove("nickname");
     Cookies.remove("userImage");
-    setUserId(null);
-    setNickname(null);
-    setUserImage(null);
+
+    setUser({
+      Id: null,
+      Image: null,
+      nickname: null,
+    });
+
     await logout(() => router.push("/auth/login"));
   };
 
@@ -78,17 +79,17 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        {userId ? (
+        {user.Id ? (
           <div className="relative group">
             <Image
-              src={userImage || DefaultAvatar.src}
+              src={user.Image || DefaultAvatar.src}
               alt="User Avatar"
               className="w-8 h-8 cursor-pointer rounded-full"
               width={32}
               height={32}
             />
             <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-max bg-white border border-gray-300 rounded-md shadow-lg p-2 text-sm text-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {nickname && <div>{nickname}</div>}
+              {user.nickname && <div>{user.nickname}</div>}
               <button
                 onClick={handleLogout}
                 className="mt-2 text-gray-600 hover:text-blue-500"

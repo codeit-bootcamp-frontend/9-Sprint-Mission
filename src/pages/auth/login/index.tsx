@@ -11,13 +11,11 @@ import { LoginFormValues, AuthResponse } from "@/types/auth";
 import Logo from "@/images/logo/logo-auth.svg";
 import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
-import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/authAtoms";
+import { userAtom } from "@/store/authAtoms";
 
 export default function LoginPage() {
   const router = useRouter();
-  const setUserId = useSetAtom(userIdAtom);
-  const setNickname = useSetAtom(nicknameAtom);
-  const setUserImage = useSetAtom(userImageAtom);
+  const setUser = useSetAtom(userAtom);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -43,20 +41,22 @@ export default function LoginPage() {
     };
 
     try {
-      const result = (await logIn(trimmedData)) as AuthResponse;
-      const resultUserImage = result.user.image ? result.user.image : "";
+      const userData = (await logIn(trimmedData)) as AuthResponse;
+      const userId = userData.user.id.toString();
+      const userImage = userData.user.image ? userData.user.image : "";
+      const userNickname = userData.user.nickname;
+      Cookies.set("accessToken", userData.accessToken);
+      Cookies.set("refreshToken", userData.refreshToken);
+      Cookies.set("userId", userId);
+      Cookies.set("userImage", userImage);
+      Cookies.set("nickname", userNickname);
 
-      console.log("Auth Response: ", result);
-
-      Cookies.set("accessToken", result.accessToken);
-      Cookies.set("refreshToken", result.refreshToken);
-      Cookies.set("userId", result.user.id.toString());
-      Cookies.set("userImage", resultUserImage);
-      Cookies.set("nickname", result.user.nickname);
-
-      setUserId(result.user.id.toString());
-      setNickname(result.user.nickname);
-      setUserImage(result.user.image);
+      // userAtom의 전체 상태를 한 번에 업데이트
+      setUser({
+        Id: userId,
+        Image: userImage,
+        nickname: userNickname,
+      });
 
       router.push("/");
     } catch (error) {

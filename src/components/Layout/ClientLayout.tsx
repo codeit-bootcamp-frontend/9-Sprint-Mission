@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Provider, useSetAtom } from "jotai";
-import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/authAtoms";
+import { userAtom } from "@/store/authAtoms";
 import { loadingAtom } from "@/store/loadingAtom";
 import { refreshAccessToken } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";
@@ -19,9 +19,7 @@ const pretendard = localFont({
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const setIsLoading = useSetAtom(loadingAtom);
-  const setUserId = useSetAtom(userIdAtom);
-  const setNickname = useSetAtom(nicknameAtom);
-  const setUserImage = useSetAtom(userImageAtom);
+  const setUser = useSetAtom(userAtom);
 
   useEffect(() => {
     const autoLogin = async () => {
@@ -33,9 +31,11 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
           )) as AuthResponse;
           if (result.accessToken) {
             Cookies.set("accessToken", result.accessToken);
-            setUserId(result.user.id.toString());
-            setNickname(result.user.nickname);
-            setUserImage(result.user.image);
+            setUser({
+              Id: result.user.id.toString(),
+              nickname: result.user.nickname,
+              Image: result.user.image,
+            });
             // 필요한 경우 다른 사용자 정보도 설정
           }
         } catch (error) {
@@ -47,7 +47,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
     };
 
     autoLogin();
-  }, [setUserId, setNickname, setUserImage]);
+  }, [setUser]);
 
   useEffect(() => {
     setIsLoading(true);
