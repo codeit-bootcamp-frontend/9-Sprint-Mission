@@ -1,12 +1,12 @@
 // src/pages/items/[id].tsx
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import Image from "next/image";
 import { getProductDetail } from "@/api/item";
 import ItemDetailSection from "@/components/UI/item/ItemDetailSection";
 import ItemCommentSection from "@/components/UI/comment/ItemCommentSection";
-import BackIcon from "@/images/icons/ic_back.svg";
 import { ProductDetail } from "@/types/product";
-import { useRouter } from "next/router";
+import BackToListButton from "@/components/UI/BackToListButton";
 
 export default function ItemPage() {
   const router = useRouter();
@@ -45,6 +45,9 @@ export default function ItemPage() {
         <div className="container mx-auto pt-24 px-4">
           상품 정보가 없습니다.
         </div>
+        <div className="container mx-auto pt-24 px-4">
+          <BackToListButton path="/items" />
+        </div>
       </>
     );
 
@@ -52,18 +55,11 @@ export default function ItemPage() {
     <>
       <div className="container mx-auto pt-24 px-4">
         <ItemDetailSection productDetail={productDetail} />
-
         <hr className="my-6 border-t border-gray-200" />
-
         <ItemCommentSection productId={productDetail.id} />
-
-        <Link
-          href="/items"
-          className="flex items-center gap-2 text-lg font-semibold mx-auto mt-8 text-blue-600 hover:text-blue-800"
-        >
-          목록으로 돌아가기
-          <BackIcon className="w-5 h-5" />
-        </Link>
+      </div>
+      <div className="container mx-auto pt-24 px-4">
+        <BackToListButton path="/items" />
       </div>
     </>
   );
