@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { Html, Head, Main, NextScript } from "next/document";
-=======
-import { Html, Head, Main, NextScript } from 'next/document'
->>>>>>> Next-홍예림
 
 export default function Document() {
   return (
@@ -13,9 +9,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-<<<<<<< HEAD
   );
-=======
-  )
->>>>>>> Next-홍예림
 }

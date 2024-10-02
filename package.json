@@ -1,10 +1,5 @@
 {
-<<<<<<< HEAD
   "name": "fe-weekly-mission",
-=======
-<<<<<<< HEAD
-  "name": "1-weekly-mission",
->>>>>>> Next-홍예림
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -21,9 +16,14 @@
     "react": "^18",
     "react-dom": "^18"
   },
-<<<<<<< HEAD
   "devDependencies": {
-=======
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.6"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -35,34 +35,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-=======
-  "name": "fe-weekly-mission",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "13.5.6"
-  },
-  "devDependencies": {
-    "typescript": "^5",
->>>>>>> Next-홍예림
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-<<<<<<< HEAD
-    "eslint-config-next": "13.5.6",
-    "typescript": "^5"
-=======
-    "eslint-config-next": "13.5.6"
->>>>>>> 8d163dd7d66bd121fdc5a1e4251aa42a4ff61e27
->>>>>>> Next-홍예림
   }
 }
