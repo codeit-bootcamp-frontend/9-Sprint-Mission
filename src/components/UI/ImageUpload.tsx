@@ -3,6 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import PlusIcon from "@/images/icons/ic_plus.svg";
 import DeleteButton from "./DeleteButton";
+import { uploadImage } from "@/api/uploadImage";
 
 interface ImageUploadProps {
   title: string;
@@ -18,31 +19,25 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
     const file = event.target.files?.[0];
 
     if (file) {
-      setImageStatus("loading");
-      const imageUrl = URL.createObjectURL(file);
+      // 파일 크기 제한 확인 (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert("이미지 파일은 최대 5MB까지 업로드할 수 있습니다.");
+        return;
+      }
 
-      // 개발 환경에서는 이미지 검증을 건너뜁니다.
-      if (process.env.NODE_ENV === "development") {
-        setImagePreviewUrl(imageUrl);
+      setImageStatus("loading");
+
+      try {
+        // 이미지 업로드 및 URL 획득
+        const uploadedImageUrl = await uploadImage(file);
+
+        // 이미지 URL을 미리보기로 설정
+        setImagePreviewUrl(uploadedImageUrl);
         setImageStatus("loaded");
-      } else {
-        try {
-          const response = await fetch(
-            `/api/imageProxy?url=${encodeURIComponent(imageUrl)}`,
-            { method: "HEAD" }
-          );
-          if (response.ok) {
-            setImagePreviewUrl(imageUrl);
-            setImageStatus("loaded");
-          } else {
-            setImageStatus("error");
-            alert("유효하지 않은 이미지입니다.");
-          }
-        } catch (error) {
-          console.error("이미지 검증 중 오류 발생:", error);
-          setImageStatus("error");
-          alert("이미지 검증 중 오류가 발생했습니다.");
-        }
+      } catch (error) {
+        console.error("이미지 업로드 중 오류 발생:", error);
+        setImageStatus("error");
+        alert("이미지 업로드 중 오류가 발생했습니다.");
       }
     }
   };
@@ -56,6 +51,7 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
     <div>
       <label className="block text-sm font-bold mb-3 sm:text-lg">{title}</label>
       <div className="flex gap-2 sm:gap-4 lg:gap-6">
+        {/* 이미지 업로드 버튼 */}
         <label
           htmlFor="image-upload"
           className="flex flex-col items-center justify-center gap-3 cursor-pointer bg-gray-100 hover:bg-gray-50 text-gray-400 text-base w-1/2 max-w-[200px] aspect-square rounded-xl sm:w-[162px] lg:w-[282px]"
@@ -73,12 +69,14 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
           alt={title}
         />
 
+        {/* 로딩 중일 때 */}
         {imageStatus === "loading" && (
           <div className="flex items-center justify-center w-1/2 max-w-[200px] aspect-square rounded-xl sm:w-[162px] lg:w-[282px] bg-gray-100">
             <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent border-solid rounded-full animate-spin"></div>
           </div>
         )}
 
+        {/* 이미지 미리보기 */}
         {imageStatus === "loaded" && imagePreviewUrl && (
           <div className="relative w-1/2 max-w-[200px] aspect-square rounded-xl sm:w-[162px] lg:w-[282px] overflow-hidden">
             <Image
