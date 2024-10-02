@@ -89,9 +89,10 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
           <LoadingSpinner isLoading={isLoading} />
         </div>
       )}
-      <div className="py-4 mt-6 md:py-6 md:mt-12 lg:py-8 lg:mt-12">
-        <div className="text-gray-900 font-bold text-xl mb-4">베스트 상품</div>
-
+      <div className="py-4 mt-6 md:py-6 md:mt-12 lg:py-8 lg:mt-12 max-w-[1200px] mx-auto">
+        {" "}
+        {/* max-w-[1200px] 추가 */}
+        <div className="mb-6 text-2xl font-bold text-gray-800">베스트 상품</div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {itemList?.map((item) => (
             <ItemCard
@@ -99,7 +100,7 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
               key={`best-item-${item.id}`}
               width={width}
               height={height}
-              onLoad={handleImageLoad} // 이미지 로드 이벤트 핸들러 추가
+              onLoad={handleImageLoad}
             />
           ))}
         </div>

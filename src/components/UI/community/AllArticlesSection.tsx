@@ -140,13 +140,10 @@ const AllArticlesSection = () => {
   }, [orderBy, keyword, page, fetchArticles]);
 
   return (
-    <div
-      className="bg-white py-12 px-4 md:px-6 lg:px-8 max-w-[1200px] mx-auto"
-      ref={containerRef}
-    >
+    <div className="bg-white px-4 max-w-[1200px] mx-auto" ref={containerRef}>
       {/* 게시글 타이틀 및 글쓰기 버튼 */}
-      <div className="flex justify-between items-center mb-6">
-        <div className="text-2xl font-bold text-gray-800">게시글</div>
+      <div className="flex justify-between items-center">
+        <div className="mb-6 text-2xl font-bold text-gray-800">게시글</div>
         {/* 글쓰기 버튼 클릭 시 /addArticle 경로로 이동 */}
         <Link href="/addArticle">
           <Image
