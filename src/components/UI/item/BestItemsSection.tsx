@@ -38,14 +38,13 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
       pageSize,
       orderBy,
     }: {
-      orderBy: ProductSortOption;
       pageSize: number;
+      orderBy: ProductSortOption;
     }) => {
       setIsLoading(true);
-      const page = 1;
       try {
         const response: ProductListResponse = await getProducts({
-          page,
+          page: 1,
           pageSize,
           orderBy,
         });

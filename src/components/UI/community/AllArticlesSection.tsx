@@ -17,6 +17,19 @@ import { loadingAtom } from "@/store/loadingAtom";
 
 const PAGE_SIZE = 5;
 
+const isPageNation = () => {
+  if (typeof window !== "undefined") {
+    // 클라이언트 측에서만 실행
+    const width = window.innerWidth;
+    if (width < 768) {
+      return false; // Mobile viewport
+    } else {
+      return true; // Tablet, Desktop viewport
+    }
+  }
+  return true; // 기본값
+};
+
 const AllArticlesSection = () => {
   const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
   const [articles, setArticles] = useState<Article[]>([]);
@@ -28,13 +41,12 @@ const AllArticlesSection = () => {
   const [isLoading, setIsLoading] = useAtom(loadingAtom);
   const observer = useRef<IntersectionObserver | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isPagination, setIsPagination] = useState(true);
+  const [isPagination, setIsPagination] = useState(isPageNation());
 
   // 윈도우 크기 변경 감지
   useEffect(() => {
     const handleResize = () => {
-      const isPaginationMode = window.innerWidth >= 768;
-      setIsPagination(isPaginationMode);
+      setIsPagination(isPageNation());
     };
 
     handleResize(); // 초기 렌더링 시에도 실행

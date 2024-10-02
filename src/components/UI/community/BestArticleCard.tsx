@@ -13,29 +13,40 @@ interface BestArticleCardProps {
   article: Article;
   width?: number;
   height?: number;
+  onLoad?: () => void; // 이미지 로드 완료 시 실행되는 콜백 함수
+  priority?: boolean; // 중요 이미지에 우선 로딩 적용
 }
 
 const BestArticleCard = ({
   article,
   width = 384,
   height = 169,
+  onLoad,
+  priority = false, // 기본값: false
 }: BestArticleCardProps) => {
   const dateString = format(article.createdAt, "yyyy. MM. dd");
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading");
 
-  // 이미지 확장자가 허용된 파일인지 확인
-  const isImageAllowed = article.image && isValidImageUrl(article.image);
-
-  // imageProxy 적용: 유효한 이미지일 경우 프록시 서버를 통해 이미지를 로드
-  const imageUrl = isImageAllowed
+  // 이미지 확장자가 허용된 파일인지 확인하고 프록시를 통한 로딩
+  const imageUrl = isValidImageUrl(article.image)
     ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
     : NoImage.src;
 
   useEffect(() => {
     setImageStatus("loading");
   }, [article.image]);
+
+  const handleImageLoad = () => {
+    setImageStatus("loaded");
+    if (onLoad) onLoad(); // 이미지 로드 시 콜백 함수 실행
+  };
+
+  const handleImageError = () => {
+    setImageStatus("error");
+    console.error(`이미지 로드 실패: ${imageUrl}`);
+  };
 
   return (
     <Link
@@ -63,11 +74,9 @@ const BestArticleCard = ({
                 style={{ objectFit: "contain" }}
                 width={width}
                 height={height}
-                onLoad={() => setImageStatus("loaded")}
-                onError={() => {
-                  setImageStatus("error");
-                  console.error(`이미지 로드 실패: ${imageUrl}`);
-                }}
+                onLoad={handleImageLoad} // 이미지 로드 시 콜백 함수 호출
+                onError={handleImageError}
+                priority={priority} // 중요 이미지에 우선 로딩 적용
               />
             </div>
           </div>
