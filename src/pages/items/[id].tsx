@@ -2,16 +2,18 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getProductDetail } from "@/api/item";
-import ItemProfileSection from "@/components/UI/item/ItemProfileSection";
-import ItemCommentSection from "@/components/UI/item/ItemCommentSection";
+import ItemDetailSection from "@/components/UI/item/ItemDetailSection";
+import ItemCommentSection from "@/components/UI/comment/ItemCommentSection";
 import BackIcon from "@/images/icons/ic_back.svg";
-import { Product } from "@/types/product";
+import { ProductDetail } from "@/types/product";
 import { useRouter } from "next/router";
 
 export default function ItemPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [product, setProduct] = useState<Product | null>(null);
+  const [productDetail, setProductDetail] = useState<ProductDetail | null>(
+    null
+  );
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -19,8 +21,10 @@ export default function ItemPage() {
       const fetchProduct = async () => {
         try {
           const productIdNumber = Number(id);
-          const productData = await getProductDetail(productIdNumber);
-          setProduct(productData);
+          const productData: ProductDetail = await getProductDetail(
+            productIdNumber
+          );
+          setProductDetail(productData);
         } catch (err) {
           console.error(err);
           setError("상품 정보를 불러오는 중 오류가 발생했습니다.");
@@ -35,7 +39,7 @@ export default function ItemPage() {
     alert(`오류: ${error}`);
   }
 
-  if (!product)
+  if (!productDetail)
     return (
       <>
         <div className="container mx-auto pt-24 px-4">
@@ -47,11 +51,11 @@ export default function ItemPage() {
   return (
     <>
       <div className="container mx-auto pt-24 px-4">
-        <ItemProfileSection product={product} />
+        <ItemDetailSection productDetail={productDetail} />
 
         <hr className="my-6 border-t border-gray-200" />
 
-        <ItemCommentSection productId={product.id} />
+        <ItemCommentSection productId={productDetail.id} />
 
         <Link
           href="/items"

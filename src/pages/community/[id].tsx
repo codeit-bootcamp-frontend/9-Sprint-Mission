@@ -5,6 +5,8 @@ import { getArticleDetail } from "@/api/article";
 import BackIcon from "@/images/icons/ic_back.svg";
 import { Article } from "@/types/article";
 import { useRouter } from "next/router";
+import ArticleDetailSection from "@/components/UI/community/ArticleDetailSection";
+import ArticleCommentSection from "@/components/UI/comment/ArticleCommentSection";
 
 export default function ItemPage() {
   const router = useRouter();
@@ -43,11 +45,11 @@ export default function ItemPage() {
   return (
     <>
       <div className="container mx-auto pt-24 px-4">
-        {/* <ArticleProfileSection article={article} /> */}
+        <ArticleDetailSection articleDetail={article} />
 
         <hr className="my-6 border-t border-gray-200" />
 
-        {/* <ArticleCommentSection articleId={article.id} /> */}
+        <ArticleCommentSection articleId={article.id} />
 
         <Link
           href="/community"

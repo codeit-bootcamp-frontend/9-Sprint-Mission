@@ -27,10 +27,12 @@ export async function getArticleDetail(articleId: number) {
 
 export async function getArticleComments({
   articleId,
-  params,
+  limit,
+  cursor,
 }: {
   articleId: number;
-  params: unknown;
+  limit: number;
+  cursor?: number | null; // 다음 페이지를 위한 커서는 선택
 }) {
   if (!articleId) {
     throw new Error("Invalid article ID");
@@ -40,7 +42,10 @@ export async function getArticleComments({
     const response = await axiosInstance.get(
       `/articles/${articleId}/comments`,
       {
-        params,
+        params: {
+          limit,
+          cursor, // cursor는 선택 사항이므로 존재할 때만 추가됨
+        },
       }
     );
     return response.data;

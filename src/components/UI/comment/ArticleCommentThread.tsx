@@ -1,17 +1,17 @@
-// src/components/UI/item/CommentThread.tsx
+// src/components/UI/comment/ArticleCommentThread.tsx
 import { useEffect, useState, useRef, useCallback } from "react";
-import { getProductComments } from "@/api/item";
+import { getArticleComments } from "@/api/article";
 import EmptyStateImage from "@/images/ui/empty-comments.svg";
 import KebabIcon from "@/images/icons/ic_kebab.svg";
 import DefaultProfileImage from "@/images/ui/ic_profile.svg";
 import { formatUpdatedAt } from "@/utils/dateUtils";
-import { ProductComment, ProductCommentListResponse } from "@/types/comment";
+import { Comment, CommentListResponse } from "@/types/comment";
 import Image from "next/image";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 이미지 유효성 검사 함수 가져오기
 
 // 댓글 하나를 나타내는 컴포넌트
 interface CommentItemProps {
-  item: ProductComment;
+  item: Comment;
 }
 
 const CommentItem = ({ item }: CommentItemProps) => {
@@ -62,13 +62,13 @@ const EmptyState = () => (
   </div>
 );
 
-// 댓글 스레드를 나타내는 컴포넌트 (상품 ID를 받아 댓글을 표시)
+// 댓글 스레드를 나타내는 컴포넌트 (게시글 ID를 받아 댓글을 표시)
 interface CommentThreadProps {
-  productId: number;
+  articleId: number;
 }
 
-const CommentThread = ({ productId }: CommentThreadProps) => {
-  const [comments, setComments] = useState<ProductComment[]>([]); // 댓글 리스트
+const CommentThread = ({ articleId }: CommentThreadProps) => {
+  const [comments, setComments] = useState<Comment[]>([]); // 댓글 리스트
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태
   const [error, setError] = useState<string | null>(null); // 에러 상태
   const [nextCursor, setNextCursor] = useState<number | null>(null); // 무한 스크롤을 위한 다음 커서
@@ -79,19 +79,18 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
 
   // 댓글을 가져오는 함수 (useCallback으로 메모이제이션)
   const fetchComments = useCallback(async () => {
-    if (!productId || !hasMore) return; // 상품 ID가 없거나 더 이상 댓글이 없으면 종료
+    if (!articleId || !hasMore) return; // 게시글 ID가 없거나 더 이상 댓글이 없으면 종료
 
     setIsLoading(true);
-    const params = {
-      limit: 10, // 한 번에 불러올 댓글 수
-      cursor: nextCursor, // 다음 페이지를 위한 커서
-    };
+    const limit = 10; // 한 번에 불러올 댓글 수
+    const cursor = nextCursor; // 다음 페이지를 위한 커서
 
     try {
       // API 호출하여 댓글 목록 가져오기
-      const response: ProductCommentListResponse = await getProductComments({
-        productId,
-        params,
+      const response: CommentListResponse = await getArticleComments({
+        articleId,
+        limit,
+        cursor,
       });
 
       // 이전 댓글에 새로 불러온 댓글 추가
@@ -103,11 +102,11 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
       setError(null); // 에러 초기화
     } catch (error) {
       console.error("Error fetching comments:", error);
-      setError("상품의 댓글을 불러오지 못했어요."); // 에러 메시지 설정
+      setError("게시글의 댓글을 불러오지 못했어요."); // 에러 메시지 설정
     } finally {
       setIsLoading(false); // 로딩 상태 해제
     }
-  }, [productId, hasMore, nextCursor]);
+  }, [articleId, hasMore, nextCursor]);
 
   // 무한 스크롤: 마지막 댓글이 화면에 보이면 추가 댓글 로딩
   useEffect(() => {
@@ -128,15 +127,15 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
       observer.current.observe(lastCommentRef.current); // 마지막 댓글 관찰 시작
   }, [isLoading, hasMore, fetchComments]);
 
-  // 첫 댓글 로드 및 상품 ID 변경 시 댓글 리셋
+  // 첫 댓글 로드 및 게시글 ID 변경 시 댓글 리셋
   useEffect(() => {
     setComments([]); // 댓글 리스트 초기화
     fetchComments(); // 댓글 불러오기
-  }, [productId, fetchComments]);
+  }, [articleId, fetchComments]);
 
   // 로딩 상태 처리
   if (isLoading && !comments.length) {
-    return <div className="text-center py-4">상품 댓글 로딩중...</div>;
+    return <div className="text-center py-4">게시글 댓글 로딩중...</div>;
   }
 
   // 에러 처리

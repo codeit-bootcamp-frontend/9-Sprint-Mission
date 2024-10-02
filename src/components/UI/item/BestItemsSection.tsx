@@ -35,17 +35,19 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
 
   const fetchSortedData = useCallback(
     async ({
-      orderBy,
       pageSize,
+      orderBy,
     }: {
       orderBy: ProductSortOption;
       pageSize: number;
     }) => {
       setIsLoading(true);
+      const page = 1;
       try {
         const response: ProductListResponse = await getProducts({
-          orderBy,
+          page,
           pageSize,
+          orderBy,
         });
         setItemList(response.list);
       } catch (error) {
