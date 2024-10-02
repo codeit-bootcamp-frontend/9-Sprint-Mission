@@ -1,4 +1,4 @@
-// src/components/UI/item/itemCard.tsx
+// src/components/UI/item/ItemCard.tsx
 import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,12 +26,31 @@ const ItemCard = ({
     "loading" | "loaded" | "error"
   >("loading");
 
-  // 이미지 확장자가 허용된 파일인지 확인하고 프록시 URL 사용
-  const imageUrl = useMemo(() => {
+  // 이미지 URL 및 SVG 여부를 판단하기 위한 변수들
+  const imageInfo = useMemo(() => {
     if (item.images && item.images[0] && isValidImageUrl(item.images[0])) {
-      return `/api/imageProxy?url=${encodeURIComponent(item.images[0])}`;
+      const originalUrl = item.images[0];
+      const isSvg = originalUrl.toLowerCase().endsWith(".svg");
+
+      if (isSvg) {
+        // SVG 이미지는 원본 URL 사용
+        return {
+          url: originalUrl,
+          isSvg: true,
+        };
+      } else {
+        // 기타 이미지는 프록시 URL 사용
+        return {
+          url: `/api/imageProxy?url=${encodeURIComponent(originalUrl)}`,
+          isSvg: false,
+        };
+      }
     }
-    return NoImage.src; // 기본 이미지 설정
+    // 기본 이미지 설정
+    return {
+      url: NoImage.src,
+      isSvg: false,
+    };
   }, [item.images]);
 
   useEffect(() => {
@@ -45,11 +64,11 @@ const ItemCard = ({
 
   const handleImageError = () => {
     setImageStatus("error");
-    console.error(`이미지 로드 실패: ${imageUrl}`);
+    console.error(`이미지 로드 실패: ${imageInfo.url}`);
   };
 
   // 이미지가 GIF일 경우만 unoptimized 설정
-  const isGif = imageUrl.endsWith(".gif");
+  const isGif = imageInfo.url.endsWith(".gif");
 
   return (
     <Link
@@ -63,25 +82,27 @@ const ItemCard = ({
           </div>
         )}
 
-        {imageUrl.endsWith(".svg") ? (
+        {imageInfo.isSvg ? (
           // SVG 파일은 img 태그로 처리
           <img
-            src={imageUrl}
+            src={imageInfo.url}
             alt="상품 썸네일"
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
             height={height}
+            onLoad={handleImageLoad}
+            onError={handleImageError}
           />
         ) : (
           // GIF 파일만 unoptimized 처리
           <Image
-            src={imageStatus === "error" ? NoImage.src : imageUrl}
+            src={imageStatus === "error" ? NoImage.src : imageInfo.url}
             alt="상품 썸네일"
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
             height={height}
             unoptimized={isGif} // GIF 파일에만 적용
-            onLoad={handleImageLoad}
+            onLoadingComplete={handleImageLoad}
             onError={handleImageError}
             priority={priority}
           />
