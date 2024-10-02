@@ -1,0 +1,156 @@
+
+:root{
+    --background-color : #CFE5FF;
+    --blue:#3692FF;
+
+    --gray900:#111827;
+    --gray800 : #1F2937;
+    --gray700:#374151; 
+    --gray600: #4B5563;
+    --gray500: #6B7280;
+    --gray400: #9CA3AF;
+    --gray200: #E5E7EB;
+    --gray100: #F3F4F6;
+    --gray50: #F9FAFB;
+}
+
+
+*{
+    box-sizing: border-box;
+}
+body{
+    margin:0;
+}
+html{
+    font-family: 'Noto Sans KR', Arial;
+    font-size: 20px;
+    color: var(--gray700);
+}
+h1{
+    font-size: 2rem;
+    font-weight: 800;
+}
+h2{
+    font-size: 1rem;
+}
+
+.logo{
+    max-height:50px;
+}
+header{    
+    position:fixed;
+    top:0;
+    background-color: #ffffff;
+    margin: 0px auto;
+    /* 로고, 로그인 버튼 높이가 가운데로 오지 않아서 padding 추가 */
+    padding: 4px 0 0; 
+    width: 100%;
+}
+header div{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    margin: 0 200px;
+}
+.banner{
+    display:flex;
+    justify-content: center;
+    background-color: var(--background-color);
+    /* padding: 0 10%; */
+    height: 540px;
+}
+.banner-text{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.banner a{
+    border-radius: 99999px;
+    background-color: var(--blue);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 20px 100px;
+    font-weight: 700;
+}
+
+.banner-img{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    /* max-height: 100%; */
+}
+
+.banner img{
+    width:100%;
+    max-width: 700px;
+    height: auto;
+}
+
+.container{
+    width:1200px;
+    margin: 96px auto;
+}
+
+section{
+    display:flex;
+    margin: 240px 0;
+    gap: 48px;
+}
+
+section img{
+    border-radius: 24px;
+}
+
+section div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    /* gap: 16px; */
+    width: 300px;
+}
+
+
+section p{
+    color:var(--blue);
+    font-weight: 700;
+}
+
+section div p,
+section div h1,
+section div h2{
+    margin:8px;
+    flex-wrap: wrap;
+}
+
+
+
+.search{
+    text-align: right;
+}
+
+footer{
+    background-color: var(--gray900);
+    color: var(--gray200);
+    font-size:0.8rem;
+    height: 160px;
+    padding: 24px 0;
+}
+.footer-area{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1200px;
+    margin: 0 auto;
+}
+.codeit{
+    color: var(--gray400);
+}
+
+.footer-area a{
+    text-decoration: none;
+    color: var(--gray400);
+}
