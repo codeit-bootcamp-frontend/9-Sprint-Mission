@@ -23,6 +23,7 @@ const AllPostMap = ({ allPost, searchList }: IProps) => {
               alt="제품 사진"
               width={48}
               height={48}
+              loading="lazy"
             />
           </div>
         </div>

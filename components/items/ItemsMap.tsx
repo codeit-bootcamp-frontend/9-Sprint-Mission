@@ -17,6 +17,7 @@ const ItemsMap = ({ itemList, imgSize, kind }: IProps) => {
           alt="베스트제품"
           width={imgSize}
           height={imgSize}
+          loading="lazy"
           className={cls("object-cover", kind === "best" ? "rounded-2xl w-full h-[343px]" : "h-[168px] rounded-xl md:w-[221px] md:rounded-2xl")}
         />
         <div className="flex flex-col space-y-2">
