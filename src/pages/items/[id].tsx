@@ -1,7 +1,6 @@
 // src/pages/items/[id].tsx
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import { getProductDetail } from "@/api/item";
 import ItemDetailSection from "@/components/UI/item/ItemDetailSection";
 import ItemCommentSection from "@/components/UI/comment/ItemCommentSection";
@@ -45,9 +44,7 @@ export default function ItemPage() {
         <div className="container mx-auto pt-24 px-4">
           상품 정보가 없습니다.
         </div>
-        <div className="container mx-auto pt-24 px-4">
-          <BackToListButton path="/items" />
-        </div>
+        <BackToListButton path="/items" />
       </>
     );
 
@@ -58,9 +55,7 @@ export default function ItemPage() {
         <hr className="my-6 border-t border-gray-200" />
         <ItemCommentSection productId={productDetail.id} />
       </div>
-      <div className="container mx-auto pt-24 px-4">
-        <BackToListButton path="/items" />
-      </div>
+      <BackToListButton path="/items" />
     </>
   );
 }

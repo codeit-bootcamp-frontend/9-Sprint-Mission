@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
-import EmptyState from "@/components/UI/EmptyState";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import PaginationBar from "@/components/UI/PaginationBar";
 import { Article, ArticleSortOption } from "@/types/article";
@@ -183,7 +182,9 @@ const AllArticlesSection = () => {
               </div>
             ))
           : keyword && (
-              <EmptyState text={`'${keyword}'로 검색된 결과가 없어요.`} />
+              <div>
+                <span>검색된 결과가 없습니다.</span>
+              </div>
             )}
       </div>
 

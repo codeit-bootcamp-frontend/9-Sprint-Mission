@@ -1,8 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import CommentThread from "./ArticleCommentThread";
 
-const COMMENT_PLACEHOLDER =
-  "개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.";
+const COMMENT_PLACEHOLDER = "댓글을 입력해주세요.";
 
 interface ArticleCommentSectionProps {
   articleId: number;
@@ -20,7 +19,7 @@ const ArticleCommentSection = ({ articleId }: ArticleCommentSectionProps) => {
   return (
     <>
       <section className="flex flex-col gap-4">
-        <div className="text-base font-semibold">문의하기</div>
+        <div className="text-base font-semibold">댓글달기</div>
 
         <textarea
           className="bg-gray-100 border-none rounded-xl p-4 h-26 resize-none placeholder-gray-400 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"

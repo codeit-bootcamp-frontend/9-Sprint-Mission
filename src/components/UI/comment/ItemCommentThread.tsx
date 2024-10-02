@@ -1,12 +1,12 @@
 // src/components/UI/comment/ItemCommentThread.tsx
 import { useEffect, useState, useRef, useCallback } from "react";
 import { getProductComments } from "@/api/item";
-import EmptyStateImage from "@/images/ui/empty-comments.svg";
 import KebabIcon from "@/images/icons/ic_kebab.svg";
 import DefaultProfileImage from "@/images/ui/ic_profile-40.png";
 import { formatUpdatedAt } from "@/utils/dateUtils";
 import { Comment, CommentListResponse } from "@/types/comment";
 import Image from "next/image";
+import EmptyInquiry from "../EmptyInquiry";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 이미지 유효성 검사 함수 가져오기
 
 // 댓글 하나를 나타내는 컴포넌트
@@ -57,8 +57,7 @@ const CommentItem = ({ item }: CommentItemProps) => {
 // 댓글이 없을 때 표시되는 상태 컴포넌트
 const EmptyState = () => (
   <div className="m-6 flex flex-col items-center gap-6">
-    <EmptyStateImage className="w-24 h-24" />
-    <p className="text-gray-400 text-base leading-6">아직 문의가 없습니다.</p>
+    <EmptyInquiry text="아직 문의가 없습니다." />
   </div>
 );
 
