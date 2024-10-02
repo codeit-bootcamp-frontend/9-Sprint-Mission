@@ -16,14 +16,14 @@ export interface ArticleWriter {
   id: number;
 }
 
-export interface ArticleProps<T> {
-  article: T;
+export interface ArticleProps {
+  articles: Article[];
 }
 
 export interface ArticleParams {
   orderBy: ArticleSortOption;
   pageSize: number;
-  keyword: string;
+  keyword?: string;
 }
 
 export interface ArticleResponse extends ArticleParams {

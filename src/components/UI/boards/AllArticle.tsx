@@ -1,64 +1,44 @@
-import axios from "axios";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Article, ArticleSortOption, ArticleResponse } from "@/types/article";
-import { getArticles } from "@/api/article";
+import { useSearchParams } from "next/navigation";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { ArticleProps, ArticleSortOption } from "@/types/article";
+import Link from "next/link";
 import styles from "./AllArticle.module.scss";
-import usePageSize from "@/hooks/usePageSize";
-import AllArticleCard from "./AllArticleCard";
-import DropdownMenu from "@/components/UI/DropdownMenu";
 import Search from "@/components/UI/Search";
 import Button from "@/components/UI/Button";
-import Link from "next/link";
+import ArticleCard from "./ArticleCard";
+import { Dropdown } from "../Dropdown/DropdownMenu";
 
-const AllArticle = () => {
+const AllArticle = ({ articles }: ArticleProps) => {
   const router = useRouter();
-  const pageSize = usePageSize("recent");
-  const [keyword, setKeyword] = useState("");
-  const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
-  const [articles, setArticles] = useState<Article[]>([]);
-
-  useEffect(() => {
-    const fetchAllArticles = async () => {
-      try {
-        const data: ArticleResponse = await getArticles({
-          orderBy,
-          pageSize,
-          keyword,
-        });
-        setArticles(data.list);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error(error.response?.status, error.message);
-        } else {
-          throw new Error("에러가 발생했습니다.");
-        }
-      }
-    };
-
-    fetchAllArticles();
-  }, [orderBy, pageSize, keyword]);
+  const params = useSearchParams();
+  const orderByParam = params.get("orderBy");
+  const keywordParam = params.get("keyword");
+  const [orderBy, setOrderBy] = useState(orderByParam);
+  const [search, setSearch] = useState(keywordParam);
 
   // 정렬 선택 핸들러
-  const handleSortSelection = (sortOption: ArticleSortOption) => {
+  const handleSortClick = (sortOption: ArticleSortOption) => {
     setOrderBy(sortOption);
+    setOrderBy(orderBy);
   };
 
   // 검색어 변경 핸들러
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearch(value === "" ? null : value);
   };
 
   // 검색 폼 핸들러
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!keyword) {
+    if (!search) {
       router.push("/boards");
       return;
     }
 
-    router.push(`/boards?keyword=${keyword}`);
+    router.push(`/boards?keyword=${search}`);
   };
 
   return (
@@ -72,16 +52,27 @@ const AllArticle = () => {
 
       <div className={styles.allArticleSectionHeader}>
         <Search
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          keyword={keyword}
+          handleSearchChange={handleSearchChange}
+          handleSearchSubmit={handleSearchSubmit}
+          search={search}
         />
-        <DropdownMenu onSortSelection={handleSortSelection} />
+        <Dropdown>
+          <Dropdown.Button />
+          <Dropdown.Container>
+            <Dropdown.Item>최신순</Dropdown.Item>
+            <Dropdown.Line />
+            <Dropdown.Item>좋아요순</Dropdown.Item>
+          </Dropdown.Container>
+        </Dropdown>
       </div>
-
-      <ul className={styles.articleWrap}>
+      <ul>
         {articles?.map((article) => (
-          <AllArticleCard key={article.id} article={article} />
+          <ArticleCard
+            key={article.id}
+            article={article}
+            className={styles.allArticleCard}
+            UserAvatar={true}
+          />
         ))}
       </ul>
     </section>

@@ -1,36 +1,31 @@
 import { useState, useEffect } from "react";
-import { ArticleSortOption } from "@/types/article";
 
-const getPageSize = (orderBy: ArticleSortOption): number => {
-  if (typeof window === "undefined") return 10;
-  const width = window.innerWidth;
-  if (width < 768) {
-    return orderBy === "like" ? 1 : 10;
-  } else if (width < 1280) {
-    return orderBy === "like" ? 2 : 10;
-  } else {
-    return orderBy === "like" ? 3 : 10;
-  }
-};
-
-const usePageSize = (orderBy: ArticleSortOption): number => {
-  const [pageSize, setPageSize] = useState(getPageSize(orderBy));
+const usePageSize = (initialPageSize: number) => {
+  const [articleCount, setArticleCount] = useState(initialPageSize);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleResize = () => {
-      setPageSize(getPageSize(orderBy));
+      const width = window.innerWidth; // 클라이언트 사이드에서만 실행
+      if (width >= 1280) {
+        setArticleCount(3);
+      } else if (width >= 768) {
+        setArticleCount(2);
+      } else {
+        setArticleCount(1);
+      }
     };
 
-    // 화면 크기 변경할 때마다 pageSize를 다시 계산해 넣음
+    handleResize();
     window.addEventListener("resize", handleResize);
 
-    // Cleanup function
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [pageSize, orderBy]);
+  }, []);
 
-  return pageSize;
+  return articleCount;
 };
 
 export default usePageSize;
