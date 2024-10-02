@@ -26,22 +26,27 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
       const refreshToken = Cookies.get("refreshToken");
       if (refreshToken) {
         try {
-          const result = (await refreshAccessToken(
+          const result: AuthResponse | null = await refreshAccessToken(
             refreshToken
-          )) as AuthResponse;
-          if (result.accessToken) {
+          );
+
+          // result와 필요한 속성들이 유효한지 체크
+          if (result && result.accessToken && result.user) {
             Cookies.set("accessToken", result.accessToken);
             setUser({
-              Id: result.user.id.toString(),
-              nickname: result.user.nickname,
-              Image: result.user.image,
+              Id: result.user.id?.toString() || null,
+              nickname: result.user.nickname || null,
+              Image: result.user.image || null,
             });
-            // 필요한 경우 다른 사용자 정보도 설정
+          } else {
+            throw new Error("refreshAccessToken에서 유효하지 않은 Response");
           }
         } catch (error) {
           console.error("자동 로그인 실패:", error);
-          // 리프레시 토큰이 만료되었거나 유효하지 않은 경우 처리
+          // 리프레시 토큰이 만료되었거나 유효하지 않을 경우 처리
           Cookies.remove("refreshToken");
+          // accessToken도 삭제
+          Cookies.remove("accessToken");
         }
       }
     };

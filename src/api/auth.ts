@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { LoginFormValues, SignupFormValues, AuthResponse } from "@/types/auth";
 import DefaultAvatar from "@/images/ui/ic_profile.svg";
 
+// 사용자 이미지 설정 함수
 const setUserImage = (image: string | null) => {
   if (image) {
     Cookies.set("userImage", image);
@@ -13,10 +14,12 @@ const setUserImage = (image: string | null) => {
   }
 };
 
+// 쿠키 설정 함수
 const setCookie = (name: string, value: string, expires: number) => {
   Cookies.set(name, value, { expires, secure: true, sameSite: "strict" });
 };
 
+// 로그인 함수
 export const logIn = async (
   formData: LoginFormValues
 ): Promise<AuthResponse | null> => {
@@ -30,6 +33,7 @@ export const logIn = async (
     const { accessToken, refreshToken, user } = response.data;
     const { id, nickname, image } = user;
 
+    // 클라이언트에서 토큰을 저장
     setCookie("accessToken", accessToken, 1 / 48); // 30분
     setCookie("refreshToken", refreshToken, 7); // 7일
     setCookie("userId", id.toString(), 1 / 48);
@@ -50,6 +54,7 @@ export const logIn = async (
   }
 };
 
+// 회원가입 함수
 export const signup = async (
   formData: SignupFormValues
 ): Promise<AuthResponse | null> => {
@@ -63,6 +68,7 @@ export const signup = async (
     const { accessToken, refreshToken, user } = response.data;
     const { id, nickname, image } = user;
 
+    // 클라이언트에서 토큰을 저장
     setCookie("accessToken", accessToken, 1 / 48); // 30분
     setCookie("refreshToken", refreshToken, 7); // 7일
     setCookie("userId", id.toString(), 1 / 48);
@@ -83,6 +89,7 @@ export const signup = async (
   }
 };
 
+// 로그아웃 함수
 export const logout = async (redirectToSignIn: () => void) => {
   try {
     // 쿠키에서 토큰 및 사용자 정보 제거
@@ -104,6 +111,7 @@ export const logout = async (redirectToSignIn: () => void) => {
   }
 };
 
+// 토큰 갱신 함수
 export const refreshAccessToken = async (
   refreshToken: string
 ): Promise<AuthResponse | null> => {
@@ -144,6 +152,7 @@ export const refreshAccessToken = async (
     if (isAxiosError(error)) {
       if (error.response?.status === 401) {
         console.error("refreshToken이 유효하지 않거나 만료되었습니다!");
+
         // refreshToken이 만료되었으므로 모든 인증 관련 쿠키 삭제
         Cookies.remove("accessToken");
         Cookies.remove("refreshToken");
