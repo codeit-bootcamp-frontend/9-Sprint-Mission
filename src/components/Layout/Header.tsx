@@ -1,8 +1,8 @@
 // src/components/Layout/Header.tsx
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import Cookies from "js-cookie";
 import { logout } from "@/api/auth";
 import { useAtom } from "jotai";

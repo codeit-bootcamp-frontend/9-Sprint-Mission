@@ -7,7 +7,7 @@ import TagInput from "@/components/UI/TagInput";
 import ImageUpload from "@/components/UI/ImageUpload";
 import ConfirmModal from "@/components/UI/modal/ConfirmModal";
 import AlertModal from "@/components/UI/modal/AlertModal";
-import { addItem } from "@/api/item";
+import { addProduct } from "@/api/product";
 import { ProductForm } from "@/types/product";
 
 export default function AddItemPage() {
@@ -74,7 +74,7 @@ export default function AddItemPage() {
 
     try {
       // API를 호출하여 상품 등록
-      const newItem = await addItem(itemForm, accessToken);
+      const newItem = await addProduct(itemForm, accessToken);
 
       // 등록 성공 시 해당 상품 페이지로 이동
       router.push(`/items/${newItem.id}`);

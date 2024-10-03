@@ -7,7 +7,7 @@ import {
   ArticleListResponse,
   ArticleSortOption,
 } from "@/types/article";
-import { CommentListResponse } from "@/types/comment";
+import { Comment, CommentListResponse } from "@/types/comment";
 
 // 게시글 등록하기
 export async function addArticle(
@@ -107,6 +107,41 @@ export async function getArticleDetail(articleId: number): Promise<Article> {
       console.error("getArticleDetail 알 수 없는 오류:", error);
     }
     throw error;
+  }
+}
+
+// 게시글 댓글 등록하기
+export async function addArticleComment(
+  articleId: number,
+  content: string,
+  token: string
+): Promise<Comment> {
+  try {
+    // Authorization 헤더에 JWT 토큰 추가
+    const response = await axiosInstance.post<Comment>(
+      `/articles/${articleId}/comments`,
+      { content },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // JWT 토큰을 Bearer 형식으로 추가
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // Axios 에러인 경우 처리
+      console.error(
+        "addArticleComment API 요청 에러:",
+        error.response?.data || error.message
+      );
+    } else if (error instanceof Error) {
+      // 일반 에러 처리
+      console.error("addArticleComment 일반 에러:", error.message);
+    } else {
+      console.error("addArticleComment 알 수 없는 오류:", error);
+    }
+    throw error; // 에러를 다시 throw하여 상위에서 처리할 수 있도록
   }
 }
 

@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getProducts } from "@/api/item";
+import { getProducts } from "@/api/product";
 import ItemCard from "./ItemCard";
 import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";

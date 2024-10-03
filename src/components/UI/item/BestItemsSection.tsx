@@ -1,7 +1,7 @@
 // src/components/UI/item/BestItemsSection.tsx
 import React, { useEffect, useState, useCallback } from "react";
 import ItemCard from "./ItemCard";
-import { getProducts } from "@/api/item";
+import { getProducts } from "@/api/product";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import {
   Product,

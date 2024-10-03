@@ -1,7 +1,7 @@
 // src/components/UI/comment/ItemCommentThread.tsx
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
-import { getProductComments } from "@/api/item";
+import { getProductComments } from "@/api/product";
 import { formatUpdatedAt } from "@/utils/dateUtils";
 import { Comment, CommentListResponse } from "@/types/comment";
 import EmptyInquiry from "../EmptyInquiry";
