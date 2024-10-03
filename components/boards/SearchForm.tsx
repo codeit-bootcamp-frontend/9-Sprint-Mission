@@ -60,8 +60,11 @@ const SearchForm = () => {
 
   return (
     <>
-      <form onSubmit={form.handleSubmit(handleSubmit)}>
-        <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
+        <form
+          onSubmit={form.handleSubmit(handleSubmit)}
+          className="flex items-center justify-between w-full"
+        >
           <div className="flex items-center space-x-3 bg-[--color-gray100] px-5 py-3 rounded-xl w-[288px] md:w-[560px] lg:w-[1054px]">
             <Image src="/icons/search.png" alt="검색" width={15} height={15} />
             <input
@@ -83,14 +86,14 @@ const SearchForm = () => {
           >
             <Image src="/icons/orderBtn.png" alt="검색" width={24} height={24} />
           </button>
+        </form>
+        <div className="relative">
+          {menuOpen && <SelectMenu setOrderBy={setOrderBy} />}
+          <select className="custom-select" onChange={handleChangeSelect}>
+            <option value="recent">최신순</option>
+            <option value="like">좋아요순</option>
+          </select>
         </div>
-      </form>
-      <div className="relative">
-        {menuOpen && <SelectMenu setOrderBy={setOrderBy} />}
-        <select className="custom-select" onChange={handleChangeSelect}>
-          <option value="recent">최신순</option>
-          <option value="like">좋아요순</option>
-        </select>
       </div>
       <PostList searchList={searchList} searchLoading={isLoading} orderBy={orderBy} />
     </>
