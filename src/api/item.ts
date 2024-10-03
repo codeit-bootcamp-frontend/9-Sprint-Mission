@@ -18,7 +18,7 @@ export async function addItem(
   try {
     // Authorization 헤더에 JWT 토큰 추가
     const response = await axiosInstance.post<Product>(
-      "/items", // 상품 등록 API 경로
+      "/products",
       productForm,
       {
         headers: {
