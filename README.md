@@ -18,7 +18,7 @@ yarn dev
 pnpm dev
 ```
 
-브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 결과를 확인하세요. `app/page.tsx` 파일을 수정하여 페이지 편집을 시작할 수 있습니다.
+브라우저에서 [http://localhost:3000](http://localhost:3000)을 열어 결과를 확인하세요.
 
 ## 사용된 기술 스택
 
