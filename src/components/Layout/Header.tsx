@@ -68,6 +68,13 @@ export default function Header() {
     };
   }, [isOpen]); // 의존성 배열에 isOpen 추가
 
+  // 자유게시판 및 중고마켓 메뉴 활성화 여부 설정
+  const isCommunityActive =
+    router.pathname.startsWith("/community") ||
+    router.pathname === "/addArticle";
+  const isItemsActive =
+    router.pathname.startsWith("/items") || router.pathname === "/addItem";
+
   return (
     <header className="bg-white shadow-sm">
       <div className="mx-auto px-4 py-4 flex justify-between items-center w-full">
@@ -109,9 +116,7 @@ export default function Header() {
               <Link
                 href="/community"
                 className={`font-semibold hover:text-blue-600 ${
-                  router.pathname.startsWith("/community")
-                    ? "text-blue-500"
-                    : "text-gray-600"
+                  isCommunityActive ? "text-blue-500" : "text-gray-600"
                 }`}
               >
                 자유게시판
@@ -121,9 +126,7 @@ export default function Header() {
               <Link
                 href="/items"
                 className={`font-semibold hover:text-blue-600 ${
-                  router.pathname.startsWith("/items")
-                    ? "text-blue-500"
-                    : "text-gray-600"
+                  isItemsActive ? "text-blue-500" : "text-gray-600"
                 }`}
               >
                 중고마켓
