@@ -1,6 +1,7 @@
 // src/pages/api/imageProxy.ts
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
+import sharp from "sharp";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,6 +12,9 @@ export default async function handler(
   if (typeof url !== "string") {
     return res.status(400).json({ error: "이미지 URL이 필요합니다." });
   }
+
+  const parsedWidth = width ? parseInt(width as string, 10) : null;
+  const parsedHeight = height ? parseInt(height as string, 10) : null;
 
   try {
     const encodedUrl = encodeURI(url);
@@ -36,14 +40,20 @@ export default async function handler(
 
     let responseData = response.data;
 
-    // SVG 파일인 경우 크기 조절
-    if (contentType === "image/svg+xml" && width && height) {
+    // SVG 파일 크기 조절
+    if (contentType === "image/svg+xml" && parsedWidth && parsedHeight) {
       const svgString = responseData.toString("utf-8");
       const updatedSvgString = svgString.replace(
         /<svg([\s\S]*?)>/,
-        `<svg$1 width="${width}" height="${height}" preserveAspectRatio="xMidYMid meet">`
+        `<svg$1 width="${parsedWidth}" height="${parsedHeight}" preserveAspectRatio="xMidYMid meet">`
       );
       responseData = Buffer.from(updatedSvgString, "utf-8");
+    }
+    // SVG가 아닌 다른 이미지의 크기를 조절 (sharp 사용)
+    else if (parsedWidth || parsedHeight) {
+      responseData = await sharp(responseData)
+        .resize(parsedWidth, parsedHeight)
+        .toBuffer();
     }
 
     res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
