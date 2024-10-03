@@ -30,7 +30,10 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
     if (isImageAllowed) {
       const isGif = article.image.toLowerCase().endsWith(".gif");
       return {
-        url: `/api/imageProxy?url=${encodeURIComponent(article.image)}`,
+        // 프록시 URL에 width=72, height=72 추가
+        url: `/api/imageProxy?url=${encodeURIComponent(
+          article.image
+        )}&width=72&height=72`,
         isGif,
       };
     }
@@ -43,7 +46,6 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
   useEffect(() => {
     setImageStatus("loading");
   }, [article.image]);
-
   // LCP 감지 함수 호출 (2페이지 이후에만 실행)
   useEffect(() => {
     if (currentPage > 1) {

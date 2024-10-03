@@ -36,7 +36,10 @@ const BestArticleCard = ({
     if (isValidImageUrl(article.image)) {
       const isGif = article.image.toLowerCase().endsWith(".gif");
       return {
-        url: `/api/imageProxy?url=${encodeURIComponent(article.image)}`,
+        // 프록시 URL에 width=72, height=72 추가
+        url: `/api/imageProxy?url=${encodeURIComponent(
+          article.image
+        )}&width=72&height=72`,
         isGif,
       };
     }

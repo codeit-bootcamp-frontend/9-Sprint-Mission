@@ -13,8 +13,16 @@ export default async function handler(
     return res.status(400).json({ error: "이미지 URL이 필요합니다." });
   }
 
-  const parsedWidth = width ? parseInt(width as string, 10) : null;
-  const parsedHeight = height ? parseInt(height as string, 10) : null;
+  const parsedWidth = width ? parseInt(width as string, 10) : undefined;
+  const parsedHeight = height ? parseInt(height as string, 10) : undefined;
+
+  // Validate parsedWidth and parsedHeight
+  if (parsedWidth !== undefined && isNaN(parsedWidth)) {
+    return res.status(400).json({ error: "유효한 너비 값이 필요합니다." });
+  }
+  if (parsedHeight !== undefined && isNaN(parsedHeight)) {
+    return res.status(400).json({ error: "유효한 높이 값이 필요합니다." });
+  }
 
   try {
     console.log("요청된 이미지 URL:", url);
@@ -47,7 +55,11 @@ export default async function handler(
     let responseData = response.data;
 
     // SVG 파일 크기 조절
-    if (contentType === "image/svg+xml" && parsedWidth && parsedHeight) {
+    if (
+      contentType === "image/svg+xml" &&
+      parsedWidth !== undefined &&
+      parsedHeight !== undefined
+    ) {
       console.log("SVG 이미지 처리 중...");
       const svgString = responseData.toString("utf-8");
       const updatedSvgString = svgString.replace(
@@ -58,16 +70,23 @@ export default async function handler(
       console.log("SVG 이미지 크기 조절 완료");
     }
     // SVG가 아닌 다른 이미지의 크기를 조절 (sharp 사용)
-    else if (parsedWidth || parsedHeight) {
+    else if (parsedWidth !== undefined || parsedHeight !== undefined) {
       console.log("이미지 크기 조절 중... (sharp 사용)");
       const resizeStartTime = process.hrtime(); // sharp 처리 시간 기록
-      responseData = await sharp(responseData)
-        .resize(parsedWidth, parsedHeight)
-        .toBuffer();
-      const resizeEndTime = process.hrtime(resizeStartTime); // sharp 처리 시간 측정
-      console.log(
-        `sharp 처리 시간: ${resizeEndTime[0]}s ${resizeEndTime[1] / 1000000}ms`
-      );
+      try {
+        responseData = await sharp(responseData)
+          .resize(parsedWidth, parsedHeight)
+          .toBuffer();
+        const resizeEndTime = process.hrtime(resizeStartTime); // sharp 처리 시간 측정
+        console.log(
+          `sharp 처리 시간: ${resizeEndTime[0]}s ${
+            resizeEndTime[1] / 1000000
+          }ms`
+        );
+      } catch (err) {
+        console.error("sharp 에러:", err);
+        throw err; // rethrow to be caught in the outer catch
+      }
     }
 
     res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");

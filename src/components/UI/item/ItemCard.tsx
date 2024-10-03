@@ -42,9 +42,11 @@ const ItemCard = ({
           isSvg: true,
         };
       } else {
-        // 기타 이미지는 프록시 URL 사용
+        // 기타 이미지는 프록시 URL 사용, width와 height 추가
         return {
-          url: `/api/imageProxy?url=${encodeURIComponent(originalUrl)}`,
+          url: `/api/imageProxy?url=${encodeURIComponent(
+            originalUrl
+          )}&width=${width}&height=${height}`,
           isSvg: false,
         };
       }
@@ -54,7 +56,7 @@ const ItemCard = ({
       url: NoImage,
       isSvg: false,
     };
-  }, [item.images]);
+  }, [item.images, width, height]);
 
   useEffect(() => {
     setImageStatus("loading");
