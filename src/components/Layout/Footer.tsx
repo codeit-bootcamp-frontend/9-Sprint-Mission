@@ -1,9 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import FacebookLogo from "@/images/social/facebook-logo.svg";
-import TwitterLogo from "@/images/social/twitter-logo.svg";
-import YoutubeLogo from "@/images/social/youtube-logo.svg";
-import InstagramLogo from "@/images/social/instagram-logo.svg";
+import Image from "next/image";
+
+// public 폴더 경로 문자열로 대체
+const FacebookLogo = "/images/social/ic_facebook.png";
+const TwitterLogo = "/images/social/ic_twitter.png";
+const YoutubeLogo = "/images/social/ic_youtube.png";
+const InstagramLogo = "/images/social/ic_instagram.png";
 
 function Footer() {
   return (
@@ -33,28 +36,28 @@ function Footer() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FacebookLogo width={20} height={20} />
+          <Image src={FacebookLogo} alt="facebook" />
         </a>
         <a
           href="https://twitter.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <TwitterLogo width={20} height={20} />
+          <Image src={TwitterLogo} alt="twitter" />
         </a>
         <a
           href="https://www.youtube.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <YoutubeLogo width={20} height={20} />
+          <Image src={YoutubeLogo} alt="youtube" />
         </a>
         <a
           href="https://www.instagram.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <InstagramLogo width={20} height={20} />
+          <Image src={InstagramLogo} alt="instagram" />
         </a>
       </div>
     </footer>

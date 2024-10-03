@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import EmptyInquiryImage from "@/images/ui/empty-inquiry.png";
+import EmptyInquiryImage from "/images/ui/empty-inquiry.png";
 
 interface EmptyStateProps {
   text: string;

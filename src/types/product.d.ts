@@ -1,4 +1,13 @@
 // src/types/product.d.ts
+// 상품 입력폼
+export interface ProductForm {
+  name: string; // 상품명
+  description: string; // 상품 설명
+  price: number; // 가격
+  tags: string[]; // 태그 배열
+  images: string[]; // 이미지 배열
+}
+
 // 상품의 기본 정보 인터페이스
 export interface Product {
   createdAt: Date; // 생성일

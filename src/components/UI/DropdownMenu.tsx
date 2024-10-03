@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { ProductSortOption } from "@/types/product";
 import { ArticleSortOption } from "@/types/article";
-import ArrowDownIcon from "@/images/icons/ic_arrow_down.svg";
+import ArrowDownIcon from "/images/icons/ic_arrow_down.svg";
 
 interface DropdownMenuProps<T extends ProductSortOption | ArticleSortOption> {
   onSortSelection: (sortOption: T) => void;

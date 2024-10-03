@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import TagDisplay from "./TagDisplay";
 import LikeButton from "./LikeButton";
-import SeeMoreIcon from "@/images/icons/ic_kebab.svg";
-import NoImage from "@/images/ui/no-image.png";
+import SeeMoreIcon from "/images/icons/ic_kebab.svg";
+import NoImage from "/images/ui/no-image.png";
 import { ProductDetail } from "@/types/product";
 
 interface ItemDetailSectionProps {

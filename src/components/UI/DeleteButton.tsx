@@ -1,6 +1,6 @@
 // src/components/UI/InputItem.tsx
 import React from "react";
-import CloseIcon from "@/images/icons/ic_x.svg";
+import CloseIcon from "/images/icons/ic_x.svg";
 
 interface DeleteButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;

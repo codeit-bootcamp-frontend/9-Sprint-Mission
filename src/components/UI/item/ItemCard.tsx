@@ -3,8 +3,8 @@ import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/types/product";
-import HeartIcon from "@/images/icons/ic_heart.svg";
-import NoImage from "@/images/ui/no-image.png";
+import HeartIcon from "/images/icons/ic_heart.svg";
+import NoImage from "/images/ui/no-image.png";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 
 interface ItemCardProps {

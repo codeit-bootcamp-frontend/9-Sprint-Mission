@@ -10,7 +10,7 @@ import PaginationBar from "@/components/UI/PaginationBar";
 import { Article, ArticleSortOption } from "@/types/article";
 import { getArticles } from "@/api/article";
 import AllArticleCard from "./AllArticleCard";
-import WriteButtonImage from "@/images/ui/write_small_40.png";
+import WriteButtonImage from "/images/ui/write_small_40.png";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
 

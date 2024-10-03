@@ -2,11 +2,47 @@
 import { AxiosError } from "axios";
 import axiosInstance from "./axiosConfig";
 import {
+  ProductForm,
+  Product,
   ProductDetail,
   ProductListResponse,
   ProductSortOption,
 } from "@/types/product";
 import { CommentListResponse } from "@/types/comment";
+
+// 상품 등록하기
+export async function addItem(
+  productForm: ProductForm,
+  token: string
+): Promise<Product> {
+  try {
+    // Authorization 헤더에 JWT 토큰 추가
+    const response = await axiosInstance.post<Product>(
+      "/items", // 상품 등록 API 경로
+      productForm,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // JWT 토큰을 Bearer 형식으로 추가
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // Axios 에러인 경우 처리
+      console.error(
+        "addItem API 요청 에러:",
+        error.response?.data || error.message
+      );
+    } else if (error instanceof Error) {
+      // 일반 에러 처리
+      console.error("addItem 일반 에러:", error.message);
+    } else {
+      console.error("addItem 알 수 없는 오류:", error);
+    }
+    throw error;
+  }
+}
 
 // 상품 리스트를 가져오는 함수
 export const getProducts = async ({

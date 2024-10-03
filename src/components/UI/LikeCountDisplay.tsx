@@ -1,5 +1,5 @@
 import React from "react";
-import HeartIcon from "@/images/icons/ic_heart.svg";
+import HeartIcon from "/images/icons/ic_heart.svg";
 
 interface LikeCountDisplayProps {
   count: number;

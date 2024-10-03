@@ -1,8 +1,8 @@
 // src/components/UI/comment/ArticleCommentThread.tsx
 import { useEffect, useState, useRef } from "react";
 import { getArticleComments } from "@/api/article";
-import KebabIcon from "@/images/icons/ic_kebab.svg";
-import DefaultProfileImage from "@/images/ui/ic_profile-40.png";
+import KebabIcon from "/images/icons/ic_kebab.svg";
+import DefaultProfileImage from "/images/ui/ic_profile-40.png";
 import { formatUpdatedAt } from "@/utils/dateUtils";
 import { Comment, CommentListResponse } from "@/types/comment";
 import Image from "next/image";

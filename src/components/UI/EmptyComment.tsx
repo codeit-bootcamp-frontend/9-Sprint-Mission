@@ -1,5 +1,5 @@
 import Image, { StaticImageData } from "next/image";
-import EmptyCommentImage from "@/images/ui/empty-comment.png";
+import EmptyCommentImage from "/images/ui/empty-comment.png";
 
 interface EmptyStateProps {
   text: string;

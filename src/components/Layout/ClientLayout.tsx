@@ -1,6 +1,5 @@
 // components/Layout/ClientLayout.tsx
 import React, { useEffect } from "react";
-import localFont from "next/font/local";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Provider, useSetAtom } from "jotai";
@@ -8,13 +7,6 @@ import { userAtom } from "@/store/authAtoms";
 import { loadingAtom } from "@/store/loadingAtom";
 import { refreshAccessToken } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";
-
-const pretendard = localFont({
-  src: "../../fonts/pretendard/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
-  variable: "--font-pretendard",
-});
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -77,9 +69,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   }, [router.events, setIsLoading]);
 
   return (
-    <div className={pretendard.className + " bg-gray-50 text-gray-900"}>
-      {children}
-    </div>
+    <div className={"Pretendard bg-gray-50 text-gray-900"}>{children}</div>
   );
 }
 

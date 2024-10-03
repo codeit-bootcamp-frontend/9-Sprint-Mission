@@ -1,3 +1,9 @@
+export interface ArticleForm {
+  title: string;
+  content: string;
+  image?: string | null;
+}
+
 export interface Article {
   updatedAt: Date;
   createdAt: Date;

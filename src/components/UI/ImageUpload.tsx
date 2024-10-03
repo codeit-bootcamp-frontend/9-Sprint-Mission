@@ -1,37 +1,41 @@
 // src/components/UI/InputItem.tsx
 import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
-import PlusIcon from "@/images/icons/ic_plus.svg";
+import PlusIcon from "/images/icons/ic_plus.svg";
 import DeleteButton from "./DeleteButton";
 import { uploadImage } from "@/api/uploadImage";
 import { isValidImageFile } from "@/utils/validateImageFile";
 import { cleanSVG } from "@/utils/cleanSVG"; // SVG 보안 검토 유틸리티 가져오기
+import AlertModal from "./modal/AlertModal";
 
 interface ImageUploadProps {
   title: string;
+  onImageUpload: (imageUrl: string | null) => void; // 부모 컴포넌트로 이미지 URL을 전달하는 콜백 함수
 }
 
-const ImageUpload = ({ title }: ImageUploadProps) => {
-  const [imagePreviewUrl, setImagePreviewUrl] = useState("");
+const ImageUpload = ({ title, onImageUpload }: ImageUploadProps) => {
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string>(""); // 이미지 미리보기 URL
   const [imageStatus, setImageStatus] = useState<
     "idle" | "loading" | "loaded" | "error"
-  >("idle");
+  >("idle"); // 이미지 상태
+  const [alertMessage, setAlertMessage] = useState<string | null>(null); // AlertModal을 제어하는 상태
 
+  // 이미지 변경 핸들러
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
 
     if (file) {
       // 파일 확장자 검증
       if (!isValidImageFile(file)) {
-        alert(
-          "유효하지 않은 이미지 파일입니다. JPEG, PNG, GIF, WEBP 또는 SVG 형식의 파일만 업로드 가능합니다."
+        setAlertMessage(
+          "유효하지 않은 이미지 파일입니다. JPEG, PNG, GIF, SVG 형식의 파일만 업로드 가능합니다."
         );
         return;
       }
 
       // 파일 크기 제한 확인 (5MB)
       if (file.size > 5 * 1024 * 1024) {
-        alert("이미지 파일은 최대 5MB까지 업로드할 수 있습니다.");
+        setAlertMessage("이미지 파일은 최대 5MB까지 업로드할 수 있습니다.");
         return;
       }
 
@@ -43,7 +47,7 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
         const cleanedSVGUrl = await cleanSVG(file);
         if (!cleanedSVGUrl) {
           setImageStatus("error");
-          alert("SVG 파일이 유효하지 않거나 보안상 문제가 있습니다.");
+          setAlertMessage("SVG 파일이 유효하지 않거나 보안상 문제가 있습니다.");
           return;
         }
         imageUrl = cleanedSVGUrl;
@@ -55,12 +59,24 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
       // 이미지 URL을 미리보기로 설정
       setImagePreviewUrl(imageUrl);
       setImageStatus("loaded");
+
+      // 업로드된 이미지 URL을 부모 컴포넌트로 전달
+      onImageUpload(imageUrl);
     }
   };
 
+  // 이미지 삭제 핸들러
   const handleDelete = () => {
     setImagePreviewUrl("");
     setImageStatus("idle");
+
+    // 이미지가 삭제되었음을 부모 컴포넌트로 전달
+    onImageUpload(null);
+  };
+
+  // AlertModal 닫기 핸들러
+  const handleCloseAlert = () => {
+    setAlertMessage(null); // 알림 메시지를 비우고 모달을 닫음
   };
 
   return (
@@ -107,6 +123,11 @@ const ImageUpload = ({ title }: ImageUploadProps) => {
           </div>
         )}
       </div>
+
+      {/* Alert Modal */}
+      {alertMessage && (
+        <AlertModal message={alertMessage} onClose={handleCloseAlert} />
+      )}
     </div>
   );
 };

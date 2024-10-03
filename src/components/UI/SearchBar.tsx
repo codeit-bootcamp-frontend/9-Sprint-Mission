@@ -1,4 +1,4 @@
-import SearchIcon from "@/images/icons/ic_search.svg";
+import SearchIcon from "/images/icons/ic_search.svg";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 

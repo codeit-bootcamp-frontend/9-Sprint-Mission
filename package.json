@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "clean": "powershell -Command \"if (Test-Path .next) { Remove-Item -Recurse -Force .next }; if (Test-Path out) { Remove-Item -Recurse -Force out }\""
+    "clean": "rimraf .next out"
   },
   "dependencies": {
     "@types/js-cookie": "^3.0.6",
@@ -33,6 +33,7 @@
     "eslint-config-next": "14.2.12",
     "postcss": "^8.4.47",
     "postcss-custom-media": "^11.0.1",
+    "rimraf": "^6.0.1",
     "tailwindcss": "^3.4.13",
     "typescript": "^5"
   }

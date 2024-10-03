@@ -10,7 +10,6 @@ export const isValidImageFile = (file: File): boolean => {
     "image/jpeg",
     "image/png",
     "image/gif",
-    "image/webp",
     "image/svg+xml",
   ];
 

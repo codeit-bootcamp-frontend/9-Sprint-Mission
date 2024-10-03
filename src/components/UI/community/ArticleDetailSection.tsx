@@ -1,8 +1,8 @@
 // src/components/UI/community/ArticleDetailSection.tsx
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import SeeMoreIcon from "@/images/icons/ic_kebab.svg";
-import NoImage from "@/images/ui/no-image.png";
+import SeeMoreIcon from "/images/icons/ic_kebab.svg";
+import NoImage from "/images/ui/no-image.png";
 import { Article as ArticleDetail } from "@/types/article";
 
 interface ArticleDetailSectionProps {

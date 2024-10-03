@@ -8,7 +8,7 @@ import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
 import { signup } from "@/api/auth";
 import { SignupFormValues } from "@/types/auth";
-import Logo from "@/images/logo/logo-auth.svg";
+import Logo from "/images/logo/logo-auth.svg";
 import Cookies from "js-cookie";
 
 export default function SignupPage() {

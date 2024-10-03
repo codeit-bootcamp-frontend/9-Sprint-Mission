@@ -11,7 +11,10 @@ interface AlertModalProps {
 const AlertModal = ({ message, onClose }: AlertModalProps) => {
   return (
     <BaseModal onClose={onClose}>
-      <p className="mb-4">{message}</p>
+      <p
+        className="mb-4 text-center"
+        dangerouslySetInnerHTML={{ __html: message }}
+      />
       <Button label="확인" onClick={onClose} />
     </BaseModal>
   );

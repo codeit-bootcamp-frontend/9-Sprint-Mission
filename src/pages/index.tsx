@@ -1,11 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Feature from "@/components/UI/Feature";
-import HeroImage from "@/images/home/hero-image.png";
-import BottomBannerImage from "@/images/home/bottom-banner-image.png";
-import Feature1Image from "@/images/home/feature1-image.png";
-import Feature2Image from "@/images/home/feature2-image.png";
-import Feature3Image from "@/images/home/feature3-image.png";
+import HeroImage from "/images/home/hero-image.png";
+import BottomBannerImage from "/images/home/bottom-banner-image.png";
+import Feature1Image from "/images/home/feature1-image.png";
+import Feature2Image from "/images/home/feature2-image.png";
+import Feature3Image from "/images/home/feature3-image.png";
 
 export default function Home() {
   return (

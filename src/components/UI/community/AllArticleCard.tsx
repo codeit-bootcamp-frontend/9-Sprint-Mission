@@ -5,7 +5,7 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Article } from "@/types/article";
 import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
-import NoImage from "@/images/ui/no-image.png";
+import NoImage from "/images/ui/no-image.png";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 import { detectLCP } from "@/utils/detectLPC"; // LCP 감지 함수
 

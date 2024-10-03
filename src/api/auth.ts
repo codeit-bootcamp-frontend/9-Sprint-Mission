@@ -3,14 +3,15 @@ import { isAxiosError } from "axios";
 import axiosInstance from "./axiosConfig";
 import Cookies from "js-cookie";
 import { LoginFormValues, SignupFormValues, AuthResponse } from "@/types/auth";
-import DefaultAvatar from "@/images/ui/ic_profile.svg";
+// public 폴더 경로 문자열로 대체
+const DefaultAvatar = "/images/ui/ic_profile-32.png";
 
 // 사용자 이미지 설정 함수
 const setUserImage = (image: string | null) => {
   if (image) {
     Cookies.set("userImage", image);
   } else {
-    Cookies.set("userImage", DefaultAvatar.src);
+    Cookies.set("userImage", DefaultAvatar);
   }
 };
 

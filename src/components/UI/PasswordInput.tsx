@@ -1,7 +1,7 @@
 // src/components/UI/InputItem.tsx
 import React, { useState } from "react";
-import EyeInvisibleIcon from "@/images/icons/eye-invisible.svg";
-import EyeVisibleIcon from "@/images/icons/eye-visible.svg";
+import EyeInvisibleIcon from "/images/icons/eye-invisible.svg";
+import EyeVisibleIcon from "/images/icons/eye-visible.svg";
 import InputItem from "./InputItem";
 import { UseFormRegisterReturn } from "react-hook-form";
 

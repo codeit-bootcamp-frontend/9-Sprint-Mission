@@ -1,6 +1,6 @@
 // src/components/UI/InputItem.tsx
 import React, { useState } from "react";
-import HeartIcon from "@/images/icons/ic_heart.svg";
+import HeartIcon from "/images/icons/ic_heart.svg";
 
 interface LikeButtonProps {
   isFavorite: boolean;

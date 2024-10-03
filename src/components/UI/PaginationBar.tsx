@@ -1,7 +1,7 @@
 // src/components/UI/InputItem.tsx
 import React from "react";
-import LeftArrow from "@/images/icons/arrow_left.svg";
-import RightArrow from "@/images/icons/arrow_right.svg";
+import LeftArrow from "/images/icons/arrow_left.svg";
+import RightArrow from "/images/icons/arrow_right.svg";
 
 interface PaginationBarProps {
   totalPageNum: number;

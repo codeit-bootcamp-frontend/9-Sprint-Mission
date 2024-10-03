@@ -17,6 +17,9 @@ interface InputItemProps {
   isTextArea?: boolean; // textarea 사용 여부를 결정하는 플래그
   type?: string; // input의 타입, 기본값은 "text"
   register?: UseFormRegisterReturn; // react-hook-form의 register 메서드를 통해 제공되는 객체 (폼과 연결)
+  min?: number; // 숫자 입력에 사용할 최소값 (type="number"일 때만 사용)
+  max?: number; // 숫자 입력에 사용할 최대값 (type="number"일 때만 사용)
+  step?: number; // 숫자 입력에 사용할 스텝 값 (type="number"일 때만 사용)
 }
 
 const InputItem = ({
@@ -31,6 +34,9 @@ const InputItem = ({
   errorMessage,
   type = "text", // 기본 input 타입은 "text"
   register,
+  min,
+  max,
+  step,
 }: InputItemProps) => {
   // onBlur 이벤트 핸들러
   const handleBlur = (
@@ -100,6 +106,9 @@ const InputItem = ({
           onKeyDown={onKeyDown} // 외부에서 전달된 onKeyDown 이벤트 핸들러
           placeholder={placeholder} // placeholder 설정
           type={type} // input 타입 설정
+          min={type === "number" ? min : undefined} // type이 "number"일 때 min 속성 전달
+          max={type === "number" ? max : undefined} // type이 "number"일 때 max 속성 전달
+          step={type === "number" ? step : undefined} // type이 "number"일 때 step 속성 전달
           className={inputClasses} // inputClasses 적용
           {...inputProps} // 이벤트 핸들러 및 기타 속성 전달
         />

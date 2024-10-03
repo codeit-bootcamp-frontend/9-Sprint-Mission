@@ -15,7 +15,7 @@ import {
 } from "@/types/product";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
-import RegisterButtonImage from "@/images/ui/register_small_40.png";
+import RegisterButtonImage from "/images/ui/register_small_40.png";
 
 // 화면 크기에 따라 페이지당 아이템 수를 계산하는 함수
 const getPageSize = () => {

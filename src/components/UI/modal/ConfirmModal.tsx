@@ -30,7 +30,10 @@ const ConfirmModal = ({ message, onConfirm, onCancel }: ConfirmModalProps) => {
           </svg>
         </div>
       </div>
-      <p className="mb-4">{message}</p>
+      <p
+        className="mb-4 text-center"
+        dangerouslySetInnerHTML={{ __html: message }}
+      />
       <div className="flex justify-center space-x-4">
         <Button label="아니오" onClick={onCancel} type="secondary" />
         <Button label="확인" onClick={onConfirm} />
