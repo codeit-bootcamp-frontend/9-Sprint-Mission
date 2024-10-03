@@ -90,7 +90,7 @@ const BestArticlesSection = () => {
   }, [imagesLoaded, articles.length, setIsLoading]);
 
   return (
-    <div className="bg-white px-4 py-6 mt-6 md:py-6 md:mt-12 lg:py-8 lg:mt-12 max-w-[1200px] mx-auto">
+    <div className="bg-white px-4 py-6 mt-14 md:py-6 md:mt-16 lg:py-8 lg:mt-16 max-w-[1200px] mx-auto">
       <div className="mb-6 text-2xl font-bold text-gray-800">베스트 게시글</div>
       {isLoading ? (
         <div className="flex justify-center items-center h-64">

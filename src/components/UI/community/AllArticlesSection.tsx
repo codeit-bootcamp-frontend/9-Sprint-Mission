@@ -1,4 +1,3 @@
-// src/components/UI/community/AllArticlesSection.tsx
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -12,6 +11,7 @@ import { getArticles } from "@/api/article";
 import AllArticleCard from "./AllArticleCard";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
+import useDebounce from "@/hooks/useDebounce"; // 디바운스 훅 추가
 
 // public 폴더 경로 문자열로 대체
 const WriteButtonImage = "/images/ui/write_small_40.png";
@@ -19,12 +19,8 @@ const WriteButtonImage = "/images/ui/write_small_40.png";
 const PAGE_SIZE = 5; // 한 번에 불러올 게시글 수
 
 // 화면 크기에 따라 페이지네이션 여부를 결정하는 함수
-const isPageNation = () => {
-  if (typeof window !== "undefined") {
-    const width = window.innerWidth;
-    return width >= 768; // 태블릿 또는 데스크탑에서는 페이지네이션 활성화
-  }
-  return true; // 기본적으로 페이지네이션 활성화
+const isPageNation = (width: number) => {
+  return width >= 768; // 태블릿 또는 데스크탑에서는 페이지네이션 활성화
 };
 
 const AllArticlesSection = () => {
@@ -38,17 +34,33 @@ const AllArticlesSection = () => {
   const [isLoading, setIsLoading] = useAtom(loadingAtom); // 로딩 상태
   const observer = useRef<IntersectionObserver | null>(null); // 무한 스크롤용 옵저버
   const containerRef = useRef<HTMLDivElement>(null); // 게시글 리스트 컨테이너 참조
-  const [isPagination, setIsPagination] = useState(isPageNation()); // 페이지네이션 여부
+
+  // 창 너비 상태 관리
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+
+  // 디바운스된 창 너비
+  const debouncedWindowWidth = useDebounce(windowWidth, 300); // 300ms 지연
+
+  // 페이지네이션 여부 상태 관리
+  const [isPagination, setIsPagination] = useState(
+    isPageNation(debouncedWindowWidth)
+  );
 
   // 화면 크기 변경 시 페이지네이션 여부를 재설정
   useEffect(() => {
     const handleResize = () => {
-      setIsPagination(isPageNation());
+      setWindowWidth(window.innerWidth); // 창 너비 업데이트
     };
-    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // 디바운스된 창 너비에 따른 페이지네이션 여부 결정
+  useEffect(() => {
+    setIsPagination(isPageNation(debouncedWindowWidth)); // 디바운스된 값으로 페이지네이션 여부 설정
+  }, [debouncedWindowWidth]);
 
   // 라우트 변경 시 스크롤 처리 (무한 스크롤 시 페이지 이동 후 자동 스크롤)
   const handleRouteChange = useCallback(() => {
@@ -168,7 +180,6 @@ const AllArticlesSection = () => {
 
       {/* 게시글 목록 - 한 줄에 하나씩 나오도록 설정 */}
       <div className="grid grid-cols-1 gap-6">
-        {" "}
         {articles.length
           ? articles.map((article, index) => (
               <div
@@ -180,7 +191,7 @@ const AllArticlesSection = () => {
                 }
               >
                 {/* currentPage 전달 */}
-                <AllArticleCard article={article} currentPage={page} />{" "}
+                <AllArticleCard article={article} currentPage={page} />
               </div>
             ))
           : keyword && (

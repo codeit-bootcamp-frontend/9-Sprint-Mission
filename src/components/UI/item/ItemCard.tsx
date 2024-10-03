@@ -15,6 +15,7 @@ interface ItemCardProps {
   height?: number;
   onLoad?: () => void;
   priority?: boolean;
+  unoptimized?: boolean;
 }
 
 const ItemCard = ({
@@ -22,7 +23,7 @@ const ItemCard = ({
   width = 200,
   height = 200,
   onLoad,
-  priority = false,
+  priority = true,
 }: ItemCardProps) => {
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
@@ -104,7 +105,7 @@ const ItemCard = ({
             width={width}
             height={height}
             unoptimized={isGif} // GIF 파일에만 적용
-            onLoadingComplete={handleImageLoad}
+            onLoad={handleImageLoad}
             onError={handleImageError}
             priority={priority}
           />

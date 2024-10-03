@@ -1,5 +1,5 @@
 // src/components/UI/articles/BestArticleCard.tsx
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -30,10 +30,21 @@ const BestArticleCard = ({
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading");
-  // 이미지 확장자가 허용된 파일인지 확인하고 프록시를 통한 로딩
-  const imageUrl = isValidImageUrl(article.image)
-    ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
-    : NoImage;
+
+  // 이미지 URL 및 GIF 여부를 판단하기 위한 로직
+  const imageInfo = useMemo(() => {
+    if (isValidImageUrl(article.image)) {
+      const isGif = article.image.toLowerCase().endsWith(".gif");
+      return {
+        url: `/api/imageProxy?url=${encodeURIComponent(article.image)}`,
+        isGif,
+      };
+    }
+    return {
+      url: NoImage,
+      isGif: false,
+    };
+  }, [article.image]);
 
   useEffect(() => {
     setImageStatus("loading");
@@ -46,7 +57,7 @@ const BestArticleCard = ({
 
   const handleImageError = () => {
     setImageStatus("error");
-    console.error(`이미지 로드 실패: ${imageUrl}`);
+    console.error(`이미지 로드 실패: ${imageInfo.url}`);
   };
 
   return (
@@ -75,7 +86,7 @@ const BestArticleCard = ({
                 </div>
               )}
               <Image
-                src={imageStatus === "error" ? NoImage : imageUrl}
+                src={imageStatus === "error" ? NoImage : imageInfo.url}
                 alt={`${article.id}번 게시글 이미지`}
                 style={{ objectFit: "contain" }}
                 width={width}
@@ -83,6 +94,7 @@ const BestArticleCard = ({
                 onLoad={handleImageLoad} // 이미지 로드 시 콜백 함수 호출
                 onError={handleImageError}
                 priority={priority} // 기본적으로 priority 적용
+                unoptimized={imageInfo.isGif} // GIF 파일에만 unoptimized 적용
               />
             </div>
           </div>

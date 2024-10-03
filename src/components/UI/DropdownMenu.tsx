@@ -1,4 +1,4 @@
-// src/components/UI/InputItem.tsx
+// src/components/UI/DropdownMenu.tsx
 import React, { useState } from "react";
 import Image from "next/image";
 import { ProductSortOption } from "@/types/product";
@@ -51,13 +51,17 @@ const DropdownMenu = <T extends ProductSortOption | ArticleSortOption>({
         <span className="text-base text-gray-800 w-[80px]">
           {getOptionText(selectedOption)}
         </span>
-        <Image
-          src={ArrowDownIcon}
-          width={24}
-          height={24}
-          alt="정렬 순서"
-          className="w-10 h-6 ml-2 "
-        />
+        <div className="relative w-6 h-6 ml-2">
+          {" "}
+          {/* 부모 요소에 크기 지정 */}
+          <Image
+            src={ArrowDownIcon}
+            alt="정렬 순서"
+            fill
+            sizes="24px"
+            style={{ objectFit: "contain" }} // 비율을 유지하며 이미지 크기 조정
+          />
+        </div>
       </button>
 
       {isDropdownVisible && (

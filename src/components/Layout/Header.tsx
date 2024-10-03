@@ -80,13 +80,18 @@ export default function Header() {
       <div className="mx-auto px-4 py-4 flex justify-between items-center w-full">
         <Link href="/" className="mr-8">
           {/* 로고 이미지 변경 */}
-          <div className="relative w-[153px] h-[51px]">
+          <div
+            className="relative min-w-[103] min-h-[51] max-w-[198px] max-h-[66px]"
+            style={{ position: "relative" }}
+          >
             {/* 작은 화면용 로고 */}
             <div className="block sm:hidden">
               <Image
                 src={LogoSM}
+                width={103}
+                height={51}
                 alt="Logo Small"
-                fill
+                sizes="(max-width: 768px) 100vw"
                 style={{ objectFit: "contain" }}
               />
             </div>
@@ -94,8 +99,10 @@ export default function Header() {
             <div className="hidden sm:block md:hidden">
               <Image
                 src={LogoMD}
+                width={153}
+                height={51}
                 alt="Logo Medium"
-                fill
+                sizes="(max-width: 1024px) 50vw"
                 style={{ objectFit: "contain" }}
               />
             </div>
@@ -103,9 +110,12 @@ export default function Header() {
             <div className="hidden md:block">
               <Image
                 src={LogoLG}
+                width={198}
+                height={66}
                 alt="Logo Large"
-                fill
+                sizes="(min-width: 1280px) 33vw"
                 style={{ objectFit: "contain" }}
+                priority={true}
               />
             </div>
           </div>

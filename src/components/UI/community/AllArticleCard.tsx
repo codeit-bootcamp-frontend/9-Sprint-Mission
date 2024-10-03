@@ -1,5 +1,5 @@
 // src/components/UI/community/AllArticleCard.tsx
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -8,7 +8,6 @@ import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 import { detectLCP } from "@/utils/detectLPC"; // LCP 감지 함수
 
-// public 폴더 경로 문자열로 대체
 const NoImage = "/images/ui/no-image.png";
 
 interface AllArticleCardProps {
@@ -26,10 +25,20 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
   // 이미지 확장자가 허용된 파일인지 확인
   const isImageAllowed = article.image && isValidImageUrl(article.image);
 
-  // imageProxy 적용: 유효한 이미지일 경우 프록시 서버를 통해 이미지를 로드
-  const imageUrl = isImageAllowed
-    ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
-    : NoImage;
+  // GIF 파일 여부 판단
+  const imageInfo = useMemo(() => {
+    if (isImageAllowed) {
+      const isGif = article.image.toLowerCase().endsWith(".gif");
+      return {
+        url: `/api/imageProxy?url=${encodeURIComponent(article.image)}`,
+        isGif,
+      };
+    }
+    return {
+      url: NoImage,
+      isGif: false,
+    };
+  }, [article.image, isImageAllowed]);
 
   useEffect(() => {
     setImageStatus("loading");
@@ -42,7 +51,8 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
     }
   }, [currentPage]);
 
-  const isPriority = currentPage === 1 ? true : lcpUrl === imageUrl; // 1페이지는 모든 이미지에 priority, 2페이지부터는 LCP 감지
+  // 1페이지는 모든 이미지에 priority, 2페이지부터는 LCP 감지
+  const isPriority = currentPage === 1 ? true : lcpUrl === imageInfo.url;
 
   return (
     <Link href={`/community/${article.id}`} className="block">
@@ -60,7 +70,7 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
             </div>
           )}
           <Image
-            src={imageUrl}
+            src={imageStatus === "error" ? NoImage : imageInfo.url}
             alt={`${article.id}번 게시글 이미지`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // sizes 속성 추가
@@ -68,6 +78,7 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
             onLoad={() => setImageStatus("loaded")}
             onError={() => setImageStatus("error")}
             priority={isPriority} // 1페이지는 true, 2페이지 이후는 LCP 감지 후 적용
+            unoptimized={imageInfo.isGif} // GIF 파일에만 unoptimized 적용
           />
         </div>
       </div>

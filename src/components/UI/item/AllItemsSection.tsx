@@ -15,13 +15,13 @@ import {
 } from "@/types/product";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
+import useDebounce from "@/hooks/useDebounce"; // 디바운스 훅 추가
 
 // public 폴더 경로 문자열로 대체
 const RegisterButtonImage = "/images/ui/register_small_40.png";
 
 // 화면 크기에 따라 페이지당 아이템 수를 계산하는 함수
-const getPageSize = () => {
-  const width = window.innerWidth;
+const getPageSize = (width: number) => {
   if (width < 768) return 4; // 모바일
   if (width < 1280) return 6; // 태블릿
   return 10; // 데스크탑
@@ -35,11 +35,21 @@ interface AllItemsSectionProps {
 const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const [orderBy, setOrderBy] = useState<ProductSortOption>("recent");
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10); // 초기값
   const [itemList, setItemList] = useState<Product[]>([]);
   const [totalPageNum, setTotalPageNum] = useState(1);
   const [isLoading, setIsLoading] = useAtom(loadingAtom);
   const [keyword, setKeyword] = useState("");
+
+  // 창 너비 상태 관리
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+
+  // 디바운스된 창 너비
+  const debouncedWindowWidth = useDebounce(windowWidth, 300); // 300ms 지연
+
+  // 페이지당 아이템 수
+  const [pageSize, setPageSize] = useState(getPageSize(debouncedWindowWidth));
 
   const fetchSortedData = useCallback(async () => {
     setIsLoading(true);
@@ -59,19 +69,26 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     }
   }, [orderBy, page, pageSize, keyword, setIsLoading]);
 
+  // 창 크기 변경 시 windowWidth 업데이트
   useEffect(() => {
     const handleResize = () => {
-      setPageSize(getPageSize());
+      setWindowWidth(window.innerWidth); // 창 너비 업데이트
     };
-
-    setPageSize(getPageSize());
     window.addEventListener("resize", handleResize);
-
-    fetchSortedData();
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  // 디바운스된 창 너비에 따라 pageSize 결정
+  useEffect(() => {
+    setPageSize(getPageSize(debouncedWindowWidth)); // 디바운스된 창 너비로 pageSize 설정
+  }, [debouncedWindowWidth]);
+
+  // 데이터 요청
+  useEffect(() => {
+    fetchSortedData(); // 데이터 불러오기
   }, [fetchSortedData]);
 
   const handleSortSelection = (sortOption: ProductSortOption) => {
@@ -86,8 +103,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
 
   return (
     <div className="mt-6 max-w-[1200px] mx-auto">
-      {" "}
-      {/* max-w-[1200px] 추가 */}
+      {/* 타이틀 및 상품 등록 버튼 */}
       <div className="flex justify-between items-center">
         <div className="mb-6 text-2xl font-bold text-gray-800">
           판매 중인 상품
@@ -101,6 +117,8 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
           />
         </Link>
       </div>
+
+      {/* 검색 및 정렬 옵션 */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <SearchBar onSearch={handleSearch} className="w-full md:w-96" />
         <DropdownMenu<ProductSortOption>
@@ -108,12 +126,15 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
           type="product"
         />
       </div>
+
+      {/* 로딩 중 */}
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
           <LoadingSpinner isLoading={isLoading} />
         </div>
       ) : (
         <div className="space-y-6">
+          {/* 상품 목록 */}
           {itemList.length ? (
             <div className="grid grid-cols-2 gap-8 sm:gap-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">
               {itemList.map((item) => (
@@ -134,6 +155,8 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
           )}
         </div>
       )}
+
+      {/* 페이지네이션 */}
       {totalPageNum > 1 && (
         <div className="pt-10 pb-20">
           <PaginationBar

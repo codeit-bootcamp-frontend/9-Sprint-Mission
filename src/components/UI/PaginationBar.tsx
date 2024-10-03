@@ -1,4 +1,4 @@
-// src/components/UI/InputItem.tsx
+// src/components/UI/PaginationBar.tsx
 import Image from "next/image";
 
 // public 폴더 경로 문자열로 대체
@@ -40,12 +40,14 @@ const PaginationBar = ({
         disabled={activePageNum === 1}
         onClick={() => onPageChange(activePageNum - 1)}
       >
-        <Image
-          src={LeftArrow}
-          width={40}
-          height={40}
-          alt="이전 페이지 아이콘"
-        />
+        <div className="w-10 h-10 relative">
+          <Image
+            src={LeftArrow}
+            width={40}
+            height={40}
+            alt="이전 페이지 아이콘"
+          />
+        </div>
       </button>
       {pages.map((page) => (
         <button
@@ -69,12 +71,14 @@ const PaginationBar = ({
         disabled={activePageNum === totalPageNum}
         onClick={() => onPageChange(activePageNum + 1)}
       >
-        <Image
-          src={RightArrow}
-          width={40}
-          height={40}
-          alt="다음 페이지 아이콘"
-        />
+        <div className="w-10 h-10 relative">
+          <Image
+            src={RightArrow}
+            width={40}
+            height={40}
+            alt="다음 페이지 아이콘"
+          />
+        </div>
       </button>
     </div>
   );
