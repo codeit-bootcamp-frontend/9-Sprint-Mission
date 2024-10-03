@@ -10,9 +10,11 @@ import PaginationBar from "@/components/UI/PaginationBar";
 import { Article, ArticleSortOption } from "@/types/article";
 import { getArticles } from "@/api/article";
 import AllArticleCard from "./AllArticleCard";
-import WriteButtonImage from "/images/ui/write_small_40.png";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
+
+// public 폴더 경로 문자열로 대체
+const WriteButtonImage = "/images/ui/write_small_40.png";
 
 const PAGE_SIZE = 5; // 한 번에 불러올 게시글 수
 

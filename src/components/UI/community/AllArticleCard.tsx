@@ -5,9 +5,11 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Article } from "@/types/article";
 import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
-import NoImage from "/images/ui/no-image.png";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 import { detectLCP } from "@/utils/detectLPC"; // LCP 감지 함수
+
+// public 폴더 경로 문자열로 대체
+const NoImage = "/images/ui/no-image.png";
 
 interface AllArticleCardProps {
   article: Article;
@@ -27,7 +29,7 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
   // imageProxy 적용: 유효한 이미지일 경우 프록시 서버를 통해 이미지를 로드
   const imageUrl = isImageAllowed
     ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
-    : NoImage.src;
+    : NoImage;
 
   useEffect(() => {
     setImageStatus("loading");

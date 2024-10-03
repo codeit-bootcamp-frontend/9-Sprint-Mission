@@ -1,13 +1,15 @@
 // src/components/UI/comment/ItemCommentThread.tsx
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import { getProductComments } from "@/api/item";
-import KebabIcon from "/images/icons/ic_kebab.svg";
-import DefaultProfileImage from "/images/ui/ic_profile-40.png";
 import { formatUpdatedAt } from "@/utils/dateUtils";
 import { Comment, CommentListResponse } from "@/types/comment";
-import Image from "next/image";
 import EmptyInquiry from "../EmptyInquiry";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 이미지 유효성 검사 함수 가져오기
+
+// public 폴더 경로 문자열로 대체
+const KebabIcon = "/images/icons/ic_kebab.png";
+const DefaultProfileImage = "/images/ui/ic_profile-40.png";
 
 // 댓글 하나를 나타내는 컴포넌트
 interface CommentItemProps {
@@ -22,14 +24,20 @@ const CommentItem = ({ item }: CommentItemProps) => {
   const imageUrl =
     authorInfo.image && isValidImageUrl(authorInfo.image)
       ? `/api/imageProxy?url=${encodeURIComponent(authorInfo.image)}`
-      : DefaultProfileImage.src;
+      : DefaultProfileImage;
 
   return (
     <>
       <div className="py-6 relative">
         {/* 케밥 버튼 (추후 기능 추가 예정) */}
         <button className="absolute right-0">
-          <KebabIcon className="w-6 h-6" />
+          <Image
+            src={KebabIcon}
+            width={24}
+            height={24}
+            alt="케밥 이미지 버튼"
+            className="w-6 h-6"
+          />
         </button>
 
         <p className="text-base leading-[140%] mb-6">{item.content}</p>

@@ -1,12 +1,13 @@
 // src/components/UI/InputItem.tsx
 import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
-import PlusIcon from "/images/icons/ic_plus.svg";
 import DeleteButton from "./DeleteButton";
 import { uploadImage } from "@/api/uploadImage";
 import { isValidImageFile } from "@/utils/validateImageFile";
-import { cleanSVG } from "@/utils/cleanSVG"; // SVG 보안 검토 유틸리티 가져오기
 import AlertModal from "./modal/AlertModal";
+
+// public 폴더 경로 문자열로 대체
+const PlusIcon = "/images/icons/ic_plus.png";
 
 interface ImageUploadProps {
   title: string;
@@ -28,7 +29,7 @@ const ImageUpload = ({ title, onImageUpload }: ImageUploadProps) => {
       // 파일 확장자 검증
       if (!isValidImageFile(file)) {
         setAlertMessage(
-          "유효하지 않은 이미지 파일입니다. JPEG, PNG, GIF, SVG 형식의 파일만 업로드 가능합니다."
+          "유효하지 않은 이미지 파일입니다.<br />JPEG, PNG, GIF, SVG 형식의 파일만 업로드 가능합니다."
         );
         return;
       }
@@ -42,20 +43,8 @@ const ImageUpload = ({ title, onImageUpload }: ImageUploadProps) => {
       setImageStatus("loading");
 
       let imageUrl = "";
-      if (file.type === "image/svg+xml") {
-        // SVG 파일 보안 검토
-        const cleanedSVGUrl = await cleanSVG(file);
-        if (!cleanedSVGUrl) {
-          setImageStatus("error");
-          setAlertMessage("SVG 파일이 유효하지 않거나 보안상 문제가 있습니다.");
-          return;
-        }
-        imageUrl = cleanedSVGUrl;
-      } else {
-        // 다른 이미지 파일 업로드
-        imageUrl = await uploadImage(file);
-      }
-
+      // 이미지 파일 업로드
+      imageUrl = await uploadImage(file);
       // 이미지 URL을 미리보기로 설정
       setImagePreviewUrl(imageUrl);
       setImageStatus("loaded");
@@ -88,7 +77,7 @@ const ImageUpload = ({ title, onImageUpload }: ImageUploadProps) => {
           htmlFor="image-upload"
           className="flex flex-col items-center justify-center gap-3 cursor-pointer bg-gray-100 hover:bg-gray-50 text-gray-400 text-base w-1/2 max-w-[200px] aspect-square rounded-xl sm:w-[162px] lg:w-[282px]"
         >
-          <PlusIcon />
+          <Image src={PlusIcon} width={48} height={48} alt="이미지 등록" />
           이미지 등록
         </label>
 

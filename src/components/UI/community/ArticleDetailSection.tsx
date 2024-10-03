@@ -1,16 +1,18 @@
 // src/components/UI/community/ArticleDetailSection.tsx
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import SeeMoreIcon from "/images/icons/ic_kebab.svg";
-import NoImage from "/images/ui/no-image.png";
 import { Article as ArticleDetail } from "@/types/article";
+
+// public 폴더 경로 문자열로 대체
+const KebabIcon = "/images/icons/ic_kebab.png";
+const NoImage = "/images/ui/no-image.png";
 
 interface ArticleDetailSectionProps {
   articleDetail: ArticleDetail;
 }
 
 const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>(NoImage);
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading");
@@ -46,6 +48,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       setImageStatus("error");
     }
   }, [articleDetail.image]);
+
   return (
     <section className="flex flex-col gap-4 md:flex-row lg:gap-6">
       <div className="w-full md:w-2/5 md:max-w-[486px]">
@@ -86,7 +89,13 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       <div className="flex flex-col justify-between flex-1 items-start">
         <div className="w-full relative">
           <button className="absolute right-0">
-            <SeeMoreIcon />
+            <Image
+              src={KebabIcon}
+              width={24}
+              height={24}
+              alt="케밥 이미지 버튼"
+              className="w-6 h-6"
+            />
           </button>
 
           <div>

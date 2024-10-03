@@ -79,8 +79,8 @@ export default function Header() {
               <Image
                 src={LogoSM}
                 alt="Logo Small"
-                layout="fill"
-                objectFit="contain"
+                fill
+                style={{ objectFit: "contain" }}
               />
             </div>
             {/* 중간 화면용 로고 */}
@@ -88,8 +88,8 @@ export default function Header() {
               <Image
                 src={LogoMD}
                 alt="Logo Medium"
-                layout="fill"
-                objectFit="contain"
+                fill
+                style={{ objectFit: "contain" }}
               />
             </div>
             {/* 큰 화면용 로고 */}
@@ -97,8 +97,8 @@ export default function Header() {
               <Image
                 src={LogoLG}
                 alt="Logo Large"
-                layout="fill"
-                objectFit="contain"
+                fill
+                style={{ objectFit: "contain" }}
               />
             </div>
           </div>

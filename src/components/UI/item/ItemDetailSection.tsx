@@ -3,9 +3,11 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import TagDisplay from "./TagDisplay";
 import LikeButton from "./LikeButton";
-import SeeMoreIcon from "/images/icons/ic_kebab.svg";
-import NoImage from "/images/ui/no-image.png";
 import { ProductDetail } from "@/types/product";
+
+// public 폴더 경로 문자열로 대체
+const KebabIcon = "/images/icons/ic_kebab.png";
+const NoImage = "/images/ui/no-image.png";
 
 interface ItemDetailSectionProps {
   productDetail: ProductDetail;
@@ -114,7 +116,13 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
         <div className="w-full relative">
           {/* 더보기 버튼 */}
           <button className="absolute right-0">
-            <SeeMoreIcon />
+            <Image
+              src={KebabIcon}
+              width={24}
+              height={24}
+              alt="케밥 이미지 버튼"
+              className="w-6 h-6"
+            />
           </button>
 
           {/* 상품 이름 및 가격 */}

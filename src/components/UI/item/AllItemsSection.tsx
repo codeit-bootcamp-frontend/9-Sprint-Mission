@@ -1,7 +1,7 @@
 // src/components/UI/item/AllItemsSection.tsx
 import React, { useEffect, useState, useCallback } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { getProducts } from "@/api/item";
 import ItemCard from "./ItemCard";
 import SearchBar from "@/components/UI/SearchBar";
@@ -15,7 +15,9 @@ import {
 } from "@/types/product";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
-import RegisterButtonImage from "/images/ui/register_small_40.png";
+
+// public 폴더 경로 문자열로 대체
+const RegisterButtonImage = "/images/ui/register_small_40.png";
 
 // 화면 크기에 따라 페이지당 아이템 수를 계산하는 함수
 const getPageSize = () => {

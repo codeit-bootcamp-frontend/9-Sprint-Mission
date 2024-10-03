@@ -1,5 +1,6 @@
 // pages/auth/signup/index.tsx
 import React, { useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -8,8 +9,10 @@ import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
 import { signup } from "@/api/auth";
 import { SignupFormValues } from "@/types/auth";
-import Logo from "/images/logo/logo-auth.svg";
 import Cookies from "js-cookie";
+
+// public 폴더 경로 문자열로 대체
+const LogoAuth = "/images/logo/logo-auth.png";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -61,7 +64,13 @@ export default function SignupPage() {
         className="block mb-6 text-center md:mb-10"
         aria-label="홈으로 이동"
       >
-        <Logo className="mx-auto" />
+        <Image
+          src={LogoAuth}
+          width={396}
+          height={132}
+          alt="로고"
+          className="mx-auto"
+        />
       </Link>
 
       {/* 회원가입 폼 */}

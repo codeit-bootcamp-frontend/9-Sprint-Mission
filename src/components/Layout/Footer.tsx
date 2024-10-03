@@ -36,28 +36,28 @@ function Footer() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src={FacebookLogo} alt="facebook" />
+          <Image src={FacebookLogo} width={20} height={20} alt="facebook" />
         </a>
         <a
           href="https://twitter.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src={TwitterLogo} alt="twitter" />
+          <Image src={TwitterLogo} width={20} height={20} alt="twitter" />
         </a>
         <a
           href="https://www.youtube.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src={YoutubeLogo} alt="youtube" />
+          <Image src={YoutubeLogo} width={20} height={20} alt="youtube" />
         </a>
         <a
           href="https://www.instagram.com/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image src={InstagramLogo} alt="instagram" />
+          <Image src={InstagramLogo} width={20} height={20} alt="instagram" />
         </a>
       </div>
     </footer>

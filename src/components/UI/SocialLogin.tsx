@@ -1,8 +1,10 @@
 // src/components/UI/SocialLogin.tsx
 import React from "react";
 import Image, { StaticImageData } from "next/image";
-import googleLogo from "/images/social/google-logo.png";
-import kakaoLogo from "/images/social/kakao-logo.png";
+
+// public 폴더 경로 문자열로 대체
+const googleLogo = "/images/social/google-logo.png";
+const kakaoLogo = "/images/social/kakao-logo.png";
 
 interface SocialLoginLinkProps {
   name: string;

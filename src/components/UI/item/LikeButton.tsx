@@ -1,6 +1,9 @@
 // src/components/UI/InputItem.tsx
 import React, { useState } from "react";
-import HeartIcon from "/images/icons/ic_heart.svg";
+import Image from "next/image";
+
+// public 폴더 경로 문자열로 대체
+const HeartIcon = "/images/icons/ic_heart.png";
 
 interface LikeButtonProps {
   isFavorite: boolean;
@@ -27,7 +30,13 @@ const LikeButton = ({
         isFavorite ? "text-red-500" : "text-gray-500"
       }`}
     >
-      <HeartIcon className={isFavorite ? "fill-current" : "stroke-current"} />
+      <Image
+        src={HeartIcon}
+        width={16}
+        height={16}
+        alt="좋아요 이미지 버튼"
+        className={isFavorite ? "fill-current" : "stroke-current"}
+      />
       <span>{favoriteCount}</span>
     </button>
   );

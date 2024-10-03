@@ -1,6 +1,9 @@
 // src/components/UI/InputItem.tsx
 import React from "react";
-import CloseIcon from "/images/icons/ic_x.svg";
+import Image from "next/image";
+
+// public 폴더 경로 문자열로 대체
+const CloseIcon = "/images/icons/ic_x.png";
 
 interface DeleteButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -14,7 +17,13 @@ const DeleteButton = ({ onClick, label }: DeleteButtonProps) => {
       aria-label={`${label} 삭제`}
       onClick={onClick}
     >
-      <CloseIcon className="w-3 h-3 text-white" />
+      <Image
+        src={CloseIcon}
+        width={24}
+        height={24}
+        alt="delete icon"
+        className="w-3 h-3 text-white"
+      />
     </button>
   );
 };

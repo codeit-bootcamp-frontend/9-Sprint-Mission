@@ -1,5 +1,6 @@
 // pages/auth/login/index.tsx
 import React, { useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -8,10 +9,12 @@ import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
 import { logIn } from "@/api/auth";
 import { LoginFormValues, AuthResponse } from "@/types/auth";
-import Logo from "/images/logo/logo-auth.svg";
 import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
+
+// public 폴더 경로 문자열로 대체
+const LogoAuth = "/images/logo/logo-auth.png";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -75,7 +78,13 @@ export default function LoginPage() {
     <div className="mt-70px px-4 py-6 max-w-sm mx-auto md:max-w-2xl md:py-12 lg:py-15">
       {/* 홈으로 돌아가는 로고 */}
       <Link href="/" className="md:mb-10" aria-label="홈으로 이동">
-        <Logo className="mx-auto" />
+        <Image
+          src={LogoAuth}
+          width={396}
+          height={132}
+          alt="로고"
+          className="mx-auto"
+        />
       </Link>
 
       {/* 로그인 폼 */}

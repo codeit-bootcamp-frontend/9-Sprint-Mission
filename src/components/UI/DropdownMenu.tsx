@@ -1,8 +1,11 @@
 // src/components/UI/InputItem.tsx
 import React, { useState } from "react";
+import Image from "next/image";
 import { ProductSortOption } from "@/types/product";
 import { ArticleSortOption } from "@/types/article";
-import ArrowDownIcon from "/images/icons/ic_arrow_down.svg";
+
+// public 폴더 경로 문자열로 대체
+const ArrowDownIcon = "/images/icons/ic_arrow_down.png";
 
 interface DropdownMenuProps<T extends ProductSortOption | ArticleSortOption> {
   onSortSelection: (sortOption: T) => void;
@@ -48,7 +51,13 @@ const DropdownMenu = <T extends ProductSortOption | ArticleSortOption>({
         <span className="text-base text-gray-800 w-[80px]">
           {getOptionText(selectedOption)}
         </span>
-        <ArrowDownIcon className="w-10 h-6 ml-2 " />
+        <Image
+          src={ArrowDownIcon}
+          width={24}
+          height={24}
+          alt="정렬 순서"
+          className="w-10 h-6 ml-2 "
+        />
       </button>
 
       {isDropdownVisible && (

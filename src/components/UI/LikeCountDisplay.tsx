@@ -1,5 +1,8 @@
-import React from "react";
-import HeartIcon from "/images/icons/ic_heart.svg";
+// src/components/UI/LikeCountDisplay.tsx
+import Image from "next/image";
+
+// public 폴더 경로 문자열로 대체
+const HeartIcon = "/images/icons/ic_heart.png";
 
 interface LikeCountDisplayProps {
   count: number;
@@ -26,7 +29,12 @@ const LikeCountDisplay = ({
         gap: `${gap}px`,
       }}
     >
-      <HeartIcon width={iconWidth} alt="좋아요 아이콘" />
+      <Image
+        src={HeartIcon}
+        width={iconWidth}
+        height={iconWidth}
+        alt="좋아요 아이콘"
+      />
       {displayCount}
     </div>
   );

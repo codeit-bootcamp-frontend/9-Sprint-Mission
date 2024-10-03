@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
 import { Article } from "@/types/article";
-import MedalIcon from "/images/icons/ic_medal.svg";
 import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
-import NoImage from "/images/ui/no-image.png";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
+
+// public 폴더 경로 문자열로 대체
+const MedalIcon = "/images/icons/ic_medal.png";
+const NoImage = "/images/ui/no-image.png";
 
 interface BestArticleCardProps {
   article: Article;
@@ -31,7 +33,7 @@ const BestArticleCard = ({
   // 이미지 확장자가 허용된 파일인지 확인하고 프록시를 통한 로딩
   const imageUrl = isValidImageUrl(article.image)
     ? `/api/imageProxy?url=${encodeURIComponent(article.image)}`
-    : NoImage.src;
+    : NoImage;
 
   useEffect(() => {
     setImageStatus("loading");
@@ -53,7 +55,12 @@ const BestArticleCard = ({
       className="bg-gray-50 rounded-lg block"
     >
       <div className="inline-flex items-center bg-blue-500 text-white text-base font-semibold rounded-b-3xl px-6 py-2 ml-6 gap-1">
-        <MedalIcon alt="베스트 게시글" />
+        <Image
+          src={MedalIcon}
+          width={102}
+          height={30}
+          alt="베스트 메달 아이콘"
+        />
         Best
       </div>
 
@@ -68,7 +75,7 @@ const BestArticleCard = ({
                 </div>
               )}
               <Image
-                src={imageStatus === "error" ? NoImage.src : imageUrl}
+                src={imageStatus === "error" ? NoImage : imageUrl}
                 alt={`${article.id}번 게시글 이미지`}
                 style={{ objectFit: "contain" }}
                 width={width}

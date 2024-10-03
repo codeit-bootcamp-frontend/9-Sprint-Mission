@@ -3,6 +3,7 @@ import { isAxiosError } from "axios";
 import axiosInstance from "./axiosConfig";
 import Cookies from "js-cookie";
 import { LoginFormValues, SignupFormValues, AuthResponse } from "@/types/auth";
+
 // public 폴더 경로 문자열로 대체
 const DefaultAvatar = "/images/ui/ic_profile-32.png";
 

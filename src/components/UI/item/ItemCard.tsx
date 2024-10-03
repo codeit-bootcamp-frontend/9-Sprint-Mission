@@ -1,11 +1,13 @@
 // src/components/UI/item/ItemCard.tsx
 import React, { useEffect, useState, useMemo } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { Product } from "@/types/product";
-import HeartIcon from "/images/icons/ic_heart.svg";
-import NoImage from "/images/ui/no-image.png";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
+
+// public 폴더 경로 문자열로 대체
+const HeartIcon = "/images/icons/ic_heart.png";
+const NoImage = "/images/ui/no-image.png";
 
 interface ItemCardProps {
   item: Product;
@@ -48,7 +50,7 @@ const ItemCard = ({
     }
     // 기본 이미지 설정
     return {
-      url: NoImage.src,
+      url: NoImage,
       isSvg: false,
     };
   }, [item.images]);
@@ -96,7 +98,7 @@ const ItemCard = ({
         ) : (
           // GIF 파일만 unoptimized 처리
           <Image
-            src={imageStatus === "error" ? NoImage.src : imageInfo.url}
+            src={imageStatus === "error" ? NoImage : imageInfo.url}
             alt="상품 썸네일"
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
@@ -114,7 +116,12 @@ const ItemCard = ({
         </div>
         <p className="text-base font-bold">{item.price.toLocaleString()}원</p>
         <div className="flex items-center gap-1 text-gray-600 text-xs">
-          <HeartIcon />
+          <Image
+            src={HeartIcon}
+            width={16}
+            height={16}
+            alt="좋아요 이미지 버튼"
+          />
           <span>{item.favoriteCount}</span>
         </div>
       </div>

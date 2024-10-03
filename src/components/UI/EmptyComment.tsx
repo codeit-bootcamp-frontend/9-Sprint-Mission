@@ -1,19 +1,18 @@
-import Image, { StaticImageData } from "next/image";
-import EmptyCommentImage from "/images/ui/empty-comment.png";
+// src/components/UI/EmptyComment.tsx
+import Image from "next/image";
+
+// public 폴더 경로 문자열로 대체
+const EmptyCommentImage = "/images/ui/empty-comment.png";
 
 interface EmptyStateProps {
   text: string;
-  imageComponent?: StaticImageData; // PNG 타입만 지원
 }
 
-const EmptyComment = ({
-  text,
-  imageComponent = EmptyCommentImage,
-}: EmptyStateProps) => {
+const EmptyComment = ({ text }: EmptyStateProps) => {
   return (
     <div className="m-6 flex flex-col items-center gap-6">
       <Image
-        src={imageComponent}
+        src={EmptyCommentImage}
         alt="Empty Comment"
         width={140}
         height={140}

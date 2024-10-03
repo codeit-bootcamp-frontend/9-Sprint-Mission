@@ -1,18 +1,21 @@
+// src/pages/index.tsx
 import React from "react";
 import Link from "next/link";
 import Feature from "@/components/UI/Feature";
-import HeroImage from "/images/home/hero-image.png";
-import BottomBannerImage from "/images/home/bottom-banner-image.png";
-import Feature1Image from "/images/home/feature1-image.png";
-import Feature2Image from "/images/home/feature2-image.png";
-import Feature3Image from "/images/home/feature3-image.png";
+
+// public 폴더 경로 문자열로 대체
+const HeroImage = "/images/home/hero-image.png";
+const BottomBannerImage = "/images/home/bottom-banner-image.png";
+const Feature1Image = "/images/home/feature1-image.png";
+const Feature2Image = "/images/home/feature2-image.png";
+const Feature3Image = "/images/home/feature3-image.png";
 
 export default function Home() {
   return (
     <>
       <section
         className="bg-blue-100 w-full h-[60vh] min-h-[500px] text-center bg-no-repeat bg-bottom bg-[length:130%] md:h-[90vh] md:bg-[length:120%] lg:text-left lg:h-[540px] lg:flex lg:flex-col lg:justify-center lg:bg-[80%_bottom] lg:bg-[length:55%]"
-        style={{ backgroundImage: `url(${HeroImage.src})` }}
+        style={{ backgroundImage: `url(${HeroImage})` }}
       >
         <div className="min-w-[400px] max-w-[1200px] w-full mx-auto px-4 pt-[30px]">
           <div className="font-bold sm:pt-[100px] min-w-[300px] text-lg leading-tight pt-12 md:text-4xl md:leading-tight md:pt-[84px] md:pb-6 lg:pt-0 lg:pb-8">
@@ -30,7 +33,7 @@ export default function Home() {
 
       <section className="py-[51px] px-4 md:py-6 md:px-6 lg:py-[138px] lg:px-6 lg:max-w-[1200px] lg:mx-auto">
         <Feature
-          image={Feature1Image.src}
+          image={Feature1Image}
           alt="인기 상품"
           featureName="Hot item"
           title="인기 상품을 확인해 보세요"
@@ -38,7 +41,7 @@ export default function Home() {
           direction="row"
         />
         <Feature
-          image={Feature2Image.src}
+          image={Feature2Image}
           alt="검색 기능"
           featureName="Search"
           title="구매를 원하는 상품을 검색하세요"
@@ -46,7 +49,7 @@ export default function Home() {
           direction="row-reverse"
         />
         <Feature
-          image={Feature3Image.src}
+          image={Feature3Image}
           alt="판매 상품 등록"
           featureName="Register"
           title="판매를 원하는 상품을 등록하세요"
@@ -57,7 +60,7 @@ export default function Home() {
 
       <section
         className="bg-blue-100 w-full h-[60vh] text-center bg-no-repeat bg-bottom bg-[length:130%] md:h-[90vh] md:bg-[length:120%] lg:text-left lg:h-[540px] lg:flex lg:flex-col lg:justify-center lg:bg-[80%_bottom] lg:bg-[length:55%]"
-        style={{ backgroundImage: `url(${BottomBannerImage.src})` }}
+        style={{ backgroundImage: `url(${BottomBannerImage})` }}
       >
         <div className="max-w-[1200px] w-full mx-auto px-4">
           <div className="font-bold text-3xl leading-[44.8px] pt-12 md:text-4xl md:leading-[56px] md:pt-[84px] md:pb-6 lg:pt-0 lg:pb-8">
