@@ -54,14 +54,14 @@ const BestArticleCard = ({
       href={`/community/${article.id}`}
       className="bg-gray-50 rounded-lg block"
     >
-      <div className="inline-flex items-center bg-blue-500 text-white text-base font-semibold rounded-b-3xl px-6 py-2 ml-6 gap-1">
+      <div>
         <Image
           src={MedalIcon}
           width={102}
           height={30}
           alt="베스트 메달 아이콘"
+          className="mx-6"
         />
-        Best
       </div>
 
       <div className="p-4 sm:p-6">
