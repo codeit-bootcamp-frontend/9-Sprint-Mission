@@ -7,14 +7,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import SignupForm from "@/components/auth/SignupForm";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import useToken from "@/hooks/useToken";
 
 const Signup = () => {
   const router = useRouter();
+  const session = useToken();
 
   useEffect(() => {
-    const checkToken = localStorage.getItem("accessToken");
-
-    if (checkToken !== null) {
+    if (session?.accessToken !== null) {
       router.push("/");
     }
   }, [router]);

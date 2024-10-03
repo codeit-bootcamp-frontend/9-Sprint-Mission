@@ -1,4 +1,12 @@
 import NavBar from "@/components/navBar/NavBar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "자유게시판",
+  openGraph: {
+    title: "자유게시판"
+  }
+}
 
 const BoardsLayout = ({ children }: { children: React.ReactNode }) => {
   return (

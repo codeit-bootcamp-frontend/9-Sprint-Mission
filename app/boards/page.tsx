@@ -3,11 +3,7 @@
 import BestPost from "@/components/boards/BestPost";
 
 const Boards = () => {
-  return (
-    <>
-      <BestPost />
-    </>
-  );
+  return <BestPost />;
 };
 
 export default Boards;
