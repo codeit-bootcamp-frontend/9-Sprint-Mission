@@ -51,8 +51,8 @@ const ArticleCommentSection = ({ articleId }: ArticleCommentSectionProps) => {
       setLoading(true); // 로딩 상태 설정
       // API를 호출하여 댓글 등록
       await addArticleComment(articleId, comment.trim(), token);
-      // 성공 시 해당 게시글 페이지로 리다이렉트
-      router.push(`/articles/${articleId}`);
+      // 댓글 등록 성공 시 페이지 리로드
+      router.reload(); // 페이지 강제 리로드
     } catch (error) {
       console.error("댓글 등록 실패:", error);
     } finally {
