@@ -2,8 +2,8 @@
 import Image from "next/image";
 
 // public 폴더 경로 문자열로 대체
-const LeftArrow = "/images/icons/arrow_left.png";
-const RightArrow = "/images/icons/arrow_right.png";
+const LeftArrow = "/images/icons/ic_arrow_left.png";
+const RightArrow = "/images/icons/ic_arrow_right.png";
 
 interface PaginationBarProps {
   totalPageNum: number;
