@@ -67,16 +67,6 @@ export const signup = async (
       throw new Error("Invalid request");
     }
 
-    const { accessToken, refreshToken, user } = response.data;
-    const { id, nickname, image } = user;
-
-    // 클라이언트에서 토큰을 저장
-    setCookie("accessToken", accessToken, 1 / 48); // 30분
-    setCookie("refreshToken", refreshToken, 7); // 7일
-    setCookie("userId", id.toString(), 1 / 48);
-    setCookie("nickname", nickname, 1 / 48);
-    setUserImage(image);
-
     return response.data;
   } catch (error: unknown) {
     if (isAxiosError(error) && error.response?.status === 400) {
