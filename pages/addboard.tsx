@@ -14,12 +14,15 @@ export default function AddBoard() {
           *내용
         </TextInput>
 
-        <input id="imageInput" type="file" hidden />
-        {/* 프리뷰 */}
+        {/* 가짜 라벨 */}
         <div className={styles["image-label"]}>이미지</div>
+
         <label className={styles["image-input"]} htmlFor="imageInput">
+          <div className={styles["image-icon-text"]}></div>
+          <div className={styles["bg-icon"]}></div>
           <div className={styles["input-text"]}>이미지 등록</div>
         </label>
+        <input id="imageInput" type="file" hidden />
         {/* 조건부 disable, 스타일 */}
         <button className={styles.button} type="submit">
           등록

@@ -30,6 +30,23 @@
   width: 282px;
   height: 282px;
 }
+.image-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.image-icon-text {
+  display: flex;
+  flex-direction: column;
+}
+.bg-icon {
+  background-image: url("/icons/ic_plus.svg");
+  background-position: bottom 38px;
+  background-repeat: no-repeat;
+  width: 48px;
+  height: 48px;
+}
 .input-text {
   color: var(--gray400);
   font-size: 1.6rem;
