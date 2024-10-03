@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Product } from "@/types/product";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 
-// public 폴더 경로 문자열로 대체
 const HeartIcon = "/images/icons/ic_heart.png";
 const NoImage = "/images/ui/no-image.png";
 
@@ -23,7 +22,7 @@ const ItemCard = ({
   width = 200,
   height = 200,
   onLoad,
-  priority = true,
+  priority = false,
 }: ItemCardProps) => {
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
@@ -33,6 +32,7 @@ const ItemCard = ({
   const imageInfo = useMemo(() => {
     if (item.images && item.images[0] && isValidImageUrl(item.images[0])) {
       const originalUrl = item.images[0];
+      const isGif = originalUrl.toLowerCase().endsWith(".gif");
       const isSvg = originalUrl.toLowerCase().endsWith(".svg");
 
       if (isSvg) {
@@ -40,6 +40,14 @@ const ItemCard = ({
         return {
           url: originalUrl,
           isSvg: true,
+          isGif: false,
+        };
+      } else if (isGif) {
+        // GIF 파일은 프록시를 사용하지 않고 원본 URL 사용
+        return {
+          url: originalUrl,
+          isSvg: false,
+          isGif: true,
         };
       } else {
         // 기타 이미지는 프록시 URL 사용, width와 height 추가
@@ -48,6 +56,7 @@ const ItemCard = ({
             originalUrl
           )}&width=${width}&height=${height}`,
           isSvg: false,
+          isGif: false,
         };
       }
     }
@@ -55,6 +64,7 @@ const ItemCard = ({
     return {
       url: NoImage,
       isSvg: false,
+      isGif: false,
     };
   }, [item.images, width, height]);
 
@@ -71,9 +81,6 @@ const ItemCard = ({
     setImageStatus("error");
     console.error(`이미지 로드 실패: ${imageInfo.url}`);
   };
-
-  // 이미지가 GIF일 경우만 unoptimized 설정
-  const isGif = imageInfo.url.endsWith(".gif");
 
   return (
     <Link
@@ -98,15 +105,26 @@ const ItemCard = ({
             onLoad={handleImageLoad}
             onError={handleImageError}
           />
+        ) : imageInfo.isGif ? (
+          // GIF 파일은 원본 img 태그로 처리하여 애니메이션 유지
+          <img
+            src={imageInfo.url}
+            alt="상품 썸네일"
+            className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            width={width}
+            height={height}
+          />
         ) : (
-          // GIF 파일만 unoptimized 처리
+          // 기타 이미지 파일들은 Next.js의 Image 컴포넌트 사용
           <Image
             src={imageStatus === "error" ? NoImage : imageInfo.url}
             alt="상품 썸네일"
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
             height={height}
-            unoptimized={isGif} // GIF 파일에만 적용
+            unoptimized={imageInfo.isGif} // GIF 파일에만 적용
             onLoad={handleImageLoad}
             onError={handleImageError}
             priority={priority}

@@ -30,10 +30,12 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
     if (isImageAllowed) {
       const isGif = article.image.toLowerCase().endsWith(".gif");
       return {
-        // 프록시 URL에 width=72, height=72 추가
-        url: `/api/imageProxy?url=${encodeURIComponent(
-          article.image
-        )}&width=72&height=72`,
+        // GIF 파일은 원본 URL을 사용
+        url: isGif
+          ? article.image
+          : `/api/imageProxy?url=${encodeURIComponent(
+              article.image
+            )}&width=72&height=72`,
         isGif,
       };
     }
@@ -46,6 +48,7 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
   useEffect(() => {
     setImageStatus("loading");
   }, [article.image]);
+
   // LCP 감지 함수 호출 (2페이지 이후에만 실행)
   useEffect(() => {
     if (currentPage > 1) {
@@ -71,17 +74,32 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
               <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent border-solid rounded-full animate-spin"></div>
             </div>
           )}
-          <Image
-            src={imageStatus === "error" ? NoImage : imageInfo.url}
-            alt={`${article.id}번 게시글 이미지`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // sizes 속성 추가
-            style={{ objectFit: "cover" }} // 이미지 부모 크기에 맞춤
-            onLoad={() => setImageStatus("loaded")}
-            onError={() => setImageStatus("error")}
-            priority={isPriority} // 1페이지는 true, 2페이지 이후는 LCP 감지 후 적용
-            unoptimized={imageInfo.isGif} // GIF 파일에만 unoptimized 적용
-          />
+
+          {imageInfo.isGif ? (
+            // GIF 파일에 대한 처리: img 태그 사용 (원본 URL 사용)
+            <img
+              src={imageStatus === "error" ? NoImage : imageInfo.url}
+              alt={`${article.id}번 게시글 이미지`}
+              className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
+              onLoad={() => setImageStatus("loaded")}
+              onError={() => setImageStatus("error")}
+              width={80}
+              height={80}
+            />
+          ) : (
+            // GIF가 아닌 경우 Next.js Image 컴포넌트 사용
+            <Image
+              src={imageStatus === "error" ? NoImage : imageInfo.url}
+              alt={`${article.id}번 게시글 이미지`}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // sizes 속성 추가
+              style={{ objectFit: "cover" }} // 이미지 부모 크기에 맞춤
+              onLoad={() => setImageStatus("loaded")}
+              onError={() => setImageStatus("error")}
+              priority={isPriority} // 1페이지는 true, 2페이지 이후는 LCP 감지 후 적용
+              unoptimized={imageInfo.isGif} // GIF 파일에만 unoptimized 적용
+            />
+          )}
         </div>
       </div>
 

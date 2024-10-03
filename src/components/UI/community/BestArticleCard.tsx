@@ -36,10 +36,12 @@ const BestArticleCard = ({
     if (isValidImageUrl(article.image)) {
       const isGif = article.image.toLowerCase().endsWith(".gif");
       return {
-        // 프록시 URL에 width=72, height=72 추가
-        url: `/api/imageProxy?url=${encodeURIComponent(
-          article.image
-        )}&width=72&height=72`,
+        // GIF 파일은 원본 URL 사용
+        url: isGif
+          ? article.image
+          : `/api/imageProxy?url=${encodeURIComponent(
+              article.image
+            )}&width=72&height=72`,
         isGif,
       };
     }
@@ -88,17 +90,32 @@ const BestArticleCard = ({
                   <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent border-solid rounded-full animate-spin"></div>
                 </div>
               )}
-              <Image
-                src={imageStatus === "error" ? NoImage : imageInfo.url}
-                alt={`${article.id}번 게시글 이미지`}
-                style={{ objectFit: "contain" }}
-                width={width}
-                height={height}
-                onLoad={handleImageLoad} // 이미지 로드 시 콜백 함수 호출
-                onError={handleImageError}
-                priority={priority} // 기본적으로 priority 적용
-                unoptimized={imageInfo.isGif} // GIF 파일에만 unoptimized 적용
-              />
+
+              {imageInfo.isGif ? (
+                // GIF 파일에 대한 처리: img 태그 사용 (원본 URL 사용)
+                <img
+                  src={imageStatus === "error" ? NoImage : imageInfo.url}
+                  alt={`${article.id}번 게시글 이미지`}
+                  style={{ objectFit: "contain" }}
+                  width={width}
+                  height={height}
+                  onLoad={handleImageLoad} // 이미지 로드 시 콜백 함수 호출
+                  onError={handleImageError}
+                />
+              ) : (
+                // GIF가 아닌 경우 Next.js Image 컴포넌트 사용
+                <Image
+                  src={imageStatus === "error" ? NoImage : imageInfo.url}
+                  alt={`${article.id}번 게시글 이미지`}
+                  style={{ objectFit: "contain" }}
+                  width={width}
+                  height={height}
+                  onLoad={handleImageLoad} // 이미지 로드 시 콜백 함수 호출
+                  onError={handleImageError}
+                  priority={priority} // 기본적으로 priority 적용
+                  unoptimized={false} // GIF가 아닌 파일에는 unoptimized 설정 해제
+                />
+              )}
             </div>
           </div>
         </div>
