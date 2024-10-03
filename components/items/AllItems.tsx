@@ -57,7 +57,7 @@ const AllItems = () => {
 
   return (
     <div className="flex flex-col space-y-8">
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col space-y-4">
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-xl md:order-1">전체 상품</h2>
           <Link

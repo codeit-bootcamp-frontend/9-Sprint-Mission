@@ -1,15 +1,17 @@
 import { ISearchList } from "@/types/boardsTypeShare";
 import Image from "next/image";
+import Link from "next/link";
 
 interface IPrpos {
   bestPost: ISearchList[];
 }
 
-const BestPostMap = ({bestPost}: IPrpos) => {
+const BestPostMap = ({ bestPost }: IPrpos) => {
   return (
     bestPost.map((post) => (
-      <div
+      <Link
         key={post.id}
+        href={`/boards/${post.id}`}
         className="flex flex-col space-y-4 bg-[--color-gray50] px-6 pb-4 rounded-lg"
       >
         <div className="bg-[--color-theme] flex items-center justify-center space-x-1 w-[102px] rounded-bl-2xl rounded-br-2xl px-6 py-[2px]">
@@ -37,7 +39,7 @@ const BestPostMap = ({bestPost}: IPrpos) => {
           </div>
           <p className="text-sm text-[--color-gray400]">{post.createdAt.split("T")[0]}</p>
         </div>
-      </div>
+      </Link>
     ))
   )}
 

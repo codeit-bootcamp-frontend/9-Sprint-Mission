@@ -1,5 +1,6 @@
 import { ISearchList } from "@/types/boardsTypeShare";
 import Image from "next/image";
+import Link from "next/link";
 
 interface IProps {
   allPost: ISearchList[];
@@ -11,8 +12,9 @@ const AllPostMap = ({ allPost, searchList }: IProps) => {
 
   return (
     renderList.map((item) => (
-      <div
+      <Link
         key={item.id}
+        href={`/boards/${item.id}`}
         className="flex flex-col space-y-4 bg-[#FCFCFC] pb-6 border-b-[1px] border-[--color-gray200]"
       >
         <div className="flex items-center justify-between">
@@ -42,7 +44,7 @@ const AllPostMap = ({ allPost, searchList }: IProps) => {
             <span className="text-[--color-gray500]">{item.likeCount}</span>
           </div>
         </div>
-      </div>
+      </Link>
     ))
   )
 }
