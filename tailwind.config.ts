@@ -13,7 +13,7 @@ const config: Config = {
       },
       fontFamily: {
         inherit: "inherit",
-        pretendard: ["Pretendard Variable", "Pretendard"],
+        pretendard: ["Pretendard Variable", "Pretendard", "sans-serif"],
       },
       spacing: {
         "70px": "70px",
