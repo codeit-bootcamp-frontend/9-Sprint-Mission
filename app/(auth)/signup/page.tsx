@@ -17,7 +17,7 @@ const Signup = () => {
     if (session?.accessToken !== null) {
       router.push("/");
     }
-  }, [router]);
+  }, []);
 
   const form = useForm<z.infer<typeof SignupSchema>>({
     resolver: zodResolver(SignupSchema),
