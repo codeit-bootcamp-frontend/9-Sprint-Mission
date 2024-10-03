@@ -5,47 +5,28 @@ import { Dropdown } from "./Dropdown";
 import { ArticleItem } from "./ArticleItem";
 import { SearchForm } from "./SearchForm";
 import Link from "next/link";
-interface Query {
-  page: number;
-  pageSize: number;
-  orderBy: string;
-  keyword?: string;
-}
-interface Article {
-  id: number;
-  title: string;
-  content: string;
-  image: string;
-  likeCount: number;
-  createdAt: string;
-  updatedAt: string;
-  writer: {
-    id: number;
-    nickname: string;
-  };
-}
-interface ArticleResponse {
-  list: Article[];
-}
+import { Query, Article, ArticleResponse } from "@/types/types";
 
 export default function ArticleList({
+  initialArticles,
   query,
   handleClickOrder,
   dropdownOpen,
   handleClickOrderOpen,
   handleChangeSearchQuery,
 }: {
+  initialArticles: Article[];
   query: Query;
   handleClickOrder: (value: string) => void;
   dropdownOpen: boolean;
   handleClickOrderOpen: () => void;
   handleChangeSearchQuery: (search: string) => void;
 }) {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<Article[]>(initialArticles);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent
+  //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent&keyword=keyword
 
   async function getArticles(query: Query) {
     const { page, pageSize, orderBy, keyword } = query;
@@ -75,7 +56,7 @@ export default function ArticleList({
       {error && <p>{error.message}</p>}
       <div className={styles["title-wrap"]}>
         <h1 className={styles["section-title"]}>게시글</h1>
-        <Link href="/addItems" className={styles["create-btn"]}>
+        <Link href="/addboard" className={styles["create-btn"]}>
           글쓰기
         </Link>
       </div>

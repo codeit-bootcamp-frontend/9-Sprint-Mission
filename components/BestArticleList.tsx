@@ -2,33 +2,16 @@ import { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import styles from "./ArticleList.module.css";
 import { ArticleItem } from "./ArticleItem";
+import { Query, Article, ArticleResponse } from "@/types/types";
 
-interface Article {
-  id: number;
-  title: string;
-  content: string;
-  image: string;
-  likeCount: number;
-  createdAt: string;
-  updatedAt: string;
-  writer: {
-    id: number;
-    nickname: string;
-  };
-}
-
-interface ArticleResponse {
-  list: Article[];
-}
-
-interface Query {
-  page: number;
-  pageSize: number;
-  orderBy: string;
-}
-
-export default function BestArticleList({ query }: { query: Query }) {
-  const [articles, setArticles] = useState<Article[]>([]);
+export default function BestArticleList({
+  query,
+  initialArticles,
+}: {
+  query: Query;
+  initialArticles: Article[];
+}) {
+  const [articles, setArticles] = useState<Article[]>(initialArticles);
   const [error, setError] = useState<Error | null>(null);
   //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent
   async function getArticles(query: Query) {

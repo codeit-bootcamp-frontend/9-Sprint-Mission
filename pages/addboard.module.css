@@ -1,0 +1,52 @@
+.addform {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  position: relative;
+  margin-top: 94px;
+}
+
+.title {
+  font-size: 2rem;
+  line-height: 3.2rem;
+  font-weight: 700;
+  color: var(--gray800);
+  margin: 0;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.image-label {
+  color: var(--gray800);
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  font-weight: 700;
+}
+.image-input {
+  border-radius: 12px;
+  background-color: var(--gray100);
+  width: 282px;
+  height: 282px;
+}
+.input-text {
+  color: var(--gray400);
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 400;
+}
+.button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 74px;
+  height: 42px;
+  background-color: var(--gray400);
+  color: var(--gray100);
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+}
