@@ -1,43 +1,22 @@
 import { Article } from "@/types/article";
-import { formatUpdatedAt } from "@/utils/dateUtils";
 import styles from "./ArticleCard.module.scss";
 import DefaultProduct from "@/assets/images/ui/img_default.svg";
 import BestLabelImg from "@/assets/images/icons/ic_medal.svg";
-import LikeCountImg from "@/assets/images/icons/ic_heart.svg";
 import UserAvatarImg from "@/assets/images/icons/ic_profile.svg";
 import Image from "next/image";
 import Link from "next/link";
+import LikeButton from "../Button/LikeButton";
+import Date from "../Date";
+import Profile from "../Profile";
 
 interface Props {
   article: Article;
   className?: string;
   BestLabel?: boolean;
-  UserAvatar?: boolean;
   ArticleMeta?: "BestArticleMeta" | "AllArticleMeta";
 }
 
-const ArticleCard = ({
-  article,
-  className,
-  BestLabel,
-  UserAvatar,
-  ArticleMeta,
-}: Props) => {
-  const formattedUpdatedAt = formatUpdatedAt(article.updatedAt);
-
-  const Date = () => {
-    return <p className={styles.date}>{formattedUpdatedAt}</p>;
-  };
-
-  const LikeCount = ({ size }: { size: number }) => {
-    return (
-      <>
-        <Image src={LikeCountImg} width={size} height={size} alt="like" />
-        <span className={styles.likeCount}>{article.likeCount}</span>
-      </>
-    );
-  };
-
+const ArticleCard = ({ article, className, BestLabel, ArticleMeta }: Props) => {
   return (
     <li className={`${styles.articleCard} ${className}`}>
       <Link href={`/boards/${article.id}`} className={styles.articleLink}>
@@ -56,31 +35,25 @@ const ArticleCard = ({
               src={article.image || DefaultProduct}
               alt={article.title}
               fill
-              style={{
-                objectFit: "cover",
-              }}
             />
           </div>
         </div>
         <div className={styles.articleCardBottom}>
-          {UserAvatar && (
-            <Image
-              src={UserAvatarImg}
-              width={24}
-              height={24}
-              alt={article.writer.nickname}
-            />
-          )}
-          <p className={styles.nickname}>{article.writer.nickname}</p>
+          <Profile nickname={article.writer.nickname} size={24} />
           {ArticleMeta === "BestArticleMeta" ? (
             <>
-              <LikeCount size={15} />
-              <Date />
+              <LikeButton size={15} likeCount={article.likeCount} isLiked />
+              <Date date={article.updatedAt} />
             </>
           ) : (
             <div className={styles.allArticleMeta}>
-              <Date />
-              <LikeCount size={24} />
+              <Date date={article.updatedAt} />
+              <LikeButton
+                size={24}
+                likeCount={article.likeCount}
+                isLiked
+                fontSize="large"
+              />
             </div>
           )}
         </div>

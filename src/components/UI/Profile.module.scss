@@ -1,0 +1,15 @@
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .profileImage {
+    border-radius: 50%;
+  }
+
+  .nickname {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: $gray600;
+  }
+}

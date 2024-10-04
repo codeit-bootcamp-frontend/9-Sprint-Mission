@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import styles from "./Header.module.scss";
 import Logo from "@/assets/images/logo/logo.svg";
-import Button from "../UI/Button";
+import Button from "../UI/Button/Button";
 import Image from "next/image";
 import Link from "next/link";
 

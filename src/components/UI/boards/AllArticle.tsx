@@ -4,10 +4,11 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { ArticleProps, ArticleSortOption } from "@/types/article";
 import Link from "next/link";
 import styles from "./AllArticle.module.scss";
-import Search from "@/components/UI/Search";
-import Button from "@/components/UI/Button";
+import Search from "@/components/UI/boards/Search";
+import Button from "@/components/UI/Button/Button";
 import ArticleCard from "./ArticleCard";
 import { Dropdown } from "../Dropdown/DropdownMenu";
+import { TitleSection, SectionTitle } from "../CommonStyles";
 
 const AllArticle = ({ articles }: ArticleProps) => {
   const router = useRouter();
@@ -43,12 +44,12 @@ const AllArticle = ({ articles }: ArticleProps) => {
 
   return (
     <section className={styles.allArticle}>
-      <div className={styles.titleWrap}>
-        <h2 className={styles.title}>게시글</h2>
+      <TitleSection>
+        <SectionTitle>게시글</SectionTitle>
         <Button>
           <Link href="/addboard">글쓰기</Link>
         </Button>
-      </div>
+      </TitleSection>
 
       <div className={styles.allArticleSectionHeader}>
         <Search
@@ -71,7 +72,6 @@ const AllArticle = ({ articles }: ArticleProps) => {
             key={article.id}
             article={article}
             className={styles.allArticleCard}
-            UserAvatar={true}
           />
         ))}
       </ul>

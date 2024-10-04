@@ -12,6 +12,7 @@ export interface Article {
 }
 
 export interface ArticleWriter {
+  image?: string;
   nickname: string;
   id: number;
 }
@@ -28,4 +29,12 @@ export interface ArticleParams {
 
 export interface ArticleResponse extends ArticleParams {
   list: Article[];
+}
+
+export interface ArticleComments {
+  writer: ArticleWriter;
+  updatedAt: Date;
+  createdAt: Date;
+  content: string;
+  id: number;
 }

@@ -61,6 +61,7 @@
 
     img {
       padding: 5px;
+      object-fit: cover;
     }
   }
 
@@ -68,38 +69,13 @@
     display: flex;
     align-items: center;
     gap: 8px;
-
-    .nickname,
-    .likeCount,
-    .date {
-      font-size: 1.4rem;
-      font-weight: 400;
-    }
-
-    .nickname {
-      color: $gray600;
-    }
-
-    .likeCount {
-      color: $gray500;
-      margin-left: -5px;
-    }
-
-    .date {
-      margin-left: auto;
-      color: $gray400;
-    }
+    margin-left: auto;
 
     .allArticleMeta {
       display: flex;
       align-items: center;
       flex: 1;
-      gap: 8px;
-
-      .date {
-        margin-right: auto;
-        margin-left: 0;
-      }
+      margin-right: auto;
 
       .likeCount {
         font-size: 1.6rem;
