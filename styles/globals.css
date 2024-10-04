@@ -20,6 +20,11 @@ html {
 body {
   margin: 71px 0 0 0;
 }
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
 
 * {
   box-sizing: border-box;
@@ -50,14 +55,6 @@ li {
   .container {
     max-width: auto;
     margin: 0 16px;
-    padding: 0;
-    margin: 0;
-  }
-
-  html,
-  body {
-    max-width: 100vw;
-    overflow-x: hidden;
   }
 
   body {

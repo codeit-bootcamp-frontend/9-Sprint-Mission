@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 32px;
   position: relative;
-  margin-top: 94px;
+  margin-top: 24px;
 }
 
 .title {
@@ -66,4 +66,10 @@
   font-weight: 600;
   border-radius: 8px;
   border: none;
+}
+
+@media screen and (max-width: 992px) {
+  .addform {
+    margin-top: 16px;
+  }
 }
