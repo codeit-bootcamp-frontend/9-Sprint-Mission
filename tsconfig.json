@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "module": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
     "noImplicitAny": true,
     "allowJs": true,
@@ -8,7 +9,6 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
