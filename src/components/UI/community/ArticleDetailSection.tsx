@@ -1,5 +1,5 @@
 // src/components/UI/community/ArticleDetailSection.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { Article as ArticleDetail } from "@/types/article";
 import { format } from "date-fns";
@@ -16,6 +16,8 @@ interface ArticleDetailSectionProps {
 }
 
 const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
+  const [imageHeight, setImageHeight] = useState(486); // 기본 높이 486px
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(NoImage);
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
@@ -53,6 +55,14 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     }
   }, [articleDetail.image]);
 
+  // 이미지 로드 완료 시 이미지의 실제 높이를 가져오기 위한 useEffect
+  useEffect(() => {
+    if (imageRef.current && imageStatus === "loaded") {
+      const height = imageRef.current.clientHeight;
+      setImageHeight(height);
+    }
+  }, [imageStatus]);
+
   // Date formatting function
   const formattedDate = format(
     new Date(articleDetail.createdAt),
@@ -64,30 +74,20 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
   return (
     <section className="flex flex-col gap-4 md:flex-row lg:gap-6">
+      {/* 이미지 섹션 */}
       <div className="w-full md:w-2/5 md:max-w-[486px]">
         {imageStatus === "loading" ? (
           <div className="w-full h-[486px] flex items-center justify-center bg-gray-200 rounded-xl">
             <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent border-solid rounded-full animate-spin"></div>
           </div>
         ) : imageStatus === "loaded" && imageUrl ? (
-          isSvgFile(imageUrl) ? (
-            <img
-              src={imageUrl}
-              alt={`${articleDetail.title} 게시글 대표 사진`}
-              className="rounded-xl w-full h-auto"
-              width={486}
-              height={486}
-            />
-          ) : (
-            <Image
-              src={imageUrl}
-              alt={`${articleDetail.title} 게시글 대표 사진`}
-              width={486}
-              height={486}
-              className="rounded-xl w-full h-auto"
-              unoptimized={true}
-            />
-          )
+          <img
+            ref={imageRef}
+            src={imageUrl}
+            alt={`${articleDetail.title} 게시글 대표 사진`}
+            className="rounded-xl w-full h-auto"
+            style={{ maxHeight: "486px" }} // 최대 높이 486px 설정
+          />
         ) : (
           <Image
             src={NoImage}
@@ -100,7 +100,10 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       </div>
 
       {/* 작성자 정보 섹션 */}
-      <div className="flex flex-col justify-between flex-1">
+      <div
+        className="flex flex-col justify-between flex-1"
+        style={{ height: imageHeight }}
+      >
         <div className="w-full relative">
           <button className="absolute right-0">
             <Image
@@ -120,7 +123,11 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
           <hr className="my-4 border-gray-200" />
 
-          <div className="min-h-60 max-h-96">
+          {/* 게시글 내용을 이미지 높이에 맞춤 */}
+          <div
+            className="overflow-auto"
+            style={{ minHeight: imageHeight - 90 }}
+          >
             <div className="text-gray-600 text-sm font-medium mb-2">
               게시글 내용
             </div>
@@ -130,8 +137,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
           </div>
 
           {/* 작성자 정보: 아래에 고정된 부분 */}
-          <div className="flex items-center gap-2 text-sm text-gray-500 mt-auto flex-grow">
-            {/* 기본 아바타 이미지 */}
+          <div className="flex items-center gap-2 text-sm text-gray-500 mt-auto">
             <Image
               src={DefaultAvatar}
               alt="작성자 아바타"
@@ -139,16 +145,9 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
               height={24}
               className="rounded-full"
             />
-
-            {/* 작성자 닉네임 */}
             <div className="font-semibold">{articleDetail.writer.nickname}</div>
-
             <div>{formattedDate}</div>
-
-            {/* 세로 구분선 */}
             <div className="h-4 border-l border-gray-300 mx-2"></div>
-
-            {/* 좋아요 하트 버튼 */}
             <button className="flex items-center">
               <Image
                 src={HeartIcon}
