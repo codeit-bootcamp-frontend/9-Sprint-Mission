@@ -107,7 +107,7 @@ const BoardPost = () => {
           <PostCommentForm postId={id} setPostComments={setPostComments} />
         </div>
       </div>
-      {postComments ? (
+      {postComments.length > 0 ? (
         <div className="flex flex-col space-y-10">
           <CommentsMap comments={postComments} />
         </div>
