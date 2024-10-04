@@ -1,22 +1,47 @@
 import Button from "@/components/Button";
 import styles from "@/styles/addboard.module.css";
+import { useState } from "react";
 
 export default function AddBoard() {
+  const [inputValue, setInputValue] = useState("");
+  const [textAreaValue, settextAreaValue] = useState("");
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (e.target.id === "title") setInputValue(e.target.value);
+    else settextAreaValue(e.target.value);
+  };
 
   return (
     <>
       <div className={styles["add-container"]}>
         <h2>게시글 쓰기</h2>
-        <Button color="gray">등록</Button>
+        {inputValue && textAreaValue ? (
+          <Button color="blue">등록</Button>
+        ) : (
+          <Button color="gray">등록</Button>
+        )}
       </div>
       <section className={styles["upload-container"]}>
         <div className={styles["add-title"]}>
           <label htmlFor="title">*제목</label>
-          <input type="text" id="title" placeholder="제목을 입력해주세요" />
+          <input
+            onChange={handleChange}
+            value={inputValue}
+            type="text"
+            id="title"
+            placeholder="제목을 입력해주세요"
+          />                 
         </div>
         <div className={styles["add-description"]}>
           <label htmlFor="description">*내용</label>
-          <textarea id="description" placeholder="내용을 입력해주세요"></textarea>
+          <textarea
+            onChange={handleChange}
+            value={textAreaValue}
+            id="description"
+            placeholder="내용을 입력해주세요"
+          ></textarea>
         </div>
         <div className={styles["add-img"]}>
           <span>이미지</span>
