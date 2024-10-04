@@ -76,60 +76,58 @@ export default function MainBoard({ initialProducts, total }: ProductProps) {
   }, [filteredPosts, currentPage]);
 
   return (
-    <>
-      <div className={styles.article}>
-        <h2 className="page-title">
-          게시글
-          <button className="btn-box" type="button">
-            글쓰기
-          </button>
-        </h2>
-        <div className={styles["filter-section"]}>
-          <SearchForm onSearch={handleSearch} />
-          <DropdownMenu setSortOrder={setSortOrder} />
-        </div>
-        <ul className={styles["article-wrap"]}>
-          {paginatedPosts &&
-            paginatedPosts.map((post) => (
-              <li className={styles["article-list"]} key={post.id}>
-                <div>
-                  <div className={styles.content}>
-                    <Link href={`/boards/${post.id}`}>{post.content}</Link>
-                  </div>
-                  <div className={styles["profile-img"]}>
-                    <img src={post.image} alt="작성자 이미지" />
-                  </div>
-                </div>
-                <div>
-                  <div className={styles["user-info"]}>
-                    <span className={styles["user-img"]}>
-                      <Image
-                        src={userIcon}
-                        width={24}
-                        height={24}
-                        alt="사용자 이미지"
-                      />
-                    </span>
-                    <span className={styles.nickname}>
-                      {post.writer.nickname}
-                    </span>
-                    <span className={styles.date}>
-                      {formatDate(post.createdAt)}
-                    </span>
-                  </div>
-                  <div className={styles.like}>
-                    <button>{post.likeCount}</button>
-                  </div>
-                </div>
-              </li>
-            ))}
-        </ul>
-        <Pagination
-          total={Math.ceil(filteredPosts.length / PAGE_SIZE)}
-          currentPage={currentPage}
-          onPageChange={handlePageChange}
-        />
+    <div className={styles.article}>
+      <h2 className="page-title">
+        게시글
+        <button className="btn-box" type="button">
+          <Link href="/addboard">글쓰기 </Link>
+        </button>
+      </h2>
+      <div className={styles["filter-section"]}>
+        <SearchForm onSearch={handleSearch} />
+        <DropdownMenu setSortOrder={setSortOrder} />
       </div>
-    </>
+      <ul className={styles["article-wrap"]}>
+        {paginatedPosts &&
+          paginatedPosts.map((post) => (
+            <li className={styles["article-list"]} key={post.id}>
+              <div>
+                <div className={styles.content}>
+                  <Link href={`/boards/${post.id}`}>{post.content}</Link>
+                </div>
+                <div className={styles["profile-img"]}>
+                  <img src={post.image} alt="작성자 이미지" />
+                </div>
+              </div>
+              <div>
+                <div className={styles["user-info"]}>
+                  <span className={styles["user-img"]}>
+                    <Image
+                      src={userIcon}
+                      width={24}
+                      height={24}
+                      alt="사용자 이미지"
+                    />
+                  </span>
+                  <span className={styles.nickname}>
+                    {post.writer.nickname}
+                  </span>
+                  <span className={styles.date}>
+                    {formatDate(post.createdAt)}
+                  </span>
+                </div>
+                <div className={styles.like}>
+                  <button>{post.likeCount}</button>
+                </div>
+              </div>
+            </li>
+          ))}
+      </ul>
+      <Pagination
+        total={Math.ceil(filteredPosts.length / PAGE_SIZE)}
+        currentPage={currentPage}
+        onPageChange={handlePageChange}
+      />
+    </div>
   );
 }

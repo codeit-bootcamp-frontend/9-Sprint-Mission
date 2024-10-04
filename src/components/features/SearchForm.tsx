@@ -24,19 +24,17 @@ export default function SearchForm({
   }
 
   return (
-    <>
-      <form className={styles["search-box"]} onSubmit={handleSubmit}>
-        <button type="submit">
-          <Image src={SearchIcon} width={24} height={24} alt="검색" />
-        </button>
-        <input
-          className="form-input"
-          name="q"
-          value={value}
-          onChange={handleChange}
-          placeholder="검색할 상품을 입력해주세요"
-        />
-      </form>
-    </>
+    <form className={styles["search-box"]} onSubmit={handleSubmit}>
+      <button type="submit">
+        <Image src={SearchIcon} width={24} height={24} alt="검색" />
+      </button>
+      <input
+        className="form-input"
+        name="q"
+        value={value}
+        onChange={handleChange}
+        placeholder="검색할 상품을 입력해주세요"
+      />
+    </form>
   );
 }

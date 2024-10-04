@@ -31,6 +31,7 @@ export default function BestBoard() {
         );
 
         setBoards(response.data.list);
+        updatePageSize();
       } catch (error) {
         console.error("Error fetching posts in Best:", error);
       }
@@ -39,8 +40,6 @@ export default function BestBoard() {
   }, [pageSize]);
 
   useEffect(() => {
-    updatePageSize();
-
     window.addEventListener("resize", updatePageSize);
 
     return () => {
@@ -49,46 +48,42 @@ export default function BestBoard() {
   }, []);
 
   return (
-    <>
-      <div className="best-article">
-        <h2 className="page-title">베스트 게시글</h2>
-        <ul className={`${styles["article-wrap"]} ${styles["best"]}`}>
-          {boards &&
-            boards.map((board) => (
-              <li className={styles["article-list"]} key={board.id}>
-                <span className={styles["badge-best"]}>
-                  <Image src={Badge} width={102} height={30} alt="베스트" />
-                </span>
-                <div>
-                  <div className={styles.content}>
-                    <Link href={`/boards/${board.id}`}>{board.content}</Link>
-                  </div>
-                  <div className={styles["profile-img"]}>
-                    <Image
-                      src={board.image}
-                      width={48}
-                      height={48}
-                      alt="프로필 이미지"
-                    />
-                  </div>
+    <div className="best-article">
+      <h2 className="page-title">베스트 게시글</h2>
+      <ul className={`${styles["article-wrap"]} ${styles["best"]}`}>
+        {boards &&
+          boards.map((board) => (
+            <li className={styles["article-list"]} key={board.id}>
+              <span className={styles["badge-best"]}>
+                <Image src={Badge} width={102} height={30} alt="베스트" />
+              </span>
+              <div>
+                <div className={styles.content}>
+                  <Link href={`/boards/${board.id}`}>{board.content}</Link>
                 </div>
-                <div>
-                  <div className={styles["user-info"]}>
-                    <span className={styles.nickname}>
-                      {board.writer.nickname}
-                    </span>
-                    <span className={styles.like}>
-                      <button>{board.likeCount}</button>
-                    </span>
-                  </div>
-                  <div className={styles.date}>
-                    {formatDate(board.createdAt)}
-                  </div>
+                <div className={styles["profile-img"]}>
+                  <Image
+                    src={board.image}
+                    width={48}
+                    height={48}
+                    alt="프로필 이미지"
+                  />
                 </div>
-              </li>
-            ))}
-        </ul>
-      </div>
-    </>
+              </div>
+              <div>
+                <div className={styles["user-info"]}>
+                  <span className={styles.nickname}>
+                    {board.writer.nickname}
+                  </span>
+                  <span className={styles.like}>
+                    <button>{board.likeCount}</button>
+                  </span>
+                </div>
+                <div className={styles.date}>{formatDate(board.createdAt)}</div>
+              </div>
+            </li>
+          ))}
+      </ul>
+    </div>
   );
 }

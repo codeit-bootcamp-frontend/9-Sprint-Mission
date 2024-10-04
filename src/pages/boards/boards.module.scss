@@ -1,17 +1,160 @@
 @import "@/src/styles/common.scss";
+@import "@/src/components/AllBoardList.module.scss";
 
-.article {
-  margin-top: 40px;
+/* BoardDetail */
+.question {
+  .question-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  h2 {
-    width: 100%;
-    position: relative;
-    line-height: 42px;
+    > p {
+      color: $color-1f2937;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 32px;
+    }
+  }
+
+  .question-writer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 32px;
+    padding: 16px 0;
+    border-bottom: 1px solid $color-e5e7eb;
+
+    .writer-info {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 34px;
+        margin-left: 32px;
+        background-color: $color-e5e7eb;
+        border-radius: 2px;
+      }
+
+      .user-img {
+        overflow: hidden;
+        width: 40px;
+        height: 40px;
+        margin-right: 16px;
+        border-radius: 50%;
+
+        img {
+          object-fit: cover;
+          height: 100%;
+        }
+      }
+
+      .nickname {
+        margin-right: 8px;
+        color: $color-4b5563;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .like {
+    border: 1px solid $color-e5e7eb;
+    border-radius: 35px;
 
     button {
-      position: absolute;
-      right: 0;
-      top: 0;
+      width: 87px;
+      height: 40px;
+      padding: 0 0 0 44px;
+      font-size: 16px;
+      font-weight: 500;
+
+      &::after {
+        left: 12px;
+        width: 32px;
+        height: 32px;
+        margin-top: -16px;
+        background-size: 32px;
+        background-position: left center;
+      }
+    }
+  }
+
+  .question-content {
+    padding-top: 24px;
+    color: $color-1f2937;
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+/* commets */
+.comment-wrap {
+  margin-top: 32px;
+
+  .comment-tit {
+    margin-bottom: 9px;
+    color: $color-111827;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  form {
+    overflow: hidden;
+  }
+
+  textarea {
+    min-height: 104px;
+  }
+
+  button {
+    float: right;
+    margin-top: 16px;
+  }
+}
+
+.no-comments {
+  margin-top: 40px;
+  padding-top: 140px;
+  background: url("/assets/images/Img_reply_empty.png") no-repeat top
+    center/140px;
+  color: $color-9ca3af;
+  font-size: 16px;
+  text-align: center;
+  line-height: 26px;
+}
+
+@media (max-width: 768px) {
+  .question {
+    .question-writer {
+      gap: 16px;
+
+      .writer-info {
+        &::after {
+          margin-left: 16px;
+        }
+      }
+    }
+
+    .like {
+      border: 1px solid $color-e5e7eb;
+      border-radius: 35px;
+
+      button {
+        width: 79px;
+        height: 35px;
+        padding: 0 0 0 38px;
+
+        &::after {
+          width: 24px;
+          height: 24px;
+          margin-top: -12px;
+          background-size: 24px;
+        }
+      }
     }
   }
 }

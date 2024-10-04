@@ -5,13 +5,15 @@
 
   h2 {
     width: 100%;
-    position: relative;
     line-height: 42px;
 
     button {
-      position: absolute;
-      right: 0;
-      top: 0;
+      > a {
+        display: block;
+        width: 100%;
+        height: auto;
+        display: block;
+      }
     }
   }
 }
@@ -142,7 +144,7 @@
 }
 
 .date {
-  color: $color-gray-2;
+  color: $color-9ca3af;
   font-size: 14px;
 }
 

@@ -34,22 +34,20 @@ export default function DropdownMenu({ setSortOrder }: DropdownMenuProps) {
   }, [isOpen]);
 
   return (
-    <>
-      <div className={styles["dropdown-menu"]}>
-        <button onClick={toggleDropdown}>
-          {order === "recent" ? "최신순" : "좋아요순"}
-        </button>
-        {isOpen && (
-          <div className={styles["menu-box"]}>
-            <button onClick={() => handleSortOrderChange("recent")}>
-              최신순
-            </button>
-            <button onClick={() => handleSortOrderChange("like")}>
-              좋아요순
-            </button>
-          </div>
-        )}
-      </div>
-    </>
+    <div className={styles["dropdown-menu"]}>
+      <button onClick={toggleDropdown}>
+        {order === "recent" ? "최신순" : "좋아요순"}
+      </button>
+      {isOpen && (
+        <div className={styles["menu-box"]}>
+          <button onClick={() => handleSortOrderChange("recent")}>
+            최신순
+          </button>
+          <button onClick={() => handleSortOrderChange("like")}>
+            좋아요순
+          </button>
+        </div>
+      )}
+    </div>
   );
 }

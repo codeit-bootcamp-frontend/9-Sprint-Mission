@@ -1,7 +1,7 @@
 import { Board } from "@/src/types/types";
 import { GetStaticProps } from "next";
-import MainBoard from "@/src/components/MainBoards";
 import axios from "@/src/lib/axios";
+import MainBoard from "@/src/components/MainBoards";
 import BestBoard from "@/src/components/BestBoards";
 
 interface ListResponse {
