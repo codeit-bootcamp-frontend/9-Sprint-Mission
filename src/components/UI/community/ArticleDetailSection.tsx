@@ -9,7 +9,6 @@ import LikeButton from "./LikeButton";
 const KebabIcon = "/images/icons/ic_kebab.png";
 const NoImage = "/images/ui/no-image.png";
 const DefaultAvatar = "/images/ui/ic_profile-24.png";
-const HeartIcon = "/images/icons/ic_heart.png";
 
 interface ArticleDetailSectionProps {
   articleDetail: ArticleDetail;

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getArticleDetail } from "@/api/article";
-import { Article } from "@/types/article";
+import { ArticleDetail } from "@/types/article";
 import ArticleDetailSection from "@/components/UI/community/ArticleDetailSection";
 import ArticleCommentSection from "@/components/UI/comment/ArticleCommentSection";
 import BackToListButton from "@/components/UI/BackToListButton";
@@ -10,7 +10,9 @@ import BackToListButton from "@/components/UI/BackToListButton";
 export default function ItemPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [article, setArticle] = useState<Article | null>(null);
+  const [articleDetail, setArticleDetail] = useState<ArticleDetail | null>(
+    null
+  );
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ export default function ItemPage() {
         try {
           const articleIdNumber = Number(id);
           const articleData = await getArticleDetail(articleIdNumber);
-          setArticle(articleData);
+          setArticleDetail(articleData);
         } catch (err) {
           console.error(err);
           setError("게시글 정보를 불러오는 중 오류가 발생했습니다.");
@@ -34,7 +36,7 @@ export default function ItemPage() {
     alert(`오류: ${error}`);
   }
 
-  if (!article)
+  if (!articleDetail)
     return (
       <>
         <div className="container mx-auto pt-24 px-4">게시글이 없습니다.</div>
@@ -45,9 +47,9 @@ export default function ItemPage() {
   return (
     <>
       <div className="container mx-auto pt-24 px-4">
-        <ArticleDetailSection articleDetail={article} />
+        <ArticleDetailSection articleDetail={articleDetail} />
         <hr className="my-6 border-t border-gray-200" />
-        <ArticleCommentSection articleId={article.id} />
+        <ArticleCommentSection articleId={articleDetail.id} />
       </div>
       <BackToListButton path="/community" />
     </>

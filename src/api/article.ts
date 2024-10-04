@@ -3,6 +3,7 @@ import axiosInstance from "./axiosConfig";
 import { AxiosError } from "axios";
 import {
   Article,
+  ArticleDetail,
   ArticleForm,
   ArticleListResponse,
   ArticleSortOption,
@@ -85,13 +86,17 @@ export async function getArticles({
 }
 
 // 게시글 상세 정보 가져오기
-export async function getArticleDetail(articleId: number): Promise<Article> {
+export async function getArticleDetail(
+  articleId: number
+): Promise<ArticleDetail> {
   if (!articleId) {
     throw new Error("Invalid article ID");
   }
 
   try {
-    const response = await axiosInstance.get<Article>(`/articles/${articleId}`);
+    const response = await axiosInstance.get<ArticleDetail>(
+      `/articles/${articleId}`
+    );
     return response.data;
   } catch (error) {
     if (error instanceof AxiosError) {
