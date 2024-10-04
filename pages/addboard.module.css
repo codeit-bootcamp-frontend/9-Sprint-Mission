@@ -18,41 +18,6 @@
   flex-direction: column;
   gap: 24px;
 }
-.image-label {
-  color: var(--gray800);
-  font-size: 1.8rem;
-  line-height: 2.6rem;
-  font-weight: 700;
-}
-.image-input {
-  border-radius: 12px;
-  background-color: var(--gray100);
-  width: 282px;
-  height: 282px;
-}
-.image-input {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.image-icon-text {
-  display: flex;
-  flex-direction: column;
-}
-.bg-icon {
-  background-image: url("/icons/ic_plus.svg");
-  background-position: bottom 38px;
-  background-repeat: no-repeat;
-  width: 48px;
-  height: 48px;
-}
-.input-text {
-  color: var(--gray400);
-  font-size: 1.6rem;
-  line-height: 2.6rem;
-  font-weight: 400;
-}
 .button {
   position: absolute;
   top: 0;
@@ -66,8 +31,12 @@
   font-weight: 600;
   border-radius: 8px;
   border: none;
+  cursor: not-allowed;
 }
-
+.active {
+  background-color: var(--main);
+  cursor: pointer;
+}
 @media screen and (max-width: 992px) {
   .addform {
     margin-top: 16px;

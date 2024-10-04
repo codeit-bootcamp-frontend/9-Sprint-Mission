@@ -1,32 +1,65 @@
 import { TextInput } from "@/components/TextInput";
 import styles from "./addboard.module.css";
+import FileInput from "@/components/FileInput";
+import { ChangeEvent, useState } from "react";
+import Link from "next/link";
 
 export default function AddBoard() {
+  const handleSubmitArticle = () => {
+    //게시글에 댓글 등록 api
+  };
+  const [fill, setFill] = useState({
+    title: "",
+    content: "",
+  });
+
+  let active = false;
+  if (fill.title !== "" && fill.content !== "") active = true;
+
+  const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
+    const newTitle = e.target.value;
+    setFill((prev) => ({ ...prev, title: newTitle }));
+  };
+
+  const handleChangeContent = (e: ChangeEvent<HTMLInputElement>) => {
+    const newContent = e.target.value;
+    setFill((prev) => ({ ...prev, content: newContent }));
+  };
   return (
     <div className={`container ${styles.addform}`}>
       <h1 className={styles.title}>게시글 쓰기</h1>
-      <form className={styles.form}>
-        <TextInput label="title" placeholder="제목을 입력해주세요" required>
+      <form onSubmit={handleSubmitArticle} className={styles.form}>
+        <TextInput
+          value={fill.title}
+          label="title"
+          placeholder="제목을 입력해주세요"
+          required
+          onChange={handleChangeTitle}
+        >
           *제목
         </TextInput>
 
-        <TextInput label="content" placeholder="내용을 입력해주세요" required>
+        <TextInput
+          value={fill.content}
+          label="content"
+          placeholder="내용을 입력해주세요"
+          required
+          onChange={handleChangeContent}
+        >
           *내용
         </TextInput>
 
-        {/* 가짜 라벨 */}
-        <div className={styles["image-label"]}>이미지</div>
-
-        <label className={styles["image-input"]} htmlFor="imageInput">
-          <div className={styles["image-icon-text"]}></div>
-          <div className={styles["bg-icon"]}></div>
-          <div className={styles["input-text"]}>이미지 등록</div>
-        </label>
-        <input id="imageInput" type="file" hidden />
+        <FileInput />
         {/* 조건부 disable, 스타일 */}
-        <button className={styles.button} type="submit">
-          등록
-        </button>
+        <Link href="/boards">
+          <button
+            className={`${styles.button} ${active ? styles.active : ""}`}
+            type="submit"
+            disabled={!active}
+          >
+            등록
+          </button>
+        </Link>
       </form>
     </div>
   );

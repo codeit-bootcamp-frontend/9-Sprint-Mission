@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ChangeEvent, ReactNode } from "react";
 import styles from "./TextInput.module.css";
 
 interface Props {
@@ -7,6 +7,8 @@ interface Props {
   children?: ReactNode;
   required?: boolean;
   hidden?: boolean;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 export const TextInput = ({
   label,
@@ -14,6 +16,8 @@ export const TextInput = ({
   children,
   required,
   hidden,
+  value,
+  onChange,
 }: Props) => {
   return (
     <div className={styles["label-input"]}>
@@ -25,9 +29,11 @@ export const TextInput = ({
         id={label}
         name={label}
         type="text"
+        value={value}
         placeholder={placeholder}
         required={required}
         hidden={hidden}
+        onChange={onChange}
       ></input>
     </div>
   );
