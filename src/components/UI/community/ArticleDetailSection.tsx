@@ -2,10 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Article as ArticleDetail } from "@/types/article";
+import { format } from "date-fns";
+import { ko } from "date-fns/locale";
 
 // public 폴더 경로 문자열로 대체
 const KebabIcon = "/images/icons/ic_kebab.png";
 const NoImage = "/images/ui/no-image.png";
+const DefaultAvatar = "/images/ui/ic_profile-24.png"; // 기본 아바타 이미지
+const HeartIcon = "/images/icons/ic_heart.png"; // 하트 이미지
 
 interface ArticleDetailSectionProps {
   articleDetail: ArticleDetail;
@@ -49,6 +53,15 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     }
   }, [articleDetail.image]);
 
+  // Date formatting function
+  const formattedDate = format(
+    new Date(articleDetail.createdAt),
+    "yyyy. MM. dd",
+    {
+      locale: ko,
+    }
+  );
+
   return (
     <section className="flex flex-col gap-4 md:flex-row lg:gap-6">
       <div className="w-full md:w-2/5 md:max-w-[486px]">
@@ -86,7 +99,8 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
         )}
       </div>
 
-      <div className="flex flex-col justify-between flex-1 items-start">
+      {/* 작성자 정보 섹션 */}
+      <div className="flex flex-col justify-between flex-1">
         <div className="w-full relative">
           <button className="absolute right-0">
             <Image
@@ -106,11 +120,44 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
           <hr className="my-4 border-gray-200" />
 
-          <div>
+          <div className="min-h-60 max-h-96">
             <div className="text-gray-600 text-sm font-medium mb-2">
               게시글 내용
             </div>
-            <p className="text-base leading-[140%]">{articleDetail.content}</p>
+            <p className="text-base leading-[140%] mb-4">
+              {articleDetail.content}
+            </p>
+          </div>
+
+          {/* 작성자 정보: 아래에 고정된 부분 */}
+          <div className="flex items-center gap-2 text-sm text-gray-500 mt-auto flex-grow">
+            {/* 기본 아바타 이미지 */}
+            <Image
+              src={DefaultAvatar}
+              alt="작성자 아바타"
+              width={24}
+              height={24}
+              className="rounded-full"
+            />
+
+            {/* 작성자 닉네임 */}
+            <div className="font-semibold">{articleDetail.writer.nickname}</div>
+
+            <div>{formattedDate}</div>
+
+            {/* 세로 구분선 */}
+            <div className="h-4 border-l border-gray-300 mx-2"></div>
+
+            {/* 좋아요 하트 버튼 */}
+            <button className="flex items-center">
+              <Image
+                src={HeartIcon}
+                width={16}
+                height={16}
+                alt="좋아요 하트 버튼"
+              />
+              <span className="ml-1">{articleDetail.likeCount}</span>
+            </button>
           </div>
         </div>
       </div>
