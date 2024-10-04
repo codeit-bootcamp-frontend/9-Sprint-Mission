@@ -1,5 +1,4 @@
 // src/components/UI/item/FavoriteButton.tsx
-import React, { useState } from "react";
 import Image from "next/image";
 
 // public 폴더 경로 문자열로 대체
@@ -13,16 +12,11 @@ interface FavoriteButtonProps {
 }
 
 const FavoriteButton = ({
-  isFavorite: initialIsFavorite,
-  favoriteCount: initialFavoriteCount,
+  isFavorite,
+  favoriteCount,
   onFavorite, // 콜백 함수로 전달할 수 있도록 수정
 }: FavoriteButtonProps) => {
-  const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
-  const [favoriteCount, setFavoriteCount] = useState(initialFavoriteCount);
-
   const handleFavorite = () => {
-    setIsFavorite(!isFavorite);
-    setFavoriteCount(isFavorite ? favoriteCount - 1 : favoriteCount + 1);
     if (onFavorite) {
       onFavorite(); // 외부로부터 전달된 콜백 함수가 있으면 호출
     }

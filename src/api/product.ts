@@ -112,6 +112,72 @@ export async function getProductDetail(
   }
 }
 
+// 상품 좋아요 추가
+export async function addProductFavorite(
+  productId: number,
+  token: string
+): Promise<ProductDetail> {
+  try {
+    // Authorization 헤더에 JWT 토큰 추가
+    const response = await axiosInstance.post<ProductDetail>(
+      `/products/${productId}/favorite`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // JWT 토큰을 Bearer 형식으로 추가
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // Axios 에러인 경우 처리
+      console.error(
+        "addProductFavorite API 요청 에러:",
+        error.response?.data || error.message
+      );
+    } else if (error instanceof Error) {
+      // 일반 에러 처리
+      console.error("addProductFavorite 일반 에러:", error.message);
+    } else {
+      console.error("addProductFavorite 알 수 없는 오류:", error);
+    }
+    throw error; // 에러를 다시 throw하여 상위에서 처리할 수 있도록
+  }
+}
+
+// 상품 좋아요 취소
+export async function removeProductFavorite(
+  productId: number,
+  token: string
+): Promise<ProductDetail> {
+  try {
+    // Authorization 헤더에 JWT 토큰 추가
+    const response = await axiosInstance.delete<ProductDetail>(
+      `/products/${productId}/favorite`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // JWT 토큰을 Bearer 형식으로 추가
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      // Axios 에러인 경우 처리
+      console.error(
+        "removeProductFavorite API 요청 에러:",
+        error.response?.data || error.message
+      );
+    } else if (error instanceof Error) {
+      // 일반 에러 처리
+      console.error("removeProductFavorite 일반 에러:", error.message);
+    } else {
+      console.error("removeProductFavorite 알 수 없는 오류:", error);
+    }
+    throw error; // 에러를 다시 throw하여 상위에서 처리할 수 있도록
+  }
+}
+
 // 상품에 대한 댓글 등록하기
 export async function addProductComment(
   productId: number,
