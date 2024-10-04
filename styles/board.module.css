@@ -1,7 +1,4 @@
 .post-container {
-  padding: 24px 360px 0;
-  display: flex;
-  flex-direction: column;
   gap: 40px;
 }
 
@@ -12,6 +9,7 @@
   line-height: 23.87px;
   color: var(--cool-gray-900);
 }
+
 
 @media (max-width: 1280px) {
   .post-container {
