@@ -3,6 +3,7 @@ import styles from "./addboard.module.css";
 import FileInput from "@/components/FileInput";
 import { ChangeEvent, useState } from "react";
 import Link from "next/link";
+import SubmitBtn from "@/components/SubmitBtn";
 
 export default function AddBoard() {
   const handleSubmitArticle = () => {
@@ -52,13 +53,7 @@ export default function AddBoard() {
         <FileInput />
         {/* 조건부 disable, 스타일 */}
         <Link href="/boards">
-          <button
-            className={`${styles.button} ${active ? styles.active : ""}`}
-            type="submit"
-            disabled={!active}
-          >
-            등록
-          </button>
+          <SubmitBtn disabled={!active}>등록</SubmitBtn>
         </Link>
       </form>
     </div>
