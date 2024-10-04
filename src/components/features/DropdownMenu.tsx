@@ -1,13 +1,18 @@
 import { useState, useEffect } from "react";
 import styles from "./DropdownMenu.module.scss";
 
-export default function DropdownMenu({ setSortOrder }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [order, setOrder] = useState("latest");
+// Props 인터페이스 정의
+interface DropdownMenuProps {
+  setSortOrder: (order: string) => void; // setSortOrder 함수 타입
+}
+
+export default function DropdownMenu({ setSortOrder }: DropdownMenuProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [order, setOrder] = useState<string>("recent");
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
-  const handleSortOrderChange = (newOrder) => {
+  const handleSortOrderChange = (newOrder: string) => {
     setSortOrder(newOrder);
     setOrder(newOrder);
     setIsOpen(false);
@@ -15,8 +20,9 @@ export default function DropdownMenu({ setSortOrder }) {
 
   // 외부 클릭 시 드롭다운 닫기
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (isOpen && !e.target.closest(`.${styles["dropdown-menu"]}`)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (isOpen && target && !target.closest(`.${styles["dropdown-menu"]}`)) {
         setIsOpen(false);
       }
     };
@@ -31,14 +37,14 @@ export default function DropdownMenu({ setSortOrder }) {
     <>
       <div className={styles["dropdown-menu"]}>
         <button onClick={toggleDropdown}>
-          {order === "latest" ? "최신순" : "좋아요순"}
+          {order === "recent" ? "최신순" : "좋아요순"}
         </button>
         {isOpen && (
           <div className={styles["menu-box"]}>
-            <button onClick={() => handleSortOrderChange("latest")}>
+            <button onClick={() => handleSortOrderChange("recent")}>
               최신순
             </button>
-            <button onClick={() => handleSortOrderChange("likesCount")}>
+            <button onClick={() => handleSortOrderChange("like")}>
               좋아요순
             </button>
           </div>

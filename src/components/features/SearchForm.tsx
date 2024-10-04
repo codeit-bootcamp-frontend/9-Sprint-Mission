@@ -1,24 +1,26 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import styles from "./SearchForm.module.scss";
 import Image from "next/image";
 import SearchIcon from "@/public/assets/icon/ic_search.png";
 
-export default function SearchForm({ initialValue = "" }) {
-  const router = useRouter();
-  const [value, setValue] = useState(initialValue);
+interface SearchFormProps {
+  initialValue?: string;
+  onSearch: (query: string) => void;
+}
 
-  function handleChange(e) {
+export default function SearchForm({
+  initialValue = "",
+  onSearch,
+}: SearchFormProps) {
+  const [value, setValue] = useState<string>(initialValue);
+
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!value) {
-      router.push(`/boards`);
-      return;
-    }
-    router.push(`/search?q=${value}`);
+    onSearch(value);
   }
 
   return (

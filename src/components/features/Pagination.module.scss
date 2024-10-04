@@ -1,0 +1,28 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+
+  .pageButton {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: #d0d0d0;
+    }
+
+    &.active {
+      background-color: #0070f3;
+      color: white;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background-color: #e0e0e0;
+    }
+  }
+}

@@ -1,14 +1,15 @@
-import { fetchPosts } from "@/src/lib/axios";
 import { useEffect, useState } from "react";
 import { formatDate } from "../utils/dateUtils";
+import { Board } from "../types/types";
+import axios from "@/src/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./AllBoardList.module.scss";
 import Badge from "@/public/assets/icon/ic_badge_best.png";
 
 export default function BestBoard() {
-  const [boards, setBoards] = useState([]);
-  const [pageSize, setPageSize] = useState(3);
+  const [boards, setBoards] = useState<Board[]>([]);
+  const [pageSize, setPageSize] = useState<number>(3);
   const orderBy = "like";
 
   const updatePageSize = () => {
@@ -25,13 +26,19 @@ export default function BestBoard() {
   useEffect(() => {
     const getPosts = async () => {
       try {
-        const data = await fetchPosts(pageSize, orderBy);
-        setBoards(data.list);
+        const response = await axios.get<{ list: Board[] }>(
+          `/articles?page=1&pageSize=${pageSize}&orderBy=${orderBy}`
+        );
+
+        setBoards(response.data.list);
       } catch (error) {
         console.error("Error fetching posts in Best:", error);
       }
     };
     getPosts();
+  }, [pageSize]);
+
+  useEffect(() => {
     updatePageSize();
 
     window.addEventListener("resize", updatePageSize);
@@ -39,7 +46,7 @@ export default function BestBoard() {
     return () => {
       window.removeEventListener("resize", updatePageSize);
     };
-  }, [pageSize, orderBy]);
+  }, []);
 
   return (
     <>
@@ -54,10 +61,15 @@ export default function BestBoard() {
                 </span>
                 <div>
                   <div className={styles.content}>
-                    <Link href={`/boards/${boards.id}`}>{board.content}</Link>
+                    <Link href={`/boards/${board.id}`}>{board.content}</Link>
                   </div>
                   <div className={styles["profile-img"]}>
-                    <img src={board.image} width={48} />
+                    <Image
+                      src={board.image}
+                      width={48}
+                      height={48}
+                      alt="프로필 이미지"
+                    />
                   </div>
                 </div>
                 <div>

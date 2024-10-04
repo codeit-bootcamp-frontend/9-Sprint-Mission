@@ -1,5 +1,29 @@
 @import "@/src/styles/common.scss";
 
+.article {
+  margin-top: 40px;
+
+  h2 {
+    width: 100%;
+    position: relative;
+    line-height: 42px;
+
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+
 .article-wrap {
   display: flex;
   flex-direction: column;
@@ -152,6 +176,9 @@
 }
 
 @media (max-width: 768px) {
+  .filter-section {
+    gap: 13px;
+  }
   .article-wrap.best {
     li {
       width: 100%;
