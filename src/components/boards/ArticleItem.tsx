@@ -4,11 +4,11 @@ import profile from "@/assets/images/icons/profilex1.png";
 import heart from "@/assets/images/icons/ic_heart.svg";
 import S from "./Article.style";
 
-export default function ArticleItem({ article }: ArticleProps) {
+export default function ArticleItem({ article, onClick }: ArticleProps) {
   const formattedDate = article?.createdAt.slice(0, 10).replace(/-/g, ".");
 
   return (
-    <S.Container>
+    <S.Container onClick={onClick}>
       <S.Title>{article.title}</S.Title>
       <S.ImageWrap>
         <Image

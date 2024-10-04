@@ -12,8 +12,21 @@ export interface Article {
   };
 }
 
+export interface ArticleComment {
+  writer: {
+    image: string;
+    nickname: string;
+    id: number;
+  };
+  updatedAt: string;
+  createdAt: string;
+  content: string;
+  id: string;
+}
+
 export interface ArticleProps {
   article: Article;
+  onClick: () => void;
 }
 
 export interface ArticleListProps {
@@ -24,4 +37,9 @@ export interface BoardsPageProps {
   totalArticles: Article[];
   bestArticles: Article[];
   initialBestArticles: Article[];
+}
+
+export interface BoardDetailPageProps {
+  articleInfo: Article;
+  articleComments: ArticleComment[];
 }

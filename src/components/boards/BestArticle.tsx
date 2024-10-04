@@ -1,16 +1,18 @@
+// boards 페이지 -> 인기 게시글 목록 -> 인기 게시글 카드
+
 import { ArticleProps } from "@/types/articles";
 import Badge from "../UI/Badge/Badge";
 import Image from "next/image";
 import Heart from "@/assets/images/icons/ic_heart.svg";
 import S from "./BestArticle.style";
 
-export function BestArticle({ article }: ArticleProps) {
+export function BestArticle({ article, onClick }: ArticleProps) {
   const formattedDate: string = article.createdAt
     ?.slice(0, 10)
     .replace(/-/g, ".");
 
   return (
-    <S.Container>
+    <S.Container onClick={onClick}>
       <Badge />
       <S.Title>{article.title}</S.Title>
       <S.ImageWrap>

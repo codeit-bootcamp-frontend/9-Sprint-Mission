@@ -6,6 +6,12 @@ const Container = styled.div`
   height: 138px;
   border-bottom: 1px solid var(--gray-200);
   background-color: #fcfcfc;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+    transition: transform 0.3s ease;
+  }
 `;
 
 const Title = styled.div`

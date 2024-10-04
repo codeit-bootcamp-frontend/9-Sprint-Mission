@@ -9,6 +9,12 @@ const Container = styled.div`
   height: 169px;
   border-radius: 8px;
   background-color: var(--gray-50);
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+    transition: transform 0.3s ease; // 부드러운 확대 효과
+  }
 `;
 
 const Title = styled.div`

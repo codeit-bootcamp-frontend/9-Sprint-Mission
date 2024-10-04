@@ -68,12 +68,6 @@ const ImageSection = styled.div`
   }
 `;
 
-const FileInput = styled.input`
-  width: 282px;
-  height: 282px;
-  
-`;
-
 const S = {
   Container,
   Title,
