@@ -54,16 +54,14 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     }
   }, [articleDetail.image]);
 
-  // 이미지 로드 완료 시 이미지의 실제 높이를 가져오기 위한 useEffect
-  useEffect(() => {
-    if (imageRef.current && imageStatus === "loaded") {
-      setTimeout(() => {
-        const height = imageRef.current?.clientHeight || 486;
-        setImageHeight(height);
-        console.log("image height: ", height);
-      }, 100); // 브라우저가 이미지 로드를 완료할 시간을 조금 주기 위해 100ms 지연
+  // 이미지가 로드된 후 실제 높이를 가져오는 함수
+  const handleImageLoad = () => {
+    if (imageRef.current) {
+      const height = imageRef.current.clientHeight;
+      setImageHeight(height);
+      console.log("Loaded image height: ", height);
     }
-  }, [imageStatus]);
+  };
 
   const formattedDate = format(
     new Date(articleDetail.createdAt),
@@ -86,6 +84,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
             alt={`${articleDetail.title} 게시글 대표 사진`}
             className="rounded-xl w-full h-auto"
             style={{ maxHeight: "486px" }} // 최대 높이 486px 설정
+            onLoad={handleImageLoad} // 이미지 로드 후 높이 계산
           />
         ) : (
           <Image
