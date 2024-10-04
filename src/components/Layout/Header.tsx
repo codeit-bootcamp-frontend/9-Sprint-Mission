@@ -125,7 +125,7 @@ export default function Header() {
             <li>
               <Link
                 href="/community"
-                className={`font-semibold hover:text-blue-600 ${
+                className={`text-xl font-semibold hover:text-blue-600 ${
                   isCommunityActive ? "text-blue-500" : "text-gray-600"
                 }`}
               >
@@ -135,7 +135,7 @@ export default function Header() {
             <li>
               <Link
                 href="/items"
-                className={`font-semibold hover:text-blue-600 ${
+                className={`text-xl font-semibold hover:text-blue-600 ${
                   isItemsActive ? "text-blue-500" : "text-gray-600"
                 }`}
               >

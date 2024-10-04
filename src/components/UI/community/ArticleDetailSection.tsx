@@ -1,9 +1,10 @@
 // src/components/UI/community/ArticleDetailSection.tsx
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Article as ArticleDetail } from "@/types/article";
+import { ArticleDetail } from "@/types/article";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
+import LikeButton from "./LikeButton";
 
 const KebabIcon = "/images/icons/ic_kebab.png";
 const NoImage = "/images/ui/no-image.png";
@@ -68,6 +69,11 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     "yyyy. MM. dd",
     { locale: ko }
   );
+
+  const handleLike = () => {
+    // 여기에 좋아요 처리 로직을 구현하세요
+    console.log(`게시글 ${articleDetail.id} 좋아요 토글`);
+  };
 
   return (
     <section className="flex flex-col gap-4 md:flex-row lg:gap-6">
@@ -145,16 +151,17 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
             />
             <div className="font-semibold">{articleDetail.writer.nickname}</div>
             <div>{formattedDate}</div>
+            {/* 구분선 */}
             <div className="h-4 border-l border-gray-300 mx-2"></div>
-            <button className="flex items-center">
-              <Image
-                src={HeartIcon}
-                width={16}
-                height={16}
-                alt="좋아요 하트 버튼"
+
+            {/* 좋아요 버튼 */}
+            <div className="flex items-center">
+              <LikeButton
+                isLiked={articleDetail.isLiked}
+                likeCount={articleDetail.likeCount}
+                onLike={handleLike}
               />
-              <span className="ml-1">{articleDetail.likeCount}</span>
-            </button>
+            </div>
           </div>
         </div>
       </div>

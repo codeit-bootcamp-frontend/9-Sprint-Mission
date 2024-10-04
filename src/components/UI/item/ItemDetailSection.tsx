@@ -2,12 +2,13 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import TagDisplay from "./TagDisplay";
-import LikeButton from "./LikeButton";
+import FavoriteButton from "./FavoriteButton";
 import { ProductDetail } from "@/types/product";
 
 // public 폴더 경로 문자열로 대체
 const KebabIcon = "/images/icons/ic_kebab.png";
 const NoImage = "/images/ui/no-image.png";
+const DefaultAvatar = "/images/ui/ic_profile-24.png";
 
 interface ItemDetailSectionProps {
   productDetail: ProductDetail;
@@ -63,7 +64,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
     };
   }, [productDetail.images]);
 
-  const handleLike = () => {
+  const handleFavorite = () => {
     // 여기에 좋아요 처리 로직을 구현하세요
     console.log(`상품 ${productDetail.id} 좋아요 토글`);
   };
@@ -156,12 +157,31 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           </div>
         </div>
 
-        {/* 좋아요 버튼 */}
-        <LikeButton
-          isFavorite={productDetail.isFavorite}
-          favoriteCount={productDetail.favoriteCount}
-          onLike={handleLike}
-        />
+        {/* 소유자 정보 및 좋아요 버튼 */}
+        <div className="flex items-center gap-2 text-sm text-gray-500 mt-4">
+          <Image
+            src={DefaultAvatar}
+            alt="작성자 아바타"
+            width={24}
+            height={24}
+            className="rounded-full"
+          />
+          <div className="font-semibold">
+            {productDetail.ownerNickname || "Unknown"}
+          </div>
+
+          {/* 구분선 */}
+          <div className="h-4 border-l border-gray-300 mx-2"></div>
+
+          {/* 좋아요 버튼 */}
+          <div className="flex items-center">
+            <FavoriteButton
+              isFavorite={productDetail.isFavorite}
+              favoriteCount={productDetail.favoriteCount}
+              onFavorite={handleFavorite}
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
