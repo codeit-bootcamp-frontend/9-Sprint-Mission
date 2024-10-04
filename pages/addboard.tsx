@@ -17,11 +17,10 @@ export default function AddBoard() {
     <>
       <div className={styles["add-container"]}>
         <h2>게시글 쓰기</h2>
-        {inputValue && textAreaValue ? (
-          <Button color="blue">등록</Button>
-        ) : (
-          <Button color="gray">등록</Button>
-        )}
+        <Button color={inputValue && textAreaValue ? "blue" : "gray"}>
+          등록
+        </Button>
+        
       </div>
       <section className={styles["upload-container"]}>
         <div className={styles["add-title"]}>
@@ -32,7 +31,7 @@ export default function AddBoard() {
             type="text"
             id="title"
             placeholder="제목을 입력해주세요"
-          />                 
+          />
         </div>
         <div className={styles["add-description"]}>
           <label htmlFor="description">*내용</label>
