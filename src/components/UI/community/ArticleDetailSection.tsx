@@ -5,18 +5,17 @@ import { Article as ArticleDetail } from "@/types/article";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 
-// public 폴더 경로 문자열로 대체
 const KebabIcon = "/images/icons/ic_kebab.png";
 const NoImage = "/images/ui/no-image.png";
-const DefaultAvatar = "/images/ui/ic_profile-24.png"; // 기본 아바타 이미지
-const HeartIcon = "/images/icons/ic_heart.png"; // 하트 이미지
+const DefaultAvatar = "/images/ui/ic_profile-24.png";
+const HeartIcon = "/images/icons/ic_heart.png";
 
 interface ArticleDetailSectionProps {
   articleDetail: ArticleDetail;
 }
 
 const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
-  const [imageHeight, setImageHeight] = useState(486); // 기본 높이 486px
+  const [imageHeight, setImageHeight] = useState(486);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(NoImage);
   const [imageStatus, setImageStatus] = useState<
@@ -58,18 +57,18 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
   // 이미지 로드 완료 시 이미지의 실제 높이를 가져오기 위한 useEffect
   useEffect(() => {
     if (imageRef.current && imageStatus === "loaded") {
-      const height = imageRef.current.clientHeight;
-      setImageHeight(height);
+      setTimeout(() => {
+        const height = imageRef.current?.clientHeight || 486;
+        setImageHeight(height);
+        console.log("image height: ", height);
+      }, 100); // 브라우저가 이미지 로드를 완료할 시간을 조금 주기 위해 100ms 지연
     }
   }, [imageStatus]);
 
-  // Date formatting function
   const formattedDate = format(
     new Date(articleDetail.createdAt),
     "yyyy. MM. dd",
-    {
-      locale: ko,
-    }
+    { locale: ko }
   );
 
   return (
