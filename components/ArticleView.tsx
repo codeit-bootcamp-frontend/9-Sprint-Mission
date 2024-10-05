@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styles from "./ArticleView.module.css";
 import Kebab from "./Kebab";
+import { getTimeDiff } from "@/utils/getTimeDiff";
 
 export default function ArticleView() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function ArticleView() {
   const { title, content, likeCount, updatedAt } = data as ArticleType;
   // isLiked 나중에 추가
   const nickname = (data && data.writer.nickname) || "unknown";
+  const date = getTimeDiff(updatedAt);
   return (
     <>
       <div className={styles.wrapper}>
@@ -28,7 +30,7 @@ export default function ArticleView() {
         </div>
         <div className={styles["nickname-date-like"]}>
           <div className={styles.nickname}>{nickname}</div>
-          <div className={styles.date}>{updatedAt}</div>
+          <div className={styles.date}>{date}</div>
           <div className={styles.like}>{likeCount}</div>
         </div>
         <div className={styles.content}>{content}</div>
