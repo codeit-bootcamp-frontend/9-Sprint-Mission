@@ -3,3 +3,12 @@
   flex-direction: column;
   gap: 32px;
 }
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: calc(16px + 40px);
+}
+.SubmitBtn {
+  position: relative;
+  top: 16px;
+}

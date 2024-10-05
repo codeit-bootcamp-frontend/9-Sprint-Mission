@@ -22,7 +22,7 @@ export default function Article() {
   return (
     <div className={`container ${styles.wrapper}`}>
       <ArticleView />
-      <form onSubmit={handleReplySubmit}>
+      <form className={styles.form} onSubmit={handleReplySubmit}>
         <TextInput
           label="reply"
           placeholder="댓글을 입력해주세요"
@@ -32,7 +32,9 @@ export default function Article() {
         >
           댓글 달기
         </TextInput>
-        <SubmitBtn disabled={!active}>등록</SubmitBtn>
+        <div className={styles.SubmitBtn}>
+          <SubmitBtn disabled={!active}>등록</SubmitBtn>
+        </div>
       </form>
       <div className="article-reply">
         <ArticleReply />
