@@ -16,10 +16,10 @@ import { getRefreshToken } from "@/lib/utils";
 type FormValues = z.infer<typeof addBoardSchema>;
 
 const AddBoard = () => {
-  const session = useToken();
+  const context = useToken();
   const router = useRouter();
   const { setValue, getValues, watch } = useForm<FormValues>();
-
+  
   const [imgError, setImgError] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
 
@@ -77,7 +77,7 @@ const AddBoard = () => {
       // 이미지부터 업로드
       const currentValue = getValues();
       let currentImgSrc: string | undefined;
-      
+
       if (currentValue.postImg) {
         const formData = new FormData();
         formData.append("image", currentValue.postImg);
@@ -86,7 +86,7 @@ const AddBoard = () => {
           const imgUpload = await instance.post("/images/upload", formData, {
             headers: {
               "Content-Type": "multipart/form-data",
-              "Authorization": `Bearer ${session?.accessToken}`,
+              Authorization: `Bearer ${context?.accessToken}`,
             },
           });
 
@@ -111,7 +111,7 @@ const AddBoard = () => {
         },
         {
           headers: {
-            "Authorization": `Bearer ${session?.accessToken}`,
+            Authorization: `Bearer ${context?.accessToken}`,
           },
         }
       );
@@ -130,10 +130,11 @@ const AddBoard = () => {
   };
 
   useEffect(() => {
-    if (typeof session?.accessToken === "string") {
-      getRefreshToken(session?.accessToken);
+    if (!context?.accessToken && typeof context?.refreshToken === "string") {
+      getRefreshToken(context?.refreshToken);
     }
-  }, [session?.accessToken]);
+  }, [context]);
+
 
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col space-y-6">

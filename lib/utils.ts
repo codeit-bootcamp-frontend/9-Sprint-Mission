@@ -7,10 +7,10 @@ export const cls = (...cls: string[]) => {
 }
 
 // 토큰갱신 함수
-export const getRefreshToken = async (accessToken: string) => {
+export const getRefreshToken = async (refreshToken: string) => {
   try {
     const response = await axios.post("/api/auth/refreshToken", {
-      accessToken
+      refreshToken
     });
 
     if (response.status === 200) {

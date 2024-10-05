@@ -13,19 +13,19 @@ import { z } from "zod";
 
 interface IProps {
   postId: number;
-  setPostComments: React.Dispatch<React.SetStateAction<IComment[]>>
+  setPostComments: React.Dispatch<React.SetStateAction<IComment[]>>;
 }
 
 const PostCommentForm = ({ postId, setPostComments }: IProps) => {
   const { refresh } = useRouter();
-  const session = useToken();
-  
+  const context = useToken();
+
   const form = useForm<z.infer<typeof postCommentSchema>>({
     resolver: zodResolver(postCommentSchema),
     mode: "all",
     defaultValues: {
-      postComment: ""
-    }
+      postComment: "",
+    },
   });
 
   const isLoading = form.formState.isLoading;
@@ -33,19 +33,22 @@ const PostCommentForm = ({ postId, setPostComments }: IProps) => {
 
   const handleSubmit = async (values: z.infer<typeof postCommentSchema>) => {
     try {
-      const response = await instance.post(`/articles/${postId}/comments`, {
-        content: values.postComment
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${session?.accessToken}`
+      const response = await instance.post(
+        `/articles/${postId}/comments`,
+        {
+          content: values.postComment,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${context?.accessToken}`,
+          },
         }
-      });
+      );
 
       if (response.status === 201) {
         toast.success("댓글이 등록되었습니다.");
-        form.reset(); 
-        console.log(response.data)
+        form.reset();
         setPostComments((prevComments) => [response.data, ...prevComments]);
         refresh();
       }
@@ -55,13 +58,13 @@ const PostCommentForm = ({ postId, setPostComments }: IProps) => {
         toast.error(error.response?.data.message);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    if (typeof session?.accessToken === "string") {
-      getRefreshToken(session?.accessToken);
+    if (!context?.accessToken && typeof context?.refreshToken === "string") {
+      getRefreshToken(context?.refreshToken);
     }
-  }, [session?.accessToken]);
+  }, [context]);
 
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col space-y-4">

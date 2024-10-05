@@ -18,15 +18,13 @@ export async function POST(req: Request) {
 
     if (response.status === 200) {
       const accessToken = response.data.accessToken;
-      return NextResponse.json(accessToken, { status: 200 });
+      const refreshToken = response.data.refreshToken;
+      return NextResponse.json({accessToken, refreshToken}, { status: 200 });
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("signin POST 요청에서 api 오류 발생", error);
       return new NextResponse(error.response?.data.message, { status: error.response?.status });
-    } else {
-      console.error("signin POST 요청에서 알 수 없는 오류 발생", error);
-      return new NextResponse("오류가 발생하여 로그인되지 않았습니다. 잠시 후 다시 시도해주세요.", { status: 500 });
-    }
+    } 
   }
 }

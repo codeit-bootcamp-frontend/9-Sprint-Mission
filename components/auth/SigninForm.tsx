@@ -26,7 +26,8 @@ const AuthForm = ({ form, isLoading, error }: ISigninForm) => {
         });
   
         if (response.status === 200) {
-          localStorage.setItem("accessToken", response.data);
+          localStorage.setItem("accessToken", response.data.accessToken);
+          localStorage.setItem("refreshToken", response.data.refreshToken);
           context?.Signin();
           router.push("/");
         }
