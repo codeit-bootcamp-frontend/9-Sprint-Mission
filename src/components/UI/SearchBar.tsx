@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 const SearchIcon = "/images/icons/ic_search.png";
 
 interface SearchBarProps {
-  onSearch: (keyword: string) => void;
+  onSearch: (keyword: string) => void; // 검색어 변경 시 호출되는 함수
   placeholder?: string;
   className?: string;
 }
@@ -20,19 +20,17 @@ const SearchBar = ({
   const router = useRouter();
   const [keyword, setKeyword] = useState("");
 
+  // 현재 라우터 쿼리에서 검색어를 불러와 초기화
   useEffect(() => {
     const currentKeyword = (router.query.q as string) || "";
     setKeyword(currentKeyword);
   }, [router.query.q]);
 
+  // 입력값이 변경되면 검색어 상태를 업데이트하고, 검색 함수 호출
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onSearch(keyword);
-    }
+    const newKeyword = e.target.value;
+    setKeyword(newKeyword);
+    onSearch(newKeyword); // 검색어 변경 시 바로 전달
   };
 
   return (
@@ -43,8 +41,7 @@ const SearchBar = ({
       <input
         className="border-none flex-1 bg-inherit ml-1 placeholder-gray-400 text-base focus:outline-none"
         value={keyword}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
+        onChange={handleInputChange} // onChange에서 검색어 상태 반영
         placeholder={placeholder}
       />
     </div>

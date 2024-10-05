@@ -1,5 +1,5 @@
 // src/components/UI/item/AllItemsSection.tsx
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getProducts } from "@/api/product";
@@ -13,12 +13,8 @@ import {
   ProductListResponse,
   ProductSortOption,
 } from "@/types/product";
-import { useAtom } from "jotai";
-import { loadingAtom } from "@/store/loadingAtom";
-import useDebounce from "@/hooks/useDebounce"; // 디바운스 훅 추가
-
-// public 폴더 경로 문자열로 대체
-const RegisterButtonImage = "/images/ui/register_small_40.png";
+import useDebounce from "@/hooks/useDebounce";
+import { useRouter } from "next/router";
 
 // 화면 크기에 따라 페이지당 아이템 수를 계산하는 함수
 const getPageSize = (width: number) => {
@@ -37,80 +33,100 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const [page, setPage] = useState(1);
   const [itemList, setItemList] = useState<Product[]>([]);
   const [totalPageNum, setTotalPageNum] = useState(1);
-  const [isLoading, setIsLoading] = useAtom(loadingAtom);
-  const [keyword, setKeyword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
 
-  // 창 너비 상태 관리
-  const [windowWidth, setWindowWidth] = useState<number>(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
+  // SSR 호환성을 위해 초기 페이지 크기를 데스크탑 기본값으로 설정
+  const [pageSize, setPageSize] = useState(10);
 
-  // 디바운스된 창 너비
-  const debouncedWindowWidth = useDebounce(windowWidth, 300); // 300ms 지연
-
-  // 페이지당 아이템 수
-  const [pageSize, setPageSize] = useState(getPageSize(debouncedWindowWidth));
-
-  const fetchSortedData = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const response: ProductListResponse = await getProducts({
-        orderBy,
-        page,
-        pageSize,
-        keyword,
-      });
-      setItemList(response.list);
-      setTotalPageNum(Math.ceil(response.totalCount / pageSize));
-    } catch (error) {
-      console.error("오류: ", (error as Error).message);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [orderBy, page, pageSize, keyword, setIsLoading]);
-
-  // 창 크기 변경 시 windowWidth 업데이트
+  // 화면 리사이즈 시 페이지 크기 결정
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth); // 창 너비 업데이트
+      if (typeof window !== "undefined") {
+        setPageSize(getPageSize(window.innerWidth));
+      }
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 디바운스된 창 너비에 따라 pageSize 결정
+  // 디바운스된 검색어로 라우터 쿼리 업데이트 및 아이템 목록 초기화
   useEffect(() => {
-    setPageSize(getPageSize(debouncedWindowWidth)); // 디바운스된 창 너비로 pageSize 설정
-  }, [debouncedWindowWidth]);
+    const query = { ...router.query };
 
-  // 데이터 요청
-  useEffect(() => {
-    fetchSortedData(); // 데이터 불러오기
-  }, [fetchSortedData]);
+    if (debouncedSearchKeyword.trim()) {
+      query.q = debouncedSearchKeyword;
+    } else {
+      delete query.q;
+    }
 
-  const handleSortSelection = (sortOption: ProductSortOption) => {
-    setOrderBy(sortOption);
+    if (router.query.q !== debouncedSearchKeyword.trim()) {
+      router.replace(
+        {
+          pathname: router.pathname,
+          query,
+        },
+        undefined,
+        { shallow: true }
+      );
+    }
     setPage(1);
+    setItemList([]);
+  }, [debouncedSearchKeyword, router.pathname]);
+
+  // 상품을 불러오는 비동기 함수
+  useEffect(() => {
+    const fetchSortedData = async () => {
+      setIsLoading(true);
+      try {
+        const response: ProductListResponse = await getProducts({
+          orderBy,
+          page,
+          pageSize,
+          keyword: debouncedSearchKeyword.trim()
+            ? debouncedSearchKeyword
+            : undefined,
+        });
+        setItemList(response.list);
+        setTotalPageNum(Math.ceil(response.totalCount / pageSize));
+      } catch (error) {
+        console.error("상품을 불러오는 데 실패했습니다:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchSortedData();
+  }, [orderBy, page, pageSize, debouncedSearchKeyword]);
+
+  // 정렬 옵션 선택 핸들러
+  const handleSortSelection = (sortOption: ProductSortOption) => {
+    if (sortOption !== orderBy) {
+      setOrderBy(sortOption);
+      setPage(1);
+      setItemList([]); // 아이템 리스트 초기화
+    }
   };
 
-  const handleSearch = (searchKeyword: string) => {
-    setKeyword(searchKeyword);
+  // 검색어 입력 핸들러
+  const handleSearch = (keyword: string) => {
+    setSearchKeyword(keyword);
     setPage(1);
+    setItemList([]); // 아이템 리스트 초기화
   };
 
   return (
     <div className="mt-6 max-w-[1200px] mx-auto">
-      {/* 타이틀 및 상품 등록 버튼 */}
       <div className="flex justify-between items-center">
         <div className="mb-6 text-2xl font-bold text-gray-800">
           판매 중인 상품
         </div>
         <Link href="/addItem">
           <Image
-            src={RegisterButtonImage}
+            src="/images/ui/register_small_40.png"
             alt="상품 등록하기"
             width={133}
             height={42}
@@ -118,23 +134,20 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
         </Link>
       </div>
 
-      {/* 검색 및 정렬 옵션 */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <SearchBar onSearch={handleSearch} className="w-full md:w-96" />
         <DropdownMenu<ProductSortOption>
-          onSortSelection={(sortOption) => handleSortSelection(sortOption)}
+          onSortSelection={handleSortSelection}
           type="product"
         />
       </div>
 
-      {/* 로딩 중 */}
       {isLoading ? (
         <div className="flex justify-center items-center h-64">
           <LoadingSpinner isLoading={isLoading} />
         </div>
       ) : (
         <div className="space-y-6">
-          {/* 상품 목록 */}
           {itemList.length ? (
             <div className="grid grid-cols-2 gap-8 sm:gap-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">
               {itemList.map((item) => (
@@ -146,17 +159,14 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
                 />
               ))}
             </div>
-          ) : (
-            keyword && (
-              <div>
-                <span>검색된 결과가 없습니다.</span>
-              </div>
-            )
-          )}
+          ) : debouncedSearchKeyword ? (
+            <div>
+              <span>검색된 결과가 없습니다.</span>
+            </div>
+          ) : null}
         </div>
       )}
 
-      {/* 페이지네이션 */}
       {totalPageNum > 1 && (
         <div className="pt-10 pb-20">
           <PaginationBar
