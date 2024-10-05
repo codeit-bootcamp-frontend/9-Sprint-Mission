@@ -1,54 +1,41 @@
-import { useEffect, useState } from "react";
-import axios from "@/lib/axios";
+import { useEffect } from "react";
 import styles from "./ArticleList.module.css";
 import { Dropdown } from "./Dropdown";
 import { ArticleItem } from "./ArticleItem";
 import { SearchForm } from "./SearchForm";
 import Link from "next/link";
-import { Query, Article, ArticleResponse } from "@/types/types";
+import { Query, ArticleResponse, Article } from "@/types/types";
+import useAxios from "@/hooks/useAxios";
 
 export default function ArticleList({
   initialArticles,
   query,
-  handleClickOrder,
   dropdownOpen,
+  handleClickOrder,
   handleClickOrderOpen,
   handleChangeSearchQuery,
 }: {
   initialArticles: Article[];
   query: Query;
-  handleClickOrder: (value: string) => void;
   dropdownOpen: boolean;
+  handleClickOrder: (value: string) => void;
   handleClickOrderOpen: () => void;
   handleChangeSearchQuery: (search: string) => void;
 }) {
-  const [articles, setArticles] = useState<Article[]>(initialArticles);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { page, pageSize, orderBy, keyword } = query;
+  const { data, setData, error, loading, setLoading } =
+    useAxios<ArticleResponse>(
+      `/articles?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`
+    );
 
-  //https://panda-market-api.vercel.app/articles?page=1&pageSize=10&orderBy=recent&keyword=keyword
-
-  async function getArticles(query: Query) {
-    const { page, pageSize, orderBy, keyword } = query;
-
-    try {
-      setLoading(true);
-      const res = await axios.get<ArticleResponse>(
-        `/articles?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`
-      );
-      const list = res.data.list;
-      setArticles(list);
-    } catch (err) {
-      if (err instanceof Error) setError(err);
-      console.log("에러가 발생했습니다.");
-    } finally {
-      setLoading(false);
-    }
-  }
   useEffect(() => {
-    if (!loading) {
-      getArticles(query);
+    if (initialArticles.length > 0) {
+      setData({ list: initialArticles });
     }
+  }, [initialArticles]);
+
+  useEffect(() => {
+    if (data && data.list.length === 0 && !loading) setLoading(true);
   }, [query]);
 
   return (
@@ -75,7 +62,7 @@ export default function ArticleList({
       {loading ? (
         <div> 로딩중 ... </div>
       ) : (
-        articles && <ArticleItem articles={articles} option="main" />
+        data && <ArticleItem articles={data.list} option="main" />
       )}
     </>
   );

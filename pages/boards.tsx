@@ -4,7 +4,6 @@ import { throttle } from "@/lib/throttle";
 import { useEffect, useState } from "react";
 import { Article, Query } from "@/types/types";
 import axios from "axios";
-import { debounce } from "@/lib/debounce";
 
 export const getStaticProps = async () => {
   try {
