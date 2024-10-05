@@ -19,7 +19,6 @@ export default function useAxios<T>(url: string) {
       }
     };
     getData();
-    console.log(data);
   }, [url]);
 
   return { data, setData, error, setError, loading, setLoading };
