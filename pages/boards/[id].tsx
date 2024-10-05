@@ -1,8 +1,10 @@
 import ArticleReply from "@/components/ArticleReply";
 import ArticleView from "@/components/ArticleView";
+import Button from "@/components/Button";
 import SubmitBtn from "@/components/SubmitBtn";
 import { TextInput } from "@/components/TextInput";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import styles from "./id.module.css";
 
 export default function Article() {
   const [replyValue, setReplyValue] = useState<string>("");
@@ -14,10 +16,13 @@ export default function Article() {
   let active = false;
   if (replyValue !== "") active = true;
 
+  const handleReplySubmit = (e: FormEvent<HTMLFormElement>) => {
+    // 댓글 등록 api
+  };
   return (
-    <div className="container">
+    <div className={`container ${styles.wrapper}`}>
       <ArticleView />
-      <form>
+      <form onSubmit={handleReplySubmit}>
         <TextInput
           label="reply"
           placeholder="댓글을 입력해주세요"
@@ -32,6 +37,7 @@ export default function Article() {
       <div className="article-reply">
         <ArticleReply />
       </div>
+      <Button>목록으로 돌아가기</Button>
     </div>
   );
 }

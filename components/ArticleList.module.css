@@ -203,7 +203,7 @@
   display: flex;
   top: 0;
   left: 50px;
-  gap: 8px;
+  gap: 4px;
   align-items: center;
 }
 .best-article-like::before {
