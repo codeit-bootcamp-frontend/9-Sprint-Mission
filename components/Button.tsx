@@ -1,4 +1,4 @@
-import styles from "./SubmitBtn.module.css";
+import styles from "./Button.module.css";
 
 interface Props {
   children: string;

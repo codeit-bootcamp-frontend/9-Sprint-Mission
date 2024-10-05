@@ -3,6 +3,7 @@ import { Article as ArticleType } from "@/types/types";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import styles from "./ArticleView.module.css";
+import Kebab from "./Kebab";
 
 export default function ArticleView() {
   const router = useRouter();
@@ -23,9 +24,7 @@ export default function ArticleView() {
       <div className={styles.wrapper}>
         <div className={styles["article-header"]}>
           <div className={styles["article-title"]}>{title}</div>
-          <div className={styles.kebab}>
-            <span className={styles.hidden}>더보기</span>{" "}
-          </div>
+          <Kebab />
         </div>
         <div className={styles["nickname-date-like"]}>
           <div className={styles.nickname}>{nickname}</div>

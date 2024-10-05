@@ -1,19 +1,11 @@
 .button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 74px;
-  height: 42px;
   color: var(--gray100);
   font-size: 1.6rem;
   line-height: 2.6rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 40px;
   border: none;
   background-color: var(--main);
   cursor: pointer;
-}
-.active {
-  background-color: var(--gray400);
-  cursor: not-allowed;
+  padding: 12px 40px;
 }

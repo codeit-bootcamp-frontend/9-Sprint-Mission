@@ -39,7 +39,9 @@ export default function Article() {
       <div className="article-reply">
         <ArticleReply />
       </div>
-      <Button>목록으로 돌아가기</Button>
+      <div className={styles["goback-btn"]}>
+        <Button>목록으로 돌아가기</Button>
+      </div>
     </div>
   );
 }

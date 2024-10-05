@@ -17,30 +17,6 @@
   color: var(--gray800);
 }
 
-.kebab {
-  width: 24px;
-  height: 24px;
-  color: var(--gray400);
-  cursor: pointer;
-  background-image: url("/icons/ic_kebab.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  content: "";
-  display: inline-block;
-}
-
-.hidden {
-  position: absolute; /* 화면에서 보이지 않도록 위치를 절대적으로 설정 */
-  width: 1px; /* 폭을 1픽셀로 설정 */
-  height: 1px; /* 높이를 1픽셀로 설정 */
-  margin: -1px; /* 마진을 -1픽셀로 설정하여 시각적으로 숨김 */
-  padding: 0; /* 패딩을 0으로 설정 */
-  overflow: hidden; /* 오버플로우 숨김 */
-  clip: rect(0, 0, 0, 0); /* 클립을 사용하여 내용 숨김 */
-  border: 0; /* 테두리를 0으로 설정 */
-}
-
 .nickname::before {
   content: "";
   display: inline-block;

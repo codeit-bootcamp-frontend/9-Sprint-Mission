@@ -8,7 +8,7 @@ export default function SubmitBtn({ children, disabled }: Props) {
   return (
     <>
       <button
-        className={`${styles.button} ${disabled ? "" : styles.active}`}
+        className={`${styles.button} ${disabled ? styles.active : ""}`}
         type="submit"
         disabled={disabled}
       >
