@@ -1,9 +1,9 @@
 import { Article, ArticleListProps } from "@/types/articles";
-import Dropdown from "../../UI/Dropdown/Dropdown";
-import NewArticleButton from "../../UI/Button/WriteButton";
-import SearchInput from "../../UI/Input/SearchInput";
-import ArticleItem from "../ArticleItem";
-import S from "../ArticleList.style";
+import Dropdown from "../UI/Dropdown/Dropdown";
+import NewArticleButton from "../UI/Button/WriteButton";
+import SearchInput from "../UI/Input/SearchInput";
+import ArticleItem from "./ArticleItem";
+import S from "./ArticleList.style";
 import { useRouter } from "next/router";
 
 export function ArticleList({ articles }: ArticleListProps) {

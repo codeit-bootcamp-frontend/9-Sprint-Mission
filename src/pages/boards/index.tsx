@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { GetServerSidePropsContext } from "next";
 import { Article, BoardsPageProps } from "@/types/articles";
 import { BestArticles } from "../../components/boards/BestArticles";
-import { ArticleList } from "../../components/boards/[id]/ArticleList";
+import { ArticleList } from "../../components/boards/ArticleList";
 import getArticles from "@/api/getArticles";
 import S from "./index.style";
 
