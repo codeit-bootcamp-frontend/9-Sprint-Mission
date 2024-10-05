@@ -13,14 +13,15 @@ import AllArticleCard from "./AllArticleCard";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
 import useDebounce from "@/hooks/useDebounce";
+import useThrottle from "@/hooks/useThrottle"; // 커스텀 훅 사용
 
 const WriteButtonImage = "/images/ui/write_small_40.png";
 
 // 한 페이지당 표시할 게시글 수
 const PAGE_SIZE = 5;
 
-// 화면 너비에 따라 페이지네이션 사용 여부를 결정
-const isPageNation = (width: number) => width >= 768;
+// 화면 너비에 따라 무한 스크롤 사용 여부를 결정 (768px 미만에서만 무한 스크롤)
+const isInfiniteScroll = (width: number) => width < 768;
 
 const AllArticlesSection = () => {
   const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
@@ -35,24 +36,47 @@ const AllArticlesSection = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
 
-  // SSR 호환성을 위해 초기 상태를 기본값으로 설정
-  const [isPagination, setIsPagination] = useState(false);
+  // SSR 호환성을 위해 초기 무한 스크롤 상태를 기본값으로 설정
+  const [isMobileInfiniteScroll, setIsMobileInfiniteScroll] = useState(false);
 
-  // 화면 리사이즈 시 페이지네이션 여부 결정
+  // 화면 리사이즈 시 무한 스크롤 여부 결정
   useEffect(() => {
     const handleResize = () => {
-      setIsPagination(isPageNation(window.innerWidth));
+      setIsMobileInfiniteScroll(isInfiniteScroll(window.innerWidth));
     };
-    // 컴포넌트 마운트 시 초기 설정
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 마지막 게시글 요소를 참조하는 IntersectionObserver 설정
+  // 모바일 사이즈에서 무한 스크롤 적용 (쓰로틀 사용)
+  const throttledScroll = useThrottle(() => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+      hasMore &&
+      !isLoading
+    ) {
+      setPage((prevPage) => prevPage + 1); // 페이지 증가
+    }
+  }, 300); // 300ms의 쓰로틀 적용
+
+  // 무한 스크롤 모드일 때만 스크롤 이벤트 등록
+  useEffect(() => {
+    if (!isMobileInfiniteScroll) {
+      window.removeEventListener("scroll", throttledScroll); // 모바일이 아니면 스크롤 이벤트 제거
+      return;
+    }
+
+    window.addEventListener("scroll", throttledScroll);
+    return () => {
+      window.removeEventListener("scroll", throttledScroll);
+    };
+  }, [isMobileInfiniteScroll, hasMore, isLoading, throttledScroll]);
+
+  // 마지막 게시글 요소를 참조하는 IntersectionObserver 설정 (모바일에서만 무한 스크롤)
   const lastArticleElementRef = useCallback(
     (node: HTMLDivElement | null) => {
-      if (isLoading || isPagination) return;
+      if (isLoading || !isMobileInfiniteScroll) return; // 무한 스크롤 모드가 아닐 때는 동작하지 않음
       if (observer.current) observer.current.disconnect(); // 이전 옵저버 해제
 
       observer.current = new IntersectionObserver(
@@ -61,12 +85,12 @@ const AllArticlesSection = () => {
             setPage((prevPage) => prevPage + 1);
           }
         },
-        { threshold: 1.0 }
-      ); // 요소가 완전히 화면에 나타났을 때만 트리거
+        { threshold: 1.0 } // 요소가 완전히 화면에 나타났을 때만 트리거
+      );
 
       if (node) observer.current.observe(node); // 마지막 요소 관찰 시작
     },
-    [isLoading, hasMore, isPagination]
+    [isLoading, hasMore, isMobileInfiniteScroll]
   );
 
   // 정렬 옵션 선택 핸들러
@@ -85,7 +109,6 @@ const AllArticlesSection = () => {
   useEffect(() => {
     const query = { ...router.query };
 
-    // 검색어가 변경된 경우에만 쿼리 업데이트
     if (debouncedSearchKeyword.trim()) {
       query.q = debouncedSearchKeyword;
     } else {
@@ -103,7 +126,7 @@ const AllArticlesSection = () => {
 
     setPage(1); // 검색어 변경 시 페이지 초기화
     setArticles([]); // 새로운 데이터 불러오기 전 게시글 목록 초기화
-  }, [debouncedSearchKeyword, router.pathname]); // 검색어 또는 경로 변경 시만 실행
+  }, [debouncedSearchKeyword, router.pathname]);
 
   // 게시글을 불러오는 비동기 함수
   useEffect(() => {
@@ -120,11 +143,9 @@ const AllArticlesSection = () => {
         };
         const data = await getArticles(params);
 
-        setArticles(
-          (prevArticles) =>
-            isPagination || page === 1
-              ? data.list
-              : [...prevArticles, ...data.list] // 새로 불러온 게시글을 기존 게시글 뒤에 추가
+        // 페이지네이션과 무한 스크롤 로직 분리
+        setArticles((prevArticles) =>
+          isMobileInfiniteScroll ? [...prevArticles, ...data.list] : data.list
         );
 
         setHasMore(data.list.length === PAGE_SIZE); // 다음 페이지가 있는지 여부 확인
@@ -137,7 +158,7 @@ const AllArticlesSection = () => {
     };
 
     fetchArticles();
-  }, [orderBy, debouncedSearchKeyword, page, isPagination]);
+  }, [orderBy, debouncedSearchKeyword, page, isMobileInfiniteScroll]);
 
   return (
     <div className="bg-white px-4 max-w-[1200px] mx-auto" ref={containerRef}>
@@ -168,8 +189,8 @@ const AllArticlesSection = () => {
               <div
                 key={`article-${article.id}`}
                 ref={
-                  !isPagination && index === articles.length - 1
-                    ? lastArticleElementRef // 마지막 게시글에 옵저버 연결
+                  isMobileInfiniteScroll && index === articles.length - 1
+                    ? lastArticleElementRef // 모바일에서 마지막 게시글에 옵저버 연결
                     : null
                 }
               >
@@ -189,7 +210,7 @@ const AllArticlesSection = () => {
         </div>
       )}
 
-      {isPagination && totalPages > 1 && (
+      {!isMobileInfiniteScroll && totalPages > 1 && (
         <div className="pt-10 pb-20">
           <PaginationBar
             totalPageNum={totalPages}
