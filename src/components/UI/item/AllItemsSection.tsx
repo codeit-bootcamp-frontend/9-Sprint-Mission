@@ -38,17 +38,21 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
 
-  // SSR 호환성을 위해 초기 페이지 크기를 데스크탑 기본값으로 설정
-  const [pageSize, setPageSize] = useState(10);
+  // 초기 렌더링 시 데이터를 불러오지 않게 하기 위해 클라이언트 사이드에서만 동작하도록 설정
+  const [pageSize, setPageSize] = useState<number | null>(null); // null일 때는 로딩 대기
 
-  // 화면 리사이즈 시 페이지 크기 결정
+  // 화면 리사이즈 시 페이지 크기 결정 (클라이언트 사이드에서만 실행)
   useEffect(() => {
     const handleResize = () => {
       if (typeof window !== "undefined") {
-        setPageSize(getPageSize(window.innerWidth));
+        setPageSize(getPageSize(window.innerWidth)); // 화면 크기에 맞는 pageSize 설정
       }
     };
+
+    // 처음 렌더링 시 실행
     handleResize();
+
+    // 이후 창 크기 변경 시 실행
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -79,6 +83,11 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
 
   // 상품을 불러오는 비동기 함수
   useEffect(() => {
+    if (pageSize === null) {
+      // pageSize가 아직 설정되지 않았을 때는 아무 것도 하지 않음
+      return;
+    }
+
     const fetchSortedData = async () => {
       setIsLoading(true);
       try {
@@ -99,6 +108,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
       }
     };
 
+    // 클라이언트에서 pageSize가 설정된 후 데이터를 불러옴
     fetchSortedData();
   }, [orderBy, page, pageSize, debouncedSearchKeyword]);
 
