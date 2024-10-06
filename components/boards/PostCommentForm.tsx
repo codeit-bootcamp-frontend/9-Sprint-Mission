@@ -5,7 +5,6 @@ import { getRefreshToken } from "@/lib/utils";
 import { IComment } from "@/types/boardsTypeShare";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -17,7 +16,6 @@ interface IProps {
 }
 
 const PostCommentForm = ({ postId, setPostComments }: IProps) => {
-  const { refresh } = useRouter();
   const context = useToken();
 
   const form = useForm<z.infer<typeof postCommentSchema>>({
@@ -50,7 +48,6 @@ const PostCommentForm = ({ postId, setPostComments }: IProps) => {
         toast.success("댓글이 등록되었습니다.");
         form.reset();
         setPostComments((prevComments) => [response.data, ...prevComments]);
-        refresh();
       }
     } catch (error) {
       if (axios.isAxiosError(error)) {
