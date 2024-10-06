@@ -1,38 +1,62 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Plus from "@/assets/images/icons/ic_plus.svg";
 
-export default function ImageUploader() {
+export default function FileInput() {
+  const [imagePreview, setImagePreview] = useState(null); // 이미지 미리보기 상태
+  const [error, setError] = useState(false);
+
   const fileInputRef = useRef(null);
 
   const handleButtonClick = () => {
-    // 버튼을 클릭하면 파일 선택 창 열기
     if (fileInputRef.current) {
-      fileInputRef.current.click();
+      fileInputRef.current.click(); // Plus 아이콘을 누를시 화면에는 보이지 않는 FileInput을 누르게끔 설정
     }
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
+
     if (file) {
-      console.log("Selected file:", file);
-      // 추가적인 파일 처리 로직을 여기에 추가
+      if (e.target.files.length > 1) {
+        setError(true);
+      } else {
+        setError(false);
+        setImagePreview(URL.createObjectURL(file)); // 파일을 미리보기 URL로 설정
+      }
     }
   };
+
+  // URL.createObjectURL 부수효과 제거
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview); // 기존 URL 해제
+      }
+    };
+  }, [imagePreview]);
 
   return (
     <Container>
       <UploadButton onClick={handleButtonClick}>
-        <Image src={Plus} width={48} height={48} alt="file add icon" />
-        <Label>이미지 등록</Label>
+        {imagePreview ? (
+          <PreviewImage src={imagePreview} alt="selected image" />
+        ) : (
+          <>
+            <Image src={Plus} width={48} height={48} alt="file add icon" />
+            <Label>이미지 등록</Label>
+          </>
+        )}
       </UploadButton>
       <HiddenFileInput
         type="file"
         accept="image/*"
         ref={fileInputRef}
+        multiple
         onChange={handleFileChange}
       />
+      {error && <ErrorMessage>하나의 이미지만 선택해 주세요.</ErrorMessage>}
     </Container>
   );
 }
@@ -52,6 +76,8 @@ const UploadButton = styled.div`
   background-color: #f5f7fa;
   border-radius: 8px;
   cursor: pointer;
+  overflow: hidden;
+  position: relative;
 `;
 
 const Label = styled.div`
@@ -62,4 +88,19 @@ const Label = styled.div`
 
 const HiddenFileInput = styled.input`
   display: none;
+`;
+
+const ErrorMessage = styled.span`
+  font-size: 14px;
+  color: var(--red);
+  margin-top: 6px;
+`;
+
+const PreviewImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;

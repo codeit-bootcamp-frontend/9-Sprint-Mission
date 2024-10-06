@@ -1,6 +1,9 @@
+// 게시글 작성 페이지
+
 import { ChangeEvent, useState } from "react";
 import S from "./index.style";
 import FileInput from "@/components/UI/Input/FileInput";
+
 export default function AddBoard() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -16,10 +19,10 @@ export default function AddBoard() {
 
   return (
     <S.Container>
-      <S.ButtonSection>
+      <S.Header>
         <S.Title>게시글 쓰기</S.Title>
         <S.SubmitButton disabled={contentIsEmpty}>등록</S.SubmitButton>
-      </S.ButtonSection>
+      </S.Header>
       <S.TitleSection>
         <S.Title>*제목</S.Title>
         <S.ContentInput
