@@ -1,12 +1,10 @@
-// boards 메인 페이지
-
 import { useEffect, useState } from "react";
 import { GetServerSidePropsContext } from "next";
 import { Article, BoardsPageProps } from "@/types/articles";
 import { BestArticles } from "../../components/boards/BestArticles";
 import { ArticleList } from "../../components/boards/ArticleList";
 import getArticles from "@/api/getArticles";
-import S from "./index.style";
+import styled from "styled-components";
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   // context 객체를 이용하여 실시간으로 query값 가져오기
@@ -62,9 +60,30 @@ export default function BoardsPage({
   }, [pageSize]); // pageSize 의존성 추가
 
   return (
-    <S.Container>
+    <Container>
       <BestArticles articles={currentBestArticles} />
       <ArticleList articles={totalArticles} />
-    </S.Container>
+    </Container>
   );
 }
+
+// 스타일 컴포넌트
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    max-width: 800px;
+    padding: 0 24px;
+    gap: 24px;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    max-width: 566px;
+    padding: 0 16px;
+    gap: 24px;
+  }
+`;

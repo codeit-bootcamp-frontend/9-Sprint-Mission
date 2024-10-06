@@ -1,10 +1,8 @@
-// boards 페이지 -> 게시글 상세 페이지
-
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 import getArticle from "@/api/getArticle";
 import getArticleComments from "@/api/getArticleComments";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { ArticleContent } from "@/components/boards/[id]/ArticleContent";
 import { ArticleReplyInput } from "@/components/boards/[id]/ArticleReplyInput";
 import { ArticleReplyList } from "@/components/boards/[id]/ArticleReplyList";
@@ -52,15 +50,18 @@ const BoardDetailPage = () => {
     </Container>
   );
 };
+export default BoardDetailPage;
 
+// 스타일 컴포넌트
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 24px;
   max-width: 1200px;
   margin: 90px auto;
 
   > :nth-child(2) {
-    margin-top: 32px;
+    margin-top: 50vh;
   }
 
   > :nth-child(3) {
@@ -72,5 +73,3 @@ const Container = styled.div`
     margin-top: 48px;
   }
 `;
-
-export default BoardDetailPage;
