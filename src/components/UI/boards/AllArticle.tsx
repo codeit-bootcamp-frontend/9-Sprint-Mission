@@ -1,28 +1,45 @@
 import { useRouter } from "next/router";
 import { useSearchParams } from "next/navigation";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { ArticleProps, ArticleSortOption } from "@/types/article";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { Article, ArticleSortOption } from "@/types/article";
 import Link from "next/link";
 import styles from "./AllArticle.module.scss";
-import Search from "@/components/UI/boards/Search";
+import Search from "@/components/UI/Search";
 import Button from "@/components/UI/Button/Button";
 import ArticleCard from "./ArticleCard";
 import { Dropdown } from "../Dropdown/DropdownMenu";
 import { TitleSection, SectionTitle } from "../CommonStyles";
+import { getArticles } from "@/api/article";
 
-const AllArticle = ({ articles }: ArticleProps) => {
+interface Props {
+  articles: Article[];
+  orderBy: ArticleSortOption;
+}
+
+const AllArticle = ({
+  articles: initialArticles,
+  orderBy: initialOrderBy,
+}: Props) => {
   const router = useRouter();
   const params = useSearchParams();
-  const orderByParam = params.get("orderBy");
   const keywordParam = params.get("keyword");
-  const [orderBy, setOrderBy] = useState(orderByParam);
+  const [articles, setArticles] = useState(initialArticles);
+  const [orderBy, setOrderBy] = useState(initialOrderBy);
   const [search, setSearch] = useState(keywordParam);
 
   // 정렬 선택 핸들러
-  const handleSortClick = (sortOption: ArticleSortOption) => {
+  const handleSortSelection = (sortOption: ArticleSortOption) => {
     setOrderBy(sortOption);
-    setOrderBy(orderBy);
   };
+
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const response = await getArticles({ orderBy });
+      setArticles(response.list);
+    };
+
+    fetchArticles();
+  }, [orderBy]);
 
   // 검색어 변경 핸들러
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,9 +77,13 @@ const AllArticle = ({ articles }: ArticleProps) => {
         <Dropdown>
           <Dropdown.Button />
           <Dropdown.Container>
-            <Dropdown.Item>최신순</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortSelection("recent")}>
+              최신순
+            </Dropdown.Item>
             <Dropdown.Line />
-            <Dropdown.Item>좋아요순</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleSortSelection("like")}>
+              좋아요순
+            </Dropdown.Item>
           </Dropdown.Container>
         </Dropdown>
       </div>

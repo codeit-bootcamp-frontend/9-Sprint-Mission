@@ -3,23 +3,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    &:first-child {
-      padding-bottom: 8px;
-    }
-
-    &:nth-child(2) {
-      padding-bottom: 16px;
-    }
+    margin-bottom: 20px;
   }
 
   .allArticleCard {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 24px;
-    background-color: #fcfcfc;
     border-bottom: 1px solid $gray200;
-    position: relative;
+    padding-bottom: 24px;
+    margin-bottom: 24px;
   }
 }

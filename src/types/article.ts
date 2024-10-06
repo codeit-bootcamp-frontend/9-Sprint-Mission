@@ -17,10 +17,6 @@ export interface ArticleWriter {
   id: number;
 }
 
-export interface ArticleProps {
-  articles: Article[];
-}
-
 export interface ArticleParams {
   orderBy: ArticleSortOption;
   pageSize: number;

@@ -57,11 +57,11 @@
         grid-area: profileImage;
       }
 
-      p:nth-child(1) {
+      p:nth-child(2) {
         grid-area: nickname;
       }
 
-      p:nth-child(2) {
+      p:nth-child(3) {
         grid-area: date;
       }
     }

@@ -1,0 +1,21 @@
+.backButton {
+  width: fit-content;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 40px;
+  padding: 12px 64px;
+  background-color: $clr-blue;
+  color: $gray100;
+  margin: 5rem auto;
+  transition: all ease 0.3s;
+
+  &:hover {
+    background-color: $clr-blue-hover;
+    transition: all ease 0.3s;
+  }
+}

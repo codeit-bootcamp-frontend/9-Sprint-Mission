@@ -10,5 +10,10 @@
   .articleWrap {
     display: flex;
     gap: 24px;
+
+    .bestArticleCard {
+      padding: 50px 24px 24px;
+      background-color: $gray50;
+    }
   }
 }

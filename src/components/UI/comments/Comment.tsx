@@ -1,12 +1,12 @@
 import { ChangeEvent, MouseEvent, useState } from "react";
 import { ArticleComments } from "@/types/article";
-import CommentButtonImg from "@/assets/images/icons/ic_kebab.svg";
 import Image from "next/image";
+import CommentButtonImg from "@/assets/images/icons/ic_kebab.svg";
 import styles from "./Comment.module.scss";
 import Button from "../Button/Button";
 import InputItem from "../InputItem";
 import Profile from "../Profile";
-import Date from "../Date";
+import { Date } from "../Date";
 import { LineDividerWidth } from "../CommonStyles";
 import axios from "@/api/axios";
 

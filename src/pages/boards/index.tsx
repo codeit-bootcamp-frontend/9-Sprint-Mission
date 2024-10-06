@@ -1,13 +1,14 @@
 import axios from "axios";
 import { getArticles } from "@/api/article";
 import { GetServerSideProps } from "next";
-import { Article } from "@/types/article";
+import { Article, ArticleSortOption } from "@/types/article";
 import BestArticle from "@/components/UI/boards/BestArticle";
 import AllArticle from "@/components/UI/boards/AllArticle";
 
 interface Props {
   bestArticles: Article[];
   AllArticles: Article[];
+  orderBy: ArticleSortOption;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -64,15 +65,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     props: {
       bestArticles,
       AllArticles,
+      orderBy: AllorderBy,
     },
   };
 };
 
-const Boards = ({ bestArticles, AllArticles }: Props) => {
+const Boards = ({ bestArticles, AllArticles, orderBy }: Props) => {
   return (
     <div className="container">
       <BestArticle articles={bestArticles} />
-      <AllArticle articles={AllArticles} />
+      <AllArticle articles={AllArticles} orderBy={orderBy} />
     </div>
   );
 };

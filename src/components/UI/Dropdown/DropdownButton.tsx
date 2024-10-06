@@ -12,7 +12,7 @@ const DropdownButton = () => {
         className={styles.sortDropdownTriggerButton}
         onClick={toggleDropdown}
       >
-        <Image src={SortIcon} width={30} height={30} alt="sort" />
+        <Image src={SortIcon} width={24} height={24} alt="sort" />
       </button>
     </>
   );

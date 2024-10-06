@@ -1,12 +1,11 @@
 import { Article } from "@/types/article";
+import Link from "next/link";
+import Image from "next/image";
 import styles from "./ArticleCard.module.scss";
 import DefaultProduct from "@/assets/images/ui/img_default.svg";
 import BestLabelImg from "@/assets/images/icons/ic_medal.svg";
-import UserAvatarImg from "@/assets/images/icons/ic_profile.svg";
-import Image from "next/image";
-import Link from "next/link";
 import LikeButton from "../Button/LikeButton";
-import Date from "../Date";
+import { FormatDate } from "../Date";
 import Profile from "../Profile";
 
 interface Props {
@@ -39,19 +38,19 @@ const ArticleCard = ({ article, className, BestLabel, ArticleMeta }: Props) => {
           </div>
         </div>
         <div className={styles.articleCardBottom}>
-          <Profile nickname={article.writer.nickname} size={24} />
           {ArticleMeta === "BestArticleMeta" ? (
             <>
-              <LikeButton size={15} likeCount={article.likeCount} isLiked />
-              <Date date={article.updatedAt} />
+              <p className={styles.nickname}>{article.writer.nickname}</p>
+              <LikeButton size={15} likeCount={article.likeCount} />
+              <FormatDate date={article.createdAt} />
             </>
           ) : (
             <div className={styles.allArticleMeta}>
-              <Date date={article.updatedAt} />
+              <Profile nickname={article.writer.nickname} size={24} />
+              <FormatDate date={article.createdAt} />
               <LikeButton
                 size={24}
                 likeCount={article.likeCount}
-                isLiked
                 fontSize="large"
               />
             </div>
