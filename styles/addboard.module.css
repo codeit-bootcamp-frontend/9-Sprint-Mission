@@ -54,6 +54,11 @@
   color: var(--text-gray-1);
 }
 
+.upload-container input:focus,
+.upload-container textarea:focus {
+  outline-color: var(--brand-blue);
+}
+
 .add-title input {
   height: 56px;
 }

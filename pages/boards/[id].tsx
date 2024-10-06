@@ -91,7 +91,7 @@ export default function Board() {
       </section>
       <section className={styles["comments-container"]}>
         <ul className={styles["writer-comment-container"]}>
-          {comments ? (
+          {comments && comments.length > 0 ? (
             comments.map((comment) => (
               <li key={comment.id}>
                 <div className={styles["writer-comment-title-container"]}>

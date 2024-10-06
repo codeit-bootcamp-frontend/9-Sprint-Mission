@@ -100,6 +100,11 @@
   padding: 16px 24px;
 }
 
+.comment-container textarea:focus {
+  outline-color: var(--brand-blue);
+}
+
+
 .comment-container textarea::placeholder {
   font-size: 16px;
   font-weight: 400;
