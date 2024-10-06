@@ -14,13 +14,12 @@ export default function AddBoard() {
   };
 
   return (
-    <>
+    <div className={styles["addboard-page-container"]}>
       <div className={styles["add-container"]}>
-        <h2>게시글 쓰기</h2>
+        <h2>상품 등록하기</h2>
         <Button color={inputValue && textAreaValue ? "blue" : "gray"}>
           등록
         </Button>
-        
       </div>
       <section className={styles["upload-container"]}>
         <div className={styles["add-title"]}>
@@ -50,6 +49,6 @@ export default function AddBoard() {
           <input id="img" type="file"></input>
         </div>
       </section>
-    </>
+    </div>
   );
 }

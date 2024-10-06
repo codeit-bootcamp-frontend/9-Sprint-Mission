@@ -11,6 +11,8 @@ import CreatedDate from "./CreatedDate";
 import LikeCount from "./LikeCount";
 import Image from "next/image";
 import timeDiff from "@/utils/timeDiff";
+import { routeModule } from "next/dist/build/templates/app-page";
+import { useRouter } from "next/router";
 
 interface query {
   order: string;
@@ -21,6 +23,7 @@ export default function TotalPostList() {
   const [articles, setArticles] = useState<Articles[]>([]);
   const [order, setOrder] = useState("recent");
   const [keyword, setKeyword] = useState("");
+ const router = useRouter()
 
   const optionList: Option[] = [
     { id: 1, option: "최신순", order: "recent" },
@@ -38,6 +41,10 @@ export default function TotalPostList() {
   useEffect(() => {
     getArticles({ order, keyword });
   }, [order, keyword]);
+
+  const handleClick = (id:number) => {
+    router.push(`/boards/${id}`)
+  }
 
   return (
     <>
@@ -57,7 +64,7 @@ export default function TotalPostList() {
         <ul className={styles["article-wrap"]}>
           {articles &&
             articles.map((article) => (
-              <li key={article.id} className={styles["article-container"]}>
+              <li key={article.id} className={styles["article-container"]} onClick={() => handleClick(article.id)}>
                 <div className={styles["content-container"]}>
                   <div className={styles["article-content"]}>
                     {article.content}

@@ -5,6 +5,7 @@
 .article-container {
   display: flex;
   gap: 24px;
+
 }
 
 .article {
@@ -12,6 +13,7 @@
   background-color:var(--background-gray);
   border-radius: 8px;
   flex:1;
+  cursor: pointer;
 }
 
 .content-container {

@@ -7,18 +7,21 @@ import UserNickname from "./UserNickname";
 import LikeCount from "./LikeCount";
 import CreatedDate from "./CreatedDate";
 import { Articles } from "@/types/types";
+import { useRouter } from "next/router";
 
 export default function BestPostList() {
   const [articles, setArticles] = useState<Articles[]>();
   const [pageSize, setPageSize] = useState(3);
   const isFristRef = useRef(true);
+  const router = useRouter();
+  const { id } = router.query;
 
   async function getArticles(pageSize: number) {
     const res = await axios.get(`/articles?orderBy=like&pageSize=${pageSize}`);
     const articles = res.data.list ?? [];
     setArticles(articles);
   }
-  
+
   useEffect(() => {
     const getPageSize = () => {
       const width = window.innerWidth;
@@ -32,7 +35,7 @@ export default function BestPostList() {
       isFristRef.current = false;
       return;
     }
-    
+
     getArticles(pageSize);
 
     const handleResize = () => {
@@ -42,6 +45,10 @@ export default function BestPostList() {
     return () => window.removeEventListener("resize", handleResize);
   }, [pageSize]);
 
+  const handleClick = (id: number) => {
+    router.push(`/boards/${id}`);
+  };
+
   return (
     <>
       <section className={styles["best-section"]}>
@@ -49,7 +56,11 @@ export default function BestPostList() {
         <ul className={styles["article-container"]}>
           {articles &&
             articles.map((article) => (
-              <li key={article.id} className={styles.article}>
+              <li
+                key={article.id}
+                className={styles.article}
+                onClick={() => handleClick(article.id)}
+              >
                 <Image src="/img_badge.png" width={102} height={30} alt="" />
                 <div className={styles["content-container"]}>
                   <div className={styles["article-content"]}>
