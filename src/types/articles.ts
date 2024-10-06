@@ -43,3 +43,11 @@ export interface BoardDetailPageProps {
   articleInfo: Article;
   articleComments: ArticleComment[];
 }
+
+export interface ArticleContentProps {
+  info: Article;
+}
+
+export interface ArticleReplyListProps {
+  list: ArticleComment[];
+}

@@ -1,11 +1,11 @@
-import { useState } from "react";
 import styled from "styled-components";
+import { ChangeEvent, useState } from "react";
 import { Button } from "@/styles/CommonStyles";
 
-export function ArticleReplyInput() {
+export default function ArticleReplyInput() {
   const [value, setValue] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(e.target.value);
   };
 
@@ -22,6 +22,7 @@ export function ArticleReplyInput() {
   );
 }
 
+// 스타일 컴포넌트
 const Container = styled.div`
   display: flex;
   flex-direction: column;

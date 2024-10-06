@@ -1,9 +1,10 @@
+import styled from "styled-components";
 import Image from "next/image";
 import Icon from "@/assets/images/icons/profilex1.png";
+import { ArticleContentProps } from "@/types/articles";
 import { LikeButton } from "@/components/UI/Button/LikeButton";
-import styled from "styled-components";
 
-export const ArticleContent = ({ info }) => {
+export default function ArticleContent({ info }: ArticleContentProps) {
   const { title, image, writer, content, likeCount, createdAt } = info;
 
   const formmatedDate = createdAt?.slice(0, 10).replace(/-/g, ".");
@@ -25,8 +26,9 @@ export const ArticleContent = ({ info }) => {
       <ContentSection>{content}</ContentSection>
     </Container>
   );
-};
+}
 
+// 스타일 컴포넌트
 const Container = styled.div`
   width: 100%;
 `;

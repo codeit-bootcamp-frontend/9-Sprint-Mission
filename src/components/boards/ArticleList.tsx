@@ -1,29 +1,29 @@
-import { Article, ArticleListProps } from "@/types/articles";
+import styled from "styled-components";
 import Dropdown from "../UI/Dropdown/Dropdown";
 import NewArticleButton from "../UI/Button/WriteButton";
 import SearchInput from "../UI/Input/SearchInput";
 import ArticleItem from "./ArticleItem";
-import S from "./ArticleList.style";
+import { Article, ArticleListProps } from "@/types/articles";
 import { useRouter } from "next/router";
 
 export function ArticleList({ articles }: ArticleListProps) {
   const router = useRouter();
 
-  const handleNavigate = (id) => {
+  const handleNavigate = (id: number) => {
     router.push(`/boards/${id}`);
   };
 
   return (
     <div>
-      <S.TitleSection>
-        <S.Title>게시글</S.Title>
+      <TitleSection>
+        <Title>게시글</Title>
         <NewArticleButton />
-      </S.TitleSection>
-      <S.SearchSection>
+      </TitleSection>
+      <SearchSection>
         <SearchInput />
         <Dropdown />
-      </S.SearchSection>
-      <S.ListSection>
+      </SearchSection>
+      <ListSection>
         {articles.map((article: Article | null) => {
           if (!article) return null;
           return (
@@ -34,7 +34,43 @@ export function ArticleList({ articles }: ArticleListProps) {
             />
           );
         })}
-      </S.ListSection>
+      </ListSection>
     </div>
   );
 }
+
+// 스타일 컴포넌트
+const TitleSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: 42px;
+`;
+
+const SearchSection = styled.div`
+  display: flex;
+  gap: 13px;
+  justify-content: space-between;
+  height: 42px;
+  margin-top: 24px;
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    margin-top: 48px;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    margin-top: 16px;
+  }
+`;
+
+const ListSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+`;
+
+const Title = styled.h1`
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+`;

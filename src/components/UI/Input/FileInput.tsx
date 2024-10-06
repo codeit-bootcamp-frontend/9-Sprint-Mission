@@ -1,13 +1,12 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, ChangeEvent } from "react";
 import styled from "styled-components";
 import Image from "next/image";
 import Plus from "@/assets/images/icons/ic_plus.svg";
 
 export default function FileInput() {
-  const [imagePreview, setImagePreview] = useState(null); // 이미지 미리보기 상태
+  const [imagePreview, setImagePreview] = useState<string | null>(null); // 이미지 미리보기 상태
   const [error, setError] = useState(false);
-
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleButtonClick = () => {
     if (fileInputRef.current) {
@@ -15,11 +14,14 @@ export default function FileInput() {
     }
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
 
-    if (file) {
-      if (e.target.files.length > 1) {
+    // files가 null인지 체크
+    if (files && files.length > 0) {
+      const file = files[0];
+
+      if (files.length > 1) {
         setError(true);
       } else {
         setError(false);

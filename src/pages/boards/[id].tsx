@@ -1,40 +1,41 @@
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Article, ArticleComment } from "@/types/articles";
 import styled from "styled-components";
 import getArticle from "@/api/getArticle";
 import getArticleComments from "@/api/getArticleComments";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { ArticleContent } from "@/components/boards/[id]/ArticleContent";
-import { ArticleReplyInput } from "@/components/boards/[id]/ArticleReplyInput";
-import { ArticleReplyList } from "@/components/boards/[id]/ArticleReplyList";
-import { GoBackButton } from "@/components/UI/Button/GoBackButton";
-
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//   const { id } = context.query;
-//   const articleInfo: Article = await getArticle(id);
-//   const articleComments: ArticleComment[] = await getArticleComments(id);
-
-//   return {
-//     props: {
-//       articleInfo,
-//       articleComments,
-//     },
-//   };
-// };
+import ArticleContent from "@/components/boards/[id]/ArticleContent";
+import ArticleReplyInput from "@/components/boards/[id]/ArticleReplyInput";
+import ArticleReplyList from "@/components/boards/[id]/ArticleReplyList";
+import GoBackButton from "@/components/UI/Button/GoBackButton";
 
 const BoardDetailPage = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const [data, setData] = useState({ article: {}, comments: [] });
+  // 상태에 대한 명확한 타입 설정
+  const [articleData, setArticleData] = useState<{
+    info: Article | {};
+    comments: ArticleComment[];
+  }>({
+    info: {},
+    comments: [],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
-      if (id) {
-        const [articleInfo, articleComments] = await Promise.all([
-          getArticle(id),
-          getArticleComments(id),
-        ]);
-        setData({ article: articleInfo, comments: articleComments });
+      try {
+        if (id) {
+          // Promise.all을 사용하여 article과 comments 데이터를 병렬로 가져옴
+          const [articleInfo, articleComments] = await Promise.all([
+            getArticle(id),
+            getArticleComments(id),
+          ]);
+          // 가져온 데이터를 상태에 설정
+          setArticleData({ info: articleInfo, comments: articleComments });
+        }
+      } catch (error) {
+        console.error("Failed to fetch article data:", error);
       }
     };
 
@@ -43,13 +44,14 @@ const BoardDetailPage = () => {
 
   return (
     <Container>
-      <ArticleContent info={data.article} />
+      <ArticleContent info={articleData.info} />
       <ArticleReplyInput />
-      <ArticleReplyList list={data.comments} />
+      <ArticleReplyList list={articleData.comments} />
       <GoBackButton />
     </Container>
   );
 };
+
 export default BoardDetailPage;
 
 // 스타일 컴포넌트

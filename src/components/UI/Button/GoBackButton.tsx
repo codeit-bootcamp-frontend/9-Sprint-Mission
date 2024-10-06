@@ -1,8 +1,8 @@
+import styled from "styled-components";
 import Image from "next/image";
 import backIcon from "@/assets/images/icons/ic_back.svg";
-import styled from "styled-components";
 
-export function GoBackButton() {
+export default function GoBackButton() {
   return (
     <Button onClick={() => window.history.back()}>
       <span>목록으로 돌아가기</span>
@@ -13,6 +13,7 @@ export function GoBackButton() {
   );
 }
 
+// 스타일 컴포넌트
 const Button = styled.button`
   display: flex;
   gap: 8px;
