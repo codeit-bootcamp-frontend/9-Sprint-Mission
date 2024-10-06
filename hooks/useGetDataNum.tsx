@@ -7,7 +7,7 @@ interface ScreenItems {
   desktop: number;
 }
 
-function useDataNum(
+function useGetDataNum(
   items: ScreenItems = { mobile: 1, tablet: 2, desktop: 3 }
 ): number {
   const { isMobile, isTablet, isDesktop } = useScreenSize(); // 화면 크기 정보 가져오기
@@ -27,4 +27,4 @@ function useDataNum(
   return dataNum;
 }
 
-export default useDataNum;
+export default useGetDataNum;

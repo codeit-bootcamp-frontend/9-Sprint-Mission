@@ -1,0 +1,32 @@
+.productItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.productItem img {
+  border-radius: 16px;
+  margin-bottom: 10px;
+}
+
+.itemName {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.itemPrice {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.itemLike {
+  font-size: 12px;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+/* Small size */
+.small img {
+  width: 221px;
+  height: 221px;
+}

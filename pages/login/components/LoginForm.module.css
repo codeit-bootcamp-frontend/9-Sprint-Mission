@@ -1,0 +1,42 @@
+.loginform {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 618px;
+}
+
+.simpleLogin {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+  width: 640px;
+  height: 74px;
+  padding: 16px 23px;
+  background-color: #e6f2ff;
+  border-radius: 8px;
+  margin: 24px 0;
+}
+
+.simpleLogin span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.SNSImage {
+  margin-right: 16px;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.footerLink {
+  text-decoration: underline;
+  color: #3692ff;
+}

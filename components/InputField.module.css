@@ -1,0 +1,27 @@
+.InputField {
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+}
+
+.InputLabel {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.Input {
+  height: 56px;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  background-color: #f3f4f6;
+  margin-bottom: 24px;
+}
+
+.Input::placeholder {
+  color: #9ca3af;
+}

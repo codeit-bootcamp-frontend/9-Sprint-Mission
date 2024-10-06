@@ -8,5 +8,6 @@ export interface Post {
   writer: {
     id: number;
     nickname: string;
+    image?: string;
   };
 }

@@ -1,6 +1,6 @@
 import styles from "./BestPosts.module.css";
 import BestPostItem from "./BestPostItem";
-import useDataNum from "@/hooks/useDataNum";
+import useGetDataNum from "@/hooks/useGetDataNum";
 import { Post } from "@/types/types";
 
 interface BestPostsProps {
@@ -8,7 +8,7 @@ interface BestPostsProps {
 }
 
 function BestPosts({ bestPosts }: BestPostsProps) {
-  const dataNum = useDataNum();
+  const dataNum = useGetDataNum();
 
   // dataNum이 0 이하일 경우 빈 배열을 반환
   const filteredBestPosts =

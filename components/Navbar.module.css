@@ -15,31 +15,12 @@
   justify-content: space-between;
   padding: 10px 200px 9px;
   height: 70px;
-
-  @media (max-width: 1200px) {
-    max-width: 696px;
-    margin: 0 auto;
-    padding: 10px 0 9px;
-  }
-
-  @media (max-width: 768px) {
-    max-width: 343px;
-    margin: 0 auto;
-    padding: 10px 0 9px;
-    gap: 8px;
-  }
 }
 
 .navbarContent {
   display: flex;
   align-items: center;
   gap: 32px;
-}
-
-@media (max-width: 768px) {
-  .navbarContent {
-    gap: 8px;
-  }
 }
 
 .navlinkContainer {
@@ -60,7 +41,23 @@
   color: #3692ff;
 }
 
+@media (max-width: 1200px) {
+  .navbarContainer {
+    max-width: 696px;
+    margin: 0 auto;
+    padding: 10px 0 9px;
+  }
+}
 @media (max-width: 768px) {
+  .navbarContainer {
+    max-width: 343px;
+    margin: 0 auto;
+    padding: 10px 0 9px;
+    gap: 8px;
+  }
+  .navbarContent {
+    gap: 8px;
+  }
   .navlink {
     font-size: 16px;
   }

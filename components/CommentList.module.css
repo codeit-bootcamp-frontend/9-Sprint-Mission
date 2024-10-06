@@ -1,0 +1,59 @@
+.commentList {
+  margin-top: 40px;
+  margin-bottom: 64px;
+  list-style-type: none;
+}
+
+.commentListItem {
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.commentListTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+.commentListTop p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profileBox {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profileBoxRight {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  font-weight: 400;
+  gap: 4px;
+}
+
+.profileNickName {
+  color: #4b5563;
+}
+
+.profileTime {
+  color: #9ca3af;
+}
+
+.emptyCommentBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.emptyCommentBox p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #9ca3af;
+}

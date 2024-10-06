@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
@@ -10,7 +10,13 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
-    domains: ["via.placeholder.com", "flexible.img.hani.co.kr"],
+    domains: [
+      "via.placeholder.com",
+      "flexible.img.hani.co.kr",
+      "image.hanatour.com",
+      "youtube.com",
+      "pbs.twimg.com",
+    ],
   },
 };
 

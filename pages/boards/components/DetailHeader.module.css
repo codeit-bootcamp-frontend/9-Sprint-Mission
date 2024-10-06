@@ -1,0 +1,29 @@
+.detailHeader {
+  margin: 32px 0;
+}
+
+.detailHeader h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.profileBox {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 16px 0;
+  gap: 32px;
+}
+
+.detailContent {
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.profileLike {
+  border: 1px solid #e5e7eb;
+  border-radius: 35px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 7px 12px;
+}
