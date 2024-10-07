@@ -48,10 +48,6 @@ export default function BestBoard() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (isLoading) {
-    return <div>Loading...</div>; // 로딩 인디케이터
-  }
-
   return (
     <div className="best-article">
       <h2 className="page-title">베스트 게시글</h2>
@@ -72,6 +68,7 @@ export default function BestBoard() {
                     width={48}
                     height={48}
                     alt="프로필 이미지"
+                    unoptimized
                   />
                 </div>
               </div>

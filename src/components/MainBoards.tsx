@@ -101,6 +101,7 @@ export default function MainBoard({ initialProducts, total }: ProductProps) {
                     width={72}
                     height={72}
                     alt="작성자 이미지"
+                    unoptimized
                   />
                 </div>
               </div>

@@ -2,6 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
+        pathname: "/**",
+      },
+    ],
     domains: [
       "sprint-fe-project.s3.ap-northeast-2.amazonaws.com", // 기존 도메인
       "via.placeholder.com", // 추가할 도메인
