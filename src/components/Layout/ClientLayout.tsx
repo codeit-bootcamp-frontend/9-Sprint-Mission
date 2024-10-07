@@ -27,9 +27,12 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
           if (result && result.accessToken && result.user) {
             setCookie("accessToken", result.accessToken, ACCESS_TOKEN_EXPIRY);
             setUser({
-              id: result.user.id?.toString() || null,
+              id: parseInt(result.user.id?.toString() || "0", 10),
               nickname: result.user.nickname || null,
+              email: result.user.email,
               image: result.user.image || null,
+              updatedAt: result.user.updatedAt || new Date(),
+              createdAt: result.user.createdAt || new Date(),
             });
           } else {
             throw new Error("refreshAccessToken에서 유효하지 않은 Response");

@@ -55,19 +55,25 @@ export default function LoginPage() {
       const userId = userData.user.id.toString();
       const userImage = userData.user.image ? userData.user.image : "";
       const userNickname = userData.user.nickname;
+      const userEmail = userData.user.email;
+      const userUpdatedAt = userData.user.updatedAt;
+      const userCreatedAt = userData.user.createdAt;
 
       // 쿠키에 인증 토큰과 사용자 정보 저장
       setCookie("accessToken", userData.accessToken, ACCESS_TOKEN_EXPIRY);
       setCookie("refreshToken", userData.refreshToken, REFRESH_TOKEN_EXPIRY);
       setCookie("userId", userId, ACCESS_TOKEN_EXPIRY);
-      setCookie("userImage", userImage, ACCESS_TOKEN_EXPIRY);
-      setCookie("nickname", userNickname, ACCESS_TOKEN_EXPIRY);
+      setCookie("userImage", userImage || "", ACCESS_TOKEN_EXPIRY);
+      setCookie("nickname", userNickname || "", ACCESS_TOKEN_EXPIRY);
 
       // jotai userAtom을 사용하여 상태 업데이트
       setUser({
-        Id: userId,
-        Image: userImage,
+        id: Number(userId),
+        image: userImage,
         nickname: userNickname,
+        email: userEmail,
+        updatedAt: userUpdatedAt,
+        createdAt: userCreatedAt,
       });
 
       // 로그인 후 홈으로 리다이렉트
