@@ -96,7 +96,7 @@ export default function MainBoard({ initialProducts, total }: ProductProps) {
                   <Link href={`/boards/${post.id}`}>{post.content}</Link>
                 </div>
                 <div className={styles["profile-img"]}>
-                  <img src={post.image} alt="작성자 이미지" />
+                  <Image src={post.image} alt="작성자 이미지" />
                 </div>
               </div>
               <div>
