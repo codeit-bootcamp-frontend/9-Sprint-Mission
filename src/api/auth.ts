@@ -18,7 +18,16 @@ const setUserImage = (image: string | null) => {
 
 // 쿠키 설정 함수
 const setCookie = (name: string, value: string, expires: number) => {
-  Cookies.set(name, value, { expires, secure: true, sameSite: "strict" });
+  Cookies.set(
+    name, // 쿠키의 이름 (예: 'accessToken', 'userId' 등)
+    value, // 쿠키의 값 (예: '1234567890', 'user123' 등)
+    {
+      expires, // 쿠키 만료 시간 설정 (일 단위, 예: 7은 7일 후 만료)
+      secure: true, // HTTPS 연결에서만 쿠키 전송 (보안 강화)
+      sameSite: "strict", // 같은 사이트 출처의 요청에만 쿠키 전송 (CSRF 공격 방지)
+      httpOnly: true, // JavaScript를 통한 쿠키 접근 방지 (XSS 공격 방지)
+    }
+  );
 };
 
 // 로그인 함수
@@ -38,8 +47,8 @@ export const logIn = async (
     // 클라이언트에서 토큰을 저장
     setCookie("accessToken", accessToken, 1 / 48); // 30분
     setCookie("refreshToken", refreshToken, 7); // 7일
-    setCookie("userId", id.toString(), 1 / 48);
-    setCookie("nickname", nickname, 1 / 48);
+    setCookie("userId", id.toString(), 1 / 48); // 30분
+    setCookie("nickname", nickname, 1 / 48); // 30분
     setUserImage(image);
 
     return response.data;

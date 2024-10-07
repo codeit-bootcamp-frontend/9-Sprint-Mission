@@ -30,6 +30,22 @@ yarn-error.log*
 # vercel
 .vercel
 
+# vscode
+/.vscode/
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
