@@ -93,6 +93,7 @@ const BestArticleCard = ({
 
               {imageInfo.isGif ? (
                 // GIF 파일에 대한 처리: img 태그 사용 (원본 URL 사용)
+                // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={imageStatus === "error" ? NO_IMAGE : imageInfo.url}
                   alt={`${article.id}번 게시글 이미지`}

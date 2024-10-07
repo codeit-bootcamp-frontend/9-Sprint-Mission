@@ -133,6 +133,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           ) : imageStatus === "loaded" && imageUrl ? (
             isSvgFile(imageUrl) ? (
               // SVG 파일은 img 태그로 렌더링
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={imageUrl}
                 alt={`${productDetail.name} 상품 대표 사진`}

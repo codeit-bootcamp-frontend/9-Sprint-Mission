@@ -96,6 +96,7 @@ const ItemCard = ({
 
         {imageInfo.isSvg ? (
           // SVG 파일은 img 태그로 처리
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={imageInfo.url}
             alt="상품 썸네일"
@@ -107,6 +108,7 @@ const ItemCard = ({
           />
         ) : imageInfo.isGif ? (
           // GIF 파일은 원본 img 태그로 처리하여 애니메이션 유지
+          // eslint-disable-next-line @next/next/no-img-element
           <img
             src={imageInfo.url}
             alt="상품 썸네일"
