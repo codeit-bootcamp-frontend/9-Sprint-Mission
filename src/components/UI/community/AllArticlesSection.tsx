@@ -1,5 +1,11 @@
 // src/components/UI/community/AllArticlesSection.tsx
-import { useEffect, useState, useRef, useCallback, useMemo } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -78,7 +84,7 @@ const AllArticlesSection = () => {
     return query;
   }, [router.query, debouncedSearchKeyword]);
 
-  // useCallback을 사용하여 함수 메모이제이션
+  // useCallback과 useThrottle을 사용하여 함수 메모이제이션 및 쓰로틀링
   const updateRouterQuery = useCallback(() => {
     router.replace(
       {
@@ -136,15 +142,15 @@ const AllArticlesSection = () => {
   }, [fetchArticles]);
 
   // 정렬 옵션 선택 핸들러
-  const handleSortSelection = (sortOption: ArticleSortOption) => {
+  const handleSortSelection = useCallback((sortOption: ArticleSortOption) => {
     setOrderBy(sortOption);
     setPage(1);
-  };
+  }, []);
 
   // 검색어 입력 핸들러
-  const handleSearch = (keyword: string) => {
+  const handleSearch = useCallback((keyword: string) => {
     setSearchKeyword(keyword);
-  };
+  }, []);
 
   return (
     <div className="bg-white px-4 max-w-[1200px] mx-auto" ref={containerRef}>
