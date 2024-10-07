@@ -1,3 +1,4 @@
+// src/utils/detectLPC.ts
 export const detectLCP = (setLCPUrl: (url: string) => void) => {
   if ("PerformanceObserver" in window) {
     const observer = new PerformanceObserver((list) => {

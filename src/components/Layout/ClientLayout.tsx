@@ -1,67 +1,75 @@
 // components/Layout/ClientLayout.tsx
 import React, { useEffect } from "react";
-import localFont from "next/font/local";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
 import { Provider, useSetAtom } from "jotai";
-import { userIdAtom, nicknameAtom, userImageAtom } from "@/store/authAtoms";
+import { userAtom } from "@/store/authAtoms";
 import { loadingAtom } from "@/store/loadingAtom";
 import { refreshAccessToken } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";
 
-const pretendard = localFont({
-  src: "../../fonts/pretendard/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
-  variable: "--font-pretendard",
-});
-
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const setIsLoading = useSetAtom(loadingAtom);
-  const setUserId = useSetAtom(userIdAtom);
-  const setNickname = useSetAtom(nicknameAtom);
-  const setUserImage = useSetAtom(userImageAtom);
+  const setUser = useSetAtom(userAtom);
 
   useEffect(() => {
     const autoLogin = async () => {
       const refreshToken = Cookies.get("refreshToken");
       if (refreshToken) {
         try {
-          const result = (await refreshAccessToken(
+          const result: AuthResponse | null = await refreshAccessToken(
             refreshToken
-          )) as AuthResponse;
-          if (result.accessToken) {
+          );
+
+          // result와 필요한 속성들이 유효한지 체크
+          if (result && result.accessToken && result.user) {
             Cookies.set("accessToken", result.accessToken);
-            setUserId(result.user.id.toString());
-            setNickname(result.user.nickname);
-            setUserImage(result.user.image);
-            // 필요한 경우 다른 사용자 정보도 설정
+            setUser({
+              Id: result.user.id?.toString() || null,
+              nickname: result.user.nickname || null,
+              Image: result.user.image || null,
+            });
+          } else {
+            throw new Error("refreshAccessToken에서 유효하지 않은 Response");
           }
         } catch (error) {
           console.error("자동 로그인 실패:", error);
-          // 리프레시 토큰이 만료되었거나 유효하지 않은 경우 처리
+          // 리프레시 토큰이 만료되었거나 유효하지 않을 경우 처리
           Cookies.remove("refreshToken");
+          // accessToken도 삭제
+          Cookies.remove("accessToken");
         }
       }
     };
 
     autoLogin();
-  }, [setUserId, setNickname, setUserImage]);
+  }, [setUser]);
 
   useEffect(() => {
-    setIsLoading(true);
-    const timeoutId = setTimeout(() => {
+    const handleRouteChangeStart = () => {
+      setIsLoading(true);
+    };
+    const handleRouteChangeComplete = () => {
       setIsLoading(false);
-    }, 500);
+    };
+    const handleRouteChangeError = () => {
+      setIsLoading(false);
+    };
 
-    return () => clearTimeout(timeoutId);
-  }, [router.pathname, router.query, setIsLoading]);
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+    router.events.on("routeChangeError", handleRouteChangeError);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+      router.events.off("routeChangeError", handleRouteChangeError);
+    };
+  }, [router.events, setIsLoading]);
 
   return (
-    <div className={pretendard.className + " bg-gray-50 text-gray-900"}>
-      {children}
-    </div>
+    <div className={"Pretendard bg-gray-50 text-gray-900"}>{children}</div>
   );
 }
 

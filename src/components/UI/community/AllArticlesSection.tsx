@@ -1,22 +1,27 @@
 // src/components/UI/community/AllArticlesSection.tsx
-// src/components/UI/community/AllArticlesSection.tsx
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
-import EmptyState from "@/components/UI/EmptyState";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import PaginationBar from "@/components/UI/PaginationBar";
 import { Article, ArticleSortOption } from "@/types/article";
 import { getArticles } from "@/api/article";
 import AllArticleCard from "./AllArticleCard";
-import WriteButtonImage from "@/images/ui/write_small_40.png";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";
+import useDebounce from "@/hooks/useDebounce";
+import useThrottle from "@/hooks/useThrottle"; // 커스텀 훅 사용
 
+const WriteButtonImage = "/images/ui/write_small_40.png";
+
+// 한 페이지당 표시할 게시글 수
 const PAGE_SIZE = 5;
+
+// 화면 너비에 따라 무한 스크롤 사용 여부를 결정 (768px 미만에서만 무한 스크롤)
+const isInfiniteScroll = (width: number) => width < 768;
 
 const AllArticlesSection = () => {
   const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
@@ -25,122 +30,148 @@ const AllArticlesSection = () => {
   const [hasMore, setHasMore] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
-  const keyword = (router.query.q as string) || "";
   const [isLoading, setIsLoading] = useAtom(loadingAtom);
   const observer = useRef<IntersectionObserver | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isPagination, setIsPagination] = useState(true);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
 
-  // 윈도우 크기 변경 감지
+  // SSR 호환성을 위해 초기 무한 스크롤 상태를 기본값으로 설정
+  const [isMobileInfiniteScroll, setIsMobileInfiniteScroll] = useState(false);
+
+  // 화면 리사이즈 시 무한 스크롤 여부 결정
   useEffect(() => {
     const handleResize = () => {
-      const isPaginationMode = window.innerWidth >= 768;
-      setIsPagination(isPaginationMode);
+      setIsMobileInfiniteScroll(isInfiniteScroll(window.innerWidth));
     };
-
-    handleResize(); // 초기 렌더링 시에도 실행
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 페이지 이동 후 조건부 스크롤 처리
-  const handleRouteChange = useCallback(() => {
-    if (page > 1) {
-      window.scrollTo(0, document.body.scrollHeight);
+  // 모바일 사이즈에서 무한 스크롤 적용 (쓰로틀 사용)
+  const throttledScroll = useThrottle(() => {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
+      hasMore &&
+      !isLoading
+    ) {
+      setPage((prevPage) => prevPage + 1); // 페이지 증가
     }
-  }, [page]);
+  }, 300); // 300ms의 쓰로틀 적용
 
+  // 무한 스크롤 모드일 때만 스크롤 이벤트 등록
   useEffect(() => {
-    router.events.on("routeChangeComplete", handleRouteChange);
-    return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
-    };
-  }, [router.events, handleRouteChange]);
+    if (!isMobileInfiniteScroll) {
+      window.removeEventListener("scroll", throttledScroll); // 모바일이 아니면 스크롤 이벤트 제거
+      return;
+    }
 
-  // 무한 스크롤 처리
+    window.addEventListener("scroll", throttledScroll);
+    return () => {
+      window.removeEventListener("scroll", throttledScroll);
+    };
+  }, [isMobileInfiniteScroll, hasMore, isLoading, throttledScroll]);
+
+  // 마지막 게시글 요소를 참조하는 IntersectionObserver 설정 (모바일에서만 무한 스크롤)
   const lastArticleElementRef = useCallback(
     (node: HTMLDivElement | null) => {
-      if (isLoading || isPagination) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
+      if (isLoading || !isMobileInfiniteScroll) return; // 무한 스크롤 모드가 아닐 때는 동작하지 않음
+      if (observer.current) observer.current.disconnect(); // 이전 옵저버 해제
+
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore) {
+            setPage((prevPage) => prevPage + 1);
+          }
+        },
+        { threshold: 1.0 } // 요소가 완전히 화면에 나타났을 때만 트리거
+      );
+
+      if (node) observer.current.observe(node); // 마지막 요소 관찰 시작
     },
-    [isLoading, hasMore, isPagination]
+    [isLoading, hasMore, isMobileInfiniteScroll]
   );
 
-  // 정렬 옵션 변경
+  // 정렬 옵션 선택 핸들러
   const handleSortSelection = (sortOption: ArticleSortOption) => {
     setOrderBy(sortOption);
     setPage(1);
-    setArticles([]); // 정렬 변경 시 기존 데이터 초기화
+    setArticles([]); // 게시글 목록 초기화
   };
 
-  // 검색 처리
-  const handleSearch = (searchKeyword: string) => {
+  // 검색어 입력 핸들러
+  const handleSearch = (keyword: string) => {
+    setSearchKeyword(keyword);
+  };
+
+  // 디바운스된 검색어로 라우터 쿼리 업데이트 및 게시글 목록 초기화
+  useEffect(() => {
     const query = { ...router.query };
-    if (searchKeyword.trim()) {
-      query.q = searchKeyword;
+
+    if (debouncedSearchKeyword.trim()) {
+      query.q = debouncedSearchKeyword;
     } else {
       delete query.q;
     }
-    router.replace({
-      pathname: router.pathname,
-      query,
-    });
-    setPage(1);
-    setArticles([]); // 검색어 변경 시 기존 데이터 초기화
-  };
 
-  // API에서 데이터 가져오기
-  const fetchArticles = useCallback(async () => {
-    if (keyword === undefined) return; // 검색어가 없으면 요청하지 않음
-    setIsLoading(true);
-    try {
-      const params: {
-        orderBy: ArticleSortOption;
-        keyword?: string;
-        page: number;
-        pageSize: number;
-      } = {
-        orderBy,
-        page,
-        pageSize: PAGE_SIZE,
-      };
-      if (keyword.trim()) {
-        params.keyword = keyword;
-      }
-      const data = await getArticles(params);
-      setArticles((prevArticles) =>
-        isPagination || page === 1 ? data.list : [...prevArticles, ...data.list]
-      );
-      setHasMore(data.list.length === PAGE_SIZE);
-      const calculatedTotalPages = Math.ceil(data.totalCount / PAGE_SIZE);
-      setTotalPages(calculatedTotalPages);
-    } catch (error) {
-      console.error("Failed to fetch articles:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [orderBy, keyword, page, isPagination, setIsLoading]);
+    router.replace(
+      {
+        pathname: router.pathname,
+        query,
+      },
+      undefined,
+      { shallow: true } // 페이지를 다시 로드하지 않음
+    );
 
-  // 페이지네이션 및 무한 스크롤 데이터 로드
+    setPage(1); // 검색어 변경 시 페이지 초기화
+    setArticles([]); // 새로운 데이터 불러오기 전 게시글 목록 초기화
+  }, [debouncedSearchKeyword, router.pathname]);
+
+  // 게시글을 불러오는 비동기 함수
   useEffect(() => {
-    fetchArticles(); // 컴포넌트 렌더링 시 데이터 로드
-  }, [orderBy, keyword, page, fetchArticles]);
+    const fetchArticles = async () => {
+      setIsLoading(true);
+      try {
+        const params = {
+          orderBy,
+          page,
+          pageSize: PAGE_SIZE,
+          keyword: debouncedSearchKeyword.trim()
+            ? debouncedSearchKeyword
+            : undefined,
+        };
+        const data = await getArticles(params);
+
+        // 페이지네이션과 무한 스크롤 로직 분리
+        setArticles((prevArticles) =>
+          isMobileInfiniteScroll ? [...prevArticles, ...data.list] : data.list
+        );
+
+        setHasMore(data.list.length === PAGE_SIZE); // 다음 페이지가 있는지 여부 확인
+        setTotalPages(Math.ceil(data.totalCount / PAGE_SIZE));
+      } catch (error) {
+        console.error("게시글을 불러오는 데 실패했습니다:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, [orderBy, debouncedSearchKeyword, page, isMobileInfiniteScroll]);
 
   return (
-    <div
-      className="mt-12 px-4 md:px-6 lg:px-8 max-w-7xl mx-auto"
-      ref={containerRef}
-    >
-      <div className="flex justify-between items-center mb-6">
-        <div className="text-2xl font-bold text-gray-800">게시글</div>
+    <div className="bg-white px-4 max-w-[1200px] mx-auto" ref={containerRef}>
+      <div className="flex justify-between items-center">
+        <div className="mb-6 text-2xl font-bold text-gray-800">게시글</div>
         <Link href="/addArticle">
-          <Image src={WriteButtonImage} alt="글쓰기" width={88} height={42} />
+          <Image
+            src={WriteButtonImage}
+            alt="글쓰기"
+            width={88}
+            height={42}
+            className="cursor-pointer"
+          />
         </Link>
       </div>
 
@@ -152,22 +183,24 @@ const AllArticlesSection = () => {
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 gap-6">
         {articles.length
           ? articles.map((article, index) => (
               <div
                 key={`article-${article.id}`}
                 ref={
-                  !isPagination && index === articles.length - 1
-                    ? lastArticleElementRef
+                  isMobileInfiniteScroll && index === articles.length - 1
+                    ? lastArticleElementRef // 모바일에서 마지막 게시글에 옵저버 연결
                     : null
                 }
               >
-                <AllArticleCard article={article} />
+                <AllArticleCard article={article} currentPage={page} />
               </div>
             ))
-          : keyword && (
-              <EmptyState text={`'${keyword}'로 검색된 결과가 없어요.`} />
+          : debouncedSearchKeyword && (
+              <div>
+                <span>검색된 결과가 없습니다.</span>
+              </div>
             )}
       </div>
 
@@ -177,14 +210,12 @@ const AllArticlesSection = () => {
         </div>
       )}
 
-      {isPagination && totalPages > 1 && (
+      {!isMobileInfiniteScroll && totalPages > 1 && (
         <div className="pt-10 pb-20">
           <PaginationBar
             totalPageNum={totalPages}
             activePageNum={page}
-            onPageChange={(newPage) => {
-              setPage(newPage);
-            }}
+            onPageChange={setPage}
           />
         </div>
       )}

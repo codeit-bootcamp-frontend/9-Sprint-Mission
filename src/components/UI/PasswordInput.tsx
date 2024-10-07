@@ -1,9 +1,12 @@
 // src/components/UI/InputItem.tsx
 import React, { useState } from "react";
-import EyeInvisibleIcon from "@/images/icons/eye-invisible.svg";
-import EyeVisibleIcon from "@/images/icons/eye-visible.svg";
+import Image from "next/image";
 import InputItem from "./InputItem";
 import { UseFormRegisterReturn } from "react-hook-form";
+
+// public 폴더 경로 문자열로 대체
+const EyeInvisibleIcon = "/images/icons/eye-invisible.png";
+const EyeVisibleIcon = "/images/icons/eye-visible.png";
 
 interface PasswordInputProps {
   id: string;
@@ -43,9 +46,21 @@ const PasswordInput = ({
         aria-label="비밀번호 보기"
       >
         {showPassword ? (
-          <EyeVisibleIcon className="mt-8 w-6 h-6 md:mt-10" />
+          <Image
+            src={EyeVisibleIcon}
+            width={24}
+            height={24}
+            alt="비밀번호 보기 이미지 버튼"
+            className="mt-8 w-6 h-6 md:mt-10"
+          />
         ) : (
-          <EyeInvisibleIcon className="mt-8 w-6 h-6 md:mt-10" />
+          <Image
+            src={EyeInvisibleIcon}
+            width={24}
+            height={24}
+            alt="비밀번호 감추기 이미지 버튼"
+            className="mt-8 w-6 h-6 md:mt-10"
+          />
         )}
       </button>
     </div>

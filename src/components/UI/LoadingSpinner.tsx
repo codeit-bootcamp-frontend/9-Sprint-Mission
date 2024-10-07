@@ -1,37 +1,22 @@
 // src/components/UI/LoadingSpinner.tsx
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { PulseLoader } from "react-spinners";
 
 interface LoadingSpinnerProps {
   isLoading: boolean;
   size?: number;
   color?: string;
-  minLoadTime?: number;
 }
 
 const LoadingSpinner = ({
   isLoading,
   size = 20,
   color = "#3692ff",
-  minLoadTime = 500,
 }: LoadingSpinnerProps) => {
-  const [isVisible, setIsVisible] = useState(isLoading);
+  // 로딩 중이 아니면 null 반환
+  if (!isLoading) return null;
 
-  useEffect(() => {
-    if (isLoading) {
-      setIsVisible(true);
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, minLoadTime);
-
-    return () => clearTimeout(timer);
-  }, [isLoading, minLoadTime]);
-
-  if (!isVisible) return null;
-
+  // 로딩 중이면 스피너 표시
   return (
     <div className="fixed inset-0 bg-white z-[9998]">
       <div className="fixed inset-0 bg-black bg-opacity-20 flex justify-center items-center z-[9999]">

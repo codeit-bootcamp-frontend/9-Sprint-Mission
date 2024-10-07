@@ -1,12 +1,12 @@
-// src/components/UI/item/itemCard.tsx
+// src/components/UI/item/ItemCard.tsx
 import React, { useEffect, useState, useMemo } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { Product } from "@/types/product";
-import HeartIcon from "@/images/icons/ic_heart.svg";
-import NoImage from "@/images/ui/no-image.png";
-import allowedDomains from "allowedDomains";
-import disallowedDomains from "disallowedDomains";
+import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
+
+const HeartIcon = "/images/icons/ic_heart.png";
+const NoImage = "/images/ui/no-image.png";
 
 interface ItemCardProps {
   item: Product;
@@ -14,6 +14,7 @@ interface ItemCardProps {
   height?: number;
   onLoad?: () => void;
   priority?: boolean;
+  unoptimized?: boolean;
 }
 
 const ItemCard = ({
@@ -27,23 +28,45 @@ const ItemCard = ({
     "loading" | "loaded" | "error"
   >("loading");
 
-  const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
+  // 이미지 URL 및 SVG 여부를 판단하기 위한 변수들
+  const imageInfo = useMemo(() => {
+    if (item.images && item.images[0] && isValidImageUrl(item.images[0])) {
+      const originalUrl = item.images[0];
+      const isGif = originalUrl.toLowerCase().endsWith(".gif");
+      const isSvg = originalUrl.toLowerCase().endsWith(".svg");
 
-  const imageUrl = useMemo(() => {
-    if (
-      item.images &&
-      item.images[0] &&
-      allowedDomains.some((domain) => item.images[0].includes(domain)) &&
-      !disallowedDomains.some((domain) => item.images[0].includes(domain))
-    ) {
-      if (isSvgFile(item.images[0])) {
-        // SVG 파일의 경우 직접 URL을 사용
-        return item.images[0];
+      if (isSvg) {
+        // SVG 이미지는 원본 URL 사용
+        return {
+          url: originalUrl,
+          isSvg: true,
+          isGif: false,
+        };
+      } else if (isGif) {
+        // GIF 파일은 프록시를 사용하지 않고 원본 URL 사용
+        return {
+          url: originalUrl,
+          isSvg: false,
+          isGif: true,
+        };
+      } else {
+        // 기타 이미지는 프록시 URL 사용, width와 height 추가
+        return {
+          url: `/api/imageProxy?url=${encodeURIComponent(
+            originalUrl
+          )}&width=${width}&height=${height}`,
+          isSvg: false,
+          isGif: false,
+        };
       }
-      return `/api/imageProxy?url=${encodeURIComponent(item.images[0])}`;
     }
-    return NoImage.src;
-  }, [item.images]);
+    // 기본 이미지 설정
+    return {
+      url: NoImage,
+      isSvg: false,
+      isGif: false,
+    };
+  }, [item.images, width, height]);
 
   useEffect(() => {
     setImageStatus("loading");
@@ -56,7 +79,7 @@ const ItemCard = ({
 
   const handleImageError = () => {
     setImageStatus("error");
-    console.error(`이미지 로드 실패: ${imageUrl}`);
+    console.error(`이미지 로드 실패: ${imageInfo.url}`);
   };
 
   return (
@@ -71,9 +94,10 @@ const ItemCard = ({
           </div>
         )}
 
-        {isSvgFile(imageUrl) ? (
+        {imageInfo.isSvg ? (
+          // SVG 파일은 img 태그로 처리
           <img
-            src={imageUrl}
+            src={imageInfo.url}
             alt="상품 썸네일"
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
@@ -81,14 +105,26 @@ const ItemCard = ({
             onLoad={handleImageLoad}
             onError={handleImageError}
           />
+        ) : imageInfo.isGif ? (
+          // GIF 파일은 원본 img 태그로 처리하여 애니메이션 유지
+          <img
+            src={imageInfo.url}
+            alt="상품 썸네일"
+            className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
+            onLoad={handleImageLoad}
+            onError={handleImageError}
+            width={width}
+            height={height}
+          />
         ) : (
+          // 기타 이미지 파일들은 Next.js의 Image 컴포넌트 사용
           <Image
-            src={imageStatus === "error" ? NoImage.src : imageUrl}
+            src={imageStatus === "error" ? NoImage : imageInfo.url}
             alt="상품 썸네일"
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
             height={height}
-            unoptimized={true}
+            unoptimized={imageInfo.isGif} // GIF 파일에만 적용
             onLoad={handleImageLoad}
             onError={handleImageError}
             priority={priority}
@@ -101,7 +137,12 @@ const ItemCard = ({
         </div>
         <p className="text-base font-bold">{item.price.toLocaleString()}원</p>
         <div className="flex items-center gap-1 text-gray-600 text-xs">
-          <HeartIcon />
+          <Image
+            src={HeartIcon}
+            width={16}
+            height={16}
+            alt="좋아요 이미지 버튼"
+          />
           <span>{item.favoriteCount}</span>
         </div>
       </div>
