@@ -12,7 +12,7 @@ import { SignupFormValues } from "@/types/auth";
 import { getCookie } from "@/utils/cookie";
 
 // public 폴더 경로 문자열로 대체
-const LogoAuth = "/images/logo/logo-auth.png";
+const LOGO_AUTH = "/images/logo/logo-auth.png";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -65,7 +65,7 @@ export default function SignupPage() {
         aria-label="홈으로 이동"
       >
         <Image
-          src={LogoAuth}
+          src={LOGO_AUTH}
           width={396}
           height={132}
           alt="로고"

@@ -2,8 +2,8 @@
 import Image from "next/image";
 
 // public 폴더 경로 문자열로 대체
-const HeartIcon = "/images/icons/ic_heart.png";
-const HeartPinkIcon = "/images/icons/ic_heart_pink.png";
+const HEART_ICON = "/images/icons/ic_heart.png";
+const HEART_PINK_ICON = "/images/icons/ic_heart_pink.png";
 
 interface FavoriteButtonProps {
   isFavorite: boolean;
@@ -28,7 +28,7 @@ const FavoriteButton = ({
       className="flex items-center space-x-1"
     >
       <Image
-        src={isFavorite ? HeartPinkIcon : HeartIcon}
+        src={isFavorite ? HEART_PINK_ICON : HEART_ICON}
         width={16}
         height={16}
         alt="좋아요 이미지 버튼"

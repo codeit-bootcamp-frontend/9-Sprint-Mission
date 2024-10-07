@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 // public 폴더 경로 문자열로 대체
-const EmptyCommentImage = "/images/ui/empty-comment.png";
+const EMPTY_COMMENT_IMAGE = "/images/ui/empty-comment.png";
 
 interface EmptyStateProps {
   text: string;
@@ -12,7 +12,7 @@ const EmptyComment = ({ text }: EmptyStateProps) => {
   return (
     <div className="m-6 flex flex-col items-center gap-6">
       <Image
-        src={EmptyCommentImage}
+        src={EMPTY_COMMENT_IMAGE}
         alt="Empty Comment"
         width={140}
         height={140}

@@ -7,7 +7,7 @@ import { isValidImageFile } from "@/utils/validateImageFile";
 import AlertModal from "./modal/AlertModal";
 
 // public 폴더 경로 문자열로 대체
-const PlusIcon = "/images/icons/ic_plus.png";
+const PLUS_ICON = "/images/icons/ic_plus.png";
 
 interface ImageUploadProps {
   title: string;
@@ -77,7 +77,7 @@ const ImageUpload = ({ title, onImageUpload }: ImageUploadProps) => {
           htmlFor="image-upload"
           className="flex flex-col items-center justify-center gap-3 cursor-pointer bg-gray-100 hover:bg-gray-50 text-gray-400 text-base w-1/2 max-w-[200px] aspect-square rounded-xl sm:w-[162px] lg:w-[282px]"
         >
-          <Image src={PlusIcon} width={48} height={48} alt="이미지 등록" />
+          <Image src={PLUS_ICON} width={48} height={48} alt="이미지 등록" />
           이미지 등록
         </label>
 

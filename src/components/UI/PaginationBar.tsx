@@ -2,8 +2,8 @@
 import Image from "next/image";
 
 // public 폴더 경로 문자열로 대체
-const LeftArrow = "/images/icons/ic_arrow_left.png";
-const RightArrow = "/images/icons/ic_arrow_right.png";
+const LEFT_ARROW = "/images/icons/ic_arrow_left.png";
+const RIGHT_ARROW = "/images/icons/ic_arrow_right.png";
 
 interface PaginationBarProps {
   totalPageNum: number;
@@ -42,7 +42,7 @@ const PaginationBar = ({
       >
         <div className="w-10 h-10 relative">
           <Image
-            src={LeftArrow}
+            src={LEFT_ARROW}
             width={40}
             height={40}
             alt="이전 페이지 아이콘"
@@ -73,7 +73,7 @@ const PaginationBar = ({
       >
         <div className="w-10 h-10 relative">
           <Image
-            src={RightArrow}
+            src={RIGHT_ARROW}
             width={40}
             height={40}
             alt="다음 페이지 아이콘"

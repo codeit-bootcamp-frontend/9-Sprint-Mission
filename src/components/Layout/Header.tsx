@@ -10,9 +10,9 @@ import { isValidImageUrl } from "@/utils/imageUtils";
 import { getCookie, removeAllAuthCookies } from "@/utils/cookie";
 
 // public 폴더 경로 문자열로 대체
-const LogoSM = "/images/logo/logo_sm.png";
-const LogoMD = "/images/logo/logo_md.png";
-const LogoLG = "/images/logo/logo_lg.png";
+const LOGO_SM = "/images/logo/logo_sm.png";
+const LOGO_MD = "/images/logo/logo_md.png";
+const LOGO_LG = "/images/logo/logo_lg.png";
 const DEFAULT_AVATAR = "/images/ui/ic_profile-32.png";
 
 export default function Header() {
@@ -85,7 +85,7 @@ export default function Header() {
             {/* 작은 화면용 로고 */}
             <div className="block sm:hidden">
               <Image
-                src={LogoSM}
+                src={LOGO_SM}
                 width={103}
                 height={51}
                 alt="Logo Small"
@@ -96,7 +96,7 @@ export default function Header() {
             {/* 중간 화면용 로고 */}
             <div className="hidden sm:block md:hidden">
               <Image
-                src={LogoMD}
+                src={LOGO_MD}
                 width={153}
                 height={51}
                 alt="Logo Medium"
@@ -107,7 +107,7 @@ export default function Header() {
             {/* 큰 화면용 로고 */}
             <div className="hidden md:block">
               <Image
-                src={LogoLG}
+                src={LOGO_LG}
                 width={198}
                 height={66}
                 alt="Logo Large"

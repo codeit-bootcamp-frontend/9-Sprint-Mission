@@ -6,9 +6,12 @@ import { userAtom } from "@/store/authAtoms";
 import { loadingAtom } from "@/store/loadingAtom";
 import { refreshAccessToken } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";
-import { getCookie, setCookie, removeAllAuthCookies } from "@/utils/cookie";
-
-export const THIRTY_MINUTES_IN_DAYS = 1 / 48; // 30분을 일 단위로 표현
+import {
+  getCookie,
+  setCookie,
+  removeAllAuthCookies,
+  ACCESS_TOKEN_EXPIRY,
+} from "@/utils/cookie";
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -26,11 +29,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
 
           // result와 필요한 속성들이 유효한지 체크
           if (result && result.accessToken && result.user) {
-            setCookie(
-              "accessToken",
-              result.accessToken,
-              THIRTY_MINUTES_IN_DAYS
-            );
+            setCookie("accessToken", result.accessToken, ACCESS_TOKEN_EXPIRY);
             setUser({
               Id: result.user.id?.toString() || null,
               nickname: result.user.nickname || null,

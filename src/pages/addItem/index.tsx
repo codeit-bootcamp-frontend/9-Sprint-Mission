@@ -9,6 +9,7 @@ import AlertModal from "@/components/UI/modal/AlertModal";
 import { addProduct } from "@/api/product";
 import { ProductForm } from "@/types/product";
 import { getCookie } from "@/utils/cookie";
+
 export default function AddItemPage() {
   const [name, setName] = useState(""); // 상품명 상태
   const [description, setDescription] = useState(""); // 상품 설명 상태

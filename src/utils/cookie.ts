@@ -2,7 +2,7 @@
 import Cookies from "js-cookie";
 
 export const ACCESS_TOKEN_EXPIRY = 1 / 48; // 30분을 일 단위로 표현
-export const REFRESH_TOKEN_EXPIRY = 7;
+export const REFRESH_TOKEN_EXPIRY = 7; // 7일
 
 // 쿠키 설정 함수
 export const setCookie = (name: string, value: string, expires: number) => {

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 // public 폴더 경로 문자열로 대체
-const SearchIcon = "/images/icons/ic_search.png";
+const SEARCH_ICON = "/images/icons/ic_search.png";
 
 interface SearchBarProps {
   onSearch: (keyword: string) => void; // 검색어 변경 시 호출되는 함수
@@ -37,7 +37,7 @@ const SearchBar = ({
     <div
       className={`flex items-center bg-gray-100 rounded-xl p-2 flex-1 ${className}`}
     >
-      <Image src={SearchIcon} width={24} height={24} alt="검색 아이콘" />
+      <Image src={SEARCH_ICON} width={24} height={24} alt="검색 아이콘" />
       <input
         className="border-none flex-1 bg-inherit ml-1 placeholder-gray-400 text-base focus:outline-none"
         value={keyword}

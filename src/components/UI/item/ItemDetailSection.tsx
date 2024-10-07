@@ -8,10 +8,11 @@ import { ProductDetail } from "@/types/product";
 import { addProductFavorite, removeProductFavorite } from "@/api/product";
 import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
 import { getCookie } from "@/utils/cookie";
+
 // public 폴더 경로 문자열로 대체
-const KebabIcon = "/images/icons/ic_kebab.png";
-const NoImage = "/images/ui/no-image.png";
-const DefaultAvatar = "/images/ui/ic_profile-24.png";
+const KEBAB_ICON = "/images/icons/ic_kebab.png";
+const NO_IMAGE = "/images/ui/no-image.png";
+const DEFAULT_AVATAR = "/images/ui/ic_profile-24.png";
 
 interface ItemDetailSectionProps {
   productDetail: ProductDetail;
@@ -160,7 +161,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           ) : (
             // 이미지 로드 실패 시 기본 이미지 표시
             <Image
-              src={NoImage}
+              src={NO_IMAGE}
               alt="이미지 없음"
               width={486}
               height={486}
@@ -175,7 +176,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
             {/* 더보기 버튼 */}
             <button className="absolute right-0">
               <Image
-                src={KebabIcon}
+                src={KEBAB_ICON}
                 width={24}
                 height={24}
                 alt="케밥 이미지 버튼"
@@ -217,7 +218,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           {/* 소유자 정보 및 좋아요 버튼 */}
           <div className="flex items-center gap-2 text-sm text-gray-500 mt-4">
             <Image
-              src={DefaultAvatar}
+              src={DEFAULT_AVATAR}
               alt="작성자 아바타"
               width={24}
               height={24}

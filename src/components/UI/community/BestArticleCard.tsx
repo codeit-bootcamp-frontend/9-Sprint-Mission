@@ -8,8 +8,8 @@ import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 
 // public 폴더 경로 문자열로 대체
-const MedalIcon = "/images/icons/ic_medal.png";
-const NoImage = "/images/ui/no-image.png";
+const MEDAL_ICON = "/images/icons/ic_medal.png";
+const NO_IMAGE = "/images/ui/no-image.png";
 
 interface BestArticleCardProps {
   article: Article;
@@ -46,7 +46,7 @@ const BestArticleCard = ({
       };
     }
     return {
-      url: NoImage,
+      url: NO_IMAGE,
       isGif: false,
     };
   }, [article.image]);
@@ -72,7 +72,7 @@ const BestArticleCard = ({
     >
       <div>
         <Image
-          src={MedalIcon}
+          src={MEDAL_ICON}
           width={102}
           height={30}
           alt="베스트 메달 아이콘"
@@ -94,7 +94,7 @@ const BestArticleCard = ({
               {imageInfo.isGif ? (
                 // GIF 파일에 대한 처리: img 태그 사용 (원본 URL 사용)
                 <img
-                  src={imageStatus === "error" ? NoImage : imageInfo.url}
+                  src={imageStatus === "error" ? NO_IMAGE : imageInfo.url}
                   alt={`${article.id}번 게시글 이미지`}
                   style={{ objectFit: "contain" }}
                   width={width}
@@ -105,7 +105,7 @@ const BestArticleCard = ({
               ) : (
                 // GIF가 아닌 경우 Next.js Image 컴포넌트 사용
                 <Image
-                  src={imageStatus === "error" ? NoImage : imageInfo.url}
+                  src={imageStatus === "error" ? NO_IMAGE : imageInfo.url}
                   alt={`${article.id}번 게시글 이미지`}
                   style={{ objectFit: "contain" }}
                   width={width}

@@ -5,8 +5,8 @@ import Link from "next/link";
 import { Product } from "@/types/product";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 
-const HeartIcon = "/images/icons/ic_heart.png";
-const NoImage = "/images/ui/no-image.png";
+const HEART_ICON = "/images/icons/ic_heart.png";
+const NO_IMAGE = "/images/ui/no-image.png";
 
 interface ItemCardProps {
   item: Product;
@@ -62,7 +62,7 @@ const ItemCard = ({
     }
     // 기본 이미지 설정
     return {
-      url: NoImage,
+      url: NO_IMAGE,
       isSvg: false,
       isGif: false,
     };
@@ -119,7 +119,7 @@ const ItemCard = ({
         ) : (
           // 기타 이미지 파일들은 Next.js의 Image 컴포넌트 사용
           <Image
-            src={imageStatus === "error" ? NoImage : imageInfo.url}
+            src={imageStatus === "error" ? NO_IMAGE : imageInfo.url}
             alt="상품 썸네일"
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
@@ -138,7 +138,7 @@ const ItemCard = ({
         <p className="text-base font-bold">{item.price.toLocaleString()}원</p>
         <div className="flex items-center gap-1 text-gray-600 text-xs">
           <Image
-            src={HeartIcon}
+            src={HEART_ICON}
             width={16}
             height={16}
             alt="좋아요 이미지 버튼"

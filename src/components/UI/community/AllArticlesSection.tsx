@@ -15,7 +15,7 @@ import { loadingAtom } from "@/store/loadingAtom";
 import useDebounce from "@/hooks/useDebounce";
 import useThrottle from "@/hooks/useThrottle"; // 커스텀 훅 사용
 
-const WriteButtonImage = "/images/ui/write_small_40.png";
+const WRITE_BUTTON_IMAGE = "/images/ui/write_small_40.png";
 
 // 한 페이지당 표시할 게시글 수
 const PAGE_SIZE = 5;
@@ -166,7 +166,7 @@ const AllArticlesSection = () => {
         <div className="mb-6 text-2xl font-bold text-gray-800">게시글</div>
         <Link href="/addArticle">
           <Image
-            src={WriteButtonImage}
+            src={WRITE_BUTTON_IMAGE}
             alt="글쓰기"
             width={88}
             height={42}

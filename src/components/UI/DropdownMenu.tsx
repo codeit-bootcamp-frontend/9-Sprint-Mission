@@ -5,7 +5,7 @@ import { ProductSortOption } from "@/types/product";
 import { ArticleSortOption } from "@/types/article";
 
 // public 폴더 경로 문자열로 대체
-const ArrowDownIcon = "/images/icons/ic_arrow_down.png";
+const ARROW_DOWN_ICON = "/images/icons/ic_arrow_down.png";
 
 interface DropdownMenuProps<T extends ProductSortOption | ArticleSortOption> {
   onSortSelection: (sortOption: T) => void;
@@ -55,7 +55,7 @@ const DropdownMenu = <T extends ProductSortOption | ArticleSortOption>({
           {" "}
           {/* 부모 요소에 크기 지정 */}
           <Image
-            src={ArrowDownIcon}
+            src={ARROW_DOWN_ICON}
             alt="정렬 순서"
             fill
             sizes="24px"

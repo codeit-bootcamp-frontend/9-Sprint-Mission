@@ -9,9 +9,10 @@ import { addArticleLike, removeArticleLike } from "@/api/article";
 import LikeButton from "./LikeButton";
 import AlertModal from "../modal/AlertModal";
 import { getCookie } from "@/utils/cookie";
-const KebabIcon = "/images/icons/ic_kebab.png";
-const NoImage = "/images/ui/no-image.png";
-const DefaultAvatar = "/images/ui/ic_profile-24.png";
+
+const KEBAB_ICON = "/images/icons/ic_kebab.png";
+const NO_IMAGE = "/images/ui/no-image.png";
+const DEFAULT_AVATAR = "/images/ui/ic_profile-24.png";
 
 // 컴포넌트에 전달되는 props의 타입 정의
 interface ArticleDetailSectionProps {
@@ -57,7 +58,7 @@ const handleLike = async (
 const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
   const [imageHeight, setImageHeight] = useState(486); // 이미지 높이 상태
   const imageRef = useRef<HTMLImageElement | null>(null); // 이미지 요소에 대한 ref
-  const [imageUrl, setImageUrl] = useState<string>(NoImage); // 이미지 URL 상태
+  const [imageUrl, setImageUrl] = useState<string>(NO_IMAGE); // 이미지 URL 상태
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading"); // 이미지 로딩 상태
@@ -169,7 +170,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
           ) : (
             // 이미지 로드 실패 시 기본 이미지 표시
             <Image
-              src={NoImage}
+              src={NO_IMAGE}
               alt="이미지 없음"
               width={486}
               height={486}
@@ -187,7 +188,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
             {/* 옵션 버튼 */}
             <button className="absolute right-0">
               <Image
-                src={KebabIcon}
+                src={KEBAB_ICON}
                 width={24}
                 height={24}
                 alt="케밥 이미지 버튼"
@@ -220,7 +221,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
             {/* 작성자 정보 및 좋아요 버튼 */}
             <div className="flex items-center gap-2 text-sm text-gray-500 mt-auto">
               <Image
-                src={DefaultAvatar}
+                src={DEFAULT_AVATAR}
                 alt="작성자 아바타"
                 width={24}
                 height={24}
