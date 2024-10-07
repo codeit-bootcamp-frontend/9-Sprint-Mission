@@ -59,7 +59,7 @@ export default function BoardDetailPage({
         <div className={styles["question-writer"]}>
           <div className={styles["writer-info"]}>
             <span className={styles["user-img"]}>
-              <img src={boardData.image} alt="작성자 이미지" />
+              <Image src={boardData.image} alt="작성자 이미지" />
             </span>
             <span className={styles.nickname}>
               {boardData?.writer.nickname}
