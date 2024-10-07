@@ -1,7 +1,7 @@
 // src/components/UI/community/ArticleDetailSection.tsx
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
-import useDebouncedCallback from "@/hooks/useDebouncedCallback"; // 디바운스된 콜백 훅 임포트
+import useDebouncedCallback from "@/hooks/useDebouncedCallback";
 import { ArticleDetail } from "@/types/article";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
@@ -14,86 +14,59 @@ const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const NO_IMAGE = "/images/ui/no-image.png";
 const DEFAULT_AVATAR = "/images/ui/ic_profile-24.png";
 
-// 컴포넌트에 전달되는 props의 타입 정의
 interface ArticleDetailSectionProps {
   articleDetail: ArticleDetail;
 }
 
-// 좋아요 기능을 처리하는 함수 정의
-const handleLike = async (
-  token: string | null,
-  articleId: number,
-  isLiked: boolean,
-  setIsLiked: React.Dispatch<React.SetStateAction<boolean>>,
-  setLikeCount: React.Dispatch<React.SetStateAction<number>>,
-  setAlertMessage: React.Dispatch<React.SetStateAction<string>>,
-  setIsAlertOpen: React.Dispatch<React.SetStateAction<boolean>>
-) => {
-  if (!token) {
-    setAlertMessage("로그인이 필요합니다.");
-    setIsAlertOpen(true);
-    return;
-  }
-
-  try {
-    if (isLiked) {
-      // 이미 좋아요를 누른 상태이면 좋아요 취소 API 호출
-      await removeArticleLike(articleId, token);
-      setIsLiked(false);
-      setLikeCount((prev) => prev - 1);
-    } else {
-      // 좋아요를 누르지 않은 상태이면 좋아요 추가 API 호출
-      await addArticleLike(articleId, token);
-      setIsLiked(true);
-      setLikeCount((prev) => prev + 1);
-    }
-  } catch (error) {
-    console.error("오류: ", (error as Error).message);
-    setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
-    setIsAlertOpen(true);
-  }
-};
-
-// 게시글 상세 컴포넌트 정의
 const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
-  const [imageHeight, setImageHeight] = useState(486); // 이미지 높이 상태
-  const imageRef = useRef<HTMLImageElement | null>(null); // 이미지 요소에 대한 ref
-  const [imageUrl, setImageUrl] = useState<string>(NO_IMAGE); // 이미지 URL 상태
+  const [imageHeight, setImageHeight] = useState(486);
+  const imageRef = useRef<HTMLImageElement | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>(NO_IMAGE);
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
-  >("loading"); // 이미지 로딩 상태
-  const [token, setToken] = useState<string | null>(null); // 토큰 상태
-  const [isAlertOpen, setIsAlertOpen] = useState(false); // 알림 모달 열림 상태
-  const [alertMessage, setAlertMessage] = useState(""); // 알림 메시지 상태
-  const [isLiked, setIsLiked] = useState<boolean>(articleDetail.isLiked); // 좋아요 상태
-  const [likeCount, setLikeCount] = useState<number>(articleDetail.likeCount); // 좋아요 개수 상태
+  >("loading");
+  const [token, setToken] = useState<string | null>(null);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [isLiked, setIsLiked] = useState<boolean>(articleDetail.isLiked);
+  const [likeCount, setLikeCount] = useState<number>(articleDetail.likeCount);
 
-  // URL이 SVG 파일인지 확인하는 함수
   const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
 
-  // 좋아요 기능을 디바운스하여 처리하기 위한 콜백 함수
-  const handleLikeCallback = useCallback(() => {
-    handleLike(
-      token,
-      articleDetail.id,
-      isLiked,
-      setIsLiked,
-      setLikeCount,
-      setAlertMessage,
-      setIsAlertOpen
-    );
+  const handleLikeCallback = useCallback(async () => {
+    if (!token) {
+      setAlertMessage("로그인이 필요합니다.");
+      setIsAlertOpen(true);
+      return;
+    }
+
+    // 낙관적 UI 업데이트
+    setIsLiked((prev) => !prev);
+    setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+
+    try {
+      if (isLiked) {
+        await removeArticleLike(articleDetail.id, token);
+      } else {
+        await addArticleLike(articleDetail.id, token);
+      }
+    } catch (error) {
+      console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
+      // 에러 발생 시 UI를 원래 상태로 되돌림
+      setIsLiked((prev) => !prev);
+      setLikeCount((prev) => (isLiked ? prev + 1 : prev - 1));
+      setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
+      setIsAlertOpen(true);
+    }
   }, [token, articleDetail.id, isLiked]);
 
-  // 디바운스된 좋아요 함수 생성
   const debouncedHandleLike = useDebouncedCallback(handleLikeCallback, 300);
 
-  // 컴포넌트 마운트 시 토큰을 쿠키에서 가져옴
   useEffect(() => {
     const accessToken = getCookie("accessToken");
     setToken(accessToken || null);
   }, []);
 
-  // 이미지 URL을 검증하고 로딩 상태를 업데이트하는 효과
   useEffect(() => {
     const validateImageUrl = async (url: string) => {
       try {
@@ -126,7 +99,6 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     }
   }, [articleDetail.image]);
 
-  // 이미지 로드 후 높이 값을 상태에 저장
   const handleImageLoad = () => {
     if (imageRef.current) {
       const height = imageRef.current.clientHeight;
@@ -135,14 +107,12 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     }
   };
 
-  // 날짜를 포맷팅하여 표시
   const formattedDate = format(
     new Date(articleDetail.createdAt),
     "yyyy. MM. dd",
     { locale: ko }
   );
 
-  // 알림 모달 닫기 함수
   const handleCloseAlert = () => {
     setIsAlertOpen(false);
   };
@@ -150,15 +120,12 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
   return (
     <>
       <section className="flex flex-col gap-4 md:flex-row lg:gap-6">
-        {/* 이미지 영역 */}
         <div className="w-full md:w-2/5 md:max-w-[486px]">
           {imageStatus === "loading" ? (
-            // 로딩 중일 때 로딩 스피너 표시
             <div className="w-full h-[486px] flex items-center justify-center bg-gray-200 rounded-xl">
               <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent border-solid rounded-full animate-spin"></div>
             </div>
           ) : imageStatus === "loaded" && imageUrl ? (
-            // 이미지 로드 완료 시 이미지 표시
             <img
               ref={imageRef}
               src={imageUrl}
@@ -168,7 +135,6 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
               onLoad={handleImageLoad}
             />
           ) : (
-            // 이미지 로드 실패 시 기본 이미지 표시
             <Image
               src={NO_IMAGE}
               alt="이미지 없음"
@@ -179,13 +145,11 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
           )}
         </div>
 
-        {/* 게시글 내용 영역 */}
         <div
           className="flex flex-col justify-between flex-1"
           style={{ height: imageHeight }}
         >
           <div className="w-full relative">
-            {/* 옵션 버튼 */}
             <button className="absolute right-0">
               <Image
                 src={KEBAB_ICON}
@@ -196,7 +160,6 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
               />
             </button>
 
-            {/* 게시글 제목 */}
             <div>
               <div className="text-base font-semibold mb-2 md:text-xl md:mb-3 lg:text-2xl lg:mb-4">
                 {articleDetail.title}
@@ -205,7 +168,6 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
             <hr className="my-4 border-gray-200" />
 
-            {/* 게시글 내용 */}
             <div
               className="overflow-auto"
               style={{ minHeight: imageHeight - 90 }}
@@ -218,7 +180,6 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
               </p>
             </div>
 
-            {/* 작성자 정보 및 좋아요 버튼 */}
             <div className="flex items-center gap-2 text-sm text-gray-500 mt-auto">
               <Image
                 src={DEFAULT_AVATAR}
@@ -233,19 +194,17 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
               <div>{formattedDate}</div>
               <div className="h-4 border-l border-gray-300 mx-2"></div>
 
-              {/* 좋아요 버튼 */}
               <div className="flex items-center">
                 <LikeButton
                   isLiked={isLiked}
                   likeCount={likeCount}
-                  onLike={debouncedHandleLike} // 디바운스된 좋아요 함수 전달
+                  onLike={debouncedHandleLike}
                 />
               </div>
             </div>
           </div>
         </div>
       </section>
-      {/* 알림 모달 */}
       {isAlertOpen && (
         <AlertModal message={alertMessage} onClose={handleCloseAlert} />
       )}

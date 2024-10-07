@@ -92,31 +92,25 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
       return;
     }
 
-    const productId = productDetail.id;
+    // 낙관적 UI 업데이트
+    setIsFavorite((prev) => !prev);
+    setFavoriteCount((prev) => (isFavorite ? prev - 1 : prev + 1));
+
     try {
       if (isFavorite) {
-        await removeProductFavorite(productId, token);
-        setIsFavorite(false);
-        setFavoriteCount((prev) => prev - 1);
+        await removeProductFavorite(productDetail.id, token);
       } else {
-        await addProductFavorite(productId, token);
-        setIsFavorite(true);
-        setFavoriteCount((prev) => prev + 1);
+        await addProductFavorite(productDetail.id, token);
       }
     } catch (error) {
       console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
+      // 에러 발생 시 UI를 원래 상태로 되돌림
+      setIsFavorite((prev) => !prev);
+      setFavoriteCount((prev) => (isFavorite ? prev + 1 : prev - 1));
       setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
-      setIsAlertOpen(true); // 실패 메시지 모달 띄우기
+      setIsAlertOpen(true);
     }
-  }, [
-    token,
-    productDetail.id,
-    isFavorite,
-    setIsFavorite,
-    setFavoriteCount,
-    setAlertMessage,
-    setIsAlertOpen,
-  ]);
+  }, [token, productDetail.id, isFavorite]);
 
   // useDebouncedCallback 훅을 사용하여 함수 디바운싱
   const debouncedHandleFavorite = useDebouncedCallback(handleFavorite, 300);
