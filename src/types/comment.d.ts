@@ -12,5 +12,5 @@ export interface Comment {
 
 export interface CommentListResponse {
   nextCursor: number;
-  list: ProductComment[];
+  list: Comment[];
 }

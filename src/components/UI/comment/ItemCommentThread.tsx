@@ -101,11 +101,13 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
 
       try {
         // API 호출하여 댓글 목록 가져오기
-        const response: CommentListResponse = await getProductComments({
+        const response: CommentListResponse = await getProductComments(
           productId,
-          limit,
-          cursor,
-        });
+          {
+            limit,
+            cursor,
+          }
+        );
 
         setComments(response.list);
         setNextCursor(response.nextCursor || null);
@@ -135,11 +137,13 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
       const cursor = nextCursor;
 
       try {
-        const response: CommentListResponse = await getProductComments({
+        const response: CommentListResponse = await getProductComments(
           productId,
-          limit,
-          cursor,
-        });
+          {
+            limit,
+            cursor,
+          }
+        );
 
         setComments((prev) => [...prev, ...response.list]);
         setNextCursor(response.nextCursor || null);

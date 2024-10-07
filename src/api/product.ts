@@ -214,15 +214,16 @@ export async function addProductComment(
 }
 
 // 상품에 대한 댓글을 가져오는 함수
-export async function getProductComments({
-  productId,
-  limit,
-  cursor,
-}: {
-  productId: number; // 상품 ID는 필수
-  limit: number; // 페이지 당 댓글 수는 필수
-  cursor?: number | null; // 다음 페이지를 위한 커서는 선택
-}): Promise<CommentListResponse> {
+export async function getProductComments(
+  productId: number,
+  {
+    limit,
+    cursor,
+  }: {
+    limit: number;
+    cursor?: number | null;
+  }
+): Promise<CommentListResponse> {
   if (!productId) {
     throw new Error("유효하지 않은 상품 ID입니다.");
   }

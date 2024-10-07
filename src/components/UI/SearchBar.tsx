@@ -1,5 +1,5 @@
 // src/components/UI/SearchBar.tsx
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
@@ -22,9 +22,11 @@ const SearchBar = ({
 
   // 현재 라우터 쿼리에서 검색어를 불러와 초기화
   useEffect(() => {
-    const currentKeyword = (router.query.q as string) || "";
-    setKeyword(currentKeyword);
-  }, [router.query.q]);
+    if (router.isReady) {
+      const currentKeyword = (router.query.q as string) || "";
+      setKeyword(currentKeyword);
+    }
+  }, [router.isReady, router.query.q]);
 
   // 입력값이 변경되면 검색어 상태를 업데이트하고, 검색 함수 호출
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

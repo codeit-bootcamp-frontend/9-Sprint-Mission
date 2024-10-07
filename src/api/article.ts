@@ -217,15 +217,16 @@ export async function addArticleComment(
 }
 
 // 게시글에 대한 댓글 가져오기
-export async function getArticleComments({
-  articleId,
-  limit,
-  cursor,
-}: {
-  articleId: number;
-  limit: number;
-  cursor?: number | null;
-}): Promise<CommentListResponse> {
+export async function getArticleComments(
+  articleId: number,
+  {
+    limit,
+    cursor,
+  }: {
+    limit: number;
+    cursor?: number | null;
+  }
+): Promise<CommentListResponse> {
   if (!articleId) {
     throw new Error("Invalid article ID");
   }
