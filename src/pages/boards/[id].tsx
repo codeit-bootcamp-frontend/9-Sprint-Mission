@@ -4,6 +4,7 @@ import { formatDate } from "@/src/utils/dateUtils";
 import Link from "next/link";
 import Image from "next/image";
 import userIcon from "@/public/assets/icon/user-icon.png";
+import kebabIcon from "@/public/assets/icon/ic_kebab.png";
 import axios from "@/src/lib/axios";
 import styles from "./Boards.module.scss";
 
@@ -51,7 +52,9 @@ export default function BoardDetailPage({
       <div className={styles.question}>
         <div className={styles["question-title"]}>
           <p>{boardData.title}</p>
-          <span>...</span>
+          <button type="button" className={styles["question-title"]}>
+            <Image src={kebabIcon} width={24} height={24} alt="케밥 아이콘" />
+          </button>
         </div>
         <div className={styles["question-writer"]}>
           <div className={styles["writer-info"]}>
@@ -92,7 +95,14 @@ export default function BoardDetailPage({
             <li className={styles["article-list"]} key={comment.id}>
               <div>
                 <div className={styles.content}>{comment.content}</div>
-                <div className={styles["profile-img"]}></div>
+                <button type="button" className={styles["question-title"]}>
+                  <Image
+                    src={kebabIcon}
+                    width={24}
+                    height={24}
+                    alt="케밥 아이콘"
+                  />
+                </button>
               </div>
               <div>
                 <div className={styles["user-info"]}>

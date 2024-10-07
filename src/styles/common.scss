@@ -98,6 +98,16 @@ button.btn-box.submit {
   }
 }
 
+button.btn-kebab {
+  display: block;
+  width: 24px;
+  height: 24px;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
 .btn-back {
   display: block;
   margin: 64px 0;
