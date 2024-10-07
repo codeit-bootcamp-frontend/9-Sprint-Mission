@@ -6,7 +6,7 @@ import Image from "next/image";
 import userIcon from "@/public/assets/icon/user-icon.png";
 import kebabIcon from "@/public/assets/icon/ic_kebab.png";
 import axios from "@/src/lib/axios";
-import styles from "@/src/pages/boards/Boards.module.scss";
+import styles from "@/src/styles/Boards.module.scss";
 
 interface BoardDetailProps {
   boardData: Board | null;
