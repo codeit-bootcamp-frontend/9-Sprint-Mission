@@ -12,7 +12,7 @@ const Button = styled.button`
 
 export default function NewArticleButton() {
   return (
-    <Link href="/login/">
+    <Link href="/addboard/">
       <Button>글쓰기</Button>
     </Link>
   );

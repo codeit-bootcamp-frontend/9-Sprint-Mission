@@ -1,15 +1,36 @@
 import styled from "styled-components";
 import Image from "next/image";
+import { FeatureProps } from "@/types/home";
 
-interface FeatureProps {
-  image: string;
-  alt: string;
-  featureName: string;
-  title: string;
-  description: string;
-  direction?: "row" | "row-reverse";
-}
+const Feature = ({
+  image,
+  alt,
+  featureName,
+  title,
+  description,
+  direction,
+}: FeatureProps) => {
+  return (
+    <FeatureContainer direction={direction}>
+      <Image
+        src={image}
+        alt={alt}
+        width={500}
+        height={500}
+        objectFit="contain"
+      />
+      <FeatureContent>
+        <h2>{featureName}</h2>
+        <h1>{title}</h1>
+        <p className="feature-description">{description}</p>
+      </FeatureContent>
+    </FeatureContainer>
+  );
+};
 
+export default Feature;
+
+// 스타일 컴포넌트
 const FeatureContainer = styled.div<{ direction?: "row" | "row-reverse" }>`
   margin-bottom: 64px;
   display: flex;
@@ -93,31 +114,3 @@ const FeatureContent = styled.div`
     }
   }
 `;
-
-const Feature = ({
-  image,
-  alt,
-  featureName,
-  title,
-  description,
-  direction,
-}: FeatureProps) => {
-  return (
-    <FeatureContainer direction={direction}>
-      <Image
-        src={image}
-        alt={alt}
-        width={500}
-        height={500}
-        objectFit="contain"
-      />
-      <FeatureContent>
-        <h2>{featureName}</h2>
-        <h1>{title}</h1>
-        <p className="feature-description">{description}</p>
-      </FeatureContent>
-    </FeatureContainer>
-  );
-};
-
-export default Feature;
