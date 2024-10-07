@@ -22,10 +22,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/community": [
+    "/boards": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/community.js"
+      "static/chunks/pages/boards.js"
+    ],
+    "/boards/[id]": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/boards/[id].js"
     ]
   },
   "ampFirstPages": []

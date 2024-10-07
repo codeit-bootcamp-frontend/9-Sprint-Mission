@@ -10,6 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <DefaultLayout>
       <Head>
         <title>판다마켓</title>
+        <link rel='icon' href='favicon.ico' />
       </Head>
       <Header />
       <main

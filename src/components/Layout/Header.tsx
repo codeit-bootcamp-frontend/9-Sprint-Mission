@@ -16,9 +16,9 @@ export default function Header() {
           <ul className='flex space-x-6'>
             <li>
               <Link
-                href='/community'
+                href='/boards'
                 className={`font-semibold hover:text-blue-600 ${
-                  router.pathname.startsWith('/community')
+                  router.pathname.startsWith('/boards')
                     ? 'text-blue-500'
                     : 'text-gray-600'
                 }`}
