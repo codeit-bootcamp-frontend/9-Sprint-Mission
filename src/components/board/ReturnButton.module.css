@@ -1,0 +1,21 @@
+.buttonContainer {
+  margin-top: 64px;
+  margin-bottom: 95px;
+  display: flex;
+  justify-content: center;
+}
+
+.returnButton {
+  padding: 12px 64px;
+  border: none;
+  border-radius: 40px;
+  background-color: #3692ff;
+  color: #f3f4f6;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}

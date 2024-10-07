@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import Header from "@/src/components/Layout/Header/Header";
+import Header from "@/src/components/Layout/Header";
 import "@/src/styles/globals.css";
 import Contanier from "../components/Layout/Container";
 

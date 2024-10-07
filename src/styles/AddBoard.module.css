@@ -1,0 +1,70 @@
+.main {
+  position: relative;
+}
+
+.mainHeader {
+  margin-top: 24px;
+}
+
+.mainTitle {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #1f2937;
+}
+
+.boardForm {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: #1f2937;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.label:first-of-type {
+  margin-top: 0;
+}
+
+.input {
+  margin-top: 12px;
+  padding: 16px 24px;
+  background-color: #f3f4f6;
+  border: none;
+  border-radius: 12px;
+}
+
+.input::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #9ca3af;
+}
+
+.textarea {
+  resize: none;
+  height: 282px;
+}
+
+.addButton {
+  padding: 12px 23px;
+  border: none;
+  border-radius: 8px;
+  background-color: #9ca3af;
+  color: #f3f4f6;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.addButton:enabled:hover {
+  cursor: pointer;
+  background-color: #0051a3;
+}

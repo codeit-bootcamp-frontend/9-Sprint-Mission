@@ -1,0 +1,39 @@
+.commentContainer {
+  position: relative;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7e8;
+  background-color: #fcfcfc;
+}
+
+.commentContent {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #1f2937;
+}
+
+.commentInfo {
+  margin-top: 24px;
+  display: flex;
+  gap: 8px;
+}
+
+.commentDescription {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.userNickname {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #4b5563;
+}
+
+.createdAt {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #9ca3af;
+}
