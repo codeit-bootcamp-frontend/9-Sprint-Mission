@@ -1,5 +1,6 @@
 // src/components/UI/modal/BaseModal.tsx
 import React, { ReactNode, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 interface BaseModalProps {
   children: ReactNode;
@@ -17,7 +18,15 @@ const BaseModal = ({ children, onClose }: BaseModalProps) => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
-  return (
+  // createPortal을 사용하기 위한 대상 요소
+  const modalRoot = document.getElementById("modal-root");
+
+  if (!modalRoot) {
+    console.error("Modal root element not found");
+    return null;
+  }
+
+  const modalContent = (
     <div
       role="dialog"
       aria-modal="true"
@@ -28,6 +37,8 @@ const BaseModal = ({ children, onClose }: BaseModalProps) => {
       </div>
     </div>
   );
+
+  return createPortal(modalContent, modalRoot);
 };
 
 export default BaseModal;

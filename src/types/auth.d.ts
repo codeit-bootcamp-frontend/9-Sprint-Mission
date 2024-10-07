@@ -15,9 +15,9 @@ export interface User {
   id: number;
   email: string;
   image: string | null;
-  nickname: string;
-  updatedAt: string;
-  createdAt: string;
+  nickname: string | null;
+  updatedAt: Date;
+  createdAt: Date;
 }
 
 export interface AuthResponse {

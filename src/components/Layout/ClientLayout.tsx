@@ -1,22 +1,19 @@
 // components/Layout/ClientLayout.tsx
 import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import { Provider, useSetAtom } from "jotai";
+import { Provider, useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
-import { loadingAtom } from "@/store/loadingAtom";
 import { refreshAccessToken } from "@/api/auth";
-import { AuthResponse } from "@/types/auth";
+import { AuthResponse, User } from "@/types/auth";
 import {
   getCookie,
   setCookie,
   removeAllAuthCookies,
   ACCESS_TOKEN_EXPIRY,
 } from "@/utils/cookie";
+import Header from "./Header";
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
-  const setIsLoading = useSetAtom(loadingAtom);
-  const setUser = useSetAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
 
   useEffect(() => {
     const autoLogin = async () => {
@@ -27,20 +24,18 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
             refreshToken
           );
 
-          // result와 필요한 속성들이 유효한지 체크
           if (result && result.accessToken && result.user) {
             setCookie("accessToken", result.accessToken, ACCESS_TOKEN_EXPIRY);
             setUser({
-              Id: result.user.id?.toString() || null,
+              id: result.user.id?.toString() || null,
               nickname: result.user.nickname || null,
-              Image: result.user.image || null,
+              image: result.user.image || null,
             });
           } else {
             throw new Error("refreshAccessToken에서 유효하지 않은 Response");
           }
         } catch (error) {
           console.error("자동 로그인 실패:", error);
-          // 모든 인증 관련 쿠키 제거
           removeAllAuthCookies();
         }
       }
@@ -49,30 +44,11 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
     autoLogin();
   }, [setUser]);
 
-  useEffect(() => {
-    const handleRouteChangeStart = () => {
-      setIsLoading(true);
-    };
-    const handleRouteChangeComplete = () => {
-      setIsLoading(false);
-    };
-    const handleRouteChangeError = () => {
-      setIsLoading(false);
-    };
-
-    router.events.on("routeChangeStart", handleRouteChangeStart);
-    router.events.on("routeChangeComplete", handleRouteChangeComplete);
-    router.events.on("routeChangeError", handleRouteChangeError);
-
-    return () => {
-      router.events.off("routeChangeStart", handleRouteChangeStart);
-      router.events.off("routeChangeComplete", handleRouteChangeComplete);
-      router.events.off("routeChangeError", handleRouteChangeError);
-    };
-  }, [router.events, setIsLoading]);
-
   return (
-    <div className={"Pretendard bg-gray-50 text-gray-900"}>{children}</div>
+    <div className={"Pretendard bg-gray-50 text-gray-900"}>
+      <Header user={user as User | null} />
+      {children}
+    </div>
   );
 }
 

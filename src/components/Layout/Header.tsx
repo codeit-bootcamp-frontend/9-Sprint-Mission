@@ -1,13 +1,11 @@
 // src/components/Layout/Header.tsx
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
 import { logout } from "@/api/auth";
-import { useAtom } from "jotai";
-import { userAtom } from "@/store/authAtoms";
-import { isValidImageUrl } from "@/utils/imageUtils";
-import { getCookie, removeAllAuthCookies } from "@/utils/cookie";
+import { User } from "@/types/auth"; // User 타입을 import
+import { removeAllAuthCookies } from "@/utils/cookie";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_SM = "/images/logo/logo_sm.png";
@@ -15,36 +13,19 @@ const LOGO_MD = "/images/logo/logo_md.png";
 const LOGO_LG = "/images/logo/logo_lg.png";
 const DEFAULT_AVATAR = "/images/ui/ic_profile-32.png";
 
-export default function Header() {
+interface HeaderProps {
+  user: User | null;
+}
+
+export default function Header({ user }: HeaderProps) {
   const router = useRouter();
-  const [user, setUser] = useAtom(userAtom);
   const [isOpen, setIsOpen] = useState(false); // 드롭다운 상태
-
-  useEffect(() => {
-    const storedUserId = getCookie("userId");
-    const storedUserImage = getCookie("userImage");
-    const storedNickname = getCookie("nickname");
-
-    setUser({
-      Id: storedUserId || null,
-      Image:
-        storedUserImage && isValidImageUrl(storedUserImage)
-          ? `/api/imageProxy?url=${encodeURIComponent(storedUserImage)}`
-          : DEFAULT_AVATAR,
-      nickname: storedNickname || null,
-    });
-  }, [setUser]);
 
   const handleLogout = async () => {
     // 모든 인증 관련 쿠키 제거
     removeAllAuthCookies();
 
-    setUser({
-      Id: null,
-      Image: null,
-      nickname: null,
-    });
-
+    // 로그아웃 API 호출 및 리다이렉트
     await logout(() => router.push("/auth/login"));
   };
 
@@ -142,10 +123,10 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        {user.Id ? (
+        {user?.id ? (
           <div className="relative user-avatar">
             <Image
-              src={user.Image || DEFAULT_AVATAR}
+              src={user.image || DEFAULT_AVATAR}
               alt="User Avatar"
               className="w-8 h-8 cursor-pointer rounded-full"
               width={32}
@@ -154,7 +135,7 @@ export default function Header() {
             />
             {isOpen && ( // 드롭다운 열기
               <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-max bg-white border border-gray-300 rounded-md shadow-lg p-2 text-sm text-gray-700">
-                {user.nickname && <div>{user.nickname}</div>}
+                {user.nickname ? <div>{user.nickname}</div> : <div>사용자</div>}
                 <button
                   onClick={handleLogout}
                   className="mt-2 text-gray-600 hover:text-blue-500"
