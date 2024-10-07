@@ -7,7 +7,6 @@ import BackButton from "@/components/UI/Button/BackButton";
 
 export const getServerSideProps: GetServerSideProps = (async (context) => {
   const articleId = Number(context.params?.id);
-
   let articles;
   let comments;
 
