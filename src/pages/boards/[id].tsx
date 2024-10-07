@@ -1,13 +1,19 @@
-import { getArticleDetail } from "@/api/article";
-import { Article, ArticleProps } from "@/types/article";
+import axios from "axios";
 import type { GetServerSideProps } from "next";
+import { getArticleDetail, getArticleComments } from "@/api/article";
+import { Article, ArticleComments } from "@/types/article";
+import ArticleDetail from "@/components/UI/boards/ArticleDetail";
+import BackButton from "@/components/UI/Button/BackButton";
 
 export const getServerSideProps: GetServerSideProps = (async (context) => {
   const articleId = Number(context.params?.id);
-  let article;
+
+  let articles;
+  let comments;
+
   try {
     if (articleId !== undefined) {
-      article = await getArticleDetail(articleId);
+      articles = await getArticleDetail({ articleId });
     }
   } catch {
     return {
@@ -15,26 +21,34 @@ export const getServerSideProps: GetServerSideProps = (async (context) => {
     };
   }
 
-  return {
-    props: { article },
-  };
-}) satisfies GetServerSideProps<{ article: Article }>;
+  try {
+    const data = await getArticleComments({ articleId, limit: 10, cursor: 0 });
+    comments = data.list ?? [];
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(error.response?.status, error.message);
+    } else {
+      throw new Error("에러가 발생했습니다.");
+    }
+  }
 
-const ArticleDetail = <T extends Article>({ article }: ArticleProps<T>) => {
+  return {
+    props: { articles, comments },
+  };
+}) satisfies GetServerSideProps<{ articles: Article }>;
+
+interface Props {
+  articles: Article;
+  comments: ArticleComments[];
+}
+
+const BoardDetail = ({ articles, comments }: Props) => {
   return (
-    <>
-      <h1
-        style={{
-          height: "100vh",
-          marginTop: "100px",
-          fontSize: "20px",
-          textAlign: "center",
-        }}
-      >
-        {article.id} 페이지입니다.
-      </h1>
-    </>
+    <section className="container">
+      <ArticleDetail articles={articles} comments={comments} />
+      <BackButton href="/boards" />
+    </section>
   );
 };
 
-export default ArticleDetail;
+export default BoardDetail;

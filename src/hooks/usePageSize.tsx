@@ -1,36 +1,36 @@
 import { useState, useEffect } from "react";
-import { ArticleSortOption } from "@/types/article";
+import useDebounce from "./useDebounce";
 
-const getPageSize = (orderBy: ArticleSortOption): number => {
-  if (typeof window === "undefined") return 10;
-  const width = window.innerWidth;
-  if (width < 768) {
-    return orderBy === "like" ? 1 : 10;
-  } else if (width < 1280) {
-    return orderBy === "like" ? 2 : 10;
-  } else {
-    return orderBy === "like" ? 3 : 10;
-  }
-};
-
-const usePageSize = (orderBy: ArticleSortOption): number => {
-  const [pageSize, setPageSize] = useState(getPageSize(orderBy));
+const usePageSize = (initialPageSize: number) => {
+  const [articleCount, setArticleCount] = useState(initialPageSize);
+  const [windowWidth, setWindoWidth] = useState(window.innerWidth);
+  const debouncedWidth = useDebounce(windowWidth, 100);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleResize = () => {
-      setPageSize(getPageSize(orderBy));
+      // 클라이언트 사이드에서만 실행
+      setWindoWidth(window.innerWidth);
+      // debouncedWidth에 따라 articleCount 업데이트
+      if (debouncedWidth >= 1280) {
+        setArticleCount(3);
+      } else if (debouncedWidth >= 768) {
+        setArticleCount(2);
+      } else {
+        setArticleCount(1);
+      }
     };
 
-    // 화면 크기 변경할 때마다 pageSize를 다시 계산해 넣음
+    handleResize();
     window.addEventListener("resize", handleResize);
 
-    // Cleanup function
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [pageSize, orderBy]);
+  }, [debouncedWidth]);
 
-  return pageSize;
+  return articleCount;
 };
 
 export default usePageSize;

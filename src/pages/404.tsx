@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "@/styles/NotFound.module.scss";
-import Button from "@/components/UI/Button";
+import Button from "@/components/UI/Button/Button";
 
 export default function NotFound() {
   return (

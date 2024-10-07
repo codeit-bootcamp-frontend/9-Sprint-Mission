@@ -2,16 +2,31 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-bottom: 24px;
-  background-color: #fcfcfc;
-  border-bottom: 1px solid $gray200;
   position: relative;
+  border-radius: 8px;
 
   .articleLink {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 24px;
+  }
+
+  .bestLabel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+    background: $clr-blue 25% center no-repeat;
+    width: 102px;
+    height: 30px;
+    padding: 2px 24px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    padding-left: 4rem;
   }
 
   .titleWrap {
@@ -44,6 +59,7 @@
 
     img {
       padding: 5px;
+      object-fit: cover;
     }
   }
 
@@ -51,26 +67,24 @@
     display: flex;
     align-items: center;
     gap: 8px;
-
-    .nickname,
-    .likeCount,
-    .date {
-      font-size: 1.4rem;
-      font-weight: 400;
-    }
+    margin-left: auto;
 
     .nickname {
+      font-size: 1.4rem;
+      font-weight: 400;
       color: $gray600;
     }
 
-    .likeCount {
-      color: $gray500;
-      margin-left: -5px;
-    }
-
-    .date {
+    .allArticleMeta {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 8px;
       margin-right: auto;
-      color: $gray400;
+
+      .likeCount {
+        font-size: 1.6rem;
+      }
     }
   }
 }

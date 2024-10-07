@@ -1,0 +1,36 @@
+.articleDetail {
+  .articleDetailTop {
+    .articleTitleWrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .articleDetailMeta {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .content {
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 26px;
+      color: $gray800;
+      margin-bottom: 5rem;
+    }
+  }
+
+  .articleDetailBottom {
+    .CommentForm {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 5rem;
+
+      button {
+        margin-left: auto;
+      }
+    }
+  }
+}

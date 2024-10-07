@@ -5,8 +5,8 @@ import bottomBannerImage from "@/assets/images/home/bottom-banner-image.png";
 import feature1Image from "@/assets/images/home/feature1-image.png";
 import feature2Image from "@/assets/images/home/feature2-image.png";
 import feature3Image from "@/assets/images/home/feature3-image.png";
-import Feature from "@/components/UI/Feature";
-import Button from "@/components/UI/Button";
+import Feature from "@/components/UI/home/Feature";
+import Button from "@/components/UI/Button/Button";
 
 const Home = () => {
   return (

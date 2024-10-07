@@ -1,87 +1,99 @@
-import axios from "axios";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Article, ArticleSortOption, ArticleResponse } from "@/types/article";
-import { getArticles } from "@/api/article";
-import styles from "./AllArticle.module.scss";
-import usePageSize from "@/hooks/usePageSize";
-import AllArticleCard from "./AllArticleCard";
-import DropdownMenu from "@/components/UI/DropdownMenu";
-import Search from "@/components/UI/Search";
-import Button from "@/components/UI/Button";
+import { useSearchParams } from "next/navigation";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { Article, ArticleSortOption } from "@/types/article";
 import Link from "next/link";
+import styles from "./AllArticle.module.scss";
+import Search from "@/components/UI/Search";
+import Button from "@/components/UI/Button/Button";
+import ArticleCard from "./ArticleCard";
+import { Dropdown } from "../Dropdown/DropdownMenu";
+import { TitleSection, SectionTitle } from "../CommonStyles";
+import { getArticles } from "@/api/article";
 
-const AllArticle = () => {
+interface Props {
+  articles: Article[];
+  orderBy: ArticleSortOption;
+}
+
+const AllArticle = ({
+  articles: initialArticles,
+  orderBy: initialOrderBy,
+}: Props) => {
   const router = useRouter();
-  const pageSize = usePageSize("recent");
-  const [keyword, setKeyword] = useState("");
-  const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
-  const [articles, setArticles] = useState<Article[]>([]);
-
-  useEffect(() => {
-    const fetchAllArticles = async () => {
-      try {
-        const data: ArticleResponse = await getArticles({
-          orderBy,
-          pageSize,
-          keyword,
-        });
-        setArticles(data.list);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          console.error(error.response?.status, error.message);
-        } else {
-          throw new Error("에러가 발생했습니다.");
-        }
-      }
-    };
-
-    fetchAllArticles();
-  }, [orderBy, pageSize, keyword]);
+  const params = useSearchParams();
+  const keywordParam = params.get("keyword");
+  const [articles, setArticles] = useState(initialArticles);
+  const [orderBy, setOrderBy] = useState(initialOrderBy);
+  const [search, setSearch] = useState(keywordParam);
 
   // 정렬 선택 핸들러
   const handleSortSelection = (sortOption: ArticleSortOption) => {
     setOrderBy(sortOption);
   };
 
+  useEffect(() => {
+    const fetchArticles = async () => {
+      const response = await getArticles({ orderBy });
+      setArticles(response.list);
+    };
+
+    fetchArticles();
+  }, [orderBy]);
+
   // 검색어 변경 핸들러
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearch(value === "" ? null : value);
   };
 
   // 검색 폼 핸들러
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSearchSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!keyword) {
+    if (!search) {
       router.push("/boards");
       return;
     }
 
-    router.push(`/boards?keyword=${keyword}`);
+    router.push(`/boards?keyword=${search}`);
   };
 
   return (
     <section className={styles.allArticle}>
-      <div className={styles.titleWrap}>
-        <h2 className={styles.title}>게시글</h2>
+      <TitleSection>
+        <SectionTitle>게시글</SectionTitle>
         <Button>
           <Link href="/addboard">글쓰기</Link>
         </Button>
-      </div>
+      </TitleSection>
 
       <div className={styles.allArticleSectionHeader}>
         <Search
-          handleSubmit={handleSubmit}
-          handleChange={handleChange}
-          keyword={keyword}
+          handleSearchChange={handleSearchChange}
+          handleSearchSubmit={handleSearchSubmit}
+          search={search}
         />
-        <DropdownMenu onSortSelection={handleSortSelection} />
+        <Dropdown>
+          <Dropdown.Button />
+          <Dropdown.Container>
+            <Dropdown.Item onClick={() => handleSortSelection("recent")}>
+              최신순
+            </Dropdown.Item>
+            <Dropdown.Line />
+            <Dropdown.Item onClick={() => handleSortSelection("like")}>
+              좋아요순
+            </Dropdown.Item>
+          </Dropdown.Container>
+        </Dropdown>
       </div>
-
-      <ul className={styles.articleWrap}>
+      <ul>
         {articles?.map((article) => (
-          <AllArticleCard key={article.id} article={article} />
+          <ArticleCard
+            key={article.id}
+            article={article}
+            className={styles.allArticleCard}
+          />
         ))}
       </ul>
     </section>

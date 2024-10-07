@@ -14,4 +14,10 @@
   &:focus {
     background-color: $clr-blue-focus;
   }
+
+  &:disabled {
+    background-color: $gray400;
+    cursor: default;
+    pointer-events: none;
+  }
 }
