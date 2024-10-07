@@ -56,7 +56,7 @@ export default function MainBoard({ initialProducts, total }: ProductProps) {
   useEffect(() => {
     fetchPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sortOrder]);
+  }, [sortOrder, searchQuery]);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -97,7 +97,7 @@ export default function MainBoard({ initialProducts, total }: ProductProps) {
                 </div>
                 <div className={styles["profile-img"]}>
                   <Image
-                    src={post.image}
+                    src={post.image || userIcon}
                     width={72}
                     height={72}
                     alt="작성자 이미지"

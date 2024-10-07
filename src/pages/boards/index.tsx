@@ -28,6 +28,7 @@ export const getStaticProps: GetStaticProps<ListResponse> = async () => {
       // 선택적: 10초마다 데이터를 새로고침
       revalidate: 10,
     };
+    console.log("API response:", res.data);
   } catch (error) {
     console.error("Error fetching articles:", error);
     return {
@@ -39,7 +40,10 @@ export const getStaticProps: GetStaticProps<ListResponse> = async () => {
   }
 };
 
-const Boards: React.FC<ListResponse> = ({ list, totalCount }) => {
+const Boards: React.FC<{ list: Board[]; totalCount: number }> = ({
+  list,
+  totalCount,
+}) => {
   return (
     <div className="container">
       <BestBoard />

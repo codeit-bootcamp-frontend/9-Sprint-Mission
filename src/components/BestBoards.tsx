@@ -4,12 +4,14 @@ import { Board } from "../types/types";
 import axios from "@/src/lib/axios";
 import Link from "next/link";
 import Image from "next/image";
+import userIcon from "@/public/assets/icon/user-icon.png";
 import styles from "./AllBoardList.module.scss";
 import Badge from "@/public/assets/icon/ic_badge_best.png";
 
 export default function BestBoard() {
   const [boards, setBoards] = useState<Board[]>([]);
   const [pageSize, setPageSize] = useState<number>(3);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const orderBy = "like";
 
   const updatePageSize = () => {
@@ -25,27 +27,30 @@ export default function BestBoard() {
 
   useEffect(() => {
     const getPosts = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get<{ list: Board[] }>(
           `/articles?page=1&pageSize=${pageSize}&orderBy=${orderBy}`
         );
 
         setBoards(response.data.list);
-        updatePageSize();
       } catch (error) {
         console.error("Error fetching posts in Best:", error);
       }
     };
     getPosts();
+    updatePageSize();
   }, [pageSize]);
 
   useEffect(() => {
-    window.addEventListener("resize", updatePageSize);
-
-    return () => {
-      window.removeEventListener("resize", updatePageSize);
-    };
+    const handleResize = () => updatePageSize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>; // 로딩 인디케이터
+  }
 
   return (
     <div className="best-article">
@@ -63,7 +68,7 @@ export default function BestBoard() {
                 </div>
                 <div className={styles["profile-img"]}>
                   <Image
-                    src={board.image}
+                    src={board.image || userIcon}
                     width={48}
                     height={48}
                     alt="프로필 이미지"
