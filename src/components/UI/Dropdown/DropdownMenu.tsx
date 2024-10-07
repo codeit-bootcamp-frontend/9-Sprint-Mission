@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import styles from "./DropdownMenu.module.scss";
-import DropdownContainer from "./dropdownContainer";
+import DropdownContainer from "./DropdownContainer";
 import DropdownButton from "./DropdownButton";
 import DropdownItem from "./DropdownItem";
 import DropdownLine from "./DropdownLine";
