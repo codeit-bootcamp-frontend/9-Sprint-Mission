@@ -1,6 +1,5 @@
 // src/components/UI/item/ItemDetailSection.tsx
 import React, { useEffect, useState, useCallback } from "react";
-import Cookies from "js-cookie"; // 쿠키에서 토큰을 가져오기 위해 js-cookie 임포트
 import Image from "next/image";
 import TagDisplay from "./TagDisplay";
 import FavoriteButton from "./FavoriteButton";
@@ -8,7 +7,7 @@ import useDebouncedCallback from "@/hooks/useDebouncedCallback"; // useDebounced
 import { ProductDetail } from "@/types/product";
 import { addProductFavorite, removeProductFavorite } from "@/api/product";
 import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
-
+import { getCookie } from "@/utils/cookie";
 // public 폴더 경로 문자열로 대체
 const KebabIcon = "/images/icons/ic_kebab.png";
 const NoImage = "/images/ui/no-image.png";
@@ -38,7 +37,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
 
   // 컴포넌트 마운트 시 쿠키에서 accessToken 가져오기
   useEffect(() => {
-    const accessToken = Cookies.get("accessToken"); // 쿠키에서 accessToken 가져옴
+    const accessToken = getCookie("accessToken"); // 쿠키에서 accessToken 가져옴
     setToken(accessToken || null); // 토큰이 있으면 상태에 저장
   }, []);
 

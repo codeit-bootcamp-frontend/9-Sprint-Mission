@@ -1,13 +1,13 @@
 // src/pages/addArticle/index.tsx
 import { FormEvent, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 import InputItem from "@/components/UI/InputItem";
 import ImageUpload from "@/components/UI/ImageUpload";
 import ConfirmModal from "@/components/UI/modal/ConfirmModal";
 import AlertModal from "@/components/UI/modal/AlertModal";
 import { ArticleForm } from "@/types/article";
 import { addArticle } from "@/api/article";
+import { getCookie } from "@/utils/cookie";
 
 export default function AddArticlePage() {
   const [title, setTitle] = useState(""); // 제목 상태
@@ -21,7 +21,7 @@ export default function AddArticlePage() {
 
   // 쿠키에서 accessToken을 가져와 로그인 상태를 설정
   useEffect(() => {
-    const token = Cookies.get("accessToken");
+    const token = getCookie("accessToken");
     if (token) {
       setAccessToken(token);
     } else {

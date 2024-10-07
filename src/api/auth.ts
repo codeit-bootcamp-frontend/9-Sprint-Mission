@@ -1,33 +1,24 @@
 // src/api/auth.ts
 import { isAxiosError } from "axios";
 import axiosInstance from "./axiosConfig";
-import Cookies from "js-cookie";
 import { LoginFormValues, SignupFormValues, AuthResponse } from "@/types/auth";
+import {
+  setCookie,
+  removeAllAuthCookies,
+  ACCESS_TOKEN_EXPIRY,
+  REFRESH_TOKEN_EXPIRY,
+} from "@/utils/cookie";
 
 // public 폴더 경로 문자열로 대체
-const DefaultAvatar = "/images/ui/ic_profile-32.png";
+const DEFAULT_AVATAR = "/images/ui/ic_profile-32.png";
 
 // 사용자 이미지 설정 함수
 const setUserImage = (image: string | null) => {
   if (image) {
-    Cookies.set("userImage", image);
+    setCookie("userImage", image, ACCESS_TOKEN_EXPIRY);
   } else {
-    Cookies.set("userImage", DefaultAvatar);
+    setCookie("userImage", DEFAULT_AVATAR, ACCESS_TOKEN_EXPIRY);
   }
-};
-
-// 쿠키 설정 함수
-const setCookie = (name: string, value: string, expires: number) => {
-  Cookies.set(
-    name, // 쿠키의 이름 (예: 'accessToken', 'userId' 등)
-    value, // 쿠키의 값 (예: '1234567890', 'user123' 등)
-    {
-      expires, // 쿠키 만료 시간 설정 (일 단위, 예: 7은 7일 후 만료)
-      secure: true, // HTTPS 연결에서만 쿠키 전송 (보안 강화)
-      sameSite: "strict", // 같은 사이트 출처의 요청에만 쿠키 전송 (CSRF 공격 방지)
-      httpOnly: true, // JavaScript를 통한 쿠키 접근 방지 (XSS 공격 방지)
-    }
-  );
 };
 
 // 로그인 함수
@@ -45,10 +36,10 @@ export const logIn = async (
     const { id, nickname, image } = user;
 
     // 클라이언트에서 토큰을 저장
-    setCookie("accessToken", accessToken, 1 / 48); // 30분
-    setCookie("refreshToken", refreshToken, 7); // 7일
-    setCookie("userId", id.toString(), 1 / 48); // 30분
-    setCookie("nickname", nickname, 1 / 48); // 30분
+    setCookie("accessToken", accessToken, ACCESS_TOKEN_EXPIRY);
+    setCookie("refreshToken", refreshToken, REFRESH_TOKEN_EXPIRY);
+    setCookie("userId", id.toString(), ACCESS_TOKEN_EXPIRY);
+    setCookie("nickname", nickname, ACCESS_TOKEN_EXPIRY);
     setUserImage(image);
 
     return response.data;
@@ -93,12 +84,8 @@ export const signup = async (
 // 로그아웃 함수
 export const logout = async (redirectToSignIn: () => void) => {
   try {
-    // 쿠키에서 토큰 및 사용자 정보 제거
-    Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
-    Cookies.remove("userId");
-    Cookies.remove("nickname");
-    Cookies.remove("userImage");
+    // 모든 인증 관련 쿠키 제거
+    removeAllAuthCookies();
 
     // Axios 인스턴스의 기본 헤더에서 Authorization 제거
     delete axiosInstance.defaults.headers.common["Authorization"];
@@ -125,7 +112,7 @@ export const refreshAccessToken = async (
       const { accessToken } = response.data;
 
       // 새로운 accessToken을 쿠키에 저장
-      setCookie("accessToken", accessToken, 1 / 48); // 30분
+      setCookie("accessToken", accessToken, ACCESS_TOKEN_EXPIRY);
 
       // Axios 인스턴스의 기본 헤더에 새로운 accessToken 설정
       axiosInstance.defaults.headers.common[
@@ -137,8 +124,8 @@ export const refreshAccessToken = async (
       const user = userResponse.data;
 
       // 사용자 정보 쿠키에 저장
-      setCookie("userId", user.id.toString(), 1 / 48);
-      setCookie("nickname", user.nickname, 1 / 48);
+      setCookie("userId", user.id.toString(), ACCESS_TOKEN_EXPIRY);
+      setCookie("nickname", user.nickname, ACCESS_TOKEN_EXPIRY);
       setUserImage(user.image);
 
       return {
@@ -154,12 +141,8 @@ export const refreshAccessToken = async (
       if (error.response?.status === 401) {
         console.error("refreshToken이 유효하지 않거나 만료되었습니다!");
 
-        // refreshToken이 만료되었으므로 모든 인증 관련 쿠키 삭제
-        Cookies.remove("accessToken");
-        Cookies.remove("refreshToken");
-        Cookies.remove("userId");
-        Cookies.remove("nickname");
-        Cookies.remove("userImage");
+        // 모든 인증 관련 쿠키 제거
+        removeAllAuthCookies();
 
         // Axios 인스턴스의 기본 헤더에서 Authorization 제거
         delete axiosInstance.defaults.headers.common["Authorization"];

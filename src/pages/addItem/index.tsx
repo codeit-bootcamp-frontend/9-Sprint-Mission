@@ -1,7 +1,6 @@
 // src/pages/addItem/index.tsx
 import { FormEvent, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 import InputItem from "@/components/UI/InputItem";
 import TagInput from "@/components/UI/TagInput";
 import ImageUpload from "@/components/UI/ImageUpload";
@@ -9,7 +8,7 @@ import ConfirmModal from "@/components/UI/modal/ConfirmModal";
 import AlertModal from "@/components/UI/modal/AlertModal";
 import { addProduct } from "@/api/product";
 import { ProductForm } from "@/types/product";
-
+import { getCookie } from "@/utils/cookie";
 export default function AddItemPage() {
   const [name, setName] = useState(""); // 상품명 상태
   const [description, setDescription] = useState(""); // 상품 설명 상태
@@ -24,7 +23,7 @@ export default function AddItemPage() {
 
   // 쿠키에서 accessToken을 가져와 로그인 상태를 설정
   useEffect(() => {
-    const token = Cookies.get("accessToken");
+    const token = getCookie("accessToken");
     if (token) {
       setAccessToken(token);
     } else {

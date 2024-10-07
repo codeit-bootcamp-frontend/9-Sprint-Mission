@@ -1,10 +1,10 @@
 // src/components/UI/comment/ItemCommentSection.tsx
 import React, { ChangeEvent, useState, useEffect } from "react";
-import Cookies from "js-cookie"; // 쿠키에서 토큰을 가져오기 위해 js-cookie 임포트
 import { useRouter } from "next/router"; // Next.js 라우터 사용
 import { addProductComment } from "@/api/product"; // 상품 댓글 등록 API 함수 임포트
 import CommentThread from "./ItemCommentThread"; // 댓글 쓰레드 컴포넌트
 import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
+import { getCookie } from "@/utils/cookie";
 
 const COMMENT_PLACEHOLDER =
   "개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.";
@@ -23,7 +23,7 @@ const ItemCommentSection = ({ productId }: ItemCommentSectionProps) => {
 
   // 컴포넌트 마운트 시 쿠키에서 accessToken 가져오기
   useEffect(() => {
-    const accessToken = Cookies.get("accessToken"); // 쿠키에서 accessToken 가져옴
+    const accessToken = getCookie("accessToken"); // 쿠키에서 accessToken 가져옴
     setToken(accessToken || null); // 토큰이 있으면 상태에 저장
   }, []);
 

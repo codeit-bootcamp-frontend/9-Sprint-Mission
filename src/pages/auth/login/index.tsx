@@ -9,12 +9,16 @@ import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
 import { logIn } from "@/api/auth";
 import { LoginFormValues, AuthResponse } from "@/types/auth";
-import Cookies from "js-cookie";
 import { useSetAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
-
+import {
+  getCookie,
+  setCookie,
+  ACCESS_TOKEN_EXPIRY,
+  REFRESH_TOKEN_EXPIRY,
+} from "@/utils/cookie";
 // public 폴더 경로 문자열로 대체
-const LogoAuth = "/images/logo/logo-auth.png";
+const LOGO_AUTH = "/images/logo/logo-auth.png";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,7 +27,7 @@ export default function LoginPage() {
   // useEffect로 페이지가 로드될 때 이미 로그인된 사용자가 있으면 홈으로 리다이렉트
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const accessToken = Cookies.get("accessToken");
+      const accessToken = getCookie("accessToken");
       if (accessToken) {
         router.push("/"); // 액세스 토큰이 있는 경우 홈으로 이동
       }
@@ -53,11 +57,11 @@ export default function LoginPage() {
       const userNickname = userData.user.nickname;
 
       // 쿠키에 인증 토큰과 사용자 정보 저장
-      Cookies.set("accessToken", userData.accessToken);
-      Cookies.set("refreshToken", userData.refreshToken);
-      Cookies.set("userId", userId);
-      Cookies.set("userImage", userImage);
-      Cookies.set("nickname", userNickname);
+      setCookie("accessToken", userData.accessToken, ACCESS_TOKEN_EXPIRY);
+      setCookie("refreshToken", userData.refreshToken, REFRESH_TOKEN_EXPIRY);
+      setCookie("userId", userId, ACCESS_TOKEN_EXPIRY);
+      setCookie("userImage", userImage, ACCESS_TOKEN_EXPIRY);
+      setCookie("nickname", userNickname, ACCESS_TOKEN_EXPIRY);
 
       // jotai userAtom을 사용하여 상태 업데이트
       setUser({
@@ -79,7 +83,7 @@ export default function LoginPage() {
       {/* 홈으로 돌아가는 로고 */}
       <Link href="/" className="md:mb-10" aria-label="홈으로 이동">
         <Image
-          src={LogoAuth}
+          src={LOGO_AUTH}
           width={396}
           height={132}
           alt="로고"

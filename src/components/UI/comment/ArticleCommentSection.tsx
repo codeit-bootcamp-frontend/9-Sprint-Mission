@@ -1,10 +1,10 @@
 // src/components/UI/comment/ArticleCommentSection.tsx
 import React, { ChangeEvent, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie"; // 쿠키에서 토큰을 가져오기 위해 js-cookie 임포트
 import { addArticleComment } from "@/api/article"; // API 함수 임포트
 import CommentThread from "./ArticleCommentThread";
 import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
+import { getCookie } from "@/utils/cookie";
 
 const COMMENT_PLACEHOLDER = "댓글을 입력해주세요.";
 
@@ -22,7 +22,7 @@ const ArticleCommentSection = ({ articleId }: ArticleCommentSectionProps) => {
 
   // 컴포넌트 마운트 시 쿠키에서 accessToken 가져오기
   useEffect(() => {
-    const accessToken = Cookies.get("accessToken"); // 쿠키에서 accessToken 가져옴
+    const accessToken = getCookie("accessToken"); // 쿠키에서 accessToken 가져옴
     setToken(accessToken || null); // 토큰이 있으면 상태에 저장
   }, []);
 

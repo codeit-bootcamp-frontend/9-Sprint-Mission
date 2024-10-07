@@ -1,12 +1,14 @@
 // components/Layout/ClientLayout.tsx
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import Cookies from "js-cookie";
 import { Provider, useSetAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { loadingAtom } from "@/store/loadingAtom";
 import { refreshAccessToken } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";
+import { getCookie, setCookie, removeAllAuthCookies } from "@/utils/cookie";
+
+export const THIRTY_MINUTES_IN_DAYS = 1 / 48; // 30분을 일 단위로 표현
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -15,7 +17,7 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const autoLogin = async () => {
-      const refreshToken = Cookies.get("refreshToken");
+      const refreshToken = getCookie("refreshToken");
       if (refreshToken) {
         try {
           const result: AuthResponse | null = await refreshAccessToken(
@@ -24,7 +26,11 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
 
           // result와 필요한 속성들이 유효한지 체크
           if (result && result.accessToken && result.user) {
-            Cookies.set("accessToken", result.accessToken);
+            setCookie(
+              "accessToken",
+              result.accessToken,
+              THIRTY_MINUTES_IN_DAYS
+            );
             setUser({
               Id: result.user.id?.toString() || null,
               nickname: result.user.nickname || null,
@@ -35,10 +41,8 @@ function ClientLayoutContent({ children }: { children: React.ReactNode }) {
           }
         } catch (error) {
           console.error("자동 로그인 실패:", error);
-          // 리프레시 토큰이 만료되었거나 유효하지 않을 경우 처리
-          Cookies.remove("refreshToken");
-          // accessToken도 삭제
-          Cookies.remove("accessToken");
+          // 모든 인증 관련 쿠키 제거
+          removeAllAuthCookies();
         }
       }
     };

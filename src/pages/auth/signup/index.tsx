@@ -9,7 +9,7 @@ import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
 import { signup } from "@/api/auth";
 import { SignupFormValues } from "@/types/auth";
-import Cookies from "js-cookie";
+import { getCookie } from "@/utils/cookie";
 
 // public 폴더 경로 문자열로 대체
 const LogoAuth = "/images/logo/logo-auth.png";
@@ -19,7 +19,7 @@ export default function SignupPage() {
 
   // useEffect로 페이지가 로드될 때 이미 로그인된 사용자가 있으면 홈으로 리다이렉트
   useEffect(() => {
-    const accessToken = Cookies.get("accessToken");
+    const accessToken = getCookie("accessToken");
     if (accessToken) {
       router.push("/"); // 액세스 토큰이 있는 경우 홈으로 이동
     }

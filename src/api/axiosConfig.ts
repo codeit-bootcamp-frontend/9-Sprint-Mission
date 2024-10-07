@@ -1,6 +1,6 @@
 // src/api/axiosConfig.js
 import Axios from "axios";
-import Cookies from "js-cookie";
+import { getCookie, setCookie, ACCESS_TOKEN_EXPIRY } from "@/utils/cookie";
 
 export const API_URL = "https://panda-market-api.vercel.app";
 
@@ -14,7 +14,7 @@ const axiosInstance = Axios.create({
 
 // accessToken을 Authorization 헤더에 자동으로 포함하는 인터셉터
 axiosInstance.interceptors.request.use((config) => {
-  const accessToken = Cookies.get("accessToken");
+  const accessToken = getCookie("accessToken");
   if (accessToken) {
     config.headers["Authorization"] = `Bearer ${accessToken}`;
   }
@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
-      const refreshToken = Cookies.get("refreshToken");
+      const refreshToken = getCookie("refreshToken");
       if (refreshToken) {
         try {
           // refreshToken을 사용해 새로운 accessToken 요청
@@ -39,11 +39,7 @@ axiosInstance.interceptors.response.use(
           });
 
           const newAccessToken = response.data.accessToken;
-          Cookies.set("accessToken", newAccessToken, {
-            expires: 1 / 48, // 30분 (1일의 1/48)
-            secure: true,
-            sameSite: "strict",
-          });
+          setCookie("accessToken", newAccessToken, ACCESS_TOKEN_EXPIRY);
 
           // 새로운 accessToken으로 요청 다시 시도
           axiosInstance.defaults.headers.common[

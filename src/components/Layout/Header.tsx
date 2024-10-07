@@ -3,17 +3,17 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import Cookies from "js-cookie";
 import { logout } from "@/api/auth";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { isValidImageUrl } from "@/utils/imageUtils";
+import { getCookie, removeAllAuthCookies } from "@/utils/cookie";
 
 // public 폴더 경로 문자열로 대체
 const LogoSM = "/images/logo/logo_sm.png";
 const LogoMD = "/images/logo/logo_md.png";
 const LogoLG = "/images/logo/logo_lg.png";
-const DefaultAvatar = "/images/ui/ic_profile-32.png";
+const DEFAULT_AVATAR = "/images/ui/ic_profile-32.png";
 
 export default function Header() {
   const router = useRouter();
@@ -21,25 +21,23 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false); // 드롭다운 상태
 
   useEffect(() => {
-    const storedUserId = Cookies.get("userId");
-    const storedUserImage = Cookies.get("userImage");
-    const storedNickname = Cookies.get("nickname");
+    const storedUserId = getCookie("userId");
+    const storedUserImage = getCookie("userImage");
+    const storedNickname = getCookie("nickname");
 
     setUser({
       Id: storedUserId || null,
       Image:
         storedUserImage && isValidImageUrl(storedUserImage)
           ? `/api/imageProxy?url=${encodeURIComponent(storedUserImage)}`
-          : DefaultAvatar,
+          : DEFAULT_AVATAR,
       nickname: storedNickname || null,
     });
   }, [setUser]);
 
   const handleLogout = async () => {
-    Cookies.remove("accessToken");
-    Cookies.remove("userId");
-    Cookies.remove("nickname");
-    Cookies.remove("userImage");
+    // 모든 인증 관련 쿠키 제거
+    removeAllAuthCookies();
 
     setUser({
       Id: null,
@@ -147,7 +145,7 @@ export default function Header() {
         {user.Id ? (
           <div className="relative user-avatar">
             <Image
-              src={user.Image || DefaultAvatar}
+              src={user.Image || DEFAULT_AVATAR}
               alt="User Avatar"
               className="w-8 h-8 cursor-pointer rounded-full"
               width={32}

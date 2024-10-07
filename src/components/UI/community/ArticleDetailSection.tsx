@@ -1,6 +1,5 @@
 // src/components/UI/community/ArticleDetailSection.tsx
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import useDebouncedCallback from "@/hooks/useDebouncedCallback"; // 디바운스된 콜백 훅 임포트
 import { ArticleDetail } from "@/types/article";
@@ -9,7 +8,7 @@ import { ko } from "date-fns/locale";
 import { addArticleLike, removeArticleLike } from "@/api/article";
 import LikeButton from "./LikeButton";
 import AlertModal from "../modal/AlertModal";
-
+import { getCookie } from "@/utils/cookie";
 const KebabIcon = "/images/icons/ic_kebab.png";
 const NoImage = "/images/ui/no-image.png";
 const DefaultAvatar = "/images/ui/ic_profile-24.png";
@@ -89,7 +88,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
   // 컴포넌트 마운트 시 토큰을 쿠키에서 가져옴
   useEffect(() => {
-    const accessToken = Cookies.get("accessToken");
+    const accessToken = getCookie("accessToken");
     setToken(accessToken || null);
   }, []);
 
