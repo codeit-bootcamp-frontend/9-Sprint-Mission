@@ -37,18 +37,21 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const router = useRouter();
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
-  const [pageSize, setPageSize] = useState(getPageSize(width));
+  const [pageSize, setPageSize] = useState(getPageSize(window.innerWidth)); // 초기값을 window.innerWidth 사용
 
-  // 화면 리사이즈 시 페이지 크기 결정
+  // 화면 리사이즈 시 페이지 크기 결정 및 페이지를 초기화
   useEffect(() => {
     const handleResize = () => {
-      setPageSize(getPageSize(window.innerWidth));
+      const newPageSize = getPageSize(window.innerWidth);
+      if (newPageSize !== pageSize) {
+        setPageSize(newPageSize);
+        setPage(1); // 페이지를 1로 초기화
+      }
     };
 
-    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [pageSize]);
 
   // useMemo를 사용하여 쿼리 객체 메모이제이션
   const memoizedQuery = useMemo(() => {

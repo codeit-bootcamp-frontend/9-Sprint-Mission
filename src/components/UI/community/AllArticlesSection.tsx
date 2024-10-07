@@ -38,7 +38,9 @@ const AllArticlesSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
-  const [isMobileInfiniteScroll, setIsMobileInfiniteScroll] = useState(false);
+  const [isMobileInfiniteScroll, setIsMobileInfiniteScroll] = useState<
+    boolean | null
+  >(null);
 
   // 상태 값을 참조하기 위한 레퍼런스
   const isLoadingRef = useRef(isLoading);
@@ -61,7 +63,9 @@ const AllArticlesSection = () => {
   // 화면 리사이즈 시 무한 스크롤 여부 결정
   useEffect(() => {
     const handleResize = () => {
-      setIsMobileInfiniteScroll(isInfiniteScroll(window.innerWidth));
+      if (typeof window !== "undefined") {
+        setIsMobileInfiniteScroll(isInfiniteScroll(window.innerWidth));
+      }
     };
     handleResize();
     window.addEventListener("resize", handleResize);
@@ -130,7 +134,7 @@ const AllArticlesSection = () => {
       const data = await getArticles(params);
 
       setArticles((prevArticles) =>
-        page === 1 || !isMobileInfiniteScroll
+        page === 1 || isMobileInfiniteScroll === false
           ? data.list
           : [...prevArticles, ...data.list]
       );
@@ -141,12 +145,15 @@ const AllArticlesSection = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [orderBy, page, debouncedSearchKeyword, isMobileInfiniteScroll]);
+  }, [orderBy, page, debouncedSearchKeyword]); // isMobileInfiniteScroll 제거
 
   // 게시글을 불러오는 useEffect
   useEffect(() => {
-    fetchArticles();
-  }, [fetchArticles]);
+    // isMobileInfiniteScroll이 null이 아닐 때만 fetchArticles 호출
+    if (isMobileInfiniteScroll !== null) {
+      fetchArticles();
+    }
+  }, [fetchArticles, isMobileInfiniteScroll]);
 
   // 정렬 옵션 선택 핸들러
   const handleSortSelection = useCallback(
