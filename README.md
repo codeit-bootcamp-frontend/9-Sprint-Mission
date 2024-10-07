@@ -33,21 +33,22 @@
 
 - 임시로 form 제출 시, console.log로 form을 출력하게 해두었습니다.
 - 스프린트 미션에 명시되어 있지 않는 페이지도 만드는 중이나, 미완성입니다.
+- 로그인 기능은 다음 미션까지 구현할 예정입니다!
 
 ## 스크린샷
 
 |                                           모바일                                           |
 | :----------------------------------------------------------------------------------------: |
-| ![모바일](https://github.com/user-attachments/assets/7ea4e742-dad7-4377-9336-062ad072908c) |
+| ![모바일](https://github.com/user-attachments/assets/a8606438-d721-46b7-a737-6eb26da55c91) |
 
 <hr>
 
 |                                           테블릿                                           |
 | :----------------------------------------------------------------------------------------: |
-| ![테블릿](https://github.com/user-attachments/assets/6cfaee8c-f12f-4f01-be02-bd3e7961c24f) |
+| ![테블릿](https://github.com/user-attachments/assets/76362102-155b-4882-96e5-9685223eaaa1) |
 
 <hr>
 
 |                                           풀스크린                                           |
 | :------------------------------------------------------------------------------------------: |
-| ![풀스크린](https://github.com/user-attachments/assets/872557fc-e9c6-43f3-bdd7-9b5a64e873ed) |
+| ![풀스크린](https://github.com/user-attachments/assets/26e59a38-bd87-4e1b-a1e2-343d92f8e419) |
