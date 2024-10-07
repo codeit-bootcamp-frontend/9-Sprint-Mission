@@ -1,4 +1,12 @@
 import NavBar from "@/components/navBar/NavBar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "중고마켓",
+  openGraph: {
+    title: "중고마켓"
+  }
+}
 
 const ItemsLayout = ({ children }: { children: React.ReactNode }) => {
   return (

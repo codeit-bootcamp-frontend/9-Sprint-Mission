@@ -10,3 +10,16 @@ export interface ISearchList {
   createdAt: string;
   likeCount: number;
 }
+
+interface IPostWriter {
+  image: string;
+  nickname: string;
+  id: number;
+}
+
+export interface IComment {
+  writer: IPostWriter;
+  createdAt: string;
+  content: string;
+  id: number;
+}

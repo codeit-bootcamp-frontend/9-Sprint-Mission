@@ -45,7 +45,7 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
                   href={link.href}
                   className={cls(
                     "text-[#4B5563] font-bold text-lg",
-                    pathname === link.href ? "text-[--color-theme]" : ""
+                    pathname.includes(link.href) ? "text-[--color-theme]" : ""
                   )}
                 >
                   {link.title}
