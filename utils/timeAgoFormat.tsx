@@ -1,7 +1,6 @@
-export const timeAgoFormat = (createdAt: Date | string) => {
+export const timeAgoFormat = (createdAt: string) => {
   const currentTime = new Date();
-  const createdTime =
-    typeof createdAt === "string" ? new Date(createdAt) : createdAt;
+  const createdTime = new Date(createdAt);
   const timeDiff = currentTime.getTime() - createdTime.getTime();
   const hoursDiff = Math.floor(timeDiff / (1000 * 60 * 60));
 

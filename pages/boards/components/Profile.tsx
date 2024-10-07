@@ -3,25 +3,26 @@ import styles from "./Profile.module.css";
 import Image from "next/image";
 
 interface ProfileProps {
-  post: Post;
+  post?: Post;
 }
 
 function Profile({ post }: ProfileProps) {
+  const nickname = post?.writer?.nickname || "익명";
+  const createdAt = post?.createdAt
+    ? new Date(post.createdAt).toLocaleDateString()
+    : "날짜 없음";
+
   return (
     <div className={styles.profile}>
       <Image
-        className={styles.profileitemImage}
+        className={styles.profileImage}
         src="/images/profile.svg"
-        alt={`${post.writer.nickname}의 프로필 사진`}
+        alt={`${nickname}의 프로필 사진`}
         width={24}
         height={24}
       />
-      <span>{post.writer.nickname}</span>
-      <span className={styles.profileDate}>
-        {post.createdAt instanceof Date
-          ? post.createdAt.toLocaleDateString()
-          : new Date(post.createdAt).toLocaleDateString()}
-      </span>
+      <span>{nickname}</span>
+      <span className={styles.profileDate}>{createdAt}</span>
     </div>
   );
 }
