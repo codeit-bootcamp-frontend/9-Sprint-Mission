@@ -4,12 +4,13 @@ $color-f3f4f6: #f3f4f6;
 $color-f9fafb: #f9fafb;
 $color-dfdfdf: #dfdfdf;
 $color-e8ebed: #e8ebed;
-$color-gray-1: #374151;
-$color-gray-2: #9ca3af;
-$color-6b7280: #6b7280;
-$color-1f2937: #1f2937;
 $color-d1d5db: #d1d5db;
+$color-9ca3af: #9ca3af;
+$color-6b7280: #6b7280;
 $color-4b5563: #4b5563;
+$color-gray-1: #374151;
+$color-1f2937: #1f2937;
+$color-111827: #111827;
 $color-3692ff: #3692ff;
 $color-hover-1967d6: #1967d6;
 $color-bg-skyblue: #54677e;
@@ -18,17 +19,25 @@ $color-bg-input: #f3f4f6;
 $color-bg-sns: #e6f2ff;
 $color-error: #f74747;
 $color-cfe5ff: #cfe5ff;
-input.form-input {
+
+input.form-input,
+textarea.form-input {
   width: 100%;
-  height: 42px;
-  padding: 9px 44px;
+  height: 56px;
+  padding: 16px 24px;
   background-color: $color-bg-input;
+  border: 1px solid $color-bg-input;
   border-radius: 12px;
-  line-height: 42px;
+  line-height: 56px;
 
   &:focus {
-    outline: 1px solid $color-3692ff;
+    border: 1px solid $color-3692ff;
   }
+}
+
+textarea.form-input {
+  min-height: 282px;
+  line-height: 26px;
 }
 
 .container {
@@ -39,10 +48,21 @@ input.form-input {
 }
 
 h2.page-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: $color-bg-footer;
   font-size: 20px;
   font-weight: 700;
   line-height: 23.87px;
+}
+
+h3.sub-title {
+  padding-bottom: 12px;
+  color: $color-1f2937;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
 }
 
 button.btn-box {
@@ -52,10 +72,64 @@ button.btn-box {
   border-radius: 8px;
   font-size: 16px;
   font-weight: 600;
+  line-height: 26px;
 
   &:hover {
     background: $color-hover-1967d6;
-    transition: all ease 0.3s;
+    transition: all ease 0.2s;
+  }
+}
+
+button.btn-box.gray {
+  padding: 8px 23px;
+  background: $color-9ca3af;
+
+  &:hover {
+    background: $color-hover-1967d6;
+    transition: all ease 0.2s;
+  }
+}
+
+button.btn-box.submit {
+  padding: 8px 23px;
+  background: $color-hover-1967d6;
+  &:disabled {
+    background: $color-9ca3af;
+  }
+}
+
+button.btn-kebab {
+  display: block;
+  width: 24px;
+  height: 24px;
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.btn-back {
+  display: block;
+  margin: 64px 0;
+  a {
+    display: block;
+    width: 240px;
+    height: 48px;
+    margin: 0 auto;
+    padding: 0 39.5px;
+    border-radius: 40px;
+    background: url("../../public/assets/icon/ic_back.png") no-repeat right
+      39.5px center $color-3692ff;
+    color: $color-f3f4f6;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 48px;
+  }
+  &:hover {
+    a {
+      background-color: $color-hover-1967d6;
+      transition: all ease 0.2s;
+    }
   }
 }
 

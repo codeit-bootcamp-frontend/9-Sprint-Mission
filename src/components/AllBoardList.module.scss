@@ -1,5 +1,31 @@
 @import "@/src/styles/common.scss";
 
+.article {
+  margin-top: 40px;
+
+  h2 {
+    width: 100%;
+    line-height: 42px;
+
+    button {
+      > a {
+        display: block;
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    }
+  }
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
+}
+
 .article-wrap {
   display: flex;
   flex-direction: column;
@@ -118,7 +144,7 @@
 }
 
 .date {
-  color: $color-gray-2;
+  color: $color-9ca3af;
   font-size: 14px;
 }
 
@@ -152,6 +178,9 @@
 }
 
 @media (max-width: 768px) {
+  .filter-section {
+    gap: 13px;
+  }
   .article-wrap.best {
     li {
       width: 100%;

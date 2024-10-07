@@ -2,4 +2,5 @@
 *.js text eol=lf
 *.css text eol=lf
 *.svg text eol=lf
+* text=auto
 node_modules/@next/swc-win32-x64-msvc/next-swc.win32-x64-msvc.node filter=lfs diff=lfs merge=lfs -text
