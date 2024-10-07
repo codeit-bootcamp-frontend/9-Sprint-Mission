@@ -18,7 +18,7 @@ export const getStaticProps: GetStaticProps<ListResponse> = async () => {
         orderBy: "recent",
       },
     });
-    const { list, totalCount } = res.data;
+    const { list = [], totalCount = 0 } = res.data || {};
 
     return {
       props: {
