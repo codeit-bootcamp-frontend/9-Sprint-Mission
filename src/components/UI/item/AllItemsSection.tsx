@@ -1,5 +1,5 @@
 // src/components/UI/item/AllItemsSection.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { getProducts } from "@/api/product";
@@ -38,6 +38,31 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
 
+  // useMemo를 사용하여 쿼리 객체 메모이제이션
+  const memoizedQuery = useMemo(() => {
+    const query = { ...router.query };
+    if (debouncedSearchKeyword.trim()) {
+      query.q = debouncedSearchKeyword;
+    } else {
+      delete query.q;
+    }
+    return query;
+  }, [router.query, debouncedSearchKeyword]);
+
+  // useCallback을 사용하여 함수 메모이제이션
+  const updateRouterQuery = useCallback(() => {
+    if (router.query.q !== debouncedSearchKeyword.trim()) {
+      router.replace(
+        {
+          pathname: router.pathname,
+          query: memoizedQuery,
+        },
+        undefined,
+        { shallow: true }
+      );
+    }
+  }, [router, memoizedQuery, debouncedSearchKeyword]);
+
   // 초기 렌더링 시 데이터를 불러오지 않게 하기 위해 클라이언트 사이드에서만 동작하도록 설정
   const [pageSize, setPageSize] = useState<number | null>(null); // null일 때는 로딩 대기
 
@@ -59,58 +84,42 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
 
   // 디바운스된 검색어로 라우터 쿼리 업데이트 및 아이템 목록 초기화
   useEffect(() => {
-    const query = { ...router.query };
-
-    if (debouncedSearchKeyword.trim()) {
-      query.q = debouncedSearchKeyword;
-    } else {
-      delete query.q;
-    }
-
-    if (router.query.q !== debouncedSearchKeyword.trim()) {
-      router.replace(
-        {
-          pathname: router.pathname,
-          query,
-        },
-        undefined,
-        { shallow: true }
-      );
-    }
+    updateRouterQuery();
     setPage(1);
     setItemList([]);
-  }, [debouncedSearchKeyword, router.pathname]);
+  }, [debouncedSearchKeyword, updateRouterQuery]);
 
-  // 상품을 불러오는 비동기 함수
-  useEffect(() => {
+  // fetchSortedData 함수를 useCallback으로 메모이제이션
+  const fetchSortedData = useCallback(async () => {
     if (pageSize === null) {
-      // pageSize가 아직 설정되지 않았을 때는 아무 것도 하지 않음
       return;
     }
 
-    const fetchSortedData = async () => {
-      setIsLoading(true);
-      try {
-        const response: ProductListResponse = await getProducts({
-          orderBy,
-          page,
-          pageSize,
-          keyword: debouncedSearchKeyword.trim()
-            ? debouncedSearchKeyword
-            : undefined,
-        });
-        setItemList(response.list);
-        setTotalPageNum(Math.ceil(response.totalCount / pageSize));
-      } catch (error) {
-        console.error("상품을 불러오는 데 실패했습니다:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    setIsLoading(true);
+    try {
+      const response: ProductListResponse = await getProducts({
+        orderBy,
+        page,
+        pageSize,
+        keyword: debouncedSearchKeyword.trim()
+          ? debouncedSearchKeyword
+          : undefined,
+      });
+      setItemList(response.list);
+      setTotalPageNum(Math.ceil(response.totalCount / pageSize));
+    } catch (error) {
+      console.error("상품을 불러오는 데 실패했습니다:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [orderBy, page, pageSize, debouncedSearchKeyword, setIsLoading]);
 
-    // 클라이언트에서 pageSize가 설정된 후 데이터를 불러옴
-    fetchSortedData();
-  }, [orderBy, page, pageSize, debouncedSearchKeyword]);
+  // 상품을 불러오는 useEffect
+  useEffect(() => {
+    if (pageSize !== null) {
+      fetchSortedData();
+    }
+  }, [fetchSortedData, pageSize]);
 
   // 정렬 옵션 선택 핸들러
   const handleSortSelection = (sortOption: ProductSortOption) => {

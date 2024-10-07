@@ -1,5 +1,5 @@
 // src/components/UI/community/AllArticlesSection.tsx
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -105,60 +105,73 @@ const AllArticlesSection = () => {
     setSearchKeyword(keyword);
   };
 
-  // 디바운스된 검색어로 라우터 쿼리 업데이트 및 게시글 목록 초기화
-  useEffect(() => {
+  // useMemo를 사용하여 쿼리 객체 메모이제이션
+  const memoizedQuery = useMemo(() => {
     const query = { ...router.query };
-
     if (debouncedSearchKeyword.trim()) {
       query.q = debouncedSearchKeyword;
     } else {
       delete query.q;
     }
+    return query;
+  }, [router.query, debouncedSearchKeyword]);
 
+  // useCallback을 사용하여 함수 메모이제이션
+  const updateRouterQuery = useCallback(() => {
     router.replace(
       {
         pathname: router.pathname,
-        query,
+        query: memoizedQuery,
       },
       undefined,
-      { shallow: true } // 페이지를 다시 로드하지 않음
+      { shallow: true }
     );
+  }, [router, memoizedQuery]);
 
-    setPage(1); // 검색어 변경 시 페이지 초기화
-    setArticles([]); // 새로운 데이터 불러오기 전 게시글 목록 초기화
-  }, [debouncedSearchKeyword, router.pathname]);
-
-  // 게시글을 불러오는 비동기 함수
+  // 디바운스된 검색어로 라우터 쿼리 업데이트 및 게시글 목록 초기화
   useEffect(() => {
-    const fetchArticles = async () => {
-      setIsLoading(true);
-      try {
-        const params = {
-          orderBy,
-          page,
-          pageSize: PAGE_SIZE,
-          keyword: debouncedSearchKeyword.trim()
-            ? debouncedSearchKeyword
-            : undefined,
-        };
-        const data = await getArticles(params);
+    updateRouterQuery();
+    setPage(1);
+    setArticles([]);
+  }, [debouncedSearchKeyword, updateRouterQuery]);
 
-        // 페이지네이션과 무한 스크롤 로직 분리
-        setArticles((prevArticles) =>
-          isMobileInfiniteScroll ? [...prevArticles, ...data.list] : data.list
-        );
+  // fetchArticles 함수를 useCallback으로 메모이제이션
+  const fetchArticles = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const params = {
+        orderBy,
+        page,
+        pageSize: PAGE_SIZE,
+        keyword: debouncedSearchKeyword.trim()
+          ? debouncedSearchKeyword
+          : undefined,
+      };
+      const data = await getArticles(params);
 
-        setHasMore(data.list.length === PAGE_SIZE); // 다음 페이지가 있는지 여부 확인
-        setTotalPages(Math.ceil(data.totalCount / PAGE_SIZE));
-      } catch (error) {
-        console.error("게시글을 불러오는 데 실패했습니다:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+      setArticles((prevArticles) =>
+        isMobileInfiniteScroll ? [...prevArticles, ...data.list] : data.list
+      );
 
+      setHasMore(data.list.length === PAGE_SIZE);
+      setTotalPages(Math.ceil(data.totalCount / PAGE_SIZE));
+    } catch (error) {
+      console.error("게시글을 불러오는 데 실패했습니다:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [
+    orderBy,
+    page,
+    debouncedSearchKeyword,
+    isMobileInfiniteScroll,
+    setIsLoading,
+  ]);
+
+  // 게시글을 불러오는 useEffect
+  useEffect(() => {
     fetchArticles();
-  }, [orderBy, debouncedSearchKeyword, page, isMobileInfiniteScroll]);
+  }, [fetchArticles]);
 
   return (
     <div className="bg-white px-4 max-w-[1200px] mx-auto" ref={containerRef}>
