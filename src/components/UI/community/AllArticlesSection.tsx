@@ -111,6 +111,7 @@ const AllArticlesSection = () => {
       undefined,
       { shallow: true }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname, memoizedQuery]);
 
   // 디바운스된 검색어로 라우터 쿼리 업데이트 및 페이지 초기화
@@ -119,8 +120,8 @@ const AllArticlesSection = () => {
     setPage(1);
   }, [debouncedSearchKeyword, updateRouterQuery]);
 
-  // fetchArticles 함수를 useCallback으로 메모이제이션
-  const fetchArticles = useCallback(async () => {
+  // fetchSortedData 함수를 useCallback으로 메모이제이션
+  const fetchSortedData = useCallback(async () => {
     setIsLoading(true);
     try {
       const params = {
@@ -145,15 +146,21 @@ const AllArticlesSection = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [orderBy, page, debouncedSearchKeyword]); // isMobileInfiniteScroll 제거
+  }, [
+    orderBy,
+    page,
+    debouncedSearchKeyword,
+    isMobileInfiniteScroll,
+    setIsLoading,
+  ]);
 
   // 게시글을 불러오는 useEffect
   useEffect(() => {
     // isMobileInfiniteScroll이 null이 아닐 때만 fetchArticles 호출
     if (isMobileInfiniteScroll !== null) {
-      fetchArticles();
+      fetchSortedData();
     }
-  }, [fetchArticles, isMobileInfiniteScroll]);
+  }, [fetchSortedData, isMobileInfiniteScroll]);
 
   // 정렬 옵션 선택 핸들러
   const handleSortSelection = useCallback(

@@ -72,6 +72,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
       undefined,
       { shallow: true }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname, memoizedQuery]);
 
   // 디바운스된 검색어로 라우터 쿼리 업데이트 및 페이지 초기화
