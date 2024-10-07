@@ -8,8 +8,8 @@ import EmptyInquiry from "../EmptyInquiry";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 이미지 유효성 검사 함수 가져오기
 
 // public 폴더 경로 문자열로 대체
-const KebabIcon = "/images/icons/ic_kebab.png";
-const DefaultProfileImage = "/images/ui/ic_profile-40.png";
+const KEBAB_ICON = "/images/icons/ic_kebab.png";
+const DEFAULT_PROFILE_IMAGE = "/images/ui/ic_profile-40.png";
 
 // 댓글 하나를 나타내는 컴포넌트
 interface CommentItemProps {
@@ -24,7 +24,7 @@ const CommentItem = ({ item }: CommentItemProps) => {
   const imageUrl =
     authorInfo.image && isValidImageUrl(authorInfo.image)
       ? `/api/imageProxy?url=${encodeURIComponent(authorInfo.image)}`
-      : DefaultProfileImage;
+      : DEFAULT_PROFILE_IMAGE;
 
   return (
     <>
@@ -32,7 +32,7 @@ const CommentItem = ({ item }: CommentItemProps) => {
         {/* 케밥 버튼 (추후 기능 추가 예정) */}
         <button className="absolute right-0">
           <Image
-            src={KebabIcon}
+            src={KEBAB_ICON}
             width={24}
             height={24}
             alt="케밥 이미지 버튼"
@@ -79,7 +79,6 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태
   const [error, setError] = useState<string | null>(null); // 에러 상태
   const [nextCursor, setNextCursor] = useState<number | null>(null); // 다음 커서
-  const [hasMore, setHasMore] = useState(true); // 더 많은 댓글이 있는지 여부
 
   const observer = useRef<IntersectionObserver | null>(null); // IntersectionObserver 참조
   const lastCommentRef = useRef<HTMLDivElement | null>(null); // 마지막 댓글에 대한 참조
@@ -88,7 +87,6 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
   useEffect(() => {
     setComments([]); // 댓글 리스트 초기화
     setNextCursor(null); // 커서 초기화
-    setHasMore(true); // hasMore 초기화
     setError(null); // 에러 초기화
     setIsLoading(true); // 로딩 상태 설정
 
@@ -111,7 +109,6 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
 
         setComments(response.list);
         setNextCursor(response.nextCursor || null);
-        setHasMore(!!response.nextCursor);
         setError(null);
       } catch (error) {
         console.error("Error fetching comments:", error);
@@ -130,7 +127,7 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
 
     // 추가 댓글을 로딩하는 함수
     const fetchMoreComments = async () => {
-      if (!hasMore) return;
+      if (!nextCursor) return;
 
       setIsLoading(true);
       const limit = 10;
@@ -147,7 +144,6 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
 
         setComments((prev) => [...prev, ...response.list]);
         setNextCursor(response.nextCursor || null);
-        setHasMore(!!response.nextCursor);
         setError(null);
       } catch (error) {
         console.error("Error fetching more comments:", error);
@@ -160,7 +156,7 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
     // IntersectionObserver 콜백 함수
     const loadMoreComments = (entries: IntersectionObserverEntry[]) => {
       const target = entries[0];
-      if (target.isIntersecting && hasMore) {
+      if (target.isIntersecting && nextCursor) {
         fetchMoreComments(); // 추가 댓글 로딩
       }
     };
@@ -175,7 +171,7 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [isLoading, hasMore, nextCursor, productId]); // 필요한 의존성 포함
+  }, [isLoading, nextCursor, productId]); // 필요한 의존성 포함
 
   // 로딩 상태 처리
   if (isLoading && comments.length === 0) {
