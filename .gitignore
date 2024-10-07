@@ -9,7 +9,7 @@
 /coverage
 
 # next.js
-/.next/
+/.next
 /out/
 
 # production
@@ -17,7 +17,7 @@
 
 # misc
 .DS_Store
-.DS_Store
+/DS_Store
 ._.DS_Store
 **/.DS_Store
 **/._.DS_Store
@@ -29,11 +29,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env*.local
+/.env
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+/next-env.d.ts
