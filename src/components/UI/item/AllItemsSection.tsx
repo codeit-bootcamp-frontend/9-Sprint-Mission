@@ -52,34 +52,29 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
 
   // useMemo를 사용하여 쿼리 객체 메모이제이션
   const memoizedQuery = useMemo(() => {
-    const query = { ...router.query };
+    const query: Record<string, string> = {};
     if (debouncedSearchKeyword.trim()) {
       query.q = debouncedSearchKeyword;
-    } else {
-      delete query.q;
     }
     return query;
-  }, [router.query, debouncedSearchKeyword]);
+  }, [debouncedSearchKeyword]);
 
   // useCallback을 사용하여 함수 메모이제이션
   const updateRouterQuery = useCallback(() => {
-    if (router.query.q !== debouncedSearchKeyword.trim()) {
-      router.replace(
-        {
-          pathname: router.pathname,
-          query: memoizedQuery,
-        },
-        undefined,
-        { shallow: true }
-      );
-    }
-  }, [router, memoizedQuery, debouncedSearchKeyword]);
+    router.replace(
+      {
+        pathname: router.pathname,
+        query: memoizedQuery,
+      },
+      undefined,
+      { shallow: true }
+    );
+  }, [router.pathname, memoizedQuery]);
 
   // 디바운스된 검색어로 라우터 쿼리 업데이트 및 페이지 초기화
   useEffect(() => {
     updateRouterQuery();
     setPage(1);
-    // setItemList([]) 제거
   }, [debouncedSearchKeyword, updateRouterQuery]);
 
   // fetchSortedData 함수를 useCallback으로 메모이제이션
@@ -95,10 +90,10 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
           : undefined,
       });
 
-      setItemList((prevItems) =>
-        page === 1 ? response.list : [...prevItems, ...response.list]
-      );
+      // 새로 받은 리스트로 상태 업데이트
+      setItemList(response.list);
 
+      // 총 페이지 수 업데이트
       setTotalPageNum(Math.ceil(response.totalCount / pageSize));
     } catch (error) {
       console.error("상품을 불러오는 데 실패했습니다:", error);
@@ -117,7 +112,6 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     if (sortOption !== orderBy) {
       setOrderBy(sortOption);
       setPage(1);
-      // setItemList([]) 제거
     }
   };
 
@@ -125,7 +119,6 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const handleSearch = (keyword: string) => {
     setSearchKeyword(keyword);
     setPage(1);
-    // setItemList([]) 제거
   };
 
   return (

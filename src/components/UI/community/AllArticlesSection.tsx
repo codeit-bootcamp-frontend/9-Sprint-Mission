@@ -40,6 +40,24 @@ const AllArticlesSection = () => {
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
   const [isMobileInfiniteScroll, setIsMobileInfiniteScroll] = useState(false);
 
+  // 상태 값을 참조하기 위한 레퍼런스
+  const isLoadingRef = useRef(isLoading);
+  const pageRef = useRef(page);
+  const totalPagesRef = useRef(totalPages);
+
+  // 상태 값 변경 시 레퍼런스 업데이트
+  useEffect(() => {
+    isLoadingRef.current = isLoading;
+  }, [isLoading]);
+
+  useEffect(() => {
+    pageRef.current = page;
+  }, [page]);
+
+  useEffect(() => {
+    totalPagesRef.current = totalPages;
+  }, [totalPages]);
+
   // 화면 리사이즈 시 무한 스크롤 여부 결정
   useEffect(() => {
     const handleResize = () => {
@@ -54,37 +72,32 @@ const AllArticlesSection = () => {
   const throttledScroll = useThrottle(() => {
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 500 &&
-      !isLoading &&
-      page < totalPages
+      !isLoadingRef.current &&
+      pageRef.current < totalPagesRef.current
     ) {
       setPage((prevPage) => prevPage + 1);
     }
   }, 300);
 
   useEffect(() => {
-    if (!isMobileInfiniteScroll) {
-      window.removeEventListener("scroll", throttledScroll);
-      return;
+    if (isMobileInfiniteScroll) {
+      window.addEventListener("scroll", throttledScroll);
+      return () => {
+        window.removeEventListener("scroll", throttledScroll);
+      };
     }
-
-    window.addEventListener("scroll", throttledScroll);
-    return () => {
-      window.removeEventListener("scroll", throttledScroll);
-    };
-  }, [isMobileInfiniteScroll, isLoading, throttledScroll, page, totalPages]);
+  }, [isMobileInfiniteScroll, throttledScroll]);
 
   // useMemo를 사용하여 쿼리 객체 메모이제이션
   const memoizedQuery = useMemo(() => {
-    const query = { ...router.query };
+    const query: Record<string, string> = {};
     if (debouncedSearchKeyword.trim()) {
       query.q = debouncedSearchKeyword;
-    } else {
-      delete query.q;
     }
     return query;
-  }, [router.query, debouncedSearchKeyword]);
+  }, [debouncedSearchKeyword]);
 
-  // useCallback과 useThrottle을 사용하여 함수 메모이제이션 및 쓰로틀링
+  // useCallback을 사용하여 함수 메모이제이션
   const updateRouterQuery = useCallback(() => {
     router.replace(
       {
@@ -94,7 +107,7 @@ const AllArticlesSection = () => {
       undefined,
       { shallow: true }
     );
-  }, [router, memoizedQuery]);
+  }, [router.pathname, memoizedQuery]);
 
   // 디바운스된 검색어로 라우터 쿼리 업데이트 및 페이지 초기화
   useEffect(() => {
@@ -128,13 +141,7 @@ const AllArticlesSection = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [
-    orderBy,
-    page,
-    debouncedSearchKeyword,
-    isMobileInfiniteScroll,
-    setIsLoading,
-  ]);
+  }, [orderBy, page, debouncedSearchKeyword, isMobileInfiniteScroll]);
 
   // 게시글을 불러오는 useEffect
   useEffect(() => {
@@ -142,10 +149,15 @@ const AllArticlesSection = () => {
   }, [fetchArticles]);
 
   // 정렬 옵션 선택 핸들러
-  const handleSortSelection = useCallback((sortOption: ArticleSortOption) => {
-    setOrderBy(sortOption);
-    setPage(1);
-  }, []);
+  const handleSortSelection = useCallback(
+    (sortOption: ArticleSortOption) => {
+      if (sortOption !== orderBy) {
+        setOrderBy(sortOption);
+        setPage(1);
+      }
+    },
+    [orderBy]
+  );
 
   // 검색어 입력 핸들러
   const handleSearch = useCallback((keyword: string) => {
