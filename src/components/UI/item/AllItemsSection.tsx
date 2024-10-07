@@ -37,6 +37,18 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const router = useRouter();
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
+  const [pageSize, setPageSize] = useState(getPageSize(width));
+
+  // 화면 리사이즈 시 페이지 크기 결정
+  useEffect(() => {
+    const handleResize = () => {
+      setPageSize(getPageSize(window.innerWidth));
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // useMemo를 사용하여 쿼리 객체 메모이제이션
   const memoizedQuery = useMemo(() => {
@@ -63,38 +75,15 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
     }
   }, [router, memoizedQuery, debouncedSearchKeyword]);
 
-  // 초기 렌더링 시 데이터를 불러오지 않게 하기 위해 클라이언트 사이드에서만 동작하도록 설정
-  const [pageSize, setPageSize] = useState<number | null>(null); // null일 때는 로딩 대기
-
-  // 화면 리사이즈 시 페이지 크기 결정 (클라이언트 사이드에서만 실행)
-  useEffect(() => {
-    const handleResize = () => {
-      if (typeof window !== "undefined") {
-        setPageSize(getPageSize(window.innerWidth)); // 화면 크기에 맞는 pageSize 설정
-      }
-    };
-
-    // 처음 렌더링 시 실행
-    handleResize();
-
-    // 이후 창 크기 변경 시 실행
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  // 디바운스된 검색어로 라우터 쿼리 업데이트 및 아이템 목록 초기화
+  // 디바운스된 검색어로 라우터 쿼리 업데이트 및 페이지 초기화
   useEffect(() => {
     updateRouterQuery();
     setPage(1);
-    setItemList([]);
+    // setItemList([]) 제거
   }, [debouncedSearchKeyword, updateRouterQuery]);
 
   // fetchSortedData 함수를 useCallback으로 메모이제이션
   const fetchSortedData = useCallback(async () => {
-    if (pageSize === null) {
-      return;
-    }
-
     setIsLoading(true);
     try {
       const response: ProductListResponse = await getProducts({
@@ -105,28 +94,30 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
           ? debouncedSearchKeyword
           : undefined,
       });
-      setItemList(response.list);
+
+      setItemList((prevItems) =>
+        page === 1 ? response.list : [...prevItems, ...response.list]
+      );
+
       setTotalPageNum(Math.ceil(response.totalCount / pageSize));
     } catch (error) {
       console.error("상품을 불러오는 데 실패했습니다:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [orderBy, page, pageSize, debouncedSearchKeyword, setIsLoading]);
+  }, [orderBy, page, pageSize, debouncedSearchKeyword]);
 
   // 상품을 불러오는 useEffect
   useEffect(() => {
-    if (pageSize !== null) {
-      fetchSortedData();
-    }
-  }, [fetchSortedData, pageSize]);
+    fetchSortedData();
+  }, [fetchSortedData]);
 
   // 정렬 옵션 선택 핸들러
   const handleSortSelection = (sortOption: ProductSortOption) => {
     if (sortOption !== orderBy) {
       setOrderBy(sortOption);
       setPage(1);
-      setItemList([]); // 아이템 리스트 초기화
+      // setItemList([]) 제거
     }
   };
 
@@ -134,7 +125,7 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const handleSearch = (keyword: string) => {
     setSearchKeyword(keyword);
     setPage(1);
-    setItemList([]); // 아이템 리스트 초기화
+    // setItemList([]) 제거
   };
 
   return (
@@ -161,13 +152,13 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
         />
       </div>
 
-      {isLoading ? (
+      {isLoading && itemList.length === 0 ? (
         <div className="flex justify-center items-center h-64">
           <LoadingSpinner isLoading={isLoading} />
         </div>
       ) : (
         <div className="space-y-6">
-          {itemList.length ? (
+          {itemList.length > 0 ? (
             <div className="grid grid-cols-2 gap-8 sm:gap-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">
               {itemList.map((item) => (
                 <ItemCard
@@ -178,11 +169,17 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
                 />
               ))}
             </div>
-          ) : debouncedSearchKeyword ? (
+          ) : !isLoading && debouncedSearchKeyword ? (
             <div>
               <span>검색된 결과가 없습니다.</span>
             </div>
           ) : null}
+        </div>
+      )}
+
+      {isLoading && itemList.length > 0 && (
+        <div className="flex justify-center items-center h-20">
+          <LoadingSpinner isLoading={isLoading} />
         </div>
       )}
 
