@@ -1,26 +1,23 @@
 // src/components/UI/comment/ItemCommentThread.tsx
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { getProductComments } from "@/api/product";
 import { formatUpdatedAt } from "@/utils/dateUtils";
 import { Comment, CommentListResponse } from "@/types/comment";
 import EmptyInquiry from "../EmptyInquiry";
-import { isValidImageUrl } from "@/utils/imageUtils"; // 이미지 유효성 검사 함수 가져오기
+import { isValidImageUrl } from "@/utils/imageUtils";
 
-// public 폴더 경로 문자열로 대체
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const DEFAULT_PROFILE_IMAGE = "/images/ui/ic_profile-40.png";
 
-// 댓글 하나를 나타내는 컴포넌트
 interface CommentItemProps {
   item: Comment;
 }
 
 const CommentItem = ({ item }: CommentItemProps) => {
   const authorInfo = item.writer;
-  const formattedTimestamp = formatUpdatedAt(item.updatedAt); // 시간 포맷팅
+  const formattedTimestamp = formatUpdatedAt(item.updatedAt);
 
-  // 작성자의 프로필 이미지가 유효한지 확인 후 이미지 URL 설정
   const imageUrl =
     authorInfo.image && isValidImageUrl(authorInfo.image)
       ? `/api/imageProxy?url=${encodeURIComponent(authorInfo.image)}`
@@ -29,7 +26,6 @@ const CommentItem = ({ item }: CommentItemProps) => {
   return (
     <>
       <div className="py-6 relative">
-        {/* 케밥 버튼 (추후 기능 추가 예정) */}
         <button className="absolute right-0">
           <Image
             src={KEBAB_ICON}
@@ -42,7 +38,6 @@ const CommentItem = ({ item }: CommentItemProps) => {
 
         <p className="text-base leading-[140%] mb-6">{item.content}</p>
 
-        {/* 작성자 정보 및 프로필 이미지 */}
         <div className="flex items-center gap-2">
           <Image
             src={imageUrl}
@@ -62,128 +57,90 @@ const CommentItem = ({ item }: CommentItemProps) => {
   );
 };
 
-// 댓글이 없을 때 표시되는 상태 컴포넌트
 const EmptyState = () => (
   <div className="m-6 flex flex-col items-center gap-6">
     <EmptyInquiry text="아직 문의가 없습니다." />
   </div>
 );
 
-// 댓글 스레드를 나타내는 컴포넌트 (상품 ID를 받아 댓글을 표시)
 interface CommentThreadProps {
   productId: number;
 }
 
 const CommentThread = ({ productId }: CommentThreadProps) => {
-  const [comments, setComments] = useState<Comment[]>([]); // 댓글 리스트
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
-  const [error, setError] = useState<string | null>(null); // 에러 상태
-  const [nextCursor, setNextCursor] = useState<number | null>(null); // 다음 커서
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [nextCursor, setNextCursor] = useState<number | null>(null);
 
-  const observer = useRef<IntersectionObserver | null>(null); // IntersectionObserver 참조
-  const lastCommentRef = useRef<HTMLDivElement | null>(null); // 마지막 댓글에 대한 참조
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastCommentRef = useRef<HTMLDivElement | null>(null);
 
-  // 첫 댓글 로드 및 상품 ID 변경 시 댓글 리셋
-  useEffect(() => {
-    setComments([]); // 댓글 리스트 초기화
-    setNextCursor(null); // 커서 초기화
-    setError(null); // 에러 초기화
-    setIsLoading(true); // 로딩 상태 설정
+  const fetchComments = useCallback(
+    async (cursor: number | null = null) => {
+      if (!productId) return;
 
-    // 비동기 함수 선언
-    const fetchComments = async () => {
-      if (!productId) return; // 상품 ID가 없으면 종료
-
-      const limit = 10; // 한 번에 불러올 댓글 수
-      const cursor = null; // 초기 커서는 null
+      setIsLoading(true);
+      setError(null);
 
       try {
-        // API 호출하여 댓글 목록 가져오기
         const response: CommentListResponse = await getProductComments(
           productId,
           {
-            limit,
+            limit: 10,
             cursor,
           }
         );
 
-        setComments(response.list);
+        if (cursor === null) {
+          setComments(response.list);
+        } else {
+          setComments((prev) => [...prev, ...response.list]);
+        }
         setNextCursor(response.nextCursor || null);
-        setError(null);
       } catch (error) {
         console.error("Error fetching comments:", error);
         setError("상품의 댓글을 불러오지 못했어요.");
       } finally {
-        setIsLoading(false); // 로딩 상태 해제
+        setIsLoading(false);
       }
-    };
+    },
+    [productId]
+  );
 
-    fetchComments(); // 비동기 함수 호출
-  }, [productId]); // productId가 변경될 때만 실행
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
 
-  // 무한 스크롤: 마지막 댓글이 화면에 보이면 추가 댓글 로딩
   useEffect(() => {
     if (isLoading) return;
 
-    // 추가 댓글을 로딩하는 함수
-    const fetchMoreComments = async () => {
-      if (!nextCursor) return;
-
-      setIsLoading(true);
-      const limit = 10;
-      const cursor = nextCursor;
-
-      try {
-        const response: CommentListResponse = await getProductComments(
-          productId,
-          {
-            limit,
-            cursor,
-          }
-        );
-
-        setComments((prev) => [...prev, ...response.list]);
-        setNextCursor(response.nextCursor || null);
-        setError(null);
-      } catch (error) {
-        console.error("Error fetching more comments:", error);
-        setError("상품의 댓글을 불러오지 못했어요.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    // IntersectionObserver 콜백 함수
     const loadMoreComments = (entries: IntersectionObserverEntry[]) => {
       const target = entries[0];
       if (target.isIntersecting && nextCursor) {
-        fetchMoreComments(); // 추가 댓글 로딩
+        fetchComments(nextCursor);
       }
     };
 
-    if (observer.current) observer.current.disconnect(); // 기존 observer 해제
+    if (observer.current) observer.current.disconnect();
 
-    observer.current = new IntersectionObserver(loadMoreComments); // 새로운 observer 설정
+    observer.current = new IntersectionObserver(loadMoreComments);
     if (lastCommentRef.current)
-      observer.current.observe(lastCommentRef.current); // 마지막 댓글 관찰 시작
+      observer.current.observe(lastCommentRef.current);
 
-    // 클린업 함수로 observer 해제
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [isLoading, nextCursor, productId]); // 필요한 의존성 포함
+  }, [isLoading, nextCursor, fetchComments]);
 
-  // 로딩 상태 처리
   if (isLoading && comments.length === 0) {
     return <div className="text-center py-4">상품 댓글 로딩중...</div>;
   }
 
-  // 에러 처리
   if (error) {
     return <div className="text-red-500 text-center py-4">오류: {error}</div>;
   }
 
-  // 댓글이 없는 경우 EmptyState 표시
   if (!isLoading && comments.length === 0) {
     return <EmptyState />;
   }
@@ -193,7 +150,7 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
       {comments.map((item, index) => (
         <div
           key={`comment-${item.id}`}
-          ref={index === comments.length - 1 ? lastCommentRef : null} // 마지막 댓글에 대한 ref 설정
+          ref={index === comments.length - 1 ? lastCommentRef : null}
         >
           <CommentItem item={item} />
         </div>
