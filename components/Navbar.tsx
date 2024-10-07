@@ -31,6 +31,13 @@ function Navbar() {
             </Link>
           </div>
         </div>
+        {/* <Button
+          onClick={() => {
+            router.push("/login");
+          }}
+        >
+          로그인
+        </Button> */}
         <Link href="/">
           <Image
             src="/images/profile.svg"

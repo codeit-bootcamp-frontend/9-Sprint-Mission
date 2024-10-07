@@ -14,7 +14,7 @@ const Logo = () => {
       />
       <Image
         className={styles.logoText}
-        src="images/판다마켓.svg"
+        src="/images/판다마켓.svg"
         alt="판다마켓"
         width={103}
         height={35}

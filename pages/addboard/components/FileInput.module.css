@@ -1,0 +1,92 @@
+.fileInputMain {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1200px) {
+  .fileInputMain {
+    gap: 10px;
+  }
+}
+
+.fileInputTop {
+  display: flex;
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .fileInputTop {
+    gap: 10px;
+  }
+}
+
+.fileInputButton {
+  width: 282px;
+  height: 282px;
+  background-color: #f3f4f6;
+  border: 0;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1200px) {
+  .fileInputButton {
+    width: 168px;
+    height: 168px;
+  }
+}
+
+.fileInputElement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.fileInputElementText {
+  font-size: 16px;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.fileInputPreviewImg {
+  border: none;
+  border-radius: 12px;
+}
+
+@media (max-width: 1200px) {
+  .fileInputPreviewImg {
+    width: 168px;
+    height: 168px;
+  }
+}
+
+.previewBox {
+  position: relative;
+}
+
+.previewClearButton {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 9999px;
+  padding: 0;
+}
+
+.warningText {
+  font-size: 14px;
+  font-weight: 400;
+  color: #f74747;
+  margin-top: 16px;
+  margin-bottom: 0;
+}

@@ -1,0 +1,16 @@
+.bestProducts {
+  margin-top: 24px;
+  margin-bottom: 40px;
+}
+
+.bestTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.productList {
+  display: flex;
+  list-style-type: none;
+  gap: 24px;
+}

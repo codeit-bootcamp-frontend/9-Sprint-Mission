@@ -6,9 +6,11 @@ import Button from "@/components/Button";
 import { ClipLoader } from "react-spinners";
 import Pagination from "@/components/Pagination";
 import { Post } from "@/types/types";
+import { useRouter } from "next/router";
 
 const PAGE_SIZE = 10;
 const PAGE_LIMIT = 5;
+const DEBOUNCE_DELAY = 300; // 디바운스 딜레이 설정
 
 interface PostsProps {
   initialPosts: Post[];
@@ -16,6 +18,7 @@ interface PostsProps {
 }
 
 function Posts({ initialPosts = [], total }: PostsProps) {
+  const router = useRouter();
   const [order, setOrder] = useState<string>("recent");
   const [posts, setPosts] = useState<Post[]>(initialPosts);
   const [page, setPage] = useState<number>(1);
@@ -23,6 +26,21 @@ function Posts({ initialPosts = [], total }: PostsProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState<string>("");
+
+  // 검색 입력 처리
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+
+  // 검색어가 바뀔 때마다 300ms 후에 실제 검색 상태를 업데이트
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, DEBOUNCE_DELAY);
+
+    // cleanup: 타이핑 중이면 이전 타이머를 지움
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setOrder(e.target.value);
@@ -38,6 +56,7 @@ function Posts({ initialPosts = [], total }: PostsProps) {
     setLoading(true);
     setError(null);
     let res;
+
     try {
       res = await axios.get(
         `/articles?page=${pageQuery}&pageSize=${PAGE_SIZE}&orderBy=${orderQuery}`
@@ -57,7 +76,7 @@ function Posts({ initialPosts = [], total }: PostsProps) {
 
   useEffect(() => {
     getPosts();
-  }, [order, page, getPosts]);
+  }, [getPosts]);
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -65,10 +84,11 @@ function Posts({ initialPosts = [], total }: PostsProps) {
     }
   };
 
-  const filteredPosts = search
+  // debouncedSearch 값이 바뀔 때만 필터링
+  const filteredPosts = debouncedSearch
     ? Array.isArray(posts)
       ? posts.filter((post) =>
-          post.content?.toLowerCase().includes(search.toLowerCase())
+          post.content?.toLowerCase().includes(debouncedSearch.toLowerCase())
         )
       : []
     : posts;
@@ -77,7 +97,14 @@ function Posts({ initialPosts = [], total }: PostsProps) {
     <div>
       <div className={styles.postsHeader}>
         <h2 className={styles.headerTitle}>게시글</h2>
-        <Button width="88px">글쓰기</Button>
+        <Button
+          onClick={() => {
+            router.push("/addboard");
+          }}
+          width="88px"
+        >
+          글쓰기
+        </Button>
       </div>
       <form className={styles.postsForm}>
         <input

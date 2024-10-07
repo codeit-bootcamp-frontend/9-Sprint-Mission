@@ -1,0 +1,14 @@
+.profile {
+  display: flex;
+  gap: 8px;
+  font-size: 14px;
+  align-items: center;
+}
+
+.profileImage {
+  border-radius: 8px;
+  border: 1px solid #f3f4f6;
+}
+.profileDate {
+  color: #9ca3af;
+}

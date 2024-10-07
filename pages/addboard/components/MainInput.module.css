@@ -1,0 +1,50 @@
+.addBoardHeader {
+  margin-top: 24px;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addBoardHeader h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.mainInput {
+  margin-top: 32px;
+}
+
+.inputTitle {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.inputText,
+.inputTextArea {
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  margin-top: 12px;
+  margin-bottom: 24px;
+  padding: 16px 0 16px 24px;
+  outline: none;
+  font-family: "Pretendard", sans-serif;
+}
+
+.inputText::placeholder,
+.inputTextArea::placeholder {
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+.inputText {
+  height: 56px;
+}
+
+.inputTextArea {
+  height: 282px;
+  resize: none;
+}
