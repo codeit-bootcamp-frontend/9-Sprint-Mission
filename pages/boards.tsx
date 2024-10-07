@@ -2,14 +2,48 @@ import ArticleList from "@/components/ArticleList";
 import BestArticleList from "@/components/BestArticleList";
 import { throttle } from "@/lib/throttle";
 import { useEffect, useState } from "react";
-interface Query {
-  page: number;
-  pageSize: number;
-  orderBy: string;
-  keyword?: string;
-}
+import { Article, Query } from "@/types/types";
+import axios from "axios";
 
-export default function Boards() {
+export const getStaticProps = async () => {
+  try {
+    const mainArticleRes = await axios.get(
+      `/articles?page=1&pageSize=10&orderBy=recent`
+    );
+
+    const bestArticleRes = await axios.get(
+      `/articles?page=1&pageSize=3&orderBy=like`
+    );
+
+    return {
+      props: {
+        mainArticles: mainArticleRes.data.list,
+        bestArticles: bestArticleRes.data.list,
+      },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        mainArticles: [],
+        bestArticles: [],
+      },
+    };
+  }
+};
+// 하위 컴포넌트에 정적 prop 넘겨주기
+export default function Boards({
+  mainArticles,
+  bestArticles,
+}: {
+  mainArticles: Article[];
+  bestArticles: Article[];
+}) {
+  // 윈도우 너비 받아와서 상태 관리
+  const initialWidth = typeof window !== "undefined" ? window.innerWidth : 1024;
+  const [width, setWidth] = useState<number>(initialWidth);
+
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
   const [mainQuery, setMainQuery] = useState<Query>({
@@ -18,10 +52,6 @@ export default function Boards() {
     orderBy: "recent",
     keyword: "",
   });
-
-  // 윈도우 너비 받아와서 상태 관리
-  const initialWidth = typeof window !== "undefined" ? window.innerWidth : 1024;
-  const [width, setWidth] = useState<number>(initialWidth);
 
   const BestPageSizeObj = {
     mobile: 1,
@@ -89,11 +119,12 @@ export default function Boards() {
   return (
     <div className="container">
       <section className="section">
-        <BestArticleList query={bestQuery} />
+        <BestArticleList initialArticles={bestArticles} query={bestQuery} />
       </section>
 
       <section className="section">
         <ArticleList
+          initialArticles={mainArticles}
           query={mainQuery}
           handleClickOrder={handleClickOrder}
           dropdownOpen={dropdownOpen}

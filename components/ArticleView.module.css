@@ -1,0 +1,79 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.article-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+}
+.article-title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 3.2rem;
+  color: var(--gray800);
+}
+
+.nickname::before {
+  content: "";
+  display: inline-block;
+  background-image: url("/user.png");
+  background-repeat: no-repeat;
+  background-size: 40px 40px;
+  width: 40px;
+  height: 40px;
+}
+.nickname-date-like {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+}
+.nickname,
+.date {
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+}
+.nickname {
+  font-weight: 500;
+  color: var(--gray600);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.date {
+  font-weight: 400;
+  color: var(--gray400);
+}
+.content {
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  font-weight: 400;
+  color: var(--gray800);
+}
+.like {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+  line-height: 2.6rem;
+  font-weight: 500;
+  color: var(--gray500);
+  border: 1px solid var(--gray200);
+  border-radius: 35px;
+  gap: 4px;
+  padding: 4px 12px;
+}
+.like::before {
+  content: "";
+  display: inline-block;
+  background-image: url("/icons/ic_heart.svg");
+  width: 20px;
+  height: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

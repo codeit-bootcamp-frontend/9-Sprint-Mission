@@ -1,0 +1,23 @@
+.kebab {
+  width: 24px;
+  height: 24px;
+  color: var(--gray400);
+  cursor: pointer;
+  background-image: url("/icons/ic_kebab.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  content: "";
+  display: inline-block;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

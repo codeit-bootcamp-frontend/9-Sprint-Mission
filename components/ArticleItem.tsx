@@ -2,20 +2,8 @@ import Image from "next/image";
 import styles from "./ArticleList.module.css";
 import { Label } from "./Label";
 import Link from "next/link";
-
-interface Article {
-  id: number;
-  title: string;
-  content: string;
-  image: string;
-  likeCount: number;
-  createdAt: string;
-  updatedAt: string;
-  writer: {
-    id: number;
-    nickname: string;
-  };
-}
+import { Article } from "@/types/types";
+import { getDate } from "@/utils/getDate";
 
 export const ArticleItem = ({
   articles,
@@ -24,11 +12,6 @@ export const ArticleItem = ({
   articles: Article[];
   option: string;
 }) => {
-  const getDate = (isoDate: string): string => {
-    const date = new Date(isoDate);
-    const formattedDate = `${date.getFullYear()}. ${String(date.getMonth() + 1).padStart(2, "0")}. ${String(date.getDate()).padStart(2, "0")}`;
-    return formattedDate;
-  };
   return (
     <div className={`${styles[`${option}-article-item`]}`}>
       {articles.map((article: Article) => (
