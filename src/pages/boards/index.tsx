@@ -25,8 +25,6 @@ export const getStaticProps: GetStaticProps<ListResponse> = async () => {
         list,
         totalCount,
       },
-      // 선택적: 10초마다 데이터를 새로고침
-      revalidate: 10,
     };
     console.log("API response:", res.data);
   } catch (error) {
