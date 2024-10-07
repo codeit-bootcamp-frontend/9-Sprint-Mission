@@ -1,21 +1,29 @@
 import styles from "@/components/SearchForm.module.css";
 import { Articles } from "@/types/types";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "@/lib/axios";
+import useDebouncedEffect from "@/utils/useDebounce";
+import useDebounce from "@/utils/useDebounce";
 
 interface Props {
   className: string; // className은 문자열이고 선택적인 값
-  // articles: Articles[];
-  // setArticles: React.Dispatch<React.SetStateAction<Articles[]>>;
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
+  keyword: string;
+  setKeyword: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchForm = ({ className, title, setTitle } : Props) => {
+const SearchForm = ({ className, keyword, setKeyword }: Props) => {
+  const [inputValue, setInputValue] = useState(keyword); // 실시간으로 변경되는 input value값 저장
 
-const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
- setTitle(e.target.value);
-}
+  const debouncedKeyword = useDebounce(inputValue, 500); // input에 change event가 일어날 때 마다 지연
+
+  useEffect(() => {
+    setKeyword(debouncedKeyword);
+  }, [debouncedKeyword, setKeyword]);
+
+  const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    
+    setInputValue(e.target.value);
+  };
 
   return (
     <div className={className}>
@@ -25,11 +33,10 @@ const handleChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
           className={styles["search-input"]}
           id="search"
           placeholder="검색할 상품을 입력해주세요"
-          value={title}
+          value={inputValue}
           name="title"
-          onChange={handleChangeTitle}
-        >
-        </input>
+          onChange={handleChangeKeyword}
+        ></input>
       </form>
     </div>
   );

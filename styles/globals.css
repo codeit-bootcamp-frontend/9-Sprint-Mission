@@ -14,3 +14,10 @@ html {
   --background-gray: #fcfcfc;
   
 }
+
+.container {
+  
+  display: flex;
+  flex-direction: column;
+}
+

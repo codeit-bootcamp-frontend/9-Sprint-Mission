@@ -11,51 +11,60 @@ import CreatedDate from "./CreatedDate";
 import LikeCount from "./LikeCount";
 import Image from "next/image";
 import timeDiff from "@/utils/timeDiff";
+import { routeModule } from "next/dist/build/templates/app-page";
+import { useRouter } from "next/router";
 
 interface query {
   order: string;
-  title?: string;
+  keyword?: string;
 }
 
 export default function TotalPostList() {
   const [articles, setArticles] = useState<Articles[]>([]);
   const [order, setOrder] = useState("recent");
-  const [title, setTitle] = useState("");
+  const [keyword, setKeyword] = useState("");
+ const router = useRouter()
 
   const optionList: Option[] = [
     { id: 1, option: "최신순", order: "recent" },
     { id: 2, option: "좋아요순", order: "like" },
   ];
 
-  async function getArticles({order, title} : query) {
-    const res = await axios.get(`/articles?orderBy=${order}&keyword=${title}`);
+  async function getArticles({ order, keyword }: query) {
+    const res = await axios.get(
+      `/articles?orderBy=${order}&keyword=${keyword}`
+    );
     const articles = res.data.list ?? [];
     setArticles(articles);
   }
 
   useEffect(() => {
-    getArticles({order,title});
-  }, [order,title]);
+    getArticles({ order, keyword });
+  }, [order, keyword]);
+
+  const handleClick = (id:number) => {
+    router.push(`/boards/${id}`)
+  }
 
   return (
     <>
       <section>
         <div className={styles["total-title-container"]}>
           <h2>게시글</h2>
-          <Button>글쓰기</Button>
+          <Button color="blue">글쓰기</Button>
         </div>
         <div className={styles["form-container"]}>
           <SearchForm
             className={styles["search-form"]}
-            title={title}
-            setTitle={setTitle}
+            keyword={keyword}
+            setKeyword={setKeyword}
           />
           <Dropdown optionList={optionList} setOrder={setOrder} />
         </div>
         <ul className={styles["article-wrap"]}>
           {articles &&
             articles.map((article) => (
-              <li key={article.id} className={styles["article-container"]}>
+              <li key={article.id} className={styles["article-container"]} onClick={() => handleClick(article.id)}>
                 <div className={styles["content-container"]}>
                   <div className={styles["article-content"]}>
                     {article.content}

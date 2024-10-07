@@ -1,6 +1,6 @@
 import BestPostList from "@/components/BestPostList";
 import TotalPostList from "@/components/TotalPostList";
-import styles from "@/styles/board.module.css";
+import styles from "@/styles/boards.module.css";
 
 export default function Boards() {
   return (

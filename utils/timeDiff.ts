@@ -1,6 +1,6 @@
 const exp = require("constants");
 
-const timeDiff = (date) => {
+const timeDiff = (date:string) => {
   const start = new Date(date);
   const end = new Date();
 

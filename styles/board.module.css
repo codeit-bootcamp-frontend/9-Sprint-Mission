@@ -1,33 +1,226 @@
-.post-container {
-  padding: 24px 360px 0;
+.comment-page-container {
+  padding: 32px 360px 0;
+}
+
+.article-container {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  margin-bottom: 40px;
 }
 
-.post-container h2 {
-  margin-bottom: 24px;
+.title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
   font-size: 20px;
   font-weight: 700;
-  line-height: 23.87px;
-  color: var(--cool-gray-900);
+  line-height: 32px;
+  color: var(--text-gary-4);
+  margin-bottom: 16px;
 }
 
+.kebab-container {
+  display: flex;
+}
+
+.img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.info-container {
+  display: flex;
+  gap: 64px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-gray-2);
+  margin-bottom: 24px;
+}
+
+.user-info-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.user-nickname {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--text-gray-3);
+}
+
+.created-at {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-gray-1);
+  position: relative;
+}
+
+.created-at::after {
+  content: "";
+  height: 34px;
+  border: 1px solid var(--border-gray-2);
+  position: absolute;
+  right: -32px;
+}
+
+.content {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--text-gary-4);
+  margin-bottom: 32px;
+}
+
+.comment-container {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 16px;
+}
+
+.comment-container label {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--cool-gray-900);
+  width: fit-content;
+}
+
+.comment-container textarea {
+  height: 104px;
+  resize: none;
+  background-color: var(--Secondary-100);
+  border-radius: 12px;
+  padding: 16px 24px;
+}
+
+.comment-container textarea:focus {
+  outline-color: var(--brand-blue);
+}
+
+
+.comment-container textarea::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--text-gray-1);
+}
+
+.btn-container {
+  display: flex;
+  justify-content: end;
+}
+
+.comments-container {
+  margin-bottom: 95px;
+}
+
+.writer-comment-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 64px;
+}
+
+.writer-comment-container > li {
+  border-bottom: 1px solid var(--border-gray-2);
+  padding-bottom: 12px;
+}
+
+.writer-comment-title-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.writer-comment-title {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--text-gray-400);
+}
+
+.writer-info-container {
+  display: flex;
+  gap: 8px;
+}
+
+.writer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.writer-nickname {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--text-gray-3);
+}
+
+.writer-created-at {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--text-gray-1);
+}
+
+.no-comments {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-comments-img {
+  margin-bottom: 16px;
+}
+
+.no-comments p {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--text-gray-1);
+}
+
+.link-container{
+  display: flex;
+  justify-content: center;
+}
+
+.prev-btn {
+  width: 240px;
+  height: 48px;
+  background-color: var(--brand-blue);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  color: var(--Secondary-100);
+ padding: 12px 39.5px;
+  border-radius: 40px;
+  background-image: url(/ic_back.png);
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  background-position: 176.8px;
+}
+
+
+
 @media (max-width: 1280px) {
-  .post-container {
-    padding: 24px 24px 0;
+  .comment-page-container {
+    padding: 24px 24px 0px;
   }
 }
 
 @media (max-width: 768px) {
-  .post-container {
-    padding: 16px 16px 0;
+  .comment-page-container {
+    padding: 24px 17px 0 16px;
   }
-
-  .post-container h2 {
-    margin-bottom: 16px;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 26px;
-  }
+  
 }

@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 export interface Writer {
   id: number;
   nickname: string;
+  image?: string;
 }
 
 export interface Articles {
@@ -10,6 +11,14 @@ export interface Articles {
   title: string;
   image: string;
   likeCount: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  writer: Writer;
+}
+
+export interface Comments {
+  id: number;
   content: string;
   createdAt: string;
   updatedAt: string;

@@ -1,0 +1,16 @@
+.like-count-box {
+  height: 40px;
+  border: 1px solid var(--border-gray-2);
+  border-radius: 35px;
+  padding: 4px 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.like-count-box span {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  color: var(--text-gray-2);
+}
