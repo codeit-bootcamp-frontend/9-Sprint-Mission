@@ -1,12 +1,7 @@
 // src/api/auth.ts
 import { isAxiosError } from "axios";
 import axiosInstance from "./axiosConfig";
-import {
-  LoginFormValues,
-  SignupFormValues,
-  AuthResponse,
-  //User,
-} from "@/types/auth";
+import { LoginFormValues, SignupFormValues, AuthResponse } from "@/types/auth";
 import {
   setCookie,
   removeAllAuthCookies,

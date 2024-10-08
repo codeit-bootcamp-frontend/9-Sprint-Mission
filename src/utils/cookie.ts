@@ -8,9 +8,9 @@ export const REFRESH_TOKEN_EXPIRY = 7; // 7일
 export const setCookie = (name: string, value: string, expires: number) => {
   Cookies.set(name, value, {
     expires, // 쿠키 만료 시간 설정 (일 단위)
-    secure: true, // HTTPS 연결에서만 쿠키 전송 (보안 강화)
-    sameSite: "strict", // 같은 사이트 출처의 요청에만 쿠키 전송 (CSRF 공격 방지)
-    httpOnly: true, // JavaScript를 통한 쿠키 접근 방지 (XSS 공격 방지)
+    secure: process.env.NODE_ENV === "production", // 배포 환경에서만 secure 설정
+    sameSite: "strict", // CSRF 방지
+    path: "/", // 모든 경로에서 쿠키 접근 가능
   });
 };
 
