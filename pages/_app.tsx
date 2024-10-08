@@ -6,6 +6,7 @@ import Header from "@/components/Layout/Header";
 import Footer from "@/components/Layout/Footer";
 import Loading from "@/components/UI/Loading";
 import "../styles/globals.scss";
+import { AuthProvider } from "@/context/AuthContext";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -49,9 +50,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <Loading />
       ) : (
         <>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
+          <AuthProvider>
+            <Header />
+            <Component {...pageProps} />
+            <Footer />
+          </AuthProvider>
         </>
       )}
     </>

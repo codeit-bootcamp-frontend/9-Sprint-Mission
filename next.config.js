@@ -22,7 +22,7 @@ const nextConfig = {
     ],
   },
   sassOptions: {
-    includePaths: [path.join(__dirname, "src", "styles")],
+    includePaths: [path.join(__dirname, "styles")],
     prependData: `@import "_variables.scss"; @import "_mixins.scss";`,
   },
 };

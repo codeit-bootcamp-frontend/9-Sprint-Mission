@@ -44,7 +44,7 @@ export async function postArticles() {
 }
 
 // 게시글 상세 조회
-export async function getArticleDetail({ articleId }: { articleId: number }) {
+export async function getArticleDetail(articleId: number) {
   try {
     const response = await axios.get(`/articles/${articleId}`);
     return response.data;

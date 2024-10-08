@@ -10,9 +10,13 @@ export const getServerSideProps: GetServerSideProps = (async (context) => {
   let articles;
   let comments;
 
+  if (articleId !== undefined) {
+    articles = await getArticleDetail(articleId);
+  }
+
   try {
     if (articleId !== undefined) {
-      articles = await getArticleDetail({ articleId });
+      articles = await getArticleDetail(articleId);
     }
   } catch {
     return {

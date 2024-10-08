@@ -1,12 +1,12 @@
 .InputItem {
   label {
     display: block;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 12px;
 
     @include tablet {
-      font-size: 1.8rem;
+      font-size: 1.4rem;
     }
   }
 

@@ -12,6 +12,7 @@ interface InputItemProps {
   isTextArea?: boolean;
   errorMessage?: string;
   type?: string;
+  required?: boolean;
 }
 
 const InputItem = ({
@@ -25,6 +26,7 @@ const InputItem = ({
   isTextArea,
   errorMessage,
   type = "text",
+  required,
 }: InputItemProps) => {
   return (
     <div className={styles.InputItem}>
@@ -47,6 +49,7 @@ const InputItem = ({
           onKeyDown={onKeyDown}
           placeholder={placeholder}
           type={type}
+          required={required}
         />
       )}
 
