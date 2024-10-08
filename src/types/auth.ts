@@ -12,11 +12,11 @@ export interface LoginFormValues {
 
 export interface User {
   id: number;
-  email: string;
+  email: string | null;
   image: string | null;
   nickname: string | null;
-  updatedAt: Date;
-  createdAt: Date;
+  updatedAt: Date | null;
+  createdAt: Date | null;
 }
 
 export interface AuthResponse {

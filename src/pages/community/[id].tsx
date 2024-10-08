@@ -1,7 +1,7 @@
 // src/pages/community/[id].tsx
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getArticleDetail } from "@/api/article";
+import { getArticleDetail } from "@/api/articles/getArticleDetail";
 import { ArticleDetail } from "@/types/article";
 import ArticleDetailSection from "@/components/UI/community/ArticleDetailSection";
 import ArticleCommentSection from "@/components/UI/comment/ArticleCommentSection";

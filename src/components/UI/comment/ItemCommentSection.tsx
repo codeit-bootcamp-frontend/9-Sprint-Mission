@@ -1,9 +1,10 @@
 // src/components/UI/comment/ItemCommentSection.tsx
-import React, { ChangeEvent, useState, useEffect } from "react";
-import { addProductComment } from "@/api/product"; // 상품 댓글 등록 API 함수 임포트
+import React, { ChangeEvent, useState } from "react";
+import { addProductComment } from "@/api/comments/addProductComment"; // 상품 댓글 등록 API 함수 임포트
 import CommentThread from "./ItemCommentThread"; // 댓글 쓰레드 컴포넌트
 import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
-import { getCookie } from "@/utils/cookie";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
 
 const COMMENT_PLACEHOLDER =
   "개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다.";
@@ -15,16 +16,10 @@ interface ItemCommentSectionProps {
 const ItemCommentSection = ({ productId }: ItemCommentSectionProps) => {
   const [comment, setComment] = useState(""); // 댓글 입력 상태
   const [loading, setLoading] = useState(false); // 버튼 로딩 상태 처리
-  const [token, setToken] = useState<string | null>(null); // 쿠키에서 가져온 토큰 상태
   const [isAlertOpen, setIsAlertOpen] = useState(false); // AlertModal 상태
   const [alertMessage, setAlertMessage] = useState(""); // AlertModal 메시지 상태
   const [refreshComments, setRefreshComments] = useState(0); // CommentThread 리렌더링 트리거 상태
-
-  // 컴포넌트 마운트 시 쿠키에서 accessToken 가져오기
-  useEffect(() => {
-    const accessToken = getCookie("accessToken"); // 쿠키에서 accessToken 가져옴
-    setToken(accessToken || null); // 토큰이 있으면 상태에 저장
-  }, []);
+  const [user] = useAtom(userAtom);
 
   // 입력 필드 값 변경 시 상태 업데이트
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -40,8 +35,8 @@ const ItemCommentSection = ({ productId }: ItemCommentSectionProps) => {
       return;
     }
 
-    if (!token) {
-      // 토큰이 없을 경우 AlertModal 띄우기
+    if (!user) {
+      // user가 없을 경우 AlertModal 띄우기
       setAlertMessage("로그인이 필요합니다.");
       setIsAlertOpen(true);
       return;
@@ -50,7 +45,7 @@ const ItemCommentSection = ({ productId }: ItemCommentSectionProps) => {
     try {
       setLoading(true); // 로딩 상태 설정
       // API를 호출하여 댓글 등록
-      await addProductComment(productId, comment.trim(), token);
+      await addProductComment({ productId, content: comment.trim() });
       // 댓글 등록 성공 시 입력 필드 초기화 및 CommentThread 리렌더링 트리거
       setComment(""); // 입력 필드 초기화
       setRefreshComments((prev) => prev + 1); // CommentThread 리렌더링 트리거
@@ -83,7 +78,7 @@ const ItemCommentSection = ({ productId }: ItemCommentSectionProps) => {
         <button
           className="self-end font-semibold text-sm md:text-base px-4 py-2 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500 hover:bg-blue-600 focus:bg-blue-700"
           onClick={handlePostComment}
-          disabled={!comment.trim() || loading || !token} // 댓글, 로딩, 토큰 상태에 따라 버튼 비활성화
+          disabled={!comment.trim() || loading} // 댓글, 로딩 상태에 따라 버튼 비활성화
         >
           {loading ? "등록 중..." : "등록"}
         </button>

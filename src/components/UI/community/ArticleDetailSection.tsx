@@ -5,10 +5,12 @@ import useDebouncedCallback from "@/hooks/useDebouncedCallback";
 import { ArticleDetail } from "@/types/article";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { addArticleLike, removeArticleLike } from "@/api/article";
+import { addArticleLike } from "@/api/articles/addArticleLike";
+import { removeArticleLike } from "@/api/articles/removeArticleLike";
 import LikeButton from "./LikeButton";
 import AlertModal from "../modal/AlertModal";
-import { getCookie } from "@/utils/cookie";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
 
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const NO_IMAGE = "/images/ui/no-image.png";
@@ -25,16 +27,16 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading");
-  const [token, setToken] = useState<string | null>(null);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [isLiked, setIsLiked] = useState<boolean>(articleDetail.isLiked);
   const [likeCount, setLikeCount] = useState<number>(articleDetail.likeCount);
+  const [user] = useAtom(userAtom);
 
   const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
 
   const handleLikeCallback = useCallback(async () => {
-    if (!token) {
+    if (!user) {
       setAlertMessage("로그인이 필요합니다.");
       setIsAlertOpen(true);
       return;
@@ -46,9 +48,9 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
     try {
       if (isLiked) {
-        await removeArticleLike(articleDetail.id, token);
+        await removeArticleLike(articleDetail.id);
       } else {
-        await addArticleLike(articleDetail.id, token);
+        await addArticleLike(articleDetail.id);
       }
     } catch (error) {
       console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
@@ -58,14 +60,10 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
       setIsAlertOpen(true);
     }
-  }, [token, articleDetail.id, isLiked]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [articleDetail.id, isLiked]);
 
   const debouncedHandleLike = useDebouncedCallback(handleLikeCallback, 300);
-
-  useEffect(() => {
-    const accessToken = getCookie("accessToken");
-    setToken(accessToken || null);
-  }, []);
 
   useEffect(() => {
     const validateImageUrl = async (url: string) => {

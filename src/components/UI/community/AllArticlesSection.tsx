@@ -14,7 +14,7 @@ import DropdownMenu from "@/components/UI/DropdownMenu";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import PaginationBar from "@/components/UI/PaginationBar";
 import { Article, ArticleSortOption } from "@/types/article";
-import { getArticles } from "@/api/article";
+import { getArticles } from "@/api/articles/getArticles";
 import AllArticleCard from "./AllArticleCard";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";

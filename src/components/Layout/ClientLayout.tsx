@@ -1,51 +1,11 @@
 // components/Layout/ClientLayout.tsx
-import React, { useEffect } from "react";
 import { Provider, useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
-import { refreshAccessToken } from "@/api/auth";
-import { AuthResponse, User } from "@/types/auth";
-import {
-  getCookie,
-  setCookie,
-  removeAllAuthCookies,
-  ACCESS_TOKEN_EXPIRY,
-} from "@/utils/cookie";
+import { User } from "@/types/auth";
 import Header from "./Header";
 
 function ClientLayoutContent({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useAtom(userAtom);
-
-  useEffect(() => {
-    const autoLogin = async () => {
-      const refreshToken = getCookie("refreshToken");
-      if (refreshToken) {
-        try {
-          const result: AuthResponse | null = await refreshAccessToken(
-            refreshToken
-          );
-
-          if (result && result.accessToken && result.user) {
-            setCookie("accessToken", result.accessToken, ACCESS_TOKEN_EXPIRY);
-            setUser({
-              id: parseInt(result.user.id?.toString() || "0", 10),
-              nickname: result.user.nickname || null,
-              email: result.user.email,
-              image: result.user.image || null,
-              updatedAt: result.user.updatedAt || new Date(),
-              createdAt: result.user.createdAt || new Date(),
-            });
-          } else {
-            throw new Error("refreshAccessToken에서 유효하지 않은 Response");
-          }
-        } catch (error) {
-          console.error("자동 로그인 실패:", error);
-          removeAllAuthCookies();
-        }
-      }
-    };
-
-    autoLogin();
-  }, [setUser]);
+  const [user] = useAtom(userAtom);
 
   return (
     <div className={"Pretendard bg-gray-50 text-gray-900"}>

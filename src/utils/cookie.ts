@@ -1,4 +1,4 @@
-// src/utils/cookie.ts
+// utils/cookie.ts
 import Cookies from "js-cookie";
 
 export const ACCESS_TOKEN_EXPIRY = 1 / 48; // 30분을 일 단위로 표현
@@ -21,13 +21,8 @@ export const getCookie = (name: string): string | undefined => {
 
 // 모든 인증 관련 쿠키를 삭제하는 함수
 export const removeAllAuthCookies = () => {
-  const authCookies = [
-    "accessToken",
-    "refreshToken",
-    "userId",
-    "nickname",
-    "userImage",
-  ];
+  const authCookies = ["userId", "nickname", "userImage"];
+
   authCookies.forEach((cookieName) => {
     removeCookie(cookieName);
   });

@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { logout } from "@/api/auth";
-import { User } from "@/types/auth"; // User 타입을 import
+import { logout } from "@/api/auth/logout";
+import { User } from "@/types/auth";
 import { removeAllAuthCookies } from "@/utils/cookie";
 
 // public 폴더 경로 문자열로 대체
@@ -25,8 +25,8 @@ export default function Header({ user }: HeaderProps) {
     // 모든 인증 관련 쿠키 제거
     removeAllAuthCookies();
 
-    // 로그아웃 API 호출 및 리다이렉트
-    await logout(() => router.push("/auth/login"));
+    // 로그아웃 API 호출 및 홈으로 리다이렉트
+    await logout(() => router.push("/"));
   };
 
   const toggleDropdown = () => {

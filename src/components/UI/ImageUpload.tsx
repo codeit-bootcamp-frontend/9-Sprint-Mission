@@ -2,9 +2,11 @@
 import React, { ChangeEvent, useState } from "react";
 import Image from "next/image";
 import DeleteButton from "./DeleteButton";
-import { uploadImage } from "@/api/uploadImage";
+import { uploadImage } from "@/utils/uploadImage";
 import { isValidImageFile } from "@/utils/validateImageFile";
 import AlertModal from "./modal/AlertModal";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
 
 // public 폴더 경로 문자열로 대체
 const PLUS_ICON = "/images/icons/ic_plus.png";
@@ -20,7 +22,7 @@ const ImageUpload = ({ title, onImageUpload }: ImageUploadProps) => {
     "idle" | "loading" | "loaded" | "error"
   >("idle"); // 이미지 상태
   const [alertMessage, setAlertMessage] = useState<string | null>(null); // AlertModal을 제어하는 상태
-
+  const [user] = useAtom(userAtom);
   // 이미지 변경 핸들러
   const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -43,11 +45,23 @@ const ImageUpload = ({ title, onImageUpload }: ImageUploadProps) => {
       setImageStatus("loading");
 
       let imageUrl = "";
-      // 이미지 파일 업로드
-      imageUrl = await uploadImage(file);
-      // 이미지 URL을 미리보기로 설정
-      setImagePreviewUrl(imageUrl);
-      setImageStatus("loaded");
+      if (user) {
+        // 로그인한 유저의 경우 AWS S3에 이미지 파일 업로드
+        const uploadResponse = await uploadImage(file);
+        imageUrl = uploadResponse.url; // 업로드된 이미지의 URL
+        // 이미지 URL을 미리보기로 설정
+        setImagePreviewUrl(imageUrl);
+        setImageStatus("loaded");
+      } else {
+        // 비로그인 유저의 경우 파일을 바이트 배열로 읽기
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const byteArray = new Uint8Array(e.target?.result as ArrayBuffer);
+          setImagePreviewUrl(URL.createObjectURL(new Blob([byteArray])));
+          setImageStatus("loaded");
+        };
+        reader.readAsArrayBuffer(file);
+      }
 
       // 업로드된 이미지 URL을 부모 컴포넌트로 전달
       onImageUpload(imageUrl);

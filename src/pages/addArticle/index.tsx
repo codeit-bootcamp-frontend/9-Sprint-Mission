@@ -1,33 +1,23 @@
 // src/pages/addArticle/index.tsx
-import { FormEvent, useState, useEffect } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/router";
 import InputItem from "@/components/UI/InputItem";
 import ImageUpload from "@/components/UI/ImageUpload";
-import ConfirmModal from "@/components/UI/modal/ConfirmModal";
 import AlertModal from "@/components/UI/modal/AlertModal";
 import { ArticleForm } from "@/types/article";
-import { addArticle } from "@/api/article";
-import { getCookie } from "@/utils/cookie";
+import { addArticle } from "@/api/articles/addArticle";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
 
 export default function AddArticlePage() {
   const [title, setTitle] = useState(""); // 제목 상태
   const [content, setContent] = useState(""); // 내용 상태
   const [imageUrl, setImageUrl] = useState<string | null>(null); // 이미지 URL 상태
-  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false); // 접근 시 로그인 유도 모달 상태
-  const [isAlertModalOpen, setAlertModalOpen] = useState(false); // 제출 시 경고 모달 상태
-  const [accessToken, setAccessToken] = useState<string | null>(null); // accessToken 상태
+  const [isAlertOpen, setIsAlertOpen] = useState(false); // AlertModal 상태
+  const [alertMessage, setAlertMessage] = useState(""); // AlertModal 메시지 상태
+  const [user] = useAtom(userAtom);
 
   const router = useRouter();
-
-  // 쿠키에서 accessToken을 가져와 로그인 상태를 설정
-  useEffect(() => {
-    const token = getCookie("accessToken");
-    if (token) {
-      setAccessToken(token);
-    } else {
-      setConfirmModalOpen(true); // 토큰이 없으면 로그인 유도 모달 표시
-    }
-  }, []);
 
   // 제목과 내용이 없으면 제출 버튼을 비활성화
   const isSubmitDisabled = !title || !content;
@@ -35,8 +25,9 @@ export default function AddArticlePage() {
   // 게시글 제출 핸들러
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!accessToken) {
-      setAlertModalOpen(true); // 로그인하지 않은 경우 경고 모달을 띄움
+    if (!user) {
+      setAlertMessage("로그인이 필요합니다.");
+      setIsAlertOpen(true);
       return;
     }
 
@@ -48,55 +39,36 @@ export default function AddArticlePage() {
 
     try {
       // API를 호출하여 게시글 등록
-      const newArticle = await addArticle(articleForm, accessToken);
+      const newArticle = await addArticle(articleForm);
 
-      // 등록 성공 시 해당 게시글 페이지로 이동
-      router.push(`/community/${newArticle.id}`);
+      if (newArticle) {
+        // 등록 성공 시 해당 게시글 페이지로 이동
+        router.push(`/community/${newArticle.id}`);
+      }
     } catch (error) {
       console.error("게시글 등록 실패:", error);
       alert("게시글 등록 중 오류가 발생했습니다."); // 사용자에게 에러 알림
     }
   };
 
-  // 로그인 유도 모달에서 '확인'을 눌렀을 때 로그인 페이지로 이동
-  const handleConfirmModalConfirm = () => {
-    router.push("/auth/login");
-  };
-
-  // 로그인 유도 모달에서 '취소'를 눌렀을 때 모달 닫기
-  const handleConfirmModalCancel = () => {
-    setConfirmModalOpen(false);
-  };
-
   // 경고 모달 닫기
-  const handleAlertModalClose = () => {
-    setAlertModalOpen(false);
+  const handleCloseAlert = () => {
+    setIsAlertOpen(false);
   };
 
   // 이미지 업로드 후 이미지 URL 상태를 업데이트
   const handleImageUpload = (uploadedImageUrl: string | null) => {
-    setImageUrl(uploadedImageUrl);
+    if (uploadedImageUrl) {
+      setImageUrl(uploadedImageUrl);
+    }
   };
 
   return (
     <div className="container mx-auto mt-20 px-4">
-      {/* 로그인하지 않은 경우 접근 시 모달 표시 */}
-      {isConfirmModalOpen && (
-        <ConfirmModal
-          message="로그인한 사용자만 게시글 등록이 가능합니다.<br />로그인 페이지로 이동하겠습니까?"
-          onConfirm={handleConfirmModalConfirm}
-          onCancel={handleConfirmModalCancel}
-        />
-      )}
-
       {/* 제출 시 로그인하지 않은 경우 경고 모달 표시 */}
-      {isAlertModalOpen && (
-        <AlertModal
-          message="로그인한 사용자만 게시글을 등록할 수 있습니다!"
-          onClose={handleAlertModalClose}
-        />
+      {isAlertOpen && (
+        <AlertModal message={alertMessage} onClose={handleCloseAlert} />
       )}
-
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-4">
           <div className="text-2xl font-bold">게시글 등록하기</div>

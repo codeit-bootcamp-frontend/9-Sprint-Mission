@@ -7,23 +7,26 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
-import { signup } from "@/api/auth";
-import { SignupFormValues } from "@/types/auth";
-import { getCookie } from "@/utils/cookie";
+import { signUp } from "@/api/auth/signUp";
+import { SignupFormValues, User } from "@/types/auth";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
+import { ACCESS_TOKEN_EXPIRY, setCookie } from "@/utils/cookie";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
 
 export default function SignupPage() {
   const router = useRouter();
+  const [user, setUser] = useAtom(userAtom);
 
-  // useEffect로 페이지가 로드될 때 이미 로그인된 사용자가 있으면 홈으로 리다이렉트
   useEffect(() => {
-    const accessToken = getCookie("accessToken");
-    if (accessToken) {
-      router.push("/"); // 액세스 토큰이 있는 경우 홈으로 이동
+    if (typeof window !== "undefined") {
+      if (user) {
+        router.push("/"); // 이미 로그인된 사용자가 있는 경우 홈으로 이동
+      }
     }
-  }, [router]);
+  }, [user, router]);
 
   // react-hook-form으로 폼 관리
   const {
@@ -48,8 +51,35 @@ export default function SignupPage() {
 
     try {
       // 회원가입 요청
-      await signup(trimmedData);
-      router.push("/auth/login"); // 성공 시 로그인 페이지로 리다이렉트
+      const userData = (await signUp(trimmedData)) as User;
+      const userId = userData.id.toString();
+      const userImage = userData.image ? userData.image : "";
+      const userNickname = userData.nickname;
+      const userEmail = userData.email;
+      const userUpdatedAt = userData.updatedAt;
+      const userCreatedAt = userData.createdAt;
+
+      // 쿠키에 로그인한 유저 정보 저장
+      setCookie("userId", userId, ACCESS_TOKEN_EXPIRY);
+      setCookie("userImage", userImage || "", ACCESS_TOKEN_EXPIRY);
+      setCookie("nickname", userNickname || "", ACCESS_TOKEN_EXPIRY);
+
+      // jotai userAtom을 사용하여 상태 업데이트
+      setUser({
+        id: Number(userId),
+        image: userImage,
+        nickname: userNickname,
+        email: userEmail,
+        updatedAt: userUpdatedAt,
+        createdAt: userCreatedAt,
+      });
+
+      if (user) {
+        console.log("user: ", user);
+      }
+
+      // 회원가입 성공 시 홈으로 리다이렉트
+      router.push("/");
     } catch (error) {
       console.error("Error:", error);
       alert("회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.");

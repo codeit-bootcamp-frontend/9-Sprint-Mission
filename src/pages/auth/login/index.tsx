@@ -7,32 +7,25 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
-import { logIn } from "@/api/auth";
-import { LoginFormValues, AuthResponse } from "@/types/auth";
-import { useSetAtom } from "jotai";
+import { signIn } from "@/api/auth/signIn";
+import { LoginFormValues, User } from "@/types/auth";
+import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
-import {
-  getCookie,
-  setCookie,
-  ACCESS_TOKEN_EXPIRY,
-  REFRESH_TOKEN_EXPIRY,
-} from "@/utils/cookie";
+import { ACCESS_TOKEN_EXPIRY, setCookie } from "@/utils/cookie";
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
 
 export default function LoginPage() {
   const router = useRouter();
-  const setUser = useSetAtom(userAtom); // 사용자 상태를 업데이트하기 위한 jotai atom
+  const [user, setUser] = useAtom(userAtom);
 
-  // useEffect로 페이지가 로드될 때 이미 로그인된 사용자가 있으면 홈으로 리다이렉트
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const accessToken = getCookie("accessToken");
-      if (accessToken) {
-        router.push("/"); // 액세스 토큰이 있는 경우 홈으로 이동
+      if (user) {
+        router.push("/"); // 이미 로그인된 사용자가 있는 경우 홈으로 이동
       }
     }
-  }, [router]);
+  }, [user, router]);
 
   // react-hook-form 사용하여 폼 상태 및 유효성 검사 관리
   const {
@@ -51,17 +44,15 @@ export default function LoginPage() {
 
     try {
       // 로그인 요청 및 응답 처리
-      const userData = (await logIn(trimmedData)) as AuthResponse;
-      const userId = userData.user.id.toString();
-      const userImage = userData.user.image ? userData.user.image : "";
-      const userNickname = userData.user.nickname;
-      const userEmail = userData.user.email;
-      const userUpdatedAt = userData.user.updatedAt;
-      const userCreatedAt = userData.user.createdAt;
+      const userData = (await signIn(trimmedData)) as User;
+      const userId = userData.id.toString();
+      const userImage = userData.image ? userData.image : "";
+      const userNickname = userData.nickname;
+      const userEmail = userData.email;
+      const userUpdatedAt = userData.updatedAt;
+      const userCreatedAt = userData.createdAt;
 
-      // 쿠키에 인증 토큰과 사용자 정보 저장
-      setCookie("accessToken", userData.accessToken, ACCESS_TOKEN_EXPIRY);
-      setCookie("refreshToken", userData.refreshToken, REFRESH_TOKEN_EXPIRY);
+      // 쿠키에 로그인한 유저 정보 저장
       setCookie("userId", userId, ACCESS_TOKEN_EXPIRY);
       setCookie("userImage", userImage || "", ACCESS_TOKEN_EXPIRY);
       setCookie("nickname", userNickname || "", ACCESS_TOKEN_EXPIRY);
@@ -75,6 +66,10 @@ export default function LoginPage() {
         updatedAt: userUpdatedAt,
         createdAt: userCreatedAt,
       });
+
+      if (user) {
+        console.log("user: ", user);
+      }
 
       // 로그인 후 홈으로 리다이렉트
       router.push("/");

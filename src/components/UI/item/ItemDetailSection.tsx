@@ -5,9 +5,11 @@ import TagDisplay from "./TagDisplay";
 import FavoriteButton from "./FavoriteButton";
 import useDebouncedCallback from "@/hooks/useDebouncedCallback"; // useDebouncedCallback 훅 임포트
 import { ProductDetail } from "@/types/product";
-import { addProductFavorite, removeProductFavorite } from "@/api/product";
+import { addProductFavorite } from "@/api/products/addProductFavorite";
+import { removeProductFavorite } from "@/api/products/removeProductFavorite";
 import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
-import { getCookie } from "@/utils/cookie";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
 
 // public 폴더 경로 문자열로 대체
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
@@ -23,7 +25,6 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading"); // 이미지 로딩 상태
-  const [token, setToken] = useState<string | null>(null); // 쿠키에서 가져온 토큰 상태
   const [isAlertOpen, setIsAlertOpen] = useState(false); // AlertModal 상태
   const [alertMessage, setAlertMessage] = useState(""); // AlertModal 메시지 상태
   const [isFavorite, setIsFavorite] = useState<boolean>(
@@ -32,15 +33,10 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
   const [favoriteCount, setFavoriteCount] = useState<number>(
     productDetail.favoriteCount
   ); // 좋아요 수
+  const [user] = useAtom(userAtom);
 
   // URL이 SVG 파일인지 확인하는 함수
   const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
-
-  // 컴포넌트 마운트 시 쿠키에서 accessToken 가져오기
-  useEffect(() => {
-    const accessToken = getCookie("accessToken"); // 쿠키에서 accessToken 가져옴
-    setToken(accessToken || null); // 토큰이 있으면 상태에 저장
-  }, []);
 
   useEffect(() => {
     let isMounted = true; // 컴포넌트가 마운트된 상태인지 확인하기 위한 변수
@@ -85,8 +81,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
 
   // 좋아요 처리를 위한 함수 정의
   const handleFavorite = useCallback(async () => {
-    if (!token) {
-      // 토큰이 없을 경우 AlertModal 띄우기
+    if (!user) {
       setAlertMessage("로그인이 필요합니다.");
       setIsAlertOpen(true);
       return;
@@ -98,9 +93,9 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
 
     try {
       if (isFavorite) {
-        await removeProductFavorite(productDetail.id, token);
+        await removeProductFavorite(productDetail.id);
       } else {
-        await addProductFavorite(productDetail.id, token);
+        await addProductFavorite(productDetail.id);
       }
     } catch (error) {
       console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
@@ -110,7 +105,8 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
       setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
       setIsAlertOpen(true);
     }
-  }, [token, productDetail.id, isFavorite]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail.id, isFavorite]);
 
   // useDebouncedCallback 훅을 사용하여 함수 디바운싱
   const debouncedHandleFavorite = useDebouncedCallback(handleFavorite, 300);

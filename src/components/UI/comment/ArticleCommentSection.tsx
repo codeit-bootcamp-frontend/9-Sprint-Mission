@@ -1,9 +1,10 @@
 // src/components/UI/comment/ArticleCommentSection.tsx
-import React, { ChangeEvent, useState, useEffect } from "react";
-import { addArticleComment } from "@/api/article"; // API 함수 임포트
+import React, { ChangeEvent, useState } from "react";
+import { addArticleComment } from "@/api/comments/addArticleComment"; // API 함수 임포트
 import CommentThread from "./ArticleCommentThread";
 import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
-import { getCookie } from "@/utils/cookie";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
 
 const COMMENT_PLACEHOLDER = "댓글을 입력해주세요.";
 
@@ -14,17 +15,10 @@ interface ArticleCommentSectionProps {
 const ArticleCommentSection = ({ articleId }: ArticleCommentSectionProps) => {
   const [comment, setComment] = useState(""); // 댓글 입력 상태
   const [loading, setLoading] = useState(false); // 버튼 로딩 상태 처리
-  const [token, setToken] = useState<string | null>(null); // 쿠키에서 가져온 토큰 상태
   const [isAlertOpen, setIsAlertOpen] = useState(false); // AlertModal 상태
   const [alertMessage, setAlertMessage] = useState(""); // AlertModal 메시지 상태
   const [refreshComments, setRefreshComments] = useState(0); // CommentThread 리렌더링 트리거 상태
-
-  // 컴포넌트 마운트 시 쿠키에서 accessToken 가져오기
-  useEffect(() => {
-    const accessToken = getCookie("accessToken"); // 쿠키에서 accessToken 가져옴
-    setToken(accessToken || null); // 토큰이 있으면 상태에 저장
-  }, []);
-
+  const [user] = useAtom(userAtom);
   // 입력 필드 값 변경 시 상태 업데이트
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
@@ -39,7 +33,7 @@ const ArticleCommentSection = ({ articleId }: ArticleCommentSectionProps) => {
       return;
     }
 
-    if (!token) {
+    if (!user) {
       // 토큰이 없을 경우 AlertModal 띄우기
       setAlertMessage("로그인이 필요합니다.");
       setIsAlertOpen(true);
@@ -49,7 +43,7 @@ const ArticleCommentSection = ({ articleId }: ArticleCommentSectionProps) => {
     try {
       setLoading(true); // 로딩 상태 설정
       // API를 호출하여 댓글 등록
-      await addArticleComment(articleId, comment.trim(), token);
+      await addArticleComment({ content: comment.trim(), articleId });
       // 댓글 등록 성공 시 입력 필드 초기화 및 CommentThread 리렌더링 트리거
       setComment(""); // 입력 필드 초기화
       setRefreshComments((prev) => prev + 1); // CommentThread 리렌더링 트리거
@@ -82,7 +76,7 @@ const ArticleCommentSection = ({ articleId }: ArticleCommentSectionProps) => {
         <button
           className="self-end font-semibold text-sm md:text-base px-4 py-2 rounded-lg text-white disabled:opacity-50 disabled:cursor-not-allowed bg-blue-500 hover:bg-blue-600 focus:bg-blue-700"
           onClick={handlePostComment}
-          disabled={!comment.trim() || loading || !token} // 댓글, 로딩, 토큰 상태에 따라 버튼 비활성화
+          disabled={!comment.trim() || loading} // 댓글, 로딩 상태에 따라 버튼 비활성화
         >
           {loading ? "등록 중..." : "등록"} {/* 로딩 중일 때 텍스트 변경 */}
         </button>
