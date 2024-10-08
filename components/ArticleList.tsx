@@ -23,20 +23,15 @@ export default function ArticleList({
   handleChangeSearchQuery: (search: string) => void;
 }) {
   const { page, pageSize, orderBy, keyword } = query;
-  const { data, setData, error, loading, setLoading } =
-    useAxios<ArticleResponse>(
-      `/articles?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`
-    );
+  const { data, setData, error, loading } = useAxios<ArticleResponse>(
+    `/articles?page=${page}&pageSize=${pageSize}&orderBy=${orderBy}&keyword=${keyword}`
+  );
 
   useEffect(() => {
     if (initialArticles.length > 0) {
       setData({ list: initialArticles });
     }
   }, [initialArticles]);
-
-  useEffect(() => {
-    if (data && data.list.length === 0 && !loading) setLoading(true);
-  }, [query]);
 
   return (
     <>

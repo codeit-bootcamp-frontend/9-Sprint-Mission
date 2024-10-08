@@ -3,9 +3,9 @@ import BestArticleList from "@/components/BestArticleList";
 import { throttle } from "@/lib/throttle";
 import { useEffect, useState } from "react";
 import { Article, Query } from "@/types/types";
-import axios from "axios";
+import axios from "@/lib/axios";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   try {
     const mainArticleRes = await axios.get(
       `/articles?page=1&pageSize=10&orderBy=recent`
@@ -20,7 +20,6 @@ export const getStaticProps = async () => {
         mainArticles: mainArticleRes.data.list,
         bestArticles: bestArticleRes.data.list,
       },
-      revalidate: 60,
     };
   } catch (error) {
     console.error(error);

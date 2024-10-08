@@ -14,8 +14,7 @@ export default function AddBoard() {
     content: "",
   });
 
-  let active = false;
-  if (fill.title !== "" && fill.content !== "") active = true;
+  const active = fill.title && fill.content;
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;

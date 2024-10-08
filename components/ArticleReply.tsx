@@ -12,14 +12,9 @@ export default function ArticleReply() {
     `/articles/${id}/comments?limit=10`
   );
 
-  useEffect(() => {
-    if (!data && !loading) setLoading(true);
-    console.log(data);
-  });
-
   if (loading || !data) return <div>Loading...</div>;
 
-  const replyList = data.list as Reply[];
+  const replyList = data.list;
 
   return (
     <>
