@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Article, Query } from "@/types/types";
 import axios from "@/lib/axios";
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   try {
     const mainArticleRes = await axios.get(
       `/articles?page=1&pageSize=10&orderBy=recent`
@@ -20,6 +20,7 @@ export const getServerSideProps = async () => {
         mainArticles: mainArticleRes.data.list,
         bestArticles: bestArticleRes.data.list,
       },
+      revalidate: 60,
     };
   } catch (error) {
     console.error(error);
