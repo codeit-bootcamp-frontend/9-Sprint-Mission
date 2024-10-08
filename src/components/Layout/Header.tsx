@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <header className='bg-white shadow-sm'>
       <div className='mx-auto px-10 py-4 flex justify-between items-center w-full'>
-        <Link href='/' className='mr-8'>
+        <Link href='/' className='mr-2 md:mr-8'>
           <Logo width={153} height={51} alt='Logo' /> {/* SVG 컴포넌트 사용 */}
         </Link>
         <nav className='flex-grow'>
@@ -43,7 +43,7 @@ export default function Header() {
         <Link
           href='/login'
           className='
-            bg-[#3692FF] text-white font-semibold text-center hover:bg-[#1E6ED9] rounded-[8px] px-[23px] py-[12px] gap-[10px]transition-colors duration-300 md:w-[140px] md:h-[50px] md:px-[25px] md:py-[14px] lg:h-[56px] lg:px-[30px] lg:py-[16px]'
+            bg-[#3692FF] text-white font-semibold text-center hover:bg-[#1E6ED9] rounded-[6px] px-[15px] py-[8px] gap-[10px] transition-colors duration-300 md:w-[120px] md:h-[40px] md:px-[20px] md:py-[10px] lg:h-[46px] lg:px-[25px] lg:py-[12px]'
         >
           로그인
         </Link>
