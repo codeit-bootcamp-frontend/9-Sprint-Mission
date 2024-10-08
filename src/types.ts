@@ -12,6 +12,7 @@ export interface Post {
   createdAt: string;
   updatedAt: string;
   writer: Writer;
+  isLiked?: boolean;
 }
 
 export interface BoardsProps {
@@ -33,4 +34,25 @@ export interface GetQuery {
   orderBy: string;
   page: number;
   q?: string | string[] | null;
+}
+
+// export interface IndividualPost extends Post {
+//   isLiked: boolean;
+// }
+
+export interface Comment {
+  id: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  writer: {
+    id: number;
+    nickname: string;
+    image: string;
+  };
+}
+
+export interface DetailBoardProps {
+  board: Post;
+  comments: Comment[];
 }

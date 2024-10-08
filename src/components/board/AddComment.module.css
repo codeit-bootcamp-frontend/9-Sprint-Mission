@@ -1,0 +1,59 @@
+.addCommentContainer {
+  margin-top: 32px;
+}
+
+.addCommentForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.addCommentLabel {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 26px;
+  color: #111827;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.addCommentInput {
+  margin-top: 9px;
+  padding: 16px 24px;
+  height: 104px;
+  border: none;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  resize: none;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+}
+
+.addCommentInput::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #9ca3af;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.addCommentButton {
+  margin-top: 16px;
+  padding: 12px 23px;
+  border: none;
+  border-radius: 8px;
+  background-color: #9ca3af;
+  color: #fff;
+}
+
+.addCommentButton:enabled {
+  cursor: pointer;
+}
+
+.addCommentButton:enabled:hover {
+  background-color: #0051a3;
+}

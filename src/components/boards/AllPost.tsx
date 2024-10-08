@@ -6,6 +6,7 @@ import axios from "@/src/lib/axios";
 import styles from "@/src/components/boards/AllPost.module.css";
 import { useEffect, useState } from "react";
 import { PostsProps, GetQuery } from "@/src/types";
+import Link from "next/link";
 
 const PAGE_SIZE = 10;
 
@@ -13,7 +14,6 @@ export default function AllPost({ posts: initialPosts, q }: PostsProps) {
   const [orderBy, setOrderBy] = useState("recent");
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState(initialPosts);
-  const [totalPageNum, setTotalPageNum] = useState();
 
   const fetchPosts = async ({ orderBy, page, q }: GetQuery) => {
     try {
@@ -22,14 +22,13 @@ export default function AllPost({ posts: initialPosts, q }: PostsProps) {
       queryParams.append("pageSize", String(PAGE_SIZE));
       queryParams.append("orderBy", orderBy);
 
-      // q가 null, undefined, 빈 문자열이 아닐 경우에만 keyword 파라미터 추가
       if (typeof q === "string" && q.trim() !== "") {
         queryParams.append("keyword", q);
       }
 
       const res = await axios.get(`/articles?${queryParams.toString()}`);
-      setPosts(res.data.list);
-      // setTotalPageNum(Math.ceil(res.data.totalCount / PAGE_SIZE));
+      const nextPosts = JSON.parse(JSON.stringify(res.data.list));
+      setPosts(nextPosts);
     } catch (error) {
       console.error(error);
     }
@@ -47,12 +46,14 @@ export default function AllPost({ posts: initialPosts, q }: PostsProps) {
     <div className={styles.sectionContainer}>
       <div className={styles.sectionHeader}>
         <strong className={styles.sectionTitle}>게시글</strong>
-        <button className={styles.writeButton} type="button">
-          글쓰기
-        </button>
+        <Link href="/addboard">
+          <button className={styles.writeButton} type="button">
+            글쓰기
+          </button>
+        </Link>
       </div>
       <div className={styles.searchContainer}>
-        <SearchInput q={q} />
+        <SearchInput />
         <Dropdown onChange={handleSortChange} />
       </div>
       <ul>

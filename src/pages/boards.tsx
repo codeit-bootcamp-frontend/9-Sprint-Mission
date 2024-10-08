@@ -11,14 +11,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   try {
     const res = await axios.get(`/articles?page=1&pageSize=3&orderBy=like`);
-    bestPosts = res.data.list ?? [];
+    bestPosts = JSON.parse(JSON.stringify(res.data.list)) ?? [];
   } catch (error) {
     console.error(error);
   }
 
   try {
     const res = await axios.get(`/articles?page=1&pageSize=10&orderBy=recent`);
-    posts = res.data.list ?? [];
+    posts = JSON.parse(JSON.stringify(res.data.list)) ?? [];
   } catch (error) {
     console.error(error);
   }

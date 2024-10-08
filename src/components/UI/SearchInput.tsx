@@ -6,9 +6,9 @@ interface Query {
   q: string | string[] | null;
 }
 
-export default function SearchInput({ q }: Query) {
+export default function SearchInput() {
   const router = useRouter();
-  const [value, setValue] = useState((q = ""));
+  const [value, setValue] = useState("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);

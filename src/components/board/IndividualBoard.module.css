@@ -1,0 +1,64 @@
+.boardContainer {
+  margin-top: 32px;
+}
+
+.boardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #1f2937;
+}
+
+.boardInfo {
+  margin-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e5e7e8;
+  display: flex;
+  align-items: center;
+}
+
+.boardDescription {
+  display: flex;
+  align-items: center;
+  padding-right: 32px;
+  border-right: 1px solid #e5e7e8;
+}
+
+.userNickname {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #4b5563;
+  margin-left: 16px;
+  margin-right: 8px;
+}
+
+.createdAt {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #9ca3af;
+}
+
+.likeButton {
+  margin-left: 32px;
+  padding: 4px 12px;
+  border: 1px solid #e5e7e8;
+  border-radius: 35px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.boardContent {
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #1f2937;
+}
