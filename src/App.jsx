@@ -14,6 +14,7 @@ function App() {
         <Route path="/items" element={<SecondhandMarket />} />
         <Route path="/boards" element={<Freeboard />} />
         <Route path="/additem" element={<Additem />} />
+        <Route path="/*" element={<Mainpage />} />
       </Routes>
     </>
   );
