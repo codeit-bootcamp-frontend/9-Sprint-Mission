@@ -2,7 +2,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { addArticleComment } from "@/api/comments/addArticleComment"; // API 함수 임포트
 import CommentThread from "./ArticleCommentThread";
-import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
+import AlertModal from "@/components/UI/modal/AlertModal"; // AlertModal 임포트
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 
@@ -86,9 +86,11 @@ const ArticleCommentSection = ({ articleId }: ArticleCommentSectionProps) => {
       <CommentThread articleId={articleId} key={refreshComments} />
 
       {/* AlertModal 컴포넌트 */}
-      {isAlertOpen && (
-        <AlertModal message={alertMessage} onClose={handleCloseAlert} />
-      )}
+      <AlertModal
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleCloseAlert}
+      />
     </>
   );
 };

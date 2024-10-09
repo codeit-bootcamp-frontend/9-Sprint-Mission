@@ -1,5 +1,5 @@
 // pages/auth/signup/index.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -7,26 +7,37 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
+import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { signUp } from "@/api/auth/signUp";
-import { SignupFormValues, User } from "@/types/auth";
-import { useAtom } from "jotai";
-import { userAtom } from "@/store/authAtoms";
-import { ACCESS_TOKEN_EXPIRY, setCookie } from "@/utils/cookie";
+import { SignupFormValues } from "@/types/auth";
+import axios from "axios";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
 
 export default function SignupPage() {
   const router = useRouter();
-  const [user, setUser] = useAtom(userAtom);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (user) {
-        router.push("/"); // 이미 로그인된 사용자가 있는 경우 홈으로 이동
+    async function checkAuthStatus() {
+      setIsLoading(true);
+      try {
+        const response = await axios.post("/api/auth/refreshToken");
+
+        if (response.status === 200 && response.data.isLogin) {
+          // 사용자가 이미 로그인되어 있으면 홈으로 리다이렉트
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("인증 상태 확인 중 오류 발생:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
-  }, [user, router]);
+
+    checkAuthStatus();
+  }, [router]);
 
   // react-hook-form으로 폼 관리
   const {
@@ -36,11 +47,24 @@ export default function SignupPage() {
     formState: { errors, isValid }, // 폼 상태(유효성 검사 결과 등)를 추적
   } = useForm<SignupFormValues>({ mode: "onBlur" });
 
-  // 비밀번호와 비밀번호 확인 필드를 실시간으로 감지
+  const [isPasswordValid, setIsPasswordValid] = useState({
+    length: false,
+    pattern: false,
+  });
+
+  // 비밀번호를 실시간으로 감지
   const password = watch("password");
+
+  useEffect(() => {
+    setIsPasswordValid({
+      length: password ? password.length >= 8 : false,
+      pattern: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/.test(password || ""),
+    });
+  }, [password]);
 
   // 폼 제출 시 호출되는 함수, 서버에 회원가입 요청을 보냄
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
+    setIsLoading(true);
     // 제출된 데이터의 공백을 제거한 후 처리
     const trimmedData: SignupFormValues = {
       email: data.email.trim(),
@@ -51,40 +75,21 @@ export default function SignupPage() {
 
     try {
       // 회원가입 요청
-      const userData = (await signUp(trimmedData)) as User;
-      const userId = userData.id.toString();
-      const userImage = userData.image ? userData.image : "";
-      const userNickname = userData.nickname;
-      const userEmail = userData.email;
-      const userUpdatedAt = userData.updatedAt;
-      const userCreatedAt = userData.createdAt;
+      await signUp(trimmedData);
 
-      // 쿠키에 로그인한 유저 정보 저장
-      setCookie("userId", userId, ACCESS_TOKEN_EXPIRY);
-      setCookie("userImage", userImage || "", ACCESS_TOKEN_EXPIRY);
-      setCookie("nickname", userNickname || "", ACCESS_TOKEN_EXPIRY);
-
-      // jotai userAtom을 사용하여 상태 업데이트
-      setUser({
-        id: Number(userId),
-        image: userImage,
-        nickname: userNickname,
-        email: userEmail,
-        updatedAt: userUpdatedAt,
-        createdAt: userCreatedAt,
-      });
-
-      if (user) {
-        console.log("user: ", user);
-      }
-
-      // 회원가입 성공 시 홈으로 리다이렉트
-      router.push("/");
+      // 회원가입 성공 시 로그인 페이지로 리다이렉트
+      router.push("/auth/login");
     } catch (error) {
       console.error("Error:", error);
       alert("회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.");
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <LoadingSpinner isLoading={isLoading} />;
+  }
 
   return (
     <div className="mt-70px px-4 py-6 max-w-sm mx-auto md:max-w-2xl md:py-12 lg:py-15">
@@ -100,6 +105,7 @@ export default function SignupPage() {
           height={132}
           alt="로고"
           className="mx-auto"
+          priority={true}
         />
       </Link>
 
@@ -153,6 +159,28 @@ export default function SignupPage() {
           errorMessage={errors.password?.message} // 유효성 검사 오류 메시지 출력
         />
 
+        {/* 비밀번호 유효성 메시지 */}
+        {password && (
+          <div className="text-sm">
+            <p
+              className={
+                isPasswordValid.length ? "text-green-500" : "text-red-500"
+              }
+            >
+              {isPasswordValid.length ? "✓" : "✗"} 비밀번호는 8자 이상이어야
+              합니다.
+            </p>
+            <p
+              className={
+                isPasswordValid.pattern ? "text-green-500" : "text-red-500"
+              }
+            >
+              {isPasswordValid.pattern ? "✓" : "✗"} 영문, 숫자,
+              특수문자(!@#$%^&*)만 사용 가능합니다.
+            </p>
+          </div>
+        )}
+
         {/* 비밀번호 확인 입력 필드 */}
         <PasswordInput
           id="passwordConfirmation" // 필드 이름
@@ -169,7 +197,9 @@ export default function SignupPage() {
         {/* 제출 버튼 */}
         <button
           type="submit" // 폼 제출 버튼
-          disabled={!isValid} // 폼이 유효하지 않으면 버튼 비활성화
+          disabled={
+            !isValid || !isPasswordValid.length || !isPasswordValid.pattern // 폼이 유효하지 않으면 버튼 비활성화
+          }
           className="bg-blue-500 text-white py-3.5 px-8 rounded-full text-base font-bold w-full hover:bg-blue-600 focus:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           회원가입

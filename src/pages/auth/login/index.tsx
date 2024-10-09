@@ -1,5 +1,5 @@
 // pages/auth/login/index.tsx
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -12,30 +12,48 @@ import { LoginFormValues, User } from "@/types/auth";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { ACCESS_TOKEN_EXPIRY, setCookie } from "@/utils/cookie";
+import LoadingSpinner from "@/components/UI/LoadingSpinner";
+import axios from "axios";
+
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
 
 export default function LoginPage() {
   const router = useRouter();
   const [user, setUser] = useAtom(userAtom);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (user) {
-        router.push("/"); // 이미 로그인된 사용자가 있는 경우 홈으로 이동
+    async function checkAuthStatus() {
+      setIsLoading(true);
+      try {
+        const response = await axios.post("/api/auth/refreshToken");
+
+        if (response.status === 200 && response.data.isLogin) {
+          // 사용자가 이미 로그인되어 있으면 홈으로 리다이렉트
+          router.push("/");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setIsLoading(false);
       }
     }
-  }, [user, router]);
+
+    checkAuthStatus();
+  }, [router]);
 
   // react-hook-form 사용하여 폼 상태 및 유효성 검사 관리
   const {
     register, // 폼 필드를 등록하는 함수
     handleSubmit, // 폼 제출을 처리하는 함수
+    watch, // 특정 필드의 값 변화를 감지하는 함수
     formState: { errors, isValid }, // 폼 상태(유효성 검사 결과 등)를 추적
-  } = useForm<LoginFormValues>({ mode: "onChange" });
+  } = useForm<LoginFormValues>({ mode: "onBlur" });
 
   // 폼 제출 시 호출되는 함수, 서버에 로그인 요청을 보냄
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    setIsLoading(true);
     // 제출된 데이터의 공백을 제거한 후 처리
     const trimmedData: LoginFormValues = {
       email: data.email.trim(),
@@ -76,8 +94,29 @@ export default function LoginPage() {
     } catch (error) {
       console.error("Error:", error);
       alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const [isPasswordValid, setIsPasswordValid] = useState({
+    length: false,
+    pattern: false,
+  });
+
+  // 비밀번호를 실시간으로 감지
+  const password = watch("password");
+
+  useEffect(() => {
+    setIsPasswordValid({
+      length: password ? password.length >= 8 : false,
+      pattern: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/.test(password || ""),
+    });
+  }, [password]);
+
+  if (isLoading) {
+    return <LoadingSpinner isLoading={isLoading} />;
+  }
 
   return (
     <div className="mt-70px px-4 py-6 max-w-sm mx-auto md:max-w-2xl md:py-12 lg:py-15">
@@ -89,6 +128,7 @@ export default function LoginPage() {
           height={132}
           alt="로고"
           className="mx-auto"
+          priority={true}
         />
       </Link>
 
@@ -126,6 +166,28 @@ export default function LoginPage() {
           })}
           errorMessage={errors.password?.message} // 유효성 검사 오류 메시지 출력
         />
+
+        {/* 비밀번호 유효성 메시지 */}
+        {password && (
+          <div className="text-sm">
+            <p
+              className={
+                isPasswordValid.length ? "text-green-500" : "text-red-500"
+              }
+            >
+              {isPasswordValid.length ? "✓" : "✗"} 비밀번호는 8자 이상이어야
+              합니다.
+            </p>
+            <p
+              className={
+                isPasswordValid.pattern ? "text-green-500" : "text-red-500"
+              }
+            >
+              {isPasswordValid.pattern ? "✓" : "✗"} 영문, 숫자,
+              특수문자(!@#$%^&*)만 사용 가능합니다.
+            </p>
+          </div>
+        )}
 
         {/* 제출 버튼 */}
         <button

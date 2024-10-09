@@ -233,10 +233,13 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           </div>
         </div>
       </section>
+
       {/* AlertModal 컴포넌트 */}
-      {isAlertOpen && (
-        <AlertModal message={alertMessage} onClose={handleCloseAlert} />
-      )}
+      <AlertModal
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleCloseAlert}
+      />
     </>
   );
 };

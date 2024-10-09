@@ -204,9 +204,13 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
           </div>
         </div>
       </section>
-      {isAlertOpen && (
-        <AlertModal message={alertMessage} onClose={handleCloseAlert} />
-      )}
+
+      {/* AlertModal 컴포넌트 */}
+      <AlertModal
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleCloseAlert}
+      />
     </>
   );
 };

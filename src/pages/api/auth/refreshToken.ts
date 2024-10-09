@@ -12,7 +12,9 @@ export default async function handler(
     const { refreshToken } = req.cookies; // 쿠키에서 refreshToken을 가져옴
 
     if (!refreshToken) {
-      return res.status(401).json({ message: "No refresh token found" });
+      return res
+        .status(200)
+        .json({ isLogin: false, message: "로그인이 필요합니다." });
     }
 
     try {
@@ -36,15 +38,17 @@ export default async function handler(
         }),
       ]);
 
-      return res.status(200).json({ message: "토큰 갱신 성공", user });
+      return res
+        .status(200)
+        .json({ isLogin: true, message: "토큰 갱신 성공", user });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ message: "토큰 갱신 실패" });
+      return res
+        .status(200)
+        .json({
+          isLogin: false,
+          message: "유효하지 않은 refreshToken 입니다.",
+        });
     }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    return res
-      .status(405)
-      .json({ message: `Method ${req.method} Not Allowed` });
   }
 }

@@ -1,5 +1,6 @@
 // utils/cookie.ts
 import Cookies from "js-cookie";
+import axios from "axios";
 
 export const ACCESS_TOKEN_EXPIRY = 1 / 48; // 30분을 일 단위로 표현
 export const REFRESH_TOKEN_EXPIRY = 7; // 7일
@@ -20,15 +21,23 @@ export const getCookie = (name: string): string | undefined => {
 };
 
 // 모든 인증 관련 쿠키를 삭제하는 함수
-export const removeAllAuthCookies = () => {
-  const authCookies = ["userId", "nickname", "userImage"];
+export const removeAllAuthCookies = async () => {
+  try {
+    // 서버에 로그아웃 요청을 보냅니다.
+    await axios.post("/api/auth/logout");
 
-  authCookies.forEach((cookieName) => {
-    removeCookie(cookieName);
-  });
+    // 클라이언트 측 쿠키 삭제
+    const clientSideAuthCookies = ["userId", "nickname", "userImage"];
+    clientSideAuthCookies.forEach((cookieName) => {
+      removeCookie(cookieName);
+    });
+  } catch (error) {
+    console.error("로그아웃 중 오류 발생:", error);
+    throw error;
+  }
 };
 
 // 쿠키 삭제 함수
 const removeCookie = (name: string) => {
-  Cookies.remove(name);
+  Cookies.remove(name, { path: "/" });
 };

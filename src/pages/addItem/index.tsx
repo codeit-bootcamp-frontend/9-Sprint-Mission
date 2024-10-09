@@ -95,10 +95,6 @@ export default function AddItemPage() {
 
   return (
     <div className="container mx-auto mt-20 px-4">
-      {/* 제출 시 로그인하지 않은 경우 경고 모달 표시 */}
-      {isAlertOpen && (
-        <AlertModal message={alertMessage} onClose={handleCloseAlert} />
-      )}
       <form onSubmit={handleSubmit}>
         <div className="flex justify-between items-center mb-4">
           <div className="text-2xl font-bold">상품 등록하기</div>
@@ -151,6 +147,13 @@ export default function AddItemPage() {
           <TagInput tags={tags} onAddTag={addTag} onRemoveTag={removeTag} />
         </div>
       </form>
+
+      {/* AlertModal 컴포넌트 */}
+      <AlertModal
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleCloseAlert}
+      />
     </div>
   );
 }
