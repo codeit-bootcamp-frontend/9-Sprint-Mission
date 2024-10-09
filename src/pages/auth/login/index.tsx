@@ -1,8 +1,9 @@
 // pages/auth/login/index.tsx
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
@@ -13,7 +14,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { ACCESS_TOKEN_EXPIRY, setCookie } from "@/utils/cookie";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
-import axios from "axios";
+import AlertModal from "@/components/UI/modal/AlertModal";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
@@ -22,6 +23,8 @@ export default function LoginPage() {
   const router = useRouter();
   const [, setUser] = useAtom(userAtom);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     async function checkAuthStatus() {
@@ -29,12 +32,20 @@ export default function LoginPage() {
       try {
         const response = await axios.post("/api/auth/refreshToken");
 
-        if (response.status === 200 && response.data.isLogin) {
-          // 사용자가 이미 로그인되어 있으면 홈으로 리다이렉트
-          router.push("/");
+        if (response.status === 200) {
+          if (response.data.isLogin) {
+            // 사용자가 이미 로그인되어 있으면 홈으로 리다이렉트
+            router.push("/");
+          } else if (response.data.message) {
+            // 500 에러 등의 메시지가 있으면 AlertModal로 표시
+            setAlertMessage(response.data.message);
+            setIsAlertOpen(true);
+          }
         }
       } catch (error) {
-        console.error("Error:", error);
+        console.error("인증 상태 확인 중 오류 발생:", error);
+        setAlertMessage("인증 상태 확인 중 오류가 발생했습니다.");
+        setIsAlertOpen(true);
       } finally {
         setIsLoading(false);
       }
@@ -45,10 +56,10 @@ export default function LoginPage() {
 
   // react-hook-form 사용하여 폼 상태 및 유효성 검사 관리
   const {
-    register, // 폼 필드를 등록하는 함수
-    handleSubmit, // 폼 제출을 처리하는 함수
-    watch, // 특정 필드의 값 변화를 감지하는 함수
-    formState: { errors, isValid }, // 폼 상태(유효성 검사 결과 등)를 추적
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid },
   } = useForm<LoginFormValues>({ mode: "onBlur" });
 
   // 폼 제출 시 호출되는 함수, 서버에 로그인 요청을 보냄
@@ -62,34 +73,42 @@ export default function LoginPage() {
 
     try {
       // 로그인 요청 및 응답 처리
-      const userData = (await signIn(trimmedData)) as User;
-      const userId = userData.id.toString();
-      const userImage = userData.image ? userData.image : "";
-      const userNickname = userData.nickname;
-      const userEmail = userData.email;
-      const userUpdatedAt = userData.updatedAt;
-      const userCreatedAt = userData.createdAt;
+      const response = await signIn(trimmedData);
 
-      // 쿠키에 로그인한 유저 정보 저장
-      setCookie("userId", userId, ACCESS_TOKEN_EXPIRY);
-      setCookie("userImage", userImage || "", ACCESS_TOKEN_EXPIRY);
-      setCookie("nickname", userNickname || "", ACCESS_TOKEN_EXPIRY);
+      if (response.success) {
+        const userData = response.user as User;
+        const userId = userData.id.toString();
+        const userImage = userData.image ? userData.image : "";
+        const userNickname = userData.nickname;
+        const userEmail = userData.email;
+        const userUpdatedAt = userData.updatedAt;
+        const userCreatedAt = userData.createdAt;
 
-      // jotai userAtom을 사용하여 상태 업데이트
-      setUser({
-        id: Number(userId),
-        image: userImage,
-        nickname: userNickname,
-        email: userEmail,
-        updatedAt: userUpdatedAt,
-        createdAt: userCreatedAt,
-      });
+        // 쿠키에 로그인한 유저 정보 저장
+        setCookie("userId", userId, ACCESS_TOKEN_EXPIRY);
+        setCookie("userImage", userImage || "", ACCESS_TOKEN_EXPIRY);
+        setCookie("nickname", userNickname || "", ACCESS_TOKEN_EXPIRY);
 
-      // 로그인 후 홈으로 리다이렉트
-      router.push("/");
+        // jotai userAtom을 사용하여 상태 업데이트
+        setUser({
+          id: Number(userId),
+          image: userImage,
+          nickname: userNickname,
+          email: userEmail,
+          updatedAt: userUpdatedAt,
+          createdAt: userCreatedAt,
+        });
+
+        // 로그인 후 홈으로 리다이렉트
+        router.push("/");
+      } else {
+        setAlertMessage(response.message || "로그인에 실패했습니다.");
+        setIsAlertOpen(true);
+      }
     } catch (error) {
       console.error("Error:", error);
-      alert("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+      setAlertMessage("로그인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+      setIsAlertOpen(true);
     } finally {
       setIsLoading(false);
     }
@@ -109,6 +128,10 @@ export default function LoginPage() {
       pattern: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/.test(password || ""),
     });
   }, [password]);
+
+  const handleCloseAlert = () => {
+    setIsAlertOpen(false);
+  };
 
   if (isLoading) {
     return <LoadingSpinner isLoading={isLoading} />;
@@ -208,6 +231,13 @@ export default function LoginPage() {
           회원가입
         </Link>
       </div>
+
+      {/* AlertModal 컴포넌트 */}
+      <AlertModal
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleCloseAlert}
+      />
     </div>
   );
 }

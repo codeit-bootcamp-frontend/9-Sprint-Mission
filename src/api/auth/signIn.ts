@@ -1,20 +1,19 @@
 import axios from "axios";
-import { LoginFormValues, User } from "@/types/auth";
+import { LoginFormValues, SignInResponse } from "@/types/auth";
 
 export const signIn = async (
   formData: LoginFormValues
-): Promise<User | null> => {
+): Promise<SignInResponse> => {
   try {
-    const response = await axios.post("/api/auth/signIn", formData); // Next.js API Route 호출
-
-    if (response.status === 200) {
-      console.log("message: ", response.data.message);
-      return response.data.user;
-    }
+    const response = await axios.post<SignInResponse>(
+      "/api/auth/signIn",
+      formData
+    );
+    return response.data;
   } catch (error) {
-    console.error("로그인 실패:", error);
-    throw new Error("로그인 요청에 실패했습니다.");
+    if (axios.isAxiosError(error) && error.response) {
+      return error.response.data as SignInResponse;
+    }
+    throw error;
   }
-
-  return null;
 };

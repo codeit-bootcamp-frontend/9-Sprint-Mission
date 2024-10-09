@@ -11,6 +11,7 @@ import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { signUp } from "@/api/auth/signUp";
 import { SignupFormValues } from "@/types/auth";
 import axios from "axios";
+import AlertModal from "@/components/UI/modal/AlertModal";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
@@ -18,6 +19,8 @@ const LOGO_AUTH = "/images/logo/logo-auth.png";
 export default function SignupPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     async function checkAuthStatus() {
@@ -25,12 +28,20 @@ export default function SignupPage() {
       try {
         const response = await axios.post("/api/auth/refreshToken");
 
-        if (response.status === 200 && response.data.isLogin) {
-          // 사용자가 이미 로그인되어 있으면 홈으로 리다이렉트
-          router.push("/");
+        if (response.status === 200) {
+          if (response.data.isLogin) {
+            // 사용자가 이미 로그인되어 있으면 홈으로 리다이렉트
+            router.push("/");
+          } else if (response.data.message) {
+            // 500 에러 등의 메시지가 있으면 AlertModal로 표시
+            setAlertMessage(response.data.message);
+            setIsAlertOpen(true);
+          }
         }
       } catch (error) {
         console.error("인증 상태 확인 중 오류 발생:", error);
+        setAlertMessage("인증 상태 확인 중 오류가 발생했습니다.");
+        setIsAlertOpen(true);
       } finally {
         setIsLoading(false);
       }
@@ -41,10 +52,10 @@ export default function SignupPage() {
 
   // react-hook-form으로 폼 관리
   const {
-    register, // 폼 필드를 등록하는 함수
-    handleSubmit, // 폼 제출을 처리하는 함수
-    watch, // 특정 필드의 값 변화를 감지하는 함수
-    formState: { errors, isValid }, // 폼 상태(유효성 검사 결과 등)를 추적
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors, isValid },
   } = useForm<SignupFormValues>({ mode: "onBlur" });
 
   const [isPasswordValid, setIsPasswordValid] = useState({
@@ -65,7 +76,6 @@ export default function SignupPage() {
   // 폼 제출 시 호출되는 함수, 서버에 회원가입 요청을 보냄
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
     setIsLoading(true);
-    // 제출된 데이터의 공백을 제거한 후 처리
     const trimmedData: SignupFormValues = {
       email: data.email.trim(),
       nickname: data.nickname?.trim(),
@@ -74,16 +84,36 @@ export default function SignupPage() {
     };
 
     try {
-      // 회원가입 요청
-      await signUp(trimmedData);
-
-      // 회원가입 성공 시 로그인 페이지로 리다이렉트
-      router.push("/auth/login");
+      const response = await signUp(trimmedData);
+      if (response && "success" in response) {
+        if (response.success) {
+          setAlertMessage("회원 가입에 성공했습니다!");
+          setIsAlertOpen(true);
+        } else {
+          setAlertMessage(
+            response.message ||
+              "회원가입 중 오류가 발생했습니다. 다시 시도해 주세요."
+          );
+          setIsAlertOpen(true);
+        }
+      } else {
+        throw new Error("Invalid response format");
+      }
     } catch (error) {
       console.error("Error:", error);
-      alert("회원가입 중 오류가 발생했습니다. 다시 시도해 주세요.");
+      setAlertMessage(
+        "서버와의 통신 중 오류가 발생했습니다. 다시 시도해 주세요."
+      );
+      setIsAlertOpen(true);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleCloseAlert = () => {
+    setIsAlertOpen(false);
+    if (alertMessage === "회원 가입에 성공했습니다!") {
+      router.push("/auth/login"); // 성공 시 로그인 페이지로 이동
     }
   };
 
@@ -219,6 +249,13 @@ export default function SignupPage() {
           로그인
         </Link>
       </div>
+
+      {/* AlertModal 컴포넌트 */}
+      <AlertModal
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleCloseAlert}
+      />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import axiosInstance from "@/api/axiosConfig";
 import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 import { User } from "@/types/auth";
+import { AxiosError } from "axios";
 
 export default async function handler(
   req: NextApiRequest,
@@ -57,6 +58,17 @@ export default async function handler(
       }
     } catch (error) {
       console.error("토큰 갱신 실패:", error);
+
+      // 에러 응답 처리
+      if (error instanceof AxiosError && error.response?.status === 500) {
+        const errorMessage =
+          error.response.data.message || "서버 오류가 발생했습니다.";
+        return res.status(200).json({
+          isLogin: false,
+          message: errorMessage,
+        });
+      }
+
       return res.status(200).json({
         isLogin: false,
         message: "유효하지 않은 refreshToken 입니다.",

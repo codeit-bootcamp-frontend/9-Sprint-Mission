@@ -1,41 +1,37 @@
-// pages/api/auth/signUp.ts
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 import axiosInstance from "@/api/axiosConfig";
-import { SignupFormValues, User } from "@/types/auth";
+import { AxiosError } from "axios";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
-    const {
-      email,
-      nickname,
-      password,
-      passwordConfirmation,
-    }: SignupFormValues = req.body;
-
     try {
-      // 백엔드 API에 회원가입 요청
-      const user = (
-        await axiosInstance.post("/auth/signUp", {
-          email,
-          nickname,
-          password,
-          passwordConfirmation,
-        })
-      ).data as User;
-
-      // 회원가입 성공 시 사용자 정보 반환
-      return res.status(200).json({ message: "회원가입 성공", user });
+      const response = await axiosInstance.post("/auth/signup", req.body);
+      res.status(200).json(response.data);
     } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "회원가입 요청에 실패했습니다." });
+      if (error instanceof AxiosError && error.response) {
+        // 백엔드에서 반환한 에러 메시지와 상태 코드를 사용
+        const { status, data } = error.response;
+        res.status(200).json({
+          success: false,
+          message: data.message || "회원가입 중 오류가 발생했습니다.",
+          error: data.error,
+          status: status,
+        });
+      } else {
+        // 예상치 못한 에러의 경우
+        res.status(200).json({
+          success: false,
+          message: "서버 오류가 발생했습니다.",
+          error: "INTERNAL_SERVER_ERROR",
+          status: 500,
+        });
+      }
     }
   } else {
     res.setHeader("Allow", ["POST"]);
-    return res
-      .status(405)
-      .json({ message: `Method ${req.method} Not Allowed` });
+    res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
