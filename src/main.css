@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./assets/fonts/ROKAF-Sans-Medium.ttf") format("truetype"); /* 또는 OTF 형식 */
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "ROKAF Sans";
+  src: url("./assets/fonts/ROKAF-Sans-Bold.ttf") format("truetype"); /* 또는 OTF 형식 */
+  font-weight: 700;
+  font-style: normal;
+}
+
+@layer utilities {
+  .text-logo {
+    font-size: 25.63px;
+    line-height: 34.6px;
+  }
+  .text-logo-mobile {
+    font-size: 20.2px;
+    line-height: 27.27px;
+  }
+  .page-size {
+    @apply mx-auto w-full PC:w-[1200px];
+  }
+}
+
+@layer base {
+  body {
+    @apply font-sans; /* Pretendard가 기본 글꼴로 설정됨 */
+  }
+}
