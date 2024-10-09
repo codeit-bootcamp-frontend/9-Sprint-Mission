@@ -20,7 +20,7 @@ const LOGO_AUTH = "/images/logo/logo-auth.png";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [user, setUser] = useAtom(userAtom);
+  const [, setUser] = useAtom(userAtom);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -84,10 +84,6 @@ export default function LoginPage() {
         updatedAt: userUpdatedAt,
         createdAt: userCreatedAt,
       });
-
-      if (user) {
-        console.log("user: ", user);
-      }
 
       // 로그인 후 홈으로 리다이렉트
       router.push("/");

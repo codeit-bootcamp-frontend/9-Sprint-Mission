@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 import { User } from "@/types/auth";
 import { removeAllAuthCookies } from "@/utils/cookie";
 import AlertModal from "@/components/UI/modal/AlertModal";
@@ -25,6 +26,26 @@ export default function Header({ user }: HeaderProps) {
   const [isAlertOpen, setIsAlertOpen] = useState(false); // AlertModal 상태
   const [alertMessage, setAlertMessage] = useState(""); // AlertModal 메시지 상태
   const [, setUser] = useAtom(userAtom);
+
+  useEffect(() => {
+    async function checkAuthStatus() {
+      try {
+        const response = await axios.post("/api/auth/refreshToken");
+        if (response.status === 200 && response.data.isLogin) {
+          setUser(response.data.user);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("인증 상태 확인 중 오류 발생:", error);
+        setUser(null);
+      }
+    }
+
+    if (!user) {
+      checkAuthStatus();
+    }
+  }, [setUser, user]);
 
   const handleLogout = async () => {
     try {
