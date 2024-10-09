@@ -1,6 +1,6 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import axiosInstance from "@/api/axiosConfig";
 import { AxiosError } from "axios";
+import axiosInstance from "@/api/axiosConfig";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,

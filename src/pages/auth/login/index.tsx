@@ -1,5 +1,4 @@
 // pages/auth/login/index.tsx
-import axios from "axios";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +14,7 @@ import { userAtom } from "@/store/authAtoms";
 import { ACCESS_TOKEN_EXPIRY, setCookie } from "@/utils/cookie";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import AlertModal from "@/components/UI/modal/AlertModal";
+import { checkAuthStatus } from "@/utils/authUtils";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
@@ -27,31 +27,21 @@ export default function LoginPage() {
   const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
-    async function checkAuthStatus() {
+    async function initializeAuthStatus() {
       setIsLoading(true);
-      try {
-        const response = await axios.post("/api/auth/refreshToken");
+      const authStatus = await checkAuthStatus();
 
-        if (response.status === 200) {
-          if (response.data.isLogin) {
-            // 사용자가 이미 로그인되어 있으면 홈으로 리다이렉트
-            router.push("/");
-          } else if (response.data.message) {
-            // 500 에러 등의 메시지가 있으면 AlertModal로 표시
-            setAlertMessage(response.data.message);
-            setIsAlertOpen(true);
-          }
-        }
-      } catch (error) {
-        console.error("인증 상태 확인 중 오류 발생:", error);
-        setAlertMessage("인증 상태 확인 중 오류가 발생했습니다.");
+      if (authStatus.isLogin) {
+        router.push("/");
+      } else if (authStatus.status && authStatus.status !== 404) {
+        // 404가 아닌 모든 에러 상태에 대해 AlertModal 표시
+        setAlertMessage(authStatus.message);
         setIsAlertOpen(true);
-      } finally {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     }
 
-    checkAuthStatus();
+    initializeAuthStatus();
   }, [router]);
 
   // react-hook-form 사용하여 폼 상태 및 유효성 검사 관리
@@ -84,7 +74,7 @@ export default function LoginPage() {
         const userUpdatedAt = userData.updatedAt;
         const userCreatedAt = userData.createdAt;
 
-        // 쿠키에 로그인한 유저 정보 저장
+        // 쿠키에 로그인한 유 정보 저장
         setCookie("userId", userId, ACCESS_TOKEN_EXPIRY);
         setCookie("userImage", userImage || "", ACCESS_TOKEN_EXPIRY);
         setCookie("nickname", userNickname || "", ACCESS_TOKEN_EXPIRY);
@@ -160,12 +150,12 @@ export default function LoginPage() {
         <InputItem
           id="email" // LoginFormValues의 email 필드와 연동
           label="이메일" // 레이블 텍스트
-          placeholder="이메일을 입력해 주세요" // 입력 필드에 표시될 placeholder
+          placeholder="이메일을 입력해 주세요" // 입력 필드에 표시 placeholder
           register={register("email", {
             required: "이메일을 입력해 주세요", // 필수 필드
             pattern: {
               value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-              message: "잘못된 이메일 형식입니다", // 이메일 유효성 검사
+              message: "잘못된 이메 형식입니다", // 이메일 유효성 검사
             },
           })}
           errorMessage={errors.email?.message} // 유효성 검사 오류 메시지 출력

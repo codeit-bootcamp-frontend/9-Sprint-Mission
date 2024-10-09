@@ -25,3 +25,26 @@ export interface AuthResponse {
   refreshToken: string;
   user: User;
 }
+
+export interface SignUpResponse {
+  success: boolean;
+  message: string;
+  user?: {
+    id: number;
+    email: string;
+    nickname: string;
+  };
+}
+
+export interface SignInResponse {
+  success: boolean;
+  message: string;
+  user?: User;
+}
+
+export interface RefreshTokenResponse {
+  isLogin: boolean;
+  message: string;
+  user?: User;
+  status?: number;
+}
