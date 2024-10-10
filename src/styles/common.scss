@@ -12,6 +12,7 @@ $color-gray-1: #374151;
 $color-1f2937: #1f2937;
 $color-111827: #111827;
 $color-3692ff: #3692ff;
+$color-3182f6: #3182f6;
 $color-hover-1967d6: #1967d6;
 $color-bg-skyblue: #54677e;
 $color-bg-footer: #111827;
@@ -45,6 +46,21 @@ textarea.form-input {
   max-width: 1248px;
   margin: 0 auto;
   padding: 24px;
+}
+
+.container2 {
+  width: 100%;
+  max-width: 744px;
+  margin: 0 auto;
+  padding: 52px;
+}
+
+h1.sub-logo {
+  position: relative;
+  width: 396px;
+  height: 132px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 h2.page-title {
@@ -95,6 +111,19 @@ button.btn-box.submit {
   background: $color-hover-1967d6;
   &:disabled {
     background: $color-9ca3af;
+  }
+}
+
+button.btn-box.large {
+  display: block;
+  width: 100%;
+  height: 56px;
+  background: $color-9ca3af;
+  color: #fff;
+  line-height: 56px;
+
+  &:hover {
+    background: $color-hover-1967d6;
   }
 }
 
@@ -164,6 +193,15 @@ button.btn-kebab {
 @media (max-width: 768px) {
   .container {
     padding: 4%;
+  }
+
+  .container2 {
+    padding: 4.26%;
+  }
+
+  h1.sub-logo {
+    width: 198px;
+    height: 66px;
   }
 
   .btn-link {

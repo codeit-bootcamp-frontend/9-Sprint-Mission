@@ -49,6 +49,20 @@
       }
     }
   }
+
+  .login {
+    button {
+      padding: 0;
+
+      > * {
+        display: block;
+        width: 128px;
+        height: 48px;
+        font-weight: 600;
+        line-height: 48px;
+      }
+    }
+  }
 }
 
 @media (max-width: 1200px) {
