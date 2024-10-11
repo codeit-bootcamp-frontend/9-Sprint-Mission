@@ -19,6 +19,7 @@
   line-height: 5.6rem;
   color: var(--gray700);
   text-align: left;
+  white-space: nowrap;
 }
 
 .button {
@@ -28,6 +29,7 @@
   position: relative;
   width: 746px;
   height: 340px;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 992px) {
@@ -37,15 +39,21 @@
   .wrap {
     align-items: center;
     flex-direction: column;
-    padding-top: 201px;
+    justify-content: end;
     margin: 0 auto;
+    padding-top: 0;
+    height: 927px;
   }
   .intro {
     gap: 24px;
-    text-align: center;
+    margin: 0;
   }
   .img {
-    margin-top: 217px;
+    height: 397px;
+  }
+  .text {
+    text-align: center;
+    padding: 200px 0 218px 0;
   }
 }
 
@@ -54,22 +62,22 @@
     display: block;
   }
   .wrap {
-    padding-top: 121px;
     margin: 0 auto;
+    height: 540px;
   }
   .text {
     font-size: 3.2rem;
     font-weight: 700;
     line-height: 4.4rem;
     text-align: center;
+    padding: 120px 0 130px 0;
   }
   .intro {
     gap: 16px;
     align-items: center;
   }
   .img {
-    margin-top: 132px;
-    width: 448px;
-    height: 204px;
+    object-fit: cover;
+    width: 100%;
   }
 }

@@ -5,9 +5,10 @@
 .wrap {
   display: flex;
   justify-content: space-between;
-  width: 1120px;
+  max-width: 1120px;
+  width: 100%;
   margin: 0 auto;
-  padding-top: 32px;
+  padding: 32px 0;
 }
 
 .company {
@@ -46,6 +47,9 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
     gap: 24px;
+    padding: 32px 16px 65px 16px;
+    margin: 0;
+    width: 100%;
   }
 
   .company {
@@ -59,7 +63,8 @@
   }
 
   .links {
-    grid-column: 3;
+    display: flex;
+    justify-content: end;
     grid-row: 1;
   }
 }

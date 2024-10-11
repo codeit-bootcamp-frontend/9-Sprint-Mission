@@ -55,7 +55,29 @@
 }
 
 @media screen and (max-width: 992px) {
+  .card-wrap {
+    padding: 24px 0;
+  }
+
   .card {
     flex-direction: column;
+    gap: 24px;
+  }
+  .card-description {
+    margin: 0;
+    width: 100%;
+  }
+  .br {
+    display: none;
+  }
+  .img {
+    width: 100%;
+    height: 524px;
+    object-fit: cover;
+  }
+  .description {
+  }
+  .headline-descrpt {
+    text-align: right;
   }
 }

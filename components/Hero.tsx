@@ -9,7 +9,7 @@ export function Hero() {
       <div className={css.wrap}>
         <div className={css.intro}>
           <div className={css.text}>
-            일상의 모든 물건을
+            일상의 모든 물건을&nbsp;
             <br className={css.tablet} />
             거래해 보세요
           </div>
