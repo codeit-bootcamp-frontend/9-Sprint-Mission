@@ -1,3 +1,10 @@
+import { Hero } from "@/components/Hero";
+
 export default function index() {
-  return <div></div>;
+  return (
+    <>
+      <Hero />
+      <div className="container"></div>
+    </>
+  );
 }
