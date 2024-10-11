@@ -43,7 +43,8 @@ li {
   max-width: 1200px;
   margin: 0 auto;
 }
-. .hidden {
+
+.hidden {
   position: absolute;
   width: 1px;
   height: 1px;
