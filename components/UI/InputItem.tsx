@@ -12,6 +12,7 @@ interface InputItemProps {
   isTextArea?: boolean;
   errorMessage?: string;
   type?: string;
+  name?: string;
   required?: boolean;
 }
 
@@ -25,6 +26,7 @@ const InputItem = ({
   onKeyDown,
   isTextArea,
   errorMessage,
+  name,
   type = "text",
   required,
 }: InputItemProps) => {
@@ -48,6 +50,7 @@ const InputItem = ({
           onBlur={onBlur}
           onKeyDown={onKeyDown}
           placeholder={placeholder}
+          name={name}
           type={type}
           required={required}
         />
