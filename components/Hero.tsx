@@ -2,11 +2,8 @@ import Image from "next/image";
 import Button from "./ButtonToGo";
 import Link from "next/link";
 import css from "./Hero.module.css";
-import classNames from "classnames/bind";
 
 export function Hero() {
-  const cn = classNames.bind(css);
-
   return (
     <div className={css.banner}>
       <div className={css.wrap}>
