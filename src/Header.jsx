@@ -5,7 +5,7 @@ import { useLocation, Link } from "react-router-dom";
 export default function Header() {
   const location = useLocation();
 
-  const isItemPage = location.pathname === "/items";
+  const isItemPage = ["/items", "/additem"].includes(location.pathname);
   const isFreeboard = location.pathname === "/boards";
 
   return (
