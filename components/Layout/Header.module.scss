@@ -55,7 +55,30 @@
     }
 
     .userWrap {
+      position: relative;
       margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .nickname {
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: $gray400;
+      }
+
+      .logoutButton {
+        position: absolute;
+        right: 0;
+        bottom: -6rem;
+        font-size: 1.6rem;
+        font-weight: 400;
+        color: $gray500;
+        background-color: white;
+        border: 1px solid $gray300;
+        border-radius: 8px;
+        padding: 16px 24px;
+      }
     }
   }
 }
