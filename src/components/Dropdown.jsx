@@ -33,7 +33,7 @@ const Dropdown = ({ selectedOption, setSelectedOption, setPage }) => {
       </button>
 
       {isOpen && (
-        <div className="absolute -bottom-[92px] z-10 w-[130px] bg-white rounded-xl outline outline-1 outline-gray200">
+        <div className="absolute -bottom-[92px] right-0 z-10 w-[130px] bg-white rounded-xl outline outline-1 outline-gray200">
           <button
             onClick={() => handleOptionClick("최신순")}
             className="w-full h-[42px] rounded-t-xl text-lg text-gray-800 hover:bg-gray-100 border-b"
