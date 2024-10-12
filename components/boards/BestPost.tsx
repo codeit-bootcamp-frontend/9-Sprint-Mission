@@ -8,17 +8,17 @@ import { ISearchList } from "@/types/boardsTypeShare";
 import axios from "axios";
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
 import toast from "react-hot-toast";
-import BestPostMap from "./BestPostMap";
+import BestPostContents from "./BestPostContents";
 
 const BestPost = () => {
   const pageSize: number = useCalculateWidth("best");
 
   const [bestPost, setBestPost] = useState<ISearchList[]>([]);
   const [isLoading, setLoading] = useState(false);
-  
+
   const getBestPosts = useCallback(async () => {
     if (pageSize === 0 || pageSize === Infinity) return null;
-    
+
     try {
       setLoading(true);
       const response = await instance.get(`/articles?pageSize=${pageSize}&orderBy=like`);
@@ -30,7 +30,7 @@ const BestPost = () => {
       if (axios.isAxiosError(error)) {
         console.error("자유게시판 베스트게시글 getBestPosts에서 api 오류 발생", error);
         toast.error(error.response?.data.message);
-      } 
+      }
     } finally {
       setLoading(false);
     }
@@ -39,7 +39,7 @@ const BestPost = () => {
   useEffect(() => {
     getBestPosts();
   }, [getBestPosts]);
-  
+
   return (
     <>
       <h2 className="text-lg font-bold">베스트 게시글</h2>
@@ -47,7 +47,7 @@ const BestPost = () => {
         {isLoading ? (
           <p className="font-semibold text-center text-xl">게시글을 불러오고 있습니다.</p>
         ) : (
-          <BestPostMap bestPost={bestPost} />
+          <BestPostContents bestPost={bestPost} />
         )}
       </div>
       <div className="flex flex-col space-y-4">

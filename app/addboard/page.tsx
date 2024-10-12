@@ -142,7 +142,7 @@ const AddBoard = () => {
         <h2 className="font-bold text-xl">게시글 쓰기</h2>
         <button
           type="submit"
-          className="text-white font-semibold px-6 py-3 rounded-lg bg-[--color-theme] hover:bg-[--color-theme-hover] disabled:bg-[--color-gray400]"
+          className="custom-submit-button"
           disabled={!form.formState.isValid}
         >
           {isLoading ? "등록중" : "등록"}

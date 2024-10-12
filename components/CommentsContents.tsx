@@ -6,7 +6,8 @@ interface IProps {
   comments: IComment[];
 }
 
-const CommentsMap = ({ comments }: IProps) => {
+// 수정 필요 - 개선사항 참고 
+const CommentsContents = ({ comments }: IProps) => {
   const formattedCommentCreateTime = comments.map((comment) =>
     formatCommentsTime(comment.createdAt)
   );
@@ -35,4 +36,4 @@ const CommentsMap = ({ comments }: IProps) => {
   ));
 };
 
-export default CommentsMap;
+export default CommentsContents;

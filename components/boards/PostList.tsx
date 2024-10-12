@@ -7,7 +7,7 @@ import axios from "axios";
 import Pagination from "../Pagination";
 import toast from "react-hot-toast";
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
-import AllPostMap from "./AllPostMap";
+import AllPostContents from "./AllPostContents";
 
 interface IProps {
   searchList: ISearchList[];
@@ -22,7 +22,7 @@ const PostList = ({ searchList, orderBy }: IProps) => {
   const [posts, setPosts] = useState<ISearchList[]>([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  
+
   const isMobile = pageSize === 4;
 
   const getPosts = useCallback(async () => {
@@ -41,7 +41,7 @@ const PostList = ({ searchList, orderBy }: IProps) => {
       if (axios.isAxiosError(error)) {
         console.error("boards getPosts 함수에서 api 오류 발생", error);
         toast.error(error.response?.data);
-      } 
+      }
     }
   }, [page, orderBy, pageSize]);
 
@@ -51,7 +51,7 @@ const PostList = ({ searchList, orderBy }: IProps) => {
 
   return (
     <div className="flex flex-col space-y-6">
-      <AllPostMap allPost={posts} searchList={searchList} />
+      <AllPostContents allPost={posts} searchList={searchList} />
       {searchList.length === 0 && (
         <Pagination totalPage={totalPage} page={page} setPage={setPage} isMobile={isMobile} />
       )}
