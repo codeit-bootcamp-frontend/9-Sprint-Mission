@@ -6,8 +6,8 @@ import { z } from "zod";
 import { addItemSchema } from "./addItemConstants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { instance } from "@/lib/axios";
-import { useEffect, useState } from "react";
-import { getRefreshToken, imgUpload } from "@/lib/utils";
+import { useState } from "react";
+import { imgUpload } from "@/lib/utils";
 import useToken from "@/hooks/useToken";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -86,7 +86,7 @@ const AddItem = () => {
   
   const tags = getValues("itemTag");
   const img = getValues("itemImg");
-  console.log(Array.isArray(tags), typeof tags)
+ 
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tagInput.trim() !== "") {
       e.preventDefault();
@@ -108,12 +108,13 @@ const AddItem = () => {
   };
 
   const handleDeleteTag = (clickTag: string | number) => {
-    const currentTags = getValues("itemTag");
-    setValue("itemTag", currentTags?.filter((tag) => tag.tag !== clickTag));
+    setValue("itemTag", tags?.filter((tag) => tag.tag !== clickTag));
   };
 
   const onSubmit = async (values: z.infer<typeof addItemSchema>) => {
     try {
+      context?.checkTokenExpire();
+
       let currentImgSrc: string | undefined;
       console.log(values.itemTag)
       if (typeof context?.accessToken === "string") {
@@ -176,12 +177,6 @@ const AddItem = () => {
       error: errors.itemPrice?.message,
     },
   ];
-
-  useEffect(() => {
-    if (!context?.accessToken && typeof context?.refreshToken === "string") {
-      getRefreshToken(context?.refreshToken);
-    }
-  }, [context]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-6">
