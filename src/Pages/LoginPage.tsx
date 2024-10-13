@@ -1,9 +1,10 @@
-// import styles from "./LoginPage.module.css";
 import { useForm } from "react-hook-form";
 import Input, { InputValues } from "../components/Input";
 import FormButton from "../components/FormButton";
 import styles from "./LoginPage.module.css";
 import Logo from "../assets/logo2.png";
+import EasyLogin from "../components/EasyLogin";
+import FormLink from "./FormLink";
 
 export default function LoginPage() {
   const {
@@ -20,7 +21,7 @@ export default function LoginPage() {
   return (
     <div className={styles["form-wrap"]}>
       <h1>
-        <img src={Logo} alt="판다마켓" width={396} height={132} />
+        <img className={styles["title-img"]} src={Logo} alt="판다마켓" />
       </h1>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -37,7 +38,9 @@ export default function LoginPage() {
             message: "잘못된 이메일입니다.",
           }}
         />
-        {errors.이메일 && <p className={styles["error-text"]}>{errors.이메일.message}</p>}
+        {errors.이메일 && (
+          <p className={styles["error-text"]}>{errors.이메일.message}</p>
+        )}
         <Input
           label="비밀번호"
           register={register}
@@ -45,12 +48,13 @@ export default function LoginPage() {
           placeholder="비밀번호를 입력해주세요"
           type="password"
           pattern={{
-            value:
-            /^.{8,}$/ ,
+            value: /^.{8,}$/,
             message: "비밀번호를 8자 이상 입력해주세요",
           }}
         />
-        {errors.비밀번호 && <p className={styles["error-text"]}>{errors.비밀번호.message}</p>}
+        {errors.비밀번호 && (
+          <p className={styles["error-text"]}>{errors.비밀번호.message}</p>
+        )}
         {}
         <button type="button" className={styles["show-hide-btn"]}></button>
         <FormButton
@@ -60,6 +64,12 @@ export default function LoginPage() {
           {"로그인"}
         </FormButton>
       </form>
+      <EasyLogin />
+      <FormLink
+        containerContent="판다마켓이 처음이신가요?"
+        to="/register"
+        linkContent="회원가입"
+      />
     </div>
   );
 }

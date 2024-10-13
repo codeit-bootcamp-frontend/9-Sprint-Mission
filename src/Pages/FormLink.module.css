@@ -1,0 +1,15 @@
+.register-link-container {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  color: var(--secondary-gray800);
+  text-align: center;
+}
+
+.register-link-container .register {
+  line-height: 16.71px;
+  text-decoration: underline;
+  color: var(--primary-blue100);
+  margin-left: 4px;
+}

@@ -8,8 +8,8 @@ return(
   <div className={styles["easy-login-container"]}>
     <div className={styles.title}>간편 로그인하기</div>
     <div className={styles["sns-link-container"]}>
-      <img src={google} alt=""/>
-      <img src={kakao} alt=""/>
+      <img src={google} alt="" width={42} height={42}/>
+      <img src={kakao} alt=""  width={42} height={42}/>
     </div>
   </div>
   </>
