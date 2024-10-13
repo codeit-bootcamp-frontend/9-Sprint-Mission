@@ -1,0 +1,19 @@
+.form-btn {
+  width: 100%;
+  height: 56px;
+  border: none;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 32px;
+  color: var(--secondary-gray100);
+  cursor: pointer;
+}
+
+.form-btn.gray {
+  background-color: var(--secondary-gray400);
+}
+
+.form-btn.blue {
+  background-color: var(--primary-blue100);
+}

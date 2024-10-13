@@ -10,6 +10,7 @@ import InquiryBoard from "../components/InquiryBoard";
 import user from "../assets/Frame 2609463.png";
 import { Link } from "react-router-dom";
 import { Kebab } from "../components/InquiryBoard";
+import Header from "../components/Header";
 
 const ProductInfoWrap = styled.div`
   display: flex;
