@@ -59,6 +59,7 @@ export default function Additems() {
           등록
         </button>
       </div>
+
       <div className="flex flex-col">
         <label htmlFor="productImg" className="text-2lg font-bold">
           상품 이미지
@@ -72,10 +73,10 @@ export default function Additems() {
           placeholder="이미지 등록"
           // disabled={!!imagePreview}
         />
-        <div className="flex gap-[10px]">
+        <div className="flex gap-[10px] PC:gap-6">
           <label
             htmlFor="productImg"
-            className="input-style w-[calc((100%-10px)/2)] aspect-[1/1] flex flex-col gap-3 text-lg text-gray-400 items-center justify-center"
+            className="input-style w-[calc((100%-10px)/2)] Tablet:w-[168px] PC:w-[282px] aspect-[1/1] flex flex-col gap-3 text-lg text-gray-400 items-center justify-center"
           >
             <img
               src={plusIcon}
@@ -84,7 +85,7 @@ export default function Additems() {
             />
             이미지 등록
           </label>
-          <div className="w-[calc((100%-10px)/2)] relative">
+          <div className="w-[calc((100%-10px)/2)] Tablet:w-[168px] PC:w-[282px] relative">
             {imagePreview && (
               <img
                 src={imagePreview}
@@ -111,6 +112,7 @@ export default function Additems() {
           </p>
         )}
       </div>
+
       <div>
         <label htmlFor="productName" className="text-2lg font-bold">
           상품명
@@ -124,6 +126,7 @@ export default function Additems() {
           placeholder="상품명을 입력해주세요"
         />
       </div>
+
       <div>
         <label htmlFor="productDescription" className="text-2lg font-bold">
           상품 소개
@@ -136,6 +139,7 @@ export default function Additems() {
           placeholder="상품 소개를 입력해주세요"
         />
       </div>
+
       <div>
         <label htmlFor="productPrice" className="text-2lg font-bold">
           판매가격
@@ -151,6 +155,7 @@ export default function Additems() {
           placeholder="판매가격을 입력해주세요"
         />
       </div>
+
       <div>
         <label htmlFor="productTag" className="text-2lg font-bold">
           태그
