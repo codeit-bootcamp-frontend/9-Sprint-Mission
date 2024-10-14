@@ -25,3 +25,10 @@
   height: 24px;
   background-color: $gray200;
 }
+
+.errorMessage {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $clr-red;
+  padding: 1rem 0 0 1rem;
+}

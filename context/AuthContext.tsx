@@ -15,7 +15,6 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuth, setIsAuth] = useState(false);
 
-  // 로컬 스토리지에서 토큰을 읽어와 로그인 상태 초기화
   useEffect(() => {
     // localStorage는 브라우저 환경에서만 사용 가능하고
     // 클라이언트 측에서만 접근 가능

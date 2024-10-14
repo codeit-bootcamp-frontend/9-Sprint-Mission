@@ -20,3 +20,7 @@ export const LineDividerWidth = () => {
 export const LineDividerHieght = () => {
   return <div className={styles.lineDividerHieght}></div>;
 };
+
+export const ErrorMessage = ({ children }: Props) => {
+  return <p className={styles.errorMessage}>{children}</p>;
+};
