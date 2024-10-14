@@ -43,14 +43,13 @@ const AddBoard = () => {
     if (files && files.length === 1) {
       const file = files[0];
 
-      const imgCheck = addBoardSchema.shape.postImg.safeParse(file);
+      const imgCheck = file.size < 5 * 1024 * 1024;
 
-      if (!imgCheck.success) {
+      if (!imgCheck) {
         setImgError("이미지는 최대 1개만 등록가능합니다.");
         return;
       }
 
-      setValue("postImg", file);
       setImgError("");
 
       e.target.value = "";
@@ -59,6 +58,7 @@ const AddBoard = () => {
 
       imagePreview.onloadend = () => {
         if (imagePreview.result && typeof imagePreview.result === "string") {
+          setValue("postImg", imagePreview.result);
           setPreviewSrc(imagePreview.result);
         }
       };

@@ -50,14 +50,13 @@ const AddItem = () => {
     if (files && files.length === 1) {
       const file = files[0];
 
-      const imgCheck = addItemSchema.shape.itemImg.safeParse(file);
+      const imgCheck = file.size < 5 * 1024 * 1024;
 
-      if (!imgCheck.success) {
-        setImgError("이미지는 최대 1개만 등록가능합니다.");
+      if (!imgCheck) {
+        setImgError("이미지는 5MB를 넘을 수 없습니다.");
         return;
       }
 
-      setValue("itemImg", file);
       setImgError("");
 
       e.target.value = "";
@@ -66,6 +65,7 @@ const AddItem = () => {
 
       imagePreview.onloadend = () => {
         if (imagePreview.result && typeof imagePreview.result === "string") {
+          setValue("itemImg", imagePreview.result);
           setPreviewSrc(imagePreview.result);
         }
       };
@@ -83,10 +83,10 @@ const AddItem = () => {
     const newTag = e.target.value;
     setTagInput(newTag);
   };
-  
+
   const tags = getValues("itemTag");
   const img = getValues("itemImg");
- 
+
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tagInput.trim() !== "") {
       e.preventDefault();
@@ -94,7 +94,7 @@ const AddItem = () => {
       const newTag: INewTag = {
         tag: tagInput.trim(),
       };
-      
+
       if (tags?.some((tag) => tag.tag === newTag.tag)) {
         setTagInput("");
         return;
@@ -108,7 +108,10 @@ const AddItem = () => {
   };
 
   const handleDeleteTag = (clickTag: string | number) => {
-    setValue("itemTag", tags?.filter((tag) => tag.tag !== clickTag));
+    setValue(
+      "itemTag",
+      tags?.filter((tag) => tag.tag !== clickTag)
+    );
   };
 
   const onSubmit = async (values: z.infer<typeof addItemSchema>) => {
@@ -116,7 +119,7 @@ const AddItem = () => {
       context?.checkTokenExpire();
 
       let currentImgSrc: string | undefined;
-      console.log(values.itemTag)
+      console.log(values.itemTag);
       if (typeof context?.accessToken === "string") {
         currentImgSrc = await imgUpload(getValues, "items", context?.accessToken);
       }
@@ -189,10 +192,10 @@ const AddItem = () => {
       <div className="flex flex-col space-y-6">
         <div className="flex flex-col space-y-4">
           <h3 className="text-lg font-bold">상품 이미지</h3>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
             <label
               htmlFor="itemImg"
-              className="flex flex-col space-y-3 items-center justify-center w-[168px] h-[168px] bg-[--color-gray100] rounded-xl lg:w-[282px] lg:h-[282px]"
+              className="flex flex-col space-y-3 items-center justify-center w-[168px] h-[168px] bg-[--color-gray100] rounded-xl lg:w-[282px] lg:h-[282px] cursor-pointer"
             >
               <Image src="/icons/plus.png" alt="이미지 추가" width={48} height={48} />
               <span className="text-[--color-gray400] ml-0">이미지 등록</span>
@@ -270,21 +273,22 @@ const AddItem = () => {
               placeholder="태그를 입력해주세요"
             />
             <ul className="flex items-center space-x-3 flex-wrap gap-y-3">
-              {tags?.map((tag) => (
-                <li
-                  key={tag.tag}
-                  className="px-3 py-[6px] bg-[--color-gray100] rounded-full flex items-center space-x-[10px]"
-                >
-                  <span>{tag.tag}</span>
-                  <button
-                    type="button"
-                    className="flex items-center justify-center"
-                    onClick={() => handleDeleteTag(tag.tag)}
+              {tags.length > 0 &&
+                tags?.map((tag) => (
+                  <li
+                    key={tag.tag}
+                    className="px-3 py-[6px] bg-[--color-gray100] rounded-full flex items-center space-x-[10px]"
                   >
-                    <Image src="/icons/delete.png" alt="삭제" width={20} height={20} />
-                  </button>
-                </li>
-              ))}
+                    <span>{tag.tag}</span>
+                    <button
+                      type="button"
+                      className="flex items-center justify-center"
+                      onClick={() => handleDeleteTag(tag.tag)}
+                    >
+                      <Image src="/icons/delete.png" alt="삭제" width={20} height={20} />
+                    </button>
+                  </li>
+                ))}
             </ul>
           </div>
         </div>
