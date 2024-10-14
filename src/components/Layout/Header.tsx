@@ -1,17 +1,29 @@
+import { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import { useRouter } from 'next/router';
 import { useMediaQuery } from 'react-responsive';
 import Logo from '@/images/logo/logo.svg';
 import LogoMobile from '@/images/logo/logo-mobile.svg';
-import ProfileIon from '@/images/icons/ic_profile.png';
-import Image from 'next/image';
+import ProfileIcon from '@/images/icons/ic_profile.png';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function Header() {
+  const { user, setUser } = useAuth();
+  console.log(user);
+
   const router = useRouter();
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const accessToken = localStorage.getItem('accessToken');
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const accessToken =
+    typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
 
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+    setUser(null);
+    router.push('/login');
+  };
   return (
     <header className='bg-white shadow-sm'>
       <div className='mx-auto md:px-10 py-4 flex justify-between items-center w-full'>
@@ -51,7 +63,34 @@ export default function Header() {
           </ul>
         </nav>
         {accessToken ? (
-          <Image src={ProfileIon} width={32} height={32} alt='Profile' />
+          <div className='flex items-center relative'>
+            <p className='mr-4'>
+              <span className='text-gray-700 font-semibold'>
+                {user?.nickname}
+              </span>
+              님
+            </p>
+            <div className='relative'>
+              <Image
+                src={ProfileIcon}
+                width={32}
+                height={32}
+                alt='Profile'
+                onClick={() => setDropdownVisible(!dropdownVisible)}
+                className='cursor-pointer'
+              />
+              {dropdownVisible && (
+                <div className='absolute right-0 top-full mt-2 px-5 bg-white border rounded shadow-lg'>
+                  <button
+                    onClick={handleLogout}
+                    className='w-full p-2 hover:text-blue-600 cursor-pointer text-center '
+                  >
+                    로그아웃
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
         ) : (
           <Link
             href='/login'

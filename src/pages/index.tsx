@@ -21,7 +21,7 @@ export default function Home() {
           </div>
           <Link
             href='/items'
-            className='mt-8 px-6 py-3 w-full max-w-[280px] text-xl bg-blue-500 text-white rounded-full inline-block  lg:px-8 lg:py-4 hover:bg-blue-600 transition-colors duration-300'
+            className='mt-8 px-6 py-3 w-full max-w-[280px] text-xl bg-blue-500 text-white rounded-full inline-block  lg:px-8 lg:py-4 hover:bg-blue-600 transition-colors duration-300 text-center'
           >
             구경하러 가기
           </Link>

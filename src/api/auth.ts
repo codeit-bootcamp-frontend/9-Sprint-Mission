@@ -17,7 +17,16 @@ interface LoginRequest {
 
 // API 응답 타입
 interface AuthResponse {
+  user: {
+    id: number;
+    nickname: string;
+    image: string | null;
+    createdAt: string;
+    updatedAt: string;
+    email: string;
+  };
   accessToken: string;
+  refreshToken: string;
 }
 
 // 회원가입 API

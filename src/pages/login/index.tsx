@@ -8,6 +8,7 @@ import kakao from '@/images/social/kakao-logo.png';
 import Logo from '@/images/logo/logo-auth.svg';
 import { login, saveToken } from '@/api/auth';
 import { useRouter } from 'next/router';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -18,6 +19,8 @@ const Login: React.FC = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const router = useRouter();
+
+  const { setUser } = useAuth();
 
   const validateEmail = (email: string): boolean =>
     /^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/.test(email);
@@ -53,6 +56,11 @@ const Login: React.FC = () => {
       try {
         const response = await login({ email, password });
         saveToken(response.accessToken);
+        setUser({
+          id: response.user.id,
+          nickname: response.user.nickname,
+          email: response.user.email,
+        });
         router.push('/');
       } catch (error) {
         console.error('로그인 실패:', error);
@@ -79,6 +87,7 @@ const Login: React.FC = () => {
         </Link>
       </div>
       <form onSubmit={handleSubmit} className='space-y-6'>
+        {errors.form && <p className='text-sm text-red-600'>{errors.form}</p>}
         <div>
           <label
             htmlFor='email'

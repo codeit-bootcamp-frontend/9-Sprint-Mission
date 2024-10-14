@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import FooterController from '@/components/Layout/FooterController';
 import { useRouter } from 'next/router';
+import { AuthProvider } from '../contexts/AuthContext';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -12,23 +13,25 @@ export default function App({ Component, pageProps }: AppProps) {
     router.pathname === '/login' || router.pathname === '/signup';
 
   return (
-    <DefaultLayout>
-      <Head>
-        <title>판다마켓</title>
-        <link rel='icon' href='favicon.ico' />
-      </Head>
-      {!isAuthPage && <Header />}
-      <main
-        className='min-h-screen'
-        style={{
-          minWidth: '400px',
-          margin: '0',
-          padding: '0',
-        }}
-      >
-        <Component {...pageProps} />
-      </main>
-      {!isAuthPage && <FooterController />}
-    </DefaultLayout>
+    <AuthProvider>
+      <DefaultLayout>
+        <Head>
+          <title>판다마켓</title>
+          <link rel='icon' href='favicon.ico' />
+        </Head>
+        {!isAuthPage && <Header />}
+        <main
+          className='min-h-screen'
+          style={{
+            minWidth: '400px',
+            margin: '0',
+            padding: '0',
+          }}
+        >
+          <Component {...pageProps} />
+        </main>
+        {!isAuthPage && <FooterController />}
+      </DefaultLayout>
+    </AuthProvider>
   );
 }
