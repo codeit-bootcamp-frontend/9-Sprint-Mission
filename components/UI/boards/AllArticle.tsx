@@ -14,18 +14,18 @@ import { getArticles } from "@/api/article";
 interface Props {
   articles: Article[];
   orderBy: ArticleSortOption;
+  keyword: string | null;
 }
 
 const AllArticle = ({
   articles: initialArticles,
   orderBy: initialOrderBy,
+  keyword: initialKeyword,
 }: Props) => {
   const router = useRouter();
-  const params = useSearchParams();
-  const keywordParam = params.get("keyword");
   const [articles, setArticles] = useState(initialArticles);
   const [orderBy, setOrderBy] = useState(initialOrderBy);
-  const [search, setSearch] = useState(keywordParam);
+  const [search, setSearch] = useState(initialKeyword || "");
 
   // 정렬 선택 핸들러
   const handleSortSelection = (sortOption: ArticleSortOption) => {
@@ -34,17 +34,17 @@ const AllArticle = ({
 
   useEffect(() => {
     const fetchArticles = async () => {
-      const response = await getArticles({ orderBy });
+      const response = await getArticles({ orderBy, keyword: search });
       setArticles(response.list);
     };
 
     fetchArticles();
-  }, [orderBy]);
+  }, [orderBy, search]);
 
   // 검색어 변경 핸들러
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setSearch(value === "" ? null : value);
+    setSearch(value);
   };
 
   // 검색 폼 핸들러

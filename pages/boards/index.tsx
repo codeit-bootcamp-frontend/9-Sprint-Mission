@@ -9,6 +9,7 @@ interface Props {
   bestArticles: Article[];
   AllArticles: Article[];
   orderBy: ArticleSortOption;
+  keyword: string | null;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -17,41 +18,19 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const { keyword, orderBy, pageSize } = context.query;
 
-  let AllKeyword = "";
-  if (typeof keyword === "string" && typeof keyword !== undefined) {
-    AllKeyword = keyword;
-  }
+  const AllKeyword = typeof keyword === "string" ? keyword : "";
+  const AllorderBy = typeof orderBy === "string" ? orderBy : "recent";
+  const BestPageSize = typeof pageSize === "number" ? pageSize : 3;
 
-  let AllorderBy = "recent";
-  if (typeof orderBy === "string" && typeof orderBy !== undefined) {
-    AllorderBy = orderBy;
-  }
-
-  let BestPageSize = 3;
-  if (typeof pageSize === "number" && typeof pageSize !== undefined) {
-    BestPageSize = pageSize;
-  }
+  // 비동기 요청을 배열로 준비
+  const promises = [
+    getArticles({ orderBy: "like", pageSize: BestPageSize }),
+    getArticles({ orderBy: AllorderBy, pageSize: 10, keyword: AllKeyword }),
+  ];
 
   try {
-    const bestData = await getArticles({
-      orderBy: "like",
-      pageSize: BestPageSize,
-    });
+    const [bestData, AllData] = await Promise.all(promises);
     bestArticles = bestData.list ?? [];
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error(error.response?.status, error.message);
-    } else {
-      throw new Error("에러가 발생했습니다.");
-    }
-  }
-
-  try {
-    const AllData = await getArticles({
-      orderBy: AllorderBy,
-      pageSize: 10,
-      keyword: AllKeyword,
-    });
     AllArticles = AllData.list ?? [];
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -66,15 +45,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       bestArticles,
       AllArticles,
       orderBy: AllorderBy,
+      keyword: AllKeyword,
     },
   };
 };
 
-const Boards = ({ bestArticles, AllArticles, orderBy }: Props) => {
+const Boards = ({ bestArticles, AllArticles, orderBy, keyword }: Props) => {
   return (
     <div className="container">
       <BestArticle articles={bestArticles} />
-      <AllArticle articles={AllArticles} orderBy={orderBy} />
+      <AllArticle articles={AllArticles} orderBy={orderBy} keyword={keyword} />
     </div>
   );
 };
