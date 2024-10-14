@@ -1,0 +1,163 @@
+* {
+  font-family: Pretendard;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-label-color: #1f2937;
+  --main-input-color: #f3f4f6;
+  --main-ph-color: #9ca3af;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.logo-container {
+  display: inline-block;
+}
+
+.login-container {
+  margin: 0 auto;
+  padding-top: 40px;
+  width: 640px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-label {
+  margin: 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  text-align: left;
+  color: var(--main-label-color);
+  width: fit-content;
+  cursor: pointer;
+}
+
+.login-label.email {
+  margin-top: 0px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 0 24px;
+  height: 56px;
+  border: 0;
+  border-radius: 12px;
+  background-color: var(--main-input-color);
+}
+
+.login-input.password {
+  padding-right: 64px;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-hide {
+  width: 24px;
+  height: 24px;
+  border: none;
+  position: absolute;
+  bottom: 16px;
+  right: 24px;
+  background: url(../login/passwordHide.png) no-repeat center/contain;
+  cursor: pointer;
+  
+  &.password-no-hide {
+    background-image: url(../login/passwordNoHide.png);
+  }
+ 
+}
+
+
+.login-input:focus {
+  border: 1px solid #3692ff;
+  outline: none;
+}
+
+::placeholder {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  color: var(--main-ph-color);
+}
+
+.login-button {
+  margin-top: 24px;
+  background-color: #9ca3af;
+  height: 56px;
+  border: 0;
+  border-radius: 40px;
+  color: #f9fafb;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.login-button-hover {
+  background-color: #3692ff;
+  cursor: pointer;
+}
+
+.login-simple {
+  margin-top: 24px;
+  background-color: #e6f2ff;
+  color: var(--main-label-color);
+  height: 74px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 23px;
+  font-size: 16px;
+  font-weight: 500;
+  gap: 12px;
+}
+
+.simple-login {
+  flex-grow: 1;
+}
+
+.login-first {
+  margin-top: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--main-label-color);
+}
+
+.sign-up {
+  color: #3182f6;
+}
+
+.red-box {
+  border: 1px solid #f00;
+}
+
+.err-messege {
+  color: #f00;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .logo {
+    width: 198px;
+    height: auto;
+  }
+
+  .login-container {
+    max-width: 400px;
+  }
+}
