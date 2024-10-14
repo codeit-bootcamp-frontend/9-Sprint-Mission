@@ -1,12 +1,18 @@
 // 게시글 작성 페이지
 import { ChangeEvent, useState } from "react";
 import { Button } from "@/styles/CommonStyles";
-import FileInput from "@/components/UI/Input/FileInput";
+import { useRouter } from "next/router";
+import FileInput from "@/components/ui/input/FileInput";
 import styled from "styled-components";
+import instance from "@/api/axios";
 
 export default function AddBoard() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null); // 이미지 미리보기 상태
+  const router = useRouter();
+
   const contentIsEmpty = !(title && content);
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,36 +23,87 @@ export default function AddBoard() {
     setContent(e.target.value);
   };
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const file = files[0]; // 실제 파일 객체
+      setImagePreview(URL.createObjectURL(file)); // 미리보기용 URL
+      setImageFile(file); // 파일 자체를 저장
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("image", imageFile);
+
+    // const signUp = await instance.post(`/auth/signUp`, {
+    //   email: "wn8624@naver.com",
+    //   nickname: "junyeong",
+    //   password: "0000000",
+    //   passwordConfirmation: "0000000",
+    // });
+
+    const signIn = await instance.post(`/auth/signIn`, {
+      email: "wn8624@naver.com",
+      password: "0000000",
+    });
+
+    if (signIn) {
+      const accessToken = signIn.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+    }
+
+    const accessToken = localStorage.getItem("accessToken");
+    const res = await instance.post("/articles/", formData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "multipart/form-data", // 파일을 업로드할 때는 multipart/form-data 사용
+      },
+    });
+
+    if (res) {
+      router.push(`/articles/${res.data.id}`);
+    }
+  };
+
   return (
-    <Container>
-      <Header>
-        <Title>게시글 쓰기</Title>
-        <SubmitButton disabled={contentIsEmpty}>등록</SubmitButton>
-      </Header>
-      <TitleSection>
-        <Title>*제목</Title>
-        <ContentInput
-          name="title"
-          value={title}
-          type="text"
-          onChange={handleTitleChange}
-          placeholder="제목을 입력해주세요."
-        />
-      </TitleSection>
-      <ContentSection>
-        <Title>*내용</Title>
-        <ContentTextArea
-          name="content"
-          value={content}
-          onChange={handleContentChange}
-          placeholder="내용을 입력해주세요."
-        />
-      </ContentSection>
-      <ImageSection>
-        <Title>이미지</Title>
-        <FileInput />
-      </ImageSection>
-    </Container>
+    <form onSubmit={handleSubmit}>
+      <Container>
+        <Header>
+          <Title>게시글 쓰기</Title>
+          <SubmitButton disabled={contentIsEmpty} type="submit">
+            등록
+          </SubmitButton>
+        </Header>
+        <TitleSection>
+          <Title>*제목</Title>
+          <ContentInput
+            name="title"
+            value={title}
+            type="text"
+            onChange={handleTitleChange}
+            placeholder="제목을 입력해주세요."
+          />
+        </TitleSection>
+        <ContentSection>
+          <Title>*내용</Title>
+          <ContentTextArea
+            name="content"
+            value={content}
+            onChange={handleContentChange}
+            placeholder="내용을 입력해주세요."
+          />
+        </ContentSection>
+        <ImageSection>
+          <Title>이미지</Title>
+          <FileInput onChange={handleFileChange} image={imagePreview} />
+        </ImageSection>
+      </Container>
+    </form>
   );
 }
 

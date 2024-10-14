@@ -1,85 +1,33 @@
 import { useRouter } from "next/router";
+import { LoginButton } from "../ui/button/LoginButton";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../../assets/images/logo/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import profile from "@/assets/images/icons/profilex1.png";
 
-// GlobalHeader 스타일
-const GlobalHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-// HeaderLeft 스타일
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-// NavList 스타일
-const NavList = styled.ul`
-  display: flex;
-  list-style: none;
-  margin-left: 20px;
-  gap: 8px;
-  font-weight: bold;
-  font-size: 16px;
-  color: var(--gray-600);
-
-  @media (min-width: 768px) {
-    gap: 36px;
-    font-size: 18px;
-  }
-`;
-
-// NavItem 스타일
-const NavItem = styled.li`
-  a:hover {
-    color: var(--blue);
-  }
-`;
-
-// 스타일링된 Link 컴포넌트
-const StyledNavLink = styled(Link).attrs<{ isActive?: boolean }>(
-  ({ isActive }) => ({
-    // isActive 속성은 styled-components 내에서만 사용하고, DOM으로 전달되지 않도록 필터링
-    isActive: isActive,
-  })
-)<{ isActive?: boolean }>`
-  color: ${({ isActive }) => (isActive ? "var(--blue)" : "var(--gray-600)")};
-  text-decoration: none;
-  &:hover {
-    color: var(--blue);
-  }
-`;
-
-// ProfileButton 스타일
-const ProfileButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none; // 기본 테두리 제거
-  border-radius: 50%; // 둥근 테두리
-  cursor: pointer;
-  padding: 4px; // 이미지 주변 여백
-  overflow: hidden; // 확대 시 이미지가 버튼 경계를 넘지 않도록 설정
-  transition: transform 0.3s ease; // 부드러운 확대 효과
-
-  &:hover {
-    transform: scale(1.1); // 호버 시 확대 효과
-  }
-
-  &:focus {
-    outline: none;
-    transform: scale(1.1); // 포커스 시에도 확대 효과
-  }
-`;
-
-const Header: React.FC = () => {
+const Header = () => {
   const router = useRouter();
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+
+  const toggleLogoutButton = () => {
+    setIsLogoutOpen((prev) => !prev);
+  };
+
+  // 로그아웃 기능
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken"); // 토큰 삭제
+    setAccessToken(null); // 상태 초기화
+    router.push("/");
+  };
+
+  // 클라이언트 사이드에서만 localStorage를 접근
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setAccessToken(token);
+  }, []);
 
   return (
     <GlobalHeader>
@@ -111,11 +59,106 @@ const Header: React.FC = () => {
           </NavList>
         </nav>
       </HeaderLeft>
-      <ProfileButton>
-        <Image src={profile} alt="프로필" width={40} height={40} />
-      </ProfileButton>
+      {accessToken ? (
+        <ProfileContainer>
+          <ProfileButton onClick={toggleLogoutButton}>
+            <Image src={profile} alt="프로필" width={40} height={40} />
+          </ProfileButton>
+
+          {isLogoutOpen && (
+            <LogoutButton onClick={handleLogout}>로그아웃</LogoutButton>
+          )}
+        </ProfileContainer>
+      ) : (
+        <LoginButton />
+      )}
     </GlobalHeader>
   );
 };
 
 export default Header;
+
+// 스타일 컴포넌트 정의
+const GlobalHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const HeaderLeft = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NavList = styled.ul`
+  display: flex;
+  list-style: none;
+  margin-left: 20px;
+  gap: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--gray-600);
+
+  @media (min-width: 768px) {
+    gap: 36px;
+    font-size: 18px;
+  }
+`;
+
+const NavItem = styled.li`
+  a:hover {
+    color: var(--blue);
+  }
+`;
+
+const StyledNavLink = styled(Link).attrs<{ isActive?: boolean }>(
+  ({ isActive }) => ({
+    isActive: isActive,
+  })
+)<{ isActive?: boolean }>`
+  color: ${({ isActive }) => (isActive ? "var(--blue)" : "var(--gray-600)")};
+  text-decoration: none;
+  &:hover {
+    color: var(--blue);
+  }
+`;
+
+const ProfileContainer = styled.div`
+  position: relative;
+`;
+
+const ProfileButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 4px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
+    transform: scale(1.1);
+  }
+`;
+
+const LogoutButton = styled.button`
+  position: absolute;
+  right: 0;
+  top: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 14px 40px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  color: var(--gray-500);
+`;

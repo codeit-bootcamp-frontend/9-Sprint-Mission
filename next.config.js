@@ -11,6 +11,13 @@ const nextConfig = {
       "flexible.img.hani.co.kr",
     ],
   },
+  // dev 모드에서는 수정한 부분만 핫 리로딩 되도록 설정
+  webpack: (config, { dev, isServer }) => {
+    if (dev && isServer) {
+      config.optimization.minimize = false;
+    }
+    return config;
+  },
 };
 
 module.exports = nextConfig;
