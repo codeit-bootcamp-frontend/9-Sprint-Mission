@@ -4,8 +4,10 @@ import styles from "./Header.module.css";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { throttle } from "@/lib/throttle";
+import { LoginBtn } from "./LoginBtn";
 
 export default function Header() {
+  const [login, setLogin] = useState(false);
   const router = useRouter();
   const currentPath = router.pathname;
   const isBoardsPage = currentPath.startsWith("/boards");
@@ -52,7 +54,14 @@ export default function Header() {
             </Link>
           </div>
         </div>
-        <Image src="/user.png" width={40} height={40} alt="프로필"></Image>
+
+        {login ? (
+          <Image src="/user.png" width={40} height={40} alt="프로필"></Image>
+        ) : (
+          <Link href="/login">
+            <LoginBtn>로그인</LoginBtn>
+          </Link>
+        )}
       </nav>
     </header>
   );

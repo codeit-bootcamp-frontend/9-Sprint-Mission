@@ -65,6 +65,7 @@ export default function Article({
       <ArticleView ArticleItem={ArticleItem} />
       <form className={styles.form} onSubmit={handleReplySubmit}>
         <TextInput
+          type="text"
           label="reply"
           placeholder="댓글을 입력해주세요"
           required

@@ -1,0 +1,11 @@
+.loginBtn {
+  width: 128px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: var(--main);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 2.6rem;
+  color: var(--gray100);
+  border: none;
+}

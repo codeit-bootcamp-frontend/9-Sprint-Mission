@@ -37,3 +37,9 @@ export interface Reply {
     image: string;
   };
 }
+export interface States {
+  email: string;
+  nickname: string;
+  password: string;
+  passwordCheck: string;
+}
