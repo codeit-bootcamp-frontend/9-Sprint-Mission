@@ -13,7 +13,6 @@ import CustomInput from "@/components/ui/common/CustomInput";
 export default function SignInPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
-  const [isTokenSaved, setIsTokenSaved] = useState(false);
   const [dataIsValidate, setDataIsValidate] = useState({
     emailFormat: true,
     passwordFormat: true,
@@ -61,7 +60,7 @@ export default function SignInPage() {
       const { accessToken } = res.data;
       // 로컬 스토리지에 토큰 저장
       localStorage.setItem("accessToken", accessToken);
-      setIsTokenSaved(true);
+      router.push("/");
     } catch (error) {
       console.error("로그인 실패:", error);
       alert("로그인에 실패했습니다. 다시 시도해주세요.");
@@ -71,9 +70,8 @@ export default function SignInPage() {
   // 토큰이 저장된 후에만 페이지 이동
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) router.push("/");
-    if (isTokenSaved) {
-      router.push(`/`); // 저장된 후에만 이동
+    if (accessToken) {
+      router.push(`/`); // 토큰이 잇다면 홈페이지로 리다이렉트
     }
     validateInputData();
   }, [userData]);

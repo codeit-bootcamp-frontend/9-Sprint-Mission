@@ -18,6 +18,7 @@ const Feature = ({
         width={500}
         height={500}
         objectFit="contain"
+        priority
       />
       <FeatureContent>
         <h2>{featureName}</h2>

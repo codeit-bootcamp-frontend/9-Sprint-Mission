@@ -45,7 +45,8 @@ export default function SignUpPage() {
     passwordConfirmFormat: true,
   });
 
-  const toggleVisibility = (field: string) => {
+  type VisibilityField = "password" | "confirm";
+  const toggleVisibility = (field: VisibilityField) => {
     setIsVisible((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
@@ -194,9 +195,9 @@ const SignUpButton = styled.button`
   text-align: center;
 
   &:disabled {
-    background-color: var(--gray-400); /* 비활성화 상태일 때의 색상 */
-    color: white; /* 비활성화 상태일 때의 글자 색상 */
-    cursor: not-allowed; /* 비활성화 상태일 때 커서 */
+    background-color: var(--gray-400); 
+    color: white; 
+    cursor: not-allowed; 
   }
 `;
 
