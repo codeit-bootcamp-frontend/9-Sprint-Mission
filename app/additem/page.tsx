@@ -31,6 +31,7 @@ const AddItem = () => {
     handleSubmit,
     setValue,
     getValues,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<z.infer<typeof addItemSchema>>({
     resolver: zodResolver(addItemSchema),
@@ -43,6 +44,8 @@ const AddItem = () => {
       itemTag: [],
     },
   });
+
+  const formValues = watch();
 
   const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
@@ -84,7 +87,6 @@ const AddItem = () => {
     setTagInput(newTag);
   };
 
-  const tags = getValues("itemTag");
   const img = getValues("itemImg");
 
   const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -95,12 +97,12 @@ const AddItem = () => {
         tag: tagInput.trim(),
       };
 
-      if (tags?.some((tag) => tag.tag === newTag.tag)) {
+      if (formValues.itemTag?.some((tag) => tag.tag === newTag.tag)) {
         setTagInput("");
         return;
       }
 
-      const newValues = [...(tags || []), newTag];
+      const newValues = [...(formValues.itemTag || []), newTag];
 
       setValue("itemTag", newValues);
       setTagInput("");
@@ -110,7 +112,7 @@ const AddItem = () => {
   const handleDeleteTag = (clickTag: string | number) => {
     setValue(
       "itemTag",
-      tags?.filter((tag) => tag.tag !== clickTag)
+      formValues.itemTag?.filter((tag) => tag.tag !== clickTag)
     );
   };
 
@@ -119,10 +121,12 @@ const AddItem = () => {
       context?.checkTokenExpire();
 
       let currentImgSrc: string | undefined;
-      console.log(values.itemTag);
+
       if (typeof context?.accessToken === "string") {
         currentImgSrc = await imgUpload(getValues, "items", context?.accessToken);
       }
+
+      const currentTags = getValues("itemTag");
 
       const response = await instance.post(
         "/products",
@@ -131,7 +135,7 @@ const AddItem = () => {
           name: values.itemName,
           description: values.itemDescription,
           price: values.itemPrice,
-          tags: tags?.map((tag) => ({ tag })),
+          tags: currentTags?.map((tag) => ({ tag })),
         },
         {
           headers: {
@@ -273,22 +277,21 @@ const AddItem = () => {
               placeholder="태그를 입력해주세요"
             />
             <ul className="flex items-center space-x-3 flex-wrap gap-y-3">
-              {tags.length > 0 &&
-                tags?.map((tag) => (
-                  <li
-                    key={tag.tag}
-                    className="px-3 py-[6px] bg-[--color-gray100] rounded-full flex items-center space-x-[10px]"
+              {formValues.itemTag?.map((tag) => (
+                <li
+                  key={tag.tag}
+                  className="px-3 py-[6px] bg-[--color-gray100] rounded-full flex items-center space-x-[10px]"
+                >
+                  <span>{tag.tag}</span>
+                  <button
+                    type="button"
+                    className="flex items-center justify-center"
+                    onClick={() => handleDeleteTag(tag.tag)}
                   >
-                    <span>{tag.tag}</span>
-                    <button
-                      type="button"
-                      className="flex items-center justify-center"
-                      onClick={() => handleDeleteTag(tag.tag)}
-                    >
-                      <Image src="/icons/delete.png" alt="삭제" width={20} height={20} />
-                    </button>
-                  </li>
-                ))}
+                    <Image src="/icons/delete.png" alt="삭제" width={20} height={20} />
+                  </button>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
