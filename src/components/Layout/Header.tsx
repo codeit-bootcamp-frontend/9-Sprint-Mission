@@ -1,19 +1,26 @@
 import Link from 'next/link';
 import React from 'react';
 import { useRouter } from 'next/router';
-
-import Logo from '@/images/logo/logo.svg'; // SVG 파일을 React 컴포넌트로 임포트
+import { useMediaQuery } from 'react-responsive';
+import Logo from '@/images/logo/logo.svg';
+import LogoMobile from '@/images/logo/logo-mobile.svg';
 
 export default function Header() {
   const router = useRouter();
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   return (
     <header className='bg-white shadow-sm'>
-      <div className='mx-auto px-10 py-4 flex justify-between items-center w-full'>
-        <Link href='/' className='mr-2 md:mr-8'>
-          <Logo width={153} height={51} alt='Logo' /> {/* SVG 컴포넌트 사용 */}
+      <div className='mx-auto md:px-10 py-4 flex justify-between items-center w-full'>
+        <Link href='/' className='md:mr-8'>
+          {isMobile ? (
+            <LogoMobile width={110} height={51} alt='Logo' />
+          ) : (
+            <Logo width={153} height={51} alt='Logo' />
+          )}
         </Link>
         <nav className='flex-grow'>
-          <ul className='flex space-x-6'>
+          <ul className='flex space-x-2 md:space-x-6'>
             <li>
               <Link
                 href='/boards'

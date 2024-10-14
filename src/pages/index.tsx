@@ -11,17 +11,17 @@ export default function Home() {
   return (
     <>
       <section
-        className='bg-blue-100 w-full h-[60vh] min-h-[500px] text-center bg-no-repeat bg-bottom bg-[length:130%] md:h-[90vh] md:bg-[length:120%] lg:text-left lg:h-[540px] lg:flex lg:flex-col lg:justify-center lg:bg-[80%_bottom] lg:bg-[length:55%]'
+        className='bg-blue-100 w-full h-[60vh] min-h-[500px] text-center bg-no-repeat bg-bottom bg-[length:130%] md:h-[75vh] md:bg-[length:120%] lg:text-left lg:h-[540px] lg:flex lg:flex-col lg:justify-center lg:bg-[80%_bottom] lg:bg-[length:55%]'
         style={{ backgroundImage: `url(${HeroImage.src})` }}
       >
         <div className='min-w-[400px] max-w-[1200px] w-full mx-auto px-4 pt-[30px]'>
-          <div className='font-bold sm:pt-[100px] min-w-[300px] text-lg leading-tight pt-12 md:text-4xl md:leading-tight md:pt-[84px] md:pb-6 lg:pt-0 lg:pb-8'>
+          <div className='text-3xl font-bold min-w-[300px] leading-tight pt-16 md:text-4xl md:leading-tight md:pt-[84px] md:pb-6 lg:pt-0 lg:pb-8'>
             일상의 모든 물건을 <br className='md:hidden lg:inline' />
             거래해 보세요
           </div>
           <Link
             href='/items'
-            className='mt-[30px] px-8 py-4 w-[20vw] min-w-[200px] max-w-[340px] bg-blue-500 text-white rounded-full font-bold text-lg hover:bg-blue-600 transition-colors duration-300'
+            className='mt-8 px-6 py-3 w-full max-w-[280px] text-xl bg-blue-500 text-white rounded-full inline-block  lg:px-8 lg:py-4 hover:bg-blue-600 transition-colors duration-300'
           >
             구경하러 가기
           </Link>
@@ -56,7 +56,7 @@ export default function Home() {
       </section>
 
       <section
-        className='bg-blue-100 w-full h-[60vh] text-center bg-no-repeat bg-bottom bg-[length:130%] md:h-[90vh] md:bg-[length:120%] lg:text-left lg:h-[540px] lg:flex lg:flex-col lg:justify-center lg:bg-[80%_bottom] lg:bg-[length:55%]'
+        className='bg-blue-100 w-full h-[60vh] text-center bg-no-repeat bg-bottom bg-[length:130%] md:h-[75vh] md:bg-[length:120%] lg:text-left lg:h-[540px] lg:flex lg:flex-col lg:justify-center lg:bg-[80%_bottom] lg:bg-[length:55%]'
         style={{ backgroundImage: `url(${BottomBannerImage.src})` }}
       >
         <div className='max-w-[1200px] w-full mx-auto px-4'>
