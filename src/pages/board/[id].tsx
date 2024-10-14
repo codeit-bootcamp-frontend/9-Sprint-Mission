@@ -27,7 +27,7 @@ export async function getServerSideProps(
   let comments: Comment[];
   try {
     const res = await axios.get(`/articles/${boardId}`);
-    board = JSON.parse(JSON.stringify(res.data));
+    board = res.data;
   } catch {
     return {
       notFound: true,
@@ -35,7 +35,7 @@ export async function getServerSideProps(
   }
 
   const res = await axios.get(`/articles/${boardId}/comments?limit=10`);
-  comments = JSON.parse(JSON.stringify(res.data.list)) ?? [];
+  comments = res.data.list ?? [];
 
   return {
     props: {
