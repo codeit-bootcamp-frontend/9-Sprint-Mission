@@ -4,10 +4,13 @@ import { useRouter } from 'next/router';
 import { useMediaQuery } from 'react-responsive';
 import Logo from '@/images/logo/logo.svg';
 import LogoMobile from '@/images/logo/logo-mobile.svg';
+import ProfileIon from '@/images/icons/ic_profile.png';
+import Image from 'next/image';
 
 export default function Header() {
   const router = useRouter();
   const isMobile = useMediaQuery({ maxWidth: 767 });
+  const accessToken = localStorage.getItem('accessToken');
 
   return (
     <header className='bg-white shadow-sm'>
@@ -47,13 +50,17 @@ export default function Header() {
             </li>
           </ul>
         </nav>
-        <Link
-          href='/login'
-          className='
-            bg-[#3692FF] text-white font-semibold text-center hover:bg-[#1E6ED9] rounded-[6px] px-[15px] py-[8px] gap-[10px] transition-colors duration-300 md:w-[120px] md:h-[40px] md:px-[20px] md:py-[10px] lg:h-[46px] lg:px-[25px] lg:py-[12px]'
-        >
-          로그인
-        </Link>
+        {accessToken ? (
+          <Image src={ProfileIon} width={32} height={32} alt='Profile' />
+        ) : (
+          <Link
+            href='/login'
+            className='
+              bg-[#3692FF] text-white font-semibold text-center hover:bg-[#1E6ED9] rounded-[6px] px-[15px] py-[8px] gap-[10px] transition-colors duration-300 md:w-[120px] md:h-[40px] md:px-[20px] md:py-[10px] lg:h-[46px] lg:px-[25px] lg:py-[12px]'
+          >
+            로그인
+          </Link>
+        )}
       </div>
     </header>
   );
