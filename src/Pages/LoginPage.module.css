@@ -1,7 +1,9 @@
 .form-wrap {
   display: flex;
   flex-direction: column;
-  padding-top: 104px;
+  margin: 0 auto;
+  max-width: 640px;
+  padding-top: 231px;
 }
 
 .form-wrap > h1 {
@@ -39,7 +41,17 @@
   color: var(--error-red);
 }
 
+@media (max-width: 1200px) {
+  .form-wrap {
+    padding: 190px 52px;
+  }
+}
+
 @media (max-width: 768px) {
+  .form-wrap {
+    padding: 80px 16px;
+  }
+
   .title-img {
     width: 198px;
     height: 66px;

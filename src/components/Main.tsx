@@ -1,7 +1,7 @@
 import "./Main.css";
 import { BestProductList } from "./BestProductList";
 import { TotalProductList } from "./TotalProductList";
-import Header from "./Header";
+import Header from "./HeaderGnb";
 
 function Main() {
   return (

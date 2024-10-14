@@ -4,9 +4,13 @@ import FormButton from "../components/FormButton";
 import styles from "./LoginPage.module.css";
 import Logo from "../assets/logo2.png";
 import EasyLogin from "../components/EasyLogin";
-import FormLink from "./FormLink";
+import FormLink from "../components/FormLink";
+import axios from "../api/axios";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,9 +18,28 @@ export default function LoginPage() {
   } = useForm<InputValues>({
     mode: "onChange", // 입력이 변경될 때마다 유효성 검사를 수행
   });
-  const onSubmit = (data: InputValues) => {
-    console.log(data);
+  const onSubmit = async (data: InputValues) => {
+    try {
+      const res = await axios.post("/auth/signIn", {
+        email: data.이메일,
+        password: data.비밀번호,
+      });
+      const accessToken = res.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
+      //페이지 이동
+      navigate("/");
+      console.log("성공");
+    } catch (error) {
+      console.log("로그인 실패", error);
+    }
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <div className={styles["form-wrap"]}>
@@ -58,6 +81,7 @@ export default function LoginPage() {
         {}
         <button type="button" className={styles["show-hide-btn"]}></button>
         <FormButton
+          type="submit"
           color={isValid ? "blue" : "gray"}
           disabled={!isValid || isSubmitting}
         >

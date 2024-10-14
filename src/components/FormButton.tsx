@@ -4,14 +4,15 @@ import styles from "./FormButton.module.css";
 interface FormButtonProps {
   children: ReactNode;
   color: string;
-  disabled: boolean;
+  disabled?: boolean;
+  type: "submit" | "button" | "reset";
 }
 
-export default function FormButton({children, color, disabled}: FormButtonProps) {
+export default function FormButton({children, color, disabled, type = "submit"}: FormButtonProps) {
   
   return (
     <>
-    <button type="submit" disabled={disabled} className={`${styles["form-btn"]} ${styles[color]}`}>{children}</button>
+    <button type={type} disabled={disabled} className={`${styles["form-btn"]} ${styles[color]}`}>{children}</button>
     </>
   )
 }
