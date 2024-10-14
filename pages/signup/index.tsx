@@ -7,7 +7,7 @@ import useAuth from "@/hooks/useAuth";
 import { ErrorMessage } from "@/components/UI/CommonStyles";
 import Button from "@/components/UI/Button/Button";
 import InputItem from "@/components/UI/InputItem";
-import EasyLogin from "@/components/UI/auth/easyLogin";
+import EasyLogin from "@/components/UI/auth/EasyLogin";
 import AuthForm from "@/components/UI/auth/AuthForm";
 
 // 비밀번호 조건 정규표현식
