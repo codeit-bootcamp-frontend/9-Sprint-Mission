@@ -1,0 +1,47 @@
+.footer-line {
+  background-color: #111827;
+  color: #fff;
+  height: 160px;
+  position: sticky;
+  bottom: 0;
+}
+
+.footer-info {
+  font-size: 16px;
+  font-weight: 400;
+  width: 1120px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: 32px;
+}
+
+.footer-link {
+  display: flex;
+  gap: 30px;
+}
+
+.footer-link-item {
+  color: #fff;
+  text-decoration: none;
+}
+
+.sns-link {
+  display: flex;
+  gap: 12px;
+}
+
+@media (max-width: 1199px) {
+  .footer-info {
+    width: 100%;
+    padding: 0 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-year {
+    position: absolute;
+    bottom: -60px;
+  }
+}

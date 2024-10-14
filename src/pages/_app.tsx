@@ -3,6 +3,7 @@ import Head from "next/head";
 import Header from "@/src/components/Layout/Header";
 import "@/src/styles/globals.css";
 import Contanier from "../components/Layout/Container";
+import Footer from "../components/Layout/Footer";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -12,9 +13,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Contanier>
-        <Component {...pageProps} />
-      </Contanier>
+      <Component {...pageProps} />
+      <Footer />
     </>
   );
 }

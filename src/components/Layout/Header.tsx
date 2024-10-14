@@ -3,15 +3,16 @@ import Link from "next/link";
 import logo from "@/src/assets/logo.png";
 import profile from "@/src/assets/profile.png";
 import styles from "./Header.module.css";
-
-// function getLinkStyle({ isActive }, path) {
-//   return {
-//     color:
-//       isActive || window.location.pathname === path ? "#3692ff" : undefined,
-//   };
-// }
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    setIsLoggedIn(!!token);
+  }, []);
+
   return (
     <header className={styles.headerContainer}>
       <h1>
@@ -33,15 +34,26 @@ export default function Header() {
           중고마켓
         </Link>
       </div>
-      <button className={styles.headerProfile} type="button">
-        <Image
-          className={styles.headerProfileImg}
-          src={profile}
-          alt="프로필"
-          width={40}
-          height={40}
-        />
-      </button>
+      {isLoggedIn ? (
+        <button className={styles.headerProfile} type="button">
+          <Image
+            className={styles.headerProfileImg}
+            src={profile}
+            alt="프로필"
+            width={40}
+            height={40}
+          />
+        </button>
+      ) : (
+        <div className={styles.headerSign}>
+          <Link className={styles.headerSignItem} href="/login">
+            로그인
+          </Link>
+          <Link className={styles.headerSignItem} href="/register">
+            회원가입
+          </Link>
+        </div>
+      )}
     </header>
   );
 }

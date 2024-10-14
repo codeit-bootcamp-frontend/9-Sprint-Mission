@@ -1,14 +1,3 @@
-* {
-  font-family: Pretendard;
-  box-sizing: border-box;
-}
-
-:root {
-  --main-label-color: #1f2937;
-  --main-input-color: #f3f4f6;
-  --main-ph-color: #9ca3af;
-}
-
 .header-container {
   display: flex;
   justify-content: center;
@@ -22,6 +11,7 @@
 .login-container {
   margin: 0 auto;
   padding-top: 40px;
+  padding-bottom: 100px;
   width: 640px;
 }
 
@@ -69,22 +59,20 @@
   position: absolute;
   bottom: 16px;
   right: 24px;
-  background: url(../login/passwordHide.png) no-repeat center/contain;
+  background: url("../assets/login/passwordHide.png") no-repeat center/contain;
   cursor: pointer;
-  
-  &.password-no-hide {
-    background-image: url(../login/passwordNoHide.png);
-  }
- 
-}
 
+  &.password-no-hide {
+    background-image: url("../assets/login/passwordNoHide.png");
+  }
+}
 
 .login-input:focus {
   border: 1px solid #3692ff;
   outline: none;
 }
 
-::placeholder {
+.login-input::placeholder {
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
@@ -102,9 +90,9 @@
   font-weight: 600;
 }
 
-.login-button-hover {
-  background-color: #3692ff;
+.login-button:enabled:hover {
   cursor: pointer;
+  background-color: #3692ff;
 }
 
 .login-simple {
@@ -142,16 +130,11 @@
   border: 1px solid #f00;
 }
 
-.err-messege {
+.error-msg {
   color: #f00;
 }
 
 @media (max-width: 767px) {
-  body {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
   .logo {
     width: 198px;
     height: auto;
