@@ -10,7 +10,11 @@ export function SignBtn({
   active: boolean;
 }) {
   return (
-    <button type="submit" className={cx("button", active ? "active" : "")}>
+    <button
+      type="submit"
+      disabled={!active}
+      className={cx("button", active ? "active" : "")}
+    >
       {children}
     </button>
   );

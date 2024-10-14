@@ -42,7 +42,19 @@ export default function Signup() {
       passwordCheck: newVaule,
     }));
   };
+
   let active = false;
+  // validation
+  // button activation
+  if (
+    value.email !== "" &&
+    value.nickname !== "" &&
+    value.password !== "" &&
+    value.passwordCheck !== ""
+  ) {
+    active = true;
+  }
+
   const handleSubmitSignup = () => {
     //회원가입 api
   };
@@ -76,7 +88,7 @@ export default function Signup() {
           placeholder="닉네임을 입력해주세요"
           required
           value={value.nickname}
-          onChange={handleChangeEmail}
+          onChange={handleChangeNickname}
         >
           닉네임
         </TextInput>
@@ -86,7 +98,7 @@ export default function Signup() {
           placeholder="비밀번호를 입력해주세요"
           required
           value={value.password}
-          onChange={handleChangeEmail}
+          onChange={handleChangePW}
         >
           비밀번호
         </TextInput>
@@ -96,7 +108,7 @@ export default function Signup() {
           placeholder="비밀번호를 다시 한 번 입력해주세요"
           required
           value={value.passwordCheck}
-          onChange={handleChangeEmail}
+          onChange={handleChangePWCheck}
         >
           비밀번호 확인
         </TextInput>

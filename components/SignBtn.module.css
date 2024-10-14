@@ -11,5 +11,6 @@
 }
 
 .active {
-  color: var(--main);
+  background-color: var(--main);
+  cursor: pointer;
 }

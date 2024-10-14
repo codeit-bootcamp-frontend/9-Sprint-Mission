@@ -60,7 +60,7 @@ export default function login() {
 
         <div className={styles["link-wrap"]}>
           판다마켓이 처음이신가요?
-          <Link className={styles.link} href="/login">
+          <Link className={styles.link} href="/signup">
             회원가입
           </Link>
         </div>
