@@ -10,7 +10,7 @@ import { fetchArticles } from '@/api/article'; // fetchArticles 가져오기
 import Link from 'next/link';
 import AddBoardPage from '../addboard/index';
 
-const boardsPage: React.FC<{
+const BoardsPage: React.FC<{
   bestArticles: Article[];
   allArticles: Article[];
   totalCount: number;
@@ -123,4 +123,4 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 };
 
-export default boardsPage;
+export default BoardsPage;

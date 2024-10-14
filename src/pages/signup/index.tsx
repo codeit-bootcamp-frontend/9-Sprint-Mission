@@ -56,7 +56,6 @@ const Signup: React.FC = () => {
     setErrors(newErrors);
     setIsFormValid(Object.keys(newErrors).length === 0);
   };
-
   const handleBlur = (field: string) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
@@ -202,9 +201,9 @@ const Signup: React.FC = () => {
           회원가입
         </button>
       </form>
-      <div className='mt-6 text-center'>
-        <h3 className='text-lg font-medium'>간편 로그인하기</h3>
-        <div className='flex justify-center space-x-4 mt-4'>
+      <div className='flex mt-6 p-3 justify-between items-center bg-[#E6F2FF] rounded-md'>
+        <h3 className='text-base font-medium'>간편 로그인하기</h3>
+        <div className='flex justify-center space-x-4'>
           <a href='https://www.google.com/'>
             <Image src={google} alt='구글 로그인' width={40} height={20} />
           </a>

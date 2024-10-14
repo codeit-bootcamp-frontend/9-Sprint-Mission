@@ -71,7 +71,6 @@ export default function BoardDetailPage() {
       console.error('댓글 작성에 실패했습니다:', error);
     }
   };
-
   if (!article) {
     return <div>로딩 중...</div>;
   }
