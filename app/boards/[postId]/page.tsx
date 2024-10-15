@@ -2,7 +2,7 @@
 
 import BackToListBtn from "@/components/BackToListBtn";
 import PostCommentForm from "@/components/boards/PostCommentForm";
-import CommentsMap from "@/components/CommentsMap";
+import CommentsContents from "@/components/CommentsContents";
 import { instance } from "@/lib/axios";
 import { IComment } from "@/types/boardsTypeShare";
 import axios from "axios";
@@ -29,7 +29,7 @@ interface IPost {
 const BoardPost = () => {
   const { postId } = useParams();
   const id = Number(postId);
-  
+
   const [post, setPost] = useState<IPost>();
   const [postComments, setPostComments] = useState<IComment[]>([]);
 
@@ -109,7 +109,7 @@ const BoardPost = () => {
       </div>
       {postComments.length > 0 ? (
         <div className="flex flex-col space-y-10">
-          <CommentsMap comments={postComments} />
+          <CommentsContents comments={postComments} />
         </div>
       ) : (
         <div className="flex flex-col space-y-4 w-[151px] m-auto">

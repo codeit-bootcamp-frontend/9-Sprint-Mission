@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { addBoardSchema } from "./addBoardConstants";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { instance } from "@/lib/axios";
 import toast from "react-hot-toast";
-import { getRefreshToken } from "@/lib/utils";
+import { imgUpload } from "@/lib/utils";
 
 type FormValues = z.infer<typeof addBoardSchema>;
 
@@ -43,14 +43,13 @@ const AddBoard = () => {
     if (files && files.length === 1) {
       const file = files[0];
 
-      const imgCheck = addBoardSchema.shape.postImg.safeParse(file);
+      const imgCheck = file.size < 5 * 1024 * 1024;
 
-      if (!imgCheck.success) {
+      if (!imgCheck) {
         setImgError("이미지는 최대 1개만 등록가능합니다.");
         return;
       }
 
-      setValue("postImg", file);
       setImgError("");
 
       e.target.value = "";
@@ -59,6 +58,7 @@ const AddBoard = () => {
 
       imagePreview.onloadend = () => {
         if (imagePreview.result && typeof imagePreview.result === "string") {
+          setValue("postImg", imagePreview.result);
           setPreviewSrc(imagePreview.result);
         }
       };
@@ -74,32 +74,12 @@ const AddBoard = () => {
 
   const handleSubmit = async (values: z.infer<typeof addBoardSchema>) => {
     try {
-      // 이미지부터 업로드
-      const currentValue = getValues();
+      context?.checkTokenExpire();
+
       let currentImgSrc: string | undefined;
 
-      if (currentValue.postImg) {
-        const formData = new FormData();
-        formData.append("image", currentValue.postImg);
-
-        try {
-          const imgUpload = await instance.post("/images/upload", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${context?.accessToken}`,
-            },
-          });
-
-          if (imgUpload.status === 201) {
-            currentImgSrc = imgUpload.data.url;
-          }
-        } catch (error) {
-          if (axios.isAxiosError(error)) {
-            console.error("addBoard 이미지 업로드 POST 요청에서 api 오류 발생", error);
-            toast.error(error.response?.data.message);
-          }
-          return;
-        }
+      if (typeof context?.accessToken === "string") {
+        currentImgSrc = await imgUpload(getValues, "boards", context?.accessToken);
       }
       // console.log(currentImgSrc)
       const response = await instance.post(
@@ -129,20 +109,13 @@ const AddBoard = () => {
     }
   };
 
-  useEffect(() => {
-    if (!context?.accessToken && typeof context?.refreshToken === "string") {
-      getRefreshToken(context?.refreshToken);
-    }
-  }, [context]);
-
-
   return (
     <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">게시글 쓰기</h2>
         <button
           type="submit"
-          className="text-white font-semibold px-6 py-3 rounded-lg bg-[--color-theme] hover:bg-[--color-theme-hover] disabled:bg-[--color-gray400]"
+          className="custom-submit-button"
           disabled={!form.formState.isValid}
         >
           {isLoading ? "등록중" : "등록"}

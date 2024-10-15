@@ -1,6 +1,6 @@
 type TotalCount = number;
 
-interface IList {
+export interface IList {
   id: number;
   images: string;
   name: string;

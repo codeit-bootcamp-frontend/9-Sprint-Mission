@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 import PostList from "./PostList";
 import { ISearchList } from "@/types/boardsTypeShare";
-import SelectMenu from "./SelectMenu";
+import SelectMenu from "../SelectMenu";
 import { instance } from "@/lib/axios";
 
 // 검색 form 컴포넌트
