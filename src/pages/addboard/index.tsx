@@ -67,19 +67,19 @@ const AddBoardPage: React.FC = () => {
 
   return (
     <div className='container mx-auto px-4 py-8 mt-12'>
-      <div className='flex justify-between items-center mb-6'>
-        <h1 className='text-xl font-bold mb-4'>게시글 쓰기</h1>
-        <button
-          type='submit'
-          className={`bg-blue-500 text-white py-2 px-4 rounded ${
-            !isFormValid ? 'opacity-50 cursor-not-allowed' : ''
-          }`}
-          disabled={!isFormValid}
-        >
-          등록
-        </button>
-      </div>
       <form onSubmit={handleSubmit} className='space-y-4'>
+        <div className='flex justify-between items-center mb-6'>
+          <h1 className='text-xl font-bold mb-4'>게시글 쓰기</h1>
+          <button
+            type='submit'
+            className={`bg-blue-500 text-white py-2 px-4 rounded ${
+              !isFormValid ? 'opacity-50 cursor-not-allowed' : ''
+            }`}
+            disabled={!isFormValid}
+          >
+            등록
+          </button>
+        </div>
         <div>
           <p className='font-semibold mb-2'>제목</p>
           <input
