@@ -2,7 +2,6 @@ import { useState } from "react";
 import dropdownImg from "../assets/image/dropdownImg.svg";
 import sortIcon from "../assets/image/ic_sort.svg";
 
-// eslint-disable-next-line react/prop-types
 const Dropdown = ({ selectedOption, setSelectedOption, setPage }) => {
   const [isOpen, setIsOpen] = useState(false);
 
