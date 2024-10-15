@@ -1,0 +1,13 @@
+@import "@/src/styles/common.scss";
+
+.form-input.input-error {
+  border: 1px solid $color-error;
+}
+
+.error-msg {
+  margin: 8px 16px 0;
+  color: $color-error;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+}

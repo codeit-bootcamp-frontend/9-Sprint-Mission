@@ -24,7 +24,7 @@ export default function MainBoard({ initialProducts, total }: ProductProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [sortOrder, setSortOrder] = useState<string>("recent");
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (page: number) => {
     if (isLoading) return;
     setIsLoading(true);
 
@@ -34,7 +34,7 @@ export default function MainBoard({ initialProducts, total }: ProductProps) {
           page: 1,
           pageSize: total,
           orderBy: sortOrder,
-          q: searchQuery,
+          keyword: searchQuery,
         },
       });
 
@@ -101,7 +101,6 @@ export default function MainBoard({ initialProducts, total }: ProductProps) {
                     width={72}
                     height={72}
                     alt="작성자 이미지"
-                    unoptimized
                   />
                 </div>
               </div>

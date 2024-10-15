@@ -1,0 +1,95 @@
+@import "@/src/styles/common.scss";
+
+.enter-box {
+  padding-top: 40px;
+  text-align: left;
+
+  > div + div {
+    padding-top: 24px;
+  }
+
+  > div label {
+    display: inline-block;
+    color: $color-1f2937;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: left;
+    line-height: 26px;
+    cursor: pointer;
+  }
+
+  > div div {
+    margin-top: 16px;
+  }
+
+  > div .pwd-box {
+    position: relative;
+
+    > .pwd-icon {
+      position: absolute;
+      right: 24px;
+      top: 16px;
+      display: block;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-size: 24px auto;
+      background-position: center;
+    }
+
+    > .pwd-icon.default {
+      background-image: url("/assets/icon/ic-pwd-default.png");
+    }
+
+    > .pwd-icon.variant {
+      background-image: url("/assets/icon/ic-pwd-variant.png");
+    }
+  }
+
+  button.btn-box {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    padding: 0;
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .simple-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding: 16px 23px;
+    background-color: $color-bg-sns;
+    border-radius: 8px;
+
+    > p {
+      color: $color-1f2937;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+
+  .txt-joinus {
+    padding-top: 24px;
+    color: $color-1f2937;
+    font-size: 14px;
+    font-weight: 500;
+
+    > a {
+      padding-left: 4px;
+      color: $color-3182f6;
+      font: inherit;
+      text-decoration: underline;
+    }
+  }
+}
