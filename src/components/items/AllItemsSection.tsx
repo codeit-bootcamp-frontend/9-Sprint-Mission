@@ -83,10 +83,6 @@ const AllItemsSection = () => {
     setPage(pageNumber);
   };
 
-  const handleCardClick = (productId: number) => {
-    router.push(`/items/${productId}`);
-  };
-
   return (
     <div>
       <AllItemsSectionHeader>
@@ -106,11 +102,9 @@ const AllItemsSection = () => {
 
       <AllItemsCardSection>
         {itemList?.map((item) => (
-          <ItemCard
-            item={item}
-            key={`market-item-${item.id}`}
-            onClick={() => handleCardClick(item.id)}
-          />
+          <Link key={`market-item-${item.id}`} href={`/items/${item.id}`}>
+            <ItemCard item={item} />
+          </Link>
         ))}
       </AllItemsCardSection>
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import instance from "@/api/axios";
+import { useAuth } from "@/context/Authcontext";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
@@ -14,6 +14,7 @@ import invisibleIcon from "@/assets/images/icons/eye-invisible.svg";
 export default function SignInPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
+  const { user, login } = useAuth();
 
   const {
     register,
@@ -26,25 +27,15 @@ export default function SignInPage() {
   };
 
   const onSubmit = async (data) => {
-    try {
-      const res = await instance.post(`/auth/signIn`, data);
-      const { accessToken } = res.data;
-      // 로컬 스토리지에 토큰 저장
-      localStorage.setItem("accessToken", accessToken);
-      router.push("/");
-    } catch (error) {
-      console.error("로그인 실패:", error);
-      alert("로그인에 실패했습니다. 다시 시도해주세요.");
-    }
+    await login(data.email, data.password);
   };
 
   // 토큰이 저장된 후에만 페이지 이동
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      router.push(`/`); // 토큰이 잇다면 홈페이지로 리다이렉트
+    if (user) {
+      router.push("/");
     }
-  }, []);
+  }, [user]);
 
   return (
     <Container>

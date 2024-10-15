@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { useAuth } from "@/context/Authcontext";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
@@ -12,6 +13,7 @@ import visibleIcon from "@/assets/images/icons/eye-visible.svg";
 import invisibleIcon from "@/assets/images/icons/eye-invisible.svg";
 
 export default function SignUpPage() {
+  const { user, signUp } = useAuth();
   const router = useRouter();
   const [isVisible, setIsVisible] = useState({
     password: false,
@@ -33,19 +35,15 @@ export default function SignUpPage() {
   };
 
   const onSubmit = async (data) => {
-    try {
-      const response = await instance.post("/auth/signUp", data);
-      router.push("/signin");
-    } catch (error) {
-      console.error("회원가입 실패:", error);
-      alert("회원가입에 실패했습니다. 다시 시도해주세요.");
-    }
+    const { email, password, nickname, passwordConfirm } = data;
+    await signUp(email, password, nickname, passwordConfirm);
   };
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) router.push(`/`);
-  }, []);
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
 
   return (
     <Container>
@@ -238,7 +236,7 @@ const Input = styled.input`
   border: 1px solid ${(props) => (props.error ? "#f74747" : "transparent")};
 
   &:focus {
-    outline:none;
+    outline: none;
     border: 1px solid ${(props) => (props.error ? "#f74747" : "var(--blue)")};
   }
 `;
