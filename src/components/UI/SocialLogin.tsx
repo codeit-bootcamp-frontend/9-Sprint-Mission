@@ -3,8 +3,8 @@ import React from "react";
 import Image, { StaticImageData } from "next/image";
 
 // public 폴더 경로 문자열로 대체
-const googleLogo = "/images/social/google-logo.png";
-const kakaoLogo = "/images/social/kakao-logo.png";
+const GOOGLE_LOGO = "/images/social/google-logo.png";
+const KAKAO_LOGO = "/images/social/kakao-logo.png";
 
 interface SocialLoginLinkProps {
   name: string;
@@ -35,12 +35,12 @@ const SocialLogin = () => {
         <SocialLoginLink
           name="구글 로그인"
           url="https://www.google.com/"
-          logoSrc={googleLogo}
+          logoSrc={GOOGLE_LOGO}
         />
         <SocialLoginLink
           name="카카오톡 로그인"
           url="https://www.kakaocorp.com/page/"
-          logoSrc={kakaoLogo}
+          logoSrc={KAKAO_LOGO}
         />
       </div>
     </div>

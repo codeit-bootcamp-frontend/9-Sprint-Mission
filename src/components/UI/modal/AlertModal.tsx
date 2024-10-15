@@ -4,11 +4,14 @@ import BaseModal from "./BaseModal";
 import Button from "../Button";
 
 interface AlertModalProps {
+  isOpen: boolean;
   message: string;
   onClose: () => void;
 }
 
-const AlertModal = ({ message, onClose }: AlertModalProps) => {
+const AlertModal = ({ isOpen, message, onClose }: AlertModalProps) => {
+  if (!isOpen) return null;
+
   return (
     <BaseModal onClose={onClose}>
       <p

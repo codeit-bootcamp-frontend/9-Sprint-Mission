@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 // public 폴더 경로 문자열로 대체
-const HeartIcon = "/images/icons/ic_heart.png";
+const HEART_ICON = "/images/icons/ic_heart.png";
 
 interface LikeCountDisplayProps {
   count: number;
@@ -30,7 +30,7 @@ const LikeCountDisplay = ({
       }}
     >
       <Image
-        src={HeartIcon}
+        src={HEART_ICON}
         width={iconWidth}
         height={iconWidth}
         alt="좋아요 아이콘"

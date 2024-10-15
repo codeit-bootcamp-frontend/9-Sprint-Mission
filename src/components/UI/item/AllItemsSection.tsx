@@ -1,8 +1,8 @@
 // src/components/UI/item/AllItemsSection.tsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getProducts } from "@/api/product";
+import { getProducts } from "@/api/products/getProducts";
 import ItemCard from "./ItemCard";
 import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
@@ -37,87 +37,85 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const router = useRouter();
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
+  const [pageSize, setPageSize] = useState(getPageSize(window.innerWidth)); // 초기값을 window.innerWidth 사용
 
-  // 초기 렌더링 시 데이터를 불러오지 않게 하기 위해 클라이언트 사이드에서만 동작하도록 설정
-  const [pageSize, setPageSize] = useState<number | null>(null); // null일 때는 로딩 대기
-
-  // 화면 리사이즈 시 페이지 크기 결정 (클라이언트 사이드에서만 실행)
+  // 화면 리사이즈 시 페이지 크기 결정 및 페이지를 초기화
   useEffect(() => {
     const handleResize = () => {
-      if (typeof window !== "undefined") {
-        setPageSize(getPageSize(window.innerWidth)); // 화면 크기에 맞는 pageSize 설정
+      const newPageSize = getPageSize(window.innerWidth);
+      if (newPageSize !== pageSize) {
+        setPageSize(newPageSize);
+        setPage(1); // 페이지를 1로 초기화
       }
     };
 
-    // 처음 렌더링 시 실행
-    handleResize();
-
-    // 이후 창 크기 변경 시 실행
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [pageSize]);
 
-  // 디바운스된 검색어로 라우터 쿼리 업데이트 및 아이템 목록 초기화
-  useEffect(() => {
-    const query = { ...router.query };
-
+  // useMemo를 사용하여 쿼리 객체 메모이제이션
+  const memoizedQuery = useMemo(() => {
+    const query: Record<string, string> = {};
     if (debouncedSearchKeyword.trim()) {
       query.q = debouncedSearchKeyword;
-    } else {
-      delete query.q;
     }
+    return query;
+  }, [debouncedSearchKeyword]);
 
-    if (router.query.q !== debouncedSearchKeyword.trim()) {
-      router.replace(
-        {
-          pathname: router.pathname,
-          query,
-        },
-        undefined,
-        { shallow: true }
-      );
-    }
-    setPage(1);
-    setItemList([]);
-  }, [debouncedSearchKeyword, router.pathname]);
+  // useCallback을 사용하여 함수 메모이제이션
+  const updateRouterQuery = useCallback(() => {
+    router.replace(
+      {
+        pathname: router.pathname,
+        query: memoizedQuery,
+      },
+      undefined,
+      { shallow: true }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.pathname, memoizedQuery]);
 
-  // 상품을 불러오는 비동기 함수
+  // 디바운스된 검색어로 라우터 쿼리 업데이트 및 페이지 초기화
   useEffect(() => {
-    if (pageSize === null) {
-      // pageSize가 아직 설정되지 않았을 때는 아무 것도 하지 않음
-      return;
+    updateRouterQuery();
+    setPage(1);
+  }, [debouncedSearchKeyword, updateRouterQuery]);
+
+  // fetchSortedData 함수를 useCallback으로 메모이제이션
+  const fetchSortedData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response: ProductListResponse = await getProducts({
+        orderBy,
+        page,
+        pageSize,
+        keyword: debouncedSearchKeyword.trim()
+          ? debouncedSearchKeyword
+          : undefined,
+      });
+
+      // 새로 받은 리스트로 상태 업데이트
+      setItemList(response.list);
+
+      // 총 페이지 수 업데이트
+      setTotalPageNum(Math.ceil(response.totalCount / pageSize));
+    } catch (error) {
+      console.error("상품을 불러오는 데 실패했습니다:", error);
+    } finally {
+      setIsLoading(false);
     }
-
-    const fetchSortedData = async () => {
-      setIsLoading(true);
-      try {
-        const response: ProductListResponse = await getProducts({
-          orderBy,
-          page,
-          pageSize,
-          keyword: debouncedSearchKeyword.trim()
-            ? debouncedSearchKeyword
-            : undefined,
-        });
-        setItemList(response.list);
-        setTotalPageNum(Math.ceil(response.totalCount / pageSize));
-      } catch (error) {
-        console.error("상품을 불러오는 데 실패했습니다:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    // 클라이언트에서 pageSize가 설정된 후 데이터를 불러옴
-    fetchSortedData();
   }, [orderBy, page, pageSize, debouncedSearchKeyword]);
+
+  // 상품을 불러오는 useEffect
+  useEffect(() => {
+    fetchSortedData();
+  }, [fetchSortedData]);
 
   // 정렬 옵션 선택 핸들러
   const handleSortSelection = (sortOption: ProductSortOption) => {
     if (sortOption !== orderBy) {
       setOrderBy(sortOption);
       setPage(1);
-      setItemList([]); // 아이템 리스트 초기화
     }
   };
 
@@ -125,7 +123,6 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
   const handleSearch = (keyword: string) => {
     setSearchKeyword(keyword);
     setPage(1);
-    setItemList([]); // 아이템 리스트 초기화
   };
 
   return (
@@ -152,13 +149,13 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
         />
       </div>
 
-      {isLoading ? (
+      {isLoading && itemList.length === 0 ? (
         <div className="flex justify-center items-center h-64">
           <LoadingSpinner isLoading={isLoading} />
         </div>
       ) : (
         <div className="space-y-6">
-          {itemList.length ? (
+          {itemList.length > 0 ? (
             <div className="grid grid-cols-2 gap-8 sm:gap-2 md:grid-cols-3 lg:grid-cols-5 lg:gap-6">
               {itemList.map((item) => (
                 <ItemCard
@@ -169,11 +166,17 @@ const AllItemsSection = ({ width, height }: AllItemsSectionProps) => {
                 />
               ))}
             </div>
-          ) : debouncedSearchKeyword ? (
+          ) : !isLoading && debouncedSearchKeyword ? (
             <div>
               <span>검색된 결과가 없습니다.</span>
             </div>
           ) : null}
+        </div>
+      )}
+
+      {isLoading && itemList.length > 0 && (
+        <div className="flex justify-center items-center h-20">
+          <LoadingSpinner isLoading={isLoading} />
         </div>
       )}
 

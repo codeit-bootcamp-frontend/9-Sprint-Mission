@@ -1,7 +1,7 @@
 // src/pages/items/[id].tsx
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getProductDetail } from "@/api/product";
+import { getProductDetail } from "@/api/products/getProductDetail";
 import ItemDetailSection from "@/components/UI/item/ItemDetailSection";
 import ItemCommentSection from "@/components/UI/comment/ItemCommentSection";
 import { ProductDetail } from "@/types/product";

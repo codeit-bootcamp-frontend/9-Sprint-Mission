@@ -1,18 +1,20 @@
 // src/components/UI/item/ItemDetailSection.tsx
 import React, { useEffect, useState, useCallback } from "react";
-import Cookies from "js-cookie"; // 쿠키에서 토큰을 가져오기 위해 js-cookie 임포트
 import Image from "next/image";
 import TagDisplay from "./TagDisplay";
 import FavoriteButton from "./FavoriteButton";
 import useDebouncedCallback from "@/hooks/useDebouncedCallback"; // useDebouncedCallback 훅 임포트
 import { ProductDetail } from "@/types/product";
-import { addProductFavorite, removeProductFavorite } from "@/api/product";
+import { addProductFavorite } from "@/api/products/addProductFavorite";
+import { removeProductFavorite } from "@/api/products/removeProductFavorite";
 import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
 
 // public 폴더 경로 문자열로 대체
-const KebabIcon = "/images/icons/ic_kebab.png";
-const NoImage = "/images/ui/no-image.png";
-const DefaultAvatar = "/images/ui/ic_profile-24.png";
+const KEBAB_ICON = "/images/icons/ic_kebab.png";
+const NO_IMAGE = "/images/ui/no-image.png";
+const DEFAULT_AVATAR = "/images/ui/ic_profile-24.png";
 
 interface ItemDetailSectionProps {
   productDetail: ProductDetail;
@@ -23,7 +25,6 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
   const [imageStatus, setImageStatus] = useState<
     "loading" | "loaded" | "error"
   >("loading"); // 이미지 로딩 상태
-  const [token, setToken] = useState<string | null>(null); // 쿠키에서 가져온 토큰 상태
   const [isAlertOpen, setIsAlertOpen] = useState(false); // AlertModal 상태
   const [alertMessage, setAlertMessage] = useState(""); // AlertModal 메시지 상태
   const [isFavorite, setIsFavorite] = useState<boolean>(
@@ -32,15 +33,10 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
   const [favoriteCount, setFavoriteCount] = useState<number>(
     productDetail.favoriteCount
   ); // 좋아요 수
+  const [user] = useAtom(userAtom);
 
   // URL이 SVG 파일인지 확인하는 함수
   const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
-
-  // 컴포넌트 마운트 시 쿠키에서 accessToken 가져오기
-  useEffect(() => {
-    const accessToken = Cookies.get("accessToken"); // 쿠키에서 accessToken 가져옴
-    setToken(accessToken || null); // 토큰이 있으면 상태에 저장
-  }, []);
 
   useEffect(() => {
     let isMounted = true; // 컴포넌트가 마운트된 상태인지 확인하기 위한 변수
@@ -85,38 +81,32 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
 
   // 좋아요 처리를 위한 함수 정의
   const handleFavorite = useCallback(async () => {
-    if (!token) {
-      // 토큰이 없을 경우 AlertModal 띄우기
+    if (!user) {
       setAlertMessage("로그인이 필요합니다.");
       setIsAlertOpen(true);
       return;
     }
 
-    const productId = productDetail.id;
+    // 낙관적 UI 업데이트
+    setIsFavorite((prev) => !prev);
+    setFavoriteCount((prev) => (isFavorite ? prev - 1 : prev + 1));
+
     try {
       if (isFavorite) {
-        await removeProductFavorite(productId, token);
-        setIsFavorite(false);
-        setFavoriteCount((prev) => prev - 1);
+        await removeProductFavorite(productDetail.id);
       } else {
-        await addProductFavorite(productId, token);
-        setIsFavorite(true);
-        setFavoriteCount((prev) => prev + 1);
+        await addProductFavorite(productDetail.id);
       }
     } catch (error) {
       console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
+      // 에러 발생 시 UI를 원래 상태로 되돌림
+      setIsFavorite((prev) => !prev);
+      setFavoriteCount((prev) => (isFavorite ? prev + 1 : prev - 1));
       setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
-      setIsAlertOpen(true); // 실패 메시지 모달 띄우기
+      setIsAlertOpen(true);
     }
-  }, [
-    token,
-    productDetail.id,
-    isFavorite,
-    setIsFavorite,
-    setFavoriteCount,
-    setAlertMessage,
-    setIsAlertOpen,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productDetail.id, isFavorite]);
 
   // useDebouncedCallback 훅을 사용하여 함수 디바운싱
   const debouncedHandleFavorite = useDebouncedCallback(handleFavorite, 300);
@@ -139,6 +129,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           ) : imageStatus === "loaded" && imageUrl ? (
             isSvgFile(imageUrl) ? (
               // SVG 파일은 img 태그로 렌더링
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={imageUrl}
                 alt={`${productDetail.name} 상품 대표 사진`}
@@ -161,7 +152,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           ) : (
             // 이미지 로드 실패 시 기본 이미지 표시
             <Image
-              src={NoImage}
+              src={NO_IMAGE}
               alt="이미지 없음"
               width={486}
               height={486}
@@ -176,7 +167,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
             {/* 더보기 버튼 */}
             <button className="absolute right-0">
               <Image
-                src={KebabIcon}
+                src={KEBAB_ICON}
                 width={24}
                 height={24}
                 alt="케밥 이미지 버튼"
@@ -218,7 +209,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           {/* 소유자 정보 및 좋아요 버튼 */}
           <div className="flex items-center gap-2 text-sm text-gray-500 mt-4">
             <Image
-              src={DefaultAvatar}
+              src={DEFAULT_AVATAR}
               alt="작성자 아바타"
               width={24}
               height={24}
@@ -242,10 +233,13 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           </div>
         </div>
       </section>
+
       {/* AlertModal 컴포넌트 */}
-      {isAlertOpen && (
-        <AlertModal message={alertMessage} onClose={handleCloseAlert} />
-      )}
+      <AlertModal
+        isOpen={isAlertOpen}
+        message={alertMessage}
+        onClose={handleCloseAlert}
+      />
     </>
   );
 };

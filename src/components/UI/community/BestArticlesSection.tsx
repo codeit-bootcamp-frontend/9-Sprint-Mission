@@ -6,7 +6,7 @@ import {
   ArticleSortOption,
 } from "@/types/article";
 import BestArticleCard from "./BestArticleCard";
-import { getArticles } from "@/api/article";
+import { getArticles } from "@/api/articles/getArticles";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { useAtom } from "jotai";
 import { loadingAtom } from "@/store/loadingAtom";

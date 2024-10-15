@@ -2,7 +2,6 @@ import Head from "next/head";
 import type { AppProps } from "next/app";
 import FooterWrapper from "@/components/Layout/FooterWrapper";
 import ClientLayout from "@/components/Layout/ClientLayout";
-import Header from "@/components/Layout/Header";
 import "../styles/global.css";
 
 // 앱 전체 레이아웃을 설정하는 _app.tsx
@@ -12,7 +11,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>판다마켓</title>
       </Head>
-      <Header />
       <main
         className="min-h-screen"
         style={{
@@ -25,6 +23,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
       </main>
       <FooterWrapper />
+      <div id="modal-root"></div>
     </ClientLayout>
   );
 }

@@ -1,10 +1,7 @@
 // src/store/authAtoms.ts
 import { atom } from "jotai";
+import { User } from "@/types/auth";
 
 export const loginAtom = atom<boolean>(false);
 
-export const userAtom = atom({
-  Id: null as string | null,
-  Image: null as string | null,
-  nickname: null as string | null,
-});
+export const userAtom = atom<User | null>(null);

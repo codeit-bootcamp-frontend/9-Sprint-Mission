@@ -8,7 +8,7 @@ import LikeCountDisplay from "@/components/UI/LikeCountDisplay";
 import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
 import { detectLCP } from "@/utils/detectLPC"; // LCP 감지 함수
 
-const NoImage = "/images/ui/no-image.png";
+const NO_IMAGE = "/images/ui/no-image.png";
 
 interface AllArticleCardProps {
   article: Article;
@@ -40,7 +40,7 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
       };
     }
     return {
-      url: NoImage,
+      url: NO_IMAGE,
       isGif: false,
     };
   }, [article.image, isImageAllowed]);
@@ -77,8 +77,9 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
 
           {imageInfo.isGif ? (
             // GIF 파일에 대한 처리: img 태그 사용 (원본 URL 사용)
+            // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={imageStatus === "error" ? NoImage : imageInfo.url}
+              src={imageStatus === "error" ? NO_IMAGE : imageInfo.url}
               alt={`${article.id}번 게시글 이미지`}
               className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
               onLoad={() => setImageStatus("loaded")}
@@ -89,7 +90,7 @@ const AllArticleCard = ({ article, currentPage }: AllArticleCardProps) => {
           ) : (
             // GIF가 아닌 경우 Next.js Image 컴포넌트 사용
             <Image
-              src={imageStatus === "error" ? NoImage : imageInfo.url}
+              src={imageStatus === "error" ? NO_IMAGE : imageInfo.url}
               alt={`${article.id}번 게시글 이미지`}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // sizes 속성 추가
