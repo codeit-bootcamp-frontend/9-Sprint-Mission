@@ -1,4 +1,4 @@
-import Badge from "../UI/Badge/Badge";
+import Badge from "../ui/badge/Badge";
 import Image from "next/image";
 import Heart from "@/assets/images/icons/ic_heart.svg";
 import styled from "styled-components";

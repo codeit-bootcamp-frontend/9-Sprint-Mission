@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Dropdown from "../UI/Dropdown/Dropdown";
-import NewArticleButton from "../UI/Button/WriteButton";
-import SearchInput from "../UI/Input/SearchInput";
+import Dropdown from "../ui/dropdown/Dropdown";
+import NewArticleButton from "../ui/button/WriteButton";
+import SearchInput from "../ui/input/SearchInput";
 import ArticleItem from "./ArticleItem";
 import { Article, ArticleListProps } from "@/types/articles";
 import { useRouter } from "next/router";

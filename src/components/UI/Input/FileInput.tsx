@@ -3,9 +3,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Plus from "@/assets/images/icons/ic_plus.svg";
 
-export default function FileInput() {
-  const [imagePreview, setImagePreview] = useState<string | null>(null); // 이미지 미리보기 상태
-  const [error, setError] = useState(false);
+export default function FileInput({ onChange, image }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleButtonClick = () => {
@@ -14,36 +12,20 @@ export default function FileInput() {
     }
   };
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-
-    // files가 null인지 체크
-    if (files && files.length > 0) {
-      const file = files[0];
-
-      if (files.length > 1) {
-        setError(true);
-      } else {
-        setError(false);
-        setImagePreview(URL.createObjectURL(file)); // 파일을 미리보기 URL로 설정
-      }
-    }
-  };
-
   // URL.createObjectURL 부수효과 제거
   useEffect(() => {
     return () => {
-      if (imagePreview) {
-        URL.revokeObjectURL(imagePreview); // 기존 URL 해제
+      if (image) {
+        URL.revokeObjectURL(image); // 기존 URL 해제
       }
     };
-  }, [imagePreview]);
+  }, [image]);
 
   return (
     <Container>
       <UploadButton onClick={handleButtonClick}>
-        {imagePreview ? (
-          <PreviewImage src={imagePreview} alt="selected image" />
+        {image ? (
+          <PreviewImage src={image} alt="selected image" />
         ) : (
           <>
             <Image src={Plus} width={48} height={48} alt="file add icon" />
@@ -55,10 +37,8 @@ export default function FileInput() {
         type="file"
         accept="image/*"
         ref={fileInputRef}
-        multiple
-        onChange={handleFileChange}
+        onChange={onChange}
       />
-      {error && <ErrorMessage>하나의 이미지만 선택해 주세요.</ErrorMessage>}
     </Container>
   );
 }

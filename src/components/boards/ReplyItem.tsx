@@ -1,7 +1,7 @@
 import Image from "next/image";
 import profile from "@/assets/images/icons/profilex1.png";
 import { styled } from "styled-components";
-import { Menu } from "@/components/UI/Button/Menu";
+import { Menu } from "@/components/ui/button/Menu";
 
 const ReplyItem = ({ info }) => {
   const { writer, updatedAt, createdAt, content, id } = info;

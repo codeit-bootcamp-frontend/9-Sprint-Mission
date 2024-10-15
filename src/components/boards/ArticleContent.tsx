@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import Icon from "@/assets/images/icons/profilex1.png";
 import { ArticleContentProps } from "@/types/articles";
-import { LikeButton } from "@/components/UI/Button/LikeButton";
+import { LikeButton } from "@/components/ui/button/LikeButton";
 
 export default function ArticleContent({ info }: ArticleContentProps) {
   const { title, image, writer, content, likeCount, createdAt } = info;

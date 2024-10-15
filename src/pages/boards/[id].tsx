@@ -1,52 +1,61 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useState } from "react";
+import { GetServerSideProps } from "next";
 import { Article, ArticleComment } from "@/types/articles";
 import styled from "styled-components";
 import getArticle from "@/api/getArticle";
 import getArticleComments from "@/api/getArticleComments";
-import ArticleContent from "@/components/boards/[id]/ArticleContent";
-import ArticleReplyInput from "@/components/boards/[id]/ArticleReplyInput";
-import ArticleReplyList from "@/components/boards/[id]/ArticleReplyList";
-import GoBackButton from "@/components/UI/Button/GoBackButton";
+import ArticleContent from "@/components/boards/ArticleContent";
+import ArticleReplyInput from "@/components/boards/ArticleReplyInput";
+import ArticleReplyList from "@/components/boards/ArticleReplyList";
+import GoBackButton from "@/components/ui/button/GoBackButton";
 
-const BoardDetailPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = context.query;
 
-  // 상태에 대한 명확한 타입 설정
-  const [articleData, setArticleData] = useState<{
-    info: Article | {};
-    comments: ArticleComment[];
-  }>({
-    info: {},
-    comments: [],
-  });
+  if (!id) {
+    return { notFound: true };
+  }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (id) {
-          // Promise.all을 사용하여 article과 comments 데이터를 병렬로 가져옴
-          const [articleInfo, articleComments] = await Promise.all([
-            getArticle(id),
-            getArticleComments(id),
-          ]);
-          // 가져온 데이터를 상태에 설정
-          setArticleData({ info: articleInfo, comments: articleComments });
-        }
-      } catch (error) {
-        console.error("Failed to fetch article data:", error);
-      }
+  try {
+    const [articleInfo, articleComments] = await Promise.all([
+      getArticle(id),
+      getArticleComments(id),
+    ]);
+
+    return {
+      props: {
+        articleInfo: articleInfo,
+        articleComments: articleComments,
+      },
     };
+  } catch (error) {
+    console.error("Error fetching article or comments:", error);
+    return {
+      notFound: true,
+    };
+  }
+};
 
-    fetchData();
-  }, [id]);
+const BoardDetailPage = ({
+  articleInfo,
+  articleComments: initialComments,
+}: {
+  articleInfo: Article;
+  articleComments: ArticleComment[];
+}) => {
+  const [comments, setComments] = useState<ArticleComment[]>(initialComments); // 서버에서 가져온 초기 댓글 데이터로 프리렌더링하기 위해
+  // 댓글 리스트를 다시 가져오는 함수
+  const refreshComments = async () => {
+    const updatedComments = await getArticleComments(articleInfo.id);
+    setComments(updatedComments);
+  };
 
   return (
     <Container>
-      <ArticleContent info={articleData.info} />
-      <ArticleReplyInput />
-      <ArticleReplyList list={articleData.comments} />
+      <ArticleContent info={articleInfo} />
+      {/* 댓글 등록 후 리스트 갱신 */}
+      <ArticleReplyInput refreshComments={refreshComments} />
+      <ArticleReplyList list={comments} />
       <GoBackButton />
     </Container>
   );

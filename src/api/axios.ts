@@ -6,6 +6,7 @@ const instance = axios.create({
   headers: {
     "Content-Type": "application/json", // 기본 헤더 설정
   },
+  // withCredentials: true, // Cross Origin에서 쿠키를 보내거나 받을 수 있도록 허용
 });
 
 export default instance;

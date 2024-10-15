@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Footer from "@/components/Layout/Footer";
+import Footer from "@/components/layout/Footer";
 import Feature from "@/components/home/Feature";
 import feature1Image from "@/assets/images/home/feature1-image.png";
 import feature2Image from "@/assets/images/home/feature2-image.png";
