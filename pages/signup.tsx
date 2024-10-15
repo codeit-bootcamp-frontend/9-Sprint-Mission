@@ -74,7 +74,8 @@ export default function Signup() {
     }
   };
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
   if (accessToken) {
     router.push("/login");
     alert("이미 회원가입이 완료되었습니다.");

@@ -63,7 +63,8 @@ export default function Login() {
     }
   };
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken =
+    typeof window !== "undefined" ? localStorage.getItem("accessToken") : null;
   if (accessToken) {
     router.push("/");
   }
