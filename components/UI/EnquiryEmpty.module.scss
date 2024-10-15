@@ -1,0 +1,16 @@
+.EnquiryEmpty {
+  margin: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+
+  .title {
+    color: $gray400;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: center;
+    white-space: pre-wrap;
+  }
+}

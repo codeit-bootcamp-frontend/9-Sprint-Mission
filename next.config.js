@@ -13,16 +13,17 @@ const nextConfig = {
         protocol: "https",
         hostname: "**",
       },
-      // {
-      //   protocol: "https",
-      //   hostname: "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
-      //   port: "",
-      //   pathname: "/Sprint_Mission/**",
-      // },
     ],
   },
+  // webpack: (config) => {
+  //   config.module.rules.push({
+  //     test: /\.svg$/,
+  //     use: ["@svgr/webpack"],
+  //   });
+  //   return config;
+  // },
   sassOptions: {
-    includePaths: [path.join(__dirname, "src", "styles")],
+    includePaths: [path.join(__dirname, "styles")],
     prependData: `@import "_variables.scss"; @import "_mixins.scss";`,
   },
 };

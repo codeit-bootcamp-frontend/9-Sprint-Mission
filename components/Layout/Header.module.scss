@@ -1,0 +1,84 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  z-index: 1000;
+
+  .headerWrap {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 0 200px;
+    @include tablet {
+      padding: 0 24px;
+      @include mobile {
+        padding: 0 16px;
+      }
+    }
+
+    .logoWrap {
+      position: relative;
+      margin-right: 5rem;
+      width: 153px;
+      height: 51px;
+      @include tablet {
+        margin-right: 3rem;
+        @include mobile {
+          margin-right: 1rem;
+        }
+      }
+    }
+
+    .menuWrap {
+      ul {
+        display: flex;
+        gap: 20px;
+
+        li {
+          font-size: 1.8rem;
+          font-weight: 700;
+          color: $gray600;
+          @include mobile {
+            font-size: 1.6rem;
+          }
+
+          a {
+            &.active {
+              color: $clr-blue;
+            }
+          }
+        }
+      }
+    }
+
+    .userWrap {
+      position: relative;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .nickname {
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: $gray400;
+      }
+
+      .logoutButton {
+        position: absolute;
+        right: 0;
+        bottom: -6rem;
+        font-size: 1.6rem;
+        font-weight: 400;
+        color: $gray500;
+        background-color: white;
+        border: 1px solid $gray300;
+        border-radius: 8px;
+        padding: 16px 24px;
+      }
+    }
+  }
+}

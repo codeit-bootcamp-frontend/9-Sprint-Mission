@@ -1,0 +1,18 @@
+.AuthSection {
+  max-width: 640px;
+  margin: 11rem auto;
+
+  .logo {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  form {
+    padding: 60px 0;
+    display: grid;
+    gap: 24px;
+    @include tablet {
+      padding: 20px 0;
+    }
+  }
+}
