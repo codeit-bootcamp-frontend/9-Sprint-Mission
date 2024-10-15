@@ -2,6 +2,15 @@
   box-sizing: border-box;
 }
 
+:root {
+  --main-text-color: #374151;
+  --main-button-color: #3692ff;
+  --main-bg-color: #c3e0e9;
+  --main-label-color: #1f2937;
+  --main-input-color: #f3f4f6;
+  --main-ph-color: #9ca3af;
+}
+
 html,
 body,
 div,
@@ -128,4 +137,20 @@ table {
 }
 a {
   text-decoration: none;
+}
+
+.blind {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+img {
+  display: inline-block;
+  vertical-align: top;
 }

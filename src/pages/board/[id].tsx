@@ -6,6 +6,7 @@ import axios from "@/src/lib/axios";
 import { GetServerSidePropsContext } from "next";
 import { Post, Comment, DetailBoardProps } from "@/src/types";
 import { ParsedUrlQuery } from "querystring";
+import Contanier from "@/src/components/Layout/Container";
 
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -27,7 +28,7 @@ export async function getServerSideProps(
   let comments: Comment[];
   try {
     const res = await axios.get(`/articles/${boardId}`);
-    board = JSON.parse(JSON.stringify(res.data));
+    board = res.data;
   } catch {
     return {
       notFound: true,
@@ -35,7 +36,7 @@ export async function getServerSideProps(
   }
 
   const res = await axios.get(`/articles/${boardId}/comments?limit=10`);
-  comments = JSON.parse(JSON.stringify(res.data.list)) ?? [];
+  comments = res.data.list ?? [];
 
   return {
     props: {
@@ -48,10 +49,12 @@ export async function getServerSideProps(
 export default function DetailBoard({ board, comments }: DetailBoardProps) {
   return (
     <div>
-      <IndividualBoard board={board} />
-      <AddComment />
-      <Comments comments={comments} />
-      <ReturnButton />
+      <Contanier>
+        <IndividualBoard board={board} />
+        <AddComment />
+        <Comments comments={comments} />
+        <ReturnButton />
+      </Contanier>
     </div>
   );
 }

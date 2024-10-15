@@ -1,12 +1,12 @@
+import styles from "./AllPost.module.css";
 import Dropdown from "@/src/components/UI/Dropdown";
 import SearchInput from "@/src/components/UI/SearchInput";
 import Pagination from "@/src/components/UI/Pagination";
 import PostCard from "./AllPostItem";
+import Link from "next/link";
 import axios from "@/src/lib/axios";
-import styles from "@/src/components/boards/AllPost.module.css";
 import { useEffect, useState } from "react";
 import { PostsProps, GetQuery } from "@/src/types";
-import Link from "next/link";
 
 const PAGE_SIZE = 10;
 
@@ -27,7 +27,7 @@ export default function AllPost({ posts: initialPosts, q }: PostsProps) {
       }
 
       const res = await axios.get(`/articles?${queryParams.toString()}`);
-      const nextPosts = JSON.parse(JSON.stringify(res.data.list));
+      const nextPosts = res.data.list;
       setPosts(nextPosts);
     } catch (error) {
       console.error(error);

@@ -1,6 +1,7 @@
 import BestPost from "@/src/components/boards/BestPost";
 import AllPost from "@/src/components/boards/AllPost";
 import axios from "@/src/lib/axios";
+import Contanier from "../components/Layout/Container";
 import { Post, BoardsProps } from "@/src/types";
 import { GetServerSidePropsContext } from "next";
 
@@ -35,8 +36,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 export default function Boards({ bestPosts, posts, q }: BoardsProps) {
   return (
     <>
-      <BestPost bestPosts={bestPosts} />
-      <AllPost posts={posts} q={q} />
+      <Contanier>
+        <BestPost bestPosts={bestPosts} />
+        <AllPost posts={posts} q={q} />
+      </Contanier>
     </>
   );
 }

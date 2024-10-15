@@ -1,5 +1,6 @@
 .main {
   position: relative;
+  padding-bottom: 60px;
 }
 
 .mainHeader {
@@ -66,5 +67,5 @@
 
 .addButton:enabled:hover {
   cursor: pointer;
-  background-color: #0051a3;
+  background-color: #3692ff;
 }
