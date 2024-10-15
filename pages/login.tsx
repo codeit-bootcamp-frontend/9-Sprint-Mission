@@ -3,13 +3,71 @@ import { TextInput } from "@/components/TextInput";
 import Link from "next/link";
 import styles from "./signup.module.css";
 import Image from "next/image";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { States } from "@/types/types";
+import axios from "@/lib/axios";
+import { useRouter } from "next/router";
 
-export default function login() {
-  const handleChangeEmail = () => {};
-  let active = false;
-  const handleSubmitSignup = () => {
-    //로그인 api
+export default function Login() {
+  const [value, setValue] = useState<States>({
+    email: "",
+    nickname: "",
+    password: "",
+    passwordCheck: "",
+  });
+
+  const handleChange = (
+    key: keyof typeof value,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    const newVaule: string = e.target.value;
+    setValue((prev) => ({
+      ...prev,
+      [key]: newVaule,
+    }));
   };
+  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) =>
+    handleChange("email", e);
+
+  const handleChangePW = (e: ChangeEvent<HTMLInputElement>) =>
+    handleChange("password", e);
+
+  let active = false;
+  // validation
+  // button activation
+  if (value.email !== "" && value.password !== "") {
+    active = true;
+  }
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const router = useRouter();
+
+  const handleSubmitSignup = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let res;
+    try {
+      setLoading(true);
+      res = await axios.post(`/auth/signIn`, {
+        email: value.email,
+        password: value.password,
+      });
+      localStorage.setItem("accessToken", res.data.accessToken);
+      alert("로그인 성공");
+      router.push("/");
+    } catch (err) {
+      console.log(err);
+      console.log(err);
+      setError(false);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken) {
+    router.push("/");
+    alert("이미 로그인이 완료되었습니다.");
+  }
 
   return (
     <div className={styles.wrap}>
@@ -28,7 +86,7 @@ export default function login() {
           label="email"
           placeholder="이메일을 입력해주세요"
           required
-          value=""
+          value={value.email}
           onChange={handleChangeEmail}
         >
           이메일
@@ -39,8 +97,8 @@ export default function login() {
           label="password"
           placeholder="비밀번호를 입력해주세요"
           required
-          value=""
-          onChange={handleChangeEmail}
+          value={value.password}
+          onChange={handleChangePW}
         >
           비밀번호
         </TextInput>

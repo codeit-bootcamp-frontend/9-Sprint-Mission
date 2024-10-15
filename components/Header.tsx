@@ -10,6 +10,7 @@ export default function Header() {
   const [login, setLogin] = useState(false);
   const router = useRouter();
   const currentPath = router.pathname;
+
   const isBoardsPage = currentPath.startsWith("/boards");
 
   const initialWidth = typeof window !== "undefined" ? window.innerWidth : 1024;
@@ -28,6 +29,13 @@ export default function Header() {
 
   const logoSrc = width >= 768 ? "/logo-big.png" : "/logo-mobile.png";
   const logoSize = width >= 768 ? [153, 51] : [81, 40]; // [width, height]
+  useEffect(() => {
+    if (localStorage.getItem(`accessToken`)) setLogin(true);
+  }, []);
+
+  if (currentPath === "/signup" || currentPath === "/login") {
+    return <></>;
+  }
 
   return (
     <header className={styles.header}>

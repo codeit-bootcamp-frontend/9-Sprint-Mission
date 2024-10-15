@@ -3,8 +3,10 @@ import { TextInput } from "@/components/TextInput";
 import Link from "next/link";
 import styles from "./signup.module.css";
 import Image from "next/image";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { States } from "@/types/types";
+import axios from "@/lib/axios";
+import { useRouter } from "next/router";
 
 export default function Signup() {
   const [value, setValue] = useState<States>({
@@ -14,34 +16,24 @@ export default function Signup() {
     passwordCheck: "",
   });
 
-  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    key: keyof typeof value,
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
     const newVaule: string = e.target.value;
     setValue((prev) => ({
       ...prev,
-      email: newVaule,
+      [key]: newVaule,
     }));
   };
-  const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) => {
-    const newVaule: string = e.target.value;
-    setValue((prev) => ({
-      ...prev,
-      nickname: newVaule,
-    }));
-  };
-  const handleChangePW = (e: ChangeEvent<HTMLInputElement>) => {
-    const newVaule: string = e.target.value;
-    setValue((prev) => ({
-      ...prev,
-      password: newVaule,
-    }));
-  };
-  const handleChangePWCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    const newVaule: string = e.target.value;
-    setValue((prev) => ({
-      ...prev,
-      passwordCheck: newVaule,
-    }));
-  };
+  const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) =>
+    handleChange("email", e);
+  const handleChangeNickname = (e: ChangeEvent<HTMLInputElement>) =>
+    handleChange("nickname", e);
+  const handleChangePW = (e: ChangeEvent<HTMLInputElement>) =>
+    handleChange("password", e);
+  const handleChangePWCheck = (e: ChangeEvent<HTMLInputElement>) =>
+    handleChange("passwordCheck", e);
 
   let active = false;
   // validation
@@ -54,10 +46,39 @@ export default function Signup() {
   ) {
     active = true;
   }
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const router = useRouter();
 
-  const handleSubmitSignup = () => {
-    //회원가입 api
+  const handleSubmitSignup = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    let res;
+    try {
+      setLoading(true);
+      res = await axios.post(`/auth/signUp`, {
+        email: value.email,
+        nickname: value.nickname,
+        password: value.password,
+        passwordConfirmation: value.passwordCheck,
+      });
+      localStorage.setItem("accessToken", res.data.accessToken);
+      alert("회원가입이 완료되었습니다.");
+
+      router.push("/login");
+    } catch (err) {
+      console.log(err);
+
+      setError(false);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken) {
+    router.push("/login");
+    alert("이미 회원가입이 완료되었습니다.");
+  }
 
   return (
     <div className={styles.wrap}>
