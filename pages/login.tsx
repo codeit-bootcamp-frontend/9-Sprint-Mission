@@ -66,7 +66,6 @@ export default function Login() {
   const accessToken = localStorage.getItem("accessToken");
   if (accessToken) {
     router.push("/");
-    alert("이미 로그인이 완료되었습니다.");
   }
 
   return (
