@@ -10,18 +10,23 @@
   border-bottom: 1px solid #dfdfdf;
   background-color: #fff;
   z-index: 1;
+  height: 70px;
+}
+
+.gnb-board {
+  display: flex;
+  align-items: center;
+}
+
+.gnb-board > h1 {
+  display: flex;
+  justify-content: center;
 }
 
 .gnb-img {
   width: 153px;
   height: 51px;
   margin-right: 32px;
-}
-
-.gnb-board {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .gnb-menus {

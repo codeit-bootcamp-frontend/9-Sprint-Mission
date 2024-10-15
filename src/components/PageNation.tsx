@@ -9,7 +9,7 @@ interface Props {
 export function PageNation({ totalPage, currentPage, onChange } : Props) {
   // const [start, setStart] = useState(1);
   const maxPage = 5;
-  let startPage;
+  let startPage:number;
 
   let calNum;
   if (currentPage <= maxPage) startPage = 1;
