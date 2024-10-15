@@ -10,7 +10,9 @@ export const getProducts = async ({
   const response = await instance
     .get(`/products`, { params: { page, pageSize, orderBy, keyword } })
     .then((res) => {
-      return res.data?.list || [];
+      const list = res.data?.list || [];
+      const totalCount = res.data?.totalCount || 0;
+      return { list, totalCount };
     })
     .catch((error) => {
       throw error;
