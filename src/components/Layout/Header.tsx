@@ -6,21 +6,16 @@ import Logo from "../../assets/images/logo/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
 import profile from "@/assets/images/icons/profilex1.png";
+import { useAuth } from "@/context/Authcontext";
 
 const Header = () => {
-  const router = useRouter();
+  const { logout } = useAuth();
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const router = useRouter();
 
   const toggleLogoutButton = () => {
     setIsLogoutOpen((prev) => !prev);
-  };
-
-  // 로그아웃 기능
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken"); // 토큰 삭제
-    setAccessToken(null); // 상태 초기화
-    router.push("/");
   };
 
   // 클라이언트 사이드에서만 localStorage를 접근
@@ -28,6 +23,11 @@ const Header = () => {
     const token = localStorage.getItem("accessToken");
     setAccessToken(token);
   }, []);
+
+  const handleLogout = () => {
+    setIsLogoutOpen(false);
+    logout();
+  };
 
   return (
     <GlobalHeader>

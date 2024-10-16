@@ -2,9 +2,9 @@ import HeartIcon from "@/assets/images/icons/ic_heart.svg";
 import styled from "styled-components";
 import Image from "next/image";
 
-function ItemCard({ item, onClick }) {
+function ItemCard({ item }) {
   return (
-    <Container onClick={onClick}>
+    <Container>
       <ItemCardThumbnail src={item.images[0]} alt={item.name} />
       <ItemSummary>
         <ItemName>{item.name}</ItemName>
