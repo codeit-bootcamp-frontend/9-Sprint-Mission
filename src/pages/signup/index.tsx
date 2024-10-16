@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useAuth } from "@/context/Authcontext";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,9 +8,15 @@ import styled from "styled-components";
 import logo from "@/assets/images/logo/logo.svg";
 import kakao from "@/assets/images/social/kakao-logo.png";
 import google from "@/assets/images/social/google-logo.png";
-import instance from "@/api/axios";
 import visibleIcon from "@/assets/images/icons/eye-visible.svg";
 import invisibleIcon from "@/assets/images/icons/eye-invisible.svg";
+
+interface SignUpFormData {
+  email: string;
+  password: string;
+  nickname: string;
+  passwordConfirm: string;
+}
 
 export default function SignUpPage() {
   const { user, signUp } = useAuth();
@@ -25,25 +31,24 @@ export default function SignUpPage() {
     watch,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
-  } = useForm({ mode: "onChange" });
+  } = useForm<SignUpFormData>({ mode: "onChange" });
 
-  const togglePasswordVisible = (field) => {
+  const togglePasswordVisible = (field: "password" | "confirm") => {
     setIsVisible((prev) => ({
       ...prev,
       [field]: !prev[field], // 필드별로 상태 관리
     }));
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
     const { email, password, nickname, passwordConfirm } = data;
     await signUp(email, password, nickname, passwordConfirm);
   };
 
   useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [user]);
+    console.log(user);
+    if (user) router.replace("/");
+  }, [user, router]); // router도 결국 객체, useEffect 안에서 사용하는 변수는 모두 추적해야하기 때문에 의존성배열에 추가해 준 모습.
 
   return (
     <Container>
@@ -55,7 +60,7 @@ export default function SignUpPage() {
             id="email"
             type="email"
             placeholder="이메일을 입력해주세요."
-            error={errors.email}
+            error={!!errors.email} // FieldError 타입을 boolean 타입으로 바꿔줌
             {...register("email", {
               required: "이메일은 필수 입력입니다.",
               pattern: {
@@ -72,7 +77,7 @@ export default function SignUpPage() {
             id="nickname"
             type="text"
             placeholder="닉네임을 입력해주세요."
-            error={errors.nickname}
+            error={!!errors.nickname}
             {...register("nickname", {
               required: "닉네임은 필수 입력입니다.",
               minLength: {
@@ -91,7 +96,7 @@ export default function SignUpPage() {
             id="password"
             type={isVisible.password ? "text" : "password"}
             placeholder="비밀번호를 입력해주세요."
-            error={errors.password}
+            error={!!errors.password}
             {...register("password", {
               required: "비밀번호는 필수 입력입니다.",
               minLength: {
@@ -121,7 +126,7 @@ export default function SignUpPage() {
             id="passwordConfirm"
             type={isVisible.confirm ? "text" : "password"}
             placeholder="비밀번호를  입력해주세요."
-            error={errors.passwordConfirm}
+            error={!!errors.passwordConfirm}
             {...register("passwordConfirm", {
               required: "비밀번호를 다시 입력해주세요.",
               validate: (value) =>
@@ -225,7 +230,7 @@ const InputWrap = styled.div`
   margin-top: 24px;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ error?: boolean }>`
   width: 100%;
   height: 56px;
   padding: 16px 24px;

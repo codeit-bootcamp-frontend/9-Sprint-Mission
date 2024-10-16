@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useAuth } from "@/context/Authcontext";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,6 +11,11 @@ import google from "@/assets/images/social/google-logo.png";
 import visibleIcon from "@/assets/images/icons/eye-visible.svg";
 import invisibleIcon from "@/assets/images/icons/eye-invisible.svg";
 
+interface SignInFormData {
+  email: string;
+  password: string;
+}
+
 export default function SignInPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
@@ -20,22 +25,21 @@ export default function SignInPage() {
     register,
     handleSubmit,
     formState: { isSubmitting, errors, isValid },
-  } = useForm({ mode: "onChange" });
+  } = useForm<SignInFormData>({ mode: "onChange" });
 
   const togglePasswordVisible = () => {
     setIsVisible((prev) => !prev);
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<SignInFormData> = async (data) => {
     await login(data.email, data.password);
   };
 
   // 토큰이 저장된 후에만 페이지 이동
   useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [user]);
+    console.log(user);
+    if (user) router.replace("/");
+  }, [user, router]);
 
   return (
     <Container>
@@ -47,7 +51,7 @@ export default function SignInPage() {
             id="email"
             type="email"
             placeholder="이메일을 입력해주세요."
-            error={errors.email}
+            error={!!errors.email}
             {...register("email", {
               required: "이메일은 필수 입력입니다.",
               pattern: {
@@ -56,7 +60,9 @@ export default function SignInPage() {
               },
             })}
           />
-          {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
+          {errors.email && (
+            <ErrorMessage>{String(errors.email.message)}</ErrorMessage>
+          )}
         </InputWrap>
         <InputWrap>
           <label htmlFor="password">비밀번호</label>
@@ -64,7 +70,7 @@ export default function SignInPage() {
             id="password"
             type={isVisible ? "text" : "password"}
             placeholder="비밀번호를 입력해주세요."
-            error={errors.password}
+            error={!!errors.password}
             {...register("password", {
               required: "비밀번호는 필수 입력입니다.",
               minLength: {
@@ -82,7 +88,7 @@ export default function SignInPage() {
             />
           </VisibleButton>
           {errors.password && (
-            <ErrorMessage>{errors.password.message}</ErrorMessage>
+            <ErrorMessage>{String(errors.password.message)}</ErrorMessage>
           )}
         </InputWrap>
         <SignInButton type="submit" disabled={!isValid || isSubmitting}>
@@ -138,7 +144,7 @@ const InputWrap = styled.div`
   margin-top: 24px;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ error?: boolean }>`
   width: 100%;
   height: 56px;
   padding: 16px 24px;
