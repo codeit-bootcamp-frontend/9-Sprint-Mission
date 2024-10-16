@@ -2,6 +2,7 @@ import { ChangeEvent, ReactNode } from "react";
 import styles from "./TextInput.module.css";
 
 interface Props {
+  type: string;
   label: string;
   placeholder?: string;
   children?: ReactNode;
@@ -11,6 +12,7 @@ interface Props {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 export const TextInput = ({
+  type,
   label,
   placeholder,
   children,
@@ -28,7 +30,7 @@ export const TextInput = ({
         className={styles.input}
         id={label}
         name={label}
-        type="text"
+        type={type}
         value={value}
         placeholder={placeholder}
         required={required}

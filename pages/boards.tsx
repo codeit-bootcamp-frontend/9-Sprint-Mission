@@ -3,7 +3,7 @@ import BestArticleList from "@/components/BestArticleList";
 import { throttle } from "@/lib/throttle";
 import { useEffect, useState } from "react";
 import { Article, Query } from "@/types/types";
-import axios from "axios";
+import axios from "@/lib/axios";
 
 export const getStaticProps = async () => {
   try {

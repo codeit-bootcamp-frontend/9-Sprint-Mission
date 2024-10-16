@@ -1,0 +1,83 @@
+.banner {
+  background: var(--second);
+}
+.wrap {
+  display: flex;
+  justify-content: center;
+  padding-top: 200px;
+  margin: 0 auto;
+}
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin: 112.5px 69px 112.5px 0;
+}
+.text {
+  font-size: 4rem;
+  font-weight: 700;
+  line-height: 5.6rem;
+  color: var(--gray700);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.button {
+  width: 100%;
+}
+.img {
+  position: relative;
+  width: 746px;
+  height: 340px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 992px) {
+  .tablet {
+    display: none;
+  }
+  .wrap {
+    align-items: center;
+    flex-direction: column;
+    justify-content: end;
+    margin: 0 auto;
+    padding-top: 0;
+    height: 927px;
+  }
+  .intro {
+    gap: 24px;
+    margin: 0;
+  }
+  .img {
+    height: 397px;
+  }
+  .text {
+    text-align: center;
+    padding: 200px 0 218px 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .tablet {
+    display: block;
+  }
+  .wrap {
+    margin: 0 auto;
+    height: 540px;
+  }
+  .text {
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 4.4rem;
+    text-align: center;
+    padding: 120px 0 130px 0;
+  }
+  .intro {
+    gap: 16px;
+    align-items: center;
+  }
+  .img {
+    object-fit: cover;
+    width: 100%;
+  }
+}

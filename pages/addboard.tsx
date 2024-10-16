@@ -14,8 +14,7 @@ export default function AddBoard() {
     content: "",
   });
 
-  let active = false;
-  if (fill.title !== "" && fill.content !== "") active = true;
+  const active = fill.title && fill.content;
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
@@ -31,6 +30,7 @@ export default function AddBoard() {
       <h1 className={styles.title}>게시글 쓰기</h1>
       <form onSubmit={handleSubmitArticle} className={styles.form}>
         <TextInput
+          type="text"
           value={fill.title}
           label="title"
           placeholder="제목을 입력해주세요"
@@ -41,6 +41,7 @@ export default function AddBoard() {
         </TextInput>
 
         <TextInput
+          type="text"
           value={fill.content}
           label="content"
           placeholder="내용을 입력해주세요"

@@ -1,0 +1,16 @@
+.button {
+  width: 100%;
+  background-color: var(--gray400);
+  border: none;
+  border-radius: 40px;
+  padding: 16px 0;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2.4rem;
+}
+
+.active {
+  background-color: var(--main);
+  cursor: pointer;
+}

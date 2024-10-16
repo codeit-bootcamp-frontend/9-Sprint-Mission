@@ -1,5 +1,5 @@
 :root {
-  --background-color: #cfe5ff;
+  --second: #cfe5ff;
   --main: #3692ff;
 
   --gray900: #111827;
@@ -42,6 +42,17 @@ li {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 @media screen and (max-width: 992px) {
