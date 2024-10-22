@@ -1,112 +1,97 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useAuth } from "@/context/Authcontext";
 import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import logo from "@/assets/images/logo/logo.svg";
 import kakao from "@/assets/images/social/kakao-logo.png";
 import google from "@/assets/images/social/google-logo.png";
-import instance from "@/api/axios";
-import validateUserData from "@/util/validateUserData";
-import CustomInput from "@/components/ui/common/CustomInput";
+import visibleIcon from "@/assets/images/icons/eye-visible.svg";
+import invisibleIcon from "@/assets/images/icons/eye-invisible.svg";
+
+interface SignInFormData {
+  email: string;
+  password: string;
+}
 
 export default function SignInPage() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
-  const [dataIsValidate, setDataIsValidate] = useState({
-    emailFormat: true,
-    passwordFormat: true,
-  });
-  const [userData, setUserData] = useState({
-    email: "",
-    password: "",
-  });
-  const [isTouched, setIsTouched] = useState({
-    email: false,
-    password: false,
-  });
-  let userDataExist = isTouched.email && isTouched.password;
+  const { user, login } = useAuth();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors, isValid },
+  } = useForm<SignInFormData>({ mode: "onChange" });
 
   const togglePasswordVisible = () => {
     setIsVisible((prev) => !prev);
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserData((prevuserData) => ({
-      ...prevuserData,
-      [name]: value,
-    }));
-  };
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-    setIsTouched((prev) => ({ ...prev, [name]: true }));
-    validateInputData();
-  };
-
-  const validateInputData = () => {
-    const { isValidEmail, isValidPassword } = validateUserData(userData);
-    setDataIsValidate({
-      emailFormat: isValidEmail,
-      passwordFormat: isValidPassword,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const res = await instance.post(`/auth/signIn`, userData);
-      const { accessToken } = res.data;
-      // 로컬 스토리지에 토큰 저장
-      localStorage.setItem("accessToken", accessToken);
-      router.push("/");
-    } catch (error) {
-      console.error("로그인 실패:", error);
-      alert("로그인에 실패했습니다. 다시 시도해주세요.");
-    }
+  const onSubmit: SubmitHandler<SignInFormData> = async (data) => {
+    await login(data.email, data.password);
   };
 
   // 토큰이 저장된 후에만 페이지 이동
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (accessToken) {
-      router.push(`/`); // 토큰이 잇다면 홈페이지로 리다이렉트
-    }
-    validateInputData();
-  }, [userData]);
+    console.log(user);
+    if (user) router.replace("/");
+  }, [user, router]);
 
   return (
     <Container>
       <Image src={logo} width={396} height={132} alt="panda market" />
-      <form onSubmit={handleSubmit}>
-        <CustomInput
-          label="이메일"
-          type="email"
-          name="email"
-          value={userData.email}
-          placeholder="이메일을 입력해주세요."
-          onChange={handleChange}
-          onBlur={handleBlur}
-          isTouched={isTouched.email}
-          errorMessage={!dataIsValidate.emailFormat && "잘못된 이메일입니다"}
-        />
-        <CustomInput
-          label="비밀번호"
-          type={isVisible ? "text" : "password"}
-          name="password"
-          value={userData.password}
-          placeholder="비밀번호를 입력해주세요."
-          onChange={handleChange}
-          onBlur={handleBlur}
-          isTouched={isTouched.password}
-          errorMessage={
-            !dataIsValidate.passwordFormat && "비밀번호를 8자 이상 입력해주세요"
-          }
-          isVisible={isVisible}
-          toggleVisibility={togglePasswordVisible}
-        />
-        <SignInButton type="submit" disabled={!userDataExist}>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <InputWrap>
+          <label htmlFor="email">이메일</label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="이메일을 입력해주세요."
+            error={!!errors.email}
+            {...register("email", {
+              required: "이메일은 필수 입력입니다.",
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "이메일 형식에 맞지 않습니다.",
+              },
+            })}
+          />
+          {errors.email && (
+            <ErrorMessage>{String(errors.email.message)}</ErrorMessage>
+          )}
+        </InputWrap>
+        <InputWrap>
+          <label htmlFor="password">비밀번호</label>
+          <Input
+            id="password"
+            type={isVisible ? "text" : "password"}
+            placeholder="비밀번호를 입력해주세요."
+            error={!!errors.password}
+            {...register("password", {
+              required: "비밀번호는 필수 입력입니다.",
+              minLength: {
+                value: 8,
+                message: "비밀번호를 8자 이상 입력해주세요",
+              },
+            })}
+          />
+          <VisibleButton type="button" onClick={togglePasswordVisible}>
+            <Image
+              src={isVisible ? visibleIcon : invisibleIcon}
+              width={24}
+              height={24}
+              alt="password visible button"
+            />
+          </VisibleButton>
+          {errors.password && (
+            <ErrorMessage>{String(errors.password.message)}</ErrorMessage>
+          )}
+        </InputWrap>
+        <SignInButton type="submit" disabled={!isValid || isSubmitting}>
           로그인
         </SignInButton>
       </form>
@@ -150,6 +135,30 @@ const SignInButton = styled.button`
   }
 `;
 
+const InputWrap = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 640px;
+  margin-top: 24px;
+`;
+
+const Input = styled.input<{ error?: boolean }>`
+  width: 100%;
+  height: 56px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background-color: var(--gray-100);
+  color: var(--gray-400);
+  border: 1px solid ${(props) => (props.error ? "#f74747" : "transparent")};
+
+  &:focus {
+    outline: none;
+    border: 1px solid ${(props) => (props.error ? "#f74747" : "var(--blue)")};
+  }
+`;
+
 const EazyLoginWrap = styled.div`
   margin-top: 24px;
   display: flex;
@@ -166,6 +175,15 @@ const EazyLoginWrap = styled.div`
   }
 `;
 
+const VisibleButton = styled.button`
+  position: absolute;
+  top: 53px;
+  right: 20px;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+`;
+
 const Div = styled.div`
   display: flex;
   align-items: center;
@@ -176,4 +194,11 @@ const Div = styled.div`
     color: var(--blue);
     text-decoration: underline;
   }
+`;
+
+const ErrorMessage = styled.p`
+  padding-left: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #f74747;
 `;
