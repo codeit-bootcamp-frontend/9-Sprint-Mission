@@ -2,13 +2,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axiosInstance from "@/api/axiosConfig";
 import cookie from "cookie";
-import { AuthResponse, LoginFormValues, SignInResponse } from "@/types/auth";
+import { AuthResponse, LoginFormValues } from "@/types/auth";
 import { AxiosError } from "axios";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     const { email, password }: LoginFormValues = req.body;
 
@@ -19,7 +16,7 @@ export default async function handler(
         password,
       });
 
-      const { accessToken, refreshToken, user } = response.data;
+      const { accessToken, refreshToken } = response.data;
 
       // HttpOnly 쿠키로 토큰 설정
       res.setHeader("Set-Cookie", [
@@ -39,37 +36,22 @@ export default async function handler(
         }),
       ]);
 
-      // 사용자 정보 반환
-      return res.status(200).json({
-        success: true,
-        message: "로그인 성공",
-        user,
-      } as SignInResponse);
+      const responseData: AuthResponse = response.data;
+      if (responseData.user) {
+        return res.status(200).json({ ...responseData, success: true });
+      } else {
+        return res.status(400).json({ ...responseData, success: false });
+      }
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
         // 백엔드에서 반환한 에러 메시지와 상태 코드를 사용
         const { status, data } = error.response;
-        return res.status(200).json({
+        return res.status(status).json({
           success: false,
           message: data.message || "로그인 중 오류가 발생했습니다.",
           error: data.error,
-          status: status,
-        } as SignInResponse);
-      } else {
-        // 예상치 못한 에러의 경우
-        return res.status(200).json({
-          success: false,
-          message: "서버 오류가 발생했습니다.",
-          error: "INTERNAL_SERVER_ERROR",
-          status: 500,
-        } as SignInResponse);
+        });
       }
     }
-  } else {
-    res.setHeader("Allow", ["POST"]);
-    return res.status(405).json({
-      success: false,
-      message: `Method ${req.method} Not Allowed`,
-    } as SignInResponse);
   }
 }

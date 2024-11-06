@@ -1,18 +1,13 @@
 import axios from "axios";
-import { SignupFormValues, SignUpResponse } from "@/types/auth";
+import { SignupFormValues, AuthResponse } from "@/types/auth";
 
-export const signUp = async (
-  formData: SignupFormValues
-): Promise<SignUpResponse> => {
+export const signUp = async (formData: SignupFormValues): Promise<AuthResponse> => {
   try {
-    const response = await axios.post<SignUpResponse>(
-      "/api/auth/signUp",
-      formData
-    );
+    const response = await axios.post<AuthResponse>("/api/auth/signUp", formData);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      return error.response.data as SignUpResponse;
+      return error.response.data as AuthResponse;
     }
     throw error;
   }

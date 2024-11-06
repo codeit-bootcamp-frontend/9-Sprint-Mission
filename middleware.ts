@@ -13,18 +13,12 @@ export function middleware(request: NextRequest) {
 
     // 이미지 URL이 없는 경우 에러 반환
     if (!imageUrl) {
-      return NextResponse.json(
-        { error: "이미지 URL이 필요합니다." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "이미지 URL이 필요합니다." }, { status: 400 });
     }
 
     // isValidImageUrl 함수 사용하여 확장자 검증
     if (!isValidImageUrl(imageUrl)) {
-      return NextResponse.json(
-        { error: "허용되지 않은 파일 형식입니다." },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "허용되지 않은 파일 형식입니다." }, { status: 400 });
     }
   }
 
@@ -34,5 +28,5 @@ export function middleware(request: NextRequest) {
 
 // 미들웨어가 적용될 경로 설정
 export const config = {
-  matcher: "/api/imageProxy",
+  matcher: ["/api/imageProxy", "/((?!api|_next/static|_next/image|favicon.ico|images|signin|signup|$).*)"],
 };

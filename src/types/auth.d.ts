@@ -21,25 +21,11 @@ export interface User {
 }
 
 export interface AuthResponse {
+  success: boolean;
+  message: string;
   accessToken: string;
   refreshToken: string;
   user: User;
-}
-
-export interface SignUpResponse {
-  success: boolean;
-  message: string;
-  user?: {
-    id: number;
-    email: string;
-    nickname: string;
-  };
-}
-
-export interface SignInResponse {
-  success: boolean;
-  message: string;
-  user?: User;
 }
 
 export interface RefreshTokenResponse {

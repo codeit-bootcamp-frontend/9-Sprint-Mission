@@ -33,11 +33,8 @@ export default function LoginPage() {
 
       if (authStatus.isLogin) {
         router.push("/");
-      } else if (authStatus.status && authStatus.status !== 404) {
-        // 404가 아닌 모든 에러 상태에 대해 AlertModal 표시
-        setAlertMessage(authStatus.message);
-        setIsAlertOpen(true);
       }
+
       setIsLoading(false);
     }
 
@@ -114,7 +111,7 @@ export default function LoginPage() {
 
   useEffect(() => {
     setIsPasswordValid({
-      length: password ? password.length >= 8 : false,
+      length: password ? password.length >= 6 : false,
       pattern: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/.test(password || ""),
     });
   }, [password]);
@@ -131,14 +128,7 @@ export default function LoginPage() {
     <div className="mt-70px px-4 py-6 max-w-sm mx-auto md:max-w-2xl md:py-12 lg:py-15">
       {/* 홈으로 돌아가는 로고 */}
       <Link href="/" className="md:mb-10" aria-label="홈으로 이동">
-        <Image
-          src={LOGO_AUTH}
-          width={396}
-          height={132}
-          alt="로고"
-          className="mx-auto"
-          priority={true}
-        />
+        <Image src={LOGO_AUTH} width={396} height={132} alt="로고" className="mx-auto" priority={true} />
       </Link>
 
       {/* 로그인 폼 */}
@@ -155,7 +145,7 @@ export default function LoginPage() {
             required: "이메일을 입력해 주세요", // 필수 필드
             pattern: {
               value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/,
-              message: "잘못된 이메 형식입니다", // 이메일 유효성 검사
+              message: "잘못된 이메일 형식입니다", // 이메일 유효성 검사
             },
           })}
           errorMessage={errors.email?.message} // 유효성 검사 오류 메시지 출력
@@ -169,8 +159,12 @@ export default function LoginPage() {
           register={register("password", {
             required: "비밀번호를 입력해 주세요", // 필수 필드
             minLength: {
-              value: 8,
-              message: "비밀번호를 8자 이상 입력해 주세요", // 최소 길이 검사
+              value: 6,
+              message: "비밀번호를 6자 이상 입력해 주세요", // 최소 길이 검사
+            },
+            pattern: {
+              value: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/,
+              message: "영문, 숫자, 특수문자(!@#$%^&*) 사용 가능합니다",
             },
           })}
           errorMessage={errors.password?.message} // 유효성 검사 오류 메시지 출력
@@ -179,21 +173,8 @@ export default function LoginPage() {
         {/* 비밀번호 유효성 메시지 */}
         {password && (
           <div className="text-sm">
-            <p
-              className={
-                isPasswordValid.length ? "text-green-500" : "text-red-500"
-              }
-            >
-              {isPasswordValid.length ? "✓" : "✗"} 비밀번호는 8자 이상이어야
-              합니다.
-            </p>
-            <p
-              className={
-                isPasswordValid.pattern ? "text-green-500" : "text-red-500"
-              }
-            >
-              {isPasswordValid.pattern ? "✓" : "✗"} 영문, 숫자,
-              특수문자(!@#$%^&*)만 사용 가능합니다.
+            <p className={isPasswordValid.length ? "text-green-500" : "text-red-500"}>
+              {isPasswordValid.length ? "✓" : "✗"} 비밀번호는 6자 이상이어야 합니다.
             </p>
           </div>
         )}
@@ -214,20 +195,13 @@ export default function LoginPage() {
       {/* 회원가입 링크 */}
       <div className="font-medium text-sm text-center mt-6">
         판다마켓이 처음이신가요?{" "}
-        <Link
-          href="/auth/signup"
-          className="text-blue-500 underline underline-offset-2"
-        >
+        <Link href="/auth/signup" className="text-blue-500 underline underline-offset-2">
           회원가입
         </Link>
       </div>
 
       {/* AlertModal 컴포넌트 */}
-      <AlertModal
-        isOpen={isAlertOpen}
-        message={alertMessage}
-        onClose={handleCloseAlert}
-      />
+      <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={handleCloseAlert} />
     </div>
   );
 }
