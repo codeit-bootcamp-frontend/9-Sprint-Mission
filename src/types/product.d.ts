@@ -34,4 +34,9 @@ export interface ProductListResponse {
 }
 
 // 정렬 옵션 타입
-export type ProductSortOption = "recent" | "favorite"; // 최근 등록순 or 좋아요 순
+type ProductSortOption = "recent" | "favorite"; // 최근 등록순 or 좋아요 순
+
+// 상품 정렬 옵션 인터페이스
+export interface ProductSortOption {
+  orderBy: ProductSortOption;
+}

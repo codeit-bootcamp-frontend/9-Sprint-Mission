@@ -8,29 +8,28 @@ import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
-import { signUp } from "@/api/auth/signUp";
 import { SignupFormValues } from "@/types/auth";
 import AlertModal from "@/components/UI/modal/AlertModal";
 import { checkAuthStatus } from "@/utils/authUtils";
+import { useAuth } from "@/hooks/useAuth";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
 
 export default function SignupPage() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
+  const { signUp, isLoading: isAuthLoading } = useAuth();
+
   useEffect(() => {
     async function initializeAuthStatus() {
-      setIsLoading(true);
       const authStatus = await checkAuthStatus();
 
       if (authStatus.isLogin) {
         router.push("/");
       }
-      setIsLoading(false);
     }
 
     initializeAuthStatus();
@@ -61,7 +60,6 @@ export default function SignupPage() {
 
   // 폼 제출 시 호출되는 함수, 서버에 회원가입 요청을 보냄
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
-    setIsLoading(true);
     const trimmedData: SignupFormValues = {
       email: data.email.trim(),
       nickname: data.nickname?.trim(),
@@ -71,18 +69,18 @@ export default function SignupPage() {
 
     try {
       const response = await signUp(trimmedData);
-      if (!response.user) {
-        setAlertMessage(response.message);
-      } else {
+      if (response.success) {
         setAlertMessage("회원 가입에 성공했습니다!");
+      } else {
+        setAlertMessage(response.message || "회원가입에 실패했습니다. 다시 시도해 주세요.");
       }
       setIsAlertOpen(true);
     } catch (error: unknown) {
       console.error("Error:", error);
-      setAlertMessage("서버와의 통신 중 오류가 발생했습니다. 다시 시도해 주세요.");
+      setAlertMessage(
+        error instanceof Error ? error.message : "서버와의 통신 중 오류가 발생했습니다. 다시 시도해 주세요."
+      );
       setIsAlertOpen(true);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -93,8 +91,8 @@ export default function SignupPage() {
     }
   };
 
-  if (isLoading) {
-    return <LoadingSpinner isLoading={isLoading} />;
+  if (isAuthLoading) {
+    return <LoadingSpinner isLoading={true} />;
   }
 
   return (

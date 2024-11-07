@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       // 백엔드 API에 로그인 요청
-      const response = await axiosInstance.post<AuthResponse>("/auth/signIn", {
+      const response = await axiosInstance.post("/auth/signIn", {
         email,
         password,
       });
