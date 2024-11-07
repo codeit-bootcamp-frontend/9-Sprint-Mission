@@ -1,8 +1,8 @@
 // src/components/UI/DropdownMenu.tsx
 import React, { useState } from "react";
 import Image from "next/image";
-import { ProductSortOption } from "@/types/product";
-import { ArticleSortOption } from "@/types/article";
+import { ProductSortOption } from "@/constants/ProductSortOption";
+import { ArticleSortOption } from "@/constants/ArticleSortOption";
 
 // public 폴더 경로 문자열로 대체
 const ARROW_DOWN_ICON = "/images/icons/ic_arrow_down.png";
@@ -48,9 +48,7 @@ const DropdownMenu = <T extends ProductSortOption | ArticleSortOption>({
         style={{ border: "1px solid #E5E7EB" }}
         onClick={toggleDropdown}
       >
-        <span className="text-base text-gray-800 w-[80px]">
-          {getOptionText(selectedOption)}
-        </span>
+        <span className="text-base text-gray-800 w-[80px]">{getOptionText(selectedOption)}</span>
         <div className="relative w-6 h-6 ml-2">
           {" "}
           {/* 부모 요소에 크기 지정 */}
@@ -74,11 +72,7 @@ const DropdownMenu = <T extends ProductSortOption | ArticleSortOption>({
           </div>
           <div
             className="py-3 px-4 border-b border-gray-200 text-base text-gray-800 cursor-pointer last:border-b-0"
-            onClick={() =>
-              handleOptionSelect(
-                (type === "product" ? "favorite" : "like") as T
-              )
-            }
+            onClick={() => handleOptionSelect((type === "product" ? "favorite" : "like") as T)}
           >
             인기순
           </div>

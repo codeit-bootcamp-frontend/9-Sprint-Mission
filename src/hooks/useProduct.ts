@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
-import { Product, ProductDetail, ProductForm, ProductListResponse, ProductSortOption } from "@/types/product";
+import { Product, ProductDetail, ProductForm, ProductListResponse } from "@/types/product";
+import { ProductSortOption } from "@/constants/ProductSortOption";
 
 export const useProduct = () => {
   const queryClient = useQueryClient();

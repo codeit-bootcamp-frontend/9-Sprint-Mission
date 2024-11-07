@@ -1,8 +1,7 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { LoginFormValues, SignupFormValues, AuthResponse, User } from "@/types/auth";
+import { LoginFormValues, SignupFormValues, User } from "@/types/auth";
 import axios from "axios";
-import { removeAllAuthCookies } from "@/utils/cookie";
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
@@ -14,32 +13,48 @@ export const useAuth = () => {
     queryFn: async () => {
       try {
         const response = await axios.post<{ user: User | null; isLogin: boolean }>("/api/auth/refreshToken");
+        if (!response.data.isLogin || !response.data.user) {
+          return null;
+        }
         return response.data.user;
       } catch (error) {
         console.error("인증 상태 확인 중 오류 발생:", error);
         return null;
       }
     },
+    enabled: router.isReady,
+    staleTime: 5 * 60 * 1000,
+    retry: 1,
   });
 
   // 회원가입 mutation
-  const signUpMutation = useMutation<AuthResponse, Error, SignupFormValues>({
-    mutationFn: async (formData) => {
-      const response = await axios.post<AuthResponse>("/api/auth/signUp", formData);
-      return response.data;
-    },
-    onSuccess: (data) => {
-      if (data.success) {
-        queryClient.setQueryData(["user"], data.user);
-        router.push("/auth/login");
-      }
-    },
-  });
+  const signUpMutation = useMutation<{ success: boolean; message: string; user: User | null }, Error, SignupFormValues>(
+    {
+      mutationFn: async (formData: SignupFormValues) => {
+        const response = await axios.post("/api/auth/signUp", {
+          email: formData.email,
+          password: formData.password,
+          passwordConfirmation: formData.passwordConfirmation,
+          nickname: formData.nickname,
+        });
+        return response.data;
+      },
+      onSuccess: (data) => {
+        if (data.success) {
+          queryClient.setQueryData(["user"], data.user);
+          router.push("/auth/login");
+        }
+      },
+    }
+  );
 
   // 로그인 mutation
-  const signInMutation = useMutation<AuthResponse, Error, LoginFormValues>({
-    mutationFn: async (formData) => {
-      const response = await axios.post<AuthResponse>("/api/auth/signIn", formData);
+  const signInMutation = useMutation<{ success: boolean; message: string; user: User | null }, Error, LoginFormValues>({
+    mutationFn: async (formData: LoginFormValues) => {
+      const response = await axios.post("/api/auth/signIn", {
+        email: formData.email,
+        password: formData.password,
+      });
       return response.data;
     },
     onSuccess: (data) => {
@@ -53,7 +68,6 @@ export const useAuth = () => {
   // 로그아웃 mutation
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      await removeAllAuthCookies();
       const response = await axios.post("/api/auth/logout");
       return response.data;
     },

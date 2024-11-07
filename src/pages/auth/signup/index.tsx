@@ -10,7 +10,6 @@ import PasswordInput from "@/components/UI/PasswordInput";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { SignupFormValues } from "@/types/auth";
 import AlertModal from "@/components/UI/modal/AlertModal";
-import { checkAuthStatus } from "@/utils/authUtils";
 import { useAuth } from "@/hooks/useAuth";
 
 // public 폴더 경로 문자열로 대체
@@ -21,19 +20,17 @@ export default function SignupPage() {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const { signUp, isLoading: isAuthLoading } = useAuth();
+  const { signUp, isLoading: isAuthLoading, user } = useAuth();
 
   useEffect(() => {
     async function initializeAuthStatus() {
-      const authStatus = await checkAuthStatus();
-
-      if (authStatus.isLogin) {
+      if (user) {
         router.push("/");
       }
     }
 
     initializeAuthStatus();
-  }, [router]);
+  }, [router, user]);
 
   // react-hook-form으로 폼 관리
   const {
@@ -69,10 +66,10 @@ export default function SignupPage() {
 
     try {
       const response = await signUp(trimmedData);
-      if (response.success) {
+      if (response.user) {
         setAlertMessage("회원 가입에 성공했습니다!");
       } else {
-        setAlertMessage(response.message || "회원가입에 실패했습니다. 다시 시도해 주세요.");
+        setAlertMessage("회원가입에 실패했습니다. 다시 시도해 주세요.");
       }
       setIsAlertOpen(true);
     } catch (error: unknown) {

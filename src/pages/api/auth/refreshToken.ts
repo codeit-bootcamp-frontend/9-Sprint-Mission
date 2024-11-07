@@ -27,8 +27,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           path: "/",
         }),
       ]);
+
+      return res.status(200).json({ success: true });
     } catch (error) {
       console.error("토큰 갱신 실패:", error);
+      return res.status(500).json({ success: false });
     }
   }
 }

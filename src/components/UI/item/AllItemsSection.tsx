@@ -5,7 +5,7 @@ import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
 import PaginationBar from "@/components/UI/PaginationBar";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
-import { ProductSortOption } from "@/types/product";
+import { ProductSortOption } from "@/constants/ProductSortOption";
 import { useProduct } from "@/hooks/useProduct";
 import useDebounce from "@/hooks/useDebounce";
 
@@ -17,7 +17,7 @@ interface AllItemsSectionProps {
 export default function AllItemsSection({ width, height }: AllItemsSectionProps) {
   const { useProducts } = useProduct();
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortOption, setSortOption] = useState<ProductSortOption>("recent");
+  const [sortOption, setSortOption] = useState<ProductSortOption>(ProductSortOption.RECENT);
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedKeyword = useDebounce(searchKeyword, 500);
 

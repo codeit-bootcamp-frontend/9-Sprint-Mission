@@ -2,7 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axiosInstance from "@/api/axiosConfig";
 import cookie from "cookie";
-import { AuthResponse, LoginFormValues } from "@/types/auth";
+import { LoginFormValues } from "@/types/auth";
 import { AxiosError } from "axios";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -36,12 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }),
       ]);
 
-      const responseData: AuthResponse = response.data;
-      if (responseData.user) {
-        return res.status(200).json({ ...responseData, success: true });
-      } else {
-        return res.status(400).json({ ...responseData, success: false });
-      }
+      return res.status(200).json(response.data);
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
         // 백엔드에서 반환한 에러 메시지와 상태 코드를 사용

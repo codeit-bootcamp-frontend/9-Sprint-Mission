@@ -1,6 +1,7 @@
 import axiosInstance from "../axiosConfig";
 import { AxiosError } from "axios";
-import { ProductListResponse, ProductSortOption } from "@/types/product";
+import { ProductListResponse } from "@/types/product";
+import { ProductSortOption } from "@/constants/ProductSortOption";
 
 export async function getProducts({
   page,
@@ -25,10 +26,7 @@ export async function getProducts({
   } catch (error) {
     if (error instanceof AxiosError) {
       // Axios 에러인 경우 처리
-      console.error(
-        "getProducts API 요청 에러:",
-        error.response?.data || error.message
-      );
+      console.error("getProducts API 요청 에러:", error.response?.data || error.message);
     } else if (error instanceof Error) {
       // 일반 에러 처리
       console.error("getProducts 일반 에러:", error.message);

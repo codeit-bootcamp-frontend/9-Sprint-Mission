@@ -10,7 +10,6 @@ import PasswordInput from "@/components/UI/PasswordInput";
 import { LoginFormValues } from "@/types/auth";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import AlertModal from "@/components/UI/modal/AlertModal";
-import { checkAuthStatus } from "@/utils/authUtils";
 import { useAuth } from "@/hooks/useAuth";
 
 // public 폴더 경로 문자열로 대체
@@ -20,18 +19,17 @@ export default function LoginPage() {
   const router = useRouter();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const { signIn, isLoading: isAuthLoading } = useAuth();
+  const { signIn, isLoading: isAuthLoading, user } = useAuth();
 
   useEffect(() => {
     async function initializeAuthStatus() {
-      const authStatus = await checkAuthStatus();
-      if (authStatus.isLogin) {
+      if (user) {
         router.push("/");
       }
     }
 
     initializeAuthStatus();
-  }, [router]);
+  }, [router, user]);
 
   // react-hook-form 사용하여 폼 상태 및 유효성 검사 관리
   const {

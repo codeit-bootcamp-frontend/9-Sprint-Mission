@@ -1,11 +1,5 @@
 // src/components/UI/community/AllArticlesSection.tsx
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
-  useMemo,
-} from "react";
+import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +7,8 @@ import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import PaginationBar from "@/components/UI/PaginationBar";
-import { Article, ArticleSortOption } from "@/types/article";
+import { Article } from "@/types/article";
+import { ArticleSortOption } from "@/constants/ArticleSortOption";
 import { getArticles } from "@/api/articles/getArticles";
 import AllArticleCard from "./AllArticleCard";
 import { useAtom } from "jotai";
@@ -28,7 +23,7 @@ const PAGE_SIZE = 5;
 const isInfiniteScroll = (width: number) => width < 768;
 
 const AllArticlesSection = () => {
-  const [orderBy, setOrderBy] = useState<ArticleSortOption>("recent");
+  const [orderBy, setOrderBy] = useState<ArticleSortOption>(ArticleSortOption.RECENT);
   const [articles, setArticles] = useState<Article[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -38,9 +33,7 @@ const AllArticlesSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [searchKeyword, setSearchKeyword] = useState("");
   const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
-  const [isMobileInfiniteScroll, setIsMobileInfiniteScroll] = useState<
-    boolean | null
-  >(null);
+  const [isMobileInfiniteScroll, setIsMobileInfiniteScroll] = useState<boolean | null>(null);
 
   // 상태 값을 참조하기 위한 레퍼런스
   const isLoadingRef = useRef(isLoading);
@@ -128,16 +121,12 @@ const AllArticlesSection = () => {
         orderBy,
         page,
         pageSize: PAGE_SIZE,
-        keyword: debouncedSearchKeyword.trim()
-          ? debouncedSearchKeyword
-          : undefined,
+        keyword: debouncedSearchKeyword.trim() ? debouncedSearchKeyword : undefined,
       };
       const data = await getArticles(params);
 
       setArticles((prevArticles) =>
-        page === 1 || isMobileInfiniteScroll === false
-          ? data.list
-          : [...prevArticles, ...data.list]
+        page === 1 || isMobileInfiniteScroll === false ? data.list : [...prevArticles, ...data.list]
       );
 
       setTotalPages(Math.ceil(data.totalCount / PAGE_SIZE));
@@ -146,13 +135,7 @@ const AllArticlesSection = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [
-    orderBy,
-    page,
-    debouncedSearchKeyword,
-    isMobileInfiniteScroll,
-    setIsLoading,
-  ]);
+  }, [orderBy, page, debouncedSearchKeyword, isMobileInfiniteScroll, setIsLoading]);
 
   // 게시글을 불러오는 useEffect
   useEffect(() => {
@@ -183,22 +166,13 @@ const AllArticlesSection = () => {
       <div className="flex justify-between items-center">
         <div className="mb-6 text-2xl font-bold text-gray-800">게시글</div>
         <Link href="/addArticle">
-          <Image
-            src={WRITE_BUTTON_IMAGE}
-            alt="글쓰기"
-            width={88}
-            height={42}
-            className="cursor-pointer"
-          />
+          <Image src={WRITE_BUTTON_IMAGE} alt="글쓰기" width={88} height={42} className="cursor-pointer" />
         </Link>
       </div>
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
         <SearchBar onSearch={handleSearch} className="w-full md:w-96" />
-        <DropdownMenu<ArticleSortOption>
-          onSortSelection={handleSortSelection}
-          type="article"
-        />
+        <DropdownMenu<ArticleSortOption> onSortSelection={handleSortSelection} type="article" />
       </div>
 
       {isLoading && articles.length === 0 ? (
@@ -213,8 +187,7 @@ const AllArticlesSection = () => {
                 key={`article-${article.id}`}
                 ref={
                   isMobileInfiniteScroll && index === articles.length - 1
-                    ? (el: HTMLDivElement | null) =>
-                        observer.current?.observe(el as Element)
+                    ? (el: HTMLDivElement | null) => observer.current?.observe(el as Element)
                     : undefined
                 }
               >
@@ -237,11 +210,7 @@ const AllArticlesSection = () => {
 
       {!isMobileInfiniteScroll && totalPages > 1 && (
         <div className="pt-10 pb-20">
-          <PaginationBar
-            totalPageNum={totalPages}
-            activePageNum={page}
-            onPageChange={setPage}
-          />
+          <PaginationBar totalPageNum={totalPages} activePageNum={page} onPageChange={setPage} />
         </div>
       )}
     </div>

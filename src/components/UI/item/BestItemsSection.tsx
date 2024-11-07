@@ -5,6 +5,7 @@ import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { Product } from "@/types/product";
 import useDebounce from "@/hooks/useDebounce";
 import { useProduct } from "@/hooks/useProduct";
+import { ProductSortOption } from "@/constants/ProductSortOption";
 
 // 화면 크기에 따른 pageSize 결정 함수
 const getPageSize = (width: number) => {
@@ -39,7 +40,7 @@ const BestItemsSection = ({ width, height }: BestItemsSectionProps) => {
   const { data, isLoading } = useProducts({
     page: 1,
     pageSize,
-    orderBy: "favorite",
+    orderBy: ProductSortOption.FAVORITE,
   });
 
   // 창 크기 변경 시 windowWidth 업데이트
