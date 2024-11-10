@@ -5,12 +5,11 @@ import useDebouncedCallback from "@/hooks/useDebouncedCallback";
 import { ArticleDetail } from "@/types/article";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { addArticleLike } from "@/api/articles/addArticleLike";
-import { removeArticleLike } from "@/api/articles/removeArticleLike";
 import LikeButton from "./LikeButton";
 import AlertModal from "../modal/AlertModal";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
+import { useArticle } from "@/hooks/useArticle";
 
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const NO_IMAGE = "/images/ui/no-image.png";
@@ -24,14 +23,13 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
   const [imageHeight, setImageHeight] = useState(486);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(NO_IMAGE);
-  const [imageStatus, setImageStatus] = useState<
-    "loading" | "loaded" | "error"
-  >("loading");
+  const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [isLiked, setIsLiked] = useState<boolean>(articleDetail.isLiked);
   const [likeCount, setLikeCount] = useState<number>(articleDetail.likeCount);
   const [user] = useAtom(userAtom);
+  const { addLike, removeLike, isLoading } = useArticle();
 
   const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
 
@@ -48,9 +46,9 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
     try {
       if (isLiked) {
-        await removeArticleLike(articleDetail.id);
+        await removeLike(articleDetail.id);
       } else {
-        await addArticleLike(articleDetail.id);
+        await addLike(articleDetail.id);
       }
     } catch (error) {
       console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
@@ -61,7 +59,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       setIsAlertOpen(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [articleDetail.id, isLiked]);
+  }, [articleDetail.id, isLiked, user, addLike, removeLike]);
 
   const debouncedHandleLike = useDebouncedCallback(handleLikeCallback, 300);
 
@@ -105,11 +103,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     }
   };
 
-  const formattedDate = format(
-    new Date(articleDetail.createdAt),
-    "yyyy. MM. dd",
-    { locale: ko }
-  );
+  const formattedDate = format(new Date(articleDetail.createdAt), "yyyy. MM. dd", { locale: ko });
 
   const handleCloseAlert = () => {
     setIsAlertOpen(false);
@@ -134,29 +128,14 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
               onLoad={handleImageLoad}
             />
           ) : (
-            <Image
-              src={NO_IMAGE}
-              alt="이미지 없음"
-              width={486}
-              height={486}
-              className="rounded-xl w-full h-auto"
-            />
+            <Image src={NO_IMAGE} alt="이미지 없음" width={486} height={486} className="rounded-xl w-full h-auto" />
           )}
         </div>
 
-        <div
-          className="flex flex-col justify-between flex-1"
-          style={{ height: imageHeight }}
-        >
+        <div className="flex flex-col justify-between flex-1" style={{ height: imageHeight }}>
           <div className="w-full relative">
             <button className="absolute right-0">
-              <Image
-                src={KEBAB_ICON}
-                width={24}
-                height={24}
-                alt="케밥 이미지 버튼"
-                className="w-6 h-6"
-              />
+              <Image src={KEBAB_ICON} width={24} height={24} alt="케밥 이미지 버튼" className="w-6 h-6" />
             </button>
 
             <div>
@@ -167,29 +146,14 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
             <hr className="my-4 border-gray-200" />
 
-            <div
-              className="overflow-auto"
-              style={{ minHeight: imageHeight - 90 }}
-            >
-              <div className="text-gray-600 text-sm font-medium mb-2">
-                게시글 내용
-              </div>
-              <p className="text-base leading-[140%] mb-4">
-                {articleDetail.content}
-              </p>
+            <div className="overflow-auto" style={{ minHeight: imageHeight - 90 }}>
+              <div className="text-gray-600 text-sm font-medium mb-2">게시글 내용</div>
+              <p className="text-base leading-[140%] mb-4">{articleDetail.content}</p>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-gray-500 mt-auto">
-              <Image
-                src={DEFAULT_AVATAR}
-                alt="작성자 아바타"
-                width={24}
-                height={24}
-                className="rounded-full"
-              />
-              <div className="font-semibold">
-                {articleDetail.writer.nickname}
-              </div>
+              <Image src={DEFAULT_AVATAR} alt="작성자 아바타" width={24} height={24} className="rounded-full" />
+              <div className="font-semibold">{articleDetail.writer.nickname}</div>
               <div>{formattedDate}</div>
               <div className="h-4 border-l border-gray-300 mx-2"></div>
 
@@ -198,6 +162,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
                   isLiked={isLiked}
                   likeCount={likeCount}
                   onLike={debouncedHandleLike}
+                  isLoading={isLoading.addLike || isLoading.removeLike}
                 />
               </div>
             </div>
@@ -206,11 +171,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       </section>
 
       {/* AlertModal 컴포넌트 */}
-      <AlertModal
-        isOpen={isAlertOpen}
-        message={alertMessage}
-        onClose={handleCloseAlert}
-      />
+      <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={handleCloseAlert} />
     </>
   );
 };

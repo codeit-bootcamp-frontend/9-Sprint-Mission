@@ -3,7 +3,7 @@ import Axios from "axios";
 
 export const API_URL = "https://panda-market-api.vercel.app";
 
-const axiosInstance = Axios.create({
+const apiClient = Axios.create({
   baseURL: API_URL,
   timeout: 5000,
   headers: {
@@ -11,4 +11,4 @@ const axiosInstance = Axios.create({
   },
 });
 
-export default axiosInstance;
+export default apiClient;

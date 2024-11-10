@@ -1,7 +1,6 @@
 // src/pages/community/[id].tsx
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getArticleDetail } from "@/api/articles/getArticleDetail";
 import { ArticleDetail } from "@/types/article";
 import ArticleDetailSection from "@/components/UI/community/ArticleDetailSection";
 import ArticleCommentSection from "@/components/UI/comment/ArticleCommentSection";
@@ -10,9 +9,7 @@ import BackToListButton from "@/components/UI/BackToListButton";
 export default function ItemPage() {
   const router = useRouter();
   const { id } = router.query;
-  const [articleDetail, setArticleDetail] = useState<ArticleDetail | null>(
-    null
-  );
+  const [articleDetail, setArticleDetail] = useState<ArticleDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

@@ -1,10 +1,7 @@
-import axiosInstance from "@/api/axiosConfig";
+import apiClient from "@/lib/apiClient";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "DELETE") {
     const { commentId } = req.body;
 
@@ -17,7 +14,7 @@ export default async function handler(
 
     try {
       // Authorization 헤더에 JWT 토큰 추가
-      const response = await axiosInstance.delete(`/comments/${commentId}`, {
+      const response = await apiClient.delete(`/comments/${commentId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`, // JWT 토큰을 Bearer 형식으로 추가
         },
@@ -32,8 +29,6 @@ export default async function handler(
     }
   } else {
     res.setHeader("Allow", ["DELETE"]);
-    return res
-      .status(405)
-      .json({ message: `Method ${req.method} Not Allowed` });
+    return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 }

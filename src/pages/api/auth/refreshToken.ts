@@ -1,5 +1,5 @@
 // src/pages/api/auth/refreshToken.ts
-import axiosInstance from "@/api/axiosConfig";
+import apiClient from "@/lib/apiClient";
 import { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 
@@ -8,11 +8,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
-      await axiosInstance.post("/auth/logout");
+      await apiClient.post("/auth/logout");
     }
 
     try {
-      const response = await axiosInstance.post("/auth/refresh-token", {
+      const response = await apiClient.post("/auth/refresh-token", {
         refreshToken,
       });
 

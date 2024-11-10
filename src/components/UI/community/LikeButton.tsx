@@ -8,33 +8,19 @@ const HEART_PINK_ICON = "/images/icons/ic_heart_pink.png";
 interface LikeButtonProps {
   isLiked: boolean;
   likeCount: number;
-  onLike?: () => void; // 콜백 함수 타입 정의
+  onLike: () => void;
+  isLoading?: boolean;
 }
 
-const LikeButton = ({
-  isLiked,
-  likeCount,
-  onLike, // 외부에서 콜백으로 받는 함수
-}: LikeButtonProps) => {
-  const handleLike = () => {
-    if (onLike) {
-      onLike(); // 외부에서 전달된 onLike 콜백 실행
-    }
-  };
-
+const LikeButton = ({ isLiked, likeCount, onLike, isLoading = false }: LikeButtonProps) => {
   return (
-    <button
-      onClick={handleLike} // 함수 참조를 전달
-      className={"flex items-center space-x-1"}
-    >
-      <Image
-        src={isLiked ? HEART_PINK_ICON : HEART_ICON}
-        width={16}
-        height={16}
-        alt="좋아요 이미지 버튼"
-        className={isLiked ? "fill-current" : "stroke-current"}
-      />
-      <span>{likeCount}</span>
+    <button onClick={onLike} disabled={isLoading} className="flex items-center gap-1 text-sm">
+      {isLoading ? (
+        <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+      ) : (
+        <Image src={isLiked ? HEART_PINK_ICON : HEART_ICON} alt="좋아요" width={16} height={16} />
+      )}
+      <span className={`${isLiked ? "text-red-500" : "text-gray-500"}`}>{likeCount}</span>
     </button>
   );
 };

@@ -1,11 +1,8 @@
-import axiosInstance from "@/api/axiosConfig";
+import apiClient from "@/lib/apiClient";
 import { Comment } from "@/types/comment";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     const { productId, content } = req.body;
 
@@ -18,7 +15,7 @@ export default async function handler(
 
     try {
       // Authorization 헤더에 JWT 토큰 추가
-      const response = await axiosInstance.post<Comment>(
+      const response = await apiClient.post<Comment>(
         `/products/${productId}/comments`,
         { content },
         {
@@ -27,17 +24,13 @@ export default async function handler(
           },
         }
       );
-      return res
-        .status(200)
-        .json({ message: "상품 댓글 등록 성공", comment: response.data });
+      return res.status(200).json({ message: "상품 댓글 등록 성공", comment: response.data });
     } catch (error) {
       console.error("상품 댓글 등록 실패:", error);
       return res.status(500).json({ message: "상품 댓글 등록 실패" });
     }
   } else {
     res.setHeader("Allow", ["POST"]);
-    return res
-      .status(405)
-      .json({ message: `Method ${req.method} Not Allowed` });
+    return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 }

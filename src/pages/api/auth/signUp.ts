@@ -1,11 +1,11 @@
 import { AxiosError } from "axios";
-import axiosInstance from "@/api/axiosConfig";
+import apiClient from "@/lib/apiClient";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     try {
-      await axiosInstance.post("/auth/signup", req.body);
+      await apiClient.post("/auth/signup", req.body);
       return res.status(200).json({ success: true });
     } catch (error) {
       if (error instanceof AxiosError && error.response) {

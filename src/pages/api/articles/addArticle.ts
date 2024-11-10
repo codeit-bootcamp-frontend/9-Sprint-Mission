@@ -1,11 +1,8 @@
-import axiosInstance from "@/api/axiosConfig";
+import apiClient from "@/lib/apiClient";
 import { Article, ArticleForm } from "@/types/article";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     const { title, content, image }: ArticleForm = req.body;
 
@@ -18,7 +15,7 @@ export default async function handler(
 
     try {
       // Authorization 헤더에 JWT 토큰 추가
-      const response = await axiosInstance.post<Article>(
+      const response = await apiClient.post<Article>(
         "/articles",
         { title, content, image },
         {
@@ -27,17 +24,13 @@ export default async function handler(
           },
         }
       );
-      return res
-        .status(200)
-        .json({ message: "게시글 등록 성공", article: response.data });
+      return res.status(200).json({ message: "게시글 등록 성공", article: response.data });
     } catch (error) {
       console.error("게시글 등록 실패:", error);
       return res.status(500).json({ message: "게시글 등록 실패" });
     }
   } else {
     res.setHeader("Allow", ["POST"]);
-    return res
-      .status(405)
-      .json({ message: `Method ${req.method} Not Allowed` });
+    return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 }

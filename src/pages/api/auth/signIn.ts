@@ -1,6 +1,6 @@
 // pages/api/auth/signIn.ts
 import { NextApiRequest, NextApiResponse } from "next";
-import axiosInstance from "@/api/axiosConfig";
+import apiClient from "@/lib/apiClient";
 import cookie from "cookie";
 import { LoginFormValues } from "@/types/auth";
 import { AxiosError } from "axios";
@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       // 백엔드 API에 로그인 요청
-      const response = await axiosInstance.post("/auth/signIn", {
+      const response = await apiClient.post("/auth/signIn", {
         email,
         password,
       });

@@ -2,7 +2,7 @@
 import formidable from "formidable";
 import fs from "fs";
 import { NextApiRequest, NextApiResponse } from "next";
-import axiosInstance from "@/api/axiosConfig";
+import apiClient from "@/lib/apiClient";
 import FormData from "form-data";
 
 export const config = {
@@ -11,15 +11,10 @@ export const config = {
   },
 };
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     res.setHeader("Allow", ["POST"]);
-    return res
-      .status(405)
-      .json({ message: `Method ${req.method} Not Allowed` });
+    return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 
   const form = formidable({}); // 새로운 방식으로 form 객체 생성
@@ -52,7 +47,7 @@ export default async function handler(
 
       try {
         // 백엔드 API로 이미지 전송
-        const response = await axiosInstance.post("/images/upload", formData, {
+        const response = await apiClient.post("/images/upload", formData, {
           headers: {
             ...formData.getHeaders(),
             Authorization: `Bearer ${accessToken}`, // 인증을 위한 토큰 포함

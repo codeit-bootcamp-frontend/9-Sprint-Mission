@@ -25,8 +25,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return res.status(200).json({ message: "로그아웃 성공" });
   } else {
     res.setHeader("Allow", ["POST"]);
-    return res
-      .status(405)
-      .json({ message: `Method ${req.method} Not Allowed` });
+    return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
   }
 }
