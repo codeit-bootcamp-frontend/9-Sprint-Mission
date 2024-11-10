@@ -1,4 +1,4 @@
-// pages/auth/login/index.tsx
+// pages/login/index.tsx
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -151,7 +151,7 @@ export default function LoginPage() {
       {/* 회원가입 링크 */}
       <div className="font-medium text-sm text-center mt-6">
         판다마켓이 처음이신가요?{" "}
-        <Link href="/auth/signup" className="text-blue-500 underline underline-offset-2">
+        <Link href="/signup" className="text-blue-500 underline underline-offset-2">
           회원가입
         </Link>
       </div>

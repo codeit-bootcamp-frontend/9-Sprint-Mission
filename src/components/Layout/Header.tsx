@@ -145,7 +145,7 @@ export default function Header() {
             </div>
           )}
           {!user && (
-            <Link href="/auth/login" className="text-gray-600 font-semibold hover:text-blue-500">
+            <Link href="/login" className="text-gray-600 font-semibold hover:text-blue-500">
               로그인
             </Link>
           )}

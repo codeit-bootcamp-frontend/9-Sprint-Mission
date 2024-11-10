@@ -42,7 +42,7 @@ export const useAuth = () => {
       onSuccess: (data) => {
         if (data.success) {
           queryClient.setQueryData(["user"], data.user);
-          router.push("/auth/login");
+          router.push("/login");
         }
       },
     }

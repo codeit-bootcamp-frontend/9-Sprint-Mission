@@ -1,4 +1,4 @@
-// pages/auth/signup/index.tsx
+// pages/signup/index.tsx
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -65,12 +65,8 @@ export default function SignupPage() {
     };
 
     try {
-      const response = await signUp(trimmedData);
-      if (response.user) {
-        setAlertMessage("회원 가입에 성공했습니다!");
-      } else {
-        setAlertMessage("회원가입에 실패했습니다. 다시 시도해 주세요.");
-      }
+      await signUp(trimmedData);
+      setAlertMessage("회원 가입에 성공했습니다!");
       setIsAlertOpen(true);
     } catch (error: unknown) {
       console.error("Error:", error);
@@ -84,7 +80,7 @@ export default function SignupPage() {
   const handleCloseAlert = () => {
     setIsAlertOpen(false);
     if (alertMessage === "회원 가입에 성공했습니다!") {
-      router.push("/auth/login"); // 성공 시 로그인 페이지로 이동
+      router.push("/login"); // 성공 시 로그인 페이지로 이동
     }
   };
 
@@ -186,7 +182,7 @@ export default function SignupPage() {
       {/* 로그인 링크 */}
       <div className="font-medium text-sm text-center mt-6">
         이미 회원이신가요?{" "}
-        <Link href="/auth/login" className="text-blue-500 underline underline-offset-2">
+        <Link href="/login" className="text-blue-500 underline underline-offset-2">
           로그인
         </Link>
       </div>
