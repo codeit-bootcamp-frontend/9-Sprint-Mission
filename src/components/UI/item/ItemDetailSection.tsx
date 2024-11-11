@@ -3,15 +3,13 @@ import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import TagDisplay from "./TagDisplay";
 import FavoriteButton from "./FavoriteButton";
-import useDebouncedCallback from "@/hooks/useDebouncedCallback"; // useDebouncedCallback 훅 임포트
+import useDebouncedCallback from "@/hooks/useDebouncedCallback";
 import { ProductDetail } from "@/types/product";
-import { addProductFavorite } from "@/api/products/addProductFavorite";
-import { removeProductFavorite } from "@/api/products/removeProductFavorite";
-import AlertModal from "../modal/AlertModal"; // AlertModal 임포트
+import AlertModal from "../modal/AlertModal";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
+import { useProduct } from "@/hooks/useProduct";
 
-// public 폴더 경로 문자열로 대체
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const NO_IMAGE = "/images/ui/no-image.png";
 const DEFAULT_AVATAR = "/images/ui/ic_profile-24.png";
@@ -21,29 +19,23 @@ interface ItemDetailSectionProps {
 }
 
 const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
-  const [imageUrl, setImageUrl] = useState<string | null>(null); // 이미지 URL 상태
-  const [imageStatus, setImageStatus] = useState<
-    "loading" | "loaded" | "error"
-  >("loading"); // 이미지 로딩 상태
-  const [isAlertOpen, setIsAlertOpen] = useState(false); // AlertModal 상태
-  const [alertMessage, setAlertMessage] = useState(""); // AlertModal 메시지 상태
-  const [isFavorite, setIsFavorite] = useState<boolean>(
-    productDetail.isFavorite
-  ); // 좋아요 상태
-  const [favoriteCount, setFavoriteCount] = useState<number>(
-    productDetail.favoriteCount
-  ); // 좋아요 수
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [isFavorite, setIsFavorite] = useState<boolean>(productDetail.isFavorite);
+  const [favoriteCount, setFavoriteCount] = useState<number>(productDetail.favoriteCount);
   const [user] = useAtom(userAtom);
 
-  // URL이 SVG 파일인지 확인하는 함수
+  const { addFavorite, removeFavorite, isLoading } = useProduct();
+
   const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
 
   useEffect(() => {
-    let isMounted = true; // 컴포넌트가 마운트된 상태인지 확인하기 위한 변수
+    let isMounted = true;
 
     const loadImage = () => {
       if (!productDetail.images[0]) {
-        // 이미지가 없는 경우
         if (isMounted) {
           setImageStatus("error");
         }
@@ -52,16 +44,12 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
 
       const originalUrl = productDetail.images[0];
       if (isSvgFile(originalUrl)) {
-        // SVG 파일인 경우 원본 URL 사용
         if (isMounted) {
           setImageUrl(originalUrl);
           setImageStatus("loaded");
         }
       } else {
-        // 기타 이미지인 경우 프록시 URL 사용
-        const proxyUrl = `/api/imageProxy?url=${encodeURIComponent(
-          originalUrl
-        )}`;
+        const proxyUrl = `/api/imageProxy?url=${encodeURIComponent(originalUrl)}`;
         if (isMounted) {
           setImageUrl(proxyUrl);
           setImageStatus("loaded");
@@ -69,17 +57,14 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
       }
     };
 
-    // 이미지 로딩 상태를 "loading"으로 설정하고 이미지 로드 시작
     setImageStatus("loading");
     loadImage();
 
-    // 컴포넌트 언마운트 시 isMounted를 false로 설정하여 메모리 누수 방지
     return () => {
       isMounted = false;
     };
   }, [productDetail.images]);
 
-  // 좋아요 처리를 위한 함수 정의
   const handleFavorite = useCallback(async () => {
     if (!user) {
       setAlertMessage("로그인이 필요합니다.");
@@ -93,9 +78,9 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
 
     try {
       if (isFavorite) {
-        await removeProductFavorite(productDetail.id);
+        await removeFavorite(productDetail.id);
       } else {
-        await addProductFavorite(productDetail.id);
+        await addFavorite(productDetail.id);
       }
     } catch (error) {
       console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
@@ -105,15 +90,12 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
       setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
       setIsAlertOpen(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productDetail.id, isFavorite]);
+  }, [productDetail.id, isFavorite, user, addFavorite, removeFavorite]);
 
-  // useDebouncedCallback 훅을 사용하여 함수 디바운싱
   const debouncedHandleFavorite = useDebouncedCallback(handleFavorite, 300);
 
-  // AlertModal 닫기
   const handleCloseAlert = () => {
-    setIsAlertOpen(false); // 모달 닫기
+    setIsAlertOpen(false);
   };
 
   return (
@@ -151,13 +133,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
             )
           ) : (
             // 이미지 로드 실패 시 기본 이미지 표시
-            <Image
-              src={NO_IMAGE}
-              alt="이미지 없음"
-              width={486}
-              height={486}
-              className="rounded-xl w-full h-auto"
-            />
+            <Image src={NO_IMAGE} alt="이미지 없음" width={486} height={486} className="rounded-xl w-full h-auto" />
           )}
         </div>
 
@@ -166,13 +142,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
           <div className="w-full relative">
             {/* 더보기 버튼 */}
             <button className="absolute right-0">
-              <Image
-                src={KEBAB_ICON}
-                width={24}
-                height={24}
-                alt="케밥 이미지 버튼"
-                className="w-6 h-6"
-              />
+              <Image src={KEBAB_ICON} width={24} height={24} alt="케밥 이미지 버튼" className="w-6 h-6" />
             </button>
 
             {/* 상품 이름 및 가격 */}
@@ -189,35 +159,21 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
 
             {/* 상품 소개 */}
             <div>
-              <div className="text-gray-600 text-sm font-medium mb-2">
-                상품 소개
-              </div>
-              <p className="text-base leading-[140%]">
-                {productDetail.description}
-              </p>
+              <div className="text-gray-600 text-sm font-medium mb-2">상품 소개</div>
+              <p className="text-base leading-[140%]">{productDetail.description}</p>
             </div>
 
             {/* 상품 태그 */}
             <div className="my-6">
-              <div className="text-gray-600 text-sm font-medium mb-2">
-                상품 태그
-              </div>
+              <div className="text-gray-600 text-sm font-medium mb-2">상품 태그</div>
               <TagDisplay tags={productDetail.tags} />
             </div>
           </div>
 
           {/* 소유자 정보 및 좋아요 버튼 */}
           <div className="flex items-center gap-2 text-sm text-gray-500 mt-4">
-            <Image
-              src={DEFAULT_AVATAR}
-              alt="작성자 아바타"
-              width={24}
-              height={24}
-              className="rounded-full"
-            />
-            <div className="font-semibold">
-              {productDetail.ownerNickname || "Unknown"}
-            </div>
+            <Image src={DEFAULT_AVATAR} alt="작성자 아바타" width={24} height={24} className="rounded-full" />
+            <div className="font-semibold">{productDetail.ownerNickname || "Unknown"}</div>
 
             {/* 구분선 */}
             <div className="h-4 border-l border-gray-300 mx-2"></div>
@@ -227,7 +183,8 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
               <FavoriteButton
                 isFavorite={isFavorite}
                 favoriteCount={favoriteCount}
-                onFavorite={debouncedHandleFavorite} // 디바운스된 함수 전달
+                onFavorite={debouncedHandleFavorite}
+                isLoading={isLoading.addFavorite || isLoading.removeFavorite}
               />
             </div>
           </div>
@@ -235,11 +192,7 @@ const ItemDetailSection = ({ productDetail }: ItemDetailSectionProps) => {
       </section>
 
       {/* AlertModal 컴포넌트 */}
-      <AlertModal
-        isOpen={isAlertOpen}
-        message={alertMessage}
-        onClose={handleCloseAlert}
-      />
+      <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={handleCloseAlert} />
     </>
   );
 };
