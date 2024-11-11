@@ -1,11 +1,11 @@
 // src/components/UI/comment/ItemCommentThread.tsx
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useRef, useCallback } from "react";
 import Image from "next/image";
-import { getProductComments } from "@/api/comments/getProductComments";
 import { formatUpdatedAt } from "@/utils/dateUtils";
-import { Comment, CommentListResponse } from "@/types/comment";
+import { Comment } from "@/types/comment";
 import EmptyInquiry from "../EmptyInquiry";
 import { isValidImageUrl } from "@/utils/imageUtils";
+import { useComment } from "@/hooks/useComment";
 
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const DEFAULT_PROFILE_IMAGE = "/images/ui/ic_profile-40.png";
@@ -27,13 +27,7 @@ const CommentItem = ({ item }: CommentItemProps) => {
     <>
       <div className="py-6 relative">
         <button className="absolute right-0">
-          <Image
-            src={KEBAB_ICON}
-            width={24}
-            height={24}
-            alt="케밥 이미지 버튼"
-            className="w-6 h-6"
-          />
+          <Image src={KEBAB_ICON} width={24} height={24} alt="케밥 이미지 버튼" className="w-6 h-6" />
         </button>
 
         <p className="text-base leading-[140%] mb-6">{item.content}</p>
@@ -68,77 +62,36 @@ interface CommentThreadProps {
 }
 
 const CommentThread = ({ productId }: CommentThreadProps) => {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [nextCursor, setNextCursor] = useState<number | null>(null);
+  const { useProductComments } = useComment();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } = useProductComments(productId);
 
+  const comments = data?.pages.flatMap((page) => page.list) ?? [];
+
+  // Intersection Observer 설정
   const observer = useRef<IntersectionObserver | null>(null);
-  const lastCommentRef = useRef<HTMLDivElement | null>(null);
+  const lastCommentRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isLoading) return;
 
-  const fetchComments = useCallback(
-    async (cursor: number | null = null) => {
-      if (!productId) return;
-
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const response: CommentListResponse = await getProductComments(
-          productId,
-          {
-            limit: 10,
-            cursor,
-          }
-        );
-
-        if (cursor === null) {
-          setComments(response.list);
-        } else {
-          setComments((prev) => [...prev, ...response.list]);
-        }
-        setNextCursor(response.nextCursor || null);
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-        setError("상품의 댓글을 불러오지 못했어요.");
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [productId]
-  );
-
-  useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const loadMoreComments = (entries: IntersectionObserverEntry[]) => {
-      const target = entries[0];
-      if (target.isIntersecting && nextCursor) {
-        fetchComments(nextCursor);
-      }
-    };
-
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver(loadMoreComments);
-    if (lastCommentRef.current)
-      observer.current.observe(lastCommentRef.current);
-
-    return () => {
       if (observer.current) observer.current.disconnect();
-    };
-  }, [isLoading, nextCursor, fetchComments]);
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, hasNextPage, isFetchingNextPage, fetchNextPage]
+  );
 
   if (isLoading && comments.length === 0) {
     return <div className="text-center py-4">상품 댓글 로딩중...</div>;
   }
 
   if (error) {
-    return <div className="text-red-500 text-center py-4">오류: {error}</div>;
+    return <div className="text-red-500 text-center py-4">오류가 발생했습니다.</div>;
   }
 
   if (!isLoading && comments.length === 0) {
@@ -148,14 +101,11 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
   return (
     <div className="mb-10">
       {comments.map((item, index) => (
-        <div
-          key={`comment-${item.id}`}
-          ref={index === comments.length - 1 ? lastCommentRef : null}
-        >
+        <div key={`comment-${item.id}`} ref={index === comments.length - 1 ? lastCommentRef : null}>
           <CommentItem item={item} />
         </div>
       ))}
-      {isLoading && <div className="text-center py-4">댓글 불러오는 중...</div>}
+      {isFetchingNextPage && <div className="text-center py-4">댓글 불러오는 중...</div>}
     </div>
   );
 };
