@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const queryClient = new QueryClient();
 
 // 앱 전체 레이아웃을 설정하는 _app.tsx
-export default function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ClientLayout>
@@ -31,4 +31,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       </ClientLayout>
     </QueryClientProvider>
   );
-}
+};
+
+export default MyApp;

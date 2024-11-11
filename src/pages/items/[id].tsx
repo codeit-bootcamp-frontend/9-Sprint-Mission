@@ -7,7 +7,7 @@ import BackToListButton from "@/components/UI/BackToListButton";
 import { useProduct } from "@/hooks/useProduct";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
 
-export default function ItemPage() {
+const ItemPage = () => {
   const router = useRouter();
   const { id } = router.query;
   const productId = Number(id);
@@ -42,4 +42,6 @@ export default function ItemPage() {
       <BackToListButton path="/items" />
     </>
   );
-}
+};
+
+export default ItemPage;

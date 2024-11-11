@@ -10,7 +10,7 @@ const Feature1Image = "/images/home/feature1-image.png";
 const Feature2Image = "/images/home/feature2-image.png";
 const Feature3Image = "/images/home/feature3-image.png";
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <section
@@ -72,4 +72,6 @@ export default function Home() {
       </section>
     </>
   );
-}
+};
+
+export default Home;

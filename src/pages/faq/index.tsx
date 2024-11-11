@@ -1,5 +1,7 @@
 import React from "react";
 
-export default function FaqPage() {
+const FaqPage = () => {
   return <div className="mt-70px">Faq Page</div>;
-}
+};
+
+export default FaqPage;

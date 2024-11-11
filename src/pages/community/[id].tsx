@@ -1,45 +1,39 @@
 // src/pages/community/[id].tsx
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
-import { ArticleDetail } from "@/types/article";
 import ArticleDetailSection from "@/components/UI/community/ArticleDetailSection";
 import ArticleCommentSection from "@/components/UI/comment/ArticleCommentSection";
 import BackToListButton from "@/components/UI/BackToListButton";
+import { useArticle } from "@/hooks/useArticle";
 
-export default function ItemPage() {
+const ArticlePage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [articleDetail, setArticleDetail] = useState<ArticleDetail | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const articleId = Number(id);
 
-  useEffect(() => {
-    if (router.isReady && id) {
-      const fetchArticle = async () => {
-        try {
-          const articleIdNumber = Number(id);
-          const articleData = await getArticleDetail(articleIdNumber);
-          setArticleDetail(articleData);
-        } catch (err) {
-          console.error(err);
-          setError("게시글 정보를 불러오는 중 오류가 발생했습니다.");
-        }
-      };
-
-      fetchArticle();
-    }
-  }, [router.isReady, id]);
+  // useArticle 훅 사용
+  const { useArticleDetail } = useArticle();
+  const { data: articleDetail, isPending: isLoading, error } = useArticleDetail(articleId);
 
   if (error) {
-    alert(`오류: ${error}`);
-  }
-
-  if (!articleDetail)
     return (
       <>
-        <div className="container mx-auto pt-24 px-4">게시글이 없습니다.</div>
+        <div className="container mx-auto pt-24 px-4">
+          오류가 발생했습니다: {error instanceof Error ? error.message : "알 수 없는 오류"}
+        </div>
         <BackToListButton path="/community" />
       </>
     );
+  }
+
+  if (isLoading || !articleDetail) {
+    return (
+      <>
+        <div className="container mx-auto pt-24 px-4">게시글을 불러오는 중...</div>
+        <BackToListButton path="/community" />
+      </>
+    );
+  }
 
   return (
     <>
@@ -51,4 +45,6 @@ export default function ItemPage() {
       <BackToListButton path="/community" />
     </>
   );
-}
+};
+
+export default ArticlePage;

@@ -15,7 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
 
-export default function LoginPage() {
+const LoginPage = () => {
   const router = useRouter();
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -160,4 +160,6 @@ export default function LoginPage() {
       <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={handleCloseAlert} />
     </div>
   );
-}
+};
+
+export default LoginPage;

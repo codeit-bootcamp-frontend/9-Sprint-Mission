@@ -4,7 +4,7 @@ import "../../styles/common.module.css";
 import BestItemsSection from "@/components/UI/item/BestItemsSection";
 import AllItemsSection from "@/components/UI/item/AllItemsSection";
 
-export default function MarketPage() {
+const MarketPage = () => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -21,4 +21,6 @@ export default function MarketPage() {
       <AllItemsSection width={220} height={220} />
     </div>
   );
-}
+};
+
+export default MarketPage;

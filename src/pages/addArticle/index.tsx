@@ -9,7 +9,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { useArticle } from "@/hooks/useArticle";
 
-export default function AddArticlePage() {
+const AddArticlePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -97,4 +97,6 @@ export default function AddArticlePage() {
       <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={handleCloseAlert} />
     </div>
   );
-}
+};
+
+export default AddArticlePage;
