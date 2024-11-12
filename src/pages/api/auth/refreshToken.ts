@@ -1,14 +1,14 @@
 // src/pages/api/auth/refreshToken.ts
 import apiClient from "@/lib/apiClient";
 import { NextApiRequest, NextApiResponse } from "next";
-import cookie from "cookie";
+import { serialize } from "cookie";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
     const { accessToken, refreshToken } = req.cookies;
 
     if (!accessToken || !refreshToken) {
-      return res.status(200).json({ success: false });
+      return res.status(200).json({ success: false, user: null });
     }
 
     try {
@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const { accessToken } = response.data;
 
       res.setHeader("Set-Cookie", [
-        cookie.serialize("accessToken", accessToken, {
+        serialize("accessToken", accessToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",

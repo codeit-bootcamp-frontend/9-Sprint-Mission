@@ -16,7 +16,7 @@ export const useAuth = () => {
     queryKey: ["user"],
     queryFn: async () => {
       try {
-        await axios.post("/api/auth/refreshToken", { withCredentials: true });
+        await axios.post("/api/auth/refreshToken");
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.error("인증 상태 확인 중 오류 발생:", error.response?.data || error.message);
@@ -63,14 +63,10 @@ export const useAuth = () => {
   const signInMutation = useMutation<{ success: boolean; message: string; user: User | null }, Error, LoginFormValues>({
     mutationFn: async (formData: LoginFormValues) => {
       try {
-        const response = await axios.post(
-          "/api/auth/signIn",
-          {
-            email: formData.email,
-            password: formData.password,
-          },
-          { withCredentials: true } // 쿠키를 주고받기 위해 필요
-        );
+        const response = await axios.post("/api/auth/signIn", {
+          email: formData.email,
+          password: formData.password,
+        });
 
         if (!response.data.success) {
           throw new Error(response.data.message);
@@ -106,6 +102,7 @@ export const useAuth = () => {
     },
     onSuccess: () => {
       queryClient.setQueryData(["user"], null);
+      setUser(null);
       router.push("/");
     },
   });
