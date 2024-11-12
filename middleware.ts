@@ -37,8 +37,13 @@ export const middleware = (request: NextRequest) => {
 
   // API 라우트에 대한 처리
   if (pathname.startsWith("/api")) {
-    // /api/auth로 시작하는 경로는 제외
+    // /api/auth로 시작하는 경로는 모두 통과
     if (pathname.startsWith("/api/auth")) {
+      return NextResponse.next();
+    }
+
+    // refreshToken 엔드포인트는 별도 처리
+    if (pathname === "/api/auth/refreshToken") {
       return NextResponse.next();
     }
 

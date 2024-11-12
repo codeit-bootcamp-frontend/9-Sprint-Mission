@@ -5,10 +5,10 @@ import cookie from "cookie";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    const { refreshToken } = req.cookies;
+    const { accessToken, refreshToken } = req.cookies;
 
-    if (!refreshToken) {
-      await apiClient.post("/auth/logout");
+    if (!accessToken || !refreshToken) {
+      return res.status(200).json({ success: false });
     }
 
     try {

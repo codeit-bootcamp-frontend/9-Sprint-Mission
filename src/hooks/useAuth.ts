@@ -12,13 +12,13 @@ export const useAuth = () => {
     queryKey: ["user"],
     queryFn: async () => {
       try {
-        const response = await axios.post<{ user: User | null; isLogin: boolean }>("/api/auth/refreshToken");
-        if (!response.data.isLogin || !response.data.user) {
-          return null;
-        }
-        return response.data.user;
+        await axios.post("/api/auth/refreshToken", { withCredentials: true });
       } catch (error) {
-        console.error("인증 상태 확인 중 오류 발생:", error);
+        if (axios.isAxiosError(error)) {
+          console.error("인증 상태 확인 중 오류 발생:", error.response?.data || error.message);
+        } else {
+          console.error("인증 상태 확인 중 오류 발생:", error);
+        }
         return null;
       }
     },

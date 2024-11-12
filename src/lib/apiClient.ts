@@ -1,7 +1,7 @@
 // src/api/axiosConfig.js
 import Axios from "axios";
 
-export const API_URL = "https://panda-market-api.vercel.app";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const apiClient = Axios.create({
   baseURL: API_URL,
