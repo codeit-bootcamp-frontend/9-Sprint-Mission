@@ -1,4 +1,4 @@
-// src/components/UI/articles/BestArticlesSection.tsx
+// src/components/UI/community/BestArticlesSection.tsx
 import React, { useEffect, useState } from "react";
 import { ArticleSortOption } from "@/types/article";
 import BestArticleCard from "./BestArticleCard";

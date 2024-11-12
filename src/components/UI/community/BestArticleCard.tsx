@@ -1,4 +1,4 @@
-// src/components/UI/articles/BestArticleCard.tsx
+// src/components/UI/community/BestArticleCard.tsx
 import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,9 +27,7 @@ const BestArticleCard = ({
   priority = true, // 기본값: true
 }: BestArticleCardProps) => {
   const dateString = format(article.createdAt, "yyyy. MM. dd");
-  const [imageStatus, setImageStatus] = useState<
-    "loading" | "loaded" | "error"
-  >("loading");
+  const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
 
   // 이미지 URL 및 GIF 여부를 판단하기 위한 로직
   const imageInfo = useMemo(() => {
@@ -37,11 +35,7 @@ const BestArticleCard = ({
       const isGif = article.image.toLowerCase().endsWith(".gif");
       return {
         // GIF 파일은 원본 URL 사용
-        url: isGif
-          ? article.image
-          : `/api/imageProxy?url=${encodeURIComponent(
-              article.image
-            )}&width=72&height=72`,
+        url: isGif ? article.image : `/api/imageProxy?url=${encodeURIComponent(article.image)}&width=72&height=72`,
         isGif,
       };
     }
@@ -66,18 +60,9 @@ const BestArticleCard = ({
   };
 
   return (
-    <Link
-      href={`/community/${article.id}`}
-      className="bg-gray-50 rounded-lg block"
-    >
+    <Link href={`/community/${article.id}`} className="bg-gray-50 rounded-lg block">
       <div>
-        <Image
-          src={MEDAL_ICON}
-          width={102}
-          height={30}
-          alt="베스트 메달 아이콘"
-          className="mx-6"
-        />
+        <Image src={MEDAL_ICON} width={102} height={30} alt="베스트 메달 아이콘" className="mx-6" />
       </div>
 
       <div className="p-4 sm:p-6">

@@ -1,151 +1,142 @@
 // src/components/UI/community/AllArticlesSection.tsx
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
+import { useArticle } from "@/hooks/useArticle";
+import PaginationBar from "@/components/UI/PaginationBar";
+import useViewport from "@/hooks/useViewport";
+import { Article } from "@/types/article";
 import Link from "next/link";
+import Image from "next/image";
 import SearchBar from "@/components/UI/SearchBar";
 import DropdownMenu from "@/components/UI/DropdownMenu";
 import LoadingSpinner from "@/components/UI/LoadingSpinner";
-import PaginationBar from "@/components/UI/PaginationBar";
-import { ArticleSortOption } from "@/constants/ArticleSortOption";
-import AllArticleCard from "./AllArticleCard";
-import useDebounce from "@/hooks/useDebounce";
-import { useArticle } from "@/hooks/useArticle";
-
-const WRITE_BUTTON_IMAGE = "/images/ui/write_small_40.png";
-const PAGE_SIZE = 5;
-
-// 화면 너비에 따라 무한 스크롤 사용 여부를 결정 (768px 미만에서만 무한 스크롤)
-const isInfiniteScroll = (width: number) => width < 768;
+import { ArticleSortOption } from "@/types/article";
+import { Heart } from "lucide-react";
 
 const AllArticlesSection = () => {
-  const [orderBy, setOrderBy] = useState<ArticleSortOption>(ArticleSortOption.RECENT);
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const debouncedSearchKeyword = useDebounce(searchKeyword, 500);
-  const [isMobileInfiniteScroll, setIsMobileInfiniteScroll] = useState<boolean | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const { ref, inView } = useInView();
+  const width = useViewport();
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [sortOption, setSortOption] = useState<ArticleSortOption>("recent");
+  const PAGE_SIZE = 10;
 
-  // useInfiniteArticles 사용
-  const { useInfiniteArticles } = useArticle();
+  const isMobile = width < 768;
+  const { useArticles, useInfiniteArticles } = useArticle();
+
   const {
-    articles,
-    totalCount,
+    data: infiniteData,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    isPending: isArticlesLoading,
   } = useInfiniteArticles({
     pageSize: PAGE_SIZE,
-    orderBy,
-    keyword: debouncedSearchKeyword.trim() ? debouncedSearchKeyword : undefined,
+    orderBy: sortOption,
+    keyword: searchKeyword,
+    enabled: isMobile,
   });
 
-  // 무한 스크롤 관찰자 설정
-  const observerRef = useRef<IntersectionObserver>();
-  const lastArticleRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (isArticlesLoading) return;
+  const { data: paginatedData, isLoading } = useArticles({
+    page: currentPage,
+    pageSize: PAGE_SIZE,
+    orderBy: sortOption,
+    keyword: searchKeyword,
+    enabled: !isMobile,
+  });
 
-      if (observerRef.current) observerRef.current.disconnect();
-
-      observerRef.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-          setCurrentPage((prev) => prev + 1);
-        }
-      });
-
-      if (node) observerRef.current.observe(node);
-    },
-    [isArticlesLoading, hasNextPage, isFetchingNextPage, fetchNextPage]
-  );
-
-  // 화면 리사이즈 시 무한 스크롤 여부 결정
   useEffect(() => {
-    const handleResize = () => {
-      if (typeof window !== "undefined") {
-        setIsMobileInfiniteScroll(isInfiniteScroll(window.innerWidth));
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    if (inView && hasNextPage && !isFetchingNextPage && isMobile) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, isFetchingNextPage, isMobile, fetchNextPage]);
 
-  // 정렬 옵션 선택 핸들러
-  const handleSortSelection = useCallback(
-    (sortOption: ArticleSortOption) => {
-      if (sortOption !== orderBy) {
-        setOrderBy(sortOption);
-        setCurrentPage(1);
-      }
-    },
-    [orderBy]
-  );
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
-  // 검색어 입력 핸들러
-  const handleSearch = useCallback((keyword: string) => {
+  const handleSearch = (keyword: string) => {
     setSearchKeyword(keyword);
     setCurrentPage(1);
-  }, []);
+  };
 
-  // 페이지 변경 핸들러
-  const handlePageChange = useCallback((page: number) => {
-    setCurrentPage(page);
-  }, []);
+  const handleSortSelection = (option: ArticleSortOption) => {
+    setSortOption(option);
+    setCurrentPage(1);
+  };
 
   return (
-    <div className="bg-white px-4 max-w-[1200px] mx-auto" ref={containerRef}>
-      <div className="flex justify-between items-center">
-        <div className="mb-6 text-2xl font-bold text-gray-800">게시글</div>
-        <Link href="/addArticle">
-          <Image src={WRITE_BUTTON_IMAGE} alt="글쓰기" width={88} height={42} className="cursor-pointer" />
-        </Link>
-      </div>
-
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-        <SearchBar onSearch={handleSearch} className="w-full md:w-96" />
-        <DropdownMenu<ArticleSortOption> onSortSelection={handleSortSelection} type="article" />
-      </div>
-
-      {isArticlesLoading && articles.length === 0 ? (
-        <div className="flex justify-center items-center h-64">
-          <LoadingSpinner isLoading={isArticlesLoading} />
+    <div className="max-w-[1200px] mx-auto px-4 py-6">
+      <div className="bg-white rounded-lg p-6">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-xl font-bold">게시글</h2>
+          <Link
+            href="/addArticle"
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+          >
+            글쓰기
+          </Link>
         </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-6">
-          {articles.length > 0 ? (
-            articles.map((article, index) => (
-              <div
-                key={`article-${article.id}`}
-                ref={isMobileInfiniteScroll && index === articles.length - 1 ? lastArticleRef : undefined}
-              >
-                <AllArticleCard article={article} currentPage={currentPage} />
-              </div>
-            ))
-          ) : !isArticlesLoading && debouncedSearchKeyword ? (
-            <div>
-              <span>검색된 결과가 없습니다.</span>
+
+        <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <SearchBar onSearch={handleSearch} className="w-full md:w-96" placeholder="검색어를 입력해 주세요" />
+          <DropdownMenu onSortSelection={(value) => handleSortSelection(value as ArticleSortOption)} type="article" />
+        </div>
+
+        {isLoading ? (
+          <div className="flex justify-center items-center h-64">
+            <LoadingSpinner isLoading={isLoading} />
+          </div>
+        ) : (
+          <>
+            <div className="space-y-4">
+              {(isMobile ? infiniteData?.pages.flatMap((page) => page.list) : paginatedData?.list)?.map(
+                (article: Article) => (
+                  <div
+                    key={article.id}
+                    className="flex items-start gap-4 p-4 border-b last:border-b-0 hover:bg-gray-50"
+                  >
+                    <div className="flex-1">
+                      <Link href={`/community/${article.id}`} className="block">
+                        <h3 className="font-medium mb-2 hover:text-blue-500">{article.title}</h3>
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <span>{article.writer?.nickname || "알 수 없음"}</span>
+                          <span>{new Date(article.createdAt).toLocaleDateString()}</span>
+                        </div>
+                      </Link>
+                    </div>
+                    <div className="flex flex-col items-end gap-2">
+                      {article.image && (
+                        <div className="w-20 h-20 relative">
+                          <Image src={article.image} alt="Article thumbnail" fill className="object-cover rounded" />
+                        </div>
+                      )}
+                      <div className="flex items-center gap-1 text-gray-500 text-sm">
+                        <Heart className="w-4 h-4" />
+                        <span>{article.likeCount || 0}</span>
+                      </div>
+                    </div>
+                  </div>
+                )
+              )}
+              {isMobile && (
+                <div ref={ref} className="h-10">
+                  {isFetchingNextPage && <LoadingSpinner isLoading={true} />}
+                </div>
+              )}
             </div>
-          ) : null}
-        </div>
-      )}
 
-      {isFetchingNextPage && (
-        <div className="flex justify-center items-center h-20">
-          <LoadingSpinner isLoading={true} />
-        </div>
-      )}
-
-      {!isMobileInfiniteScroll && articles.length > 0 && (
-        <div className="pt-10 pb-20">
-          <PaginationBar
-            totalPageNum={Math.ceil(totalCount / PAGE_SIZE)}
-            activePageNum={currentPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      )}
+            {!isMobile && paginatedData && (
+              <div className="mt-8">
+                <PaginationBar
+                  totalPageNum={Math.ceil(paginatedData.totalCount / PAGE_SIZE)}
+                  activePageNum={currentPage}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

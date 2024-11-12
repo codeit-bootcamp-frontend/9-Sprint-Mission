@@ -11,12 +11,14 @@ export const useArticle = () => {
     pageSize,
     orderBy,
     keyword,
+    enabled = true,
   }: {
     pageSize: number;
     orderBy: ArticleSortOption;
     keyword?: string;
+    enabled?: boolean;
   }) => {
-    const query = useInfiniteQuery({
+    return useInfiniteQuery({
       queryKey: ["infiniteArticles", { pageSize, orderBy, keyword }],
       queryFn: async ({ pageParam = 1 }) => {
         const params: Record<string, unknown> = {
@@ -34,13 +36,8 @@ export const useArticle = () => {
         const totalPages = Math.ceil(lastPage.totalCount / pageSize);
         return nextPage <= totalPages ? nextPage : undefined;
       },
+      enabled,
     });
-
-    return {
-      ...query,
-      articles: query.data?.pages.flatMap((page) => page.list) ?? [],
-      totalCount: query.data?.pages[0]?.totalCount ?? 0,
-    };
   };
 
   // 게시글 목록 조회 (페이지네이션)
@@ -49,13 +46,15 @@ export const useArticle = () => {
     pageSize,
     orderBy,
     keyword,
+    enabled = true,
   }: {
     page: number;
     pageSize: number;
     orderBy: ArticleSortOption;
     keyword?: string;
+    enabled?: boolean;
   }) => {
-    const query = useQuery({
+    return useQuery({
       queryKey: ["articles", { page, pageSize, orderBy, keyword }],
       queryFn: async () => {
         const params: Record<string, unknown> = { page, pageSize, orderBy };
@@ -63,18 +62,13 @@ export const useArticle = () => {
         const response = await axios.get<ArticleListResponse>("/api/articles", { params });
         return response.data;
       },
+      enabled,
     });
-
-    return {
-      ...query,
-      isPending: query.isPending,
-      error: query.error,
-    };
   };
 
   // 게시글 상세 조회
   const useArticleDetail = (articleId: number) => {
-    const query = useQuery({
+    return useQuery({
       queryKey: ["article", articleId],
       queryFn: async () => {
         const response = await axios.get<ArticleDetail>(`/api/articles/${articleId}`);
@@ -82,12 +76,6 @@ export const useArticle = () => {
       },
       enabled: !!articleId,
     });
-
-    return {
-      ...query,
-      isPending: query.isPending,
-      error: query.error,
-    };
   };
 
   // 게시글 등록
