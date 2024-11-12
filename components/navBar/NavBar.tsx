@@ -1,27 +1,41 @@
 "use client";
 
-import useToken from "@/hooks/useToken";
-import { cls } from "@/lib/utils";
+import { authAtom } from "@/atom/authAtom";
+import { useAtomValue } from "jotai";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import SignoutMenu from "../auth/SignoutMenu";
+import { useEffect, useRef, useState } from "react";
+import Logout from "./Logout";
 
-const NavBar = ({ children }: { children: React.ReactNode }) => {
+const Navbar = () => {
   const pathname = usePathname();
-  const context = useToken();
-
+  const isAuth = useAtomValue(authAtom);
+  const logoutRef = useRef<HTMLDivElement>(null);
   const [logoutOpen, setLogoutOpen] = useState(false);
 
   const handleOpenMenu = () => {
     setLogoutOpen((prev) => !prev);
   };
 
+  const handleClickOutside = (e: MouseEvent) => {
+    if (logoutRef.current && !logoutRef.current.contains(e.target as Node)) {
+      setLogoutOpen(false);
+    }
+  };
+
   const linkArr = [
     { href: "/boards", title: "자유게시판" },
     { href: "/items", title: "중고마켓" },
   ];
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header>
@@ -30,49 +44,47 @@ const NavBar = ({ children }: { children: React.ReactNode }) => {
           <div className="flex items-center space-x-5 md:space-x-10">
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="/images/logo.png"
+                src="/icons/logo.png"
                 alt="로고"
                 width={40}
                 height={40}
                 className="hidden md:block"
               />
-              <h2 className="font-ROKAFSans font-bold text-[--color-theme] text-2xl">판다마켓</h2>
+              <h2 className="font-ROKAFSans font-bold text-panda-theme text-2xl">판다마켓</h2>
             </Link>
             <div className="flex items-center space-x-3 md:space-x-5">
-              {linkArr.map((link, i) => (
+              {linkArr.map((link) => (
                 <Link
-                  key={i}
                   href={link.href}
-                  className={cls(
-                    "text-[#4B5563] font-bold text-lg",
-                    pathname.includes(link.href) ? "text-[--color-theme]" : ""
-                  )}
+                  key={link.href}
+                  className={`text-panda-gray600 font-bold text-lg ${
+                    pathname.includes(link.href) ? "text-panda-theme" : ""
+                  }`}
                 >
                   {link.title}
                 </Link>
               ))}
             </div>
           </div>
-          {!context?.session ? (
+          {isAuth ? (
+            <div ref={logoutRef}>
+              <button type="button" className="relative" onClick={handleOpenMenu}>
+                <Image src="/icons/sessionBtn.png" alt="개인메뉴버튼" width={40} height={40} />
+              </button>
+              {logoutOpen && <Logout />}
+            </div>
+          ) : (
             <Link
               href="/signin"
-              className="text-[#4B5563] font-bold text-lg px-6 py-2 rounded-lg bg-[--color-theme] hover:bg-[--color-theme-hover] text-[--color-gray100] transition-all"
+              className="text-panda-gray100 font-bold text-lg px-6 py-2 rounded-lg bg-panda-theme hover:bg-panda-theme-hover transition-all"
             >
               로그인
             </Link>
-          ) : (
-            <>
-              <button type="button" className="bg-none border-none relative" onClick={handleOpenMenu}>
-                <Image src="/icons/sessionBtn.png" alt="개인메뉴버튼" width={40} height={40} />
-              </button>
-              {logoutOpen && <SignoutMenu />}
-            </>
           )}
         </div>
-        {children}
       </div>
     </header>
   );
 };
 
-export default NavBar;
+export default Navbar;
