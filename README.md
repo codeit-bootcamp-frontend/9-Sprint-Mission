@@ -1,48 +1,36 @@
-# 스프린트 미션 11 
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## 요구사항
+## Getting Started
 
-- Javascript
-- React 18
-- Next.js 14.2.13
-- Tailwind CSS 3.4.1
-- axios 1.7.7
-- react-hook-form 7.53.0
-- zod 3.23.8
-- react-hot-toast 2.4.1
-- typescript 5
+First, run the development server:
 
-### 배포 웹사이트: https://codeit-nextjs-mission.netlify.app/
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-### 기본
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- [x] 유효한 정보를 입력하고 스웨거 명세된 “/auth/signUp”으로  POST 요청해서 성공 응답을 받으면 회원가입이 완료됩니다.
-- [x] 회원가입이 완료되면 “/login”로 이동합니다.
-- [x] 회원가입 페이지에 접근시 로컬 스토리지에 accessToken이 있는 경우 ‘/’ 페이지로 이동합니다.
-- [x] 회원가입을 성공한 정보를 입력하고 스웨거 명세된 “/auth/signIp”으로  POST 요청을 하면 로그인이 완료됩니다.
-- [x] 로그인이 완료되면 로컬 스토리지에 accessToken을 저장하고 “/” 로 이동합니다.
-- [x] 로그인/회원가입 페이지에 접근시 로컬 스토리지에 accessToken이 있는 경우 ‘/’ 페이지로 이동합니다.
-- [x] 로컬 스토리지에 accessToken이 있는 경우 상단바 ‘로그인’ 버튼이 판다 이미지로 바뀝니다.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### 심화
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-- [x] 로그인, 회원가입 기능에 react-hook-form을 활용해봅니다.
+## Learn More
 
-### 변경사항
+To learn more about Next.js, take a look at the following resources:
 
-- 스프린트 미션 10에서의 개선사항 일부를 반영하였습니다.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## 스크린샷
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-|                            메인 페이지 (데스크탑)                        |                       로그인페이지 (데스크탑)                            |
-| :--------------------------------------------------------------------: | :-------------------------------------------------------------------:  |
-|   <img src="/public/images/mainPage.png" width="400" height="400">     | <img src="/public/images/signIn.png" width="400" height="400">         |       
-|                            회원가입페이지 (데스크탑)                     |
-|   <img src="/public/images/signup.png" width="400" height="400">       |
+## Deploy on Vercel
 
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## 멘토에게
-
-- 감사합니다.
-- 제출기간(토요일)까지 발생한 문제해결 및 모든 개선사항의 반영이 포함하기 어려워져서 일부 문제 및 개선사항이 그대로 있는 상태입니다.
-- 추가적인 작업을 해서 문제해결 및 개선사항 반영을 해보겠습니다.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
