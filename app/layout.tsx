@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar/NavBar";
+import NavBar from "@/components/navbar/NavBar";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -32,7 +32,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className="text-panda-gray800">
         <QueryProvider>
-          <Navbar />
+          <NavBar />
           {children}
           <Toaster
             toastOptions={{

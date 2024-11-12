@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Logout from "./Logout";
 
-const Navbar = () => {
+const NavBar = () => {
   const pathname = usePathname();
   const isAuth = useAtomValue(authAtom);
   const logoutRef = useRef<HTMLDivElement>(null);
@@ -87,4 +87,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavBar;
