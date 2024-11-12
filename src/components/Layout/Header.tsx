@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import AlertModal from "@/components/UI/modal/AlertModal";
 import { useAuth } from "@/hooks/useAuth";
+import { useAtomValue } from "jotai";
+import { userAtom } from "@/store/authAtoms";
+import toast from "react-hot-toast";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_SM = "/images/logo/logo_sm.png";
@@ -15,10 +17,9 @@ const DEFAULT_AVATAR = "/images/ui/ic_profile-32.png";
 export default function Header() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-  const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
 
-  const { user, logout } = useAuth();
+  const user = useAtomValue(userAtom);
+  const { logout } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -26,17 +27,12 @@ export default function Header() {
       setIsOpen(false);
     } catch (error) {
       console.error("로그아웃 중 오류 발생:", error);
-      setAlertMessage("로그아웃 중 오류가 발생했습니다. 다시 시도해 주세요.");
-      setIsAlertOpen(true);
+      toast.error("로그아웃 중 오류가 발생했습니다. 다시 시도해 주세요.");
     }
   };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
-  };
-
-  const handleCloseAlert = () => {
-    setIsAlertOpen(false);
   };
 
   // 드롭다운 외부 클릭 처리
@@ -128,7 +124,7 @@ export default function Header() {
             <div className="relative user-avatar">
               <Image
                 src={user.image || DEFAULT_AVATAR}
-                alt="User Avatar"
+                alt="사용자 아바타"
                 className="w-8 h-8 cursor-pointer rounded-full"
                 width={32}
                 height={32}
@@ -151,8 +147,6 @@ export default function Header() {
           )}
         </div>
       </header>
-
-      <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={handleCloseAlert} />
     </>
   );
 }

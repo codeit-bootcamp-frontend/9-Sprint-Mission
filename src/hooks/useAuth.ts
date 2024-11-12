@@ -2,10 +2,14 @@ import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { LoginFormValues, SignupFormValues, User } from "@/types/auth";
 import axios from "axios";
+import { userAtom } from "@/store/authAtoms";
+import { useAtom } from "jotai";
+import { toast } from "react-hot-toast";
 
 export const useAuth = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const [, setUser] = useAtom(userAtom);
 
   // 인증 상태 확인 쿼리
   const { data: user, refetch: refetchUser } = useQuery({
@@ -37,6 +41,13 @@ export const useAuth = () => {
           passwordConfirmation: formData.passwordConfirmation,
           nickname: formData.nickname,
         });
+
+        if (!response.data.success) {
+          throw new Error(response.data.message);
+        } else {
+          toast.success(response.data.message);
+        }
+
         return response.data;
       },
       onSuccess: (data) => {
@@ -51,17 +62,39 @@ export const useAuth = () => {
   // 로그인 mutation
   const signInMutation = useMutation<{ success: boolean; message: string; user: User | null }, Error, LoginFormValues>({
     mutationFn: async (formData: LoginFormValues) => {
-      const response = await axios.post("/api/auth/signIn", {
-        email: formData.email,
-        password: formData.password,
-      });
-      return response.data;
+      try {
+        const response = await axios.post(
+          "/api/auth/signIn",
+          {
+            email: formData.email,
+            password: formData.password,
+          },
+          { withCredentials: true } // 쿠키를 주고받기 위해 필요
+        );
+
+        if (!response.data.success) {
+          throw new Error(response.data.message);
+        } else {
+          toast.success(response.data.message);
+        }
+
+        setUser(response.data.user);
+        return response.data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          throw new Error(error.response?.data?.message || "로그인에 실패했습니다.");
+        }
+        throw error;
+      }
     },
     onSuccess: (data) => {
-      if (data.success) {
+      if (data.success && data.user) {
         queryClient.setQueryData(["user"], data.user);
         router.push("/");
       }
+    },
+    onError: (error) => {
+      console.error("로그인 실패:", error);
     },
   });
 

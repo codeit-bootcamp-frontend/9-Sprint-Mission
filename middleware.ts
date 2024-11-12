@@ -72,7 +72,7 @@ export const config = {
   matcher: [
     // API 라우트
     "/api/:path*",
-    // 정적 파일과 이미지 요청 제외
-    "/((?!_next/static|_next/image|favicon.ico|public/|.*\\.(png|jpg|jpeg|gif|svg|ico)).*)",
+    // 정적 파일과 특정 페이지를 제외한 모든 경로
+    "/((?!_next|public|login|signup|favicon.ico).*)",
   ],
 };

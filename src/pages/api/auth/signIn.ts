@@ -36,7 +36,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }),
       ]);
 
-      return res.status(200).json(response.data);
+      return res.status(200).json({ success: true });
     } catch (error) {
       if (error instanceof AxiosError && error.response) {
         // 백엔드에서 반환한 에러 메시지와 상태 코드를 사용
