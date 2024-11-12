@@ -17,13 +17,14 @@ const DEFAULT_AVATAR = "/images/ui/ic_profile-32.png";
 export default function Header() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
-
   const user = useAtomValue(userAtom);
-  const { logout } = useAuth();
+  const auth = useAuth();
 
   const handleLogout = async () => {
+    if (!user || !auth.logout) return;
+
     try {
-      await logout();
+      await auth.logout();
       setIsOpen(false);
     } catch (error) {
       console.error("로그아웃 중 오류 발생:", error);

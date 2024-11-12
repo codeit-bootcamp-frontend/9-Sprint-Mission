@@ -16,7 +16,8 @@ export const useAuth = () => {
     queryKey: ["user"],
     queryFn: async () => {
       try {
-        await axios.post("/api/auth/refreshToken");
+        const response = await axios.post("/api/auth/refreshToken");
+        return response.data.user || null;
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.error("인증 상태 확인 중 오류 발생:", error.response?.data || error.message);
@@ -101,7 +102,7 @@ export const useAuth = () => {
       return response.data;
     },
     onSuccess: () => {
-      queryClient.setQueryData(["user"], null);
+      queryClient.setQueryData<User | null>(["user"], null);
       setUser(null);
       router.push("/");
     },

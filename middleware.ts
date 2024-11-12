@@ -30,9 +30,9 @@ export const middleware = (request: NextRequest) => {
   const accessToken = request.cookies.get("accessToken");
   const { pathname } = request.nextUrl;
 
-  // 인증이 필요하지 않은 페이지 목록
-  const publicPages = ["/", "/login", "/signup"];
-  const isPublicPage = publicPages.some((page) => pathname === page);
+  // 인증이 필요한 페이지 목록 (비공개 페이지)
+  const privatePages = ["/addArticle", "/addItem"];
+  const isPrivatePage = privatePages.some((page) => pathname === page);
   const isAuthPage = ["/login", "/signup"].includes(pathname);
 
   // API 라우트에 대한 처리
@@ -58,12 +58,12 @@ export const middleware = (request: NextRequest) => {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // 페이지 라우트에 대한 처리
-  if (!accessToken && !isPublicPage) {
+  // 비공개 페이지에 대한 접근 제어
+  if (!accessToken && isPrivatePage) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // 다른 요청에 대해 계속 처리
+  // 다른 모든 요청 허용
   return NextResponse.next();
 };
 
@@ -72,7 +72,7 @@ export const config = {
   matcher: [
     // API 라우트
     "/api/:path*",
-    // 정적 파일과 특정 페이지를 제외한 모든 경로
-    "/((?!_next|public|login|signup|favicon.ico).*)",
+    // 정적 파일을 제외한 모든 경로
+    "/((?!_next|public|favicon.ico).*)",
   ],
 };
