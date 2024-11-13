@@ -3,11 +3,13 @@
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { CommentType, ItemListType } from "../types/Items";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { instance } from "@/lib/axios";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Comments from "./components/Comments";
+import CommentForm from "./components/CommentForm";
+import { useObserver } from "@/hooks/useObserver";
 
 const getItem = async (productId: number) => {
   if (!productId) return null;
@@ -62,11 +64,21 @@ const ItemDetail = () => {
     queryFn: () => getItem(id),
     enabled: !!id,
   });
-  const { data: commentsData } = useQuery<CommentType, Error>({
+  const { data: commentsData, fetchNextPage } = useInfiniteQuery<CommentType, Error>({
     queryKey: ["comments", itemId],
-    queryFn: () => getComments(id, 0),
+    queryFn: ({ pageParam = null }) => getComments(id, Number(pageParam)),
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
     enabled: !!id,
   });
+
+  const fetchMoreComments = () => {
+    if (commentsData?.pages[commentsData.pages.length - 1].nextCursor) {
+      fetchNextPage();
+    }
+  };
+
+  const setTarget = useObserver(fetchMoreComments);
 
   if (isPending)
     return (
@@ -143,11 +155,16 @@ const ItemDetail = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col space-y-10">댓글 폼</div>
-      {commentsData?.list.length && commentsData?.list.length > 0 ? (
-        <div className="flex flex-col space-y-10">
-          <Comments commentsData={commentsData.list} />
-        </div>
+      <div className="flex flex-col space-y-10">
+        <CommentForm itemId={id} />
+      </div>
+      {commentsData?.pages.length && commentsData?.pages.length > 0 ? (
+        <>
+          <div className="flex flex-col space-y-10">
+            <Comments commentsData={commentsData.pages.flatMap((page) => page.list)} />
+          </div>
+          <div ref={setTarget} className="h-1" />
+        </>
       ) : (
         <div className="flex flex-col space-y-4 w-[151px] m-auto">
           <Image src="/images/commentEmpty.png" alt="댓글 없음" width={140} height={140} />

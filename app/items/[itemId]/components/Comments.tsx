@@ -2,7 +2,11 @@ import { CommentType } from "@/app/items/types/Items";
 import { formatCommentsTime } from "@/lib/utils";
 import Image from "next/image";
 
-const Comments = ({ commentsData }: { commentsData: CommentType["list"] }) => {
+interface CommentsProps {
+  commentsData: CommentType["list"];
+}
+
+const Comments = ({ commentsData }: CommentsProps) => {
   return commentsData.map((comment) => (
     <div key={comment.id} className="flex flex-col space-y-6 bg-[#FCFCFC]">
       <div className="flex items-center justify-between">
@@ -12,7 +16,7 @@ const Comments = ({ commentsData }: { commentsData: CommentType["list"] }) => {
         </button>
       </div>
       <div className="flex items-center space-x-2 pb-3 border-b border-panda-gray200">
-      <Image
+        <Image
           src={comment.writer.image || "/icons/sessionBtn.png"}
           alt="유저프로필"
           width={32}
@@ -20,10 +24,12 @@ const Comments = ({ commentsData }: { commentsData: CommentType["list"] }) => {
         />
         <div className="flex flex-col space-y-1">
           <h3 className="text-xs text-panda-gray600">{comment.writer.nickname}</h3>
-          <span className="text-xs text-panda-gray400">{formatCommentsTime(comment.createdAt)}</span>
+          <span className="text-xs text-panda-gray400">
+            {formatCommentsTime(comment.createdAt)}
+          </span>
         </div>
       </div>
-    </div >
+    </div>
   ));
 };
 
