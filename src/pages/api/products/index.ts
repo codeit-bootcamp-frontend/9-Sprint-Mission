@@ -9,11 +9,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { page = 1, pageSize = 10, orderBy = "recent", category, search } = req.query;
 
+    // orderBy에 따른 pageSize 처리
+    const limit = Number(pageSize);
+
     const params: Record<string, unknown> = {
       orderBy,
-      pageSize: Number(pageSize),
-      page: Number(page),
+      pageSize: limit,
     };
+
+    if (page) {
+      params.page = Number(page);
+    }
 
     // 카테고리나 검색어가 있는 경우 해당 파라미터 추가
     if (category) {

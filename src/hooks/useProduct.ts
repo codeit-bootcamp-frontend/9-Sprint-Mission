@@ -12,11 +12,13 @@ export const useProduct = () => {
     pageSize,
     orderBy,
     keyword,
+    enabled = true,
   }: {
     page: number;
     pageSize: number;
     orderBy: ProductSortOption;
     keyword?: string;
+    enabled?: boolean;
   }): UseQueryResult<ProductListResponse> => {
     return useQuery({
       queryKey: ["products", { page, pageSize, orderBy, keyword }],
@@ -26,6 +28,9 @@ export const useProduct = () => {
         const response = await axios.get<ProductListResponse>("/api/products", { params });
         return response.data;
       },
+      enabled,
+      staleTime: 1000 * 60 * 5,
+      gcTime: 1000 * 60 * 30,
     });
   };
 

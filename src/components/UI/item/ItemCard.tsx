@@ -3,7 +3,7 @@ import React, { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types/product";
-import { isValidImageUrl } from "@/utils/imageUtils"; // 확장자 체크 함수
+import { isValidImageUrl } from "@/utils/imageUtils";
 
 const HEART_ICON = "/images/icons/ic_heart.png";
 const NO_IMAGE = "/images/ui/no-image.png";
@@ -14,137 +14,98 @@ interface ItemCardProps {
   height?: number;
   onLoad?: () => void;
   priority?: boolean;
-  unoptimized?: boolean;
 }
 
-const ItemCard = ({
-  item,
-  width = 200,
-  height = 200,
-  onLoad,
-  priority = false,
-}: ItemCardProps) => {
-  const [imageStatus, setImageStatus] = useState<
-    "loading" | "loaded" | "error"
-  >("loading");
+const ItemCard = ({ item, width = 200, height = 200, onLoad, priority = false }: ItemCardProps) => {
+  const [imageUrl, setImageUrl] = useState<string>(NO_IMAGE);
+  const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
 
-  // 이미지 URL 및 SVG 여부를 판단하기 위한 변수들
+  // 이미지 URL 처리 로직
   const imageInfo = useMemo(() => {
     if (item.images && item.images[0] && isValidImageUrl(item.images[0])) {
       const originalUrl = item.images[0];
-      const isGif = originalUrl.toLowerCase().endsWith(".gif");
-      const isSvg = originalUrl.toLowerCase().endsWith(".svg");
+      const fileExtension = originalUrl.split(".").pop()?.toLowerCase();
 
-      if (isSvg) {
-        // SVG 이미지는 원본 URL 사용
+      // SVG나 GIF는 원본 URL 사용
+      if (fileExtension === "svg" || fileExtension === "gif") {
         return {
           url: originalUrl,
-          isSvg: true,
-          isGif: false,
-        };
-      } else if (isGif) {
-        // GIF 파일은 프록시를 사용하지 않고 원본 URL 사용
-        return {
-          url: originalUrl,
-          isSvg: false,
-          isGif: true,
-        };
-      } else {
-        // 기타 이미지는 프록시 URL 사용, width와 height 추가
-        return {
-          url: `/api/imageProxy?url=${encodeURIComponent(
-            originalUrl
-          )}&width=${width}&height=${height}`,
-          isSvg: false,
-          isGif: false,
+          isSpecialFormat: true,
         };
       }
+
+      // 일반 이미지는 프록시 사용
+      return {
+        url: `/api/imageProxy?url=${encodeURIComponent(originalUrl)}&w=${width}&q=75`,
+        isSpecialFormat: false,
+      };
     }
-    // 기본 이미지 설정
+
     return {
       url: NO_IMAGE,
-      isSvg: false,
-      isGif: false,
+      isSpecialFormat: false,
     };
-  }, [item.images, width, height]);
+  }, [item.images, width]);
 
+  // 이미지 URL 설정
   useEffect(() => {
-    setImageStatus("loading");
-  }, [item.images]);
+    if (imageInfo.url) {
+      setImageUrl(imageInfo.url);
+      setImageStatus("loading");
+    }
+  }, [imageInfo.url]);
 
   const handleImageLoad = () => {
     setImageStatus("loaded");
-    if (onLoad) onLoad();
+    onLoad?.();
   };
 
   const handleImageError = () => {
+    console.error("이미지 로드 실패:", imageUrl);
+    setImageUrl(NO_IMAGE);
     setImageStatus("error");
-    console.error(`이미지 로드 실패: ${imageInfo.url}`);
   };
 
   return (
-    <Link
-      href={`/items/${item.id}`}
-      className="block text-gray-800 overflow-hidden cursor-pointer"
-    >
+    <Link href={`/items/${item.id}`} className="block text-gray-800 overflow-hidden cursor-pointer">
       <div className="w-full pb-[100%] relative mb-4">
-        {imageStatus === "loading" && (
+        {/* 로딩 스피너 */}
+        {imageStatus === "loading" && imageUrl !== NO_IMAGE && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-8 h-8 border-4 border-blue-400 border-t-transparent border-solid rounded-full animate-spin"></div>
           </div>
         )}
 
-        {imageInfo.isSvg ? (
-          // SVG 파일은 img 태그로 처리
+        {imageInfo.isSpecialFormat ? (
+          // SVG나 GIF는 일반 img 태그 사용
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={imageInfo.url}
-            alt="상품 썸네일"
-            className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
-            width={width}
-            height={height}
-            onLoad={handleImageLoad}
-            onError={handleImageError}
-          />
-        ) : imageInfo.isGif ? (
-          // GIF 파일은 원본 img 태그로 처리하여 애니메이션 유지
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={imageInfo.url}
-            alt="상품 썸네일"
+            src={imageUrl}
+            alt={item.name}
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             onLoad={handleImageLoad}
             onError={handleImageError}
-            width={width}
-            height={height}
           />
         ) : (
-          // 기타 이미지 파일들은 Next.js의 Image 컴포넌트 사용
+          // 일반 이미지는 Next.js Image 컴포넌트 사용
           <Image
-            src={imageStatus === "error" ? NO_IMAGE : imageInfo.url}
-            alt="상품 썸네일"
+            src={imageUrl}
+            alt={item.name}
             className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl"
             width={width}
             height={height}
-            unoptimized={imageInfo.isGif} // GIF 파일에만 적용
             onLoad={handleImageLoad}
             onError={handleImageError}
             priority={priority}
           />
         )}
       </div>
+
       <div className="flex flex-col gap-2.5">
-        <div className="text-base font-normal whitespace-nowrap overflow-hidden text-ellipsis">
-          {item.name}
-        </div>
+        <div className="text-base font-normal whitespace-nowrap overflow-hidden text-ellipsis">{item.name}</div>
         <p className="text-base font-bold">{item.price.toLocaleString()}원</p>
         <div className="flex items-center gap-1 text-gray-600 text-xs">
-          <Image
-            src={HEART_ICON}
-            width={16}
-            height={16}
-            alt="좋아요 이미지 버튼"
-          />
+          <Image src={HEART_ICON} width={16} height={16} alt="좋아요" />
           <span>{item.favoriteCount}</span>
         </div>
       </div>
