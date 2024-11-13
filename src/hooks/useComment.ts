@@ -1,59 +1,68 @@
-import { useMutation, useQueryClient, useInfiniteQuery } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Comment, CommentListResponse } from "@/types/comment";
 
 export const useComment = () => {
   const queryClient = useQueryClient();
 
-  // 상품 댓글 목록 조회 (무한 스크롤)
-  const useProductComments = (productId: number) => {
+  // 댓글 목록 조회 (무한 스크롤)
+  const useInfiniteComments = ({
+    productId,
+    articleId,
+    limit = 10,
+    enabled = true,
+  }: {
+    productId?: number;
+    articleId?: number;
+    limit?: number;
+    enabled?: boolean;
+  }) => {
     return useInfiniteQuery<CommentListResponse>({
-      queryKey: ["productComments", productId],
+      queryKey: ["comments", { productId, articleId, limit }],
       queryFn: async ({ pageParam = null }) => {
-        const response = await axios.get<CommentListResponse>("/api/comments/getProductComments", {
-          params: {
-            productId,
-            cursor: pageParam,
-            limit: 10,
-          },
-        });
+        const params: Record<string, unknown> = {
+          cursor: pageParam,
+          limit,
+        };
+
+        let url = "/api/comments";
+        if (productId) {
+          url = `/api/products/${productId}/comments`;
+        } else if (articleId) {
+          url = `/api/articles/${articleId}/comments`;
+        }
+
+        const response = await axios.get<CommentListResponse>(url, { params });
         return response.data;
       },
       initialPageParam: null,
-      getNextPageParam: (lastPage: CommentListResponse) => lastPage.nextCursor || undefined,
+      getNextPageParam: (lastPage) => lastPage.nextCursor || undefined,
+      enabled,
     });
   };
 
-  // 게시글 댓글 목록 조회 (무한 스크롤)
-  const useArticleComments = (articleId: number) => {
-    return useInfiniteQuery<CommentListResponse>({
-      queryKey: ["articleComments", articleId],
-      queryFn: async ({ pageParam = null }) => {
-        const response = await axios.get<CommentListResponse>("/api/comments/getArticleComments", {
-          params: {
-            articleId,
-            cursor: pageParam,
-            limit: 10,
-          },
-        });
+  // 댓글 상세 조회
+  const useCommentDetail = (commentId: number) => {
+    return useQuery({
+      queryKey: ["comment", commentId],
+      queryFn: async () => {
+        const response = await axios.get<Comment>(`/api/comments/${commentId}`);
         return response.data;
       },
-      initialPageParam: null,
-      getNextPageParam: (lastPage: CommentListResponse) => lastPage.nextCursor || undefined,
+      enabled: !!commentId,
     });
   };
 
   // 상품 댓글 등록
   const addProductCommentMutation = useMutation({
     mutationFn: async ({ productId, content }: { productId: number; content: string }) => {
-      const response = await axios.post<{ comment: Comment; message: string }>("/api/comments/addProductComment", {
-        productId,
+      const response = await axios.post<{ comment: Comment; message: string }>(`/api/products/${productId}/comments`, {
         content,
       });
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["productComments", variables.productId] });
+      queryClient.invalidateQueries({ queryKey: ["comments", { productId: variables.productId }] });
       queryClient.invalidateQueries({ queryKey: ["product", variables.productId] });
     },
   });
@@ -61,14 +70,13 @@ export const useComment = () => {
   // 게시글 댓글 등록
   const addArticleCommentMutation = useMutation({
     mutationFn: async ({ articleId, content }: { articleId: number; content: string }) => {
-      const response = await axios.post<{ comment: Comment; message: string }>("/api/comments/addArticleComment", {
-        articleId,
+      const response = await axios.post<{ comment: Comment; message: string }>(`/api/articles/${articleId}/comments`, {
         content,
       });
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["articleComments", variables.articleId] });
+      queryClient.invalidateQueries({ queryKey: ["comments", { articleId: variables.articleId }] });
       queryClient.invalidateQueries({ queryKey: ["article", variables.articleId] });
     },
   });
@@ -76,33 +84,31 @@ export const useComment = () => {
   // 댓글 수정
   const updateCommentMutation = useMutation({
     mutationFn: async ({ commentId, content }: { commentId: number; content: string }) => {
-      const response = await axios.patch("/api/comments/updateComment", { commentId, content });
+      const response = await axios.patch(`/api/comments/${commentId}`, { content });
       return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["productComments"] });
-      queryClient.invalidateQueries({ queryKey: ["articleComments"] });
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+      queryClient.invalidateQueries({ queryKey: ["comment", variables.commentId] });
     },
   });
 
   // 댓글 삭제
   const removeCommentMutation = useMutation({
     mutationFn: async (commentId: number) => {
-      const response = await axios.delete("/api/comments/removeComment", {
-        data: { commentId },
-      });
+      const response = await axios.delete(`/api/comments/${commentId}`);
       return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["productComments"] });
-      queryClient.invalidateQueries({ queryKey: ["articleComments"] });
+    onSuccess: (_, commentId) => {
+      queryClient.invalidateQueries({ queryKey: ["comments"] });
+      queryClient.invalidateQueries({ queryKey: ["comment", commentId] });
     },
   });
 
   return {
     // 쿼리 훅
-    useProductComments,
-    useArticleComments,
+    useInfiniteComments,
+    useCommentDetail,
 
     // 뮤테이션 함수들
     addProductComment: addProductCommentMutation.mutateAsync,

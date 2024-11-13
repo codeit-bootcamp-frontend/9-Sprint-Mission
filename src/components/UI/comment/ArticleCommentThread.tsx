@@ -62,8 +62,10 @@ interface CommentThreadProps {
 }
 
 const CommentThread = ({ articleId }: CommentThreadProps) => {
-  const { useArticleComments } = useComment();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } = useArticleComments(articleId);
+  const { useInfiniteComments } = useComment();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } = useInfiniteComments({
+    articleId,
+  });
 
   const comments = data?.pages.flatMap((page) => page.list) ?? [];
 

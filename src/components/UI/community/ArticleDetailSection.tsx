@@ -99,7 +99,6 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     if (imageRef.current) {
       const height = imageRef.current.clientHeight;
       setImageHeight(height);
-      console.log("Loaded image height: ", height);
     }
   };
 
