@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import InputItem from "@/components/UI/InputItem";
 import SocialLogin from "@/components/UI/SocialLogin";
 import PasswordInput from "@/components/UI/PasswordInput";
@@ -11,6 +12,7 @@ import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { SignupFormValues } from "@/types/auth";
 import AlertModal from "@/components/UI/modal/AlertModal";
 import { useAuth } from "@/hooks/useAuth";
+import { AxiosError } from "axios";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_AUTH = "/images/logo/logo-auth.png";
@@ -23,13 +25,9 @@ const SignupPage = () => {
   const { signUp, isLoading: isAuthLoading, user } = useAuth();
 
   useEffect(() => {
-    async function initializeAuthStatus() {
-      if (user) {
-        router.push("/");
-      }
+    if (user) {
+      router.push("/");
     }
-
-    initializeAuthStatus();
   }, [router, user]);
 
   // react-hook-form으로 폼 관리
@@ -37,25 +35,49 @@ const SignupPage = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
-  } = useForm<SignupFormValues>({ mode: "onBlur" });
+    formState: { errors },
+  } = useForm<SignupFormValues>({ mode: "onChange" });
 
   const [isPasswordValid, setIsPasswordValid] = useState({
     length: false,
     pattern: false,
   });
 
-  // 비밀번호를 실시간으로 감지
   const password = watch("password");
+  const passwordConfirmation = watch("passwordConfirmation");
+  const email = watch("email");
+  const nickname = watch("nickname");
 
+  // 전체 폼 유효성 상태 관리
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  // 이메일, 닉네임, 비밀번호의 유효성을 검사
   useEffect(() => {
-    setIsPasswordValid({
-      length: password ? password.length >= 6 : false,
-      pattern: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/.test(password || ""),
-    });
-  }, [password]);
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    const isEmailValid = email ? emailPattern.test(email) : false;
+    const isNicknameValid = nickname ? nickname.length > 0 : false;
 
-  // 폼 제출 시 호출되는 함수, 서버에 회원가입 요청을 보냄
+    const passwordValid = {
+      length: password ? password.length >= 6 : false,
+      pattern: password ? /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/.test(password) : false,
+    };
+
+    const isPasswordConfirmValid = passwordConfirmation === password && password !== "";
+
+    setIsPasswordValid(passwordValid);
+    setIsFormValid(
+      !!isEmailValid && !!isNicknameValid && passwordValid.length && passwordValid.pattern && isPasswordConfirmValid
+    );
+  }, [email, nickname, password, passwordConfirmation]);
+
+  // Enter 키 처리
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && isFormValid) {
+      handleSubmit(onSubmit)(e);
+    }
+  };
+
+  // 폼 제출 시 호출되는 함수
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
     const trimmedData: SignupFormValues = {
       email: data.email.trim(),
@@ -65,23 +87,25 @@ const SignupPage = () => {
     };
 
     try {
-      await signUp(trimmedData);
-      setAlertMessage("회원 가입에 성공했습니다!");
-      setIsAlertOpen(true);
-    } catch (error: unknown) {
-      console.error("Error:", error);
-      setAlertMessage(
-        error instanceof Error ? error.message : "서버와의 통신 중 오류가 발생했습니다. 다시 시도해 주세요."
-      );
+      const response = await signUp(trimmedData);
+      if (response.success) {
+        setAlertMessage(response.message);
+        setIsAlertOpen(true);
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+        router.push("/login");
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        setAlertMessage(error.response?.data.message);
+      } else {
+        setAlertMessage("서버와의 통신 중 오류가 발생했습니다. 다시 시도해 주세요.");
+      }
       setIsAlertOpen(true);
     }
   };
 
   const handleCloseAlert = () => {
     setIsAlertOpen(false);
-    if (alertMessage === "회원 가입에 성공했습니다!") {
-      router.push("/login"); // 성공 시 로그인 페이지로 이동
-    }
   };
 
   if (isAuthLoading) {
@@ -96,7 +120,7 @@ const SignupPage = () => {
       </Link>
 
       {/* 회원가입 폼 */}
-      <form className="mt-10 flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mt-10 flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyPress}>
         {/* 이메일 입력 필드 */}
         <InputItem
           id="email"
@@ -151,6 +175,11 @@ const SignupPage = () => {
             <p className={isPasswordValid.pattern ? "text-green-500" : "text-red-500"}>
               {isPasswordValid.pattern ? "✓" : "✗"} 영문, 숫자, 특수문자(!@#$%^&*)만 사용 가능합니다.
             </p>
+            {passwordConfirmation && (
+              <p className={password === passwordConfirmation ? "text-green-500" : "text-red-500"}>
+                {password === passwordConfirmation ? "✓" : "✗"} 비밀번호가 일치합니다.
+              </p>
+            )}
           </div>
         )}
 
@@ -169,7 +198,7 @@ const SignupPage = () => {
         {/* 제출 버튼 */}
         <button
           type="submit"
-          disabled={!isValid || !isPasswordValid.length || !isPasswordValid.pattern}
+          disabled={!isFormValid}
           className="bg-blue-500 text-white py-3.5 px-8 rounded-full text-base font-bold w-full hover:bg-blue-600 focus:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           회원가입
