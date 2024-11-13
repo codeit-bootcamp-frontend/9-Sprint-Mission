@@ -84,6 +84,7 @@ const ItemDetail = () => {
     return (
       <p className="text-center font-bold text-xl mt-20">상품 데이터를 불러오는 중입니다...</p>
     );
+  
   if (isError)
     return (
       <p className="text-center font-bold text-xl mt-20">
