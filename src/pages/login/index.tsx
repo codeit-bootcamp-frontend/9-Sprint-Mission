@@ -36,8 +36,10 @@ const LoginPage = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
-  } = useForm<LoginFormValues>({ mode: "onBlur" });
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    mode: "onChange",
+  });
 
   // 폼 제출 시 호출되는 함수
   const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
@@ -65,15 +67,32 @@ const LoginPage = () => {
     pattern: false,
   });
 
-  // 비밀번호를 실시간으로 감지
   const password = watch("password");
+  const email = watch("email");
 
+  // 전체 폼 유효성 상태 관리
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  // 이메일과 비밀번호의 유효성을 검사
   useEffect(() => {
-    setIsPasswordValid({
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+    const isEmailValid = email ? emailPattern.test(email) : false;
+
+    const passwordValid = {
       length: password ? password.length >= 6 : false,
-      pattern: /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/.test(password || ""),
-    });
-  }, [password]);
+      pattern: password ? /^([a-z]|[A-Z]|[0-9]|[!@#$%^&*])+$/.test(password) : false,
+    };
+
+    setIsPasswordValid(passwordValid);
+    setIsFormValid(!!isEmailValid && passwordValid.length && passwordValid.pattern);
+  }, [email, password]);
+
+  // Enter 키 처리
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && isFormValid) {
+      handleSubmit(onSubmit)(e);
+    }
+  };
 
   const handleCloseAlert = () => {
     setIsAlertOpen(false);
@@ -91,7 +110,7 @@ const LoginPage = () => {
       </Link>
 
       {/* 로그인 폼 */}
-      <form className="mt-10 flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mt-10 flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyPress}>
         {/* 이메일 입력 필드 */}
         <InputItem
           id="email"
@@ -132,13 +151,16 @@ const LoginPage = () => {
             <p className={isPasswordValid.length ? "text-green-500" : "text-red-500"}>
               {isPasswordValid.length ? "✓" : "✗"} 비밀번호는 6자 이상이어야 합니다.
             </p>
+            <p className={isPasswordValid.pattern ? "text-green-500" : "text-red-500"}>
+              {isPasswordValid.pattern ? "✓" : "✗"} 영문, 숫자, 특수문자(!@#$%^&*) 사용 가능합니다.
+            </p>
           </div>
         )}
 
         {/* 제출 버튼 */}
         <button
           type="submit"
-          disabled={!isValid}
+          disabled={!isFormValid}
           className="bg-blue-500 text-white py-3.5 px-8 rounded-full text-base font-bold w-full hover:bg-blue-600 focus:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           로그인
