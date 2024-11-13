@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import { useAuth } from "@/hooks/useAuth";
 import { useAtomValue } from "jotai";
 import { userAtom } from "@/store/authAtoms";
-import toast from "react-hot-toast";
 
 // public 폴더 경로 문자열로 대체
 const LOGO_SM = "/images/logo/logo_sm.png";
@@ -17,14 +17,19 @@ const DEFAULT_AVATAR = "/images/ui/ic_profile-32.png";
 export default function Header() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const { logout, refetchUser } = useAuth();
   const user = useAtomValue(userAtom);
-  const auth = useAuth();
+
+  // 컴포넌트 마운트 시 인증 상태 확인
+  useEffect(() => {
+    refetchUser();
+  }, [refetchUser]);
 
   const handleLogout = async () => {
-    if (!user || !auth.logout) return;
+    if (!user || !logout) return;
 
     try {
-      await auth.logout();
+      await logout();
       setIsOpen(false);
     } catch (error) {
       console.error("로그아웃 중 오류 발생:", error);
@@ -121,7 +126,7 @@ export default function Header() {
               </li>
             </ul>
           </nav>
-          {user && (
+          {user ? (
             <div className="relative user-avatar">
               <Image
                 src={user.image || DEFAULT_AVATAR}
@@ -140,8 +145,7 @@ export default function Header() {
                 </div>
               )}
             </div>
-          )}
-          {!user && (
+          ) : (
             <Link href="/login" className="text-gray-600 font-semibold hover:text-blue-500">
               로그인
             </Link>

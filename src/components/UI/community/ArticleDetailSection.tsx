@@ -33,6 +33,14 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
   const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
 
+  // 초기 좋아요 상태 설정
+  useEffect(() => {
+    if (user && articleDetail.isLiked !== undefined) {
+      setIsLiked(articleDetail.isLiked);
+      setLikeCount(articleDetail.likeCount);
+    }
+  }, [user, articleDetail.isLiked, articleDetail.likeCount]);
+
   const handleLikeCallback = useCallback(async () => {
     if (!user) {
       setAlertMessage("로그인이 필요합니다.");
@@ -40,12 +48,14 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       return;
     }
 
+    const newIsLiked = !isLiked;
+
     // 낙관적 UI 업데이트
-    setIsLiked((prev) => !prev);
-    setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+    setIsLiked(newIsLiked);
+    setLikeCount((prev) => (newIsLiked ? prev + 1 : prev - 1));
 
     try {
-      if (isLiked) {
+      if (!newIsLiked) {
         await removeLike(articleDetail.id);
       } else {
         await addLike(articleDetail.id);
@@ -53,12 +63,11 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
     } catch (error) {
       console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
       // 에러 발생 시 UI를 원래 상태로 되돌림
-      setIsLiked((prev) => !prev);
-      setLikeCount((prev) => (isLiked ? prev + 1 : prev - 1));
+      setIsLiked(!newIsLiked);
+      setLikeCount((prev) => (newIsLiked ? prev - 1 : prev + 1));
       setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
       setIsAlertOpen(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articleDetail.id, isLiked, user, addLike, removeLike]);
 
   const debouncedHandleLike = useDebouncedCallback(handleLikeCallback, 300);

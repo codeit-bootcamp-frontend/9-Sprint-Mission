@@ -19,3 +19,11 @@ export interface User {
   updatedAt: Date;
   createdAt: Date;
 }
+
+export interface MeResponse {
+  id: number;
+  image: string | null;
+  nickname: string | null;
+  updatedAt: Date;
+  createdAt: Date;
+}

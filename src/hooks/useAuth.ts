@@ -16,8 +16,13 @@ export const useAuth = () => {
     queryKey: ["user"],
     queryFn: async () => {
       try {
-        const response = await axios.post("/api/auth/refreshToken");
-        return response.data.user || null;
+        const { data } = await axios.post<{ success: boolean; user: User | null }>("/api/auth/refreshToken");
+
+        if (data.user) {
+          setUser(data.user);
+        }
+
+        return data.user || null;
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.error("인증 상태 확인 중 오류 발생:", error.response?.data || error.message);
