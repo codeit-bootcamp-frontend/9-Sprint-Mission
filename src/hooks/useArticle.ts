@@ -116,13 +116,17 @@ export const useArticle = () => {
   // 게시글 좋아요
   const addLikeMutation = useMutation({
     mutationFn: async (articleId: number) => {
-      const response = await axios.post("/api/articles/addArticleLike", {
+      const { data } = await axios.post("/api/articles/addArticleLike", {
         articleId,
       });
-      return response.data;
+      return data;
     },
     onSuccess: (_, articleId) => {
       queryClient.invalidateQueries({ queryKey: ["article", articleId] });
+    },
+    onError: (error) => {
+      console.error("좋아요 추가 실패:", error);
+      throw error;
     },
   });
 
@@ -137,6 +141,10 @@ export const useArticle = () => {
     onSuccess: (_, articleId) => {
       queryClient.invalidateQueries({ queryKey: ["article", articleId] });
     },
+    onError: (error) => {
+      console.error("좋아요 취소 실패:", error);
+      throw error;
+    },
   });
 
   return {
@@ -149,8 +157,8 @@ export const useArticle = () => {
     addArticle: addArticleMutation.mutateAsync,
     updateArticle: updateArticleMutation.mutateAsync,
     removeArticle: removeArticleMutation.mutateAsync,
-    addLike: addLikeMutation.mutateAsync,
-    removeLike: removeLikeMutation.mutateAsync,
+    addLike: addLikeMutation.mutate,
+    removeLike: removeLikeMutation.mutate,
 
     // 로딩 상태
     isLoading: {

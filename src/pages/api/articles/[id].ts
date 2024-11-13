@@ -3,10 +3,15 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { id } = req.query;
+  const accessToken = req.cookies.accessToken;
 
   if (req.method === "GET") {
     try {
-      const response = await apiClient.get(`/articles/${id}`);
+      const response = await apiClient.get(`/articles/${id}`, {
+        headers: {
+          Authorization: accessToken ? `Bearer ${accessToken}` : "",
+        },
+      });
       return res.status(200).json(response.data);
     } catch (error) {
       console.error("게시글 상세 조회 실패:", error);

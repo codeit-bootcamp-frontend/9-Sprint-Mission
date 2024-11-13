@@ -20,7 +20,7 @@ const FavoriteButton = ({ isFavorite, favoriteCount, onFavorite, isLoading = fal
       ) : (
         <Image src={isFavorite ? HEART_PINK_ICON : HEART_ICON} alt="좋아요" width={16} height={16} />
       )}
-      <span className={`${isFavorite ? "text-red-500" : "text-gray-500"}`}>{favoriteCount}</span>
+      <span className="text-gray-500">{favoriteCount}</span>
     </button>
   );
 };

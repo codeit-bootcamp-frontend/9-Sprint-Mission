@@ -20,7 +20,7 @@ const LikeButton = ({ isLiked, likeCount, onLike, isLoading = false }: LikeButto
       ) : (
         <Image src={isLiked ? HEART_PINK_ICON : HEART_ICON} alt="좋아요" width={16} height={16} />
       )}
-      <span className={`${isLiked ? "text-red-500" : "text-gray-500"}`}>{likeCount}</span>
+      <span className="text-gray-500">{likeCount}</span>
     </button>
   );
 };

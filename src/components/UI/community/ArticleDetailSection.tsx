@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import useDebouncedCallback from "@/hooks/useDebouncedCallback";
-import { ArticleDetail } from "@/types/article";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import LikeButton from "./LikeButton";
@@ -16,30 +15,29 @@ const NO_IMAGE = "/images/ui/no-image.png";
 const DEFAULT_AVATAR = "/images/ui/ic_profile-24.png";
 
 interface ArticleDetailSectionProps {
-  articleDetail: ArticleDetail;
+  articleId: number;
 }
 
-const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
+const ArticleDetailSection = ({ articleId }: ArticleDetailSectionProps) => {
   const [imageHeight, setImageHeight] = useState(486);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(NO_IMAGE);
   const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [isLiked, setIsLiked] = useState<boolean>(articleDetail.isLiked);
-  const [likeCount, setLikeCount] = useState<number>(articleDetail.likeCount);
+  const { useArticleDetail, addLike, removeLike, isLoading } = useArticle();
+  const { data: articleDetail } = useArticleDetail(articleId);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likeCount, setLikeCount] = useState<number>(0);
   const [user] = useAtom(userAtom);
-  const { addLike, removeLike, isLoading } = useArticle();
-
-  const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
 
   // 초기 좋아요 상태 설정
   useEffect(() => {
-    if (user && articleDetail.isLiked !== undefined) {
+    if (articleDetail) {
       setIsLiked(articleDetail.isLiked);
       setLikeCount(articleDetail.likeCount);
     }
-  }, [user, articleDetail.isLiked, articleDetail.likeCount]);
+  }, [articleDetail]);
 
   const handleLikeCallback = useCallback(async () => {
     if (!user) {
@@ -47,6 +45,8 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       setIsAlertOpen(true);
       return;
     }
+
+    if (!articleDetail) return;
 
     const newIsLiked = !isLiked;
 
@@ -68,19 +68,25 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
       setIsAlertOpen(true);
     }
-  }, [articleDetail.id, isLiked, user, addLike, removeLike]);
+  }, [articleDetail, isLiked, user, addLike, removeLike]);
 
   const debouncedHandleLike = useDebouncedCallback(handleLikeCallback, 300);
+
+  const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
+
+  const handleImageLoad = () => {
+    if (imageRef.current) {
+      setImageHeight(imageRef.current.clientHeight);
+    }
+  };
 
   useEffect(() => {
     const validateImageUrl = async (url: string) => {
       try {
         if (isSvgFile(url)) {
-          // SVG 파일이면 직접 사용
           setImageUrl(url);
           setImageStatus("loaded");
         } else {
-          // 그 외의 경우 프록시를 통해 이미지 로드
           const proxyUrl = `/api/imageProxy?url=${encodeURIComponent(url)}`;
           const response = await fetch(proxyUrl);
           if (response.ok) {
@@ -97,19 +103,17 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       }
     };
 
-    if (articleDetail.image) {
+    if (articleDetail?.image) {
       validateImageUrl(articleDetail.image);
     } else {
       setImageStatus("error");
     }
-  }, [articleDetail.image]);
+  }, [articleDetail?.image]);
 
-  const handleImageLoad = () => {
-    if (imageRef.current) {
-      const height = imageRef.current.clientHeight;
-      setImageHeight(height);
-    }
-  };
+  // articleDetail이 없는 경우 로딩 상태 표시
+  if (!articleDetail) {
+    return <div>로딩 중...</div>;
+  }
 
   const formattedDate = format(new Date(articleDetail.createdAt), "yyyy. MM. dd", { locale: ko });
 
