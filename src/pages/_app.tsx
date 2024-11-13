@@ -4,6 +4,7 @@ import FooterWrapper from "@/components/Layout/FooterWrapper";
 import ClientLayout from "@/components/Layout/ClientLayout";
 import "../styles/global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         <FooterWrapper />
         <div id="modal-root"></div>
       </ClientLayout>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
