@@ -52,7 +52,7 @@ const Pagination = ({ totalPage, page, setPage, isMobile }: IProps) => {
   return (
     <div className="flex flex-col space-y-3 items-center justify-center pt-10">
       <div className="flex items-center space-x-1">
-        <button className="pagination-number-round" onClick={handlePageToPrev}>
+        <button className="pagination-number-round" onClick={handlePageToPrev} disabled={page === 1}>
           <Image src="/icons/arrowLeft.png" alt="왼쪽" width={16} height={16} />
         </button>
         {isMobile ? (
@@ -74,7 +74,7 @@ const Pagination = ({ totalPage, page, setPage, isMobile }: IProps) => {
             );
           })
         )}
-        <button className="pagination-number-round" onClick={handlePageToNext}>
+        <button className="pagination-number-round" onClick={handlePageToNext} disabled={page === totalPage}>
           <Image src="/icons/arrowRight.png" alt="오른쪽" width={16} height={16} />
         </button>
       </div>

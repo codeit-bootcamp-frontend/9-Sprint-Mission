@@ -44,6 +44,6 @@ body {
   }
 
   .pagination-number-round {
-    @apply flex items-center justify-center border-[1px] border-panda-gray200 rounded-full w-10 h-10 font-semibold p-0 active:bg-panda-theme;
+    @apply flex items-center justify-center border-[1px] border-panda-gray200 rounded-full w-10 h-10 font-semibold p-0 active:bg-panda-theme disabled:bg-panda-gray100;
   }
 }
