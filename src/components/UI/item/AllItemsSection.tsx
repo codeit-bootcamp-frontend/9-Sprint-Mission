@@ -8,6 +8,7 @@ import LoadingSpinner from "@/components/UI/LoadingSpinner";
 import { ProductSortOption } from "@/constants/ProductSortOption";
 import { useProduct } from "@/hooks/useProduct";
 import useDebounce from "@/hooks/useDebounce";
+import Link from "next/link";
 
 // 화면 크기에 따른 pageSize 결정 함수
 const getPageSize = (width: number) => {
@@ -76,17 +77,27 @@ export default function AllItemsSection({ width, height }: AllItemsSectionProps)
   return (
     <section className="space-y-6">
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-2xl font-bold">전체 상품</h2>
+        <div className="flex items-center justify-between w-full">
+          <h2 className="text-2xl font-bold">전체 상품</h2>
 
-        <div className="flex items-center gap-4">
-          {/* 검색바 */}
-          <div className="w-80">
-            <SearchBar onSearch={handleSearch} placeholder="상품명을 검색해주세요" />
-          </div>
+          <div className="flex items-center gap-4">
+            {/* 검색바 */}
+            <div className="w-80">
+              <SearchBar onSearch={handleSearch} placeholder="상품명을 검색해주세요" />
+            </div>
 
-          {/* 정렬 옵션 */}
-          <div className="w-48">
-            <DropdownMenu onSortSelection={(value) => handleSortChange(value as ProductSortOption)} type="product" />
+            {/* 상품 등록하기 버튼 */}
+            <Link
+              href="/addItem"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+            >
+              상품 등록하기
+            </Link>
+
+            {/* 정렬 옵션 */}
+            <div className="w-48">
+              <DropdownMenu onSortSelection={(value) => handleSortChange(value as ProductSortOption)} type="product" />
+            </div>
           </div>
         </div>
       </div>
