@@ -10,6 +10,11 @@ import toast from "react-hot-toast";
 import Comments from "./components/Comments";
 import CommentForm from "./components/CommentForm";
 import { useObserver } from "@/hooks/useObserver";
+import { HiArrowPath } from "react-icons/hi2";
+import BackToListBtn from "@/components/ui/BackToListBtn";
+import ItemMenu from "@/components/ui/ItemMenu";
+import FavoriteCount from "./components/FavoriteCount";
+import { useEffect, useRef, useState } from "react";
 
 const getItem = async (productId: number) => {
   if (!productId) return null;
@@ -79,10 +84,29 @@ const ItemDetail = () => {
   };
 
   const setTarget = useObserver(fetchMoreComments);
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (e: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      setOpenMenuId(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   if (isPending)
     return (
-      <p className="text-center font-bold text-xl mt-20">상품 데이터를 불러오는 중입니다...</p>
+      <p className="flex items-center justify-center space-x-2 font-bold text-xl mt-20">
+        <HiArrowPath className="animate-spin" />
+        상품 데이터를 불러오는 중입니다
+      </p>
     );
   
   if (isError)
@@ -107,9 +131,12 @@ const ItemDetail = () => {
             <div className="border-b border-panda-gray200 pb-4">
               <div className="flex items-center justify-between">
                 <h2 className="font-semibold">{itemData?.name}</h2>
-                <button>
-                  <Image src="/icons/itemMenu.png" alt="메뉴" width={24} height={24} />
-                </button>
+                <div ref={containerRef} className="relative">
+                  <button onClick={() => setOpenMenuId(openMenuId === id ? null : id)}>
+                    <Image src="/icons/itemMenu.png" alt="메뉴" width={24} height={24} />
+                  </button>
+                  {openMenuId === id && <ItemMenu menu1="수정하기" menu2="삭제하기" id={id} location="item" />}
+                </div>
               </div>
               <h3 className="font-semibold text-2xl">
                 {itemData?.price.toLocaleString("ko-KR")}원
@@ -143,23 +170,14 @@ const ItemDetail = () => {
           </div>
           <div className="flex items-center space-x-4">
             <div className="w-[1px] bg-panda-gray200 h-8" />
-            <button className="flex items-center space-x-1 px-3 py-1 rounded-full border border-panda-gray200">
-              <Image
-                src="/icons/ic_heart.svg"
-                alt="좋아요"
-                width={24}
-                height={24}
-                className="md:size-8"
-              />
-              <span className="font-medium text-panda-gray500">{itemData?.favoriteCount}</span>
-            </button>
+            <FavoriteCount productId={id} favoriteCount={itemData?.favoriteCount} />
           </div>
         </div>
       </div>
       <div className="flex flex-col space-y-10">
         <CommentForm itemId={id} />
       </div>
-      {commentsData?.pages.length && commentsData?.pages.length > 0 ? (
+      {commentsData?.pages && commentsData?.pages.length > 0 ? (
         <>
           <div className="flex flex-col space-y-10">
             <Comments commentsData={commentsData.pages.flatMap((page) => page.list)} />
@@ -172,6 +190,7 @@ const ItemDetail = () => {
           <span className="break-keep text-center text-panda-gray400">아직 문의가 없어요</span>
         </div>
       )}
+      <BackToListBtn />
     </div>
   );
 };

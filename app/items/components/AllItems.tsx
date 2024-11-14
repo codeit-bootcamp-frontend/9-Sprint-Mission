@@ -1,6 +1,6 @@
 import ItemSearch from "./ItemSearch";
 import Image from "next/image";
-import SelectMenu from "@/components/SelectMenu";
+import SelectMenu from "@/components/ui/SelectMenu";
 import ItemContent from "./ItemContent";
 import Pagination from "@/components/Pagination";
 import axios from "axios";
@@ -8,8 +8,9 @@ import Link from "next/link";
 import { ChangeEvent, useState, useEffect } from "react";
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
 import { instance } from "@/lib/axios";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ItemType } from "../types/Items";
+import { HiArrowPath } from "react-icons/hi2";
 
 const getAllItems = async (pageSize: number, orderBy: string, page: number) => {
   if (pageSize === 0) return { list: [], totalCount: 0 };
@@ -36,6 +37,7 @@ const getAllItems = async (pageSize: number, orderBy: string, page: number) => {
 const AllItems = () => {
   const pageSize = useCalculateWidth("all");
   const isMobile = pageSize === 4;
+  const queryClient = useQueryClient();
 
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
@@ -52,6 +54,15 @@ const AllItems = () => {
     initialData: { list: [], totalCount: 0 },
     enabled: pageSize > 0,
   });
+
+  useEffect(() => {
+    if (pageSize > 0) {
+      queryClient.prefetchQuery({
+        queryKey: ["allItems", page, orderBy],
+        queryFn: () => getAllItems(pageSize, orderBy, page),
+      });
+    }
+  }, [queryClient, page, orderBy, pageSize]);
 
   useEffect(() => {
     if (allItems) {
@@ -71,7 +82,12 @@ const AllItems = () => {
   };
 
   if (isPending) {
-    return <p className="text-center font-bold text-xl">전체 상품 목록을 가져오고 있습니다.</p>;
+    return (
+      <p className="flex items-center justify-center space-x-2 font-bold text-xl mt-20">
+        <HiArrowPath className="animate-spin" />
+        전체 상품 목록을 가져오고 있습니다.
+      </p>
+    );
   }
 
   return (
