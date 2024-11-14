@@ -1,0 +1,9 @@
+const BoardsLayout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <div className="p-6 my-24 flex flex-col space-y-10 justify-center lg:w-[1200px] lg:m-auto lg:my-24 lg:p-0">
+      {children}
+    </div>
+  );
+};
+
+export default BoardsLayout;
