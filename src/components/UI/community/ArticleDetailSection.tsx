@@ -9,6 +9,8 @@ import AlertModal from "../modal/AlertModal";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { useArticle } from "@/hooks/useArticle";
+import { useRouter } from "next/router";
+import ConfirmModal from "../modal/ConfirmModal";
 
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const NO_IMAGE = "/images/ui/no-image.png";
@@ -25,11 +27,16 @@ const ArticleDetailSection = ({ articleId }: ArticleDetailSectionProps) => {
   const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const { useArticleDetail, addLike, removeLike, isLoading } = useArticle();
-  const { data: articleDetail } = useArticleDetail(articleId);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(0);
   const [user] = useAtom(userAtom);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+  const router = useRouter();
+
+  const { useArticleDetail, addLike, removeLike, removeArticle, isLoading } = useArticle();
+  const { data: articleDetail } = useArticleDetail(articleId);
 
   // 초기 좋아요 상태 설정
   useEffect(() => {
@@ -110,6 +117,47 @@ const ArticleDetailSection = ({ articleId }: ArticleDetailSectionProps) => {
     }
   }, [articleDetail?.image]);
 
+  // 드롭다운 외부 클릭 처리
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (isDropdownOpen && !target.closest(".kebab-menu")) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  const handleEdit = () => {
+    router.push(`/community/${articleId}/edit`);
+  };
+
+  const handleDeleteClick = () => {
+    setIsDropdownOpen(false);
+    setIsConfirmOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      await removeArticle(articleId);
+      router.push("/community");
+    } catch (error) {
+      console.error("게시글 삭제 실패:", error);
+      setAlertMessage("게시글 삭제 중 오류가 발생했습니다.");
+      setIsAlertOpen(true);
+    } finally {
+      setIsConfirmOpen(false);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setIsConfirmOpen(false);
+  };
+
   // articleDetail이 없는 경우 로딩 상태 표시
   if (!articleDetail) {
     return <div>로딩 중...</div>;
@@ -146,9 +194,28 @@ const ArticleDetailSection = ({ articleId }: ArticleDetailSectionProps) => {
 
         <div className="flex flex-col justify-between flex-1" style={{ height: imageHeight }}>
           <div className="w-full relative">
-            <button className="absolute right-0">
-              <Image src={KEBAB_ICON} width={24} height={24} alt="케밥 이미지 버튼" className="w-6 h-6" />
-            </button>
+            {/* 케밥 메뉴 - 본인 게시글일 때만 표시 */}
+            {user && articleDetail && user.id === articleDetail.writer.id && (
+              <div className="absolute right-0 kebab-menu">
+                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="relative">
+                  <Image src={KEBAB_ICON} width={24} height={24} alt="메뉴" className="w-6 h-6" />
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-md shadow-lg p-2 text-sm text-gray-700 z-10">
+                    <button onClick={handleEdit} className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded">
+                      수정하기
+                    </button>
+                    <button
+                      onClick={handleDeleteClick}
+                      className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded text-red-500"
+                      disabled={isLoading.remove}
+                    >
+                      {isLoading.remove ? "삭제 중..." : "삭제하기"}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             <div>
               <div className="text-base font-semibold mb-2 md:text-xl md:mb-3 lg:text-2xl lg:mb-4">
@@ -182,8 +249,13 @@ const ArticleDetailSection = ({ articleId }: ArticleDetailSectionProps) => {
         </div>
       </section>
 
-      {/* AlertModal 컴포넌트 */}
       <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={handleCloseAlert} />
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        message="해당 게시글을 삭제하시겠습니까?"
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
     </>
   );
 };

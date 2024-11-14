@@ -17,7 +17,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         params.page = Number(page);
       }
 
-      console.log("API Request Params:", params);
       const response = await apiClient.get(`/articles`, { params });
       return res.status(200).json(response.data);
     } catch (error) {
@@ -36,15 +35,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      const response = await apiClient.post(
-        "/articles",
-        { title, content, image },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      // 요청 데이터 구성
+      const requestData: Record<string, unknown> = {
+        title,
+        content,
+      };
+
+      // image가 있는 경우에만 추가
+      if (image && image !== "") {
+        requestData.image = image;
+      }
+
+      const response = await apiClient.post("/articles", requestData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       return res.status(200).json({ message: "게시글 등록 성공", article: response.data });
     } catch (error) {
       console.error("게시글 등록 실패:", error);

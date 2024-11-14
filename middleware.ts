@@ -11,6 +11,11 @@ const handleImageProxy = (url: URL) => {
     return NextResponse.json({ error: "이미지 URL이 필요합니다." }, { status: 400 });
   }
 
+  // 로컬 이미지 경로인 경우 프록시 처리하지 않음
+  if (imageUrl.startsWith("/images/")) {
+    return NextResponse.next();
+  }
+
   if (!isValidImageUrl(imageUrl)) {
     return NextResponse.json({ error: "허용되지 않은 파일 형식입니다." }, { status: 400 });
   }

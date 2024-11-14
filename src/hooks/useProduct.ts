@@ -61,7 +61,7 @@ export const useProduct = () => {
   // 상품 수정
   const updateProductMutation = useMutation({
     mutationFn: async ({ productId, productForm }: { productId: number; productForm: ProductSchema }) => {
-      const response = await axios.put(`/api/products/${productId}`, productForm);
+      const response = await axios.patch(`/api/products/${productId}`, productForm);
       return response.data;
     },
     onSuccess: (_, variables) => {

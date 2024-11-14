@@ -3,7 +3,7 @@ import { z } from "zod";
 export const articleSchema = z.object({
   title: z.string(),
   content: z.string(),
-  image: z.string().optional(),
+  image: z.string().nullable(),
 });
 
 export type ArticleSchema = z.infer<typeof articleSchema>;

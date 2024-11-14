@@ -29,15 +29,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     try {
-      const response = await apiClient.patch(
-        `/articles/${id}`,
-        { title, content, image },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      // 요청 데이터 구성
+      const requestData: Record<string, unknown> = {
+        title,
+        content,
+      };
+
+      // image가 있는 경우에만 추가
+      if (image && image !== "") {
+        requestData.image = image;
+      }
+
+      const response = await apiClient.patch(`/articles/${id}`, requestData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       return res.status(200).json({ message: "게시글 수정 성공", article: response.data });
     } catch (error) {
       console.error("게시글 수정 실패:", error);

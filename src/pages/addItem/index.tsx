@@ -9,14 +9,13 @@ import { ProductSchema } from "@/zod/productSchema";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { useProduct } from "@/hooks/useProduct";
-import { NO_IMAGE } from "@/constants/NoImage";
 
 export default function AddItemPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  const [imageUrls, setImageUrls] = useState<string[]>([NO_IMAGE]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [user] = useAtom(userAtom);
