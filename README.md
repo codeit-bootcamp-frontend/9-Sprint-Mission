@@ -1,8 +1,27 @@
-# FE9 Weekly Mission
+# FE9 Sprint Mission
 
 ## 소개
 
-이 프로젝트는 Next.js를 기반으로 만들어진 주간 미션 프로젝트입니다. 최신 웹 개발 기술 스택을 활용하여 구축되었습니다.
+이 프로젝트는 Next.js Page Router 기반의 커뮤니티 및 중고마켓 플랫폼입니다. 사용자들은 게시글을 작성하고, 상품을 등록하며, 댓글과 좋아요 기능을 통해 상호작용할 수 있습니다.
+
+## 주요 기능
+
+### 커뮤니티
+
+- 게시글 CRUD
+- 댓글 시스템
+- 좋아요 기능
+- 베스트 게시글
+- 실시간 검색
+- 정렬 기능 (최신순/인기순)
+
+### 중고마켓
+
+- 상품 등록/수정/삭제
+- 상품 문의
+- 찜하기 기능
+- 베스트 상품
+- 검색 및 정렬
 
 ## 기술 스택
 
@@ -40,42 +59,7 @@
 
 ## 프로젝트 설정
 
-### TailwindCSS 설정
-
-`tailwind.config.ts`에서 다음과 같이 설정되어 있습니다:
-
-- Page Router의 모든 페이지 파일 포함
-- 커스텀 색상 (background, foreground)
-- Pretendard 폰트 패밀리 설정
-- 커스텀 spacing 값 (70px)
-
-### Next.js 설정
-
-`next.config.mjs`의 주요 설정:
-
-- 이미지 최적화: 모든 외부 도메인의 이미지 허용
-- SVG 파일 처리를 위한 @svgr/webpack 설정
-- Node.js 모듈 (fs, path, os) fallback 설정
-
-### TypeScript 설정
-
-`tsconfig.json`의 주요 설정:
-
-- 엄격한 타입 검사 활성화
-- 절대 경로 설정 (@/_ -> ./src/_)
-- Next.js 플러그인 지원
-- 커스텀 타입 정의 지원
-
-### 미들웨어 설정
-
-인증 및 라우팅 보호를 위한 미들웨어 구현:
-
-- 공개 페이지: /, /login, /signup
-- 이미지 프록시 처리
-- API 라우트 보호
-- 인증 상태에 따른 리다이렉션
-
-## 시작하기
+### 환경 설정
 
 1. 의존성 설치:
 
@@ -89,24 +73,85 @@ npm install
 npm run dev
 ```
 
-3. 브라우저에서 확인:
-   [http://localhost:3000](http://localhost:3000)
-
-## 사용 가능한 스크립트
+3. 프로덕션 빌드:
 
 ```bash
-npm run dev    # 개발 서버 실행
-npm run build  # 프로덕션 빌드
-npm run start  # 프로덕션 서버 실행
-npm run lint   # 린트 검사
-npm run clean  # 빌드 폴더 정리
+npm run build
 ```
 
-## 더 알아보기
+4. 프로덕션 서버 실행:
+
+```bash
+npm run start
+```
+
+### 주요 설정 파일
+
+#### TailwindCSS (tailwind.config.ts)
+
+- 커스텀 색상 및 스페이싱
+- Pretendard 폰트 설정
+- 반응형 디자인 지원
+
+#### Next.js (next.config.mjs)
+
+- 이미지 최적화 설정
+- SVG 파일 처리
+- Node.js 모듈 설정
+
+#### TypeScript (tsconfig.json)
+
+- 엄격한 타입 검사
+- 절대 경로 설정
+- Next.js 타입 지원
+
+### 미들웨어
+
+- 인증 보호
+- API 라우트 보호
+- 이미지 프록시 처리
+
+## 폴더 구조
+
+```
+src/
+├── components/
+│   ├── Layout/
+│   ├── UI/
+│   │   ├── community/
+│   │   ├── item/
+│   │   └── comment/
+├── hooks/
+├── pages/
+├── store/
+├── types/
+└── utils/
+```
+
+## 개발 가이드
+
+### 컴포넌트 작성
+
+- 재사용 가능한 UI 컴포넌트는 `components/UI` 폴더에 위치
+- 레이아웃 관련 컴포넌트는 `components/Layout` 폴더에 위치
+- Props 타입은 명시적으로 정의
+
+### 상태 관리
+
+- 전역 상태는 Jotai 사용
+- 서버 상태는 React Query 사용
+- 폼 상태는 React Hook Form 사용
+
+### 스타일링
+
+- TailwindCSS 클래스 사용
+- 반응형 디자인 적용
+- tailwind-merge로 클래스 충돌 방지
+
+### 참고 문서
 
 - [Next.js 문서](https://nextjs.org/docs)
 - [React 문서](https://reactjs.org/)
-- [TypeScript 문서](https://www.typescriptlang.org/)
 - [TailwindCSS 문서](https://tailwindcss.com/)
 
 ## 배포
