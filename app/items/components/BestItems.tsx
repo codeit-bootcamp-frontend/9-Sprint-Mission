@@ -37,7 +37,11 @@ const BestItems = () => {
     initialData: [],
     enabled: pageSize > 0,
   });
- 
+
+  if (isError) {
+    return <div className="text-center font-bold text-xl">상품 조회 실패</div>;
+  }
+
   return (
     <section>
       <h2 className="font-bold text-xl">베스트 상품</h2>
@@ -46,9 +50,7 @@ const BestItems = () => {
           <ItemContent itemList={bestItems} imgSize={343} kind="best" />
         </div>
       ) : (
-        <p className={`text-center font-bold text-xl ${isError ? "text-red" : ""}`}>
-          {isError ? "상품 조회 실패" : "베스트상품 목록을 가져오고 있습니다."}
-        </p>
+        <div className="text-center font-bold text-xl">베스트상품 목록을 가져오고 있습니다.</div>
       )}
     </section>
   );
