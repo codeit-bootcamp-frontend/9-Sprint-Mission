@@ -1,44 +1,11 @@
-import { useMutation, useQuery, useQueryClient, useInfiniteQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { Article, ArticleDetail, ArticleForm, ArticleListResponse } from "@/types/article";
+import { Article, ArticleDetail, ArticleListResponse } from "@/types/article";
+import { ArticleSchema } from "@/zod/articleSchema";
 import { ArticleSortOption } from "@/types/article";
 
 export const useArticle = () => {
   const queryClient = useQueryClient();
-
-  // 게시글 목록 조회 (무한 스크롤)
-  const useInfiniteArticles = ({
-    pageSize,
-    orderBy,
-    keyword,
-    enabled = true,
-  }: {
-    pageSize: number;
-    orderBy: ArticleSortOption;
-    keyword?: string;
-    enabled?: boolean;
-  }) => {
-    return useInfiniteQuery({
-      queryKey: ["infiniteArticles", { pageSize, orderBy, keyword }],
-      queryFn: async ({ pageParam = 1 }) => {
-        const params: Record<string, unknown> = {
-          page: pageParam,
-          pageSize,
-          orderBy,
-        };
-        if (keyword) params.keyword = keyword;
-        const response = await axios.get<ArticleListResponse>("/api/articles", { params });
-        return response.data;
-      },
-      initialPageParam: 1,
-      getNextPageParam: (lastPage, allPages) => {
-        const nextPage = allPages.length + 1;
-        const totalPages = Math.ceil(lastPage.totalCount / pageSize);
-        return nextPage <= totalPages ? nextPage : undefined;
-      },
-      enabled,
-    });
-  };
 
   // 게시글 목록 조회 (페이지네이션)
   const useArticles = ({
@@ -46,13 +13,11 @@ export const useArticle = () => {
     pageSize,
     orderBy,
     keyword,
-    enabled = true,
   }: {
     page: number;
     pageSize: number;
     orderBy: ArticleSortOption;
     keyword?: string;
-    enabled?: boolean;
   }) => {
     return useQuery({
       queryKey: ["articles", { page, pageSize, orderBy, keyword }],
@@ -62,7 +27,6 @@ export const useArticle = () => {
         const response = await axios.get<ArticleListResponse>("/api/articles", { params });
         return response.data;
       },
-      enabled,
     });
   };
 
@@ -80,9 +44,9 @@ export const useArticle = () => {
 
   // 게시글 등록
   const addArticleMutation = useMutation({
-    mutationFn: async (articleForm: ArticleForm) => {
+    mutationFn: async (articleForm: ArticleSchema) => {
       if (!articleForm.image) articleForm.image = "";
-      const response = await axios.post<{ article: Article; message: string }>("/api/articles/addArticle", articleForm);
+      const response = await axios.post<{ article: Article; message: string }>("/api/articles", articleForm);
       return response.data;
     },
     onSuccess: () => {
@@ -92,8 +56,8 @@ export const useArticle = () => {
 
   // 게시글 수정
   const updateArticleMutation = useMutation({
-    mutationFn: async ({ articleId, articleForm }: { articleId: number; articleForm: ArticleForm }) => {
-      const response = await axios.put(`/api/articles/${articleId}`, articleForm);
+    mutationFn: async ({ articleId, articleForm }: { articleId: number; articleForm: ArticleSchema }) => {
+      const response = await axios.patch(`/api/articles/${articleId}`, articleForm);
       return response.data;
     },
     onSuccess: (_, variables) => {
@@ -116,9 +80,7 @@ export const useArticle = () => {
   // 게시글 좋아요
   const addLikeMutation = useMutation({
     mutationFn: async (articleId: number) => {
-      const { data } = await axios.post("/api/articles/addArticleLike", {
-        articleId,
-      });
+      const { data } = await axios.post(`/api/articles/${articleId}/like`);
       return data;
     },
     onSuccess: (_, articleId) => {
@@ -133,9 +95,7 @@ export const useArticle = () => {
   // 게시글 좋아요 취소
   const removeLikeMutation = useMutation({
     mutationFn: async (articleId: number) => {
-      const response = await axios.delete("/api/articles/removeArticleLike", {
-        data: { articleId },
-      });
+      const response = await axios.delete(`/api/articles/${articleId}/like`);
       return response.data;
     },
     onSuccess: (_, articleId) => {
@@ -150,7 +110,6 @@ export const useArticle = () => {
   return {
     // 쿼리 훅
     useArticles,
-    useInfiniteArticles,
     useArticleDetail,
 
     // 뮤테이션 함수들

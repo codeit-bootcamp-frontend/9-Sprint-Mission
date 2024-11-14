@@ -2,31 +2,57 @@ import apiClient from "@/lib/apiClient";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "GET") {
-    return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
+  // GET 요청 처리 (게시글 목록 조회)
+  if (req.method === "GET") {
+    try {
+      const { page = 1, pageSize = 10, orderBy = "recent" } = req.query;
+      const limit = Number(pageSize);
+
+      const params: Record<string, unknown> = {
+        orderBy,
+        pageSize: limit,
+      };
+
+      if (page) {
+        params.page = Number(page);
+      }
+
+      console.log("API Request Params:", params);
+      const response = await apiClient.get(`/articles`, { params });
+      return res.status(200).json(response.data);
+    } catch (error) {
+      console.error("게시글 목록 조회 실패:", error);
+      return res.status(500).json({ message: "게시글 목록 조회 실패" });
+    }
   }
 
-  try {
-    const { page = 1, pageSize = 10, orderBy = "recent" } = req.query;
+  // POST 요청 처리 (게시글 추가)
+  if (req.method === "POST") {
+    const { title, content, image } = req.body;
+    const { accessToken } = req.cookies;
 
-    // orderBy에 따른 pageSize 처리
-    const limit = Number(pageSize);
-
-    const params: Record<string, unknown> = {
-      orderBy,
-      pageSize: limit,
-    };
-
-    if (page) {
-      params.page = Number(page);
+    if (!accessToken) {
+      return res.status(401).json({ message: "로그인이 필요합니다." });
     }
 
-    console.log("API Request Params:", params);
-    const response = await apiClient.get(`/articles`, { params });
-
-    return res.status(200).json(response.data);
-  } catch (error) {
-    console.error("게시글 목록 조회 실패:", error);
-    return res.status(500).json({ message: "게시글 목록 조회 실패" });
+    try {
+      const response = await apiClient.post(
+        "/articles",
+        { title, content, image },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return res.status(200).json({ message: "게시글 등록 성공", article: response.data });
+    } catch (error) {
+      console.error("게시글 등록 실패:", error);
+      return res.status(500).json({ message: "게시글 등록 실패" });
+    }
   }
+
+  // 허용되지 않은 메서드 처리
+  res.setHeader("Allow", ["GET", "POST"]);
+  return res.status(405).json({ message: `Method ${req.method} Not Allowed` });
 }

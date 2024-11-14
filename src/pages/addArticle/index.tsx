@@ -4,15 +4,16 @@ import { useRouter } from "next/router";
 import InputItem from "@/components/UI/InputItem";
 import ImageUpload from "@/components/UI/ImageUpload";
 import AlertModal from "@/components/UI/modal/AlertModal";
-import { ArticleForm } from "@/types/article";
+import { ArticleSchema } from "@/zod/articleSchema";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { useArticle } from "@/hooks/useArticle";
+import { NO_IMAGE } from "@/constants/NoImage";
 
 const AddArticlePage = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string>(NO_IMAGE);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [user] = useAtom(userAtom);
@@ -30,7 +31,7 @@ const AddArticlePage = () => {
       return;
     }
 
-    const articleForm: ArticleForm = {
+    const articleForm: ArticleSchema = {
       title,
       content,
       image: imageUrl,

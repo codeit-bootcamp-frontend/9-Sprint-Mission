@@ -25,8 +25,12 @@ function runMiddleware(
   });
 }
 
-// 허용되지 않는 도메인 목록
-const ALLOWED_DOMAINS = ["sprint-fe-project.s3.ap-northeast-2.amazonaws.com"];
+// 허용되는 도메인 목록
+const ALLOWED_DOMAINS = [
+  "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
+  "panda-market-api.vercel.app",
+  "localhost",
+];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {

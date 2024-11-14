@@ -1,9 +1,7 @@
 // src/components/UI/community/AllArticlesSection.tsx
-import React, { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import React, { useState } from "react";
 import { useArticle } from "@/hooks/useArticle";
 import PaginationBar from "@/components/UI/PaginationBar";
-import useViewport from "@/hooks/useViewport";
 import { Article } from "@/types/article";
 import Link from "next/link";
 import Image from "next/image";
@@ -14,41 +12,19 @@ import { ArticleSortOption } from "@/types/article";
 import { Heart } from "lucide-react";
 
 const AllArticlesSection = () => {
-  const { ref, inView } = useInView();
-  const width = useViewport();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [sortOption, setSortOption] = useState<ArticleSortOption>("recent");
   const PAGE_SIZE = 10;
 
-  const isMobile = width < 768;
-  const { useArticles, useInfiniteArticles } = useArticle();
+  const { useArticles } = useArticle();
 
-  const {
-    data: infiniteData,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useInfiniteArticles({
-    pageSize: PAGE_SIZE,
-    orderBy: sortOption,
-    keyword: searchKeyword,
-    enabled: isMobile,
-  });
-
-  const { data: paginatedData, isLoading } = useArticles({
+  const { data, isLoading } = useArticles({
     page: currentPage,
     pageSize: PAGE_SIZE,
     orderBy: sortOption,
     keyword: searchKeyword,
-    enabled: !isMobile,
   });
-
-  useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage && isMobile) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, isFetchingNextPage, isMobile, fetchNextPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -89,46 +65,36 @@ const AllArticlesSection = () => {
         ) : (
           <>
             <div className="space-y-4">
-              {(isMobile ? infiniteData?.pages.flatMap((page) => page.list) : paginatedData?.list)?.map(
-                (article: Article) => (
-                  <div
-                    key={article.id}
-                    className="flex items-start gap-4 p-4 border-b last:border-b-0 hover:bg-gray-50"
-                  >
-                    <div className="flex-1">
-                      <Link href={`/community/${article.id}`} className="block">
-                        <h3 className="font-medium mb-2 hover:text-blue-500">{article.title}</h3>
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
-                          <span>{article.writer?.nickname || "알 수 없음"}</span>
-                          <span>{new Date(article.createdAt).toLocaleDateString()}</span>
-                        </div>
-                      </Link>
-                    </div>
-                    <div className="flex flex-col items-end gap-2">
-                      {article.image && (
-                        <div className="w-20 h-20 relative">
-                          <Image src={article.image} alt="Article thumbnail" fill className="object-cover rounded" />
-                        </div>
-                      )}
-                      <div className="flex items-center gap-1 text-gray-500 text-sm">
-                        <Heart className="w-4 h-4" />
-                        <span>{article.likeCount || 0}</span>
+              {data?.list?.map((article: Article) => (
+                <div key={article.id} className="flex items-start gap-4 p-4 border-b last:border-b-0 hover:bg-gray-50">
+                  <div className="flex-1">
+                    <Link href={`/community/${article.id}`} className="block">
+                      <h3 className="font-medium mb-2 hover:text-blue-500">{article.title}</h3>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span>{article.writer?.nickname || "알 수 없음"}</span>
+                        <span>{new Date(article.createdAt).toLocaleDateString()}</span>
                       </div>
+                    </Link>
+                  </div>
+                  <div className="flex flex-col items-end gap-2">
+                    {article.image && (
+                      <div className="w-20 h-20 relative">
+                        <Image src={article.image} alt="Article thumbnail" fill className="object-cover rounded" />
+                      </div>
+                    )}
+                    <div className="flex items-center gap-1 text-gray-500 text-sm">
+                      <Heart className="w-4 h-4" />
+                      <span>{article.likeCount || 0}</span>
                     </div>
                   </div>
-                )
-              )}
-              {isMobile && (
-                <div ref={ref} className="h-10">
-                  {isFetchingNextPage && <LoadingSpinner isLoading={true} />}
                 </div>
-              )}
+              ))}
             </div>
 
-            {!isMobile && paginatedData && (
+            {data && (
               <div className="mt-8">
                 <PaginationBar
-                  totalPageNum={Math.ceil(paginatedData.totalCount / PAGE_SIZE)}
+                  totalPageNum={Math.ceil(data.totalCount / PAGE_SIZE)}
                   activePageNum={currentPage}
                   onPageChange={handlePageChange}
                 />

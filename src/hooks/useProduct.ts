@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
-import { Product, ProductDetail, ProductForm, ProductListResponse } from "@/types/product";
+import { Product, ProductDetail, ProductListResponse } from "@/types/product";
+import { ProductSchema } from "@/zod/productSchema";
 import { ProductSortOption } from "@/constants/ProductSortOption";
 
 export const useProduct = () => {
@@ -39,7 +40,7 @@ export const useProduct = () => {
     return useQuery({
       queryKey: ["product", productId],
       queryFn: async () => {
-        const response = await axios.get<ProductDetail>(`/api/products/${productId}`);
+        const response = await axios.get(`/api/products/${productId}`);
         return response.data;
       },
       enabled: !!productId,
@@ -48,9 +49,8 @@ export const useProduct = () => {
 
   // 상품 등록
   const addProductMutation = useMutation({
-    mutationFn: async (productForm: ProductForm) => {
-      if (!productForm.images[0]) productForm.images[0] = "";
-      const response = await axios.post<{ product: Product; message: string }>("/api/products/addProduct", productForm);
+    mutationFn: async (productForm: ProductSchema) => {
+      const response = await axios.post<{ product: Product; message: string }>("/api/products", productForm);
       return response.data;
     },
     onSuccess: () => {
@@ -60,7 +60,7 @@ export const useProduct = () => {
 
   // 상품 수정
   const updateProductMutation = useMutation({
-    mutationFn: async ({ productId, productForm }: { productId: number; productForm: ProductForm }) => {
+    mutationFn: async ({ productId, productForm }: { productId: number; productForm: ProductSchema }) => {
       const response = await axios.put(`/api/products/${productId}`, productForm);
       return response.data;
     },
@@ -84,7 +84,7 @@ export const useProduct = () => {
   // 상품 좋아요
   const addFavoriteMutation = useMutation({
     mutationFn: async (productId: number) => {
-      const response = await axios.post("/api/products/addProductFavorite", {
+      const response = await axios.post(`/api/products/${productId}/favorite`, {
         productId,
       });
       return response.data;
@@ -97,7 +97,7 @@ export const useProduct = () => {
   // 상품 좋아요 취소
   const removeFavoriteMutation = useMutation({
     mutationFn: async (productId: number) => {
-      const response = await axios.delete("/api/products/removeProductFavorite", {
+      const response = await axios.delete(`/api/products/${productId}/favorite`, {
         data: { productId },
       });
       return response.data;

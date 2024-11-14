@@ -5,17 +5,18 @@ import InputItem from "@/components/UI/InputItem";
 import TagInput from "@/components/UI/TagInput";
 import ImageUpload from "@/components/UI/ImageUpload";
 import AlertModal from "@/components/UI/modal/AlertModal";
-import { ProductForm } from "@/types/product";
+import { ProductSchema } from "@/zod/productSchema";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 import { useProduct } from "@/hooks/useProduct";
+import { NO_IMAGE } from "@/constants/NoImage";
 
 export default function AddItemPage() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([NO_IMAGE]);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [user] = useAtom(userAtom);
@@ -50,14 +51,12 @@ export default function AddItemPage() {
       return;
     }
 
-    const finalImageUrls = imageUrls.length === 0 ? ["/images/ui/no-image.png"] : imageUrls;
-
-    const itemForm: ProductForm = {
+    const itemForm: ProductSchema = {
       name,
       description,
       price: numericPrice,
       tags,
-      images: finalImageUrls,
+      images: imageUrls,
     };
 
     try {
