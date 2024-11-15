@@ -12,7 +12,7 @@ interface PostList {
   id: number;
 }
 
-interface Post {
+export interface Post {
   totalCount: number;
   list: PostList[];
 }

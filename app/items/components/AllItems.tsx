@@ -1,3 +1,5 @@
+"use client";
+
 import ItemSearch from "./ItemSearch";
 import Image from "next/image";
 import SelectMenu from "@/components/ui/SelectMenu";

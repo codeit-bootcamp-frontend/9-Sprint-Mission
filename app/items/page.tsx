@@ -1,5 +1,3 @@
-"use client";
-
 import BestItems from "./components/BestItems";
 import AllItems from "./components/AllItems";
 

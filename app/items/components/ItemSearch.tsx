@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { ItemType } from "../types/Items";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { searchSchema } from "../zodSchema/ItemsSchema";
+import { searchSchema } from "@/components/zodSchema/SearchSchema";
 import { z } from "zod";
 import { instance } from "@/lib/axios";
 import axios from "axios";

@@ -1,48 +1,38 @@
 "use client";
 
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
-import { instance } from "@/lib/axios";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { HiArrowPath } from "react-icons/hi2";
-
-const getBestPost = async (pageSize: number) => {
-  if (pageSize === 0) return [];
-
-  try {
-    const response = await instance.get(`/articles?pageSize=${pageSize}&orderBy=like`);
-
-    if (response.status === 200) {
-      return response.data.list;
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("베스트 게시글 조회 실패", error.response?.data);
-      throw new Error(error.response?.data.message);
-    }
-  }
-
-  return [];
-};
+import { Post } from "../types/post";
+import { getBestPost } from "../actions/bestPost";
+import { toast } from "react-hot-toast";
+import { useCallback, useEffect, useState } from "react";
 
 const BestPostList = () => {
   const pageSize = useCalculateWidth("best");
-  const {
-    data: bestPost,
-    isPending,
-    isError,
-  } = useQuery<Post["list"], Error>({
-    queryKey: ["bestPost"],
-    queryFn: () => getBestPost(pageSize),
-    initialData: [],
-    enabled: pageSize > 0,
-  });
+  const [bestPost, setBestPost] = useState<Post["list"]>([]);
+  const [isPending, setIsPending] = useState(false);
 
-  if (isError) {
-    return <div className="text-center font-bold text-xl">게시글 조회 실패</div>;
-  }
+  const getPosts = useCallback(async () => {
+    try {
+      setIsPending(true);
+      const response = await getBestPost(pageSize);
+
+      if (response && response.list) {
+        setBestPost(response.list);
+      }
+    } catch (error) {
+      console.error("베스트 게시글 조회 실패", error);
+      toast.error("베스트 게시글 조회 실패");
+    } finally {
+      setIsPending(false);
+    }
+  }, [pageSize]);
+
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
 
   if (isPending) {
     return (

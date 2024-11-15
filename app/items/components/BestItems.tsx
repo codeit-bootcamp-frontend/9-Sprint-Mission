@@ -1,3 +1,5 @@
+"use client";
+
 import axios from "axios";
 import ItemContent from "./ItemContent";
 import { ItemType } from "../types/Items";

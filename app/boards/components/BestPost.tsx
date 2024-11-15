@@ -1,5 +1,6 @@
 import Link from "next/link";
 import BestPostList from "./BestPostList";
+import PostSearch from "./PostSearch";
 
 const BestPost = () => {
   return (
@@ -18,7 +19,7 @@ const BestPost = () => {
             글쓰기
           </Link>
         </div>
-        검색 폼
+        <PostSearch />
       </div>
     </>
   );
