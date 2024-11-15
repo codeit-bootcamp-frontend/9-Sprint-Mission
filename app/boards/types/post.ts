@@ -1,4 +1,4 @@
-interface PostList { 
+export interface PostList { 
   updatedAt: string;
   createdAt: string;
   likeCount: number;
@@ -12,7 +12,7 @@ interface PostList {
   id: number;
 }
 
-export interface Post {
+export interface PostType {
   totalCount: number;
   list: PostList[];
 }

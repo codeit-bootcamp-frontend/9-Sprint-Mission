@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const BackToListBtn = () => {
   const router = useRouter();
+
   return (
     <button
       onClick={() => router.back()}

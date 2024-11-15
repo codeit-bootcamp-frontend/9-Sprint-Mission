@@ -11,7 +11,7 @@ import { boardsAtom, boardsOrderByAtom } from "@/atom/boardsAtom";
 import { instance } from "@/lib/axios";
 import axios from "axios";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Post } from "../types/post";
+import { PostList, PostType } from "../types/post";
 
 const getAllPosts = async (pageSize: number, orderBy: string, page: number) => {
   if (pageSize === 0) return { list: [], totalCount: 0 };
@@ -48,7 +48,7 @@ const AllPostList = () => {
     data: allPosts,
     isPending,
     error,
-  } = useQuery<{ list: Post["list"]; totalCount: Post["totalCount"] }, Error>({
+  } = useQuery<{ list: PostType["list"]; totalCount: PostType["totalCount"] }, Error>({
     queryKey: ["allPosts", page, orderBy],
     queryFn: () => getAllPosts(pageSize, orderBy, page),
     initialData: { list: [], totalCount: 0 },
@@ -89,10 +89,10 @@ const AllPostList = () => {
 
   return (
     <>
-      {(searchRequest.length > 0 ? searchRequest : allPosts.list).map((post) => (
+      {(searchRequest.length > 0 ? searchRequest : allPosts.list).map((post: PostList) => (
         <Link
           key={post.id}
-          href={`/board/${post.id}`}
+          href={`/boards/${post.id}`}
           className="flex flex-col space-y-4 bg-[#FCFCFC] pb-6 border-b-[1px] border-panda-gray200"
         >
           <div className="flex items-center justify-between">

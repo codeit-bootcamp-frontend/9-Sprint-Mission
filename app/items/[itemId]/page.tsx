@@ -13,7 +13,7 @@ import { useObserver } from "@/hooks/useObserver";
 import { HiArrowPath } from "react-icons/hi2";
 import BackToListBtn from "@/components/ui/BackToListBtn";
 import ItemMenu from "@/components/ui/ItemMenu";
-import FavoriteCount from "./components/FavoriteCount";
+import FavoriteCount from "../../../components/ui/FavoriteCount";
 import { useEffect, useRef, useState } from "react";
 
 const getItem = async (productId: number) => {

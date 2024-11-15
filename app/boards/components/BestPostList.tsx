@@ -4,14 +4,14 @@ import { useCalculateWidth } from "@/hooks/useCalculateWidth";
 import Image from "next/image";
 import Link from "next/link";
 import { HiArrowPath } from "react-icons/hi2";
-import { Post } from "../types/post";
+import { PostType } from "../types/post";
 import { getBestPost } from "../actions/bestPost";
 import { toast } from "react-hot-toast";
 import { useCallback, useEffect, useState } from "react";
 
 const BestPostList = () => {
   const pageSize = useCalculateWidth("best");
-  const [bestPost, setBestPost] = useState<Post["list"]>([]);
+  const [bestPost, setBestPost] = useState<PostType["list"]>([]);
   const [isPending, setIsPending] = useState(false);
 
   const getPosts = useCallback(async () => {
