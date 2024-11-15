@@ -3,44 +3,72 @@
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
-import { Post } from "../types/post";
-import { allPost } from "../actions/allPost";
-import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 import { HiArrowPath } from "react-icons/hi2";
 import Pagination from "@/components/Pagination";
 import { useAtomValue } from "jotai";
-import { boardsOrderByAtom } from "@/atom/boardsAtom";
+import { boardsAtom, boardsOrderByAtom } from "@/atom/boardsAtom";
+import { instance } from "@/lib/axios";
+import axios from "axios";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { Post } from "../types/post";
+
+const getAllPosts = async (pageSize: number, orderBy: string, page: number) => {
+  if (pageSize === 0) return { list: [], totalCount: 0 };
+
+  try {
+    const response = await instance.get(
+      `/articles?pageSize=${pageSize}&orderBy=${orderBy}&page=${page}`
+    );
+
+    if (response.status === 200) {
+      const { list, totalCount } = response.data;
+      return { list, totalCount };
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("전체 게시글 조회 실패", error.response?.data);
+      throw new Error(error.response?.data.message);
+    }
+  }
+
+  return { list: [], totalCount: 0 };
+};
 
 const AllPostList = () => {
   const pageSize = useCalculateWidth("all");
+  const orderBy = useAtomValue(boardsOrderByAtom);
+  const searchRequest = useAtomValue(boardsAtom);
+  const isMobile = pageSize === 4;
+  const queryClient = useQueryClient();
+
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const orderBy = useAtomValue(boardsOrderByAtom);
-  const [allPosts, setAllPosts] = useState<Post["list"]>([]);
-  const [isPending, setIsPending] = useState(false);
-  const isMobile = pageSize === 4;
-
-  const getAllPosts = useCallback(async () => {
-    try {
-      setIsPending(true);
-      const response = await allPost(pageSize, orderBy, page);
-
-      if (response && response.list) {
-        setAllPosts(response.list);
-        setTotalPage(Math.ceil(response.totalCount / pageSize));
-      }
-    } catch (error) {
-      console.error("전체 게시글 조회 실패", error);
-      toast.error("전체 게시글 조회 실패");
-    } finally {
-      setIsPending(false);
-    }
-  }, [pageSize, orderBy, page]);
+  const {
+    data: allPosts,
+    isPending,
+    error,
+  } = useQuery<{ list: Post["list"]; totalCount: Post["totalCount"] }, Error>({
+    queryKey: ["allPosts", page, orderBy],
+    queryFn: () => getAllPosts(pageSize, orderBy, page),
+    initialData: { list: [], totalCount: 0 },
+    enabled: pageSize > 0,
+  });
 
   useEffect(() => {
-    getAllPosts();
-  }, [getAllPosts]);
+    if (pageSize > 0) {
+      queryClient.prefetchQuery({
+        queryKey: ["allPosts", page, orderBy],
+        queryFn: () => getAllPosts(pageSize, orderBy, page),
+      });
+    }
+  }, [queryClient, page, orderBy, pageSize]);
+
+  useEffect(() => {
+    if (allPosts) {
+      setTotalPage(Math.ceil(allPosts.totalCount / pageSize));
+    }
+  }, [allPosts, pageSize]);
 
   if (isPending) {
     return (
@@ -51,9 +79,17 @@ const AllPostList = () => {
     );
   }
 
+  if (error) {
+    return (
+      <div className="text-center font-bold text-xl flex items-center justify-center space-x-2">
+        {error.message}
+      </div>
+    );
+  }
+
   return (
     <>
-      {allPosts.map((post) => (
+      {(searchRequest.length > 0 ? searchRequest : allPosts.list).map((post) => (
         <Link
           key={post.id}
           href={`/board/${post.id}`}

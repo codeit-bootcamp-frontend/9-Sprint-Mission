@@ -1,3 +1,5 @@
+"use server";
+
 export const itemSearch = async (formData: FormData) => { 
   const keyword = formData.get("keyword");
   try {

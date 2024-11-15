@@ -44,7 +44,7 @@ const ItemSearch = ({ setSearchPost, setTotalPage, pageSize }: ItemSearchProps) 
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form action={itemSearch} onSubmit={handleSubmit(onSubmit)}>
       <div className="flex items-center justify-between relative">
         <div className="flex items-center space-x-3 bg-panda-gray100 px-5 py-3 rounded-xl w-[288px] md:w-[560px] lg:w-[1054px]">
           <Image src="/icons/search.png" alt="검색" width={15} height={15} />

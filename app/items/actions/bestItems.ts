@@ -1,3 +1,5 @@
+"use server";
+
 export const getBestItems = async (pageSize: number) => {
   if (pageSize === 0) return [];
 
@@ -8,6 +10,7 @@ export const getBestItems = async (pageSize: number) => {
         "Content-Type": "application/json",
       },
       cache: "force-cache",
+      next: { revalidate: 10 },
     });
 
     if (!response.ok) {

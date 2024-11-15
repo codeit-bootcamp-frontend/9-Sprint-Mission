@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { Dispatch, SetStateAction, useState } from "react";
-import toast from "react-hot-toast";
 
 interface IProps {
   totalPage: number;
@@ -20,7 +19,6 @@ const Pagination = ({ totalPage, page, setPage, isMobile }: IProps) => {
 
     if (nextPage > totalPage) {
       setPage(totalPage);
-      toast.error("마지막 페이지입니다.");
     } else {
       setPage(nextPage);
 
@@ -35,7 +33,6 @@ const Pagination = ({ totalPage, page, setPage, isMobile }: IProps) => {
 
     if (prevPage < 1) {
       setPage(1);
-      toast.error("첫 페이지입니다.");
     } else {
       setPage(prevPage);
 
@@ -63,7 +60,7 @@ const Pagination = ({ totalPage, page, setPage, isMobile }: IProps) => {
 
             return (
               <button
-                key={i}
+                key={pageNumber}
                 className={`pagination-number-round ${
                   page === pageNumber ? "bg-panda-theme text-white" : ""
                 }`}
