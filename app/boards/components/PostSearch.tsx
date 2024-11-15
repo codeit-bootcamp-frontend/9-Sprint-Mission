@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { searchPost } from "../actions/searchPost";
-import { boardsAtom } from "@/atom/boardsAtom";
+import { boardsAtom, boardsOrderByAtom } from "@/atom/boardsAtom";
 import { useSetAtom } from "jotai";
 import { toast } from "react-hot-toast";
 
@@ -22,6 +22,7 @@ const PostSearch = () => {
     },
   });
   const setBoards = useSetAtom(boardsAtom);
+  const setOrderBy = useSetAtom(boardsOrderByAtom);
 
   const onSubmit = async (values: z.infer<typeof searchSchema>) => {
     try {
@@ -63,7 +64,7 @@ const PostSearch = () => {
           <Image src="/icons/orderBtn.png" alt="검색" width={24} height={24} />
         </button>
       </form>
-      <select className="custom-select">
+      <select className="custom-select" onChange={(e) => setOrderBy(e.target.value)}>
         <option value="recent">최신순</option>
         <option value="like">좋아요순</option>
       </select>

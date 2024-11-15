@@ -2,7 +2,7 @@ import Link from "next/link";
 import BestPostList from "./BestPostList";
 import PostSearch from "./PostSearch";
 
-const BestPost = () => {
+const BestPostContainer = () => {
   return (
     <>
       <h2 className="text-lg font-bold">베스트 게시글</h2>
@@ -25,4 +25,4 @@ const BestPost = () => {
   );
 };
 
-export default BestPost;
+export default BestPostContainer;

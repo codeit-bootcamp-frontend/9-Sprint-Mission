@@ -1,9 +1,11 @@
-import BestPost from "./components/BestPost";
+import AllPostContainer from "./components/AllPostContainer";
+import BestPostContainer from "./components/BestPostContainer";
 
 const BoardsPage = () => {
   return (
     <>
-      <BestPost />
+      <BestPostContainer />
+      <AllPostContainer />
     </>
   );
 };
