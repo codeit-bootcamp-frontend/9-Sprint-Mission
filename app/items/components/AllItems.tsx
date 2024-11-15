@@ -5,74 +5,46 @@ import Image from "next/image";
 import SelectMenu from "@/components/ui/SelectMenu";
 import ItemContent from "./ItemContent";
 import Pagination from "@/components/Pagination";
-import axios from "axios";
 import Link from "next/link";
-import { ChangeEvent, useState, useEffect } from "react";
+import { ChangeEvent, useState, useEffect, useCallback } from "react";
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
-import { instance } from "@/lib/axios";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { ItemType } from "../types/Items";
 import { HiArrowPath } from "react-icons/hi2";
-
-const getAllItems = async (pageSize: number, orderBy: string, page: number) => {
-  if (pageSize === 0) return { list: [], totalCount: 0 };
-
-  try {
-    const response = await instance.get(
-      `/products?pageSize=${pageSize}&orderBy=${orderBy}&page=${page}`
-    );
-
-    if (response.status === 200) {
-      const { list, totalCount } = response.data;
-      return { list, totalCount };
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("전체 상품 조회 실패", error.response?.data);
-      throw new Error(error.response?.data.message);
-    }
-  }
-
-  return { list: [], totalCount: 0 };
-};
+import toast from "react-hot-toast";
+import { getAllItems } from "../actions/allItems";
 
 const AllItems = () => {
   const pageSize = useCalculateWidth("all");
   const isMobile = pageSize === 4;
-  const queryClient = useQueryClient();
 
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [orderBy, setOrderBy] = useState("recent");
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchPost, setSearchPost] = useState<ItemType["list"]>([]);
-  const {
-    data: allItems,
-    isPending,
-    error,
-  } = useQuery<{ list: ItemType["list"]; totalCount: ItemType["totalCount"] }, Error>({
-    queryKey: ["allItems", page, orderBy],
-    queryFn: () => getAllItems(pageSize, orderBy, page),
-    initialData: { list: [], totalCount: 0 },
-    enabled: pageSize > 0,
-  });
+  const [allItems, setAllItems] = useState<ItemType["list"]>([]);
+  const [isPending, setIsPending] = useState(false);
 
-  useEffect(() => {
-    if (pageSize > 0) {
-      queryClient.prefetchQuery({
-        queryKey: ["allItems", page, orderBy],
-        queryFn: () => getAllItems(pageSize, orderBy, page),
-      });
-    }
-  }, [queryClient, page, orderBy, pageSize]);
+  const getItems = useCallback(async () => {
+    try {
+      setIsPending(true);
+      const response = await getAllItems(pageSize, orderBy, page);
 
-  useEffect(() => {
-    if (allItems) {
-      if (pageSize > 0) {
-        setTotalPage(Math.ceil(allItems.totalCount / pageSize));
+      if (response && response.list) {
+        setAllItems(response.list);
+        setTotalPage(Math.ceil(response.totalCount / pageSize));
       }
+    } catch (error) {
+      console.error("전체 상품 조회 실패", error);
+      toast.error("전체 상품 조회 실패");
+    } finally {
+      setIsPending(false);
     }
-  }, [allItems, pageSize]);
+  }, [pageSize, orderBy, page]);
+
+  useEffect(() => {
+    getItems();
+  }, [getItems]);
 
   const handleOpenMenu = () => {
     setMenuOpen((prev) => !prev);
@@ -126,21 +98,17 @@ const AllItems = () => {
           </div>
         </div>
       </div>
-      {isPending ? (
-        <p className={`text-center font-bold text-xl ${error ? "text-red" : ""}`}>
-          {error ? error?.message : "전체 상품 목록을 가져오고 있습니다."}
-        </p>
-      ) : (
+      
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {allItems && (
             <ItemContent
-              itemList={searchPost.length > 0 ? searchPost : allItems.list}
+              itemList={searchPost.length > 0 ? searchPost : allItems}
               imgSize={168}
               kind="all"
             />
           )}
         </div>
-      )}
+    
       <Pagination page={page} totalPage={totalPage} setPage={setPage} isMobile={isMobile} />
     </div>
   );

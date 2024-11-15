@@ -5,9 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { searchSchema } from "@/components/zodSchema/SearchSchema";
 import { z } from "zod";
-import { instance } from "@/lib/axios";
-import axios from "axios";
 import toast from "react-hot-toast";
+import { itemSearch } from "../actions/itemSearch";
 
 interface ItemSearchProps {
   setSearchPost: Dispatch<SetStateAction<ItemType["list"]>>;
@@ -27,19 +26,20 @@ const ItemSearch = ({ setSearchPost, setTotalPage, pageSize }: ItemSearchProps) 
     },
   });
 
-  const onSubmit = async(values: z.infer<typeof searchSchema>) => {
+  const onSubmit = async (values: z.infer<typeof searchSchema>) => {
     try {
-      const response = await instance.get(`/products?keyword=${values.userSearch}`);
+      const formData = new FormData();
+      formData.append("keyword", values.userSearch || "");
 
-      if (response.status === 200) {
-        setSearchPost(response.data.list);
-        setTotalPage(Math.ceil(response.data.totalCount / pageSize));
+      const response = await itemSearch(formData);
+
+      if (response) {
+        setSearchPost(response.list);
+        setTotalPage(Math.ceil(response.totalCount / pageSize));
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("검색 상품 조회 실패", error.response?.data);
-        toast.error(error.response?.data.message);
-      }
+      console.error("상품 조회 실패", error);
+      toast.error("상품 조회 실패");
     }
   };
 

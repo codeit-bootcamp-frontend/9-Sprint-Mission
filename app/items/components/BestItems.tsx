@@ -1,59 +1,53 @@
 "use client";
 
-import axios from "axios";
 import ItemContent from "./ItemContent";
 import { ItemType } from "../types/Items";
-import { useQuery } from "@tanstack/react-query";
-import { instance } from "@/lib/axios";
 import { useCalculateWidth } from "@/hooks/useCalculateWidth";
-
-const getBestItems = async (pageSize: number) => {
-  if (pageSize === 0) return [];
-
-  try {
-    const response = await instance.get(`/products?pageSize=${pageSize}&orderBy=favorite`);
-
-    if (response.status === 200) {
-      return response.data.list;
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("베스트 상품 조회 실패", error.response?.data);
-      throw new Error(error.response?.data.message);
-    }
-  }
-
-  return [];
-};
+import { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { getBestItems } from "../actions/bestItems";
+import { HiArrowPath } from "react-icons/hi2";
 
 const BestItems = () => {
   const pageSize = useCalculateWidth("best");
+  const [bestItems, setBestItems] = useState<ItemType["list"]>([]);
+  const [isPending, setIsPending] = useState(false);
 
-  const {
-    data: bestItems,
-    isPending,
-    isError,
-  } = useQuery<ItemType["list"], Error>({
-    queryKey: ["bestItems"],
-    queryFn: () => getBestItems(pageSize),
-    initialData: [],
-    enabled: pageSize > 0,
-  });
+  const getItems = useCallback(async () => {
+    try {
+      setIsPending(true);
+      const response = await getBestItems(pageSize);
 
-  if (isError) {
-    return <div className="text-center font-bold text-xl">상품 조회 실패</div>;
+      if (response && response.list) {
+        setBestItems(response.list);
+      }
+    } catch (error) {
+      console.error("베스트 상품 조회 실패", error);
+      toast.error("베스트 상품 조회 실패");
+    } finally {
+      setIsPending(false);
+    }
+  }, [pageSize]);
+
+  useEffect(() => {
+    getItems();
+  }, [getItems]);
+
+  if (isPending) {
+    return (
+      <div className="text-center font-bold text-xl flex items-center justify-center space-x-2">
+        <HiArrowPath className="animate-spin" />
+        베스트상품 목록을 가져오고 있습니다.
+      </div>
+    );
   }
 
   return (
     <section>
       <h2 className="font-bold text-xl">베스트 상품</h2>
-      {!isPending ? (
-        <div className="pt-6 grid grid-cols-1 space-y-4 md:grid-cols-2 md:space-x-4 md:space-y-0 lg:grid-cols-3">
-          <ItemContent itemList={bestItems} imgSize={343} kind="best" />
-        </div>
-      ) : (
-        <div className="text-center font-bold text-xl">베스트상품 목록을 가져오고 있습니다.</div>
-      )}
+      <div className="pt-6 grid grid-cols-1 space-y-4 md:grid-cols-2 md:space-x-4 md:space-y-0 lg:grid-cols-3">
+        <ItemContent itemList={bestItems} imgSize={343} kind="best" />
+      </div>
     </section>
   );
 };
