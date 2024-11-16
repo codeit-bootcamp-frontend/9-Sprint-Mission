@@ -6,6 +6,7 @@
 - React 19.0.0-rc
 - Next.js 15.0.2
 - Tailwind CSS 3.4.1
+- TanStack Query 5.19.0
 - axios 1.7.7
 - react-hook-form 7.53.2
 - zod 3.23.8
