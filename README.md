@@ -16,7 +16,7 @@
 - js-cookie 2.2.1
 - framer-motion 11.11.11
 
-### 배포 웹사이트: https://codeit-nextjs-mission.netlify.app/
+### 배포 웹사이트: https://codeit-nextjs-mission.vercel.app/
 
 ### 기본
 

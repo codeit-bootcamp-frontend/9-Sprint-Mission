@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   description: "일상의 모든 물건을 거래해보세요",
   icons: { icon: "/icons/logo.png", shortcut: "/icons/logo.png" },
-  metadataBase: new URL("https://codeit-nextjs-mission.netlify.app/"),
+  metadataBase: new URL("https://codeit-nextjs-mission.vercel.app/"),
   openGraph: {
     title: {
       template: "%s | 판다마켓",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     },
     description: "일상의 모든 물건을 거래해보세요",
     images: "/icons/logo.png",
-    url: "https://codeit-nextjs-mission.netlify.app/",
+    url: "https://codeit-nextjs-mission.vercel.app/",
   },
 };
 
