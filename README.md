@@ -16,7 +16,7 @@
 - js-cookie 2.2.1
 - framer-motion 11.11.11
 
-### 배포 웹사이트: 배포문제 해결 후 추가
+### 배포 웹사이트: https://codeit-nextjs-mission.netlify.app/
 
 ### 기본
 

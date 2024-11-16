@@ -45,7 +45,7 @@ const BestPostList = () => {
 
   return bestPost.map((post) => (
     <Link
-      href={`/board/${post.id}`}
+      href={`/boards/${post.id}`}
       key={post.id}
       className="flex flex-col space-y-4 bg-panda-gray50 px-6 pb-4 rounded-lg"
     >
