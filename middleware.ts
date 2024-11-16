@@ -7,7 +7,7 @@ export const middleware = (request: NextRequest) => {
     const accessToken = request.cookies.get("accessToken");
 
     if (!accessToken) {
-      return NextResponse.redirect("http://localhost:3000/signin");
+      return NextResponse.redirect("https://codeit-nextjs-mission.vercel.app/signin");
     }
   }
 
