@@ -1,4 +1,4 @@
-import NavBar from "@/components/navbar/NavBar";
+import NavBar from "@/components/nav/NavBar";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
