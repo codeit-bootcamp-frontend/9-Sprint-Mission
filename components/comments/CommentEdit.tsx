@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { commentSchema } from "../../zodSchema/commentSchema";
+import { commentSchema } from "../../app/items/zodSchema/commentSchema";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCommentEdit } from "@/hooks/useCommentEdit";

@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 스프린트 미션 12 
 
-## Getting Started
+## 요구사항
 
-First, run the development server:
+- Javascript
+- React 19.0.0-rc
+- Next.js 15.0.2
+- Tailwind CSS 3.4.1
+- axios 1.7.7
+- react-hook-form 7.53.2
+- zod 3.23.8
+- react-hot-toast 2.4.1
+- typescript 5
+- Jotai 2.10.1
+- js-cookie 2.2.1
+- framer-motion 11.11.11
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 배포 웹사이트: 배포문제 해결 후 추가
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 기본
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- [x] ‘상품 등록하기’ 버튼을 누르면 “/additem” 로 이동합니다.
+- [x] 각 상품 클릭 시 상품 상세 페이지로 이동합니다.
+- [x] 상품 상세 페이지 주소는 “/items/{productId}” 입니다.
+- [x] 내가 등록한 상품일 경우 상품 수정, 삭제가 가능합니다.
+- [x] 문의하기 input창에 값을 입력 후 ‘등록’ 버튼을 누르면 댓글이 등록됩니다.
+- [x] 내가 등록한 댓글은 수정, 삭제가 가능합니다.  
+- [x] 이미지를 제외하고 input 에 모든 값을 입력하면  ‘등록' 버튼이 활성화 됩니다.
+- [x] 활성화된 ‘등록' 버튼을 누르면 상품 등록이 완료됩니다.
+- [x] 등록이 완료되면 해당 상품 상세 페이지로 이동합니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 심화
 
-## Learn More
+- [x] api 요청에 TanStack React Query를 활용해 주세요.
 
-To learn more about Next.js, take a look at the following resources:
+### 변경사항
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 스프린트 미션 11에서의 개선사항을 반영하였습니다.
+- js-cookie를 사용하여 로그인 상태를 유지하였습니다.
+- 로그인이 필요한 POST, PATCH, DELETE 요청 시 토큰이 만료되어 있을 때 axios의 인터셉터를 통해 토큰을 재발급 받아 요청을 보내도록 했습니다.
+- useQuery를 사용해서 클라이언트에서 GET 요청을 보내는 대신, server action을 사용하여 서버에서 데이터를 가져오도록 했습니다.
+- server action을 사용할 때 fetch 메서드를 적용하여 next.js의 캐싱 기능을 사용했습니다.
+- 사용자와의 상호작용이 필요한 GET 요청에서는 클라이언트단에서 tanstack query를 사용하였습니다.
+- 미들웨어를 사용해서 로그인이 필요한 페이지에 접근할 때 로그인 상태를 확인하도록 했습니다.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 스크린샷
 
-## Deploy on Vercel
+|                            중고마켓 페이지 (데스크탑)                    |                       개별 상품 페이지 (데스크탑)                        |
+| :--------------------------------------------------------------------: | :-------------------------------------------------------------------:  |
+|   <img src="/public/images/itemPage.png" width="400" height="400">     | <img src="/public/images/itemDetail.png" width="400" height="400">     |       
+|                            아이템 등록 페이지 (데스크탑)                 |
+|   <img src="/public/images/addItem.png" width="400" height="400">      |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 멘토에게
+
+- 감사합니다.
+- 아직 추상화, server actions 전환 작업, 게시글 수정 및 삭제 작업이 덜 되어 있는 컴포넌트가 있습니다. 올려놓고 진행해보겠습니다.

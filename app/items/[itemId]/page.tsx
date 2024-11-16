@@ -7,14 +7,15 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { instance } from "@/lib/axios";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Comments from "./components/Comments";
-import CommentForm from "./components/CommentForm";
+import Comments from "../../../components/comments/Comments";
+import CommentForm from "../../../components/comments/CommentForm";
 import { useObserver } from "@/hooks/useObserver";
 import { HiArrowPath } from "react-icons/hi2";
 import BackToListBtn from "@/components/ui/BackToListBtn";
 import ItemMenu from "@/components/ui/ItemMenu";
 import FavoriteCount from "../../../components/ui/FavoriteCount";
 import { useEffect, useRef, useState } from "react";
+import { FetchComment } from "@/components/FetchComment";
 
 const getItem = async (productId: number) => {
   if (!productId) return null;
@@ -35,28 +36,6 @@ const getItem = async (productId: number) => {
   return null;
 };
 
-const getComments = async (productId: number, cursor: number) => {
-  if (!productId) return { list: [], nextCursor: null };
-
-  try {
-    const response = await instance.get(
-      `/products/${productId}/comments?limit=10&cursor=${cursor}`
-    );
-
-    if (response.status === 200) {
-      const { list, nextCursor } = response.data;
-      return { list, nextCursor };
-    }
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.error("현재 상품 댓글 조회 실패", error.response?.data);
-      toast.error(error.response?.data.message);
-    }
-  }
-
-  return { list: [], nextCursor: null };
-};
-
 const ItemDetail = () => {
   const { itemId } = useParams();
   const id = Number(itemId);
@@ -71,8 +50,8 @@ const ItemDetail = () => {
   });
   const { data: commentsData, fetchNextPage } = useInfiniteQuery<CommentType, Error>({
     queryKey: ["comments", itemId],
-    queryFn: ({ pageParam = null }) => getComments(id, Number(pageParam)),
-    initialPageParam: null,
+    queryFn: ({ pageParam = 0 }) => FetchComment(id, Number(pageParam), "item"),
+    initialPageParam: 0,
     getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
     enabled: !!id,
   });
@@ -108,7 +87,7 @@ const ItemDetail = () => {
         상품 데이터를 불러오는 중입니다
       </p>
     );
-  
+
   if (isError)
     return (
       <p className="text-center font-bold text-xl mt-20">
@@ -135,7 +114,9 @@ const ItemDetail = () => {
                   <button onClick={() => setOpenMenuId(openMenuId === id ? null : id)}>
                     <Image src="/icons/itemMenu.png" alt="메뉴" width={24} height={24} />
                   </button>
-                  {openMenuId === id && <ItemMenu menu1="수정하기" menu2="삭제하기" id={id} location="item" />}
+                  {openMenuId === id && (
+                    <ItemMenu menu1="수정하기" menu2="삭제하기" id={id} location="item" />
+                  )}
                 </div>
               </div>
               <h3 className="font-semibold text-2xl">
@@ -170,14 +151,18 @@ const ItemDetail = () => {
           </div>
           <div className="flex items-center space-x-4">
             <div className="w-[1px] bg-panda-gray200 h-8" />
-            <FavoriteCount productId={id} favoriteCount={itemData?.favoriteCount} />
+            <FavoriteCount
+              id={id}
+              favoriteCount={itemData?.favoriteCount}
+              location="item"
+            />
           </div>
         </div>
       </div>
       <div className="flex flex-col space-y-10">
-        <CommentForm itemId={id} />
+        <CommentForm id={id} title="문의하기" location="item" />
       </div>
-      {commentsData?.pages && commentsData?.pages.length > 0 ? (
+      {commentsData?.pages && commentsData?.pages.some((page) => page.list.length > 0) ? (
         <>
           <div className="flex flex-col space-y-10">
             <Comments commentsData={commentsData.pages.flatMap((page) => page.list)} />

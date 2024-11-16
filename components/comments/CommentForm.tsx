@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { commentSchema } from "../../zodSchema/commentSchema";
+import { commentSchema } from "../../app/items/zodSchema/commentSchema";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useComment } from "@/hooks/useComment";
@@ -8,10 +8,12 @@ import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface CommentFormProps {
-  itemId: number;
+  id: number;
+  title: string;
+  location: string;
 }
 
-const CommentForm = ({ itemId }: CommentFormProps) => {
+const CommentForm = ({ id, title, location }: CommentFormProps) => {
   const queryClient = useQueryClient();
   const {
     register,
@@ -25,7 +27,7 @@ const CommentForm = ({ itemId }: CommentFormProps) => {
       comment: "",
     },
   });
-  const { mutate: commentMutation } = useComment(itemId);
+  const { mutate: commentMutation } = useComment(id, location);
 
   const onSubmit = async (data: z.infer<typeof commentSchema>) => {
     try {
@@ -37,7 +39,7 @@ const CommentForm = ({ itemId }: CommentFormProps) => {
           onSuccess: (response) => {
             if (response.status === 201) {
               reset();
-              queryClient.invalidateQueries({ queryKey: ["comments", String(itemId)] });
+              queryClient.invalidateQueries({ queryKey: ["comments", String(id)] });
             }
           },
         }
@@ -52,7 +54,7 @@ const CommentForm = ({ itemId }: CommentFormProps) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
-      <h2 className="font-semibold">문의하기</h2>
+      <h2 className="font-semibold">{title}</h2>
       <textarea
         {...register("comment")}
         rows={5}

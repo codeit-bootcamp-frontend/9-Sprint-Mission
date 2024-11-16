@@ -5,14 +5,16 @@ import { Dispatch, SetStateAction } from "react";
 import toast from "react-hot-toast";
 
 interface FavoriteCountProps {
-  productId: number;
+  id: number;
   setNewFavoriteCount: Dispatch<SetStateAction<number>>;
+  location: string;
 }
 
-export const useFavoriteCount = ({ productId, setNewFavoriteCount }: FavoriteCountProps) => {
+export const useFavoriteCount = ({ id, setNewFavoriteCount, location }: FavoriteCountProps) => {
+  const requestUrl = location === "board" ? `/articles/${id}/like` : `/products/${id}/favorite`;
   const favoriteMutation = useMutation({
     mutationKey: ["favoriteCount"],
-    mutationFn: () => instance.post(`/products/${productId}/favorite`),
+    mutationFn: () => instance.post(requestUrl),
     onMutate: () => {
       setNewFavoriteCount((prev) => prev + 1);
     },

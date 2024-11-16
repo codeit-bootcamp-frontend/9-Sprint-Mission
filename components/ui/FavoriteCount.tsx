@@ -5,14 +5,16 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const FavoriteCount = ({
-  productId,
+  id,
   favoriteCount,
+  location,
 }: {
-  productId: number;
+  id: number;
   favoriteCount: number;
+  location: string;
 }) => {
   const [newFavoriteCount, setNewFavoriteCount] = useState(favoriteCount);
-  const { mutate: favoriteMutation } = useFavoriteCount({ productId, setNewFavoriteCount });
+  const { mutate: favoriteMutation } = useFavoriteCount({ id, setNewFavoriteCount, location });
   const { getAccessToken } = useToken();
 
   const handleFavorite = () => {

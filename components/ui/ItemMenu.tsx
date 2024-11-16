@@ -1,4 +1,4 @@
-import CommentDelete from "@/app/items/[itemId]/components/CommentDelete";
+import CommentDelete from "@/components/comments/CommentDelete";
 import { CommentDeleteAtom, CommentEditAtom } from "@/atom/itemAtom";
 import { motion } from "framer-motion";
 import { useAtom, useSetAtom } from "jotai";

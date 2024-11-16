@@ -1,4 +1,3 @@
-
 import { commentSchema } from "@/app/items/zodSchema/commentSchema";
 import { instance } from "@/lib/axios";
 import { useMutation } from "@tanstack/react-query";
@@ -6,11 +5,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-export const useComment = (itemId: number) => {
+export const useComment = (id: number, location: string) => {
+  const requestUrl = location === "item" ? `/products/${id}/comments` : `/articles/${id}/comments`;
+
   const commentMutation = useMutation({
     mutationKey: ["comment"],
     mutationFn: (values: z.infer<typeof commentSchema>) => {
-      return instance.post(`/products/${itemId}/comments`, {
+      return instance.post(requestUrl, {
         content: values.comment,
       });
     },
