@@ -1,58 +1,57 @@
 "use client";
 
-import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { addItemSchema } from "./addItemConstants";
+import { addItemSchema } from "./zodSchema/addItemSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { instance } from "@/lib/axios";
-import { useState } from "react";
-import { imgUpload } from "@/lib/utils";
-import useToken from "@/hooks/useToken";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import { useImageUpload } from "@/hooks/useImageUpload";
+import { useAddItem } from "@/hooks/useAddItem";
 
-interface INewTag {
-  tag: string | number;
+export interface INewTag {
+  tag: string;
 }
 
-// 제작중 (태그 수정 필요 - 현재 삭제와 제출 시 태그가 string으로 바뀌는 문제가 있음)
 const AddItem = () => {
-  const context = useToken();
   const router = useRouter();
 
   const [imgError, setImgError] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
   const [tagInput, setTagInput] = useState("");
+  const [currentImg, setCurrentImg] = useState<File | null>(null);
   const {
     register,
-    reset,
     handleSubmit,
+    reset,
     setValue,
     getValues,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors, isValid },
   } = useForm<z.infer<typeof addItemSchema>>({
     resolver: zodResolver(addItemSchema),
-    mode: "all",
+    mode: "onChange",
     defaultValues: {
-      itemImg: null,
+      itemImg: "",
       itemName: "",
       itemDescription: "",
       itemPrice: "",
       itemTag: [],
     },
   });
+  const { mutate: imageUploadMutation } = useImageUpload();
+  const { mutate: addItemMutation, isPending: isAddItemPending } = useAddItem();
+  const img = getValues("itemImg");
+  const tags = watch("itemTag");
 
-  const formValues = watch();
-
-  const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeImg = (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
 
     if (files && files.length === 1) {
       const file = files[0];
-
       const imgCheck = file.size < 5 * 1024 * 1024;
 
       if (!imgCheck) {
@@ -61,18 +60,16 @@ const AddItem = () => {
       }
 
       setImgError("");
-
       e.target.value = "";
 
       const imagePreview = new FileReader();
-
       imagePreview.onloadend = () => {
         if (imagePreview.result && typeof imagePreview.result === "string") {
           setValue("itemImg", imagePreview.result);
           setPreviewSrc(imagePreview.result);
+          setCurrentImg(file);
         }
       };
-
       imagePreview.readAsDataURL(file);
     }
   };
@@ -82,14 +79,12 @@ const AddItem = () => {
     setValue("itemImg", null);
   };
 
-  const handleChangeTag = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeTag = (e: ChangeEvent<HTMLInputElement>) => {
     const newTag = e.target.value;
     setTagInput(newTag);
   };
 
-  const img = getValues("itemImg");
-
-  const handleTagKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleTagKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tagInput.trim() !== "") {
       e.preventDefault();
 
@@ -97,65 +92,21 @@ const AddItem = () => {
         tag: tagInput.trim(),
       };
 
-      if (formValues.itemTag?.some((tag) => tag.tag === newTag.tag)) {
+      if (tags?.some((tag) => tag.tag === newTag.tag)) {
         setTagInput("");
         return;
       }
 
-      const newValues = [...(formValues.itemTag || []), newTag];
+      const newValues = [...(tags || []), newTag];
 
       setValue("itemTag", newValues);
       setTagInput("");
     }
   };
 
-  const handleDeleteTag = (clickTag: string | number) => {
-    setValue(
-      "itemTag",
-      formValues.itemTag?.filter((tag) => tag.tag !== clickTag)
-    );
-  };
-
-  const onSubmit = async (values: z.infer<typeof addItemSchema>) => {
-    try {
-      context?.checkTokenExpire();
-
-      let currentImgSrc: string | undefined;
-
-      if (typeof context?.accessToken === "string") {
-        currentImgSrc = await imgUpload(getValues, "items", context?.accessToken);
-      }
-
-      const currentTags = getValues("itemTag");
-
-      const response = await instance.post(
-        "/products",
-        {
-          images: [currentImgSrc],
-          name: values.itemName,
-          description: values.itemDescription,
-          price: values.itemPrice,
-          tags: currentTags?.map((tag) => ({ tag })),
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${context?.accessToken}`,
-          },
-        }
-      );
-
-      if (response.status === 200) {
-        const data = response.data;
-        reset();
-        router.push(`/items/${data.id}`);
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("additem POST API 요청에서 오류 발생", error);
-        toast.error(error.response?.data.message);
-      }
-    }
+  const handleDeleteTag = (clickTag: string) => {
+    const updatedTags = tags?.filter((tag) => tag.tag !== clickTag);
+    setValue("itemTag", updatedTags);
   };
 
   const inputArr = [
@@ -185,12 +136,58 @@ const AddItem = () => {
     },
   ];
 
+  const onSubmit = async (data: z.infer<typeof addItemSchema>) => {
+    try {
+      let currentImgSrc: string | undefined;
+
+      if (currentImg) {
+        const formData = new FormData();
+        formData.append("image", currentImg);
+
+        imageUploadMutation(currentImg, {
+          onSuccess: (imageUrl) => {
+            currentImgSrc = imageUrl.data.url;
+
+            if (typeof currentImgSrc === "string") {
+              addItemMutation(
+                {
+                  itemImg: currentImgSrc,
+                  itemName: data.itemName,
+                  itemDescription: data.itemDescription,
+                  itemPrice: data.itemPrice,
+                  itemTag: data.itemTag,
+                },
+                {
+                  onSuccess: (response) => {
+                    if (response.status === 201) {
+                      reset();
+                      router.push(`/item/${response.data.id}`);
+                    }
+                  },
+                }
+              );
+            }
+          },
+        });
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("제품 등록 실패", error.response?.data);
+        toast.error(error.response?.data.message);
+      }
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="font-bold text-xl">상품 등록하기</h2>
-        <button type="submit" className="custom-submit-button">
-          {isSubmitting ? "등록중" : "등록"}
+        <button
+          type="submit"
+          className="custom-submit-button"
+          disabled={!isValid || isAddItemPending}
+        >
+          {isAddItemPending ? "등록중" : "등록"}
         </button>
       </div>
       <div className="flex flex-col space-y-6">
@@ -199,10 +196,10 @@ const AddItem = () => {
           <div className="flex items-center space-x-4">
             <label
               htmlFor="itemImg"
-              className="flex flex-col space-y-3 items-center justify-center w-[168px] h-[168px] bg-[--color-gray100] rounded-xl lg:w-[282px] lg:h-[282px] cursor-pointer"
+              className="flex flex-col space-y-3 items-center justify-center w-[168px] h-[168px] bg-panda-gray100 rounded-xl lg:w-[282px] lg:h-[282px] cursor-pointer"
             >
               <Image src="/icons/plus.png" alt="이미지 추가" width={48} height={48} />
-              <span className="text-[--color-gray400] ml-0">이미지 등록</span>
+              <span className="text-panda-gray400 ml-0">이미지 등록</span>
             </label>
             <input
               {...register("itemImg")}
@@ -233,31 +230,31 @@ const AddItem = () => {
           {imgError !== "" && <p className="error-text-start">{imgError}</p>}
           {errors.itemImg && <span className="error-text-start">{errors.itemImg.message}</span>}
         </div>
-        {inputArr.map((arr) => (
-          <div key={arr.id} className="flex flex-col space-y-4">
-            <label htmlFor={arr.id} className="text-lg font-bold">
-              {arr.label}
+        {inputArr.map((item) => (
+          <div key={item.id} className="flex flex-col space-y-4">
+            <label htmlFor={item.id} className="text-lg font-bold">
+              {item.label}
             </label>
-            {!arr.isTextarea ? (
+            {!item.isTextarea ? (
               <input
-                {...arr.register}
-                type={arr.type}
-                id={arr.id}
-                name={arr.id}
-                className="bg-[--color-gray100] px-6 py-4 rounded-xl"
-                placeholder={arr.placeHolder}
+                {...item.register}
+                type={item.type}
+                id={item.id}
+                name={item.id}
+                className="bg-panda-gray100 px-6 py-4 rounded-xl"
+                placeholder={item.placeHolder}
               />
             ) : (
               <textarea
-                {...arr.register}
+                {...item.register}
                 rows={8}
-                id={arr.id}
-                name={arr.id}
-                placeholder={arr.placeHolder}
-                className="bg-[--color-gray100] px-6 py-4 rounded-xl resize-none"
+                id={item.id}
+                name={item.id}
+                placeholder={item.placeHolder}
+                className="bg-panda-gray100 px-6 py-4 rounded-xl resize-none"
               />
             )}
-            {arr.error && <span className="error-text-start">{arr.error}</span>}
+            {item.error && <span className="error-text-start">{item.error}</span>}
           </div>
         ))}
         <div className="flex flex-col space-y-4">
@@ -266,21 +263,20 @@ const AddItem = () => {
           </label>
           <div className="flex flex-col space-y-3">
             <input
-              {...register("itemTag")}
               onChange={handleChangeTag}
               onKeyDown={handleTagKeyDown}
               type="text"
               id="itemTag"
               name="itemTag"
               value={tagInput}
-              className="bg-[--color-gray100] px-6 py-4 rounded-xl"
+              className="bg-panda-gray100 px-6 py-4 rounded-xl"
               placeholder="태그를 입력해주세요"
             />
             <ul className="flex items-center space-x-3 flex-wrap gap-y-3">
-              {formValues.itemTag?.map((tag) => (
+              {tags?.map((tag) => (
                 <li
                   key={tag.tag}
-                  className="px-3 py-[6px] bg-[--color-gray100] rounded-full flex items-center space-x-[10px]"
+                  className="px-3 py-[6px] bg-panda-gray100 rounded-full flex items-center space-x-[10px]"
                 >
                   <span>{tag.tag}</span>
                   <button

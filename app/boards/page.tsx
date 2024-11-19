@@ -1,9 +1,13 @@
-"use client";
+import AllPostContainer from "./components/AllPostContainer";
+import BestPostContainer from "./components/BestPostContainer";
 
-import BestPost from "@/components/boards/BestPost";
-
-const Boards = () => {
-  return <BestPost />;
+const BoardsPage = () => {
+  return (
+    <>
+      <BestPostContainer />
+      <AllPostContainer />
+    </>
+  );
 };
 
-export default Boards;
+export default BoardsPage;

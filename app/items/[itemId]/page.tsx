@@ -1,99 +1,137 @@
 "use client";
 
-import BackToListBtn from "@/components/BackToListBtn";
-import CommentsContents from "@/components/CommentsContents";
-import ItemCommentForm from "@/components/items/ItemCommentForm";
-import { instance } from "@/lib/axios";
-import { IComment } from "@/types/boardsTypeShare";
-import axios from "axios";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { CommentType, ItemListType } from "../types/Items";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { instance } from "@/lib/axios";
+import axios from "axios";
 import toast from "react-hot-toast";
+import Comments from "../../../components/comments/Comments";
+import CommentForm from "../../../components/comments/CommentForm";
+import { useObserver } from "@/hooks/useObserver";
+import { HiArrowPath } from "react-icons/hi2";
+import BackToListBtn from "@/components/ui/BackToListBtn";
+import ItemMenu from "@/components/ui/ItemMenu";
+import FavoriteCount from "../../../components/ui/FavoriteCount";
+import { useEffect, useRef, useState } from "react";
+import { FetchComment } from "@/components/FetchComment";
 
-interface IItem {
-  images: string;
-  name: string;
-  price: number;
-  description: string;
-  tags: string[];
-  ownerNickname: string;
-  createdAt: string;
-  favoriteCount: number;
-}
+const getItem = async (productId: number) => {
+  if (!productId) return null;
+
+  try {
+    const response = await instance.get(`/products/${productId}`);
+
+    if (response.status === 200) {
+      return response.data || null;
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("현재 상품 조회 실패", error.response?.data);
+      toast.error(error.response?.data.message);
+    }
+  }
+
+  return null;
+};
 
 const ItemDetail = () => {
   const { itemId } = useParams();
   const id = Number(itemId);
+  const {
+    data: itemData,
+    isPending,
+    isError,
+  } = useQuery<ItemListType, Error>({
+    queryKey: ["item", itemId],
+    queryFn: () => getItem(id),
+    enabled: !!id,
+  });
+  const { data: commentsData, fetchNextPage } = useInfiniteQuery<CommentType, Error>({
+    queryKey: ["comments", itemId],
+    queryFn: ({ pageParam = 0 }) => FetchComment(id, Number(pageParam), "item"),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    enabled: !!id,
+  });
 
-  const [item, setItem] = useState<IItem>();
-  const [itemComments, setItemComments] = useState<IComment[]>([]);
-
-  const getItem = useCallback(async () => {
-    try {
-      const response = await instance.get(`/products/${itemId}`);
-
-      if (response.status === 200) {
-        setItem(response.data);
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("중고마켓 getItem에서 api 오류 발생", error);
-        toast.error(error.response?.data.message);
-      }
+  const fetchMoreComments = () => {
+    if (commentsData?.pages[commentsData.pages.length - 1].nextCursor) {
+      fetchNextPage();
     }
-  }, [itemId]);
+  };
 
-  const getItemComments = useCallback(async () => {
-    try {
-      const response = await instance.get(`/products/${itemId}/comments?limit=10`);
+  const setTarget = useObserver(fetchMoreComments);
+  const [openMenuId, setOpenMenuId] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-      if (response.status === 200) {
-        setItemComments(response.data.list);
-      }
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("중고마켓 getItemComments에서 api 오류 발생", error);
-        toast.error(error.response?.data.message);
-      }
+  const handleClickOutside = (e: MouseEvent) => {
+    if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      setOpenMenuId(null);
     }
-  }, [itemId]);
+  };
 
   useEffect(() => {
-    getItem();
-    getItemComments();
-  }, [getItem, getItemComments]);
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  if (isPending)
+    return (
+      <p className="flex items-center justify-center space-x-2 font-bold text-xl mt-20">
+        <HiArrowPath className="animate-spin" />
+        상품 데이터를 불러오는 중입니다
+      </p>
+    );
+
+  if (isError)
+    return (
+      <p className="text-center font-bold text-xl mt-20">
+        상품 데이터를 불러오는 중 오류가 발생했습니다.
+      </p>
+    );
 
   return (
     <div className="flex flex-col space-y-6">
-      <div className="flex flex-col space-y-10 border-b border-[--color-gray200] pb-6">
+      <div className="flex flex-col space-y-10 border-b border-panda-gray200 pb-6">
         <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
           <Image
-            src={item?.images ? item.images[0] : "/icons/question.png"}
+            src={itemData?.images ? itemData.images[0] : "/icons/question.png"}
             alt="제품 사진"
             width={343}
             height={343}
             className="object-cover w-full rounded-xl md:w-[340px] md:h-[340px]"
           />
           <div className="flex flex-col space-y-4 w-full">
-            <div className="border-b border-[--color-gray200] pb-4">
+            <div className="border-b border-panda-gray200 pb-4">
               <div className="flex items-center justify-between">
-                <h2 className="font-semibold">{item?.name}</h2>
-                <button>
-                  <Image src="/icons/itemMenu.png" alt="메뉴" width={24} height={24} />
-                </button>
+                <h2 className="font-semibold">{itemData?.name}</h2>
+                <div ref={containerRef} className="relative">
+                  <button onClick={() => setOpenMenuId(openMenuId === id ? null : id)}>
+                    <Image src="/icons/itemMenu.png" alt="메뉴" width={24} height={24} />
+                  </button>
+                  {openMenuId === id && (
+                    <ItemMenu menu1="수정하기" menu2="삭제하기" id={id} location="item" />
+                  )}
+                </div>
               </div>
-              <h3 className="font-semibold text-2xl">{item?.price.toLocaleString("ko-KR")}원</h3>
+              <h3 className="font-semibold text-2xl">
+                {itemData?.price.toLocaleString("ko-KR")}원
+              </h3>
             </div>
             <div className="flex flex-col space-y-6">
               <h2 className="font-semibold text-sm">상품 소개</h2>
-              <p>{item?.description}</p>
+              <p>{itemData?.description}</p>
             </div>
             <div className="flex flex-col space-y-2">
               <h2 className="font-semibold text-sm">상품 태그</h2>
               <div className="flex items-center gap-2 flex-wrap">
-                {item?.tags.map((tag) => (
-                  <span key={tag} className="px-4 py-[6px] bg-[--color-gray100] rounded-full">
+                {itemData?.tags.map((tag, i) => (
+                  <span key={i} className="px-4 py-[6px] bg-panda-gray100 rounded-full">
                     {tag}
                   </span>
                 ))}
@@ -105,38 +143,36 @@ const ItemDetail = () => {
           <div className="flex items-center space-x-4">
             <Image src="/icons/sessionBtn.png" alt="프로필 사진" width={40} height={40} />
             <div className="flex flex-col space-y-[2px]">
-              <h4 className="text-sm font-medium">{item?.ownerNickname}</h4>
-              <span className="text-sm text-[--color-gray400]">
-                {item?.createdAt.split("T")[0]}
+              <h4 className="text-sm font-medium">{itemData?.ownerNickname}</h4>
+              <span className="text-sm text-panda-gray400">
+                {itemData?.createdAt.split("T")[0]}
               </span>
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <div className="w-[1px] bg-[--color-gray200] h-8" />
-            <button className="flex items-center space-x-1 px-3 py-1 rounded-full border border-[--color-gray200]">
-              <Image
-                src="/icons/ic_heart.svg"
-                alt="좋아요"
-                width={24}
-                height={24}
-                className="md:w-8 md:h-8"
-              />
-              <span className="font-medium text-[--color-gray500]">{item?.favoriteCount}</span>
-            </button>
+            <div className="w-[1px] bg-panda-gray200 h-8" />
+            <FavoriteCount
+              id={id}
+              favoriteCount={itemData?.favoriteCount}
+              location="item"
+            />
           </div>
         </div>
       </div>
       <div className="flex flex-col space-y-10">
-        <ItemCommentForm itemId={id} setItemComments={setItemComments} />
+        <CommentForm id={id} title="문의하기" location="item" />
       </div>
-      {itemComments.length > 0 ? (
-        <div className="flex flex-col space-y-10">
-          <CommentsContents comments={itemComments} />
-        </div>
+      {commentsData?.pages && commentsData?.pages.some((page) => page.list.length > 0) ? (
+        <>
+          <div className="flex flex-col space-y-10">
+            <Comments commentsData={commentsData.pages.flatMap((page) => page.list)} />
+          </div>
+          <div ref={setTarget} className="h-1" />
+        </>
       ) : (
         <div className="flex flex-col space-y-4 w-[151px] m-auto">
           <Image src="/images/commentEmpty.png" alt="댓글 없음" width={140} height={140} />
-          <span className="break-keep text-center text-[--color-gray400]">아직 문의가 없어요</span>
+          <span className="break-keep text-center text-panda-gray400">아직 문의가 없어요</span>
         </div>
       )}
       <BackToListBtn />

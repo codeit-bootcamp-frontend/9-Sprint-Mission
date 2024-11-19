@@ -1,7 +1,5 @@
-"use client"
-
-import AllItems from "@/components/items/AllItems";
-import BestItems from "@/components/items/BestItems";
+import BestItems from "./components/BestItems";
+import AllItems from "./components/AllItems";
 
 const Items = () => {
   return (
@@ -9,7 +7,7 @@ const Items = () => {
       <BestItems />
       <AllItems />
     </>
-  )
-}
+  );
+};
 
 export default Items;

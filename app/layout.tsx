@@ -1,25 +1,26 @@
+import NavBar from "@/components/nav/NavBar";
 import type { Metadata } from "next";
-import { TokenProvider } from "@/context/token";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import QueryProvider from "@/components/QueryProvider";
 
 export const metadata: Metadata = {
   title: {
     template: "%s | 판다마켓",
-    default: "판다마켓"
+    default: "판다마켓",
   },
   description: "일상의 모든 물건을 거래해보세요",
-  icons: { icon: "/icon.png", shortcut: "/icon.png" },
-  metadataBase: new URL("https://codeit-nextjs-mission.netlify.app/"),
+  icons: { icon: "/icons/logo.png", shortcut: "/icons/logo.png" },
+  metadataBase: new URL("https://codeit-nextjs-mission.vercel.app/"),
   openGraph: {
     title: {
       template: "%s | 판다마켓",
-      default: "판다마켓"
+      default: "판다마켓",
     },
     description: "일상의 모든 물건을 거래해보세요",
-    images: "/icon.png",
-    url: "https://codeit-nextjs-mission.netlify.app/"
-  }
+    images: "/icons/logo.png",
+    url: "https://codeit-nextjs-mission.vercel.app/",
+  },
 };
 
 export default function RootLayout({
@@ -29,14 +30,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <TokenProvider>
-        <body
-          className="min-h-screen font-pretendard text-[--color-gray800]"
-        >
+      <body className="text-panda-gray800">
+        <QueryProvider>
+          <NavBar />
           {children}
-          <Toaster toastOptions={{ success: {style: { fontSize: "16px" }}, error: {style: { fontSize: "16px" }} }} />
-        </body>
-      </TokenProvider>
+          <Toaster
+            toastOptions={{
+              success: { style: { fontSize: "14px" } },
+              error: { style: { fontSize: "14px" } },
+            }}
+          />
+        </QueryProvider>
+      </body>
     </html>
   );
 }

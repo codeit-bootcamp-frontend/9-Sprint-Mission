@@ -1,18 +1,17 @@
-import Footer from "@/components/footer/Footer";
-import ImgWrapperBottom from "@/components/home/ImgWrapperBottom";
-import ImgWrapperUpper from "@/components/home/ImgWrapperUpper";
-import MainContents from "@/components/home/MainContents";
-import NavBar from "@/components/navBar/NavBar";
+import Footer from "./components/Footer";
+import ImgBottom from "./components/ImgBottom";
+import ImgUpper from "./components/ImgUpper";
+import MainContents from "./components/MainContents";
 
 const Home = () => {
   return (
-    <NavBar>
-      <ImgWrapperUpper />
+    <>
+      <ImgUpper />  
       <MainContents />
-      <ImgWrapperBottom />
+      <ImgBottom />
       <Footer />
-    </NavBar>
+    </>
   );
-}
+};
 
 export default Home;
