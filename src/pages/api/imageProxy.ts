@@ -5,144 +5,144 @@ import sharp from "sharp";
 import Cors from "cors";
 
 // CORS 미들웨어 초기화
-// 해당 API는 외부에서 호출될 수 있으므로, CORS 설정을 통해 허용할 HTTP 메서드를 제한함
 const cors = Cors({
   methods: ["GET", "HEAD"],
 });
 
-// CORS 미들웨어를 실행하는 함수
-// runMiddleware 함수는 기존 미들웨어 함수를 프로미스로 변환하여 비동기적으로 처리할 수 있도록 함
-// fn 함수는 NextApiRequest, NextApiResponse와 콜백을 인자로 받음
+// CORS 미들웨어 실행 함수
 function runMiddleware(
   req: NextApiRequest,
   res: NextApiResponse,
-  fn: (
-    req: NextApiRequest,
-    res: NextApiResponse,
-    callback: (result?: Error) => void
-  ) => void
+  fn: (req: NextApiRequest, res: NextApiResponse, callback: (result?: Error) => void) => void
 ): Promise<void> {
   return new Promise((resolve, reject) => {
-    // fn 미들웨어 함수 실행 후 콜백을 통해 결과 처리
     fn(req, res, (result?: Error) => {
       if (result instanceof Error) {
-        // 만약 에러가 발생하면 해당 에러를 reject로 전달
         return reject(result);
       }
-      // 에러가 없다면 프로미스 성공 처리
       return resolve();
     });
   });
 }
 
-// 실제 API 요청을 처리하는 메인 핸들러 함수
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  // API 요청에 대해 CORS 미들웨어 실행
-  await runMiddleware(req, res, cors);
+// 허용되는 도메인 목록
+const ALLOWED_DOMAINS = [
+  "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
+  "panda-market-api.vercel.app",
+  "localhost",
+];
 
-  // 쿼리 파라미터로부터 이미지 URL과 크기(너비, 높이)를 가져옴
-  const { url, width, height } = req.query;
-
-  // 이미지 URL이 제공되지 않은 경우 에러 반환
-  if (typeof url !== "string") {
-    return res.status(400).json({ error: "이미지 URL이 필요합니다." });
-  }
-
-  // 너비와 높이를 정수로 파싱
-  const parsedWidth = width ? parseInt(width as string, 10) : undefined;
-  const parsedHeight = height ? parseInt(height as string, 10) : undefined;
-
-  // 너비 값이 유효하지 않은 경우 에러 반환
-  if (parsedWidth !== undefined && isNaN(parsedWidth)) {
-    return res.status(400).json({ error: "유효한 너비 값이 필요합니다." });
-  }
-  // 높이 값이 유효하지 않은 경우 에러 반환
-  if (parsedHeight !== undefined && isNaN(parsedHeight)) {
-    return res.status(400).json({ error: "유효한 높이 값이 필요합니다." });
-  }
-
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
-    // 이미지 URL을 인코딩하여 Axios로 요청
-    const encodedUrl = encodeURI(url);
-    const response = await axios.get(encodedUrl, {
-      responseType: "arraybuffer", // 이미지 데이터를 이진 데이터로 받음
-      timeout: 5000, // 5초 타임아웃 설정
-      validateStatus: function (status) {
-        // 200번대 응답만 유효한 상태로 처리
-        return status >= 200 && status < 300;
-      },
-    });
+    // CORS 미들웨어 실행
+    await runMiddleware(req, res, cors);
 
-    // 콘텐츠 타입을 가져옴
-    const contentType = response.headers["content-type"];
-
-    // 유효하지 않은 이미지 형식인 경우 에러 반환
-    if (
-      !contentType ||
-      (!contentType.startsWith("image/") &&
-        contentType !== "image/svg+xml" &&
-        contentType !== "application/octet-stream")
-    ) {
-      return res
-        .status(400)
-        .json({ error: "유효하지 않은 이미지 형식입니다." });
+    if (req.method !== "GET") {
+      return res.status(405).json({ error: "GET 메서드만 허용됩니다." });
     }
 
-    // 이미지를 저장할 변수
-    let responseData = response.data;
+    const { url: encodedUrl, w, q } = req.query;
 
-    // SVG 이미지일 경우 너비와 높이 값이 지정되어 있으면 SVG 태그 내부의 width, height 속성을 수정함
-    if (
-      contentType === "image/svg+xml" &&
-      parsedWidth !== undefined &&
-      parsedHeight !== undefined
-    ) {
-      // SVG 파일을 문자열로 변환하여 태그 수정
-      const svgString = responseData.toString("utf-8");
-      const updatedSvgString = svgString.replace(
-        /<svg([\s\S]*?)>/,
-        `<svg$1 width="${parsedWidth}" height="${parsedHeight}" preserveAspectRatio="xMidYMid meet">`
-      );
-      // 수정된 SVG 문자열을 다시 버퍼로 변환
-      responseData = Buffer.from(updatedSvgString, "utf-8");
+    if (typeof encodedUrl !== "string") {
+      return res.status(400).json({ error: "이미지 URL이 필요합니다." });
     }
-    // SVG 외의 이미지일 경우 sharp 라이브러리를 사용하여 크기 조정
-    else if (parsedWidth !== undefined || parsedHeight !== undefined) {
+
+    // URL 디코딩 및 검증
+    const url = decodeURIComponent(encodedUrl);
+    let parsedUrl: URL;
+
+    try {
+      parsedUrl = new URL(url);
+      if (!ALLOWED_DOMAINS.includes(parsedUrl.hostname)) {
+        console.error("허용되지 않는 도메인:", parsedUrl.hostname);
+        return res.status(400).json({
+          error: "허용되지 않는 도메인입니다.",
+          hostname: parsedUrl.hostname,
+        });
+      }
+    } catch (error) {
+      console.error("URL 파싱 에러:", error);
+      return res.status(400).json({ error: "유효하지 않은 URL 형식입니다." });
+    }
+
+    const width = w ? parseInt(w as string, 10) : undefined;
+    const quality = q ? parseInt(q as string, 10) : undefined;
+
+    try {
+      const response = await axios.get(url, {
+        responseType: "arraybuffer",
+        timeout: 5000,
+        headers: {
+          Accept: "image/*",
+        },
+      });
+
+      const contentType = response.headers["content-type"];
+
+      // Content-Type 검증 로직 수정
+      const isValidImageType = contentType?.startsWith("image/") || contentType === "application/octet-stream";
+
+      if (!isValidImageType) {
+        console.error("유효하지 않은 Content-Type:", contentType);
+        return res.status(400).json({
+          error: "유효하지 않은 이미지 형식입니다.",
+          contentType,
+        });
+      }
+
+      let imageBuffer = response.data;
+
+      // sharp를 사용하여 이미지 유효성 검증 및 처리
       try {
-        // sharp 라이브러리를 사용하여 이미지의 크기를 조정하고 버퍼로 변환
-        responseData = await sharp(responseData)
-          .resize(parsedWidth, parsedHeight)
-          .toBuffer();
-      } catch (err) {
-        console.error("sharp 에러:", err);
-        throw err;
-      }
-    }
+        const sharpInstance = sharp(imageBuffer);
 
-    // 캐시 제어 헤더 설정 (s-maxage: 24시간, stale-while-revalidate 적용)
-    res.setHeader("Cache-Control", "s-maxage=86400, stale-while-revalidate");
-    // 콘텐츠 타입 설정
-    res.setHeader("Content-Type", contentType);
-    // 최종적으로 이미지 데이터를 응답으로 전송
-    res.send(responseData);
-  } catch (error) {
-    console.error("이미지 로드 에러:", error);
-    if (axios.isAxiosError(error)) {
-      // 만약 요청한 이미지가 없으면 404 에러 반환
-      if (error.response?.status === 404) {
-        return res.status(404).json({ error: "이미지를 찾을 수 없습니다." });
+        if (width) {
+          sharpInstance.resize({
+            width,
+            withoutEnlargement: true,
+            fit: "contain",
+          });
+        }
+
+        if (quality) {
+          sharpInstance.jpeg({ quality });
+        }
+
+        imageBuffer = await sharpInstance.toBuffer();
+
+        // 이미지가 성공적으로 처리되면 JPEG로 응답
+        res.setHeader("Content-Type", "image/jpeg");
+        res.setHeader("Cache-Control", "public, s-maxage=31536000, stale-while-revalidate");
+        return res.send(imageBuffer);
+      } catch (sharpError) {
+        console.error("이미지 처리 에러:", sharpError);
+        return res.status(400).json({
+          error: "유효하지 않은 이미지 데이터입니다.",
+          details: sharpError instanceof Error ? sharpError.message : "알 수 없는 오류",
+        });
       }
-      // 기타 HTTP 상태에 따른 에러 처리
-      const status = error.response?.status || 500;
-      const message =
-        error.response?.statusText || "이미지를 가져오는데 실패했습니다.";
-      res.status(status).json({ error: message });
-    } else {
-      // 그 외의 일반 에러 처리
-      res.status(500).json({ error: "이미지를 가져오는데 실패했습니다." });
+    } catch (error) {
+      console.error("이미지 가져오기 에러:", error);
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const message = error.response?.statusText || "이미지를 가져오는데 실패했습니다.";
+        return res.status(status).json({
+          error: message,
+          details: error.message,
+          url: url,
+        });
+      }
+      return res.status(500).json({ error: "이미지 처리 중 오류가 발생했습니다." });
     }
+  } catch (error) {
+    console.error("예상치 못한 에러:", error);
+    return res.status(500).json({ error: "서버 내부 오류가 발생했습니다." });
   }
 }
+
+export const config = {
+  api: {
+    bodyParser: false,
+    responseLimit: false,
+  },
+};

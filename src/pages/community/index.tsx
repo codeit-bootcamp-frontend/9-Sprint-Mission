@@ -4,7 +4,7 @@ import "../../styles/common.module.css";
 import BestArticlesSection from "@/components/UI/community/BestArticlesSection";
 import AllArticlesSection from "@/components/UI/community/AllArticlesSection";
 
-export default function CommunityPage() {
+const CommunityPage = () => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -21,4 +21,6 @@ export default function CommunityPage() {
       <AllArticlesSection />
     </div>
   );
-}
+};
+
+export default CommunityPage;

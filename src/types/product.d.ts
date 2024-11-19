@@ -1,14 +1,3 @@
-// src/types/product.d.ts
-// 상품 입력폼
-export interface ProductForm {
-  name: string; // 상품명
-  description: string; // 상품 설명
-  price: number; // 가격
-  tags: string[]; // 태그 배열
-  images: string[]; // 이미지 배열
-}
-
-// 상품의 기본 정보 인터페이스
 export interface Product {
   createdAt: Date; // 생성일
   favoriteCount: number; // 좋아요 수
@@ -32,6 +21,3 @@ export interface ProductListResponse {
   totalCount: number; // 전체 상품 개수
   list: Product[]; // 상품 리스트
 }
-
-// 정렬 옵션 타입
-export type ProductSortOption = "recent" | "favorite"; // 최근 등록순 or 좋아요 순

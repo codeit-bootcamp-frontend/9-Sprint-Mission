@@ -4,12 +4,15 @@ import BaseModal from "./BaseModal";
 import Button from "../Button";
 
 interface ConfirmModalProps {
+  isOpen: boolean;
   message: string;
   onConfirm: () => void;
   onCancel: () => void;
 }
 
-const ConfirmModal = ({ message, onConfirm, onCancel }: ConfirmModalProps) => {
+const ConfirmModal = ({ isOpen, message, onConfirm, onCancel }: ConfirmModalProps) => {
+  if (!isOpen) return null;
+
   return (
     <BaseModal onClose={onCancel}>
       <div className="mb-4 flex justify-center">
@@ -21,22 +24,14 @@ const ConfirmModal = ({ message, onConfirm, onCancel }: ConfirmModalProps) => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M5 13l4 4L19 7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
           </svg>
         </div>
       </div>
-      <p
-        className="mb-4 text-center"
-        dangerouslySetInnerHTML={{ __html: message }}
-      />
+      <p className="mb-4 text-center">{message}</p>
       <div className="flex justify-center space-x-4">
-        <Button label="아니오" onClick={onCancel} type="secondary" />
-        <Button label="확인" onClick={onConfirm} />
+        <Button label="취소" type="secondary" onClick={onCancel} />
+        <Button label="확인" type="primary" onClick={onConfirm} />
       </div>
     </BaseModal>
   );

@@ -1,42 +1,139 @@
 // src/components/UI/comment/ItemCommentThread.tsx
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { getProductComments } from "@/api/comments/getProductComments";
 import { formatUpdatedAt } from "@/utils/dateUtils";
-import { Comment, CommentListResponse } from "@/types/comment";
+import { Comment } from "@/types/comment";
 import EmptyInquiry from "../EmptyInquiry";
 import { isValidImageUrl } from "@/utils/imageUtils";
+import { useComment } from "@/hooks/useComment";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
+import ConfirmModal from "../modal/ConfirmModal";
+import AlertModal from "../modal/AlertModal";
 
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const DEFAULT_PROFILE_IMAGE = "/images/ui/ic_profile-40.png";
 
 interface CommentItemProps {
   item: Comment;
+  onCommentUpdate: (commentId: number, content: string) => Promise<void>;
+  onCommentDelete: (commentId: number) => Promise<void>;
 }
 
-const CommentItem = ({ item }: CommentItemProps) => {
+const CommentItem = ({ item, onCommentUpdate, onCommentDelete }: CommentItemProps) => {
+  const [user] = useAtom(userAtom);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(item.content);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+
   const authorInfo = item.writer;
   const formattedTimestamp = formatUpdatedAt(item.updatedAt);
+  const isOwner = user?.id === authorInfo.id;
 
   const imageUrl =
     authorInfo.image && isValidImageUrl(authorInfo.image)
       ? `/api/imageProxy?url=${encodeURIComponent(authorInfo.image)}`
       : DEFAULT_PROFILE_IMAGE;
 
+  // 드롭다운 외부 클릭 처리
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (isDropdownOpen && !target.closest(".kebab-menu")) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setIsDropdownOpen(false);
+  };
+
+  const handleDelete = () => {
+    setIsDropdownOpen(false);
+    setIsConfirmOpen(true);
+  };
+
+  const handleUpdateSubmit = async () => {
+    try {
+      await onCommentUpdate(item.id, editContent);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("댓글 수정 실패:", error);
+      setAlertMessage("댓글 수정에 실패했습니다.");
+      setIsAlertOpen(true);
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      await onCommentDelete(item.id);
+      setIsConfirmOpen(false);
+    } catch (error) {
+      console.error("댓글 삭제 실패:", error);
+      setAlertMessage("댓글 삭제에 실패했습니다.");
+      setIsAlertOpen(true);
+    }
+  };
+
   return (
     <>
       <div className="py-6 relative">
-        <button className="absolute right-0">
-          <Image
-            src={KEBAB_ICON}
-            width={24}
-            height={24}
-            alt="케밥 이미지 버튼"
-            className="w-6 h-6"
-          />
-        </button>
+        {isOwner && (
+          <div className="absolute right-0 kebab-menu">
+            <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+              <Image src={KEBAB_ICON} width={24} height={24} alt="메뉴" className="w-6 h-6" />
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-md shadow-lg p-2 text-sm text-gray-700 z-10">
+                <button onClick={handleEdit} className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded">
+                  수정하기
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded text-red-500"
+                >
+                  삭제하기
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
-        <p className="text-base leading-[140%] mb-6">{item.content}</p>
+        {isEditing ? (
+          <div className="mb-4">
+            <textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md min-h-[100px]"
+            />
+            <div className="flex justify-end gap-2 mt-2">
+              <button
+                onClick={() => setIsEditing(false)}
+                className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
+              >
+                취소
+              </button>
+              <button
+                onClick={handleUpdateSubmit}
+                className="px-4 py-2 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600"
+              >
+                수정완료
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="text-base leading-[140%] mb-6">{item.content}</p>
+        )}
 
         <div className="flex items-center gap-2">
           <Image
@@ -53,6 +150,14 @@ const CommentItem = ({ item }: CommentItemProps) => {
         </div>
       </div>
       <hr className="border-t border-gray-200 my-0" />
+
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        message="댓글을 삭제하시겠습니까?"
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setIsConfirmOpen(false)}
+      />
+      <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={() => setIsAlertOpen(false)} />
     </>
   );
 };
@@ -68,77 +173,46 @@ interface CommentThreadProps {
 }
 
 const CommentThread = ({ productId }: CommentThreadProps) => {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [nextCursor, setNextCursor] = useState<number | null>(null);
+  const { useInfiniteComments, updateComment, removeComment } = useComment();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } = useInfiniteComments({
+    productId,
+  });
 
+  const comments = data?.pages.flatMap((page) => page.list) ?? [];
+
+  // Intersection Observer 설정
   const observer = useRef<IntersectionObserver | null>(null);
-  const lastCommentRef = useRef<HTMLDivElement | null>(null);
+  const lastCommentRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isLoading) return;
 
-  const fetchComments = useCallback(
-    async (cursor: number | null = null) => {
-      if (!productId) return;
+      if (observer.current) observer.current.disconnect();
 
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const response: CommentListResponse = await getProductComments(
-          productId,
-          {
-            limit: 10,
-            cursor,
-          }
-        );
-
-        if (cursor === null) {
-          setComments(response.list);
-        } else {
-          setComments((prev) => [...prev, ...response.list]);
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
         }
-        setNextCursor(response.nextCursor || null);
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-        setError("상품의 댓글을 불러오지 못했어요.");
-      } finally {
-        setIsLoading(false);
-      }
+      });
+
+      if (node) observer.current.observe(node);
     },
-    [productId]
+    [isLoading, hasNextPage, isFetchingNextPage, fetchNextPage]
   );
 
-  useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
+  const handleCommentUpdate = async (commentId: number, content: string) => {
+    await updateComment({ commentId, content });
+  };
 
-  useEffect(() => {
-    if (isLoading) return;
-
-    const loadMoreComments = (entries: IntersectionObserverEntry[]) => {
-      const target = entries[0];
-      if (target.isIntersecting && nextCursor) {
-        fetchComments(nextCursor);
-      }
-    };
-
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver(loadMoreComments);
-    if (lastCommentRef.current)
-      observer.current.observe(lastCommentRef.current);
-
-    return () => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, [isLoading, nextCursor, fetchComments]);
+  const handleCommentDelete = async (commentId: number) => {
+    await removeComment(commentId);
+  };
 
   if (isLoading && comments.length === 0) {
     return <div className="text-center py-4">상품 댓글 로딩중...</div>;
   }
 
   if (error) {
-    return <div className="text-red-500 text-center py-4">오류: {error}</div>;
+    return <div className="text-red-500 text-center py-4">오류가 발생했습니다.</div>;
   }
 
   if (!isLoading && comments.length === 0) {
@@ -148,14 +222,11 @@ const CommentThread = ({ productId }: CommentThreadProps) => {
   return (
     <div className="mb-10">
       {comments.map((item, index) => (
-        <div
-          key={`comment-${item.id}`}
-          ref={index === comments.length - 1 ? lastCommentRef : null}
-        >
-          <CommentItem item={item} />
+        <div key={`comment-${item.id}`} ref={index === comments.length - 1 ? lastCommentRef : null}>
+          <CommentItem item={item} onCommentUpdate={handleCommentUpdate} onCommentDelete={handleCommentDelete} />
         </div>
       ))}
-      {isLoading && <div className="text-center py-4">댓글 불러오는 중...</div>}
+      {isFetchingNextPage && <div className="text-center py-4">댓글 불러오는 중...</div>}
     </div>
   );
 };

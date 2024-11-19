@@ -20,31 +20,10 @@ export interface User {
   createdAt: Date;
 }
 
-export interface AuthResponse {
-  accessToken: string;
-  refreshToken: string;
-  user: User;
-}
-
-export interface SignUpResponse {
-  success: boolean;
-  message: string;
-  user?: {
-    id: number;
-    email: string;
-    nickname: string;
-  };
-}
-
-export interface SignInResponse {
-  success: boolean;
-  message: string;
-  user?: User;
-}
-
-export interface RefreshTokenResponse {
-  isLogin: boolean;
-  message: string;
-  user?: User;
-  status?: number;
+export interface MeResponse {
+  id: number;
+  image: string | null;
+  nickname: string | null;
+  updatedAt: Date;
+  createdAt: Date;
 }

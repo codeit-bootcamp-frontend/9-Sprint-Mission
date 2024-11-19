@@ -8,32 +8,19 @@ const HEART_PINK_ICON = "/images/icons/ic_heart_pink.png";
 interface FavoriteButtonProps {
   isFavorite: boolean;
   favoriteCount: number;
-  onFavorite?: () => void; // onFavorite 타입 정의
+  onFavorite: () => void;
+  isLoading?: boolean;
 }
 
-const FavoriteButton = ({
-  isFavorite,
-  favoriteCount,
-  onFavorite, // 콜백 함수로 전달할 수 있도록 수정
-}: FavoriteButtonProps) => {
-  const handleFavorite = () => {
-    if (onFavorite) {
-      onFavorite(); // 외부로부터 전달된 콜백 함수가 있으면 호출
-    }
-  };
-
+const FavoriteButton = ({ isFavorite, favoriteCount, onFavorite, isLoading = false }: FavoriteButtonProps) => {
   return (
-    <button
-      onClick={handleFavorite} // onClick에서 함수 참조를 전달
-      className="flex items-center space-x-1"
-    >
-      <Image
-        src={isFavorite ? HEART_PINK_ICON : HEART_ICON}
-        width={16}
-        height={16}
-        alt="좋아요 이미지 버튼"
-      />
-      <span>{favoriteCount}</span>
+    <button onClick={onFavorite} disabled={isLoading} className="flex items-center gap-1 text-sm">
+      {isLoading ? (
+        <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-500 rounded-full animate-spin" />
+      ) : (
+        <Image src={isFavorite ? HEART_PINK_ICON : HEART_ICON} alt="좋아요" width={16} height={16} />
+      )}
+      <span className="text-gray-500">{favoriteCount}</span>
     </button>
   );
 };

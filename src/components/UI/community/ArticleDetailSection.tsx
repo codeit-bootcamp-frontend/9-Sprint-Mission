@@ -2,38 +2,49 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import useDebouncedCallback from "@/hooks/useDebouncedCallback";
-import { ArticleDetail } from "@/types/article";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { addArticleLike } from "@/api/articles/addArticleLike";
-import { removeArticleLike } from "@/api/articles/removeArticleLike";
 import LikeButton from "./LikeButton";
 import AlertModal from "../modal/AlertModal";
 import { useAtom } from "jotai";
 import { userAtom } from "@/store/authAtoms";
+import { useArticle } from "@/hooks/useArticle";
+import { useRouter } from "next/router";
+import ConfirmModal from "../modal/ConfirmModal";
 
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const NO_IMAGE = "/images/ui/no-image.png";
 const DEFAULT_AVATAR = "/images/ui/ic_profile-24.png";
 
 interface ArticleDetailSectionProps {
-  articleDetail: ArticleDetail;
+  articleId: number;
 }
 
-const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
+const ArticleDetailSection = ({ articleId }: ArticleDetailSectionProps) => {
   const [imageHeight, setImageHeight] = useState(486);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const [imageUrl, setImageUrl] = useState<string>(NO_IMAGE);
-  const [imageStatus, setImageStatus] = useState<
-    "loading" | "loaded" | "error"
-  >("loading");
+  const [imageStatus, setImageStatus] = useState<"loading" | "loaded" | "error">("loading");
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [isLiked, setIsLiked] = useState<boolean>(articleDetail.isLiked);
-  const [likeCount, setLikeCount] = useState<number>(articleDetail.likeCount);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [likeCount, setLikeCount] = useState<number>(0);
   const [user] = useAtom(userAtom);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
-  const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
+  const router = useRouter();
+
+  const { useArticleDetail, addLike, removeLike, removeArticle, isLoading } = useArticle();
+  const { data: articleDetail } = useArticleDetail(articleId);
+
+  // 초기 좋아요 상태 설정
+  useEffect(() => {
+    if (articleDetail) {
+      setIsLiked(articleDetail.isLiked);
+      setLikeCount(articleDetail.likeCount);
+    }
+  }, [articleDetail]);
 
   const handleLikeCallback = useCallback(async () => {
     if (!user) {
@@ -42,38 +53,47 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       return;
     }
 
+    if (!articleDetail) return;
+
+    const newIsLiked = !isLiked;
+
     // 낙관적 UI 업데이트
-    setIsLiked((prev) => !prev);
-    setLikeCount((prev) => (isLiked ? prev - 1 : prev + 1));
+    setIsLiked(newIsLiked);
+    setLikeCount((prev) => (newIsLiked ? prev + 1 : prev - 1));
 
     try {
-      if (isLiked) {
-        await removeArticleLike(articleDetail.id);
+      if (!newIsLiked) {
+        await removeLike(articleDetail.id);
       } else {
-        await addArticleLike(articleDetail.id);
+        await addLike(articleDetail.id);
       }
     } catch (error) {
       console.error("좋아요 처리 중 오류 발생: ", (error as Error).message);
       // 에러 발생 시 UI를 원래 상태로 되돌림
-      setIsLiked((prev) => !prev);
-      setLikeCount((prev) => (isLiked ? prev + 1 : prev - 1));
+      setIsLiked(!newIsLiked);
+      setLikeCount((prev) => (newIsLiked ? prev - 1 : prev + 1));
       setAlertMessage("좋아요 처리 중 오류가 발생했습니다!");
       setIsAlertOpen(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [articleDetail.id, isLiked]);
+  }, [articleDetail, isLiked, user, addLike, removeLike]);
 
   const debouncedHandleLike = useDebouncedCallback(handleLikeCallback, 300);
+
+  const isSvgFile = (url: string) => url.toLowerCase().endsWith(".svg");
+
+  const handleImageLoad = () => {
+    if (imageRef.current) {
+      setImageHeight(imageRef.current.clientHeight);
+    }
+  };
 
   useEffect(() => {
     const validateImageUrl = async (url: string) => {
       try {
         if (isSvgFile(url)) {
-          // SVG 파일이면 직접 사용
           setImageUrl(url);
           setImageStatus("loaded");
         } else {
-          // 그 외의 경우 프록시를 통해 이미지 로드
           const proxyUrl = `/api/imageProxy?url=${encodeURIComponent(url)}`;
           const response = await fetch(proxyUrl);
           if (response.ok) {
@@ -90,26 +110,60 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
       }
     };
 
-    if (articleDetail.image) {
+    if (articleDetail?.image) {
       validateImageUrl(articleDetail.image);
     } else {
       setImageStatus("error");
     }
-  }, [articleDetail.image]);
+  }, [articleDetail?.image]);
 
-  const handleImageLoad = () => {
-    if (imageRef.current) {
-      const height = imageRef.current.clientHeight;
-      setImageHeight(height);
-      console.log("Loaded image height: ", height);
+  // 드롭다운 외부 클릭 처리
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (isDropdownOpen && !target.closest(".kebab-menu")) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  const handleEdit = () => {
+    router.push(`/community/${articleId}/edit`);
+  };
+
+  const handleDeleteClick = () => {
+    setIsDropdownOpen(false);
+    setIsConfirmOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      await removeArticle(articleId);
+      router.push("/community");
+    } catch (error) {
+      console.error("게시글 삭제 실패:", error);
+      setAlertMessage("게시글 삭제 중 오류가 발생했습니다.");
+      setIsAlertOpen(true);
+    } finally {
+      setIsConfirmOpen(false);
     }
   };
 
-  const formattedDate = format(
-    new Date(articleDetail.createdAt),
-    "yyyy. MM. dd",
-    { locale: ko }
-  );
+  const handleDeleteCancel = () => {
+    setIsConfirmOpen(false);
+  };
+
+  // articleDetail이 없는 경우 로딩 상태 표시
+  if (!articleDetail) {
+    return <div>로딩 중...</div>;
+  }
+
+  const formattedDate = format(new Date(articleDetail.createdAt), "yyyy. MM. dd", { locale: ko });
 
   const handleCloseAlert = () => {
     setIsAlertOpen(false);
@@ -134,30 +188,34 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
               onLoad={handleImageLoad}
             />
           ) : (
-            <Image
-              src={NO_IMAGE}
-              alt="이미지 없음"
-              width={486}
-              height={486}
-              className="rounded-xl w-full h-auto"
-            />
+            <Image src={NO_IMAGE} alt="이미지 없음" width={486} height={486} className="rounded-xl w-full h-auto" />
           )}
         </div>
 
-        <div
-          className="flex flex-col justify-between flex-1"
-          style={{ height: imageHeight }}
-        >
+        <div className="flex flex-col justify-between flex-1" style={{ height: imageHeight }}>
           <div className="w-full relative">
-            <button className="absolute right-0">
-              <Image
-                src={KEBAB_ICON}
-                width={24}
-                height={24}
-                alt="케밥 이미지 버튼"
-                className="w-6 h-6"
-              />
-            </button>
+            {/* 케밥 메뉴 - 본인 게시글일 때만 표시 */}
+            {user && articleDetail && user.id === articleDetail.writer.id && (
+              <div className="absolute right-0 kebab-menu">
+                <button onClick={() => setIsDropdownOpen(!isDropdownOpen)} className="relative">
+                  <Image src={KEBAB_ICON} width={24} height={24} alt="메뉴" className="w-6 h-6" />
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-md shadow-lg p-2 text-sm text-gray-700 z-10">
+                    <button onClick={handleEdit} className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded">
+                      수정하기
+                    </button>
+                    <button
+                      onClick={handleDeleteClick}
+                      className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded text-red-500"
+                      disabled={isLoading.remove}
+                    >
+                      {isLoading.remove ? "삭제 중..." : "삭제하기"}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             <div>
               <div className="text-base font-semibold mb-2 md:text-xl md:mb-3 lg:text-2xl lg:mb-4">
@@ -167,29 +225,14 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
 
             <hr className="my-4 border-gray-200" />
 
-            <div
-              className="overflow-auto"
-              style={{ minHeight: imageHeight - 90 }}
-            >
-              <div className="text-gray-600 text-sm font-medium mb-2">
-                게시글 내용
-              </div>
-              <p className="text-base leading-[140%] mb-4">
-                {articleDetail.content}
-              </p>
+            <div className="overflow-auto" style={{ minHeight: imageHeight - 90 }}>
+              <div className="text-gray-600 text-sm font-medium mb-2">게시글 내용</div>
+              <p className="text-base leading-[140%] mb-4">{articleDetail.content}</p>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-gray-500 mt-auto">
-              <Image
-                src={DEFAULT_AVATAR}
-                alt="작성자 아바타"
-                width={24}
-                height={24}
-                className="rounded-full"
-              />
-              <div className="font-semibold">
-                {articleDetail.writer.nickname}
-              </div>
+              <Image src={DEFAULT_AVATAR} alt="작성자 아바타" width={24} height={24} className="rounded-full" />
+              <div className="font-semibold">{articleDetail.writer.nickname}</div>
               <div>{formattedDate}</div>
               <div className="h-4 border-l border-gray-300 mx-2"></div>
 
@@ -198,6 +241,7 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
                   isLiked={isLiked}
                   likeCount={likeCount}
                   onLike={debouncedHandleLike}
+                  isLoading={isLoading.addLike || isLoading.removeLike}
                 />
               </div>
             </div>
@@ -205,11 +249,12 @@ const ArticleDetailSection = ({ articleDetail }: ArticleDetailSectionProps) => {
         </div>
       </section>
 
-      {/* AlertModal 컴포넌트 */}
-      <AlertModal
-        isOpen={isAlertOpen}
-        message={alertMessage}
-        onClose={handleCloseAlert}
+      <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={handleCloseAlert} />
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        message="해당 게시글을 삭제하시겠습니까?"
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
       />
     </>
   );

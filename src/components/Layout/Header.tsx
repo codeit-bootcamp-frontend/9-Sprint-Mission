@@ -3,11 +3,9 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import axios from "axios";
-import { User } from "@/types/auth";
-import { removeAllAuthCookies } from "@/utils/cookie";
-import AlertModal from "@/components/UI/modal/AlertModal";
-import { useAtom } from "jotai";
+import toast from "react-hot-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { useAtomValue } from "jotai";
 import { userAtom } from "@/store/authAtoms";
 
 // public 폴더 경로 문자열로 대체
@@ -16,64 +14,39 @@ const LOGO_MD = "/images/logo/logo_md.png";
 const LOGO_LG = "/images/logo/logo_lg.png";
 const DEFAULT_AVATAR = "/images/ui/ic_profile-32.png";
 
-interface HeaderProps {
-  user: User | null;
-}
-
-export default function Header({ user }: HeaderProps) {
+export default function Header() {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false); // 드롭다운 상태
-  const [isAlertOpen, setIsAlertOpen] = useState(false); // AlertModal 상태
-  const [alertMessage, setAlertMessage] = useState(""); // AlertModal 메시지 상태
-  const [, setUser] = useAtom(userAtom);
+  const [isOpen, setIsOpen] = useState(false);
+  const { logout, refetchUser } = useAuth();
+  const user = useAtomValue(userAtom);
 
+  // 컴포넌트 마운트 시 인증 상태 확인
   useEffect(() => {
-    async function checkAuthStatus() {
-      try {
-        const response = await axios.post("/api/auth/refreshToken");
-        if (response.status === 200 && response.data.isLogin) {
-          setUser(response.data.user);
-        } else {
-          setUser(null);
-        }
-      } catch (error) {
-        console.error("인증 상태 확인 중 오류 발생:", error);
-        setUser(null);
-      }
-    }
-
-    if (!user) {
-      checkAuthStatus();
-    }
-  }, [setUser, user]);
+    refetchUser();
+  }, [refetchUser]);
 
   const handleLogout = async () => {
+    if (!user || !logout) return;
+
     try {
-      await removeAllAuthCookies();
-      setUser(null); // 사용자 상태를 null로 설정
-      setIsOpen(false); // 드롭다운 메뉴 닫기
-      router.push("/");
+      await logout();
+      setIsOpen(false);
     } catch (error) {
       console.error("로그아웃 중 오류 발생:", error);
-      setAlertMessage("로그아웃 중 오류가 발생했습니다. 다시 시도해 주세요.");
-      setIsAlertOpen(true);
+      toast.error("로그아웃 중 오류가 발생했습니다. 다시 시도해 주세요.");
     }
   };
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen); // 드롭다운 상태를 토글
+    setIsOpen(!isOpen);
   };
 
-  // AlertModal 닫기
-  const handleCloseAlert = () => {
-    setIsAlertOpen(false); // 모달 닫기
-  };
-
+  // 드롭다운 외부 클릭 처리
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       if (isOpen && !target.closest(".user-avatar")) {
-        setIsOpen(false); // 다른 곳을 클릭하면 드롭다운 닫기
+        setIsOpen(false);
       }
     };
 
@@ -81,26 +54,21 @@ export default function Header({ user }: HeaderProps) {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [isOpen]); // 의존성 배열에 isOpen 추가
+  }, [isOpen]);
 
-  // 자유게시판 및 중고마켓 메뉴 활성화 여부 설정
-  const isCommunityActive =
-    router.pathname.startsWith("/community") ||
-    router.pathname === "/addArticle";
-  const isItemsActive =
-    router.pathname.startsWith("/items") || router.pathname === "/addItem";
+  // 메뉴 활성화 상태 확인
+  const isCommunityActive = router.pathname.startsWith("/community") || router.pathname === "/addArticle";
+  const isItemsActive = router.pathname.startsWith("/items") || router.pathname === "/addItem";
 
   return (
     <>
       <header className="bg-white shadow-sm">
         <div className="mx-auto px-4 py-4 flex justify-between items-center w-full">
           <Link href="/" className="mr-8">
-            {/* 로고 이미지 변경 */}
             <div
               className="relative min-w-[103] min-h-[51] max-w-[198px] max-h-[66px]"
               style={{ position: "relative" }}
             >
-              {/* 작은 화면용 로고 */}
               <div className="block sm:hidden">
                 <Image
                   src={LOGO_SM}
@@ -111,7 +79,6 @@ export default function Header({ user }: HeaderProps) {
                   style={{ objectFit: "contain" }}
                 />
               </div>
-              {/* 중간 화면용 로고 */}
               <div className="hidden sm:block md:hidden">
                 <Image
                   src={LOGO_MD}
@@ -122,7 +89,6 @@ export default function Header({ user }: HeaderProps) {
                   style={{ objectFit: "contain" }}
                 />
               </div>
-              {/* 큰 화면용 로고 */}
               <div className="hidden md:block">
                 <Image
                   src={LOGO_LG}
@@ -160,49 +126,32 @@ export default function Header({ user }: HeaderProps) {
               </li>
             </ul>
           </nav>
-          {user?.id ? (
+          {user ? (
             <div className="relative user-avatar">
               <Image
                 src={user.image || DEFAULT_AVATAR}
-                alt="User Avatar"
+                alt="사용자 아바타"
                 className="w-8 h-8 cursor-pointer rounded-full"
                 width={32}
                 height={32}
-                onClick={toggleDropdown} // 클릭으로 드롭다운 토글
+                onClick={toggleDropdown}
               />
-              {isOpen && ( // 드롭다운 열기
+              {isOpen && (
                 <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-max bg-white border border-gray-300 rounded-md shadow-lg p-2 text-sm text-gray-700">
-                  {user.nickname ? (
-                    <div>{user.nickname}</div>
-                  ) : (
-                    <div>사용자</div>
-                  )}
-                  <button
-                    onClick={handleLogout}
-                    className="mt-2 text-gray-600 hover:text-blue-500"
-                  >
+                  <div>{user.nickname || "사용자"}</div>
+                  <button onClick={handleLogout} className="mt-2 text-gray-600 hover:text-blue-500">
                     로그아웃
                   </button>
                 </div>
               )}
             </div>
           ) : (
-            <Link
-              href="/auth/login"
-              className="text-gray-600 font-semibold hover:text-blue-500"
-            >
+            <Link href="/login" className="text-gray-600 font-semibold hover:text-blue-500">
               로그인
             </Link>
           )}
         </div>
       </header>
-
-      {/* AlertModal 컴포넌트 */}
-      <AlertModal
-        isOpen={isAlertOpen}
-        message={alertMessage}
-        onClose={handleCloseAlert}
-      />
     </>
   );
 }

@@ -1,48 +1,140 @@
 // src/components/UI/comment/ArticleCommentThread.tsx
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { getArticleComments } from "@/api/comments/getArticleComments";
 import { formatUpdatedAt } from "@/utils/dateUtils";
-import { Comment, CommentListResponse } from "@/types/comment";
+import { Comment } from "@/types/comment";
 import EmptyComment from "../EmptyComment";
-import { isValidImageUrl } from "@/utils/imageUtils"; // 이미지 유효성 검사 함수 가져오기
+import { isValidImageUrl } from "@/utils/imageUtils";
+import { useComment } from "@/hooks/useComment";
+import { useAtom } from "jotai";
+import { userAtom } from "@/store/authAtoms";
+import ConfirmModal from "../modal/ConfirmModal";
+import AlertModal from "../modal/AlertModal";
 
-// public 폴더 경로 문자열로 대체
 const KEBAB_ICON = "/images/icons/ic_kebab.png";
 const DEFAULT_PROFILE_IMAGE = "/images/ui/ic_profile-40.png";
 
-// 댓글 하나를 나타내는 컴포넌트
 interface CommentItemProps {
   item: Comment;
+  onCommentUpdate: (commentId: number, content: string) => Promise<void>;
+  onCommentDelete: (commentId: number) => Promise<void>;
 }
 
-const CommentItem = ({ item }: CommentItemProps) => {
-  const authorInfo = item.writer;
-  const formattedTimestamp = formatUpdatedAt(item.updatedAt); // 시간 포맷팅
+const CommentItem = ({ item, onCommentUpdate, onCommentDelete }: CommentItemProps) => {
+  const [user] = useAtom(userAtom);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editContent, setEditContent] = useState(item.content);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [isAlertOpen, setIsAlertOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
-  // 작성자의 프로필 이미지가 유효한지 확인 후 이미지 URL 설정
+  const authorInfo = item.writer;
+  const formattedTimestamp = formatUpdatedAt(item.updatedAt);
+  const isOwner = user?.id === authorInfo.id;
+
   const imageUrl =
     authorInfo.image && isValidImageUrl(authorInfo.image)
       ? `/api/imageProxy?url=${encodeURIComponent(authorInfo.image)}`
       : DEFAULT_PROFILE_IMAGE;
 
+  // 드롭다운 외부 클릭 처리
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (isDropdownOpen && !target.closest(".kebab-menu")) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+    setIsDropdownOpen(false);
+  };
+
+  const handleDelete = () => {
+    setIsDropdownOpen(false);
+    setIsConfirmOpen(true);
+  };
+
+  const handleUpdateSubmit = async () => {
+    try {
+      await onCommentUpdate(item.id, editContent);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("댓글 수정 실패:", error);
+      setAlertMessage("댓글 수정에 실패했습니다.");
+      setIsAlertOpen(true);
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    try {
+      await onCommentDelete(item.id);
+      setIsConfirmOpen(false);
+    } catch (error) {
+      console.error("댓글 삭제 실패:", error);
+      setAlertMessage("댓글 삭제에 실패했습니다.");
+      setIsAlertOpen(true);
+    }
+  };
+
   return (
     <>
       <div className="py-6 relative">
-        {/* 케밥 버튼 (추후 기능 추가 예정) */}
-        <button className="absolute right-0">
-          <Image
-            src={KEBAB_ICON}
-            width={24}
-            height={24}
-            alt="케밥 이미지 버튼"
-            className="w-6 h-6"
-          />
-        </button>
+        {isOwner && (
+          <div className="absolute right-0 kebab-menu">
+            <button onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+              <Image src={KEBAB_ICON} width={24} height={24} alt="메뉴" className="w-6 h-6" />
+            </button>
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-32 bg-white border border-gray-300 rounded-md shadow-lg p-2 text-sm text-gray-700 z-10">
+                <button onClick={handleEdit} className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded">
+                  수정하기
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded text-red-500"
+                >
+                  삭제하기
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
-        <p className="text-base leading-[140%] mb-6">{item.content}</p>
+        {isEditing ? (
+          <div className="mb-4">
+            <textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-md min-h-[100px]"
+            />
+            <div className="flex justify-end gap-2 mt-2">
+              <button
+                onClick={() => setIsEditing(false)}
+                className="px-4 py-2 text-sm text-gray-600 border border-gray-300 rounded-md hover:bg-gray-50"
+              >
+                취소
+              </button>
+              <button
+                onClick={handleUpdateSubmit}
+                className="px-4 py-2 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600"
+              >
+                수정완료
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className="text-base leading-[140%] mb-6">{item.content}</p>
+        )}
 
-        {/* 작성자 정보 및 프로필 이미지 */}
         <div className="flex items-center gap-2">
           <Image
             src={imageUrl}
@@ -58,99 +150,71 @@ const CommentItem = ({ item }: CommentItemProps) => {
         </div>
       </div>
       <hr className="border-t border-gray-200 my-0" />
+
+      <ConfirmModal
+        isOpen={isConfirmOpen}
+        message="댓글을 삭제하시겠습니까?"
+        onConfirm={handleDeleteConfirm}
+        onCancel={() => setIsConfirmOpen(false)}
+      />
+      <AlertModal isOpen={isAlertOpen} message={alertMessage} onClose={() => setIsAlertOpen(false)} />
     </>
   );
 };
 
-// 댓글이 없을 때 표시되는 상태 컴포넌트
 const EmptyState = () => (
   <div className="m-6 flex flex-col items-center gap-6">
     <EmptyComment text="아직 댓글이 없어요.<br />지금 댓글을 달아보세요!" />
   </div>
 );
 
-// 댓글 스레드를 나타내는 컴포넌트 (게시글 ID를 받아 댓글을 표시)
 interface CommentThreadProps {
   articleId: number;
 }
 
 const CommentThread = ({ articleId }: CommentThreadProps) => {
-  const [comments, setComments] = useState<Comment[]>([]); // 댓글 리스트
-  const [isLoading, setIsLoading] = useState(false); // 로딩 상태
-  const [error, setError] = useState<string | null>(null); // 에러 상태
-  const [nextCursor, setNextCursor] = useState<number | null>(null); // 다음 커서
+  const { useInfiniteComments, updateComment, removeComment } = useComment();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } = useInfiniteComments({
+    articleId,
+  });
 
-  const observer = useRef<IntersectionObserver | null>(null); // IntersectionObserver 참조
-  const lastCommentRef = useRef<HTMLDivElement | null>(null); // 마지막 댓글에 대한 참조
+  const comments = data?.pages.flatMap((page) => page.list) ?? [];
 
-  const fetchComments = useCallback(
-    async (cursor: number | null = null) => {
-      if (!articleId) return;
+  // Intersection Observer 설정
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastCommentRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isLoading) return;
 
-      setIsLoading(true);
-      setError(null);
+      if (observer.current) observer.current.disconnect();
 
-      try {
-        const response: CommentListResponse = await getArticleComments(
-          articleId,
-          {
-            limit: 10,
-            cursor,
-          }
-        );
-
-        if (cursor === null) {
-          setComments(response.list);
-        } else {
-          setComments((prev) => [...prev, ...response.list]);
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
         }
-        setNextCursor(response.nextCursor || null);
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-        setError("게시글의 댓글을 불러오지 못했어요.");
-      } finally {
-        setIsLoading(false);
-      }
+      });
+
+      if (node) observer.current.observe(node);
     },
-    [articleId]
+    [isLoading, hasNextPage, isFetchingNextPage, fetchNextPage]
   );
 
-  useEffect(() => {
-    fetchComments();
-  }, [fetchComments]);
+  const handleCommentUpdate = async (commentId: number, content: string) => {
+    await updateComment({ commentId, content });
+  };
 
-  useEffect(() => {
-    if (isLoading) return;
+  const handleCommentDelete = async (commentId: number) => {
+    await removeComment(commentId);
+  };
 
-    const loadMoreComments = (entries: IntersectionObserverEntry[]) => {
-      const target = entries[0];
-      if (target.isIntersecting && nextCursor) {
-        fetchComments(nextCursor);
-      }
-    };
-
-    if (observer.current) observer.current.disconnect();
-
-    observer.current = new IntersectionObserver(loadMoreComments);
-    if (lastCommentRef.current)
-      observer.current.observe(lastCommentRef.current);
-
-    return () => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, [isLoading, nextCursor, fetchComments]);
-
-  // 로딩 상태 처리
   if (isLoading && comments.length === 0) {
     return <div className="text-center py-4">게시글 댓글 로딩중...</div>;
   }
 
-  // 에러 처리
   if (error) {
-    return <div className="text-red-500 text-center py-4">오류: {error}</div>;
+    return <div className="text-red-500 text-center py-4">오류가 발생했습니다.</div>;
   }
 
-  // 댓글이 없는 경우 EmptyState 표시
   if (!isLoading && comments.length === 0) {
     return <EmptyState />;
   }
@@ -158,14 +222,11 @@ const CommentThread = ({ articleId }: CommentThreadProps) => {
   return (
     <div className="mb-10">
       {comments.map((item, index) => (
-        <div
-          key={`comment-${item.id}`}
-          ref={index === comments.length - 1 ? lastCommentRef : null} // 마지막 댓글에 대한 ref 설정
-        >
-          <CommentItem item={item} />
+        <div key={`comment-${item.id}`} ref={index === comments.length - 1 ? lastCommentRef : null}>
+          <CommentItem item={item} onCommentUpdate={handleCommentUpdate} onCommentDelete={handleCommentDelete} />
         </div>
       ))}
-      {isLoading && <div className="text-center py-4">댓글 불러오는 중...</div>}
+      {isFetchingNextPage && <div className="text-center py-4">댓글 불러오는 중...</div>}
     </div>
   );
 };
